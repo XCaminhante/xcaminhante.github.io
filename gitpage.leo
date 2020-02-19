@@ -165,7 +165,7 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 @others
 &lt;/html&gt;</t>
 <t tx="caminhante.20200219124631.10">&lt;p&gt; I'll put technically interesting (at least for me) projects, articles and links here. &lt;/p&gt;
-&lt;p&gt; My projects aren't much interesting yet, but they'll be. &lt;/p&gt;</t>
+&lt;p&gt; My projects aren't much interesting yet, but they'll be. Someday. &lt;/p&gt;</t>
 <t tx="caminhante.20200219124631.2">@language html
 @tabwidth -2
 &lt;!DOCTYPE html&gt;
