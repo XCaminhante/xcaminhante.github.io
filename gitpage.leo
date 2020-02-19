@@ -25,6 +25,7 @@
 </v>
 </v>
 </v>
+<v t="caminhante.20200219142855.1"><vh>@data abbreviations</vh></v>
 </v>
 <v t="caminhante.20200219123813.3"><vh>xcaminhante.github.io</vh>
 <v t="caminhante.20200219131209.1"><vh>@auto README.md</vh></v>
@@ -44,7 +45,7 @@
 <v t="caminhante.20200219124631.4"><vh>body</vh>
 <v t="caminhante.20200219124631.5"><vh>header</vh></v>
 <v t="caminhante.20200219124631.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"><vh>projects</vh></v>
+<v t="caminhante.20200219124631.7"><vh>main pages</vh></v>
 </v>
 <v t="caminhante.20200219124631.8"><vh>content</vh>
 <v t="caminhante.20200219130100.1"><vh>title</vh></v>
@@ -68,6 +69,21 @@
 <v t="caminhante.20200219130700.1"><vh>2.</vh></v>
 <v t="caminhante.20200219141223.1"><vh>3.</vh></v>
 <v t="caminhante.20200219141303.1"><vh>4.</vh></v>
+</v>
+</v>
+</v>
+</v>
+<v t="caminhante.20200219142236.1"><vh>@clean links.html</vh>
+<v t="caminhante.20200219142257.2"><vh>page</vh>
+<v t="caminhante.20200219124631.3"></v>
+<v t="caminhante.20200219142257.4"><vh>body</vh>
+<v t="caminhante.20200219124631.5"></v>
+<v t="caminhante.20200219142257.6"><vh>menu</vh>
+<v t="caminhante.20200219124631.7"></v>
+</v>
+<v t="caminhante.20200219142257.8"><vh>content</vh>
+<v t="caminhante.20200219142350.1"><vh>title</vh></v>
+<v t="caminhante.20200219142830.1"><vh>1.</vh></v>
 </v>
 </v>
 </v>
@@ -144,7 +160,7 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 &lt;html lang="en"&gt;
 @others
 &lt;/html&gt;</t>
-<t tx="caminhante.20200219124631.10">&lt;p&gt; I'll put technically interesting projects, articles and links here. &lt;/p&gt;
+<t tx="caminhante.20200219124631.10">&lt;p&gt; I'll put technically interesting (at least for me) projects, articles and links here. &lt;/p&gt;
 &lt;p&gt; My projects aren't much interesting yet, but they'll be. &lt;/p&gt;</t>
 <t tx="caminhante.20200219124631.2">@language html
 @tabwidth -2
@@ -167,7 +183,8 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 @others
 &lt;/div&gt;</t>
 <t tx="caminhante.20200219124631.7">&lt;a href="index.html"&gt; About &lt;/a&gt; &lt;br/&gt;
-&lt;a href="vesta.html"&gt; Vesta CMS &lt;/a&gt; &lt;br/&gt;</t>
+&lt;a href="vesta.html"&gt; Vesta CMS &lt;/a&gt; &lt;br/&gt;
+&lt;a href="links.html"&gt; External Links &lt;/a&gt; &lt;br/&gt;</t>
 <t tx="caminhante.20200219124631.8">&lt;div id="content"&gt;
 @others
 &lt;/div&gt;</t>
@@ -205,5 +222,27 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 &lt;p&gt; &lt;a href="wiki-vesta/index.html"&gt; Will reside here soon. &lt;/a&gt; My download was rate-throttled. &lt;/p&gt;</t>
 <t tx="caminhante.20200219141303.1">&lt;h2&gt; &lt;a href="http://pub.vestasys.org/"&gt; http://pub.vestasys.org/ &lt;/a&gt; backup &lt;/h2&gt;
 &lt;p&gt; &lt;a href="pub-vesta/index.html"&gt; Will reside here soon. &lt;/a&gt; &lt;/p&gt;</t>
+<t tx="caminhante.20200219142236.1">@others
+</t>
+<t tx="caminhante.20200219142257.2">@language html
+@tabwidth -2
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+@others
+&lt;/html&gt;</t>
+<t tx="caminhante.20200219142257.4">&lt;body&gt;
+@others
+&lt;/body&gt;</t>
+<t tx="caminhante.20200219142257.6">&lt;div id="menu"&gt;
+@others
+&lt;/div&gt;</t>
+<t tx="caminhante.20200219142257.8">&lt;div id="content"&gt;
+@others
+&lt;/div&gt;</t>
+<t tx="caminhante.20200219142350.1">&lt;h1&gt; External Links &lt;/h1&gt;</t>
+<t tx="caminhante.20200219142830.1">&lt;p&gt; &lt;a href="https://dotat.at/:/?"&gt; Tony Finch's link log &lt;/a&gt; &lt;/p&gt;</t>
+<t tx="caminhante.20200219142855.1">link;;=&lt;a href="&lt;|url|&gt;"&gt; &lt;|text|&gt; &lt;/a&gt;
+p;;=&lt;p&gt; &lt;|text|&gt; &lt;/p&gt;
+</t>
 </tnodes>
 </leo_file>
