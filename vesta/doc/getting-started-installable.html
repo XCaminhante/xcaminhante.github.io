@@ -1,0 +1,423 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Installing Vesta with RedHat/Debian Vesta packages</title>
+  </head>
+
+  <body text="#000000" bgcolor="#efefff" link="#0000ee" vlink="#551a8b" alink="#ff0000">
+
+    <h1>Installing Vesta with RedHat/Debian Vesta packages</h1>
+
+    <p>
+
+      Since release/12, we've provided install-able
+      versions of Vesta for Linux systems using the RedHat package
+      manager (<tt>rpm</tt>) and the Debian package manager
+      (<tt>dpkg</tt>):
+
+    </p>
+
+    <ul>
+
+
+      <li>
+	<p>
+	  For Debian systems, you can download the .debs either from
+	  <a href="https://sourceforge.net/project/showfiles.php?group_id=34164">SourceForge</a>
+
+	  or by using <tt>apt</tt>.&nbsp; To get the latest 
+	  release of Vesta
+
+	  (<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/release/12.pre13/13"><tt>release/12.pre13/13</tt></a>
+
+	  at the time of this writing) with <tt>apt</tt>, use the
+	  following <tt>sources.list</tt> line if you're using Debian
+	  etch:
+
+	</p>
+
+	<blockquote>
+	  <pre>deb <a href="http://pub.vestasys.org/debian/">http://pub.vestasys.org/debian/</a> etch contrib</pre>
+	</blockquote>
+
+	<p>
+	  If you're using Debian sarge (which we still support), use
+	  this <tt>sources.list</tt> line:
+	</p>
+
+	<blockquote>
+	  <pre>deb <a href="http://pub.vestasys.org/debian/">http://pub.vestasys.org/debian/</a> sarge contrib</pre>
+	</blockquote>
+
+	<p>
+	  The currently available architectures are:
+	</p>
+
+	<ul>
+	  <li><tt>i386</tt></li>
+	  <li><tt>amd64</tt> (the Debian name for <tt>x86_64</tt>)</li>
+	  <li><tt>alpha</tt></li>
+	  <li><tt>powerpc</tt></li>
+	  <li><tt>sparc</tt></li>
+	</ul>
+
+	<p>
+	  The different .debs are:
+	</p>
+
+	<ul>
+
+	  <li>
+
+	    <tt>vesta-common</tt>: Minimal client-side components
+
+	  </li>
+
+	  <li>
+
+	    <tt>vesta-server</tt>: Minimal server-side components
+
+	  </li>
+ 
+	  <li>
+
+	    <tt>vesta-user-tools</tt>: User commands
+
+	  </li>
+ 
+          <li> 
+ 
+            <tt>vsrun</tt>: a small utility used for starting the
+            servrvers (needed for <tt>release/12.pre13/7</tt> and up).
+
+	  </li>
+
+	</ul>
+
+      </li>
+
+
+      <li>
+	<p>
+	For the RedHat package manager, we have ones based on
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/release/12.pre13/13"><tt>release/12.pre13/13</tt></a>.
+
+	  You can download the .rpms from <a href="http://pub.vestasys.org/rpm/">pub.vestasys.org</a> 
+
+	  or from <a href="https://sourceforge.net/project/showfiles.php?group_id=34164">SourceForge</a>.
+
+	The different RPMs are:
+	</p>
+
+	<ul>
+
+	  <li>
+
+	    <tt>vesta-common</tt>: Minimal client-side components
+
+	  </li>
+
+	  <li>
+
+	    <tt>vesta-server</tt>: Minimal server-side components
+
+	  </li>
+ 
+	  <li>
+
+	    <tt>vesta-user-tools</tt>: User commands
+
+	  </li>
+ 
+          <li> 
+ 
+            <tt>vsrun</tt>: a small utility used for starting the
+            servrvers (needed for <tt>release/12.pre13/7</tt> and up).
+
+	  </li>
+
+	</ul>
+
+	<p>
+	  We've currently only packaged RPMs for the following CPU
+	  architectures (because we know of popular RPM-based
+	  distributions available for these architectures):
+	</p>
+
+	<ul>
+	  <li><tt>i386</tt></li>
+	  <li><tt>x86_64</tt></li>
+	  <li><tt>powerpc</tt></li>
+	</ul>
+
+	<p>
+	  These all have packages built against a vouple different
+	  <tt>gcc</tt> versions.  You should check the <tt>gcc</tt>
+	  version on the system where you want to run Vesta (e.g. with
+	  &quot;<tt>gcc --version</tt>&quot;) and try to pick one
+	  that's close.  All three architectures have RPMs build
+	  against <tt>gcc</tt> version 3.4 (look for "<tt>gcc3.4</tt>"
+	  in the filename) and 4.1 (look
+	  for&quot;<tt>gcc4.1</tt>&quot; in the filename).  For
+	  <tt>i386</tt> and <tt>x86_64</tt> we have also packaged
+	  another set of RPMs built against <tt>gcc</tt> version 3.3
+	  (look for "<tt>gcc3.3</tt>" in the filename).  Finally, for
+	  <tt>i386</tt> we have packaged another set of RPMs built in
+	  a RedHat 7 environment which is sort of a lowest common
+	  denominator and may work on some additional systems (look
+	  for "<tt>rh7</tt>" in the filename).
+	</p>
+
+      </li>
+
+    </ul>
+
+    <p>
+
+      These packages make installing Vesta much simpler than the
+      traditional by-hand method, but 
+
+      <a href="getting-started.html">the &quot;Getting Started with
+      Vesta&quot; guide</a> is a more complete reference than this
+      page.
+
+    </p>
+
+    <p>
+
+      Note that every installation needs at least one machine with the
+      <tt>vesta-server</tt> package installed.  Even if you don't
+      expect to provide sources to others over a network, you need a
+      Vesta repository to act as a <i>peer</i> to
+
+      <a href="http://pub.vestasys.org/">the public Vesta
+      repository</a> to try out Vesta.
+
+    </p>
+
+    <h2>Setup</h2>
+
+    <p>
+
+      After installing the packages, you should run
+      <tt>/usr/sbin/vesta-setup.sh</tt> (part of the
+      <tt>vesta-server</tt> package).  This asks you some important
+      questions to complete the configuration of your installation,
+      starts the servers, and optionally replicates the sources for
+      Vesta and some examples from
+
+      <a href="http://pub.vestasys.org/">the public Vesta
+      repository</a>.
+
+    </p>
+
+    <p>
+
+      Experienced users can feel free to edit
+
+      <a href="man/html/vesta.cfg.5.html">the Vesta configuration
+      file</a> and
+
+      <a href="man/html/repository.8.html#Export%20file">the repository
+      export file</a> themselves, but we recommend that first-time
+      installers use this script.
+
+    </p>
+
+    <h2>Filesystem Layout</h2>
+
+    <p>
+
+      In a system with Vesta installed from either the RedHat or
+      Debian packages, there are some key files and directories you
+      should be aware of:
+
+    </p>
+
+    <ul>
+
+      <li>
+
+	<tt>/var/lib/vesta</tt> is where the Vesta
+
+	<a href="man/html/repository.8.html">repository</a>
+
+	and <a href="man/html/VCache.1.html">cache server</a> will
+	store their data.
+
+	If your root partition is small or you expect to use Vesta for
+	more than simple experimentation, you should consider making a
+	separate disk partition for this directory.  If you're going
+	to have multiple client machines (rather than a single machine
+	client+server installation), you should export this with NFS
+	to the clients. (Also be sure that the clients share the
+	user/group data for the special users: <tt>vadmin</tt>,
+	<tt>vwizard</tt>, <tt>vruntool</tt>, and <tt>vforeign</tt>.)
+
+      </li>
+
+      <li>
+
+	<tt>/etc/vesta.cfg</tt> and <tt>/var/lib/vesta/vesta.cfg</tt>
+	are the <a href="man/html/vesta.cfg.5.html">Vesta
+	configuration files</a>.  There are two of them to support
+	multi-host installations.  <tt>/etc/vesta.cfg</tt> simply
+	includes <tt>/var/lib/vesta/vesta.cfg</tt>.  If
+	<tt>/var/lib/vesta</tt> is NFS mounted from a server, the clients
+	will all share the majority of their configuration.
+
+      </li>
+
+      <li>
+
+	<tt>/etc/vesta</tt> holds some extra configuration files
+	including access control configuration for
+
+	<a href="man/html/repository.8.html">the repository</a>
+	(including the export file) and
+
+	configuration for the boot-time scripts used to start Vesta in
+	<tt>/etc/init.d</tt>.
+
+      </li>
+
+    </ul>
+
+    <p>
+
+      Note that the filesystem layout in the install-able packages is
+      different from what's suggested in
+
+      <a href="getting-started.html">the traditional by-hand
+      installation</a>.  This was done to conform to
+
+      <a href="http://www.pathname.com/fhs/">the Filesystem Hierarchy
+      Standard (FHS)</a>.
+
+    </p>
+
+    <h2>Multiple Clients</h2>
+
+    <p>
+
+      If you plan to have multiple client machines as part of the same
+      Vesta installation, here's what you should do:
+
+    </p>
+
+    <ol>
+
+      <li>
+
+	Start by installing <tt>vesta-server</tt> and
+	<tt>vesta-common</tt> on the server host.
+
+      </li>
+
+      <li>
+
+	Make sure that the server and all clients have assigned
+	hostnames, and that they can all resolve each others hostnames
+	and use them to contact each other (e.g. with <tt>ping</tt>).
+
+      </li>
+
+      <li>
+
+	Share user and group information between all the machines
+	(e.g. using
+	<a href="http://www.tldp.org/HOWTO/NIS-HOWTO/index.html">NIS</a> or LDAP).
+
+      </li>
+
+      <li>
+
+	Export <tt>/var/lib/vesta</tt> from the server machine and
+	mount if on all the clients (e.g. using
+	<a href="http://www.tldp.org/HOWTO/NFS-HOWTO/index.html">NFS</a>).
+
+      </li>
+
+      <li>
+
+	Install <tt>vesta-common</tt> on all the client machines.
+
+      </li>
+
+      <li>
+
+	Add all the client hostnames to the &quot;<tt>hosts</tt>&quot;
+	configuration variable in the appropriate platform sections
+	(i.e. <tt>[Linux2.4-i386]</tt> for x86 Linux).  This makes it
+	possible for builds to run tools across multiple machines in
+	parallel.
+
+      </li>
+
+    </ol>
+
+    <h2>See Also</h2>
+
+    <p>
+      You'll probably find it useful to go through
+
+      <a href="tutorial.html">the tutorial</a>.&nbsp;
+
+      <a href="man/html/vesta-intro.1.html">The <tt>vesta-intro</tt>
+      man page</a> is a useful guide to Vesta concepts and
+      terminology.&nbsp;  <a href="command-summary.html">The command
+      summary</a> is a helpful reference for the most common Vesta user
+      tasks.
+    </p>
+    
+    <p>
+
+      Be sure you understand how to use
+
+      <a href="man/html/VestaWeed.1.html">the weeder</a> (or
+      alternatively <a href="man/html/EraseCache.1.html">EraseCache</a> and
+
+      <a href="man/html/QuickWeed.1.html">QuickWeed</a>).&nbsp; If you
+      don't periodically use these tools to purge the results of old
+      builds, they'll just accumulate in <tt>/var/lib/vesta</tt>.
+
+    </p>
+    
+    <p>
+      For more resources to learn about Vesta, see
+      <a href="http://wiki.vestasys.org/LearningVesta">the LearningVesta
+      page</a> at our wiki.
+    </p>
+
+    <h2>If You Run Into Trouble</h2>
+
+    <p>
+
+      Users of newer RedHat systems may get an error when trying to
+      install about a missing dependency for <tt>libstdc++</tt>.  The
+      solution is to install the <tt>compat-libstdc++</tt> RPM.
+
+    </p>
+
+    <p>
+
+      If you encounter any other problems, send e-mail to the
+      <tt>vesta-users</tt> mailing list
+
+      (&lt;<font color="#3366CC">vesta dash users at lists dot
+      sourceforge dot net</font>&gt;) for help.
+
+    </p>
+
+    <hr>
+    <address>
+      Ken Schalk
+      &lt;<font color="#3366CC">ken at xorian dot net</font>&gt;
+    </address>
+<!-- Created: Thu Jan 15 13:48:48 EST 2004 -->
+<!-- hhmts start -->
+Last modified: Tue Jul 21 17:09:04 EDT 2009
+<!-- hhmts end -->
+  </body>
+</html>

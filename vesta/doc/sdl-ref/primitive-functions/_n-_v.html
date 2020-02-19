@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Functions: _n, _v</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_n(binding)"></A><TT>_n(<i>b</i>: binding): text</TT></H4>
+
+<p>
+If <TT><a href="_length.html#_length(binding)">_length</a>(<i>b</i>)
+== 1</TT>, returns the <b>name</b> part of the &lt;<b>name</b>,
+<b>value</b>&gt; pair that constitutes <TT><i>b</i></TT>. Otherwise,
+returns <TT>ERR</TT>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_n([foo = 1]) == "foo"
+_n([ bar = TRUE, msg = "a string" ]) == ERR            // Binding is not length 1
+_n(<a href="_head-_tail.html#_head(binding)">_head</a>([ bar = TRUE, msg = "a string" ])) == "bar"</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_v(binding)"></A><TT>_v(<i>b</i>: binding): any</TT></H4>
+
+<p>
+If <TT><a
+href="_length.html#_length(binding)">_length</a>(<i>b</i>)</TT> isn't
+1, returns <TT>ERR</TT>. Otherwise, this function returns the
+<b>value</b> part of the &lt;<b>name</b>, <b>value</b>&gt; pair that
+constitutes <TT><i>b</i></TT>. (Note that a result value of
+<TT>ERR</TT> does not imply that <TT><a
+href="_length.html#_length(binding)">_length</a>(<i>b</i>)</TT>
+differs from 1, since the <b>value</b> may be <TT>ERR</TT>.)
+</p>
+
+<BLOCKQUOTE>
+<PRE>_v([foo = 1]) == 1
+_v([ bar = TRUE, msg = "a string" ]) == ERR            // Binding is not length 1
+_v(<a href="_head-_tail.html#_head(binding)">_head</a>([ bar = TRUE, msg = "a string" ])) == TRUE</PRE>
+</BLOCKQUOTE>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

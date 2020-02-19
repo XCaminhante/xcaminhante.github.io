@@ -1,0 +1,156 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (X11; U; OSF1 V4.0 alpha) [Netscape]">
+   <meta name="Author" content="Kenneth C. Schalk">
+   <meta name="Description" content="A reference to the Vesta SDL language.">
+   <title>Vesta SDL Programmer's Reference</title>
+</head>
+<body BGCOLOR="#efefff">
+
+<h1>
+Vesta SDL Programmer's Reference</h1>
+
+<h3>
+Introduction</h3>
+
+<p>
+The Vesta System Description Language is a <a
+href="functional.html">functional
+programming language</a> used to define the instructions for the
+automated processing of source files through a series of tools
+(i.e. building a program from source code).&nbsp; Evaluating a Vesta
+SDL program can be thought of as analogous to running <tt>make</tt>
+(although SDL is much more powerful than <tt>make</tt>'s description
+language).
+</p>
+
+<p>
+This document is a tutorial and reference for the Vesta SDL.&nbsp;
+It's intended to make it a little easier for people new to the languag
+to get started than the documentation provided in <a
+href="../sdl-spec/index.html">the language
+specification</a>.
+</p>
+
+<h3>
+Sections</h3>
+
+<ul>
+
+<li>
+<a href="about.html">About the Guide</a> - A little history, and a few
+caveats.  (It's short, and you should really read it.)
+</li>
+
+
+<li>
+<i>Explanatory Dialogues</i> - These sections will take you through certain
+aspects of the language and how it is used.</li>
+
+<ul>
+<li>
+<a href="walkthrough.html">Walkthrough</a> - Probably the best place to
+start.&nbsp; Gets your feet wet with a few Vesta evaluator models.</li>
+
+<li>
+<a href="bridge-dissection.html">Bridge Dissection</a> - Look inside a
+simple bridge.&nbsp; Both its structure and how it works are described
+in detail.</li>
+</ul>
+
+<li>
+<i>Reference</i> - These sections describe the language in detail.</li>
+
+<ul>
+<li>
+<a href="syntax.html">Syntax</a> - The basic syntax of the Vesta SDL: Comments,
+identifiers, white-space, statement blocks, etc.</li>
+
+<li>
+<a href="data-types.html">Data Types </a>- The fundamental data types supported
+by the language and how to express more complex aggregate types</li>
+
+<li>
+<a href="expressions.html">Expressions and Operators</a> - The basic expressions
+and operators</li>
+
+<li>
+<a href="primitive-functions/index.html">Primitive Functions</a> - The built-in primitive
+functions</li>
+
+<li>
+<a href="statements.html">Statements</a> - The different types of statements</li>
+
+<li>
+<a href="models.html">Models</a> - How to write complete models, including
+the files and imports clauses</li>
+</ul>
+
+<li>
+<i>Advanced Material</i> - Once you've got the basics down, these will
+help you improve your skills.</li>
+
+<ul>
+<li>
+<a href="caching.html">Controlling Cache Behavior</a> - How to make your
+models use the cache server appropriately.&nbsp; Anyone writing bridges
+should probably read this.</li>
+</ul>
+
+<li>
+<a href="gotchas.html">Gotchas</a> - If you find yourself scratching your
+head, look here.&nbsp; In fact, look here to prevent unnecessary head scratching.</li>
+</ul>
+
+<h3>
+References</h3>
+
+The <a href="../../index.html">Vesta home page</a> is a good place to start.&nbsp;
+There is a much more precise definition of the Vesta System
+Description Language provided in <a
+href="../sdl-spec/index.html">the language
+specification</a>.&nbsp; (However, this document is intended to be a
+bit easier to read than that one, so you should probably start with
+this one first.)&nbsp; You may also want to take a look at the man
+pages for some of the tools used when working with Vesta models:
+<ul>
+<li>
+Run the model evaluator: <a href="../man/html/vesta.1.html">vesta(1)</a></li>
+
+<li>
+Determine which other models are imported by a model: <a href="../man/html/vimports.1.html">vimports(1)</a></li>
+
+<li>
+Update model imports to their latest versions: <a href="../man/html/vupdate.1.html">vupdate(1)</a></li>
+</ul>
+There are also some man pages which document the conventions used in the
+C/C++ bridges developed by the Vesta team.&nbsp; (<a href="http://www.InstantWeb.com/foldoc/foldoc.cgi?query=ymmv">YMMV</a>,
+depending on how closely the bridges you work with follow the same conventions,
+but they're worth reading in any case.)
+<ul>
+<li>
+Writing standard user models:
+<a href="../man/html/vmodels.5.html">vmodels(5)</a></li>
+
+<li>
+Organization of libraries in Vesta:
+<a href="../man/html/vlibraries.5.html">vlibraries(5)</a></li>
+
+<li>
+Building with overrides:
+<a href="../man/html/voverrides.5.html">voverrides(5)</a></li>
+
+<li>
+Standard types:
+<a href="../man/html/vtypes.5.html">vtypes(5)</a></li>
+</ul>
+
+<hr WIDTH="100%">
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+</body>
+</html>
+>
+</html>

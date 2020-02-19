@@ -1,0 +1,695 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>voverrides(5) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>voverrides(5)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+voverrides - a guide to building Vesta-2 models with overrides
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="voverrides.5.html#Intro">Introduction</A>
+<LI> <A HREF="voverrides.5.html#OverrideTypes">General vs. Per-File Overrides</A>
+<LI> <A HREF="voverrides.5.html#MainVes">A Vanilla <TT>.main.ves</TT> File</A>
+<LI> <A HREF="voverrides.5.html#TransPkgOvsSect">Transient Package Overrides</A>
+<LI> <A HREF="voverrides.5.html#TransBuildWideSect">Transient Build-Wide Overrides</A>
+<LI> <A HREF="voverrides.5.html#TransLibSect">Transient Library Overrides</A>
+<LI> <A HREF="voverrides.5.html#TransLibFileSect">Transient Library File Overrides</A>
+<LI> <A HREF="voverrides.5.html#PermLibSect">Permanent Library Overrides</A>
+<LI> <A HREF="voverrides.5.html#PermProgSect">Permanent Program Overrides</A>
+<LI> <A HREF="voverrides.5.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Intro">Introduction</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The existing bridge and standard environment models provide a wide
+variety of mechanisms for building Vesta-2 models with various forms of
+overrides. This note describes those mechanisms, and gives examples of
+their most common usage. In particular, it documents the
+<TT>common/std_env/18</TT> and <TT>common/cxx/14</TT> packages (presumably,
+later versions of these packages will conform to this man page as well).<P>
+
+There are two general classes of overrides: <I>transient</I> and
+<I>permanent</I>.<P>
+
+Transient overrides are specified through the Vesta control panel for
+a particular purpose at hand. For example, they include building a
+program against a locally checked-out version of a library, or
+building a package with profiling enabled. Since we currently don't
+have a Vesta control panel application, practically speaking,
+transient overrides are made by modifying a package's "<TT>.main.ves</TT>"
+file. The changes made to that file are transient because they are not
+visible to clients that import the package.<P>
+
+Permanent overrides, on the other hand, are made to the visible models
+of a package. Permanent overrides take precedence over transient
+overrides, so they should only be made if they are absolutely
+necessary to building the package correctly. For example, in compiling
+the C source files of a particular package, it might be necessary to
+include a macro definition on the command-line to the compiler.<P>
+
+The rest of this man page is divided into sections describing
+different kinds of overrides, showing examples of their use. It may
+help to be familiar with the <A HREF="vtypes.5.html">vtypes(5)</A> man page,
+which describes the Vesta-2 types used in the <TT>std_env</TT> and
+<TT>cxx</TT> models, although the HTML version of this document contains
+many links to portions of that man page.<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="OverrideTypes">General vs. Named Overrides</A></H3>
+<BLOCKQUOTE>
+<P>
+
+There are two mechanisms for overriding, which work quite
+differently:<P>
+
+<DL>
+<DT><A NAME="GeneralOverride"><I>General Overrides</I></A><P>
+
+<DD>An override may be expressed as a binding (possibly with other
+bindings as substructure) whose shape resembles a portion of the
+standard environment. If "<TT>.</TT>" is the environment and
+"<TT>ovs</TT>" is a general override, then at some appropriate point in
+the building process, the statement:
+<PRE>
+. ++= ovs;
+</PRE>
+
+is executed.  The resulting environment is then used for the portion of
+the building process to which the override "<TT>ovs</TT>" applies.
+In this particular case, "<TT>ovs</TT>" will be of type 
+"<A HREF="vtypes.5.html#EnvOvs"><TT>EnvOvs</TT></A>".<P>
+
+Sometimes, the overrides "<TT>ovs</TT>" is applied to a <I>part</I> of the
+standard environment. One common case is when a particular bridge of
+the standard environment is overridden. This is accomplished by the
+statement:
+<PRE>
+. ++= [ $bridge = ovs ];
+</PRE>
+
+In this particular case, "<TT>ovs</TT>" will be of type 
+"<A HREF="vtypes.5.html#BridgeOvs"><TT>BridgeOvs</TT></A>".<P>
+
+<DT><A NAME="NamedOverride"><I>Named Overrides</I></A><P>
+
+<DD>An override may be expressed as a binding (possibly with other
+bindings as substructure) that is interpreted like a table, with the
+names being the keys. If "<TT>b</TT>" is some binding and "<TT>ovs</TT>" is a
+named override, then at some appropriate point, the statement:
+<PRE>
+res = b ++ ovs/$name;
+</PRE>
+
+is executed. Here, "<TT>b</TT>" represents a set of defaults, and
+"<TT>ovs/$name</TT>" consists of a collection of overrides to the defaults
+for a specific case, identified by "<TT>$name</TT>. The resulting binding
+"<TT>res</TT>" is then used for the relevant building action for this
+specific case.<P>
+
+Common cases of named overrides include bindings of type
+"<A HREF="vtypes.5.html#NamedCompileOvs"><TT>NamedCompileOvs</TT></A>" that
+specify how particular source files should be built, or bindings of
+type "<A HREF="vtypes.5.html#ToolSwitches"><TT>ToolSwitches</TT></A>" that
+associate abstract switch names like "debug" and "optimize" with 
+particular tool-specific command-line switches.<P>
+
+</DL>
+<P>
+
+We will see concrete examples of both kinds of overrides in the
+examples that follow.<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="MainVes">A Vanilla <TT>.main.ves</TT> File</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Before describing any transient overrides, we first give an example of
+a vanilla "<TT>.main.ves</TT>" file that includes no overrides:
+<PRE>
+import self = build.ves;
+from /vesta/src.dec.com/common import std_env/18;
+{
+    // construct the standard environment
+    . = std_env()/env_build()("AlphaOSF");
+
+    // build the package
+    return ./generic/eval_binding_vals(self());
+}
+</PRE>
+
+The first line of the model's body initializes the standard
+environment "." specifying Alpha/OSF as the target platform. The next
+line invokes the packages top-level <TT>build.ves</TT> model. This model
+returns a binding of type
+<A HREF="vtypes.5.html#PkgResult"><TT>PkgResult</TT></A> that maps names to
+0-argument closures. The function <TT>./generic/eval_binding_vals</TT>
+iterates over that binding, evaluating each of the closures, and
+returning a binding with the same names in the same order bound to the
+result of the corresponding closure. Typically, the names are "lib",
+"progs", and "tests"; the corresponding closures, when invoked, build
+the package's library (if it exports one), programs, and test
+programs.<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="TransPkgOvsSect">Transient Package Overrides</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Perhaps the most common form of override involves overriding which
+version of a package is used. Since the repository uses a two-level
+namespace for naming packages, package overrides are depth-two
+bindings of type
+"<A HREF="vtypes.5.html#QNamedPkgOvs"><TT>QNamedPkgOvs</TT></A>" whose leaves
+correspond to package models. The "Q" in the name of this type stands
+for "qualified": it indicates the use of a two-level naming structure.<P>
+
+One extremely common case when building a library package is to
+override the package itself so the package's test programs will be
+linked against the local version of the package. Using an override of
+this form is standard procedure for library packages. Here is an
+example from the "vesta/basics" package:
+<PRE>
+import self = build.ves;
+from /vesta/src.dec.com/common import std_env/18;
+{
+    // construct the standard environment
+    pkg_ovs = [ vesta = [ basics=self ] ]; // override with "self"
+    . = std_env()/env_build()("AlphaOSF", pkg_ovs);
+
+    // build the package
+    return ./generic/eval_binding_vals(self());
+}
+</PRE>
+
+The "<TT>pkg_ovs</TT>" variable binds the name of the package to the
+package's top-level model. As stated before, this value is of type
+"<A HREF="vtypes.5.html#QNamedPkgOvs"><TT>QNamedPkgOvs</TT></A>".<P>
+
+Another common case occurs when you are building a program in one
+package and want to build it against a local version of a library
+defined in a different package. This is done by including a reference
+to the appropriate checkout session and passing an extra argument to
+the function for constructing the standard environment. Here is an
+example from the "vesta/log" package that overrides the "vesta/basics"
+package:
+<PRE>
+import self = build.ves;
+from /vesta/src.dec.com/common import std_env/18;
+from /vesta/src.dec.com/vesta import basics/checkout/20/15;
+{
+    // construct the standard environment
+    pkg_ovs = [ vesta = [ log=self, basics ] ]; // package overrides
+    . = std_env()/env_build()("AlphaOSF", pkg_ovs);
+
+    // build the package
+    return ./generic/eval_binding_vals(self());
+}
+</PRE>
+
+Any number of different packages may be overridden, including bridge
+packages and the "<TT>common/bridge_generics</TT>" package. For example,
+to use a checked-out version of the "<TT>common/cxx</TT>" bridge as well
+as the "<TT>vesta/basics</TT>" package, you would write:
+<PRE>
+import self = build.ves;
+from /vesta/src.dec.com/common import
+    std_env/18;
+    cxx/checkout/14/33;
+from /vesta/src.dec.com/vesta import
+    basics/checkout/20/15;
+{
+    // construct the standard environment
+    pkg_ovs = [           // package overrides
+      common = [ cxx ],
+      vesta = [ log=self, basics ]];
+    . = std_env()/env_build()("AlphaOSF", pkg_ovs);
+
+    // build the package
+    return ./generic/eval_binding_vals(self());
+}
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="TransBuildWideSect">Transient Build-Wide Overrides</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The second-most common form of override is to override the switches
+used in building an entire program, including how all of the program's
+libraries are built.<P>
+
+This is done by specifying a <A HREF="voverrides.5.html#GeneralOverrides">general
+override</A> for the environment. In particular, if you want to override
+how various tools like the compiler or linker are invoked by specifying
+particular command-line switches for them, you would override part of
+the "<A HREF="vtypes.5.html#BridgeSwitches"><TT>switches</TT></A>" binding for
+the <A HREF="vtypes.5.html#Bridge">bridge</A> in question. To override
+general build options (such as whether you want to use
+<A HREF="vlibraries.5.html#NamingSect">hierarchical library names</A>), you
+would override part of the <A HREF="vtypes.5.html#Bridge">bridge</A>'s
+"<A HREF="vtypes.5.html#BridgeOptions"><TT>options</TT></A>" binding.<P>
+
+Build-wide overrides are accomplished by recursively overlaying a
+binding on the "<A HREF="vtypes.5.html#Env"><TT>env_ovs</TT></A>" field of the
+standard environment. For example, to compile all files built using
+the Cxx bridge with the highest warning level, your .main.ves file
+would be:
+<PRE>
+import build = build.ves;
+from /vesta/src.dec.com/common import std_env/18;
+{
+    // construct the standard environment
+    . = std_env()/env_build()("AlphaOSF");
+
+    // build-wide override: compile all files with warnings
+    . ++= [ env_ovs/Cxx/switches/compile/warnings = "-w0" ];
+
+    // build the package
+    return ./generic/eval_binding_vals(build());
+}
+</PRE>
+
+Notice that the standard environment "." is overlayed with the extra
+switch <I>after</I> the environment is constructed but <I>before</I> the
+package's main model is built.<P>
+
+Multiple overrides may be specified simply by creating the appropriate
+binding structure. For example, to compile with debugging and maximal
+warnings, and to link programs with optimization, you would overlay
+the standard environment by writing:
+<PRE>
+    // build-wide overrides
+    . ++= [ env_ovs/Cxx/switches = [
+      compile = [ debug = "-g", warnings= "-w0" ],
+      program = [ optimize = "-O1" ]
+    ]];
+</PRE>
+
+In this binding, the names "<TT>compile</TT>" and "<TT>program</TT>" are
+special, since they are hard-wired into the bridge's
+so-called <A HREF="vtypes.5.html#BridgeExpert">expert</A> functions. The
+names for the individual switches are not special, except that
+switches are overridden by these names. Hence, if you want to override
+the default switches installed by the bridge, you will have to know
+the name given by the bridge to each switch category. You can find out
+the default switch names and their values by printing the value of
+"<TT>./&lt;bridge&gt;/switches</TT>" after the call that creates the standard
+environment.<P>
+
+You can also use build-wide overrides to set build options. As another
+example, you could specify the following overrides to enable
+hierarchical library naming and to disable the bridge's verbose mode,
+respectively.
+<PRE>
+    // use hierarchical library naming
+    . ++= [ env_ovs/Cxx/options/flat_lib_names = FALSE ];
+
+    // make the bridge quiet
+    . ++= [ env_ovs/Cxx/options/verbose_bridge = FALSE ];
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="TransLibSect">Transient Library Overrides</A></H3>
+<BLOCKQUOTE>
+<P>
+
+This section describes how to override the construction of a leaf
+library or an entire umbrella library. For more information about leaf
+and umbrella libraries, see the
+<A HREF="vlibraries.5.html">vlibraries(5)</A> man page.<P>
+
+The construction of a leaf or umbrella library is overridden by
+augmenting the "<A HREF="vtypes.5.html"><TT>lib_ovs</TT></A>" field of the
+standard environment. The value of this field is of type
+"<A HREF="vtypes.5.html#NamedLibOvs"><TT>NamedLibOvs</TT></A>". As described
+with the documentation of that type, it is either a flat binding of
+type "<A HREF="voverrides.5.html#NamedLibDescs"><TT>NamedLibDescs</TT></A>" or a binding tree
+whose leaves are of that type. Whether the value is flat or not
+depends on whether <A HREF="vlibraries.5.html#NamingSect">flat library
+names</A> are being used or not.<P>
+
+First, consider the case where flat library names are being used. Then
+the "<A HREF="vtypes.5.html#Env"><TT>lib_ovs</TT></A>" field of the environment
+must be overridden by a value of type
+"<A HREF="vtypes.5.html#NamedLibDescs"><TT>NamedLibDescs</TT></A>". This type is
+a binding mapping library names to one of the subtypes of a
+"<A HREF="vtypes.5.html#LibDesc"><TT>LibDesc</TT></A>" value, most likely a
+value of type "<A HREF="vtypes.5.html#LeafLibDesc"><TT>LeafLibDesc</TT></A>" or
+"<A HREF="vtypes.5.html#UmbrellaLibDesc"><TT>UmbrellaLibDesc</TT></A>". The
+important thing about both of these types is that that have a field
+name "<TT>ovs</TT>" of type "<A HREF="vtypes.5.html#BridgeOvs"><TT>BridgeOvs</TT></A>".<P>
+
+To determine the name of the leaf or umbrella library you want to
+override, you have to look at the model that constructs that library.
+The first argument to the "leaf" or "umbrella" bridge function will be
+the library name.<P>
+
+For example, to compile the "libVestaBasics.a" leaf library with debugging
+symbols, you would add the following overlay to your ".main.ves" file:
+<PRE>
+    // library overrides
+    . ++= [ lib_ovs/libVestaBasics.a =
+      [ ovs/Cxx/switches/compile/debug = "-g" ]];
+</PRE>
+
+To build an entire umbrella library in a particular way, just name the
+umbrella library instead:
+<PRE>
+    // library overrides
+    . ++= [ lib_ovs/libVestaBasicsUmb =
+      [ ovs/Cxx/switches/compile/debug = "-g" ]];
+</PRE>
+
+This causes all leaf libraries that are descendants of the named
+umbrella library to be built with the specified override.<P>
+
+It is also possible to override both an umbrella and a leaf with a
+single override. For example, to build the entire umbrella with
+debugging, but the leaf library with simple optimization, the override
+would be:
+<PRE>
+    // library overrides
+    . ++= [ lib_ovs = [
+      libVestaBasicsUmb/ovs/Cxx/switches/compile/debug = "-g",
+      libVestaBasics.a/ovs/Cxx/switches/compile/optimize = "-O1" ]];
+</PRE>
+
+So much for overriding libraries when flat library naming is being
+used.<P>
+
+If hierarchical library names are being used, then the value of the
+"<TT>lib_ovs</TT>" field should be a binding. For example, if the
+"libVestaBasics.a" leaf library resides in the "libVestaBasicsUmb"
+umbrella, an override for the leaf library might take the form:
+<PRE>
+    // library overrides
+    . ++= [ lib_ovs/libVestaBasicsUmb/libVestaBasics.a =
+      [ ovs/Cxx/switches/compile/debug = "-g" ]];
+</PRE>
+
+As before, we can specify overrides for both umbrellas and leaves in a
+single override. The override in the hierarchical case corresponding
+to the last example presented above for the flat case is:
+<PRE>
+    // library overrides
+    . ++= [ lib_ovs/libVestaBasicsUmb = [
+      ovs/Cxx/switches/compile/debug = "-g",
+      libVestaBasics.a/ovs/Cxx/switches/compile/optimize = "-O1" ]];
+</PRE>
+
+The only difference between the flat case and the hierarchical case is
+that the overrides for "libVestaBasics.a" are underneath
+"libVestaBasicsUmb" in the hierarchical case; in the flat case, they
+are at the same level.<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="TransLibFileSect">Transient Library File Overrides</A></H3>
+<BLOCKQUOTE>
+<P>
+
+It is also possible to override how a <I>single file</I> in a particular
+leaf library is compiled. This is accomplished using a
+<A HREF="voverrides.5.html#NamedOverride">named override</A>.<P>
+
+In particular, the
+"<A HREF="vtypes.5.html#LeafLibDesc"><TT>per_file_ovs</TT></A>" field of the
+leaf library in question must be overridden to contain a binding of type
+"<A HREF="vtypes.5.html#NamedCompileOvs"><TT>NamedCompileOvs</TT></A>", a
+binding that maps filenames to values of type
+"<A HREF="vtypes.5.html#CompileOvs"><TT>CompileOvs</TT></A>". Each of these has
+at most the following two fields:<P>
+
+<DL>
+<DT><TT>lang: text</TT><DD>
+This field specifies the name of the bridge to use to build the program.<P>
+
+<DT><TT>ovs: <A HREF="vtypes.5.html#BridgeOvs">BridgeOvs</A></TT><DD>
+This field specifies an overlay for the bridge used to build the
+program. Notice that as opposed to the "<TT>ovs</TT>" field of a
+<A HREF="vtypes.5.html#LeafLibDesc">leaf</A> or
+<A HREF="vtypes.5.html#UmbrellaLibDesc">umbrella</A> library description,
+which is of type "<A HREF="vtypes.5.html#EnvOvs"><TT>EnvOvs</TT></A>", this is
+an override for a particular bridge, not the whole environment. This
+means the bridge name (such as "<TT>Cxx</TT>") should not appear in the
+override.
+</DL>
+<P>
+
+For example, here is a per-file override that specifies that the file
+named "<TT>Basics.C</TT>" in the "<TT>libVestaBasics.a</TT>" library should be
+compiled with optimization:
+<PRE>
+    // per-file library override
+    . ++= [ lib_ovs/libVestaBasics.a/per_file_ovs = [
+      Basics.C = [ ovs/switches/compile/optimize = "-O1" ]]];
+</PRE>
+
+If you were using hierarchical library naming, you would instead
+write:
+<PRE>
+    // per-file library override
+    . ++= [ lib_ovs/libVestaBasicsUmb/libVestaBasics.a/per_file_ovs = [
+      Basics.C = [ ovs/switches/compile/optimize = "-O1" ]]];
+</PRE>
+
+Of course, in either case, the "<TT>per_file_ovs</TT>" binding is allowed
+to contain names of multiple files, with each being bound to a
+potentially different set of overrides instructions.<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="PermLibSect">Permanent Library Overrides</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Permanent overrides work similarly to transient overrides. One main
+difference is that they are usually expressed by supplying override
+arguments to bridge functions, rather than by overlaying a binding
+over the current environment.<P>
+
+To override how a library is constructed, you pass an overrides
+binding as an explicit argument to the "<TT>umbrella</TT>" or "<TT>leaf</TT>"
+<A HREF="vtypes.5.html#Bridge">bridge</A> function. For example, assuming
+the identifiers "<TT>c_files</TT>", "<TT>h_files</TT>", and
+"<TT>priv_h_files</TT>" have been bound to the appropriate file bindings
+in the <TT>files</TT> clause, here is a function that produces a leaf
+library all of whose files will be compiled with the compiler switch
+"<TT>-DDEBUG"</TT>":
+<PRE>
+    lib() {
+	ovs = [ Cxx/switches/compile/def_debug = "-DDEBUG" ];
+	return ./Cxx/leaf("libLeaf.a",
+          c_files, h_files, priv_h_files, ovs);
+    };
+</PRE>
+
+The value "<TT>ovs</TT>" is a <A HREF="voverrides.5.html#GeneralOverride">general override</A>.
+It should be of type "<A HREF="vtypes.5.html#EnvOvs"><TT>EnvOvs</TT></A>", i.e.,
+it is a binding that is recursively overlayed on the environment in
+which the library is built.<P>
+
+You can also specify a <A HREF="voverrides.5.html#NamedOverride">named override</A> for a
+leaf library by passing a binding for the "<TT>per_file_ovs</TT>"
+parameter of the "<TT>leaf</TT>" function. This parameter is of type
+"<A HREF="vtypes.5.html#NamedCompileOvs"><TT>NamedCompileOvs</TT></A>"; it maps
+files names to values of type
+"<A HREF="vtypes.5.html#CompileOvs"><TT>CompileOvs</TT></A>". For example, here
+is how to build the above leaf library with the file "<TT>runtime.C</TT>"
+compiled with optimization:
+<PRE>
+    lib() {
+	ovs = [ Cxx/switches/compile/def_debug = "-DDEBUG" ];
+        per_file_ovs = [ runtime.C =
+          [ ovs/switches/compile/optimize = "-O1" ]];
+	return ./Cxx/leaf("libLeaf.a",
+          c_files, h_files, priv_h_files, ovs, per_file_ovs);
+    };
+</PRE>
+
+Overrides for umbrella libraries work similarly. Umbrella overrides
+are specified by passing a non-empty value for the "<TT>ovs</TT>" field of
+the "<TT>umbrella</TT>" function. As before, this parameter is a
+<A HREF="voverrides.5.html#GeneralOverride">general override</A> of type
+"<A HREF="vtypes.5.html#EnvOvs"><TT>EnvOvs</TT></A>". That is, it is a binding
+that is recursively overlayed on the environment in which the umbrella
+library and all of its descendant libraries is built.<P>
+
+For example, to specify that an entire umbrella library should be
+built with optimization, you could write:
+<PRE>
+{
+    // select libraries
+    libs = [ ./Cxx/libs/vesta/pkg1, ./Cxx/libs/vesta/pkg2 ];
+
+    // compile umbrella with optimization
+    ovs = [ Cxx/switches/compile/optimize = "-O1" ];
+
+    // build the umbrella
+    return ./Cxx/umbrella("libExampleUmb", libs, ovs);
+}
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="PermProgSect">Permanent Program Overrides</A></H3>
+<BLOCKQUOTE>
+<P>
+
+There are three distinct parts to building a program, and permanent
+overrides can be specified for each. First, the libraries on which the
+program depends must be compiled. Then, the sources comprising the
+program itself must be compiled. Finally, the compiled sources must be
+linked with the libraries.<P>
+
+To build a program, you use the "<TT>program</TT>" bridge function. In
+addition to the sources and libraries from which the program should be
+built, this function takes three additional arguments for specifying
+overrides; they are named "<TT>ovs</TT>", "<TT>env_ovs</TT>", and
+"<TT>lib_ovs</TT>".<P>
+
+The "<TT>ovs</TT>" parameter is a <A HREF="voverrides.5.html#GeneralOverride">general
+override</A> of type "<A HREF="vtypes.5.html#EnvOvs"><TT>EnvOvs</TT></A>" applied
+to the environment in which the program's sources are compiled and in
+which the final program is linked.<P>
+
+The "<TT>env_ovs</TT>" parameter is also a <A HREF="voverrides.5.html#GeneralOverride">general
+override</A> of type "<A HREF="vtypes.5.html#EnvOvs"><TT>EnvOvs</TT></A>". It is
+applied to the environment in which the program's libraries are built.<P>
+
+Finally, the "<TT>lib_ovs</TT>" is a <A HREF="voverrides.5.html#NamedOverride">named override</A>
+of type "<A HREF="vtypes.5.html#NamedLibOvs"><TT>NamedLibOvs</TT></A>" that can
+be used to specify overrides for how particular libraries or files
+within those libraries are built.<P>
+
+Notice that the general overrides "<TT>ovs</TT>" and "<TT>env_ovs</TT>" apply
+to independent parts of the build process. If you want the same
+override to apply to both parts, you have to specify that same
+override in both parameters. (Another alternative is to specify the
+override in "<TT>./env_ovs</TT>" as described below.)<P>
+
+Here is a simple example, taken from the "vesta/basics" package. This
+model builds several test programs; it demonstrates the use of the
+"<TT>ovs</TT>" and "<TT>env_ovs</TT>" parameters.
+<PRE>
+files
+    TestIntSeq = [ TestIntSeq.C ];
+    TestIntTbl = [ TestIntTbl.C ];
+    TestOS     = [ TestOS.C ];
+    TestText   = [ TestText.C ];
+    TestThread = [ TestThread.C ];
+    TestVAF    = [ TestVestaAtomicFile.C ];
+{
+    libs = &lt; ./Cxx/libs/vesta/basics &gt;;
+    ovs = [ Cxx/switches/program/shared_libs = "-non_shared" ];
+    env_ovs = [ Cxx/options/useGClib = "libgcthrd" ];
+    return
+      ./Cxx/program("TestText",   TestText,   [], libs, ovs) +
+      ./Cxx/program("TestTextGC", TestText,   [], libs, ovs, env_ovs) +
+      ./Cxx/program("TestIntSeq", TestIntSeq, [], libs, ovs) +
+      ./Cxx/program("TestIntTbl", TestIntTbl, [], libs, ovs) +
+      ./Cxx/program("TestOS",     TestOS,     [], libs, ovs) +
+      ./Cxx/program("TestThread", TestThread, [], libs, ovs) +
+      ./Cxx/program("TestVAF",    TestVAF,    [], libs, ovs);
+}
+</PRE>
+
+The "<TT>env_ovs</TT>" override specifies that the program should be built
+to use the garbage collector library. That override is only supplied
+when the "TextTextGC" program is built, so all the other programs are
+linked without the garbage collector.<P>
+
+All three of the "<TT>program</TT>" overrides can also be specified
+indirectly through overrides to the current environment. In
+particular, the general overrides in "<TT>./env_ovs</TT>" are applied
+<I>both</I> to the construction of the program's libraries, and to the
+construction and linking of the program itself. The named overrides in
+"<TT>./lib_ovs</TT>" are applied during the construction of the libraries,
+as if they had been passed via the explicit "<TT>lib_ovs</TT>" parameter.
+For more information about these two types of overrides, see the above
+sections on <A HREF="voverrides.5.html#TransBuildWideSect">build-wide overrides</A>,
+<A HREF="voverrides.5.html#TransLibSect">library overrides</A>, and
+<A HREF="voverrides.5.html#TransLibFileSect">library file overrides</A>. By placing such
+files in regular models instead of the special "<TT>.main.ves</TT>" model,
+they become permanent instead of transient. In cases where both an
+override through "<TT>.</TT>" and one through an explicit parameter are
+specified, the former takes precedence.<P>
+
+Passing explicit values is convenient if you are building several
+programs with different overrides, as the example above demonstrates.
+When all of the programs are being built with the same overrides, it
+may be more convenient to specify them via an override to the standard
+environment. As a final example, here is a model from the "vesta/fp"
+package that uses a combination of the two styles:
+<PRE>
+files TestFP = [ TestFP.C ];
+import lib = build.ves;
+{
+    // required libraries
+    v_libs = ./Cxx/libs/vesta;
+    libs = &lt; v_libs/fp, v_libs/srpc, v_libs/log, v_libs/basics &gt;;
+
+    // overrides for this program
+    ovs = [ Cxx/switches/program/shared_libs = "-non_shared" ];
+    . ++= [ env_ovs/Cxx/options/useGClib = "libgcthrd" ];
+
+    // build program
+    return ./Cxx/program("TestFP", TestFP, [], libs, ovs);
+}
+</PRE>
+
+The "<TT>ovs</TT>" parameter specifies that the program should be
+statically linked, and the override to "<TT>./env_ovs</TT>" specifies that
+the program should be built with the GC version of the libraries.<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vlibraries.5.html">vlibraries(5)</A>,
+<A HREF="vmodels.5.html">vmodels(5)</A>,
+<A HREF="vtypes.5.html">vtypes(5)</A>.
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+<PRE>
+Last modified on Fri Nov  9 12:14:21 EST 2001 by ken@xorian.net
+     modified on Mon Mar 16 17:08:47 PST 1998 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

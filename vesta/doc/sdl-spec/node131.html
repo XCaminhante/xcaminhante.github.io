@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Value Space</TITLE>
+<META NAME="description" CONTENT="Value Space">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node132.html">
+<LINK REL="previous" HREF="node130.html">
+<LINK REL="up" HREF="node130.html">
+<LINK REL="next" HREF="node132.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2163"
+  HREF="node132.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2159"
+  HREF="node130.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2153"
+  HREF="node130.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2161"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2164"
+  HREF="node132.html">Type Declarations</A>
+<B> Up:</B> <A NAME="tex2html2160"
+  HREF="node130.html">Semantics</A>
+<B> Previous:</B> <A NAME="tex2html2154"
+  HREF="node130.html">Semantics</A>
+ &nbsp <B>  <A NAME="tex2html2162"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION001331000000000000000"></A><A NAME="sect:SDL-value-space"></A>
+<BR>
+Value Space
+</H2>
+
+<P>
+Values are typed.  The types and values of the language are shown in
+Table&nbsp;<A HREF="node131.html#tbl:SDL-types">A.1</A>.
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="5718"></A>
+<TABLE>
+<CAPTION><STRONG>Table A.1:</STRONG>
+The types and values of the Vesta language.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1" ALIGN="CENTER">
+<TR><TD ALIGN="LEFT">Type name</TD>
+<TD ALIGN="LEFT">Values of the type</TD>
+</TR>
+<TR><TD ALIGN="LEFT">t_bool</TD>
+<TD ALIGN="LEFT"><EM>true</EM>, <EM>false</EM></TD>
+</TR>
+<TR><TD ALIGN="LEFT">t_int</TD>
+<TD ALIGN="LEFT">integers</TD>
+</TR>
+<TR><TD ALIGN="LEFT">t_text</TD>
+<TD ALIGN="LEFT">arbitrary byte sequences</TD>
+</TR>
+<TR><TD ALIGN="LEFT">t_list</TD>
+<TD ALIGN="LEFT">sequences of zero or more arbitrary values</TD>
+</TR>
+<TR><TD ALIGN="LEFT">t_binding</TD>
+<TD ALIGN="LEFT">sequences of zero or more (<EM>name</EM>, <EM>value</EM>) pairs</TD>
+</TR>
+<TR><TD ALIGN="LEFT">t_closure</TD>
+<TD ALIGN="LEFT">closures, each of which is a triple <!-- MATH
+ $\langle e, f, b\rangle$
+ -->
+<IMG
+ WIDTH="55" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img96.png"
+ ALT="$\langle e, f, b\rangle$"></TD>
+</TR>
+<TR><TD ALIGN="LEFT">t_err</TD>
+<TD ALIGN="LEFT"><EM>err</EM></TD>
+</TR>
+<TR><TD ALIGN="LEFT">t_value</TD>
+<TD ALIGN="LEFT">union of all of the above types</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<A NAME="tbl:SDL-types"></A></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+The values <EM>true</EM>, <EM>false</EM>, <EM>emptylist</EM> (the list of
+length zero), <EM>emptybinding</EM> (the binding of length zero), and
+<EM>err</EM> are not to be confused with the language literals
+<TT>TRUE</TT>, <TT>FALSE</TT>, <TT>&lt;&gt;</TT>, <TT>[]</TT>, and <TT>ERR</TT> that denote
+those values.
+
+<P>
+The type t_bool contains the Boolean values <EM>true</EM> and
+<EM>false</EM>, denoted in the language by the literals <TT>TRUE</TT>
+and <TT>FALSE</TT>.
+
+<P>
+The type t_int contains integers over at least the range <IMG
+ WIDTH="40" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img97.png"
+ ALT="$-2^{31}$">
+to <IMG
+ WIDTH="55" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img98.png"
+ ALT="$2^{31}-1$">; the exact range is implementation dependent.
+
+<P>
+The type t_text contains arbitrary sequences of 8-bit bytes.
+This type is used to represent text literals (quoted strings) in SDL
+programs as well as the contents of files introduced through the
+Files nonterminal of the grammar. Consequently, an implementation
+must reasonably support the representation of large values of this
+type (thousands of bytes or more), but is not required to support
+efficient operations on large text values.
+
+<P>
+The type t_list contains sequences of values.
+The elements of a list need not be of the same type.
+
+<P>
+The type t_binding contains sequences of pairs <IMG
+ WIDTH="50" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img99.png"
+ ALT="$(t_i, v_i)$">, in which
+each <IMG
+ WIDTH="17" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img100.png"
+ ALT="$t_i$"> is a non-empty value of type t_text, each <IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img101.png"
+ ALT="$v_i$"> is an
+arbitrary Vesta value (i.e., of type t_value), and the <IMG
+ WIDTH="17" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img100.png"
+ ALT="$t_i$"> are all
+distinct. Note that bindings are sequences: they are ordered. The <EM>domain</EM> of a binding is the set of names <IMG
+ WIDTH="17" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img100.png"
+ ALT="$t_i$"> at its top level.
+Bindings may be nested.
+
+<P>
+Bindings play an important role in the Vesta language. They are used
+to represent a variety of interesting objects. For example, flat
+bindings that map names to texts can be used to represent command-line
+switches and environment variables; bindings that contain nested
+bindings can be used to represent file systems; and bindings that map
+names to closures can be used to represent interfaces.
+Section&nbsp;<A HREF="node155.html#sect:SDL-binding-funcs">A.3.4.5</A> describes the primitive functions
+and operators for manipulating bindings, including three primitives
+for combining two bindings.
+
+<P>
+The type t_closure contains closure values for the primitive operators
+and functions (defined in Section&nbsp;<A HREF="node150.html#sect:SDL-primitives">A.3.4</A>) as well
+as for user-defined functions. In a closure <!-- MATH
+ $\langle e, f, b\rangle$
+ -->
+<IMG
+ WIDTH="55" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img96.png"
+ ALT="$\langle e, f, b\rangle$">:
+
+<UL>
+<LI><EM>e</EM> is a function body (i.e., a Block as per the grammar below);
+</LI>
+<LI><EM>f</EM> is a list of pairs <IMG
+ WIDTH="49" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img102.png"
+ ALT="$(t_i, e_i)$">, where <IMG
+ WIDTH="17" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img100.png"
+ ALT="$t_i$"> is a t_text
+value (a formal parameter name) and <IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img103.png"
+ ALT="$e_i$"> is either the distinguished
+expression <!-- MATH
+ $\langle\mbox{emptyExpr}\rangle$
+ -->
+<IMG
+ WIDTH="89" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img104.png"
+ ALT="$\langle\mbox{emptyExpr}\rangle$"> or an Expr (for a
+default parameter value); and
+</LI>
+<LI><EM>b</EM> is a value of type t_binding (the closure context).
+</LI>
+</UL>
+
+<P>
+The type t_err consists of the single distinguished value <EM>err</EM>,
+denoted in the language by the literal <TT>ERR</TT>.  Programmers can use
+this value as they choose; it has no predefined semantics.  
+Contrary to what was stated in previous editions of the SDL specification,
+Vesta primitive functions do not return <EM>err</EM> in runtime error
+cases.  Rather, a runtime error halts evaluation with an
+error message, and no value is returned.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2163"
+  HREF="node132.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2159"
+  HREF="node130.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2153"
+  HREF="node130.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2161"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2164"
+  HREF="node132.html">Type Declarations</A>
+<B> Up:</B> <A NAME="tex2html2160"
+  HREF="node130.html">Semantics</A>
+<B> Previous:</B> <A NAME="tex2html2154"
+  HREF="node130.html">Semantics</A>
+ &nbsp <B>  <A NAME="tex2html2162"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

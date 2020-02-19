@@ -1,0 +1,291 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vrm - Remove an object from the Vesta repository</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vrm(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vrm</B> - Remove a file or directory from the Vesta repository
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vrm</B> [<A HREF="vrm.1.html#-q">-q</A>] [<A HREF="vrm.1.html#-Q">-Q</A>]
+[<A HREF="vrm.1.html#-v">-v</A>]
+[<A HREF="vrm.1.html#-R">-R <I>repos</I></A>] <I>name</I> [<I>name...</I>]<P>
+
+In the most common usage, only the <I>name</I> argument is given.
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vrm.1.html#Description">Description</A>
+<LI> <A HREF="vrm.1.html#Flags">Flags</A>
+<LI> <A HREF="vrm.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vrm.1.html#Triggers">Triggers</A>
+<LI> <A HREF="vrm.1.html#See_Also">See Also</A>
+<LI> <A HREF="vrm.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+See the <A HREF="vesta-intro.1.html">vesta-intro</A> man page's
+<A HREF="vesta-intro.1.html#Terminology">Terminology</A> section for
+definitions of terms, and its
+<A HREF="vesta-intro.1.html#Name_Interpretation">Name Interpretation</A>
+section for an explanation of how names are looked up.<P>
+
+The <B>vrm</B> command removes one or more files or directories from the
+Vesta repository.  Removing an object from an appendable directory
+leaves a ghost behind.  If the object to be removed is a directory, it
+need not be empty.<P>
+
+This command provides an alternative to removing an object with the
+normal <B>rm</B> or <B>rmdir</B> commands through the repository's NFS
+interface.  It is needed in cases where your NFS client thinks you
+don't have permission to remove because it doesn't fully understand
+Vesta access controls.  The <B>vrm</B> command also makes it possible to
+remove an object from a remote repository that you do not have NFS
+mounted.<P>
+
+You must have write access to the directory from which <I>name</I> is to
+be removed.<P>
+
+<B>vrm</B> returns status 0 for success, 1 for parameter syntax
+errors, or 2 for more serious errors.  (Note that if any of the
+<A HREF="vrm.1.html#Triggers">trigger commands</A> fail, <B>vrm</B> returns status 2.)
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-q">-q</A><DD>
+Quiet; suppress printing out what is being done.
+<DT><A NAME="-Q">-Q</A><DD>
+Query; print out what the command would do, but don't do it.
+<DT><A NAME="-R">-R</A> <I>repos</I><DD>
+Remove the object from <I>repos</I> instead of the default local
+repository.  The repository is
+specified by host name and TCP port number 
+in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it
+defaults to <A HREF="vrm.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><A NAME="-v">-v</A><DD>
+Displays extra information about <A HREF="vrm.1.html#Triggers">triggers</A>.  Before
+executing any trigger commands, the environment variables used to
+provide information to them are printed.  Also, each trigger setting
+is printed before the command is executed.  This can be used to help
+debug trigger problems.  When used with <A HREF="vrm.1.html#-Q">the query flag
+(-Q)</A>, the triggers are displayed in their sorted order without
+actually running them.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>AppendableRootName</I><DD>
+The filename under which the global root directory of
+Vesta repositories is mounted.  Ordinarily set to <TT>/vesta</TT>.
+<DT><I>MutableRootName</I><DD>
+The filename under which the local tree of mutable directories provided
+by Vesta is mounted.  Ordinarily set to <TT>/vesta-work</TT>.
+<DT><I>realm</I><DD>
+Global user names are formed by appending <TT>@</TT><I>realm</I> to the
+local name.  This setting is optional.  If it is not set,
+<TT>[Repository]realm</TT> is used.
+</DL>
+<P>
+
+The following values are obtained from the <TT>[Repository]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+The default TCP port number for repositories.
+<DT><I>realm</I><DD>
+Global user names are formed by appending <TT>@</TT><I>realm</I> to the
+local name.  This setting is only used if <TT>[UserInterface]realm</TT> is
+not set.
+</DL>
+<P>
+
+Settings in the <TT>[vrm pre trigger]</TT> and <TT>[vrm post trigger]</TT>
+sections of the configuration file are used as commands to be run
+before and after the repository is modified.  See <A HREF="vrm.1.html#Triggers">the
+next section</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Triggers">Triggers</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Users can configure commands in <A HREF="vesta.cfg.5.html">the Vesta
+configuration file (vesta.cfg)</A> to be executed before and after
+<B>vrm</B> modifies the repository.  Each setting in the <TT>[vrm pre
+trigger]</TT> section specifies a command to be run before any action is
+taken, and each setting in the <TT>[vrm post trigger]</TT> section
+specifies a command to be run after all actions are complete.<P>
+
+The value of each setting specifies a command to run.  The names of
+the settings define the order in which these commands are run.  The
+setting names are sorted as strings, but comparing embedded sequences
+of digits as decimal integers.  (So, for example "foo_10_bar" will
+sort after "foo_2_bar".)  The suggested naming convention for trigger
+settings is to start with an integer, follow with a descriptive name,
+and follow that with any other text.  (This is based on the convention
+used for System V style init script links typically stored in
+<TT>/etc/rc<I><B>N</B></I>.d</TT>.)<P>
+
+Here's a simple example of how we suggest naming trigger settings, and
+how they are ordered for execution:
+<PRE>
+[vrm pre trigger]
+100world = echo World!
+9tada    = echo Tada:
+50hello  = echo Hello,
+</PRE>
+
+Because these all start with numbers, they will be executed in the
+order "9tada", "50hello", "100world".  The output will look like this:
+<PRE>
+% vrm /vesta/example.com/...
+Tada:
+Hello,
+World!
+Deleting /vesta/example.com/...
+</PRE>
+
+Trigger commands are executed with <TT>system</TT>(3).  On most operating
+systems this means "<TT>/bin/sh -c <I>command</I></TT>", so simple in-line
+shell scripts can be used.  (Note that each is executed in its own
+shell process, so environment variables set during one trigger command
+<I>will not propagate to subsequent ones</I>.)<P>
+
+If any of the commands in the <TT>[vrm pre trigger]</TT> section exit with
+error (non-zero) status or are terminated by a signal
+(e.g. segmentation fault, abort), <B>vrm</B> will exit without deleting.<P>
+
+The commands in the <TT>[vrm post trigger]</TT> section will only be
+executed if the deletion is successfully performed.  If <B>vrm</B> fails
+with an error, the commands in the <TT>[vrm post trigger]</TT> section
+<I>will not be executed</I>.<P>
+
+Note that all the trigger commands (both pre and post) are executed
+sequentially.  Once a trigger command is started, nothing else happens
+until it completes.  If any of the pre trigger commands runs forever,
+<B>vrm</B> will not perform a deletion.  If any of the post trigger
+commands runs forever, <B>vrm</B> will not complete.  (In other words,
+<I>a trigger command that hangs will cause <B>vrm</B> to hang</I>.)  If
+any of the pre or post trigger commands exit with error status or are
+terminated by a signal, <B>vrm</B> will exit without running any more
+commands from those sections.  (In other words, <I>a trigger command
+that fails will prevent further trigger commands from being run</I>.)<P>
+
+If a single <B>vrm</B> command is given more than one file or directory
+to delete, the pre and post trigger commands will be run once for each
+object being deleted.  The pre trigger commands command are run just
+before deleting each object and after deleting any preceding objects,
+and the post trigger commands are just after deleting each object and
+before deleting any following objects.  If any of the trigger commands
+(either pre or post) exit with error status or are terminated by a
+signal, <B>vrm</B> will stop processing immediately, <I>even if there
+are additional objects to be deleted</I>.  (In other words, <I>a trigger
+command that fails may prevent objects from being deleted</I>.)<P>
+
+If the <A HREF="vrm.1.html#-Q">the query flag (-Q)</A> is given, the trigger commands
+will not actually be run.<P>
+
+Information about what <B>vrm</B> is going to do or has just done
+is provided to the trigger commands through the following environment
+variables:<P>
+
+<DL>
+
+<DT>VESTA_TOOL<DD>
+The name of the Vesta tool the trigger command has been invoked from.
+(For <B>vrm</B>, this will always be "vrm".)
+<DT>VESTA_REPOS<DD>
+The local repository (<I>host</I><TT>:</TT><I>port</I>) <B>vrm</B>
+communicates with (either the default from the configuration file or
+the one specified with the <A HREF="vrm.1.html#-R">-R flag</A>.
+<DT>VESTA_PATH<DD>
+The path being deleted by <B>vrm</B>.
+<DT>VESTA_QUIET<DD>
+Set to 1 if <A HREF="vrm.1.html#-q">the quiet flag (-q) was given</A>, set to 0
+otherwise.
+</DL>
+<P>
+
+(Note that the environment variables are the same for both the pre and
+post trigger commands.)<P>
+
+Here are some examples using these environment variables:
+<PRE>
+[vrm pre trigger]
+// Disallow any ghosting a master object under /vesta
+50no_ghost_master = if echo $VESTA_PATH | grep -q '^/vesta/' &amp;&amp; vattrib -q -m $VESTA_PATH; then echo "Ghosting a master object not allowed"; exit 1; fi
+
+[vrm post trigger]
+// Add an attribute when an object under /vesta is ghosted
+50record_ghosting = if vattrib -q -C ghost $VESTA_PATH; then vattrib -a "deletion-time" "`date`" $VESTA_PATH; fi
+</PRE>
+
+If the <A HREF="vrm.1.html#-v">verbose trigger flag (-v)</A> is given, these
+environment variables will be printed, and each trigger command will
+be printed before executing it.  This can be useful for debugging
+trigger problems.  If both <A HREF="vrm.1.html#-v">verbose trigger flag</A> and the
+<A HREF="vrm.1.html#-Q">the query flag (-Q)</A> are given, the triggers are displayed
+in their sorted order without actually running them.  This can be used
+to find out what trigger commands are configured without actually
+running them.
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>,
+<A HREF="repository.8.html"><B>repository</B>(8)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Scott Venier, Tim Mann, and Ken Schalk.  Yes, it took three of us to
+delete enough code from other larger programs to leave this small one.
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

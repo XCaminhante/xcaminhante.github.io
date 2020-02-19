@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Function: _append</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_append(binding,binding)"></A><TT>_append(<i>b1</i>: binding,
+<i>b2</i>: binding): binding</TT></H4>
+
+<p>
+Returns a binding formed by appending <TT><i>b2</i></TT> to
+<TT><i>b1</i></TT>, but only if all the names in <TT><i>b1</i></TT>
+and <TT><i>b2</i></TT> are distinct. Otherwise, returns <TT>ERR</TT>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_append([foo=1,bar=TRUE],[msg="a string",file="build.ves"])
+    == [foo=1,bar=TRUE,msg="a string",file="build.ves"]
+
+_append([], [msg="a string",file="build.ves"])
+    == _append([msg="a string",file="build.ves"], [])
+    == [msg="a string",file="build.ves"]
+
+_append([foo=1], [foo="text",bar=TRUE]) == ERR                  // Duplicate name "foo"
+</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_append(list,list)"></A><TT>_append(<i>l1</i>: list,
+<i>l2</i>: list): list</TT></H4>
+
+<p>
+Returns a list formed by appending <TT><i>l2</i></TT> to
+<TT><i>l1</i></TT>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_append(&lt;1,2&gt;,&lt;3,4&gt;)
+    == &lt;1,2,3,4&gt;
+
+_append(&lt;&gt;, &lt;1,2,3&gt;)
+    == _append(&lt;1,2,3&gt;, &lt;&gt;)
+    == &lt;1,2,3&gt;
+</PRE>
+</BLOCKQUOTE>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

@@ -1,0 +1,57 @@
+<html><head>
+   <meta name="Author" content="Scott Venier"><title>Vesta SDL Primitive Function: _findre</title></head>
+<body bgcolor="#efefff">
+
+<h4>
+<a name="_findre(text,text,int,bool)"></a><tt>_findre(<i>haystack</i>: text, <i>needle</i>: text, <i>start</i>: int = 0): list(int)</tt></h4>
+
+<p><i>[The <tt>_findre</tt> primitive function first became officially available  in
+
+<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/release/12.pre13/13">release/12.pre13/13</a>.]</i></p>
+
+<p>
+Attempts to find matches to the regular expression <i>needle</i> in <i>haystack</i> that begins at or after position <i>start</i>.  Returns the boolean value FALSE if there was no match, otherwise returns a list of lists of integers.  The fist element of the list is a list of the start and end offsets in <i>haystack</i> of the matching substring.  Each of the additional list elements is the starting and ending offsets of matches of parenthisied sub-expressions. See examples below.<p>
+If <i>start</i> is less then 0, it is applied from the end of the string.<p>
+</p>
+
+<p>
+_findre() makes use of the <a href="http://www.pcre.org/">Perl Compatible Regular Expression library</a>.&nbsp; See the <a href="http://perldoc.perl.org/perlre.html">perlre man page</a> for a complete description of the regular expression syntax.
+</p>
+
+<blockquote>
+<pre>_findre("this is a long string", "foobar") == FALSE
+_findre("and this is a long string", "th(is)") == &lt; &lt; 4, 8 &gt;, &lt; 6, 8 &gt; &gt;
+_findre("this is a long string", "th(is) (not)*") == &lt; &lt; 0, 5 &gt;, &lt; 2, 4 &gt;, &lt; -1, -1 &gt; &gt;
+_findre("abbbbc", "a(((b){2}){2})c")) == &lt; &lt; 0, 6 &gt;, &lt; 1, 5 &gt;, &lt; 3, 5 &gt;, &lt; 4, 5 &gt; &gt;
+_findre("one last example at last", "last", 5) == &lt; &lt; 20, 24 &gt; &gt;
+</pre>
+</blockquote>
+
+<p>
+Note that if you want to use a backslash in a regular expression (e.g. for escaping a character with special meaning in a regular expression or to use one of the Perl category shortcuts like <tt>\w</tt> or <tt>\s</tt>), you must use two in the double-qouted string that represents the regular expression:
+</p>
+
+<blockquote>
+<pre>_findre("http://www.regex.com/pattern/matching.html#intro", "/(\\w+)/") == &lt; &lt; 20, 29 &gt;, &lt; 21, 28 &gt; &gt;
+</pre>
+</blockquote>
+
+<p>
+If you know Perl and are used to putting qualifiers after a regular expression (e.g. &quot;<tt>/i</tt>&quot;, &quot;<tt>/s</tt>&quot;, or &quot;<tt>/m</tt>&quot;), note that there is a syntax for adding those qualifiers inside a regular expression.  (This is part of the standard Perl regular expression syntax.)  They can even be altered in the middle of the regular expression, having them affect just part of the regular expression:
+</p>
+
+<blockquote>
+<pre>_findre("this string\nhas a newline", "string.has", 0) == FALSE
+_findre("this string\nhas a newline", "(?s)string.has", 0) == &lt; &lt; 5, 15 &gt; &gt;
+_findre("aBcD AbcD", "Ab(?i)cd") == &lt; &lt; 5, 9 &gt; &gt;
+</pre>
+</blockquote>
+
+</p>
+
+<hr>
+<i>Scott Venier
+&lt;<a href="mailto&#58;scott&#64;scooter&#46;cx">scott&#64;scooter&#46;cx</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</body></html>

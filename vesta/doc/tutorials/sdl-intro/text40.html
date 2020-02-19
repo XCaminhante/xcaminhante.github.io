@@ -1,0 +1,22 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 41</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text39.html">Back</a> <a href="text41.html">Continue</a> <a href="text60.html">Last page</a> <a href="slides.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Binding Ops: <b>bind_test.ves</b></h1><p>
+<ul><li><h2>The <b>!</b> operator tests whether a name exists in a binding and returns a boolean:</h2>
+<ul><li><b>{</b>
+<li><b>  f(b) {</b>
+<li><b>    return (if b!x then b/x else 0);</b>
+<li><b>  };</b>
+<li><b>  return &lt;f([x=1,y=2]), f([y=3,z=4])&gt;;</b>
+<li><b>}</b>
+</ul><li><h2>This returns:</h2>
+<ul><li><b>&lt;1, 0&gt;</b>
+</ul></ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

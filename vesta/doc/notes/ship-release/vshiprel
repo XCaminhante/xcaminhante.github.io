@@ -1,0 +1,62 @@
+#! /bin/sh -v
+
+# ----------------------------------------------------------------------
+# Copyright (C) 2001, Compaq Computer Corporation
+# 
+# This file is part of Vesta.
+# 
+# Vesta is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+# 
+# Vesta is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+# 
+# You should have received a copy of the GNU Lesser General Public
+# License along with Vesta; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+# ----------------------------------------------------------------------
+
+# vshiprel -- ship binaries from a vesta release built locally
+# usage: vshiprel n
+# ...where n is the release number
+# Must be run as vadmin!
+
+iroot=/vesta-srv
+rroot=/vesta/vestasys.org/vesta/release
+rel=$rroot/$1
+
+# Make sure that the requested release exists.
+if [ \! -d $rel ] ; then
+  echo 1>&2 $rel does not exist
+  exit 1
+fi
+
+# Save the existing binaries in bin-old.  Note that we use ln for the
+# binaries, but we copy the .log file.
+rm -rf $iroot/bin-old
+mkdir $iroot/bin-old
+ln $iroot/bin/* $iroot/bin-old
+if [ -f $iroot/bin/.log ]; then
+  rm -f $iroot/bin-old/.log
+  cp $iroot/bin/.log $iroot/bin-old/.log
+fi
+
+# Build the requested release, shipping it into the local bin and man.
+# Note that we build and ship the binaries last, as a new evaluator
+# might not necessarily work with the old repository and cache servers
+cd $rel
+vmake -shipfrom docs -shipto $iroot/man
+vmake -shipfrom progs -shipto $iroot/bin
+
+# Fixup permissions and symbolic links for the tool_launcher and
+# evaluator (both of which have setuid bits).
+cd $iroot/bin
+mv tool_launcher tool_launcher.nosuid
+ln -s tool_launcher.suid tool_launcher
+chmod 4755 vestaeval
+rm -f vesta
+ln -s vestaeval vesta

@@ -1,0 +1,434 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.77 [en] (X11; U; OSF1 V4.0 alpha) [Netscape]">
+</head>
+<body bgcolor="#efefff">
+
+<h1>
+Vesta SDL Primitive Functions</h1>
+
+<h3>Function Index by Category</h3>
+
+<ul>
+<li>
+Functions on integers:</li>
+
+<ul>
+<li>
+<tt><a href="_div-_mod.html#_div(int,int)">_div(<i>i1</i>: int, <i>i2</i>:
+int): int</a></tt></li>
+
+<li>
+<tt><a href="_div-_mod.html#_mod(int,int)">_mod(<i>i1</i>: int, <i>i2</i>:
+int): int</a></tt></li>
+
+<li>
+<tt><a href="_max-_min.html#_min(int,int)">_min(<i>i1</i>: int, <i>i2</i>:
+int): int</a></tt></li>
+
+<li>
+<tt><a href="_max-_min.html#_max(int,int)">_max(<i>i1</i>: int, <i>i2</i>:
+int): int</a></tt></li>
+</ul>
+
+<li>
+Functions on text:</li>
+
+<ul>
+<li>
+<tt><a href="_length.html#_length(text)">_length(<i>t</i>: text): int</a></tt></li>
+
+<li>
+<tt><a href="_elem.html#_elem(text,int)">_elem(<i>t</i>: text, <i>i</i>:
+int): text</a></tt></li>
+
+<li>
+<tt><a href="_sub.html#_sub(text,int,int)">_sub(<i>t</i>: text, <i>start</i>:
+int = 0, <i>len</i>: int = _length(<i>t</i>)): text</a></tt></li>
+
+<li>
+<tt><a href="_find.html#_find(text,text,int)">_find(<i>t</i>: text, <i>p</i>:
+text, <i>start</i>: int = 0): int</a></tt></li>
+
+<li>
+<tt><a href="_find.html#_findr(text,text,int)">_findr(<i>t</i>: text, <i>p</i>:
+text, <i>start</i>: int = 0): int</a></tt></li>
+
+<li>
+<a href="_findre.html#_findre(text,text,int,bool)"><tt>_findre(<i>haystack</i>: text, <i>needle</i>: text, <i>start</i>: int = 0): list(list(int))</tt></a> <i>[New]</i>
+</li>
+
+
+</ul>
+
+<li>
+Functions on lists:</li>
+
+<ul>
+
+<li>
+<tt><a href="_list1-_bind1.html#_list1(any)">_list1(<i>v</i>: any): list</a></tt></li>
+
+<li>
+<tt><a href="_head-_tail.html#_head(list)">_head(<i>l</i>: list): any</a></tt></li>
+
+<li>
+<tt><a href="_head-_tail.html#_tail(list)">_tail(<i>l</i>: list): list</a></tt></li>
+
+<li>
+<tt><a href="_length.html#_length(list)">_length(<i>l</i>: list): int</a></tt></li>
+
+<li>
+<tt><a href="_elem.html#_elem(list,int)">_elem(<i>l</i>: list, <i>i</i>:
+int): any</a></tt></li>
+
+<li>
+<tt><a href="_append.html#_append(list,list)">_append(<i>l1</i>: list, <i>l2</i>: list): list</a></tt></li>
+
+<li>
+<tt><a href="_sub.html#_sub(list,int,int)">_sub(<i>l</i>: list, <i>start</i>:
+int = 0, <i>len</i>: int = _length(<i>l</i>)): list</a></tt></li>
+
+<li>
+<tt><a href="_map-_par_map.html#_map(function,list)">_map(<i>f</i>: function,
+<i>l</i>:
+list): list</a></tt></li>
+
+<li>
+<tt><a href="_map-_par_map.html#_par_map(function,list)">_par_map(<i>f</i>:
+function, <i>l</i>: list): list</a></tt></li>
+</ul>
+
+<li>
+Functions on bindings:</li>
+
+<ul>
+<li>
+<tt><a href="_list1-_bind1.html#_bind1(text,any)">_bind1(<i>n</i>: text,
+<i>v</i>:
+any): binding</a></tt></li>
+
+<li>
+<tt><a href="_head-_tail.html#_head(binding)">_head(<i>b</i>: binding):
+binding</a></tt></li>
+
+<li>
+<tt><a href="_head-_tail.html#_tail(binding)">_tail(<i>b</i>: binding):
+binding</a></tt></li>
+
+<li>
+<tt><a href="_length.html#_length(binding)">_length(<i>b</i>: binding):
+int</a></tt></li>
+
+<li>
+<tt><a href="_elem.html#_elem(binding,int)">_elem(<i>b</i>: binding, <i>i</i>:
+int): binding</a></tt></li>
+
+<li>
+<tt><a href="_n-_v.html#_n(binding)">_n(<i>b</i>: binding): text</a></tt></li>
+
+<li>
+<tt><a href="_n-_v.html#_v(binding)">_v(<i>b</i>: binding): any</a></tt></li>
+
+<li>
+<tt><a href="_defined-_lookup.html#_defined(binding,text)">_defined(<i>b</i>:
+binding, <i>name</i>: text): bool</a></tt></li>
+
+<li>
+<tt><a href="_defined-_lookup.html#_lookup(binding,text)">_lookup(<i>b</i>:
+binding, <i>name</i>: text): any</a></tt></li>
+
+<li>
+<tt><a href="_append.html#_append(binding,binding)">_append(<i>b1</i>:
+binding, <i>b2</i>: binding): binding</a></tt></li>
+
+<li>
+<tt><a href="_sub.html#_sub(binding,int,int)">_sub(<i>b</i>: binding, <i>start</i>:
+int = 0, <i>len</i>: int = _length(<i>b</i>)): binding</a></tt></li>
+
+<li>
+<tt><a href="_map-_par_map.html#_map(function,binding)">_map(<i>f</i>:
+function, <i>b</i>: binding): binding</a></tt></li>
+
+<li>
+<tt><a href="_map-_par_map.html#_par_map(function,binding)">_par_map(<i>f</i>:
+function, <i>b</i>: binding): binding</a></tt></li>
+</ul>
+
+<li>
+Type manipulation functions:</li>
+
+<ul>
+<li>
+<tt><a href="_type_of-_same_type.html#_type_of(any)">_type_of(v: any): text</a></tt></li>
+
+<li>
+<tt><a href="_type_of-_same_type.html#_same_type(any,any)">_same_type(v1: any, v2: any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_bool">_is_bool(v: any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_int">_is_int(v:any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_text">_is_text(v:any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_err">_is_err(v:any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_list">_is_list(v:any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_binding">_is_binding(v:any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_closure">_is_closure(v:any): bool</a></tt></li>
+</ul>
+
+<li>
+Diagnostic functions:</li>
+
+<ul>
+<li>
+<tt><a href="_assert-_print.html#_assert(bool,any)">_assert(<i>cond</i>:
+bool, <i>msg</i>: any): bool</a></tt></li>
+
+<li>
+<tt><a href="_assert-_print.html#_print(any,int,bool)">_print(<i>v</i>:
+any, <i>dependencies</i>: int = 0, <i>verbose</i>: bool = FALSE): any</a></tt></li>
+</ul>
+
+<li>
+Tool invocation function:</li>
+
+<ul>
+<li>
+<pre><a href="_run_tool.html#_run_tool">_run_tool(
+  platform:          text,
+  command:           list(text),
+  stdin:             text = "",
+  stdout_treatment:  text = "report",
+  stderr_treatment:  text = "report",
+  status_treatment:  text = "report_nocache",
+  signal_treatment:  text = "report_nocache",
+  fp_content              = -2,
+  wd:                text = ".WD",
+  existing_writable: bool = FALSE): binding</a></pre>
+</li>
+</ul>
+
+
+
+<li>
+Special purpose functions:
+
+</li>
+
+<ul>
+
+<li>
+<tt><a href="_model_name-_fingerprint.html#_model_name">_model_name(<i>m</i>: function): text</a></tt>
+</li>
+
+<li>
+<tt><a href="_model_name-_fingerprint.html#_fingerprint">_fingerprint(<i>v</i>: any): text</a></tt>
+</li>
+
+</ul>
+
+</ul>
+
+<h3>Alphabetic Index</h3>
+
+<ul>
+
+<li>
+<tt><a href="_append.html#_append(list,list)">_append(<i>l1</i>: list, <i>l2</i>: list): list</a></tt></li>
+
+<li>
+<tt><a href="_append.html#_append(binding,binding)">_append(<i>b1</i>:
+binding, <i>b2</i>: binding): binding</a></tt></li>
+
+<li>
+<tt><a href="_assert-_print.html#_assert(bool,any)">_assert(<i>cond</i>:
+bool, <i>msg</i>: any): bool</a></tt></li>
+
+<li>
+<tt><a href="_list1-_bind1.html#_bind1(text,any)">_bind1(<i>n</i>: text,
+<i>v</i>:
+any): binding</a></tt></li>
+
+<li>
+<tt><a href="_defined-_lookup.html#_defined(binding,text)">_defined(<i>b</i>:
+binding, <i>name</i>: text): bool</a></tt></li>
+
+<li>
+<tt><a href="_div-_mod.html#_div(int,int)">_div(<i>i1</i>: int, <i>i2</i>:
+int): int</a></tt></li>
+
+<li>
+<tt><a href="_elem.html#_elem(text,int)">_elem(<i>t</i>: text, <i>i</i>:
+int): text</a></tt></li>
+
+<li>
+<tt><a href="_elem.html#_elem(list,int)">_elem(<i>l</i>: list, <i>i</i>:
+int): any</a></tt></li>
+
+<li>
+<tt><a href="_elem.html#_elem(binding,int)">_elem(<i>b</i>: binding, <i>i</i>:
+int): binding</a></tt></li>
+
+<li>
+<tt><a href="_find.html#_find(text,text,int)">_find(<i>t</i>: text, <i>p</i>:
+text, <i>start</i>: int = 0): int</a></tt></li>
+
+<li>
+<tt><a href="_find.html#_findr(text,text,int)">_findr(<i>t</i>: text, <i>p</i>:
+text, <i>start</i>: int = 0): int</a></tt></li>
+
+<li>
+<tt><a href="_model_name-_fingerprint.html#_fingerprint">_fingerprint(<i>v</i>: any): text</a></tt>
+</li>
+
+<li>
+<tt><a href="_head-_tail.html#_head(list)">_head(<i>l</i>: list): any</a></tt></li>
+
+<li>
+<tt><a href="_head-_tail.html#_head(binding)">_head(<i>b</i>: binding):
+binding</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_binding">_is_binding(v:any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_bool">_is_bool(v: any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_closure">_is_closure(v:any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_err">_is_err(v:any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_int">_is_int(v:any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_list">_is_list(v:any): bool</a></tt></li>
+
+<li>
+<tt><a href="_is_type.html#_is_text">_is_text(v:any): bool</a></tt></li>
+
+<li>
+<tt><a href="_length.html#_length(text)">_length(<i>t</i>: text): int</a></tt></li>
+
+<li>
+<tt><a href="_length.html#_length(list)">_length(<i>l</i>: list): int</a></tt></li>
+
+<li>
+<tt><a href="_length.html#_length(binding)">_length(<i>b</i>: binding):
+int</a></tt></li>
+
+<li>
+<tt><a href="_list1-_bind1.html#_list1(any)">_list1(<i>v</i>: any): list</a></tt></li>
+
+<li>
+<tt><a href="_defined-_lookup.html#_lookup(binding,text)">_lookup(<i>b</i>:
+binding, <i>name</i>: text): any</a></tt></li>
+
+<li>
+<tt><a href="_map-_par_map.html#_map(function,list)">_map(<i>f</i>: function,
+<i>l</i>:
+list): list</a></tt></li>
+
+<li>
+<tt><a href="_map-_par_map.html#_map(function,binding)">_map(<i>f</i>:
+function, <i>b</i>: binding): binding</a></tt></li>
+
+<li>
+<tt><a href="_max-_min.html#_max(int,int)">_max(<i>i1</i>: int, <i>i2</i>:
+int): int</a></tt></li>
+
+<li>
+<tt><a href="_max-_min.html#_min(int,int)">_min(<i>i1</i>: int, <i>i2</i>:
+int): int</a></tt></li>
+
+<li>
+<tt><a href="_div-_mod.html#_mod(int,int)">_mod(<i>i1</i>: int, <i>i2</i>:
+int): int</a></tt></li>
+
+<li>
+<tt><a href="_model_name-_fingerprint.html#_model_name">_model_name(<i>m</i>: function): text</a></tt>
+</li>
+
+<li>
+<tt><a href="_n-_v.html#_n(binding)">_n(<i>b</i>: binding): text</a></tt></li>
+
+<li>
+<tt><a href="_map-_par_map.html#_par_map(function,list)">_par_map(<i>f</i>:
+function, <i>l</i>: list): list</a></tt></li>
+
+<li>
+<tt><a href="_map-_par_map.html#_par_map(function,binding)">_par_map(<i>f</i>:
+function, <i>b</i>: binding): binding</a></tt></li>
+
+<li>
+<tt><a href="_assert-_print.html#_print(any,int,bool)">_print(<i>v</i>:
+any, <i>dependencies</i>: int = 0, <i>verbose</i>: bool = FALSE): any</a></tt></li>
+
+<li>
+<pre><a href="_run_tool.html#_run_tool">_run_tool(
+  platform:          text,
+  command:           list(text),
+  stdin:             text = "",
+  stdout_treatment:  text = "report",
+  stderr_treatment:  text = "report",
+  status_treatment:  text = "report_nocache",
+  signal_treatment:  text = "report_nocache",
+  fp_content              = -2,
+  wd:                text = ".WD",
+  existing_writable: bool = FALSE): binding</a></pre>
+</li>
+
+<li>
+<tt><a href="_type_of-_same_type.html#_same_type(any,any)">_same_type(v1: any, v2: any): bool</a></tt></li>
+
+<li>
+<tt><a href="_sub.html#_sub(text,int,int)">_sub(<i>t</i>: text, <i>start</i>:
+int = 0, <i>len</i>: int = _length(<i>t</i>)): text</a></tt></li>
+
+<li>
+<tt><a href="_sub.html#_sub(list,int,int)">_sub(<i>l</i>: list, <i>start</i>:
+int = 0, <i>len</i>: int = _length(<i>l</i>)): list</a></tt></li>
+
+<li>
+<tt><a href="_sub.html#_sub(binding,int,int)">_sub(<i>b</i>: binding, <i>start</i>:
+int = 0, <i>len</i>: int = _length(<i>b</i>)): binding</a></tt></li>
+
+<li>
+<tt><a href="_head-_tail.html#_tail(list)">_tail(<i>l</i>: list): list</a></tt></li>
+
+<li>
+<tt><a href="_head-_tail.html#_tail(binding)">_tail(<i>b</i>: binding):
+binding</a></tt></li>
+
+<li>
+<tt><a href="_type_of-_same_type.html#_type_of(any)">_type_of(v: any): text</a></tt></li>
+
+<li>
+<tt><a href="_n-_v.html#_v(binding)">_v(<i>b</i>: binding): any</a></tt></li>
+
+</ul>
+
+
+
+
+<hr WIDTH="100%">
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <a href="../index.html">Vesta SDL Programmer's Reference</a></i>
+</body>
+</html>

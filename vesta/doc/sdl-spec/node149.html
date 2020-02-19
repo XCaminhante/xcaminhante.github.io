@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Filename Interpretation</TITLE>
+<META NAME="description" CONTENT="Filename Interpretation">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="previous" HREF="node148.html">
+<LINK REL="up" HREF="node133.html">
+<LINK REL="next" HREF="node150.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2393"
+  HREF="node150.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2389"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2385"
+  HREF="node148.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2391"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2394"
+  HREF="node150.html">Primitives</A>
+<B> Up:</B> <A NAME="tex2html2390"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2386"
+  HREF="node148.html">Imports</A>
+ &nbsp <B>  <A NAME="tex2html2392"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION0013331600000000000000"></A><A NAME="sect:SDL-filename-interp"></A>
+<BR>
+Filename Interpretation
+</H3>
+
+<P>
+The evaluation rules for the Files and Imports clauses do not specify
+how the sequence of Arcs and Delims making up a DelimPath is converted
+into a filename in the underlying file system. While this is somewhat
+system-dependent, it is nevertheless intended to be intuitive. In
+particular,
+
+<P>
+
+<UL>
+<LI>Multiple adjacent Delims are replaced by a single
+one. (The grammar above doesn't permit adjacent Delims, but they can
+be produced by the desugaring rules.)
+
+<P>
+</LI>
+<LI>The Vesta SDL syntax allows the arbitrary intermingling of
+``<code>/</code>'' and ``<code>\</code>'' as arc separators. However,
+the implementation actually requires that Vesta programs use one or
+the other uniformly. When creating a filename from a sequence of Arcs
+and Delims, the implementation inserts the appropriate arc separator
+required by the underlying file system. The choice is not influenced
+by the choice of Delim that appears in the Vesta SDL program.
+
+<P>
+</LI>
+<LI>The grammar permits an Arc to be an arbitrary Text.  An Arc in a
+filename, however, is forbidden to contain a Delim character (i.e.,
+forward or backward slash), and the Arcs ``<TT>..</TT>'' and
+``<TT>.</TT>'' are forbidden in filenames as well.  In particular,
+``<TT>..</TT>'' cannot be used to mean <EM>parent directory</EM> and
+``<TT>.</TT>'' cannot be used to mean <EM>current directory</EM>.
+The ``<TT>..</TT>'' notation is forbidden for technical reasons
+related to Vesta caching, while the ``<TT>.</TT>'' notation is
+simply unimplemented.  However, the empty Arc ``'' can be used to
+denote the current directory.
+</LI>
+</UL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2393"
+  HREF="node150.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2389"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2385"
+  HREF="node148.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2391"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2394"
+  HREF="node150.html">Primitives</A>
+<B> Up:</B> <A NAME="tex2html2390"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2386"
+  HREF="node148.html">Imports</A>
+ &nbsp <B>  <A NAME="tex2html2392"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

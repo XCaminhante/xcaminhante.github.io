@@ -1,0 +1,582 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vcreate - Create a Vesta package</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vcreate(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vcreate</B> - Create a new package in the Vesta repository
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vcreate</B> [<A HREF="vcreate.1.html#-q">-q</A>] [<A HREF="vcreate.1.html#-Q">-Q</A>]
+[<A HREF="vcreate.1.html#-v">-v</A>]
+[<A HREF="vcreate.1.html#-aA">-a</A> | <A HREF="vcreate.1.html#-aA">-A</A>]  [<A HREF="vcreate.1.html#-f">-f</A>] 
+[<A HREF="vcreate.1.html#-o">-o <I>old-version</I></A> | <A HREF="vcreate.1.html#-O">-O</A>] 
+[<A HREF="vcreate.1.html#-m">-m <I>message</I></A> | <A HREF="vcreate.1.html#-M">-M</A>]
+[<A HREF="vcreate.1.html#-h">-h <I>hints</I></A>]
+[<A HREF="vcreate.1.html#-R">-R <I>repos</I></A>]
+<I>package</I><P>
+
+In the most common usage, only the <I>package</I> argument is given.
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vcreate.1.html#Description">Description</A>
+<LI> <A HREF="vcreate.1.html#Flags">Flags</A>
+<LI> <A HREF="vcreate.1.html#Message">Message Entry</A>
+<LI> <A HREF="vcreate.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vcreate.1.html#Triggers">Triggers</A>
+<LI> <A HREF="vcreate.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vcreate.1.html#Env_Vars">Environment Variables</A>
+<LI> <A HREF="vcreate.1.html#See_Also">See Also</A>
+<LI> <A HREF="vcreate.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+See the <A HREF="vesta-intro.1.html">vesta-intro</A> man page's
+<A HREF="vesta-intro.1.html#Terminology">Terminology</A> section
+for definitions of terms, and its
+<A HREF="vesta-intro.1.html#Name_Interpretation">Name Interpretation</A>
+section for an explanation of how names are looked up.<P>
+
+The <B>vcreate</B> command creates a new package in the Vesta
+repository.  The package initially is not checked out;
+use <A HREF="vcheckout.1.html"><B>vcheckout</B>(1)</A> to check it out
+and begin creating version 1.<P>
+
+By default, the new package initially contains version 0 as an empty
+directory.  If an old version is specified with the -o flag, it is
+copied into the new package as version 0.<P>
+
+In more detail, <B>vcreate</B>:
+<UL>
+<LI> Prompts the user to enter a package descriptive <I>message</I>.
+(<A HREF="vcreate.1.html#Message">See the "Message Entry" section below.</A>)
+<LI> Creates a new appendable directory named 
+<I>package</I>, containing an appendable subdirectory named <TT>checkout</TT>.  
+<LI> Creates a master stub named <TT>latest</TT> in each of these
+directories.
+<LI> Binds the name <I>package</I><TT>/0</TT> to the same immutable
+directory named by <I>old-version</I>, if specified, or to an empty
+directory.
+<LI> Sets attributes as follows:
+<DL>
+<DT>On <I>package</I><DD>
+<TT>created-by</TT>, <TT>creation-time</TT>, <TT>old-version</TT> if specified, 
+<TT>type</TT> (= "package"), and optionally <TT>message</TT>.
+<DT>On <I>package</I><TT>/latest</TT><DD>
+<TT>symlink-to</TT> (= $LAST).
+<DT>On <I>package</I><TT>/checkout/latest</TT><DD>
+<TT>symlink-to</TT> (= $LAST).
+<DT>On <I>package</I><TT>/0</TT><DD>
+<TT>old-version</TT>, if specified.
+<DT>On <I>old-version</I>, if specified<DD>
+<TT>next-packages</TT>
+</DL>
+</UL>
+<P>
+
+<IMG SRC="vcreate.gif" ALT="vcreate figure"
+WIDTH=337 HEIGHT=276 BORDER=0>
+<P>
+
+If the name <I>package</I> or <I>old-version</I> is unqualified (does not
+have "<TT>/</TT>", "<TT>.</TT>", or "<TT>..</TT>"  as its first arc), it is interpreted
+relative to the site's default directory of packages,
+<A HREF="vcreate.1.html#Configuration"><I>DefaultPackageParent</I></A>.<P>
+
+You must have write access to the directory in which <I>package</I> is
+to be placed. The newly created package is owned by you, but has
+access permissions inherited from its parent directory.<P>
+
+In the presence of replication, package creation cannot always be
+carried out entirely in the local repository.  In particular, the
+local repository may contain no replica of one of the needed objects,
+or it may contain a non-master replica where the master replica is
+needed.  Also, the <A HREF="vcreate.1.html#-aA">-a/-A</A> flags control which repository
+<B>vcreate</B> will give mastership of the created package.  (See
+<A HREF="vrepl.1.html"><B>vrepl</B>(1)</A> and
+<A HREF="vmaster.1.html"><B>vmaster</B>(1)</A> for more information about
+replication and mastership.)  The exact steps are slightly different
+depending on which repository has the master copy of the parent
+directory of <I>package</I> and whether the local repository is to have
+the master copy of the created package (controlled by the
+<A HREF="vcreate.1.html#-aA">-a/-A</A> flags).<P>
+
+If the parent directory of <I>package</I> is mastered locally,
+<B>vcreate</B> creates the package in the local repository (and the
+<A HREF="vcreate.1.html#-aA">-a/-A</A> flags have no effect).  However, if
+<I>old-version</I> was specified and does not exist locally,
+<B>vcreate</B> searches for a copy and replicates it to the local
+repository before creating the package.<P>
+
+If the parent directory of <I>package</I> is not mastered locally,
+<B>vcreate</B> may give mastership of <I>package</I> to the local
+repository, if either the <A HREF="vcreate.1.html#-aA">-a</A> flag is specified or
+<A HREF="vcreate.1.html#vcreate_acquires"><I>[UserInterface]vcreate_acquires</I></A> is set
+to true.  If <I>old-version</I> was specified and does not exist
+locally, <B>vcreate</B> searches for a copy and replicates it to the
+local repository.  <B>vcreate</B> then creates the package remotely in
+the master copy (except for inserting <I>old-version</I>), replicates it
+to the local repository, transfers mastership, and finally inserts
+<I>old-version</I>.<P>
+
+If the <A HREF="vcreate.1.html#-aA">-A</A> flag is specified or
+<A HREF="vcreate.1.html#vcreate_acquires"><I>[UserInterface]vcreate_acquires</I></A> is set
+to false and the parent directory of <I>package</I> is mastered
+remotely, <B>vcreate</B> will leave mastership of <I>package</I> with the
+master repository of its parent directory.  In this case, if
+<I>old-version</I> was specified and does not exist in the remote master
+repository, <B>vcreate</B> searches for a copy and replicates it to that
+repository.  <B>vcreate</B> then creates the package remotely in the
+master copy (including inserting <I>old-version</I>), and replicates it
+to the local repository.<P>
+
+<B>vcreate</B> returns status 0 for success, 1 for parameter syntax
+errors, or 2 for more serious errors.  (Note that if any of the
+<A HREF="vcreate.1.html#Triggers">trigger commands</A> fail, <B>vcreate</B> returns status
+2.)
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-q">-q</A><DD>
+Quiet; suppress printing out what is being done.
+<DT><A NAME="-Q">-Q</A><DD>
+Query; print out what the command would do, but don't do it.
+<DT><A NAME="-o">-o</A> <I>old-version</I><DD>
+Specifies the initial content (version 0) for the new package.
+Must be an immutable directory, typically a version of some other package.
+By default, version 0 is an empty directory.  Hint: if you are using this flag,
+you might want to consider using <A HREF="vbranch.1.html"><B>vbranch</B>(1)</A>
+instead.  Perhaps you are really creating a branch of an existing package,
+not a completely new package.
+<DT><A NAME="-O">-O</A><DD>
+Create version 0 as an empty directory in the new package (default).
+<DT><A NAME="-m">-m</A> <I>message</I><DD>
+Specify the package descriptive message.  If the <I>message</I> argument
+is <TT>"-"</TT>, the user will be prompted to enter a message.
+(<A HREF="vcreate.1.html#Message">See the "Message Entry" section below.</A>)  If
+<I>message</I> is any other text, it will be used as the package
+descriptive message without prompting the user.  If neither the -m
+flag nor the <A HREF="vcreate.1.html#-M">-M flag</A> is used, the default is "<TT>-m -</TT>"
+(although this can be changed with the
+<A HREF="vcreate.1.html#Configuration"><TT>[UserInterface]vcreate_message</TT>
+configuration setting</A>).
+<DT><A NAME="-M">-M</A><DD>
+Omit the package descriptive message.
+<DT><A NAME="-h">-h</A> <I>hints</I><DD>
+If <B>vcreate</B> fails to find the master copy of a directory it needs
+to modify (or fails to find any copy of the old version) in either the
+local repository or any of those repositories listed in
+<A HREF="vcreate.1.html#Configuration"><I>[UserInterface]DefaultHints</I></A>, you can
+suggest additional repositories for it to look in using this option.
+The <I>hints</I> argument is a comma- or space-separated list of
+repositories, specified by host name and TCP port number in the format
+<I>host</I><TT>:</TT><I>port</I>.  The <TT>:</TT><I>port</I> portion may be omitted;
+it defaults to
+<A HREF="vcreate.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><A NAME="-R">-R</A> <I>repos</I><DD>
+Create the package in <I>repos</I> instead of the default local
+repository.  The repository is
+specified by host name and TCP port number 
+in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it
+defaults to <A HREF="vcreate.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><A NAME="-aA">-a or -A</A><DD>
+Do (-a) or do not (-A) acquire mastership of the created package when
+the local repository doesn't have mastership of the parent directory.
+The default is controlled by the
+<A HREF="vcreate.1.html#vcreate_acquires"><I>[UserInterface]vcreate_acquires</I></A>
+configuration setting.  (Note that if the parent directory of
+<I>package</I> is mastered in the local repository, these flags have no
+effect.)
+<DT><A NAME="-f">-f</A><DD>
+Force; omit sanity checking.  If the -f flag is not given, the new
+package's parent directory must be of type "package-parent" (that is,
+its <TT>type</TT> attribute must include this value).  To create a new
+directory that can hold packages, use mkdir(1), then use
+<A HREF="vattrib.1.html"><B>vattrib</B>(1)</A> to add the necessary attribute,
+or use <A HREF="vmkdir.1.html"><B>vmkdir</B>(1)</A> with it's
+<A HREF="vmkdir.1.html#-p">-p flag</A>.
+<DT><A NAME="-v">-v</A><DD>
+Displays extra information about <A HREF="vcreate.1.html#Triggers">triggers</A>.  Before
+executing any trigger commands, the environment variables used to
+provide information to them are printed.  Also, each trigger setting
+is printed before the command is executed.  This can be used to help
+debug trigger problems.  When used with <A HREF="vcreate.1.html#-Q">the query flag
+(-Q)</A>, the triggers are displayed in their sorted order without
+actually running them.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Message">Message Entry</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vcreate</B>'s default behavior is to prompt the user for a
+<I>package descriptive message</I>.  If the <TT>EDITOR</TT>
+<A HREF="vcreate.1.html#Env_Vars">environment variable</A> is set, the external editor
+program it specifies is invoked to edit the message.  Otherwise, the
+message is read from standard input.  A prompt is printed if the
+standard input is a terminal:
+<PRE>
+Enter package description, terminated with ^D or . on a line by itself
+: 
+</PRE>
+
+If the standard input is not a terminal (e.g. it was redirected to a
+file or a pipe), no prompt will be printed, but the standard input
+will still be used as the package descriptive message.  (Note that
+when <TT>EDITOR</TT> is set, the external editor is invoked even if the
+standard input is not a terminal.)<P>
+
+When using an external editor, the initial text will be "<TT>&lt;enter
+package description here&gt;</TT>".  If the initial text is left unedited or
+the user enters an empty message, they will be asked for confirmation
+before completing the operation:
+<PRE>
+Empty package description.  Continue (y/n)? 
+</PRE>
+
+This is the only chance to abort when <TT>EDITOR</TT> is set.  (So if you
+change your mind and are using an external editor, exit the editor
+either with the message unedited or with an empty message.)<P>
+
+The <A HREF="vcreate.1.html#-m">-m flag</A> can be used to specify the package descriptive
+message on the command line.  The <A HREF="vcreate.1.html#-M">-M flag</A> can be used to
+omit the package descriptive message.  In either of these cases, no
+external editor will be invoked, and the standard input will not be
+read.<P>
+
+The default of prompting for a package descriptive message can be
+disabled with the
+<A HREF="vcreate.1.html#Configuration"><TT>[UserInterface]vcreate_message</TT>
+configuration setting</A>.  However, this can be overridden on the
+command line with "<TT>-m -</TT>", which will always cause <B>vcreate</B> to
+prompt for a package descriptive message.
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>AppendableRootName</I><DD>
+The filename under which the global root directory of
+Vesta repositories is mounted.  Ordinarily set to <TT>/vesta</TT>.
+<DT><I>MutableRootName</I><DD>
+The filename under which the local tree of mutable directories provided
+by Vesta is mounted.  Ordinarily set to <TT>/vesta-work</TT>.
+<DT><I>DefaultPackageParent</I><DD>
+The default directory to put new packages in.  Ordinarily a
+subdirectory of the appendable root, named with an Internet domain name
+belonging to the local site.
+<DT><I>DefaultWorkParent</I><DD>
+The default parent directory for mutable working directory trees belonging to
+individual users.  Ordinarily the same as the mutable root.
+<DT><I>realm</I><DD>
+Global user names are formed by appending <TT>@</TT><I>realm</I> to the
+local name.  This setting is optional.  If it is not set,
+<TT>[Repository]realm</TT> is used.
+<DT><I>TimeFormat</I><DD>
+A format string for <B>strftime</B>(3) to produce time strings for Vesta
+attributes.  A common setting is "%a %b %e %T %Z %Y".
+<DT><A NAME="vcreate_acquires"><I>vcreate_acquires</I></A><DD>
+Sets the default policy for which repository should have mastership of
+the created package when the master repository of the parent directory
+is remote.  If it is equal (witout regard to case) to "yes", "on", or
+"true", or can be parsed as an integer that is non-zero, the local
+repository will acquire mastership (as if the <A HREF="vcreate.1.html#-aA">-a</A> flag had
+been given).  If it is equal (witout regard to case) to "no", "off",
+or "false", or can be parsed as an integer that is zero, the master
+repository of the parent directory will retain mastership of the
+created package (as if the <A HREF="vcreate.1.html#-aA">-A</A> flag had been given).  If
+not set, defaults to "false".
+<DT><I>DefaultHints</I><DD>
+A comma- or space-separated list of additional repositories to search
+for the master copy of an object and for a copy of <I>old-version</I>.
+Each repository is specified by host name and TCP port number in the
+format <I>host</I><TT>:</TT><I>port</I>.  The <TT>:</TT><I>port</I> portion may be
+omitted; it defaults to <I>[Repository]VestaSourceSRPC_port</I>.  This
+setting is optional.
+<DT><I>vcreate_message</I><DD>
+A boolean configuration setting.  Determines whether <B>vcreate</B> will
+prompt the user for a descriptive message.  If it is equal (without
+regard to case) to "yes", "on", or "true", or can be parsed as an
+integer that is non-zero, <B>vcreate</B> will ask the user to enter a
+message (as if "<TT><A HREF="vcreate.1.html#-m">-m</A> -</TT>" had been given on the command
+line).  If it is equal (without regard to case) to "no", "off", or
+"false", or can be parsed as an integer that is zero, <B>vcreate</B>
+will not prompt for a message (as if the <A HREF="vcreate.1.html#-M">-M</A> flag had been
+given).  If not set, defaults to "true".
+</DL>
+<P>
+
+The following values are obtained from the <TT>[Repository]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+The default TCP port number for repositories.
+<DT><I>realm</I><DD>
+Global user names are formed by appending <TT>@</TT><I>realm</I> to the
+local name.  This setting is only used if <TT>[UserInterface]realm</TT> is
+not set.
+</DL>
+<P>
+
+Settings in the <TT>[vcreate pre trigger]</TT> and <TT>[vcreate post
+trigger]</TT> sections of the configuration file are used as commands to
+be run before and after the repository is modified.  See
+<A HREF="vcreate.1.html#Triggers">the next section</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Triggers">Triggers</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Users can configure commands in <A HREF="vesta.cfg.5.html">the Vesta
+configuration file (vesta.cfg)</A> to be executed before and after
+<B>vcreate</B> modifies the repository.  Each setting in the
+<TT>[vcreate pre trigger]</TT> section specifies a command to be run
+before any action is taken, and each setting in the <TT>[vcreate post
+trigger]</TT> section specifies a command to be run after all actions are
+complete.<P>
+
+The value of each setting specifies a command to run.  The names of
+the settings define the order in which these commands are run.  The
+setting names are sorted as strings, but comparing embedded sequences
+of digits as decimal integers.  (So, for example "foo_10_bar" will
+sort after "foo_2_bar".)  The suggested naming convention for trigger
+settings is to start with an integer, follow with a descriptive name,
+and follow that with any other text.  (This is based on the convention
+used for System V style init script links typically stored in
+<TT>/etc/rc<I><B>N</B></I>.d</TT>.)<P>
+
+Here's a simple example of how we suggest naming trigger settings, and
+how they are ordered for execution:
+<PRE>
+[vcreate pre trigger]
+100world = echo World!
+9tada    = echo Tada:
+50hello  = echo Hello,
+</PRE>
+
+Because these all start with numbers, they will be executed in the
+order "9tada", "50hello", "100world".  The output will look like this:
+<PRE>
+% vcreate /vesta/example.com/...
+Tada:
+Hello,
+World!
+Creating package /vesta/example.com/...
+</PRE>
+
+Trigger commands are executed with <TT>system</TT>(3).  On most operating
+systems this means "<TT>/bin/sh -c <I>command</I></TT>", so simple in-line
+shell scripts can be used.  (Note that each is executed in its own
+shell process, so environment variables set during one trigger command
+<I>will not propagate to subsequent ones</I>.)<P>
+
+If any of the commands in the <TT>[vcreate pre trigger]</TT> section exit
+with error (non-zero) status or are terminated by a signal
+(e.g. segmentation fault, abort), <B>vcreate</B> will exit without
+creating a package.<P>
+
+The commands in the <TT>[vcreate post trigger]</TT> section will only be
+executed if a new package is successfully created.  If <B>vcreate</B>
+fails with an error, the commands in the <TT>[vcreate post trigger]</TT>
+section <I>will not be executed</I>.<P>
+
+Note that all the trigger commands (both pre and post) are executed
+sequentially.  Once a trigger command is started, nothing else happens
+until it completes.  If any of the pre trigger commands runs forever,
+<B>vcreate</B> will not create a package.  If any of the post trigger
+commands runs forever, <B>vcreate</B> will not complete.  (In other
+words, <I>a trigger command that hangs will cause <B>vcreate</B> to
+hang</I>.)  If any of the pre or post trigger commands exit with error
+status or are terminated by a signal, <B>vcreate</B> will exit without
+running any more commands from those sections.  (In other words, <I>a
+trigger command that fails will prevent further trigger commands from
+being run</I>.)<P>
+
+If the <A HREF="vcreate.1.html#-Q">the query flag (-Q)</A> is given, the trigger commands
+will not actually be run.<P>
+
+Information about what <B>vcreate</B> is going to do or has just done
+is provided to the trigger commands through the following environment
+variables:<P>
+
+<DL>
+<DT>VESTA_TOOL<DD>
+The name of the Vesta tool the trigger command has been invoked from.
+(For <B>vcreate</B>, this will always be "vcreate".)
+<DT>VESTA_REPOS<DD>
+The local repository (<I>host</I><TT>:</TT><I>port</I>) <B>vcreate</B>
+communicates with (either the default from the configuration file or
+the one specified with the <A HREF="vcreate.1.html#-R">-R flag</A>.
+<DT>VESTA_MASTER_HINTS<DD>
+Additional repositories which may have been consulted in order to find
+the master copy of the parent directory of the package.  This is the
+combination of the argument to the <A HREF="vcreate.1.html#-h">-h flag</A> (if it was
+used) and the hints from the
+<A HREF="vcreate.1.html#Configuration"><I>[UserInterface]DefaultHints</I> configuration
+setting</A> (if set in the configuration file).
+<DT>VESTA_MASTER_REMOTE<DD>
+Set to 1 if the parent directory of the package created by
+<B>vcreate</B> is mastered in a remote repository, set to 0 otherwise.
+If this is set to 1, the package will be created in the remote
+master ($VESTA_MASTER_REPOS) and replicated to the local repository
+($VESTA_REPOS).
+<DT>VESTA_MASTER_REPOS<DD>
+The repository (<I>host</I><TT>:</TT><I>port</I>) with mastership of the
+parent directory of the package created by <B>vcreate</B>.  If this is
+different from $VESTA_REPOS, $VESTA_MASTER_REMOTE will be set to 1 and
+the package is created at the remote master repository.
+<DT>VESTA_PACKAGE<DD>
+The package created by <B>vcreate</B>.
+<DT>VESTA_OLD_VERSION<DD>
+The path to the version the package will be based upon (specified with
+the <A HREF="vcreate.1.html#-o">-o flag</A>).  This will become version 0 within the
+created package.
+<DT>VESTA_OMIT_OLD_VERSION<DD>
+Set to 1 if there is no old version (which is the default unless the
+<A HREF="vcreate.1.html#-o">-o flag</A> is given), set to 0 otherwise.
+<DT>VESTA_OLD_VERSION_REMOTE<DD>
+Set to 1 if the old version was not found in the master repository of
+the package parent ($VESTA_MASTER_REPOS), set to 0 otherwise.  If set
+to 1, the old version will be replicated from the repository where it
+was found ($VESTA_OLD_VERSION_REPOS) to the master repository of the
+package parent directory before creating the package.
+<DT>VESTA_OLD_VERSION_REPOS<DD>
+The repository (<I>host</I><TT>:</TT><I>port</I>) where a replica of the old
+version was found.  If this is different from $VESTA_MASTER_REPOS,
+$VESTA_OLD_VERSION_REMOTE will be 1.  If there is no old version, this
+will be set to the empty string.
+<DT>VESTA_ACQUIRE_MASTERSHIP<DD>
+Set to 1 if <B>vcreate</B> is creating a package at a remote master
+repository and acquiring mastership of it in the local repository, set
+to 0 otherwise.  (If $VESTA_REPOS is the same as $VESTA_MASTER_REPOS
+this will be 0.)  See <A HREF="vcreate.1.html#-aA">the description of the -a/-A flags
+above</A>.
+<DT>VESTA_MESSAGE<DD>
+The package description message, or the empty string if there is no
+description message.
+<DT>VESTA_OMIT_MESSAGE<DD>
+Set to 1 if there is no package description message (if <A HREF="vcreate.1.html#-M">the
+-M flag</A> was given or
+<A HREF="vcreate.1.html#Configuration"><TT>[UserInterface]vcreate_message</TT></A> was used to
+disable package messages), set to 0 otherwise.
+<DT>VESTA_QUIET<DD>
+Set to 1 if <A HREF="vcreate.1.html#-q">the quiet flag (-q) was given</A>, set to 0
+otherwise.
+<DT>VESTA_FORCE<DD>
+Set to 1 if <A HREF="vcreate.1.html#-f">the force flag (-f) was given</A>, set to 0
+otherwise.
+</DL>
+<P>
+
+(Note that the environment variables are the same for both the pre and
+post trigger commands.)<P>
+
+Here are some examples using these environment variables:
+<PRE>
+[vcreate pre trigger]
+// If the enclosing directory has a non-empty "obsolete" attribute,
+// prevent new packages from being created there.
+50no_obsolete = parent=`dirname $VESTA_PACKAGE` if vattrib -q -G obsolete $parent &gt; /dev/null; then echo "Error: $parent is marked obsolete"; exit 1; fi
+
+[vcreate post trigger]
+// Replicate all new packages to known peer repositories
+50repl = for r in $VESTA_MASTER_HINTS; do vrepl -s $VESTA_REPOS -d $r -e+ $VESTA_PACKAGE; done
+</PRE>
+
+If the <A HREF="vcreate.1.html#-v">verbose trigger flag (-v)</A> is given, these
+environment variables will be printed, and each trigger command will
+be printed before executing it.  This can be useful for debugging
+trigger problems.  If both <A HREF="vcreate.1.html#-v">verbose trigger flag</A> and the
+<A HREF="vcreate.1.html#-Q">the query flag (-Q)</A> are given, the triggers are displayed
+in their sorted order without actually running them.  This can be used
+to find out what trigger commands are configured without actually
+running them.
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vcreate</B> is atomic if it modifies only the local
+repository.  If a remote repository must be modified, however, the
+action performed at each repository is individually atomic, but
+<B>vcreate</B> can die between the actions on the remote and local
+repositories.  To make this problem less likely to occur, <B>vcreate</B>
+ignores <TT>SIGINT</TT> (the ^C interrupt) during the critical section.
+</BLOCKQUOTE>
+
+<H3><A NAME="Env_Vars">Environment Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><TT>VESTACONFIG</TT><DD>
+If set, specifies the Vesta configuration file to be used. See
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A>.
+<DT><TT>EDITOR</TT><DD>
+If set, specifies the editor to use for
+<A HREF="vcreate.1.html#Message">editing the package descriptive message</A>.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>,
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Select</TITLE>
+<META NAME="description" CONTENT="Select">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node140.html">
+<LINK REL="previous" HREF="node138.html">
+<LINK REL="up" HREF="node133.html">
+<LINK REL="next" HREF="node140.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2275"
+  HREF="node140.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2271"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2265"
+  HREF="node138.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2273"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2276"
+  HREF="node140.html">Block</A>
+<B> Up:</B> <A NAME="tex2html2272"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2266"
+  HREF="node138.html">Binding</A>
+ &nbsp <B>  <A NAME="tex2html2274"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001333600000000000000">
+Select</A>
+</H3>
+
+<P>
+<
+<P>
+<PRE>
+Select     ::= Primary Selector GenArc
+Selector   ::= Delim | !
+GenArc     ::= Arc | $ Id | $ ( Expr ) | % Expr %
+Arc        ::= Id | Integer | Text
+</PRE>
+
+<P>
+A Select expression denotes a selection from a binding, so the
+Primary must evaluate to a binding value.
+
+<P>
+<
+<P>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">Primary Selector <TT>%</TT> Expr <TT>%</TT></TD>
+<TD ALIGN="LEFT">desugars to</TD>
+<TD ALIGN="LEFT">Primary Selector <TT>$</TT> <TT>(</TT> Expr <TT>)</TT></TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+<
+<P>
+The Delim syntax selects a value out of a binding by name.
+
+<P>
+<PRE>
+Eval( Primary Delim Arc , C) =
+  _lookup(Eval( Primary , C), id)
+</PRE>
+
+<P>
+Here <EM>id</EM> is the t_text value of <EM>Arc</EM>, as 
+defined in Section&nbsp;<A HREF="node138.html#sect:SDL-binding">A.3.3.5</A> above.
+
+<P>
+The <TT>$(<EM>Expr</EM>)</TT> syntax allows the selected name to
+be computed:
+
+<P>
+<PRE>
+Eval( Primary Delim $ ( Expr ) , C) =
+  _lookup(Eval( Primary , C), Eval( Expr , C))
+</PRE>
+
+<P>
+The <TT>!</TT> syntax tests whether a name is in a binding's domain:
+
+<P>
+<PRE>
+Eval( Primary ! Id , C) =
+  _defined(Eval( Primary , C), id),
+</PRE>
+
+<P>
+As defined in Section&nbsp;<A HREF="node155.html#sect:SDL-binding-funcs">A.3.4.5</A>,
+<TT>_defined</TT>(<EM>b</EM>, <EM>nm</EM>) evaluates to <EM>true</EM> if
+<EM>nm</EM> is non-empty and in <EM>b</EM>'s domain, and to <EM>false</EM>
+otherwise. As above, the <TT>$(<EM>Expr</EM>)</TT> syntax can be used to
+compute the name:
+
+<P>
+<PRE>
+Eval( Primary ! $ ( Expr ) , C) =
+  _defined(Eval( Primary , C), Eval( Expr , C))
+</PRE>
+
+<P>
+In both cases where the GenArc is a computed expression, the Expr
+must evaluate to a t_text.
+
+<P>
+<BR><HR>
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

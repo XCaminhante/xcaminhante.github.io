@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 49</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text47.html">Back</a> <a href="text49.html">Continue</a> <a href="text60.html">Last page</a> <a href="slides.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Scoping : <b>scoping2.ves</b></h1><p>
+<ul><li><h2>If a function modifies a variable, that change is local:</h2>
+<ul><li><b>{</b>
+<li><b>  x = 1;</b>
+<li><b>  f(y) { x += y; return x; };</b>
+<li><b>  return &lt;f(2), f(3), x&gt;;</b>
+<li><b>}</b>
+</ul><li><h2><b>x</b> is unmodified by the function call, so the result is:</h2>
+<ul><li><b>&lt;3, 4, 1&gt;</b>
+</ul></ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

@@ -1,0 +1,622 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vbranch - Create a Vesta branch</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vbranch(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vbranch</B> - Create a new branch of a package in the Vesta repository
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vbranch</B> [<A HREF="vbranch.1.html#-q">-q</A>] [<A HREF="vbranch.1.html#-Q">-Q</A>]
+[<A HREF="vbranch.1.html#-v">-v</A>]
+[<A HREF="vbranch.1.html#-aA">-a</A> | <A HREF="vbranch.1.html#-aA">-A</A>]  [<A HREF="vbranch.1.html#-f">-f</A>] [<A HREF="vbranch.1.html#-F">-F</A>]
+[<A HREF="vbranch.1.html#-o">-o <I>old-version</I></A> | <A HREF="vbranch.1.html#-O">-O</A>] 
+[<A HREF="vbranch.1.html#-m">-m <I>message</I></A> | <A HREF="vbranch.1.html#-M">-M</A>]
+[<A HREF="vbranch.1.html#-h">-h <I>hints</I></A>]
+[<A HREF="vbranch.1.html#-R">-R <I>repos</I></A>]
+[<I>package</I><TT>/</TT><I>branch</I>]<P>
+
+In the most common usage, only the package/branch argument is given,
+to specify the new branch's name.
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vbranch.1.html#Description">Description</A>
+<LI> <A HREF="vbranch.1.html#Flags">Flags</A>
+<LI> <A HREF="vbranch.1.html#Message">Message Entry</A>
+<LI> <A HREF="vbranch.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vbranch.1.html#Triggers">Triggers</A>
+<LI> <A HREF="vbranch.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vbranch.1.html#Env_Vars">Environment Variables</A>
+<LI> <A HREF="vbranch.1.html#See_Also">See Also</A>
+<LI> <A HREF="vbranch.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+See the <A HREF="vesta-intro.1.html">vesta-intro</A> man page's
+<A HREF="vesta-intro.1.html#Terminology">Terminology</A> section
+for definitions of terms, and its
+ho<A HREF="vesta-intro.1.html#Name_Interpretation">Name Interpretation</A>
+section for an explanation of how names are looked up.<P>
+
+The <B>vbranch</B> command creates a branch of a package in the Vesta
+repository. A branch is a new package that is (usually) 
+placed as a subdirectory
+of the parent package, with a name based on one of the versions of the
+parent package (the <I>branch base</I>), and with a version 0 that is
+identical to the branch base.<P>
+
+For example, if <TT>common/cxx/2</TT> is an existing package version,
+"<TT>vbranch common/cxx/2.bugfix</TT>" will create a new package named
+<TT>common/cxx/2.bugfix</TT>, with version <TT>common/cxx/2.bugfix/0</TT>
+being identical to the branch base <TT>common/cxx/2</TT>.<P>
+
+<IMG SRC="vbranch.gif" ALT="vbranch figure"
+WIDTH=386 HEIGHT=387 BORDER=0>
+<P>
+
+In more detail, <B>vbranch</B>:
+<UL>
+<LI> Prompts the user to enter a branch descriptive <I>message</I>.
+(<A HREF="vbranch.1.html#Message">See the "Message Entry" section below.</A>)
+<LI> Creates a new appendable directory named <I>package</I><TT>/</TT><I>branch</I>, 
+containing an appendable subdirectory named <TT>checkout</TT>.
+<LI> Creates a master stub named <TT>latest</TT> in each of those directories.
+<LI> Binds the name <I>package</I><TT>/</TT><I>branch</I><TT>/0</TT> to the same
+immutable directory named by <I>old-version</I> or to an empty directory
+if <A HREF="vbranch.1.html#-O">the -O flag</A> was given.
+<LI> Sets attributes as follows:
+<DL>
+<DT>On <I>branch</I><DD>
+<TT>created-by</TT>, <TT>creation-time</TT>, <TT>old-version</TT>, <TT>type</TT> 
+(= {"package", "branch"}), and optionally <TT>message</TT>.
+<DT>On <I>branch</I><TT>/checkout</TT><DD>
+<TT>type</TT>.
+<DT>On <I>branch</I><TT>/latest</TT><DD>
+<TT>symlink-to</TT> (= $LAST).
+<DT>On <I>branch</I><TT>/checkout/latest</TT><DD>
+<TT>symlink-to</TT> (= $LAST).
+<DT>On <I>branch</I><TT>/0</TT><DD>
+<TT>old-version</TT>.
+<DT>On <I>old-version</I><DD>
+<TT>next-branches</TT>
+</DL>
+</UL>
+<P>
+
+If the name <I>package</I> is unqualified (does not have "<TT>/</TT>", "<TT>.</TT>", or
+"<TT>..</TT>"  as its first arc), it is interpreted relative to the site's
+default directory of packages,
+<A HREF="vbranch.1.html#Configuration"><I>DefaultPackageParent</I></A>.  If <I>package</I> is
+omitted (that is, if the argument to <B>vbranch</B> does not contain a
+"<TT>/</TT>"), it defaults to "<TT>.</TT>".  If the name <I>old-version</I> is
+unqualified, it is interpreted relative to <I>package</I>.<P>
+
+You must have write access to <I>package</I>.
+The newly created branch is owned by you, but
+has access permissions inherited from <I>package</I>.<P>
+
+In the presence of replication, branch creation cannot always be
+carried out entirely in the local repository.  In particular, the
+local repository may contain no replica of one of the needed objects,
+or it may contain a non-master replica where the master replica is
+needed.  Also, the <A HREF="vbranch.1.html#-aA">-a/-A</A> flags control which repository
+<B>vbranch</B> will give mastership of the created branch.  (See
+<A HREF="vrepl.1.html"><B>vrepl</B>(1)</A> and
+<A HREF="vmaster.1.html"><B>vmaster</B>(1)</A> for more information about
+replication and mastership.)  The exact steps are slightly different
+depending on which repository has the master copy of <I>package</I> and
+whether the local repository is to have the master copy of the created
+branch (controlled by the <A HREF="vbranch.1.html#-aA">-a/-A</A> flags).<P>
+
+If <I>package</I> is mastered locally, <B>vbranch</B> creates the branch
+in the local repository (and the <A HREF="vbranch.1.html#-aA">-a/-A</A> flags have no
+effect).  However, if <I>old-version</I> does not exist locally,
+<B>vbranch</B> searches for a copy and replicates it to the local
+repository before creating the branch.<P>
+
+If <I>package</I> is not mastered locally, <B>vbranch</B> may give
+mastership of <I>branch</I> to the local repository, if either the
+<A HREF="vbranch.1.html#-aA">-a</A> flag is specified or
+<A HREF="vbranch.1.html#vbranch_acquires"><I>[UserInterface]vbranch_acquires</I></A> is set
+to true.  If <I>old-version</I> does not exist locally, <B>vbranch</B>
+searches for a copy and replicates it to the local repository.
+<B>vbranch</B> then creates the branch remotely in the master copy of
+<I>package</I> (except for inserting <I>old-version</I>), replicates it to
+the local repository, transfers mastership, and finally inserts
+<I>old-version</I>.<P>
+
+If the <A HREF="vbranch.1.html#-aA">-A</A> flag is specified or
+<A HREF="vbranch.1.html#vbranch_acquires"><I>[UserInterface]vbranch_acquires</I></A> is set
+to false and <I>package</I> is mastered remotely, <B>vbranch</B> will
+leave mastership of <I>branch</I> with the master repository of
+<I>package</I>.  In this case, if <I>old-version</I> does not exist in the
+remote master repository, <B>vbranch</B> searches for a copy and
+replicates it to that repository.  <B>vbranch</B> then creates the
+branch remotely in the master copy of <I>package</I> (including
+inserting <I>old-version</I>), and replicates it to the local
+repository.<P>
+
+<B>vbranch</B> returns status 0 for success,
+1 for parameter syntax errors, or 2 for more serious errors.  (Note
+that if any of the <A HREF="vbranch.1.html#Triggers">trigger commands</A> fail,
+<B>vbranch</B> returns status 2.)
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-q">-q</A><DD>
+Quiet; suppress printing out what is being done.
+<DT><A NAME="-Q">-Q</A><DD>
+Query; print out what the command would do, but don't do it.
+<DT><A NAME="-o">-o</A> <I>old-version</I><DD>
+The branch base: the version in the parent package from which the new package
+branches off.
+Defaults to the initial substring of <I>branch</I> that consists only of
+decimal digits; if this substring is empty, -o or -O must be specified
+explicitly.
+<DT><A NAME="-O">-O</A><DD>
+Bind <I>branch</I><TT>/0</TT> to an empty directory and omits setting the
+<TT>old-version</TT> attribute.
+<DT><A NAME="-m">-m</A> <I>message</I><DD>
+Specify the branch descriptive message.  If the <I>message</I> argument
+is <TT>"-"</TT>, the user will be prompted to enter a message.
+(<A HREF="vbranch.1.html#Message">See the "Message Entry" section below.</A>)  If
+<I>message</I> is any other text, it will be used as the branch
+descriptive message without prompting the user.  If neither the -m
+flag nor the <A HREF="vbranch.1.html#-M">-M flag</A> is used, the default is "<TT>-m -</TT>"
+(although this can be changed with the
+<A HREF="vbranch.1.html#Configuration"><TT>[UserInterface]vbranch_message</TT>
+configuration setting</A>).
+<DT><A NAME="-M">-M</A><DD>
+Omit the branch descriptive message.
+<DT><A NAME="-h">-h</A> <I>hints</I><DD>
+If <B>vbranch</B> fails to find the master copy of a directory it needs
+to modify (or fails to find any copy of the old version) in either the
+local repository or any of those repositories listed in
+<A HREF="vbranch.1.html#Configuration"><I>[UserInterface]DefaultHints</I></A>, you can
+suggest additional repositories for it to look in using this option.
+The <I>hints</I> argument is a comma- or space-separated list of
+repositories, specified by host name and TCP port number in the format
+<I>host</I><TT>:</TT><I>port</I>.  The <TT>:</TT><I>port</I> portion may be omitted;
+it defaults to
+<A HREF="vbranch.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><A NAME="-R">-R</A> <I>repos</I><DD>
+Create the branch in <I>repos</I> instead of the default local
+repository.  The repository is
+specified by host name and TCP port number 
+in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it
+defaults to <A HREF="vbranch.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><A NAME="-aA">-a or -A</A><DD>
+Do (-a) or do not (-A) acquire mastership of the created branch when
+the local repository doesn't have mastership of <I>package</I>.  The
+default is controlled by the
+<A HREF="vbranch.1.html#vbranch_acquires"><I>[UserInterface]vbranch_acquires</I></A>
+configuration setting.  (Note that if <I>package</I> is mastered in the
+local repository, these flags have no effect.)
+<DT><A NAME="-f">-f</A><DD>
+Force; omit sanity checking.  
+If the -f flag is not given,
+the parent directory of <I>package</I><TT>/</TT><I>branch</I> must be of type 
+"package" (that is, its <TT>type</TT> attribute must include this value).
+<DT><A NAME="-F">-F</A><DD>
+Create the branch under 
+<A HREF="vbranch.1.html#Configuration"><TT>[UserInterface]ForeignParent</TT></A> directory.
+Useful mostly in cases when the master repository of the branch parent is
+inaccessible or won't grant a permission for the operation. The root of 
+the branch path is replaced with the
+<A HREF="vbranch.1.html#Configuration"><TT>[UserInterface]ForeignParent</TT></A> setting.
+Any directories on this path which don't exist will be created. 
+<DT><A NAME="-v">-v</A><DD>
+Displays extra information about <A HREF="vbranch.1.html#Triggers">triggers</A>.  Before
+executing any trigger commands, the environment variables used to
+provide information to them are printed.  Also, each trigger setting
+is printed before the command is executed.  This can be used to help
+debug trigger problems.  When used with <A HREF="vbranch.1.html#-Q">the query flag
+(-Q)</A>, the triggers are displayed in their sorted order without
+actually running them.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Message">Message Entry</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vbranch</B>'s default behavior is to prompt the user for a
+<I>branch descriptive message</I>.  If the <TT>EDITOR</TT>
+<A HREF="vbranch.1.html#Env_Vars">environment variable</A> is set, the external editor
+program it specifies is invoked to edit the message.  Otherwise, the
+message is read from standard input.  A prompt is printed if the
+standard input is a terminal:
+<PRE>
+Enter branch description, terminated with ^D or . on a line by itself
+: 
+</PRE>
+
+If the standard input is not a terminal (e.g. it was redirected to a
+file or a pipe), no prompt will be printed, but the standard input
+will still be used as the branch descriptive message.  (Note that
+when <TT>EDITOR</TT> is set, the external editor is invoked even if the
+standard input is not a terminal.)<P>
+
+When using an external editor, the initial text will be "<TT>&lt;enter
+branch description here&gt;</TT>".  If the initial text is left unedited or
+the user enters an empty message, they will be asked for confirmation
+before completing the operation:
+<PRE>
+Empty branch description.  Continue (y/n)? 
+</PRE>
+
+This is the only chance to abort when <TT>EDITOR</TT> is set.  (So if you
+change your mind and are using an external editor, exit the editor
+either with the message unedited or with an empty message.)<P>
+
+The <A HREF="vbranch.1.html#-m">-m flag</A> can be used to specify the branch descriptive
+message on the command line.  The <A HREF="vbranch.1.html#-M">-M flag</A> can be used to
+omit the branch descriptive message.  In either of these cases, no
+external editor will be invoked, and the standard input will not be
+read.<P>
+
+The default of prompting for a branch descriptive message can be
+disabled with the
+<A HREF="vbranch.1.html#Configuration"><TT>[UserInterface]vbranch_message</TT>
+configuration setting</A>.  However, this can be overridden on the
+command line with "<TT>-m -</TT>", which will always cause <B>vbranch</B> to
+prompt for a branch descriptive message.
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>AppendableRootName</I><DD>
+The filename under which the global root directory of
+Vesta repositories is mounted.  Ordinarily set to <TT>/vesta</TT>.
+<DT><I>MutableRootName</I><DD>
+The filename under which the local tree of mutable directories provided
+by Vesta is mounted.  Ordinarily set to <TT>/vesta-work</TT>.
+<DT><I>DefaultPackageParent</I><DD>
+The default directory to put new packages in.  Ordinarily a
+subdirectory of the appendable root, named with an Internet domain name
+belonging to the local site.
+<DT><I>DefaultWorkParent</I><DD>
+The default parent directory for mutable working directory trees belonging to
+individual users.  Ordinarily the same as the mutable root.
+<DT><I>realm</I><DD>
+Global user names are formed by appending <TT>@</TT><I>realm</I> to the
+local name.  This setting is optional.  If it is not set,
+<TT>[Repository]realm</TT> is used.
+<DT><I>TimeFormat</I><DD>
+A format string for <B>strftime</B>(3) to produce time strings for Vesta
+attributes.  A common setting is "%a %b %e %T %Z %Y".
+<DT><A NAME="vbranch_acquires"><I>vbranch_acquires</I></A><DD>
+Sets the default policy for which repository should have mastership of
+the created branch when the master repository of the parent directory
+is remote.  If it is equal (without regard to case) to "yes", "on", or
+"true", or can be parsed as an integer that is non-zero, the local
+repository will acquire mastership (as if the <A HREF="vbranch.1.html#-aA">-a</A> flag had
+been given).  If it is equal (without regard to case) to "no", "off",
+or "false", or can be parsed as an integer that is zero, the master
+repository of the parent directory will retain mastership of the
+created branch (as if the <A HREF="vbranch.1.html#-aA">-A</A> flag had been given).  If
+not set, defaults to "false".
+<DT><I>DefaultHints</I><DD>
+A comma- or space-separated list of additional repositories to search
+for the master copy of an object and for a copy of <I>old-version</I>.
+Each repository is specified by host name and TCP port number in the
+format <I>host</I><TT>:</TT><I>port</I>.  The <TT>:</TT><I>port</I> portion may be
+omitted; it defaults to <I>[Repository]VestaSourceSRPC_port</I>.  This
+setting is optional.
+<DT><I>vbranch_message</I><DD>
+A boolean configuration setting.  Determines whether <B>vbranch</B> will
+prompt the user for a descriptive message.  If it is equal (without
+regard to case) to "yes", "on", or "true", or can be parsed as an
+integer that is non-zero, <B>vbranch</B> will ask the user to enter a
+message (as if "<TT><A HREF="vbranch.1.html#-m">-m</A> -</TT>" had been given on the command
+line).  If it is equal (without regard to case) to "no", "off", or
+"false", or can be parsed as an integer that is zero, <B>vbranch</B>
+will not prompt for a message (as if the <A HREF="vbranch.1.html#-M">-M</A> flag had been
+given).  If not set, defaults to "true".
+<DT><I>ForeignParent</I><DD>
+The directory under which all foreign branches are placed. 
+(See the description of the <A HREF="vbranch.1.html#-F">-F flag</A> above.)  
+It is usually defined as <TT>/vesta/<B><I>&lt;current-site&gt;</I></B>/foreign/</TT>.
+</DL>
+<P>
+
+The following values are obtained from the <TT>[Repository]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+The default TCP port number for repositories.
+<DT><I>realm</I><DD>
+Global user names are formed by appending <TT>@</TT><I>realm</I> to the
+local name.  This setting is only used if <TT>[UserInterface]realm</TT> is
+not set.
+</DL>
+<P>
+
+Settings in the <TT>[vbranch pre trigger]</TT> and <TT>[vbranch post
+trigger]</TT> sections of the configuration file are used as commands to
+be run before and after the repository is modified.  See
+<A HREF="vbranch.1.html#Triggers">the next section</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Triggers">Triggers</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Users can configure commands in <A HREF="vesta.cfg.5.html">the Vesta
+configuration file (vesta.cfg)</A> to be executed before and after
+<B>vbranch</B> modifies the repository.  Each setting in the
+<TT>[vbranch pre trigger]</TT> section specifies a command to be run
+before any action is taken, and each setting in the <TT>[vbranch post
+trigger]</TT> section specifies a command to be run after all actions are
+complete.<P>
+
+The value of each setting specifies a command to run.  The names of
+the settings define the order in which these commands are run.  The
+setting names are sorted as strings, but comparing embedded sequences
+of digits as decimal integers.  (So, for example "foo_10_bar" will
+sort after "foo_2_bar".)  The suggested naming convention for trigger
+settings is to start with an integer, follow with a descriptive name,
+and follow that with any other text.  (This is based on the convention
+used for System V style init script links typically stored in
+<TT>/etc/rc<I><B>N</B></I>.d</TT>.)<P>
+
+Here's a simple example of how we suggest naming trigger settings, and
+how they are ordered for execution:
+<PRE>
+[vbranch pre trigger]
+100world = echo World!
+9tada    = echo Tada:
+50hello  = echo Hello,
+</PRE>
+
+Because these all start with numbers, they will be executed in the
+order "9tada", "50hello", "100world".  The output will look like this:
+<PRE>
+% vbranch /vesta/example.com/...
+Tada:
+Hello,
+World!
+Creating branch /vesta/example.com/...
+</PRE>
+
+Trigger commands are executed with <TT>system</TT>(3).  On most operating
+systems this means "<TT>/bin/sh -c <I>command</I></TT>", so simple in-line
+shell scripts can be used.  (Note that each is executed in its own
+shell process, so environment variables set during one trigger command
+<I>will not propagate to subsequent ones</I>.)<P>
+
+If any of the commands in the <TT>[vbranch pre trigger]</TT> section exit
+with error (non-zero) status or are terminated by a signal
+(e.g. segmentation fault, abort), <B>vbranch</B> will exit without
+creating a branch.<P>
+
+The commands in the <TT>[vbranch post trigger]</TT> section will only be
+executed if a new branch is successfully created.  If <B>vbranch</B>
+fails with an error, the commands in the <TT>[vbranch post trigger]</TT>
+section <I>will not be executed</I>.<P>
+
+Note that all the trigger commands (both pre and post) are executed
+sequentially.  Once a trigger command is started, nothing else happens
+until it completes.  If any of the pre trigger commands runs forever,
+<B>vbranch</B> will not create a branch.  If any of the post trigger
+commands runs forever, <B>vbranch</B> will not complete.  (In other
+words, <I>a trigger command that hangs will cause <B>vbranch</B> to
+hang</I>.)  If any of the pre or post trigger commands exit with error
+status or are terminated by a signal, <B>vbranch</B> will exit without
+running any more commands from those sections.  (In other words, <I>a
+trigger command that fails will prevent further trigger commands from
+being run</I>.)<P>
+
+If the <A HREF="vbranch.1.html#-Q">the query flag (-Q)</A> is given, the trigger commands
+will not actually be run.<P>
+
+Information about what <B>vbranch</B> is going to do or has just done
+is provided to the trigger commands through the following environment
+variables:<P>
+
+<DL>
+<DT>VESTA_TOOL<DD>
+The name of the Vesta tool the trigger command has been invoked from.
+(For <B>vbranch</B>, this will always be "vbranch".)
+<DT>VESTA_REPOS<DD>
+The local repository (<I>host</I><TT>:</TT><I>port</I>) <B>vbranch</B>
+communicates with (either the default from the configuration file or
+the one specified with the <A HREF="vbranch.1.html#-R">-R flag</A>.
+<DT>VESTA_MASTER_HINTS<DD>
+Additional repositories which may have been consulted in order to find
+the master copy of the parent directory of the branch.  This is the
+combination of the argument to the <A HREF="vbranch.1.html#-h">-h flag</A> (if it was
+used) and the hints from the
+<A HREF="vbranch.1.html#Configuration"><I>[UserInterface]DefaultHints</I> configuration
+setting</A> (if set in the configuration file).
+<DT>VESTA_MASTER_REMOTE<DD>
+Set to 1 if the parent directory of the branch created by
+<B>vbranch</B> is mastered in a remote repository, set to 0 otherwise.
+If this is set to 1, the branch will be created in the remote
+master ($VESTA_MASTER_REPOS) and replicated to the local repository
+($VESTA_REPOS).
+<DT>VESTA_MASTER_REPOS<DD>
+The repository (<I>host</I><TT>:</TT><I>port</I>) with mastership of the
+parent directory of the branch created by <B>vbranch</B>.  If this is
+different from $VESTA_REPOS, $VESTA_MASTER_REMOTE will be set to 1 and
+the branch is created at the remote master repository.
+<DT>VESTA_BRANCH<DD>
+The branch created by <B>vbranch</B>.
+<DT>VESTA_PACKAGE<DD>
+The same as $VESTA_BRANCH.  (Remember that a branch is also a
+package.)  This facilitates using the same trigger with both
+<B>vbranch</B> and <B>vcreate</B>.
+<DT>VESTA_OLD_VERSION<DD>
+The path to the version the branch will be based upon (either
+automatically determined or specified with the <A HREF="vbranch.1.html#-o">-o flag</A>).
+This will become version 0 within the created branch.
+<DT>VESTA_OMIT_OLD_VERSION<DD>
+Set to 1 if there is no old version (if <A HREF="vbranch.1.html#-O">the -O flag</A> was
+given), set to 0 otherwise.
+<DT>VESTA_OLD_VERSION_REMOTE<DD>
+Set to 1 if the old version was not found in the master repository of
+the branch parent ($VESTA_MASTER_REPOS), set to 0 otherwise.  If set
+to 1, the old version will be replicated from the repository where it
+was found ($VESTA_OLD_VERSION_REPOS) to the master repository of the
+branch parent directory before creating the branch.
+<DT>VESTA_OLD_VERSION_REPOS<DD>
+The repository (<I>host</I><TT>:</TT><I>port</I>) where a replica of the old
+version was found.  If this is different from $VESTA_MASTER_REPOS,
+$VESTA_OLD_VERSION_REMOTE will be 1.  If there is no old version, this
+will be set to the empty string.
+<DT>VESTA_ACQUIRE_MASTERSHIP<DD>
+Set to 1 if <B>vbranch</B> is creating a branch at a remote master
+repository and acquiring mastership of it in the local repository, set
+to 0 otherwise.  (If $VESTA_REPOS is the same as $VESTA_MASTER_REPOS
+this will be 0.)  See <A HREF="vbranch.1.html#-aA">the description of the -a/-A flags
+above</A>.
+<DT>VESTA_USE_FOREIGN_TREE<DD>
+Set to 1 if <A HREF="vbranch.1.html#-F">the -F flag</A> was given, set to 0 otherwise.
+(Note that if the branch directory would be inside the directory
+specified in the
+<A HREF="vbranch.1.html#Configuration"><TT>[UserInterface]ForeignParent</TT></A> without this
+option, such as creating a branch of a branch previously created there
+with "vbranch -F", this may have no effect.)
+<DT>VESTA_MESSAGE<DD>
+The branch description message, or the empty string if there is no
+description message.
+<DT>VESTA_OMIT_MESSAGE<DD>
+Set to 1 if there is no branch description message (if <A HREF="vbranch.1.html#-M">the
+-M flag</A> was given or
+<A HREF="vbranch.1.html#Configuration"><TT>[UserInterface]vbranch_message</TT></A> was used to
+disable branch messages), set to 0 otherwise.
+<DT>VESTA_QUIET<DD>
+Set to 1 if <A HREF="vbranch.1.html#-q">the quiet flag (-q) was given</A>, set to 0
+otherwise.
+<DT>VESTA_FORCE<DD>
+Set to 1 if <A HREF="vbranch.1.html#-f">the force flag (-f) was given</A>, set to 0
+otherwise.
+</DL>
+<P>
+
+(Note that the environment variables are the same for both the pre and
+post trigger commands.)<P>
+
+Here are some examples using these environment variables:
+<PRE>
+[vbranch pre trigger]
+// Force users to describe all branches
+50force_message = if [ $VESTA_OMIT_MESSAGE -eq 1 -o -z "$VESTA_MESSAGE" ]; then echo "Policy requires a branch description"; exit 1; fi
+
+[vbranch post trigger]
+// Add an attribute on all newly created branches in both the local
+// and master repositories declaring it to be an active area of work.
+50status_open = for r in $VESTA_MASTER_REPOS $VESTA_REPOS; do vattrib -R $r -s branch-status open $VESTA_BRANCH; done
+</PRE>
+
+If the <A HREF="vbranch.1.html#-v">verbose trigger flag (-v)</A> is given, these
+environment variables will be printed, and each trigger command will
+be printed before executing it.  This can be useful for debugging
+trigger problems.  If both <A HREF="vbranch.1.html#-v">verbose trigger flag</A> and the
+<A HREF="vbranch.1.html#-Q">the query flag (-Q)</A> are given, the triggers are displayed
+in their sorted order without actually running them.  This can be used
+to find out what trigger commands are configured without actually
+running them.
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vbranch</B> is atomic if it modifies only the local
+repository.  If a remote repository must be modified, however, the
+action performed at each repository is individually atomic, but
+<B>vbranch</B> can die between the actions on the remote and local
+repositories.  To make this problem less likely to occur, <B>vbranch</B>
+ignores <TT>SIGINT</TT> (the ^C interrupt) during the critical section.<P>
+
+When using <A HREF="vbranch.1.html#-F">the -F flag</A>, if the foreign hierarchy does not
+yet contain the necessary directories for the foreign branch to be
+created, <I>they will be created before running <A HREF="vbranch.1.html#Triggers">the
+commands from the <TT>[vbranch pre trigger]</TT> section of the config
+file</A></I>.  (For example, if the command line is "<TT>vbranch -F
+/vesta/a.example.com/foo/3.bar</TT>" and <TT>[UserInterface]ForeignParent</TT>
+is set to <TT>/vesta/b.example.com</TT>, the directory
+<TT>/vesta/b.example.com/a.example.com/foo</TT> will be created if it does
+not already exist.)  This violates the rule of not altering the
+repository before the <TT>[vbranch pre trigger]</TT> commands are run, but
+is necessary to determine which repository has mastership of the
+branch parent directory (to set the $VESTA_MASTER_REPOS trigger
+variable), as well as other information passed to the trigger
+commands.
+</BLOCKQUOTE>
+
+<H3><A NAME="Env_Vars">Environment Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><TT>VESTACONFIG</TT><DD>
+If set, specifies the Vesta configuration file to be used. See
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A>.
+<DT><TT>EDITOR</TT><DD>
+If set, specifies the editor to use for
+<A HREF="vbranch.1.html#Message">editing the branch descriptive message</A>.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>,
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

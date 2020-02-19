@@ -1,0 +1,390 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Imports</TITLE>
+<META NAME="description" CONTENT="Imports">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node149.html">
+<LINK REL="previous" HREF="node147.html">
+<LINK REL="up" HREF="node133.html">
+<LINK REL="next" HREF="node149.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2383"
+  HREF="node149.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2379"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2373"
+  HREF="node147.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2381"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2384"
+  HREF="node149.html">Filename Interpretation</A>
+<B> Up:</B> <A NAME="tex2html2380"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2374"
+  HREF="node147.html">Files</A>
+ &nbsp <B>  <A NAME="tex2html2382"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION0013331500000000000000"></A><A NAME="sect:SDL-imports"></A>
+<BR>
+Imports
+</H3>
+
+<P>
+The Imports clause enables one Vesta SDL model to reference and
+use others; that is, it supports modular decomposition of Vesta SDL
+programs.
+
+<P>
+<
+<P>
+<PRE>
+Imports    ::= ImpClause*
+ImpClause  ::= ImpIdReq | ImpIdOpt
+</PRE>
+
+<P>
+There are two major forms of the Imports clause: one
+where identifiers are required (ImpIdReq), and one where they are
+optional (ImpIdOpt). Both forms have two sub-forms in which either a
+single model or a list of models may be imported.
+
+<P>
+First, consider the ImpIdReq case. This form is typically used to
+import models in the same package as the importing model.
+Each ImpItemR in the ImpIdReq clause takes one of two forms: an
+ImpSpecR or an ImpListR. Each form binds exactly one name.
+
+<P>
+<PRE>
+ImpIdReq   ::= import ImpItemR*;
+ImpItemR   ::= ImpSpecR | ImpListR
+ImpSpecR   ::= Arc = DelimPath
+ImpListR   ::= Arc = `[' ImpSpecR*, `]'
+
+DelimPath  ::= [ Delim ] Path [ Delim ]
+Path       ::= Arc { Delim Arc }*
+Arc        ::= Id | Integer | Text
+</PRE>
+
+<P>
+In the ImpSpecR case, the name is bound to the t_closure value that
+results from evaluation of the contents of a file according to the
+Model evaluation rules of Section&nbsp;<A HREF="node146.html#sect:SDL-model">A.3.3.13</A>. For
+example, consider the Import clause:
+
+<P>
+<PRE>
+  import self = progs.ves;
+</PRE>
+
+<P>
+This clause binds the name <TT>self</TT> to the closure
+corresponding to the local <EM>progs.ves</EM> model in the same
+directory as the model in which it appears.
+
+<P>
+In the ImpListR case, the name is bound to a binding of such values.
+For example:
+
+<P>
+<PRE>
+  import sub =
+    [ progs = src/progs.ves, tests = src/tests.ves ];
+</PRE>
+
+<P>
+This clause binds the name <TT>sub</TT> to a binding containing the names
+<TT>progs</TT> and <TT>tests</TT>; these names within the binding are bound
+to the closures corresponding to the models named <EM>progs.ves</EM>
+and <EM>tests.ves</EM> in the package's <TT>src</TT> subdirectory. For
+example, the <EM>progs.ves</EM> model could be invoked by writing
+``<TT>sub/progs()</TT>''.
+
+<P>
+Because the Imports clause often mentions several files with
+names that share a common prefix, a syntactic form is provided to
+allow the prefix to be written once. This is the ImpIdOpt form. It is
+used to import models from other packages. The semantics are defined
+so that many identifiers are optional; when omitted, they default to
+the name of the package from which the model is being imported. As in
+the ImpIdReq case, ImpIdOpt has forms for importing both single models
+and lists of multiple models.
+
+<P>
+<PRE>
+ImpIdOpt   ::= from DelimPath import ImpItemO*;
+ImpItemO   ::= ImpSpecO | ImpListO
+ImpSpecO   ::= [ Arc = ] Path [ Delim ]
+ImpListO   ::= Arc = `[' ImpSpecO*, `]'
+</PRE>
+
+<P>
+Here are some examples of ImpIdOpt imports:
+
+<P>
+<PRE>
+  from /vesta/west.vestasys.org/vesta import
+    cache/12/build.ves;
+    libs = [ srpc/2/build.ves, basics/5/build.ves ];
+</PRE>
+
+<P>
+This example binds the name <TT>cache</TT> to the closure
+corresponding to version 12 of that package's <EM>build.ves</EM>
+model, and it binds the name <TT>libs</TT> to a binding containing
+the names <TT>srpc</TT> and <TT>basics</TT>, bound to versions
+2 and 5 of those package's <EM>build.ves</EM> models. (As the 
+evaluation rules below describe, the three occurrences of
+``<TT>/build.ves</TT>'' in this example could actually have been
+omitted.)
+
+<P>
+<
+<P>
+When multiple ImpItemR's are given in a ImpIdReq, the
+<TT>import</TT> keyword distributes over each of the ImpItemR's.
+That is:
+
+<P>
+<PRE>
+  import ImpSpec_1; ...; ImpSpec_n;
+</PRE>
+
+<P>
+desugars to:
+
+<P>
+<PRE>
+  import ImpSpec_1;
+  ...;
+  import ImpSpec_n;
+</PRE>
+
+<P>
+Similarly, the <TT>from</TT> clause distributes over the
+individual imports of an ImpIdOpt. In particular:
+
+<P>
+<PRE>
+  from DelimPath import ImpItemO_1; ...; ImpItemO_n;
+</PRE>
+
+<P>
+desugars to:
+
+<P>
+<PRE>
+  from DelimPath import ImpItemO_1;
+  ...;
+  from DelimPath import ImpItemO_n;
+</PRE>
+
+<P>
+The use of <TT>from</TT> makes it optional to supply a name
+for the closure value being introduced; if the name is omitted, it is
+derived from the Path following the <TT>import</TT> keyword as
+follows:
+
+<P>
+<PRE>
+  from DelimPath import
+    [ Arc_1 = ] [ Delim ] Arc_2 { Delim Arc }* [ Delim ]
+</PRE>
+
+<P>
+desugars to:
+
+<P>
+<PRE>
+  import Arc =
+    DelimPath Delim Arc_2 { Delim Arc }* [ Delim ]
+</PRE>
+
+<P>
+where <EM>Arc</EM> is <IMG
+ WIDTH="37" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img125.png"
+ ALT="$\mbox{Arc}_1$"> if it is present and is
+<IMG
+ WIDTH="37" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img126.png"
+ ALT="$\mbox{Arc}_2$"> otherwise. Similarly:
+
+<P>
+<PRE>
+  from DelimPath import Arc = [
+    [ Arc1_1 = ] [ Delim ] Arc2_1 { Delim Arc }* [ Delim ],
+    ...,
+    [ Arc1_n = ] [ Delim ] Arc2_n { Delim Arc }* [ Delim ] ]
+</PRE>
+
+<P>
+desugars to:
+
+<P>
+<PRE>
+  import Arc = [
+    Arc_1 = DelimPath Delim Arc2_1 {Delim Arc }* [ Delim ],
+    ...,
+    Arc_n = DelimPath Delim Arc2_n {Delim Arc }* [ Delim ] ]
+</PRE>
+
+<P>
+where <IMG
+ WIDTH="35" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img127.png"
+ ALT="$\mbox{Arc}_i$"> is <IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img128.png"
+ ALT="$\mbox{Arc1}_i$"> if it is present and is
+<IMG
+ WIDTH="43" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img129.png"
+ ALT="$\mbox{Arc2}_i$"> otherwise.
+
+<P>
+<
+<P>
+Multiple ImpClause's are evaluated independently:
+
+<P>
+<PRE>
+Eval( ImpClause_0 ImpClause_1 ... ImpClause_n , C) =
+{
+  val C2 = Eval( ImpClause_1 ... ImpClause_n , C);
+  return _append(Eval( ImpClause_0 , C), C2);
+}
+</PRE>
+
+<P>
+This leaves two fundamental forms of the Imports clause, whose
+semantics are defined as follows:
+
+<P>
+<PRE>
+// ImpSpecR
+Eval( import Arc = DelimPath , C) =
+  _bind1(id, Eval( model , C-initial))
+</PRE>
+
+<P>
+where:
+
+<P>
+
+<UL>
+<LI><EM>id</EM> is the t_text representation of <EM>Arc</EM>, as
+defined in Section&nbsp;<A HREF="node138.html#sect:SDL-binding">A.3.3.5</A> above.
+
+<P>
+</LI>
+<LI>Let <EM>f</EM> be the sequence of Delims and Arcs that constitute
+the DelimPath.
+
+<OL>
+<LI>If <EM>f</EM> does not begin with a Delim, prepend ``<TT>Delim Path0
+Delim</TT>'' to <EM>f</EM>, where <EM>Path0</EM> names the directory
+containing the Model in which this Imports clause appears.
+</LI>
+<LI>Look up the path <EM>f</EM> in the Vesta repository. (See
+Section&nbsp;<A HREF="node149.html#sect:SDL-filename-interp">A.3.3.16</A> below.)
+If <EM>f</EM> names a directory, append a Delim (if <EM>f</EM> doesn't
+already end in one) and the string ``<TT>build.ves</TT>'', then
+look up the augmented path <EM>f</EM> in the repository again. If
+<EM>f</EM> does not name a directory and its final element
+does not end in ``<TT>.ves</TT>'', append the string ``<TT>.ves</TT>''
+to the final element of <EM>f</EM>, and look it up in the repository again.
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI><EM>model</EM> is the Vesta SDL Model represented by the contents of the
+file in the Vesta repository named by the sequence <EM>f</EM>. If no such
+expression can be produced (e.g., the file doesn't exist, or can't
+be parsed as an expression), evaluation halts with a runtime error.
+</LI>
+</UL>
+
+<P>
+<PRE>
+// ImpListR
+Eval( import Arc = [ ImpSpecR_1, ..., ImpSpecR_n ] , C) =
+  _bind1(id, Eval( import ImpSpecR_1; ...; ImpSpecR_n , C))
+</PRE>
+
+<P>
+Again, <EM>id</EM> is the t_text representation of <EM>Arc</EM>.
+
+<P>
+As with the Files clause, and for the same reason, we add one
+restriction to the rules just given: the context created by an Imports
+clause must bind only names that are legal identifiers; that is, names
+that match the syntax of the Id token.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2383"
+  HREF="node149.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2379"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2373"
+  HREF="node147.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2381"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2384"
+  HREF="node149.html">Filename Interpretation</A>
+<B> Up:</B> <A NAME="tex2html2380"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2374"
+  HREF="node147.html">Files</A>
+ &nbsp <B>  <A NAME="tex2html2382"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

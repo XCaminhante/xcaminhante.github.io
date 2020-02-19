@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Functions: _defined, _lookup</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_defined(binding,text)"></A><TT>_defined(<i>b</i>: binding,
+<i>name</i>: text): bool</TT></H4>
+
+<p>
+If <TT><i>name</i></TT> is the empty string, returns
+<TT>ERR</TT>. Otherwise, returns <TT>TRUE</TT> if the binding
+<TT><i>b</i></TT> contains a pair &lt;<b>n</b>, <b>v</b>&gt; with
+<b>n</b> identical to <TT><i>name</i></TT>, and <TT>FALSE</TT>
+otherwise.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_defined([ foo = 1, bar = TRUE ], "foo") == TRUE
+_defined([ foo = 1, bar = TRUE ], "dave") == FALSE
+_defined([ foo = 1, bar = TRUE ], "") == ERR           // Empty string produces ERR</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_lookup(binding,text)"></A><TT>_lookup(<i>b</i>: binding,
+<i>name</i>: text): any</TT></H4>
+
+<p>
+If <TT><i>name</i></TT> is the empty string, returns <TT>ERR</TT>. If
+<TT><i>name</i></TT> is defined in <TT><i>b</i></TT>, returns the
+value associated with it; otherwise, returns <TT>ERR</TT>.  Note that
+the value associated with <TT><i>name</i></TT> may be of any type,
+including <TT>err</TT>, so a result of <TT>ERR</TT> does not
+necessarily imply that <TT>_defined(<i>b</i>, <i>name</i>)</TT> is
+<TT>FALSE</TT>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_lookup([ foo = 1, bar = TRUE ], "foo") == 1
+_lookup([ foo = 1, bar = TRUE ], "dave") == ERR       // No binding for "dave"
+_lookup([ foo = 1, bar = TRUE ], "") == ERR           // Empty string produces ERR
+_lookup([ foo = 1, bar = ERR ], "bar") == ERR         // "bar" bound to ERR</PRE>
+</BLOCKQUOTE>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

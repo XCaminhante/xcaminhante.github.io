@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Tokens</TITLE>
+<META NAME="description" CONTENT="Tokens">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node164.html">
+<LINK REL="previous" HREF="node162.html">
+<LINK REL="up" HREF="node160.html">
+<LINK REL="next" HREF="node164.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2569"
+  HREF="node164.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2565"
+  HREF="node160.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2559"
+  HREF="node162.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2567"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2570"
+  HREF="node164.html">Reserved Identifiers</A>
+<B> Up:</B> <A NAME="tex2html2566"
+  HREF="node160.html">Concrete Syntax</A>
+<B> Previous:</B> <A NAME="tex2html2560"
+  HREF="node162.html">Ambiguity Resolution</A>
+ &nbsp <B>  <A NAME="tex2html2568"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION001343000000000000000"></A><A NAME="sect:SDL-tokens"></A>
+<BR>
+Tokens
+</H2>
+
+<P>
+Table&nbsp;<A HREF="node163.html#tbl:SDL-tokens-BNF">A.10</A> gives a BNF description of the tokens
+of the language. The token classes Delim, Integer, Id, and Text, and
+the individual tokens in the classes Punc, TwoPunc, and Keyword, serve
+as terminals in the BNF of earlier sections.
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="tbl:SDL-tokens-BNF"></A><A NAME="6902"></A>
+<TABLE>
+<CAPTION><STRONG>Table A.10:</STRONG>
+BNF for the tokens of the Vesta SDL.</CAPTION>
+<TR><TD><IMG
+ WIDTH="455" HEIGHT="691" BORDER="0"
+ SRC="img137.png"
+ ALT="\begin{table}{\footnotesize\begin{verbatim}TokenSeq ::= Token*
+Token ::= Integ...
+... NonNewlineChar* Newline
+\vert \lq /*' CommentBody \lq */'\end{verbatim}}
+\end{table}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+We define Newline as an ASCII new line sequence, either CR, LF, or
+CRLF.  NonNewlineChar is any ASCII character other than CR and
+LF. CommentBody is any sequence of ASCII characters that does not
+contain `*/'.  Tab is the ASCII TAB character.
+
+<P>
+The ambiguities in the token grammar are resolved as follows.  The
+tokenizer interprets the program as a TokenSeq.  It scans from left to
+right, repeatedly matching the longest possible Token beginning with
+the next unmatched character.  The tokens Whitespace and Comment are
+discarded after matching; other tokens are passed on for parsing by
+the main grammar.  When a string of characters matches both Integer
+and Id, it is tokenized as Integer.  When a string matches both
+Keyword and Id, it is tokenized as Keyword.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2569"
+  HREF="node164.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2565"
+  HREF="node160.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2559"
+  HREF="node162.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2567"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2570"
+  HREF="node164.html">Reserved Identifiers</A>
+<B> Up:</B> <A NAME="tex2html2566"
+  HREF="node160.html">Concrete Syntax</A>
+<B> Previous:</B> <A NAME="tex2html2560"
+  HREF="node162.html">Ambiguity Resolution</A>
+ &nbsp <B>  <A NAME="tex2html2568"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

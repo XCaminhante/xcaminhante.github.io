@@ -1,0 +1,341 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (X11; U; OSF1 V4.0 alpha) [Netscape]">
+</head>
+<body bgcolor="#efefff">
+
+<h1>
+Controlling Cache Behavior</h1>
+
+<ul>
+<li>
+<a href="caching.html#Introduction">Introduction</a></li>
+
+<li>
+<a href="caching.html#Background">Background</a></li>
+
+<li>
+<a href="caching.html#Principle #1">Principle #1: Put more in the PK</a></li>
+
+<li>
+<a href="caching.html#Principle #2">Principle #2: Don't cache simple functions</a></li>
+
+<li>
+<a href="caching.html#Principle #3">Principle #3: Use models as cut off points for
+sub-components</a></li>
+
+<li>
+<a href="caching.html#Summary">Summary</a></li>
+</ul>
+
+<h3>
+<a NAME="Introduction"></a>Introduction</h3>
+The way bridges and other models are written affects the performance of
+evaluating them as well as the overall performance of the cache server.&nbsp;
+The bridge author should be particularly concerned with cache behavior,
+because the behavior of a bridge affects the performance of every evaluation
+invoking it.
+<p>There are two factors of cache performance to consider:
+<ul>
+<li>
+<b>The total number of cache lookups.</b>&nbsp; Each cache lookup consumes
+network bandwidth and incurs the latency of a round trip to the cache,
+as well as putting a computation load on the central cache server.&nbsp;
+Reducing the number of cache lookups will reduce load on the cache server
+and the network, but may increase the computational load on the machine
+running the evaluator.</li>
+
+<li>
+<b>Efficiency of individual lookups.</b>&nbsp; Computing dependencies and
+searching for matching cache entries is a computation load.&nbsp; These
+operations are always guaranteed to be computed correctly, but the model
+writer can use a few techniques to shift the computation load from the
+central cache server to the the evaluator (thus reducing the load on shared
+resources, and improving performance for concurrently running builds across
+the entire site).</li>
+</ul>
+Techniques for reducing total cache lookups and making individual lookups
+more efficient are detailed here along with rules of thumb on when to apply
+them.
+<h3>
+<a NAME="Background"></a>Background</h3>
+The best source for this information is <a href="http://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/abstracts/src-rr-177.html">the
+Vesta research report</a>.&nbsp; Specifically, chapter 6 describes the
+cache itself, and most of chapter 7 (sections 7.1 through 7.5) describe
+how the evaluator determines dependencies and interacts with the cache.&nbsp;
+However, a brief summary is given here.&nbsp; (If you find this to be too
+much, <a href="../man/html/vesta.1.html#pragmas">the
+evaluator man page includes an even more terse description</a>.)
+<p>Cache entries correspond to individual function evaluations.&nbsp; These
+may be user-defined functions such as those provided by bridges (<tt>./Cxx/program</tt>),
+entire model evaluations such as those which represent a complete build
+(<tt>/vesta/vestasys.org/vesta/release/12/linux_i386.main.ves</tt>), or primitive
+functions provided by the evaluator (such as <tt>_run_tool</tt>).&nbsp;
+Cache entries are uniquely identified by their dependencies.&nbsp; Those
+dependencies which can be determined statically are called <i>primary dependencies</i>.&nbsp;
+For example, when compiling a source file, we know that the result will
+always depend upon the contents of that source file.&nbsp; Any dependencies
+which can only be determined dynamically are called <i>secondary dependencies</i>.&nbsp;
+When compiling a C/C++ source file, exactly which header files the compilation
+depends upon can only be determined by observing which ones are actually
+read by the compiler.
+<p>All primary dependencies are combined into a single number known as
+the <i>primary key</i> or just <i>pk</i>.&nbsp; The set of secondary dependencies
+is often referred to as the <i>secondary key</i>.&nbsp; In order to determine
+whether there is a cache entry corresponding to a particular function call,
+the cache server locates all entries with the same primary key, and then
+searches over them for a match with the secondary key of the function call
+to be evaluated.&nbsp; (You can think of this as a lookup in a hash table
+with buckets where all entries with the same primary key fall into the
+same bucket.)&nbsp; If a match is found, then the result value stored in
+the cache is used.&nbsp; Otherwise, the evaluator proceeds to evaluate
+the function.&nbsp; The cache server organizes cache entries such that
+locating the group of entries with a particular primary key is very fast.&nbsp;
+Once these are found, searching over them for a secondary dependency match
+essentially takes O(n) time.
+<h3>
+<a NAME="Principle #1"></a>Principle #1: Put more in the PK</h3>
+As described above, the initial lookup based on a function evaluation's
+primary key is fast, and searching for a secondary dependency match is
+comparatively slow.&nbsp; This leads us to the primary principle of efficient
+cache lookups:
+<blockquote><i>The fewer entries per primary key the better.</i></blockquote>
+In the absence of hints from the model writer, the primary key for user-defined
+functions is based on the body of the function and the values of all simple
+parameters (booleans, integers, and text strings).&nbsp; Composite parameters
+(bindings, lists, and function closures) become part of the secondary key
+by default.&nbsp; The model writer can cause composite parameters to be
+included in the primary key by placing <tt>/**pk**/</tt> immediately before
+the parameter in the function definition.&nbsp; Since the model writer
+can control what becomes part of the primary key and what is used to compute
+the secondary dependencies, this implies an obvious rule of thumb for the
+model writer:
+<blockquote><i>The more function inputs included in the primary key the
+better.</i></blockquote>
+However, care must be taken to avoid <i>false cache misses</i>.&nbsp; For
+example, if one were to include all header files in the primary key of
+a C/C++ compilation, you would have cache entries which are <i>too coarse
+grained</i>.&nbsp; A cache miss would result on a change to any header
+file, even if it was not included by the source file being compiled.&nbsp;
+Thus, a more complete rule of thumb would be:
+<blockquote><i>Mark all parameters on which a function's result <u>must</u>
+depend with the <tt>/**pk**/</tt> pragma.&nbsp; Don't use <tt>/**pk**/</tt>
+to mark parameters which may be only partially used by a function.</i></blockquote>
+One example of this principle is the function <tt>./Cxx/program</tt>, which
+is used to compile and link a C++ program:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">program(
+&nbsp; name: text,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // name to give to resulting program
+&nbsp; /**pk**/ code: NamedFiles,&nbsp;&nbsp;&nbsp; // source code files to compile
+&nbsp; /**pk**/ headers: NamedFiles, // local header files needed by "code"
+&nbsp; libs: LibPkgResults,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // libraries to build and link with "code"
+&nbsp; ovs: EnvOvs = [ ],&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // overrides for compiling &amp; linking "code"
+&nbsp; env_ovs: EnvOvs = [ ],&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // overrides when building "libs" &amp; "code"
+&nbsp; lib_ovs: NamedLibOvs = [ ]&nbsp;&nbsp;&nbsp; // named library overrides
+): NamedFile
+{
+&nbsp; // ...
+};</font></pre>
+</td>
+</tr>
+</table>
+
+<p>Every file in the binding <tt>code</tt> will be compiled, so we know
+that the result value will depend upon all of them.&nbsp; Marking it with
+<tt>/**pk**/</tt>
+allows the evaluator to take advantage of this fact by including them in
+the computation of the primary key.&nbsp; Whenever any of these files change,
+the primary key changes, which makes it unlikely that the second stage
+search for a cache hit will need to search very many cache entries.&nbsp;
+By contrast, the <tt>libs</tt> parameter is left as part of the secondary
+key, as the source files may only include some of the header files they
+contain.
+<p>The astute observer might take issue with the <tt>/**pk**/</tt> in front
+of <tt>headers</tt>.&nbsp; Strictly speaking, it would be possible for
+this to cause false cache misses if one of these headers was not included
+by any of the source files in <tt>code</tt>.&nbsp; However, since <tt>headers</tt>
+represents local (non-library) header files, most people would agree that
+this is a degenerate case.&nbsp; (Why not simply remove unused header files?)&nbsp;
+In normal use, you would only provide headers actually used by the code
+being compiled.&nbsp; The bridge author has made a tradeoff here by improving
+cache performance for the common case but allowing the possibility of false
+cache misses in an unlikely (and arguably unimportant) case.
+<h3>
+<a NAME="Principle #2"></a>Principle #2: Don't cache simple functions</h3>
+By default, all user-defined functions are cached.&nbsp; However, the model
+writer can simply turn off caching for individual functions by immediately
+preceding their definition with <tt>/**nocache**/</tt>.&nbsp; Doing this
+cannot affect the correctness of an evaluation, but it does trade off cache
+lookups against local evaluation.&nbsp; It's also worth noting that the
+primitive <tt>_run_tool</tt> function is always cached, so this can only
+affect the steps leading up to and following individual tool invocations.
+<p>Often, small pieces of computation which do not include any tool invocations
+or other function calls are abstracted into functions.&nbsp;&nbsp;&nbsp;
+Usually, the total time it takes to evaluate such functions locally is
+less than the time to perform a cache lookup.&nbsp; Therefore, we have
+the following rule of thumb:
+<blockquote><i>Consider using <tt>/**nocache**/</tt> on functions which
+make no tool invocations or other function calls.</i></blockquote>
+For example, many of the functions provided in <tt>./generic</tt> are such
+pure computation functions.&nbsp; Consider <tt>./generic/reverse_list</tt>:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">/**nocache**/
+reverse_list(l: list): list
+/* Return the list "l" in reverse order. */
+{
+&nbsp;&nbsp;&nbsp; return
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if <a href="primitive-functions/_length.html#_length(list)">_length</a>(l) &lt;= 1 then l else {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; res = &lt; >;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; foreach v in l do
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; res = &lt; v > + res;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value res;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+};</font></pre>
+</td>
+</tr>
+</table>
+
+<p>It doesn't perform any tool invocations or evaluate any functions (except
+<tt><a href="primitive-functions/_length.html#_length(list)">_length</a></tt>,
+which is so simple doesn't really count).&nbsp; Making it <tt>/**nocache**/</tt>
+avoids the latency of a cache lookup, which, unless the list being reversed
+is extremely long, would almost certainly take more time.
+<p>Sometimes, the cost is still less that a cache lookup even if the function
+does call other functions, including itself.&nbsp; Also, if one or a small
+number of functions which <i>are</i> cached are called, then the time cost
+of turning off caching is just the work that is done before and after those
+calls.&nbsp; On the other hand, if a function calls many functions which
+are cached, it probably should be cached also, because a single cache lookup
+on the enclosing function will be faster than many cache lookups on the
+ones called.&nbsp; This gives us another rule:
+<blockquote><i>Consider using <tt>/**nocache**/</tt> on functions which
+make a small number of function calls, but not on those which make a large
+number.</i></blockquote>
+A good example of this is functions which compile single files such as
+<tt>./Cxx/expert/compile</tt>:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">/**nocache**/
+compile(/**pk**/ src: NamedFile): DerivedFile
+/* Compile a single C++ source file into an object file. "src" specifies
+&nbsp;&nbsp; the source file. The result is the compiled object file. In the
+&nbsp;&nbsp; event that an error occurs during compilation, the result is ERR. */
+{
+&nbsp;&nbsp;&nbsp; // form command-line argument (a list of texts)
+&nbsp;&nbsp;&nbsp; cmd =
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;"/usr/bin/cxx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // executable cxx(1)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + &lt;"-c">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // standard option
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + &lt;"-I", "-I/usr/include"> // only look in /usr/include
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + ./generic/binding_values(./Cxx/switches/compile)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + &lt;_n(src)>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // source file
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // add library headers and local sources to "."
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; . ++= [root/usr/include = ./temp/includes];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // library headers
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; . ++= [root/.WD = src];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // working directory
+
+&nbsp;&nbsp;&nbsp; // invoke the compiler
+&nbsp;&nbsp;&nbsp; r = _run_tool(build_platform(), cmd);
+&nbsp;&nbsp;&nbsp; outfile = object_name(_n(src), ./Cxx/switches/compile);
+&nbsp;&nbsp;&nbsp; return if r == ERR || r/code != 0 || r/signal != 0 then ERR else
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // in event of success, get output file from ".WD"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( [ $outfile = r/root/.WD/$outfile ] +
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // also include any objects placed in ".WD/cxx_repository"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (if r/root/.WD!cxx_repository
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; then [ cxx_repository = r/root/.WD/cxx_repository ]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else [ ] ));
+};</font></pre>
+</td>
+</tr>
+</table>
+
+<p>It really does just a small amount of setup for an inner tool invocation.&nbsp;
+Since the tool invocation is always cached and the work done before and
+after is relatively small, it's faster to not cache this kind of function.
+<h3>
+<a NAME="Principle #3"></a>Principle #3: Use models as cut off points for
+sub-components</h3>
+The evaluation of models (<tt>.ves</tt> files) is slightly different than
+the evaluation of user-defined functions.&nbsp; The key difference is that
+model cache hits tend to be faster, which comes at the expense of model
+cache misses which are slower.&nbsp; This is achieved by having two cache
+entries per model: one which is coarse grained (by including the entire
+immutable directory in which the model is stored in the primary key, so
+the secondary dependencies are limited to the implicitly passed value of
+the special variable "<tt>.</tt>") and one which is not (in which imported
+files and models become secondary dependencies).&nbsp; (For the full details,
+read section 7.5 "Caching Model Evaluations and Dependencies" in <a href="http://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/abstracts/src-rr-177.html">the
+Vesta research report</a>.)
+<p>This feature is infrequently used, but helpful in certain situations.&nbsp;
+Specifically, it can be used to cut off the propagation of dependencies
+from monolithic sub-components.&nbsp; For example, a tool which is compiled
+under Vesta and later invoked by a bridge, or a library built from source
+under Vesta.&nbsp; In both of these cases, the sub-component (the tool,
+the library) has many secondary dependencies (the source files imported
+to be compiled to construct it).&nbsp; However, a build which makes use
+of them might not otherwise have the same secondary dependencies.&nbsp;
+The propagation of such local secondary dependencies stops at model evaluations,
+so placing such builds inside separate models will tend to reduce the number
+of secondary dependencies of the build using them.&nbsp; This will make
+evaluating cache lookups of such builds faster.&nbsp; Thus, we have this
+rule:
+<blockquote><i>Place builds of independent sub-components in models rather
+than user-defined functions.</i></blockquote>
+The following models are examples of this technique:
+<ul>
+<li>
+<tt>/vesta/vestasys.org/bridges/lim/1/src/prog.ves</tt></li>
+
+<li>
+<tt>/vesta/vestasys.org/basics/os/7/src/lib.ves</tt></li>
+</ul>
+
+<h3>
+<a NAME="Summary"></a>Summary</h3>
+The cache behavior of bridges and models in general has a significant impact
+on the latency of performing builds across an entire site sharing a cache
+server.&nbsp; Following a few simple principles can improve the overall
+performance of Vesta builds.
+<p>The two most important goals in optimizing the cache behavior of models
+are:
+<ul>
+<li>
+Reducing the total number of cache lookups (by using the <tt>/**nocache**/</tt>
+pragma)</li>
+
+<li>
+Making individual lookups more efficient (by using the <tt>/**pk**/</tt>
+pragma and building independent sub-components in models)</li>
+</ul>
+These can be accomplished by applying a few simple rules:
+<ul>
+<li>
+<i>Mark all parameters on which a function's result <u>must</u> depend
+with the <tt>/**pk**/</tt> pragma.&nbsp; Don't use <tt>/**pk**/</tt> to
+mark parameters which may be only partially used by a function.</i></li>
+
+<li>
+<i>Consider using <tt>/**nocache**/</tt> on functions which make no tool
+invocations or other function calls.&nbsp; Also consider using <tt>/**nocache**/</tt>
+on functions which make a small number of function calls, but not on those
+which make a large number.</i></li>
+
+<li>
+<i>Place builds of independent sub-components in models rather than user-defined
+functions.</i></li>
+</ul>
+
+<hr WIDTH="100%">
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i> &nbsp;
+/ <a href="index.html">Vesta SDL Programmer's Reference</a></i>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Functions: _list1, _bind1</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_list1(any)"></A><TT>_list1(<I>v</I>: any): list</TT></H4>
+
+<p>
+Returns a list containing a single element whose value is <I><TT>v</TT></I>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_list1("foo") == &lt;"foo"&gt;
+_list1([foo = 1, bar = TRUE]) == &lt; [foo = 1, bar = TRUE] &gt;</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_bind1(text,any)"></A><TT>_bind1(<I>n</I>: text, <I>v</I>:
+any): binding</TT></H4>
+
+<p>
+If <I><TT>n</TT></I> is the empty string, returns
+<TT>ERR</TT>. Otherwise, returns a binding with the single &lt;name,
+value&gt; pair &lt;<I><TT>n</TT></I>, <I><TT>v</TT></I>&gt;. Note that
+<I><TT>v</TT></I> may be any value, including <TT>ERR</TT>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_bind1("foo", &lt;1, 2, 3&gt;) == [ foo = &lt;1, 2, 3&gt; ]
+_bind1("env_ovs",
+       _bind1("C",
+              _bind1("switches",
+                     _bind1("compile",
+                            _bind1("optimize", "-O2")))))
+  == [ env_ovs/C/switches/compile/optimize = "-O2" ]
+</PRE>
+</BLOCKQUOTE>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

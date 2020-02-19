@@ -1,0 +1,203 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>VCacheLocks(7) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>VCacheLocks(7)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+VCacheLocks - describes the VCache(1) locks and locking levels
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="VCacheLocks.7.html#DescriptionSect">Description</A>
+<LI> <A HREF="VCacheLocks.7.html#NotationSect">Notation</A>
+<LI> <A HREF="VCacheLocks.7.html#LocksSect">The Locks</A>
+<LI> <A HREF="VCacheLocks.7.html#OrderSect">Lock Partial Order</A>
+<LI> <A HREF="VCacheLocks.7.html#OrderSummSect">Lock Partial Order Summary</A>
+<LI> <A HREF="VCacheLocks.7.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="DescriptionSect">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+This man page describes the notation used to document locking levels,
+the locks used in the Vesta-2 cache server implementation, what data
+they protect, and their relative locking order. The locks are also
+documented separately in the individual header files.
+</BLOCKQUOTE>
+
+<H3><A NAME="NotationSect">Notation</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The set of locks held by a thread is denoted by "LL". There is a
+partial order on locks (see below). Every thread must acquire locks in
+an ascending order, so at any time, the locks in the set "LL" form a
+chain (total order). We use "Sup(LL)" to denote the supremum of the
+locks in the chain "LL".<P>
+
+Every method in the Cache Server should specify its locking
+requirements. For example, in the "CacheS" object, a method may
+specify:
+<PRE>
+  /* REQUIRES Sup(LL) = SELF.mu */
+</PRE>
+
+Here, "SELF" denotes the "CacheS" object, and "mu" denotes its mutex
+field. So this method requires that the calling thread holds the mutex
+"CacheS.mu" (and perhaps some locks ordered before "mu" in the lock
+partial order).
+</BLOCKQUOTE>
+
+<H3><A NAME="LocksSect">The Locks</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><B>CacheS.mu</B> (the main cache server lock)<P>
+
+<DD>Protects all of the cache server's global data, such as its leases,
+volatile cache (the mapping from PK -&gt; VPKFile), the "usedCIs", the
+"hitFilter", the cache's volatile cache, graph, and CI logs, and
+other global data. <P>
+
+<DT><B>CacheS.cacheLogMu</B>, <B>CacheS.graphLogMu</B>, <B>CacheS.ciLogMu</B><P>
+
+<DD>Protect the disk operations on the stable cache, graph, and CI logs,
+respectively. These are required because the read/write operations on a
+VestaLog object (used to append to the logs atomically) are unmonitored.<P>
+
+<DT><B>VPKFile.mu</B><P>
+
+<DD>Protects the private data fields of each VPKFile object. This lock
+also synchronizes access to the new cache entries stored under its
+"newCommon" and "newUncommon" fields.<P>
+
+<DT><B>OS::cio().mu</B><P>
+
+<DD>Serializes debugging output. This lock should be held whenever the
+cache server writes debugging output, so that a block of debugging
+lines will appear together, even if multiple threads are writing
+output. The lock is acquired using the "OS::cio().start_out" and
+"OS::cio().start_err" methods and released using the
+"OS::cio().end_out" and "OS::cio().end_err" methods. This lock is
+unrelated to any of the other locks in the locking order, and may be
+acquired so long as the lock is not already held.<P>
+
+Note that this lock is private to an instance of the OS::ThreadIO
+class.  See the files <TT>ThreadIO.H</TT> and <TT>ThreadIO.C</TT> in the
+package <TT>/vesta/vestasys.org/basics/os</TT> for more information.<P>
+
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="OrderSect">Lock Partial Order</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><B>CacheS Locks</B><P>
+
+<DD>The server contains only one instantiation of the "CacheS" object.
+Here are the relations on its locks:
+<PRE>
+  CacheS.ciLogMu &lt; CacheS.graphLogMu &lt; CacheS.cacheLogMu &lt; CacheS.mu
+</PRE>
+
+<DT><B>VPKFile Locks</B><P>
+
+<DD>The server has a "VPKFile" object for each PK stored in volatile
+memory. The order on these locks relative to the main cache server
+lock is:
+<PRE>
+  (forall vf: VPKFile :: vf.mu &lt; CacheS.mu)
+</PRE>
+
+By this specification, a thread is not allowed to hold more than one
+VPKFile lock at a time. However, there is one case where this is
+necessary, namely, when a MultiPKFile is rewritten. Since the entire
+MultiPKFile is updated on disk atomically, the thread doing the update
+must acquire all of the locks for any changed VPKFile's within the
+MultiPKFile. Hence, there is a partial order on the VPKFile locks. If
+two VPKFile's "vpkf1" and "vpkf2" are mapped to the same MultiPKFile,
+then "vpkf1.mu &lt; vpkf2.mu" iff "vpkf1" occurs in iteration order
+before "vpkf2" in the table that maps PK's to VPKFile's that have
+changed since the last time the MultiPKFile was rewritten. Even if
+this order weren't defined, deadlock cannot occur, since at most one
+thread can be rewriting a MultiPKFile at a time, and that is the only
+situation in which a single thread must acquire multiple VPKFile locks.<P>
+
+<DT><B>Debugging Lock</B><P>
+
+<DD>The debugging lock exceeds all other locks in the partial order. This
+means the lock can be acquired so long as it is not already held. Once
+held, no other locks may be acquired.
+<PRE>
+  (forall mu: mutex :: mu &lt;= OS::cio().mu)
+</PRE>
+
+The universal quantification is taken over only those locks controlled
+by the cache server.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="OrderSummSect">Lock Partial Order Summary</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<PRE>
+  CacheS.ciLogMu &lt; CacheS.graphLogMu &lt; CacheS.cacheLogMu &lt; CacheS.mu
+  (forall vf:  VPKFile :: vf.mu &lt; CacheS.mu)
+  (forall mu:  mutex :: mu &lt;= OS::cio().mu)
+</PRE>
+
+The latter universal quantification is taken over only those locks
+controlled by the cache server.
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="VCache.1.html">VCache(1)</A>,
+<A HREF="VCacheImpl.7.html">VCacheImpl(7)</A>,
+<A HREF="VCacheSources.7.html">VCacheSources(7)</A>,
+<A HREF="VCacheToDo.7.html">VCacheToDo(7)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="AuthorSect">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Last modified on Thu Nov  8 12:48:54 EST 2001 by ken@xorian.net
+     modified on Fri Feb 28 10:49:39 PST 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

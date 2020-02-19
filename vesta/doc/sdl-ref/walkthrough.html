@@ -1,0 +1,807 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (X11; U; OSF1 V4.0 alpha) [Netscape]">
+   <meta name="Author" content="Kenneth C. Schalk">
+   <meta name="Description" content="A small demo of how to go about writing Vesta models.">
+   <title>Vesta SDL reference - Walkthrough</title>
+</head>
+<body bgcolor="#efefff">
+
+<h1>
+Walk through</h1>
+
+<ul>
+<li>
+<a href="walkthrough.html#Introduction">Introduction</a></li>
+
+<li>
+<a href="walkthrough.html#HelloWorld">Hello World, Vesta Style</a></li>
+
+<li>
+<a href="walkthrough.html#Importing">Importing Other Models</a></li>
+
+<li>
+<a href="walkthrough.html#Bindings">Fun with Bindings</a></li>
+
+<li>
+<a href="walkthrough.html#Dot">The Deal With Dot (.)</a></li>
+
+<li>
+<a href="walkthrough.html#std_env">The Story Behind <tt>std_env</tt></a></li>
+
+<li>
+<a href="walkthrough.html#InlineSource">Inline Source Code and Other Hacks Your Mother
+Wouldn't Approve Of</a></li>
+
+<li>
+<a href="walkthrough.html#RunTool">Running Tools Under Vesta</a></li>
+</ul>
+
+<h3>
+<a NAME="Introduction"></a>Introduction</h3>
+We'll go through some basics of creating models in Vesta with some examples.&nbsp;
+We'll start out slowly, but pick up the pace midway through.&nbsp;
+By the end, we will have built a program under Vesta and executed it under
+Vesta control (just like the way compilers and other tools get executed).
+<p>For starters, you'll need a package somewhere to perform these examples
+in. Any old package will do, but you'll probably want to create a new one
+(since we'll be creating files with names like <tt>.main.ves</tt>). Plus,
+of course, you'll need to check it out to follow through these examples,
+since we'll be doing things like creating files in the package and using
+<tt><a href="../man/html/vmake.1.html">vmake</a></tt>.
+(We assume that you are already familiar enough with Vesta to handle this.
+If not, you should go through <a href="../tutorial.html">the
+Vesta tutorial</a> first.)
+<p>You might find that you get cache hits on some of these examples, depending
+on how precisely you enter the text.&nbsp; (I evaluated these models while
+developing this tutorial, and others probably will when they go through
+it.)&nbsp; You can try altering the models slightly (changing variable
+names, or stings like "Hello World" to "Greetings Planet") or just using
+<tt><a href="../man/html/vmake.1.html">vmake</a>
+-cache none</tt> instead of <tt><a href="../man/html/vmake.1.html">vmake</a></tt>
+alone.
+<h3>
+<a NAME="HelloWorld"></a>Hello World, Vesta Style</h3>
+This is downright simple. Create a file in your package named
+<tt>hello.ves</tt>,
+and fill it with this text:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">{
+&nbsp; <a href="statements.html#return">return</a> "Hello World!";
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>Now type <tt><a href="../man/html/vmake.1.html">vmake</a>
+-result hello.ves</tt> at your shell from within the working directory for your
+package, and look at what you get back from the evaluator. It should look
+something like this:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#000000">
+<pre><font color="#FFFFFF">Vesta evaluator, version 2.21, Sept 23, 1998
+
+Return value of `hello.ves':
+&nbsp; <b>"Hello World!"
+
+</b>No errors were reported.
+
+The evaluation of `hello.ves' was successful.</font></pre>
+</td>
+</tr>
+</table>
+
+<p>See the "Hello World!" in the middle? (We made it bold so it would be
+easier to spot.)
+<p>You've just written a very simple program in the Vesta system modeling
+language. It's a function which returns a string constant.
+<p>Before we move on, let's make a small change to <tt>hello.ves</tt>:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">{
+&nbsp; <a href="statements.html#return">return</a> <a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a>("Hello World!");
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>If you do <tt><a href="../man/html/vmake.1.html">vmake</a>
+hello.ves</tt> again, you'll get this:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#000000">
+<pre><font color="#FFFFFF">Vesta evaluator, version 2.21, Sept 23, 1998
+<b>"Hello World!"
+
+</b>Return value of `hello.ves':
+&nbsp; "Hello World!"
+
+No errors were reported.
+
+The evaluation of `hello.ves' was successful.</font></pre>
+</td>
+</tr>
+</table>
+
+<p>See the first "Hello World!" which showed up that time? That's from
+the call to the <tt><a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a></tt>
+function. There are three important points to note about this before moving
+on:
+<ol>
+<li>
+Even though we printed out "Hello World!" (which was the point), we didn't
+remove the <tt><a href="statements.html#return">return</a></tt> statement.
+In fact, we can't. The Vesta system modeling language language is a <a href="functional.html">functional
+programming language</a>. Every system model is a function and
+<b>must</b>
+return a value. The last statement in any syntactically correct Vesta model
+must be a <tt><a href="statements.html#return">return</a></tt> statement.</li>
+
+<li>
+Although it seems silly in this case, the <tt><a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a></tt>
+function returns a value. All functions return some value, <tt><a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a></tt>
+just happens to return whatever it printed.</li>
+
+<li>
+We returned the value that <tt><a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a></tt>
+returned. We didn't have to do this, but we did have to do
+<i>something</i>
+with the value it returned. Since it's a functional language, calling a
+function is <b>not</b> a kind of statement, only a kind of expression.</li>
+</ol>
+In a functional language, calling a function can't have any side effects,
+so if you didn't do anything with its return value, why call it at all?
+This particular case is a bit weird, because <tt><a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a></tt>
+obviously does have a side effect: it produces output on the terminal.
+However, it's important to remember this principle.
+<h3>
+<a NAME="Importing"></a>Importing Other Models</h3>
+Create another file in your package named <tt>import.ves</tt>, and put
+this inside it:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000"><a href="models.html#import">import
+</a>&nbsp; hi = hello.ves;
+{
+&nbsp; <a href="statements.html#return">return</a> hi();
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>Go back to your shell and <tt><a href="../man/html/vmake.1.html">vmake</a>
+-trace import.ves</tt>. You'll see something like this:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#000000">
+<pre><font color="#FFFFFF">Vesta evaluator, version 2.21, Sept 23, 1998
+
+Return value of `import.ves':
+&nbsp; "Hello World!"
+
+No errors were reported.
+
+The evaluation of `import.ves' was successful.
+
+Function call graph:
+&nbsp; 0. import.ves: miss
+&nbsp; 1. /vesta/example.com/play/jsmith_experiment/checkout/2/6/hello.ves: <b>miss
+</b>&nbsp; 1. /vesta/example.com/play/jsmith_experiment/checkout/2/6/hello.ves: <b>hit</b> (ci=35792)
+&nbsp; 1. /vesta/example.com/play/jsmith_experiment/checkout/2/6/hello.ves: add (ci=18548)
+&nbsp; 0. import.ves: add (ci=18549)</font></pre>
+</td>
+</tr>
+</table>
+
+<p>As you can see, the return value is the same as it was when you evaluated
+<tt>hello.ves</tt>.
+<tt>import.ves</tt>
+imports the model
+<tt>hello.ves</tt>. It assigns a value which represents
+<tt>hello.ves</tt>
+to a variable named <tt>hi</tt>. It turns out that this value is of <a href="data-types.html#function">type
+<tt>function</tt></a>.
+<tt>import.ves</tt>
+then calls that function, and returns the value it returns.
+<p>There is something important to note here: the output from the
+<tt><a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a></tt>
+function (called by <tt>hello.ves</tt>) is missing. Where did it go? Into
+the function cache of course! Since you recently evaluated
+<tt>hello.ves</tt>,
+the call to
+<tt>hello.ves</tt> resulted in a cache hit. This means that
+it didn't actually evaluate <tt>hello.ves</tt>, it just returned the cached
+result value.&nbsp; The function call graph at the end of the output (which
+was produced by use of the -trace command-line flag) shows the details
+of what happened.&nbsp; Evaluating <tt>import.ves</tt> was a cache miss,
+but that evaluating <tt>hello.ves</tt> was a cache hit.
+<p>Just for fun, do <tt><a href="../man/html/vimports.1.html">vimports</a>
+import.ves</tt> at the command line.&nbsp; It'll show you that <tt>import.ves</tt>
+imports <tt>hello.ves</tt>.
+<h3>
+<a NAME="Bindings"></a>Fun with Bindings</h3>
+If you only understand one of <a href="data-types.html">the Vesta data
+types</a>, it should be <a href="data-types.html#binding">bindings</a>.&nbsp;
+They are central to the way files and directories are manipulated in Vesta
+system models.&nbsp; They are used to provide source files to tools (such
+as compilers).&nbsp; They are also how generated files are returned from
+tools, and the way files are returned to the user (to be shipped after
+the successful evaluation of a model).
+<p>Create another file in your package named <tt>binding.ves</tt>, and
+put this inside it:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">{
+&nbsp; b1 = [x=1];
+&nbsp; b2 = [y=2];
+&nbsp; junk = <a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a>(b1);
+&nbsp; junk = <a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a>(b1/x);
+&nbsp; junk = <a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a>(b2);
+&nbsp; <a href="statements.html#return">return</a> b1 + b2;
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>The first two assignment statements create bindings.&nbsp; Whenever
+you see something enclosed in square brackets, that's a binding.&nbsp;
+Both of the bindings created contain a single name/value pair.&nbsp; You've
+probably already figured out that the first one binds the value 1 to the
+name "x", and the second one binds the value 2 to the name "y".
+<p>The second print statement uses a <a href="expressions.html#BindingLookup">binding
+lookup expression</a>.&nbsp; The expression <tt>b1/x</tt> means "look up
+the value associated with the name 'x' in the binding <tt>b1</tt>".&nbsp;
+Since <tt>b1</tt> binds the name "x" to the value 1, this evaluates to
+1.&nbsp; In more complex models, you may see examples of this where the
+binding is generated by some other expression (such as a <a href="expressions.html#FunctionCall">function
+call</a>) or even another binding lookup expression (which makes it possible
+to do nested lookups into sub-bindings, sub-sub-bindings, etc.).
+<p>&nbsp;The return statement uses the binding overlay operation (which
+looks just like adding two bindings together) to combine the two bindings.
+<p>Now <tt><a href="../man/html/vmake.1.html">vmake</a>
+binding.ves</tt>. You'll see something like this:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#000000">
+<pre><font color="#FFFFFF">Vesta evaluator, version 2.21, Sept 23, 1998
+[ x=1 ]
+1
+[ y=2 ]
+
+Return value of `binding.ves':
+&nbsp; [ x=1, y=2 ]
+
+No errors were reported.
+
+The evaluation of `binding.ves' was successful.</font></pre>
+</td>
+</tr>
+</table>
+
+<p>You probably could've guessed what the result would be: a binding with
+two name/value pairs, combining the two in the bindings <tt>b1</tt> and
+<tt>b2</tt>.
+<p>Let's make some modifications to <tt>binding.ves</tt>:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">{
+&nbsp; b1 = [x=1];
+&nbsp; b2 = [y=2];
+&nbsp; junk = <a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a>(b1);
+&nbsp; junk = <a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a>(b2);
+&nbsp; junk = <a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a>(b1 + b2);
+&nbsp; junk = <a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a>(b2 + b1);
+&nbsp; <a href="statements.html#return">return</a> (b1 + b2) == (b2 + b1);
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>If you <tt><a href="../man/html/vmake.1.html">vmake</a>
+binding.ves</tt> again, you'll see something like this:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#000000">
+<pre><font color="#FFFFFF">Vesta evaluator, version 2.21, Sept 23, 1998
+[ x=1 ]
+[ y=2 ]
+[ x=1, y=2 ]
+[ y=2, x=1 ]
+
+Return value of `binding.ves':
+&nbsp; FALSE
+
+No errors were reported.
+
+The evaluation of `binding.ves' was successful.</font></pre>
+</td>
+</tr>
+</table>
+
+<p>This illustrates a subtle point about bindings: the name/value pairs
+they contain have an order.&nbsp; That's why <font color="#000000"><tt>b1
++ b2</tt> is not equivalent to <tt>b2 + b1</tt>.</font>
+<p><font color="#000000">Before we're done, let's do a couple more tricks
+with bindings.&nbsp; Edit </font><tt>binding.ves</tt> one more time:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">{
+&nbsp; b1 = [x=1];
+&nbsp; b2 = [y=2];
+&nbsp; junk = <a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a>(b1);
+&nbsp; junk = <a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a>(b2);
+&nbsp; b3 = [ coord/z = 3 ];
+&nbsp; junk = _print(b3);
+&nbsp; b4 = [ coord = b1 + b2 ];
+&nbsp; junk = _print(b4);
+&nbsp; junk = _print(b3 + b4);
+&nbsp; junk = _print(b3 ++ b4);
+&nbsp; <a href="statements.html#return">return</a> (b3 + b4) == (b3 ++ b4);
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>The assignment to the variable <tt>b3</tt> uses a shortcut syntax for
+creating nested bindings.&nbsp; It actually assigns <tt>b3</tt> to a binding
+with the name <tt>coord</tt> bound to another binding which has <tt>z</tt>
+bound to 3.&nbsp; The following statement is semantically equivalent:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">&nbsp; b3 = [ coord = [ z = 3 ] ];</font></pre>
+</td>
+</tr>
+</table>
+
+<p>The value assigned to <tt>b4</tt> is similar, but its binding has the
+name <tt>coord</tt> bound to the result of <tt>b1 + b2</tt>.
+<p>Now <tt><a href="../man/html/vmake.1.html">vmake</a>
+binding.ves</tt> again:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#000000">
+<pre><font color="#FFFFFF">Vesta evaluator, version 2.21, Sept 23, 1998
+[ x=1 ]
+[ y=2 ]
+[ coord=[ z=3 ] ]
+[ coord=[ x=1, y=2 ] ]
+[ coord=[ x=1, y=2 ] ]
+[ coord=[ z=3, x=1, y=2 ] ]
+
+Return value of `binding.ves':
+&nbsp; FALSE
+
+No errors were reported.
+
+The evaluation of `binding.ves' was successful.</font></pre>
+</td>
+</tr>
+</table>
+
+<p>This shows us another important point about manipulating bindings: the
+difference between the overlay operator (<tt>+</tt>) and the recursive
+overlay operator (<tt>++</tt>).&nbsp; You'll notice that in <font color="#000000"><tt>b3
++ b4</tt>, the value bound to <tt>coord</tt> in <tt>b4</tt> (<tt>b1 + b2</tt>)
+completely replaces the value bound to <tt>coord</tt> in <tt>b3</tt> (<tt>[
+z = 3 ]</tt>).&nbsp; However, in <tt>b3 ++ b4</tt>, the two sub-bindings
+bound to <tt>coord</tt> are merged.&nbsp; The overlay operator only "sees"
+one level of binding: it simply replaces any names bound in both bindings
+with the value bound in the second operand (thus, <tt>coord = b1 + b2</tt>
+replaces <tt>coord = [ z = 3]</tt>).&nbsp; However, the recursive overlay
+operator will recurse into sub-bindings (and sub-sub-bindings, etc.), merging
+the bindings at all levels.</font>
+<h3>
+<a NAME="Dot"></a>The Deal With Dot (.)</h3>
+There's a special variable in the Vesta system modeling language language:
+"." (normally called "dot").&nbsp; (<font color="#000000">The <a href="syntax.html#Identifiers">Vesta
+identifier syntax</a> does allow variable names like this.)&nbsp; </font>Every
+function has an implicit final parameter which defines the value of dot.&nbsp;
+When <a href="expressions.html#FunctionCall">a function is called</a>,
+if no value is specified for this implicit parameter, it takes the value
+of dot in the calling scope.&nbsp; <font color="#000000">Even models, which
+have no explicit function arguments, take one argument which defines the
+value of dot.&nbsp; </font>In most cases, dot is implicitly passed into
+a function from the calling function.
+<p>Let's illustrate how this works with two of the models we used earlier.&nbsp;
+Edit <tt>import.ves</tt> to look like this:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000"><a href="models.html#import">import
+</a>&nbsp; hi = hello.ves;
+{
+&nbsp; . = [ msg = "Hello World!" ];
+&nbsp; <a href="statements.html#return">return</a> hi();
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>Before calling <tt>hello.ves</tt>, this assigns dot a binding value
+with a single name bound to a text literal.&nbsp; When we call the function
+<tt>hi</tt>
+in the return statement, this will get implicitly passed into
+<tt>hello.ves</tt>
+and become the value of dot when its body is evaluated.
+<p>Now edit <tt>hello.ves</tt> to look like this:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">{
+&nbsp; <a href="statements.html#return">return</a> <a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a>(./msg);
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>We've replaced the text literal for the message with a reference to
+<tt>./msg</tt>.&nbsp;
+In other words, the message is not hard-wired into hello.ves, but is instead
+taken from its environment.
+<p>If you <tt><a href="../man/html/vmake.1.html">vmake</a>
+import.ves</tt>., you'll see the same message it used to deliver (since
+that's what we assigned to <tt>./msg</tt>).&nbsp; After doing that, change
+the message test in <tt>import.ves</tt> and evaluate it again to see that
+it changes the result of the evaluation.&nbsp; This concept is important
+in the next section, so play around with it a bit to convince yourself
+that it works.
+<h3>
+<a NAME="std_env"></a>The Story Behind <tt>std_env</tt></h3>
+Now let's do something a little more typical of what you'll see in other
+packages. Create another file in your package named <tt>.main.ves</tt>,
+and put this inside it:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">from /vesta/vestasys.org/platforms/linux/redhat/i386 <a href="models.html#import">import</a>
+&nbsp;&nbsp;&nbsp; std_env/8;
+{
+&nbsp; . = std_env()/env_build();
+&nbsp; <a href="statements.html#return">return</a> ./target_platform
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>This introduces several new things, so let's go over them one at a time:
+<ol>
+<li>
+We're importing a model from another package.&nbsp; In order to do so,
+we have to tell Vesta where to find it.&nbsp; In fact, we have to tell
+Vesta the complete path to it, including the version of the package that
+we want to import.</li>
+
+<li>
+The <tt>from ... import</tt> construct is a short-hand for importing models
+with long paths. What we see in this model:</li>
+
+<blockquote><tt>from /vesta/vestasys.org/platforms/linux/redhat/i386 import std_env/8;</tt></blockquote>
+Is equivalent to:
+<blockquote><tt>import std_env = /vesta/vestasys.org/platforms/linux/redhat/i386/std_env/8/build.ves;</tt></blockquote>
+It's most useful when you need to import several models with with a common
+path prefix, like this:
+<blockquote>
+<pre>from /vesta/example.com/shared/path import
+&nbsp;&nbsp;&nbsp; foo/7;
+&nbsp;&nbsp;&nbsp; bar/12;</pre>
+</blockquote>
+
+<li>
+Unlike the previous example, we don't specify the name of the Vesta model
+to import.&nbsp; If you import an entire directory, you get the <tt>build.ves</tt>
+file inside that directory (or an error if there isn't one).&nbsp; So in
+this case, we're actually importing <font color="#000000"><tt>/vesta/vestasys.org/platforms/linux/redhat/i386/std_env/8/build.ves</tt>,
+even though the text "build.ves" doesn't appear anywhere in the model.</font></li>
+
+<li>
+<font color="#000000">We don't give a variable name to assign the model
+to.&nbsp; If you omit the variable name and equals sign, the first component
+of the path after the word "import" is used.&nbsp; This means that the
+variable <tt>std_env</tt> holds the <a href="data-types.html#function">function</a>
+corresponding to the model <tt>std_env/8/build.ves</tt>.</font></li>
+
+<li>
+<font color="#000000">The assignment statement (the first statement in
+the body of the model) sets the value of dot.&nbsp; This is how the "environment"
+(including standard libraries, the bridges which invoke compilers, and
+other common functions and data) gets passed around between models.</font></li>
+
+<li>
+<font color="#000000">The return statement uses an expression which indexes
+into the value assigned to dot.&nbsp; (For now, ignore the details of the
+assignment statement.)&nbsp; The value assigned to dot is a <a href="data-types.html#binding">binding</a>.&nbsp;
+The expression in the return statement looks up the value assigned to the
+name "target_platform" in the <a href="data-types.html#binding">binding</a>
+assigned to dot.</font></li>
+</ol>
+<font color="#000000">Now go to the command line and do</font> <tt><a href="../man/html/vmake.1.html">vmake</a></tt>
+(note the lack of a parameter naming a specific model file).&nbsp; You
+should see this:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#000000">
+<pre><font color="#FFFFFF">Vesta evaluator, version 2.21, Sept 23, 1998
+
+Return value of `.main.ves':
+&nbsp; "Linux2.4-i386"
+
+No errors were reported.
+
+The evaluation of `.main.ves' was successful.</font></pre>
+</td>
+</tr>
+</table>
+
+<p>As you can see, the value assigned to <font color="#000000"><tt>./target_platform</tt>
+is the string "Linux2.4-i386".&nbsp; We didn't need to tell </font><tt><a href="../man/html/vmake.1.html">vmake</a></tt>
+that it was <tt>.main.ves</tt> that we wanted to evaluate: that's the default
+model to evaluate.
+<p><font color="#000000">The value generated by the <tt>std_env</tt> model
+(and stored in the variable dot) is big and complex.&nbsp; (If you're feeling
+adventurous, you can print it out and look at it.)&nbsp; It contains all
+kinds of things like standard libraries and their associated header files,
+the bridge functions for invoking different compilers, command line options
+for different tools, and even compiler executables.&nbsp; (Try looking
+at <tt>./Cxx/expert/root</tt>: it's the filesystem used when compiling C++.)&nbsp;
+Normally, you call <tt>std_env</tt> to generate this for you in <tt>.main.ves</tt>,
+then you implicitly pass dot to another model (often <tt>build.ves</tt>)
+to actually do some compilation.</font>
+<p><font color="#000000">Of course, <tt>std_env</tt> is not strictly necessary,
+it's just a convention.&nbsp; Every model could import all the different
+pieces it needs (like compilers and libraries), but centralizing all this
+common stuff in <tt>std_env</tt> makes most models much simpler.</font>
+<h3>
+<a NAME="InlineSource"></a>Inline Source Code and Other Hacks Your Mother
+Wouldn't Approve Of</h3>
+I think that one of the best ways to understand a language is to do something
+out of the ordinary with it.&nbsp; It's important to understand not just
+the syntax and semantics of a language, but where its boundaries lie:
+what can and can't you do with it?&nbsp; We'll push on the Vesta system
+modeling language language in this exercise, and see some things you might
+not normally encounter.
+<p>Let's keep working on <tt>.main.ves</tt>:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">from /vesta/vestasys.org/platforms/linux/redhat/i386 <a href="models.html#import">import
+</a>&nbsp;&nbsp;&nbsp; std_env/8;
+{
+&nbsp; . = std_env()/env_build();
+&nbsp; code = "#include &lt;iostream.h>\n" +
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; "main(){cout&lt;&lt;\"Hi there\\n\";}\n";
+&nbsp; <a href="statements.html#return">return</a> ./Cxx/program("foo", [ foo.cxx = code ], [],
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;./libs/c/clib_umb&gt;);
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>The variable code is a <a href="data-types.html#text">text string</a>.&nbsp;
+I've broken up the string into two lines to make it a little more readable,
+and concatenated the pieces together with the <tt>+</tt> operator.&nbsp;
+As you can see, it is a complete C++ program, which one might ordinarily
+format like this:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">#include &lt;iostream.h>
+
+main()
+{
+&nbsp; cout &lt;&lt; "Hi there\n";
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>I've just compressed it down a bit by removing most of the whitespace
+one would ordinarily see.
+<p>The return statement invokes a function which is part of the standard
+environment.&nbsp; Specifically, it looks up the <a href="data-types.html#function">function</a>
+bound to the name <tt>program</tt> inside the binding bound to <tt>Cxx</tt>
+inside the binding assigned to the variable dot.&nbsp; This function compiles
+and links a C++ program.&nbsp; It requires four arguments:
+<ol>
+<li>
+The name of the executable to produce (in other words, the filename the
+linker should be told to generate)</li>
+
+<li>
+A <a href="data-types.html#binding">binding</a> of source files to be compiled</li>
+
+<li>
+A <a href="data-types.html#binding">binding</a> of header files included
+by the source code to be compiled</li>
+
+<li>
+A <a href="data-types.html#list">list</a> of libraries to link with</li>
+</ol>
+We'll call our program "<tt>foo</tt>", so that's the first argument.&nbsp;
+For the source files, we'll have just one, named <tt>foo.cxx</tt>, and
+filled with the text in the variable <tt>code</tt>.&nbsp; We don't have
+any header files of our own, so we pass the empty binding for the third
+argument.&nbsp; We'll use some standard libraries such as the C++ and C
+runtime libraries.&nbsp; (Don't worry too much about the fourth argument.&nbsp;
+It just grabs libraries from the standard environment and puts them in
+a <a href="data-types.html#list">list</a>.)
+<p>Let's look a little more closely at the second parameter.&nbsp; The
+first thing to note is that the source code we're compiling is not stored
+in a file, it's inlined in the system model.&nbsp; This is not the way
+one usually deals with source code under Vesta.&nbsp; Usually, the source
+code would be in a separate file and imported with a <a href="models.html#files">files
+clause</a> at the beginning of the model.&nbsp; However, once you bring
+in a file with a files clause, it's just a <a href="data-types.html#text">text
+value</a>, indistinguishable from one defined with a literal in a system
+model.&nbsp; In fact, <b>all files manipulated by the Vesta evaluator are
+text values</b>, including compiler executables, object files, and other
+tool result files. This means that they're interchangeable, so there's
+nothing preventing us from putting source code in a system model as we've
+done here.
+<p>The second thing to note about the binding we pass to
+<font color="#000000"><tt>./Cxx/program</tt>
+is that it binds a filename (<tt>foo.cxx</tt>) to the file's contents (the
+C++ program stored in the variable <tt>code</tt>).&nbsp; If you think about
+it, this is very similar to a directory in the filesystem, which also associates
+names (filenames) with values (file contents).&nbsp; In fact, as far as
+Vesta is concerned,
+<b>a binding is a directory</b>.&nbsp; Just as text
+values and files are interchangeable, so are bindings and directories.&nbsp;
+(You might want to take a minute to think about these two points, as they
+have a lot of implications.&nbsp; If you don't get it right now, don't
+worry about it.)</font>
+<p><font color="#000000">Let's go do a</font> <tt><a href="../man/html/vmake.1.html">vmake</a></tt>.&nbsp;
+Assuming you don't get a cache hit (which might happen if someone else
+did this exercise recently), you'll see this:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#000000">
+<pre><font color="#FFFFFF">Vesta evaluator, version 2.21, Sept 23, 1998
+"Building program foo"
+0/localhost: /usr/bin/g++ -c -I -I/usr/include -I/usr/include/g++-3 -O0 -g2 -pipe foo.cxx
+0/localhost: /usr/bin/g++ -L -L. -o foo -O1 -Wl,-u -Wl,pthread_self hello.o libstdc++.a libgcc.a libpthread.so.0 libm.so.6 libc.so.6 libc_nonshared.a
+
+Return value of `.main.ves':
+&nbsp; [ foo=&lt;file 0x95fe7ae2> ]
+
+No errors were reported.
+
+The evaluation of `.main.ves' was successful.</font></pre>
+</td>
+</tr>
+</table>
+
+<p>As you can see, the program was compiled and linked into an executable.&nbsp;
+Go ahead and ship it somewhere and run it to convince yourself this worked.
+<h3>
+<a NAME="RunTool"></a>Running Tools Under Vesta</h3>
+Now let's do one more thing with this little program: invoke it from within
+Vesta, just like compilers are invoked.&nbsp; Edit <tt>.main.ves</tt> one
+more time:
+<br>&nbsp;
+<table BORDER=0 >
+<tr>
+<td ALIGN=LEFT BGCOLOR="#FFFFFF">
+<pre><font color="#000000">from /vesta/vestasys.org/platforms/linux/redhat/i386 <a href="models.html#import">import
+</a>    std_env/8;
+{
+  . = std_env()/env_build();
+  code = "#include &lt;iostream.h>\n" +
+         "main(){cout&lt;&lt;\"Hi there\\n\";}\n";
+  exe = ./Cxx/program("foo", [ foo.cxx = code ], [],
+                      &lt;./libs/c/clib_umb&gt;);
+  cmd = &lt;"foo">;
+  . ++= [ root/.WD = exe ];
+  . ++= [ root = ./build_root(<"glibc", "libstdc++">) ];
+  r = <a href="primitive-functions/_run_tool.html#_run_tool">_run_tool</a>(./target_platform, cmd,
+                /*stdin=*/ "",
+                /*stdout_treatment=*/ "value");
+  <a href="statements.html#return">return</a> [foo.out = r/stdout];
+}</font></pre>
+</td>
+</tr>
+</table>
+
+<p>Let's go over the changes here:
+<ol>
+<li>
+Instead of returning the program generated by <font color="#000000"><tt>./Cxx/program</tt>,
+we capture it in a variable named <tt>exe</tt>.&nbsp; If you were to look
+at it, you'd see that it's a <a href="data-types.html#binding">binding</a>
+with the name <tt>foo</tt> bound to a <a href="data-types.html#text">text</a>
+value, which is a string of the data in the executable we've compiled.</font></li>
+
+<li>
+<font color="#000000">We create a <a href="data-types.html#list">list</a>
+of strings to represent the command line we want Vesta to invoke for us
+and store it in the variable <tt>cmd</tt>.&nbsp; In this case, the command-line
+is very simple: it's just one string, "foo", the name of our executable.</font></li>
+
+<li><font color="#000000">We modify the value of dot with the in-place
+recursive overlay operator (<tt>++=</tt>).&nbsp; What we're actually accomplishing
+here is making our executable available to the tool invocation.&nbsp; <tt>./root/.WD</tt>
+will be the working directory when we invoke a tool.&nbsp; Since <i>bindings
+are directories</i>, we can merge the binding in <tt>exe</tt> (which contains
+our executable) into this binding.&nbsp; This makes it so that the working
+directory will contain our executable <tt>foo</tt> when we run our command-line.</font>
+</li>
+
+<li>
+We also merge the C and C++ run-time libraries into <tt>./root</tt>.
+This is necessary, because our executable <tt>foo</tt> may need shared
+libraries for the C and C++ run-time library.
+</li>
+
+<li>
+<font color="#000000">We invoke the primitive function <tt><a href="primitive-functions/_run_tool.html#_run_tool">_run_tool</a></tt>.&nbsp;
+This is how all commands are executed by Vesta (compilers, the linker,
+etc.).&nbsp; We pass it a few arguments: the target platform (<tt>./target_platform</tt>),
+the command line (which we constructed in <tt>cmd</tt>), the text for the
+standard input stream (empty in this case), and an indication of how it
+should treat the standard output.&nbsp; The important one here is that
+we tell it to return the standard output to us as a value.</font></li>
+
+<li>
+<font color="#000000">As the result of the model, we return a file named
+<tt>foo.out</tt>
+with the standard output from our invocation of <tt><a href="primitive-functions/_run_tool.html#_run_tool">_run_tool</a></tt>
+(from <tt>r/stdout</tt>) as its contents.</font></li>
+</ol>
+<font color="#000000">If you evaluate this model and ship its result,
+you can look at the contents of <tt>foo.out</tt>, and see the string the
+C++ code printed.</font>
+<p><font color="#000000">The way <tt>./root</tt> affects <tt><a href="primitive-functions/_run_tool.html#_run_tool">_run_tool</a></tt>
+is very significant, so we should talk about it a little more.&nbsp; Vesta
+builds use a technique called <b>filesystem encapsulation</b>.&nbsp; Every
+time a tool is invoked under Vesta (every time <tt><a href="primitive-functions/_run_tool.html#_run_tool">_run_tool</a></tt>
+is called), Vesta creates a temporary filesystem derived from the binding in
+<tt>./root</tt>.&nbsp;
+Vesta uses the UNIX system call <tt>chroot(2)</tt> to make this temporary
+filesystem the entire universe, as far as the running tool can see.&nbsp;
+(The directory defined by <tt>./root</tt> becomes equivalent to <tt>/</tt>
+in the UNIX filesystem.)&nbsp; This makes it possible for Vesta to have
+complete control over which files the tool reads and to be able to know
+which files the tool has written.&nbsp; Although we don't demonstrate it
+here, a call to <tt><a href="primitive-functions/_run_tool.html#_run_tool">_run_tool</a></tt>
+that generates files will return them in the form of a binding to text
+values.&nbsp; This is also how Vesta does precise dependency checking.&nbsp;
+Since it provides the filesystem a tool sees, it knows every file read
+by the tool invocation, which allows it to determine exactly which sources
+a given build result depended upon.</font>
+<br>
+<hr WIDTH="100%">
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i> &nbsp;
+/ <a href="index.html">Vesta SDL Programmer's Reference</a></i>
+</body>
+</html>

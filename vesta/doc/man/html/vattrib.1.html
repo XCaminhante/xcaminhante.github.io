@@ -1,0 +1,284 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vattrib - Manipulate Vesta attributes</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vattrib(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vattrib</B> - Read or modify attributes of a source in the Vesta repository
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vattrib</B> [<A HREF="vattrib.1.html#Flags">options</A>] [<I>source...</I>] [<A HREF="vattrib.1.html#Flags">options</A> [<I>source...</I>] ...]
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vattrib.1.html#Description">Description</A>
+<LI> <A HREF="vattrib.1.html#Flags">Flags</A>
+<LI> <A HREF="vattrib.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vattrib.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vattrib.1.html#See_Also">See Also</A>
+<LI> <A HREF="vattrib.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+See the <A HREF="vesta-intro.1.html">vesta-intro</A> man page's
+<A HREF="vesta-intro.1.html#Terminology">Terminology</A> section
+for definitions of terms, and its
+<A HREF="vesta-intro.1.html#Name_Interpretation">Name Interpretation</A>
+section for an explanation of how names are looked up.<P>
+
+The <B>vattrib</B> command reads or modifies the mutable attributes of a
+source in the Vesta repository.<P>
+
+If <I>source</I> is omitted, it defaults to "<TT>.</TT>".  If <I>source</I> is
+unqualified (does not have "<TT>/</TT>", "<TT>.</TT>", or
+"<TT>..</TT>"  as its first arc), it is interpreted
+relative to "<TT>.</TT>".  If <I>source</I> is a symbolic link, <B>vattrib</B>
+does not follow the link.  If no flags are given,
+the default is "-m -T -l": print the master status, type tag, and all
+attribute names and values.  If the -t flag is not given and a
+timestamp is required, the timestamp defaults to the current time.<P>
+
+A source has attributes if its parent directory is appendable or
+mutable.  In addition, /vesta and /vesta-work have attributes.  Other
+sources do not.  In all cases below except -x, -m, and -T, if the specified
+source does not have attributes, <B>vattrib</B> prints an error message
+on standard error and exits with status 2.  In all cases,
+if the specified source does not exist in the Vesta repository,
+<B>vattrib</B> prints a message on standard error and exits with status
+2.  For parameter syntax errors, <B>vattrib</B> prints a usage summary
+on standard error and exits with status 3.<P>
+
+To modify most attributes requires only write access.  To modify an
+attribute whose name begins with "#", you must have owner access.  In
+addition, to add a user name to the #setuid attribute, you must be either
+root or the named user; to add a group name to the #setgid
+attribute, you must be either root or a member of the named group.
+Reading attributes is unrestricted.  For access control errors,
+<B>vattrib</B> prints a message on standard error and exits with status
+2.<P>
+
+A single <B>vattrib</B> invocation can examine/modify multiple objects.
+Both multiple sources for one operation and multiple different
+operations can be combined in one <B>vattrib</B> call.  The -R, -M, and
+-H flags affect all sources appearing after them until the end of the
+command line or until the next -R or -H flag accordingly.
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT>-R <I>repos</I><DD>
+This flag may be used in any of the command forms shown below.
+It causes <B>vattrib</B> to operate on <I>repos</I> instead of the default local
+repository.  The repository is
+specified by host name and TCP port number 
+in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it
+defaults to <A HREF="vattrib.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT>-M<DD>
+This flag may be used in any of the command forms shown below.  It
+causes <B>vattrib</B> to locate the repository with the master copy of
+<I>source</I> and operate on it instead of the local repository.  (Note
+that this option doesn't work if <I>source</I> starts with
+"<TT>/vesta-work</TT>".)
+<DT>-H <I>hints</I><DD>
+This flag may be used in any of the command forms shown below, but is
+only used with the -M flag. If <B>vattrib</B> fails to find the master
+copy of an object in either the local repository or any of those
+repositories listed in
+<A HREF="vattrib.1.html#Configuration"><I>[UserInterface]DefaultHints</I></A>, you can
+suggest additional repositories for it to look in using this
+option. The <I>hints</I> argument is a comma- or space-separated list of
+repositories, specified by host name and TCP port number in the format
+<I>host</I><TT>:</TT><I>port</I>.  The <TT>:</TT><I>port</I> portion may be omitted;
+it defaults to
+<A HREF="vattrib.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><B>vattrib</B> [-q] -x [<I>source</I>]<DD>
+Print <TT>true</TT> and exit with status 0 if <I>source</I> has attributes.
+Print <TT>false</TT> and exit with status 1 if it does not.
+If -q is given, the <TT>true</TT> or <TT>false</TT> output is suppressed.
+<DT><B>vattrib</B> -m [<I>source</I>]<DD> 
+Print the master status of <I>source</I>, either <TT>master</TT> or
+<TT>nonmaster</TT>.  This flag can be used alone or in combination with
+the other flags listed below.  If -m and -T are used together, both
+values are printed on the same line.
+<DT><B>vattrib</B> -q -m [<I>source</I>]<DD>
+Exit with status 0 if <I>source</I> is master and 1, otherwise. Can not 
+be used with other flags except for -R, -M and -H flags.
+<DT><B>vattrib</B> -T [<I>source</I>]<DD> 
+Print the type tag of <I>source</I>, normally one of the following:
+<TT>immutableFile</TT>, <TT>mutableFile</TT>, <TT>immutableDirectory</TT>,
+<TT>appendableDirectory</TT>, <TT>mutableDirectory</TT>, <TT>ghost</TT>,
+<TT>stub</TT>.  This flag can be used alone or in combination with the
+other flags listed below.  If -m and -T are used together, both
+values are printed on the same line.
+<DT><B>vattrib</B> [-q] -C <I>value</I> [<I>source</I>]<DD>
+Compare the type tag of <I>source</I> to <I>value</I>.  Print <TT>true</TT> if
+they are equal and exit with status 0.  Otherwise print <TT>false</TT> and
+exit with status 1.  If -q is given, the output is suppressed.  If
+<I>value</I> is not one of the valid type strings (<TT>immutableFile</TT>,
+<TT>mutableFile</TT>, <TT>immutableDirectory</TT>, <TT>appendableDirectory</TT>,
+<TT>mutableDirectory</TT>, <TT>ghost</TT> or <TT>stub</TT>), print <TT>invalid
+type</TT> and exit with status 2.
+<DT><B>vattrib</B> -L [<I>source</I>]<DD>
+Print last-modified time of <I>source</I> if it is not stub or ghost.
+<DT><B>vattrib</B> [-q] -i <I>attrib</I> <I>value</I> [<I>source</I>]<DD>
+Print <TT>true</TT> and exit with status 0 if <I>value</I> is a member of
+the set bound to <I>attrib</I> of <I>source</I>.  Print <TT>false</TT> and exit with
+status 1 if not.  If -q is given, the <TT>true</TT> or <TT>false</TT> output is
+suppressed.
+<DT><B>vattrib</B> -g <I>attrib</I> [<I>source</I>]<DD>
+Print the set of values for <I>attrib</I> of <I>source</I>, one per line.
+<DT><B>vattrib</B> [-q] -G <I>attrib</I> [<I>source</I>]<DD>
+Print one value for <I>attrib</I> of <I>source</I>.  If <I>attrib</I> has an empty
+value set, exit with status 1, and print an error message on
+stderr unless -q is given.
+<DT><B>vattrib</B> -n [<I>source</I>]<DD>
+Print each attribute name of <I>source</I> that has a nonempty value set,
+one per line.
+<DT><B>vattrib</B> -l [<I>source</I>]<DD>
+For each attribute of <I>source</I> that has a nonempty value set,
+print the attribute name, followed by the set of values.  Each
+attribute name and each value appears on a new line, and values
+are indented by one tab character.
+<DT><B>vattrib</B> -h [<I>source</I>]<DD>
+Print the recorded attribute history of <I>source</I> (see
+<TT>VestaSource.H</TT>).
+<DT><B>vattrib</B> [-t <I>timestamp</I>] -s <I>attrib</I> <I>value</I> [<I>source</I>]<DD>
+Bind <I>attrib</I> of <I>source</I> to the singleton set {<I>value</I>}.  If
+present, <I>timestamp</I> is a time_t in decimal (or hexadecimal if it
+begins with 0x, or octal if it begins with 0).
+<DT><B>vattrib</B> [-t <I>timestamp</I>] -c <I>attrib</I> [<I>source</I>]<DD>
+Bind <I>attrib</I> of <I>source</I> to the empty set; i.e., unbind it.  If
+present, <I>timestamp</I> is a time_t in decimal (or hexadecimal if it
+begins with 0x, or octal if it begins with 0).
+<DT><B>vattrib</B> [-t <I>timestamp</I>] -a <I>attrib</I> <I>value</I> [<I>source</I>]<DD>
+Add <I>value</I> to the set that is bound to <I>attrib</I> of <I>source</I>.  If
+present, <I>timestamp</I> is a time_t in decimal (or hexadecimal if it
+begins with 0x, or octal if it begins with 0).
+<DT><B>vattrib</B> [-t <I>timestamp</I>] -r <I>attrib</I> <I>value</I> [<I>source</I>]<DD>
+Remove <I>value</I> from the set that is bound to <I>attrib</I> of <I>source</I>.
+It is not an error for <I>value</I> not to have been in the set.  If
+present, <I>timestamp</I> is a time_t in decimal (or hexadecimal if it
+begins with 0x, or octal if it begins with 0).
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>AppendableRootName</I><DD>
+The filename under which the global root directory of
+Vesta repositories is mounted.  Ordinarily set to <TT>/vesta</TT>.
+<DT><I>MutableRootName</I><DD>
+The filename under which the local tree of mutable directories provided
+by Vesta is mounted.  Ordinarily set to <TT>/vesta-work</TT>.
+<DT><I>DefaultPackageParent</I><DD>
+The default directory to put new packages in.  Ordinarily a
+subdirectory of the appendable root, named with an Internet domain name
+belonging to the local site.
+<DT><I>DefaultWorkParent</I><DD>
+The default parent directory for mutable working directory trees belonging to
+individual users.  Ordinarily the same as the mutable root.
+<DT><I>realm</I><DD>
+Global user names are formed by appending
+<TT>@</TT><I>realm</I> to the local name.
+<DT><I>TimeFormat</I><DD>
+A format string for <B>strftime</B>(3) to produce time strings for Vesta
+attributes.  A common setting is "%a %b %e %T %Z %Y".
+<DT><I>DefaultHints</I><DD>
+A comma- or space-separated list of additional repositories to search
+for the master copy of an object.  Each repository is specified by
+host name and TCP port number in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it defaults to
+<I>[Repository]VestaSourceSRPC_port</I>.  This setting is optional.
+</DL>
+<P>
+
+The following values are obtained from the <TT>[Repository]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+The default TCP port number for repositories.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Flags which affect the exit status of <B>vattrib</B> cannot be used with
+multiple sources: -x, -i, -C and -q -m.<P>
+
+If you wish to perform multiple attribute changes to the same source,
+you will have to explicitly list the path to the source, once for each
+change.  For example:
+<PRE>
+vattrib -r \it{attrib} \it{old-value} /vesta/example.com -a \it{attrib} \it{new-value} /vesta/example.com
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A><P>
+
+See the <TT>VestaSource</TT>
+class for a full explanation of mutable attributes.
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+<PRE>
+Last modified on Mon Nov 22 17:26:46 EST 2004 by ken@xorian.net         
+     modified on Tue Nov 16 16:33:57 EST 2004 by irina.furman@intel.com 
+     modified on Tue Apr 29 23:59:52 PDT 2003 by mann
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

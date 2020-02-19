@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Function: _elem</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_elem(text,int)"></A><TT>_elem(<I>t</I>: text, <I>i</I>: int):
+text</TT></H4>
+
+<p>
+If 0 &lt;= <I><TT>i</TT></I> &lt; <TT>_length(<I>t</I>)</TT>, returns a
+byte string of length 1 consisting of byte <I><TT>i</TT></I> of the byte
+sequence <I><TT>t</TT></I>. Otherwise, returns the empty string.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_elem("foo", 0) == "f"
+_elem("A nice long string.\n", 18) == "."</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_elem(list,int)"></A><TT>_elem(<I>l</I>: list, <I>i</I>: int):
+any</TT></H4>
+
+<p>
+Returns the <I><TT>i</TT></I>-th value in the list <I><TT>l</TT></I>, or
+<TT>ERR</TT> if no such value exists. (The first value of a list has index
+0.)
+</p>
+
+<BLOCKQUOTE>
+<PRE>_elem(&lt;1, 2, 3&gt;, 3) == ERR
+_elem(&lt;"def", 4, 5, 6,&gt;, 2) == 5
+_elem(&lt; &lt;"michigan", "militia"&gt;, &lt;"intra-pennsylvania", "rivalry"&gt;&gt;, 1) == &lt;"intra-pennsylvania", "rivalry"&gt;</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_elem(binding,int)"></A><TT>_elem(<I>b</I>: binding, <I>i</I>: int):
+binding</TT></H4>
+
+<p>
+Returns a binding consisting solely of the <I><TT>i</TT></I>-th
+&lt;name, value&gt; pair in the binding <I><TT>b</TT></I>, or
+<TT>ERR</TT> if no such pair exists. The first pair of a binding has
+index 0.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_elem([], 0) == ERR
+_elem([ foo = 1, bar = 2, moxy = TRUE, msg = "gotta get a _ to you" ], 2) == [ moxy = TRUE ]</PRE>
+</BLOCKQUOTE>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

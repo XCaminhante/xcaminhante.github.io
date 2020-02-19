@@ -1,0 +1,179 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vesta.cfg - Vesta configuration file</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vesta.cfg(5)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vesta.cfg</B> - Configuration file for the Vesta configuration management system
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vesta.cfg.5.html#Description">Description</A>
+<LI> <A HREF="vesta.cfg.5.html#Locations">Locating the Configuration Files</A>
+<LI> <A HREF="vesta.cfg.5.html#Syntax">Configuration File Syntax</A>
+<LI> <A HREF="vesta.cfg.5.html#Example">Example Configuration File</A>
+<LI> <A HREF="vesta.cfg.5.html#See_Also">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Most Vesta tools use a standard mechanism for
+determining configuration information about a Vesta installation.
+This mechanism attempts to locate a configuration file named
+<I>vesta.cfg</I> by searching in a number of locations. The 
+<A HREF="vgetconfig.1.html"><B>vgetconfig</B>(1)</A> man page
+describes a command-line interface for determining the location of the
+configuration file and for printing the value of a particular
+configuration variable. The meanings of the configuration variables
+recognized by the various tools are documented in their individual man
+pages.
+</BLOCKQUOTE>
+
+<H3><A NAME="Locations">Locating the Configuration File</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The Vesta tools search for the <I>vesta.cfg</I> file in the following
+locations:<P>
+
+<OL>
+<LI>
+The file named by the VESTACONFIG environment variable is used if that
+environment variable is defined and the file exists.
+<LI>
+Otherwise, the <I>vesta.cfg</I> file in the directory named by the HOME
+environment variable is used if that environment variable is defined
+and the file exists.
+<LI>
+Otherwise, <I>/etc/vesta.cfg</I> is used if it exists.
+</OL>
+<P>
+
+If all of these search locations fail, the Vesta tools that require
+the configuration file will print an error message and exit.<P>
+
+A few tools (such as vgetconfig and QuickWeed) take command line paramaters
+to override the location of configuration files.
+</BLOCKQUOTE>
+
+<H3><A NAME="Syntax">Configuration File Syntax</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Here is a EBNF grammar for Vesta configuration files.
+<PRE>
+  config-file  ::= ws section ws new-line line*
+  line         ::= ws ( section | option | comment ) ws new-line
+  section      ::= '[' ws name ws ']' 
+		 | '[' "include" ws name ws ']'
+  option       ::= name ws '=' ws value
+  comment      ::= ( ';' | "//" ) non-new-line* | &lt;empty&gt;
+  name         ::= ( letter | digit | special )+
+  value        ::= non-new-line*
+  new-line     ::= &lt;ASCII CR&gt; | &lt;ASCII LF&gt;
+  non-new-line ::= &lt;any ASCII character except those for new-line&gt;
+  ws           ::= &lt;space&gt; | &lt;tab&gt;
+</PRE>
+
+This grammar is slightly ambiguous, but the intent should be clear.
+The file is a sequence of lines, each of which is either a section name
+in square brackets, a &lt;name,value&gt; pair separated by an equal sign, or
+a comment.  Leading and trailing white space is ignored, as are blank
+lines and comment lines.  A comment line has a semicolon or two slashes
+as its first non-whitespace characters.<P>
+
+The configuration file defines a two-level naming structure, with
+sections as the upper level and the names of &lt;name, value&gt; pairs as the
+lower level.  Once the file has been parsed, the basic operation is
+to lookup a &lt;section, name&gt; pair, obtaining the associated value.
+See the <A HREF="vesta.cfg.5.html#Example">example configuration file</A> below.<P>
+
+There is a facility for one configuration file to refer to other
+ones.  Notice the second alternative for the <I>section</I> nonterminal
+in the grammar above.  When this form is used, it doesn't introduce
+a section name; instead, if <I>name</I> specifies a file, it is read and processed.
+That is, if a file contains a line of the form:
+<PRE>
+  [include /proj/vesta/pkg/config-file/vesta.cfg]
+</PRE>
+
+then the line will effectively be replaced by the sections contained in
+the file <TT>/proj/vesta/pkg/config-file/vesta.cfg</TT>. If instead, <I>name</I>
+specifies a directory, all of the files in it and any sub-directories are
+read and processed.  The file names are sorted as strings, but comparing
+embedded sequences of digits as decimal integers.  (So, for example "foo_10_bar" will
+sort after "foo_2_bar".)  Files in sub-directories are sorted first by the
+name of the sub-directory itself and then within the sub-directory by file name.<P>
+
+All options must be in a section.  Any file (included or the main file)
+must have a named section before any options.  See the example below.<P>
+
+This mechanism is chiefly intended for overriding a set of shared
+defaults.  A configuration file containing standard definitions is
+stored in a public location (usually /etc/vesta.cfg).  A second
+configuration file is stored in the user's home directory or at the
+location specified by the environment variable VESTACONFIG.  This
+second file begins with an <I>include</I> line that mentions the first
+file, then continues with additional sections that either add to or
+override the standard definitions.  Thus, it is not an error for a
+&lt;section, name&gt; pair to appear more than once in the course of
+configuration file processing (which may involve reading multiple
+files).  The value encountered last wins.
+</BLOCKQUOTE>
+
+<H3><A NAME="Example">Example Configuration File</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Here is a sample configuration file. This file includes a central
+configuration file, and then overrides some configuration variables
+in the <I>Evaluator</I> and <I>Run_Tool</I> sections.
+<PRE>
+  // Include standard configuration file
+  [include /etc/vesta.cfg]
+  
+  // ----------------------------------------------
+  [Evaluator]
+  
+  // always print a stack trace on runtime errors
+  Switches = -stack
+  
+  // host to use for DU4.0 builds
+  DU4.0 = rowdy.pa.dec.com
+  
+  // ----------------------------------------------
+  [Run_Tool]
+  
+  // print RunToolServer debugging info
+  helper_switches = -d
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<A HREF="vgetconfig.1.html"><B>vgetconfig</B>(1)</A>
+<A HREF="QuickWeed.1.html"><B>QuickWeed</B>(1)</A>
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

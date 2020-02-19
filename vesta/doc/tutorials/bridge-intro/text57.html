@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 58</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text56.html">Back</a> <a href="text58.html">Continue</a> <a href="text68.html">Last page</a> <a href="bridge-intro.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Details of Handling Multiple Files</h1><p>
+<ul><li><h2>// Add the root for the tool and an empty working directory</h2>
+<li><h2>. += [ root = [.WD=[]] + ./build_root(&lt;&quot;grep&quot;, &quot;glibc&quot;&gt;) ];</h2>
+<li><h2>// Build a command line</h2>
+<li><h2>cmd = (&lt;&quot;grep&quot;&gt; +</h2>
+<li><h2>       ./generic/binding_values(./grep/switches) +</h2>
+<li><h2>       &lt;pattern&gt;);</h2>
+<ul><li>We set up the filesystem and command line once, sharing it across all the individual grep runs
+<li>Note that “cmd” gets captured from the definition context of the inner function, but the new value of “.” gets passed as a parameter (through _par_map)
+</ul></ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Vesta Tutorial</TITLE>
+</HEAD>
+<BODY BGCOLOR="#efefff">
+
+<H1>Vesta Tutorial</H1>
+
+<P>This document walks you through an example use of the Vesta
+software configuration management system. The tutorial covers the main
+commands you'll need to know as a Vesta user. Each of these commands
+has a detailed man page, available both in nroff and HTML format. The
+<A HREF="http://www.vestasys.org/doc/man/html/">HTML man pages</A> have pictures that help to
+clarify what is going on.</p>
+
+<P>Some of these commands tell you to type long file pathnames. You
+can of course make symbolic links in your home directory so that you
+can type shorter names. The "pushd" command, editable history, and
+tab-completion of filenames (available in some shells) are other handy
+features that save typing.</p>
+
+<DL>
+
+
+<DT><B>Pick a name for your new package.</B></DT>
+<DD>
+<P>For this example, we'll use "<tt>jones_hello</tt>", where you
+should replace "<tt>jones</tt>" by your own user name.  Or you could
+choose any package name that no one else at your site has used yet.
+<P>
+
+<DT><B>A note on site names and &quot;play&quot; directories</B></DT>
+<DD>
+
+<P>Throughout this tutuorial, you'll notice references to paths
+starting with &quot;<tt>/vesta/play.example.com</tt>&quot;.  You should
+replace &quot;<tt>example.com</tt>&quot; with your local <i>site
+name</i>.  This is a name chosen for each Vesta installation which
+represents your portion of the global Vesta name space, and is
+traditionally based on a domain you have control over.
+<P>
+
+<p>
+The use of &quot;<tt>play</tt>&quot; is to designate a spearate area
+for users to experiment (such as when learning Vesta).  (Perhaps the
+data for a real project named &quot;<tt>foo</tt>&quot; would be stored
+in &quot;<tt>/vesta/foo.example.com</tt>&quot; or
+&quot;<tt>/vesta/example.com/foo</tt>&quot;.)
+Some sites instead chose to create a &quot;<tt>play</tt>&quot;
+directory at a lower level of the hierarchy
+(e.g. &quot;<tt>/vesta/example.com/play</tt>&quot;).  If you're unsure
+where your play directory is, try typing:
+</p>
+
+<PRE>
+  ls -1d /vesta/play.* /vesta/*/play
+</PRE>
+
+<p>
+If for some reason you can't find one, ask your Vesta administrator.
+Or, if you <em>are</em> the administrator, become the special
+<em>wizard user</em> (normally named &quot;<tt>vwizard</tt>&quot;) and
+type (again, substituting a domain you control for
+&quot;<tt>example.com</tt>&quot;):
+</p>
+
+<PRE>
+  <A HREF="man/html/vmkdir.1.html">vmkdir</A> -p /vesta/play.example.com
+</PRE>
+
+<DT><B>Create the package.</B></DT>
+<DD>
+<P>Type:
+<PRE>
+  <A HREF="man/html/vcreate.1.html">vcreate</A> /vesta/play.example.com/jones_hello
+</PRE>
+
+<p>
+<tt>vcreate</tt> will print out the full path where it creates the
+package.  (Recent versions will first prompt you for a description of
+the package you are creating.)  You should substitue this for
+&quot;<tt>/vesta/play.example.com/jones_hello</tt>&quot; throughout
+this tutorial.</p>
+
+<p>To see what you've done, you can type:</p>
+<PRE>
+  ls -lR /vesta/play.example.com/jones_hello
+  <A HREF="man/html/vattrib.1.html">vattrib</A> /vesta/play.example.com/jones_hello
+</PRE>
+The <TT>ls</TT> output won't be too interesting: the package has no versions,
+just an empty directory called "checkout" and a symbolic link called
+"latest" with nothing to point to.  The
+<A HREF="man/html/vattrib.1.html"><I>vattrib</I></A> output
+shows you some information about the package.
+</DD>
+<P>
+
+<DT><B>Another way to save typing.</B></DT>
+<DD>
+
+<p>
+Aside from the methods mentioned above, you can save yourself a little
+typing by setting the configuration variable
+<tt>[UserInterface]DefaultPackageParent</tt> (in your site's
+<a href="man/html/vesta.cfg.5.html"><tt>vesta.cfg</tt></a> file) to
+&quot;<tt>/vesta/play.example.com</tt>&quot;.  The repository tools
+will interpret unqualified paths relative to this, so you could then
+just type &quot;<tt><A HREF="man/html/vcreate.1.html">vcreate</A>
+jones_hello</tt>&quot;.  If you haven't set it, the default is
+&quot;<tt>.</tt>&quot;, which means you either need to give the full
+path on the command line (as above) or change your working directory
+to where you want to perform an operation:</p>
+
+<PRE>
+  cd /vesta/play.example.com
+  <A HREF="man/html/vcreate.1.html">vcreate</A> ./jones_hello
+</PRE>
+
+<DT><B>Check out the package to begin creating version 1.</B></DT>
+<DD>
+<P>Type:
+<PRE>
+  <A HREF="man/html/vcheckout.1.html">vcheckout</A> /vesta/play.example.com/jones_hello
+</PRE>
+
+<p>Recent versions will prompt you for a description of the change
+you're planning on making.  To see what you've done, you can type:</p>
+
+<PRE>
+  ls -lR /vesta/play.example.com/jones_hello
+  <A HREF="man/html/vattrib.1.html">vattrib</A> /vesta/play.example.com/jones_hello/1
+  <A HREF="man/html/vattrib.1.html">vattrib</A> /vesta/play.example.com/jones_hello/checkout/1
+
+  ls -lR /vesta-work/jones
+  <A HREF="man/html/vattrib.1.html">vattrib</A> /vesta-work/jones/jones_hello
+</PRE>
+
+<P>This step creates several things: a <I>working directory</I>, a <I>session
+directory</I>, and a <I>reservation stub</I>.
+
+<P>The <I>working directory</I> is
+<tt>/vesta-work/jones/jones_hello</tt>.  This is a directory in which
+you can create and edit files that will go into the package.  If you
+had checked out a package that had existing versions, the directory
+would have started out with a copy of the last version in it; as it
+is, the directory starts out empty.
+
+<P>The <I>session directory</I> is a directory for intermediate versions of
+the package that you make while you are working on it but before you
+are ready to check it in as version 1.  We'll say more about this below.
+
+<P>The <I>reservation stub</I> is
+<tt>/vesta/play.example.com/jones_hello/1</tt>.  This is a placeholder with
+the same name that version 1 of the package will have when you check
+it in.  It reserves or "locks" the version number so that two people
+can't inadvertently work on creating the same new version at the same
+time.
+</DD>
+<P>
+<DT><B>Edit the working directory.</B></DT>
+<DD>
+<P>Type anything that creates one or more
+files in the working directory; for instance:
+<PRE>
+  cd /vesta-work/jones/jones_hello
+  echo "Hello world" &gt; hello
+</PRE>
+</DD>
+<P>
+<DT><B>Snapshot the working directory.</B></DT>
+<DD>
+<P>Type:
+<PRE>
+  <A HREF="man/html/vadvance.1.html">vadvance</A>
+</PRE>
+
+<P>To see what you've done, you can type:
+<PRE>
+  ls -lR /vesta/play.example.com/jones_hello/checkout/1
+  diff -r /vesta/play.example.com/jones_hello/checkout/1/1 .
+</PRE>
+
+<P>Notice that
+<tt>/vesta/play.example.com/jones_hello/checkout/1/1</tt> is now an
+exact snapshot of <tt>/vesta-work/jones/jones_hello</tt>, except that
+none of the files in the former have write permission.  You can make
+snapshots like this at any time while you have the package checked
+out.  The snapshots are immutable: even if you are <tt>vadmin</tt> or
+the superuser, you can't modify the files and directories in them.
+
+<P>Now try typing "<tt>vadvance</tt>" again without changing anything
+in the working directory.  It's smart enough to notice that no new
+snapshot is required.
+</DD>
+<P>
+<DT><B>Repeat the previous two steps a few times if you like.</B></DT>
+<DD>
+<P>Each time you edit a file in the package and then run vadvance, a
+new snapshot version is created within the session directory. The
+directories for the sub-versions are named
+<tt>jones_hello/checkout/1/1</tt>, <tt>jones_hello/checkout/1/2</tt>,
+<tt>jones_hello/checkout/1/3</tt>, etc.
+</DD>
+<P>
+<DT><B>Check in the package.</B></DT>
+<DD>
+<P>Type:
+<PRE>
+  <A HREF="man/html/vcheckin.1.html">vcheckin</A>
+</PRE>
+
+<p>You will be prompted to describe the change you've made. To see
+what you've done, you can type:</p>
+
+<PRE>
+  cd
+  ls -lR /vesta-work/jones
+  ls -lR /vesta/play.example.com/jones_hello
+</PRE>
+
+<P>What happened?  Your working directory was deleted, and the final
+snapshot from your session directory replaced the stub that was
+created by <tt>vcheckout</tt>.  Version 1 of your package is now checked in.
+The checked-in version is immutable, just like the snapshot versions
+in your session directory.
+</DD>
+<P>
+<DT><B>Check out the package again.</B></DT>
+<DD>
+<P>Type:
+<PRE>
+  <A HREF="man/html/vcheckout.1.html">vcheckout</A> /vesta/play.example.com/jones_hello
+</PRE>
+
+<P>To see what you've done, you can type:
+<PRE>
+  ls -l /vesta-work/jones/jones_hello
+  ls -lR /vesta/play.example.com/jones_hello
+</PRE>
+
+<P>Your working directory is back, with its contents initialized to
+version 1, and you have a session directory and stub for version 2.
+</DD>
+<P>
+<DT><B>Copy in a real program and some Vesta models for building it.</B></DT>
+<DD>
+<P>
+<PRE>
+  cd /vesta-work/jones/jones_hello
+  cp -r /vesta/vestasys.org/examples/hello_c/latest/* .
+  chmod -R u+w .
+  <A HREF="man/html/vupdate.1.html">vupdate</A> linux_i386.main.ves
+</PRE>
+
+<p>
+(If you're not using Vesta on Linux i386, substitute the top-level
+model name for your platform for <tt>linux_i386.main.ves</tt>.  Some
+of the other standard names used for top-level models include
+<tt>linux_alpha.main.ves</tt>, <tt>linux_ppc.main.ves</tt>, and
+<tt>tru64_alpha.main.ves</tt>.)
+</p>
+
+<P>You can look over the files that are copied in if you like, but we
+won't explain the model files (<tt>linux_i386.main.ves</tt> and
+<tt>build.ves</tt>) at this point.
+
+<P>The <tt>vupdate</tt> command shown at the end updates the model
+files to be sure they import the latest version of the standard
+development environment at your site.  (That is, the compilers,
+libraries, etc.)  It's often a good idea to do this right after you
+check out a package or copy in some source files that may not have
+been worked on for a while and may import an older version.
+</DD>
+<P>
+<DT><B>Build the program.</B></DT>
+<DD>
+<P>Type:
+<PRE>
+  <A HREF="man/html/vmake.1.html">vmake</A>
+</PRE>
+
+<P>If this is the very first time anyone has built anything since you
+installed Vesta, it may take some time as all the libraries that the
+program is linked against are built.  After that, the Vesta cache will
+be populated, and only <tt>hello.c</tt> will be compiled.
+
+<P>The <tt>vmake</tt> command is really just a convenient shell script
+that deletes any junk files (like core files and emacs backup files),
+runs <tt>vadvance</tt>, and then invokes the Vesta builder (called
+simply &quot;<tt>vesta</tt>&quot;) on the resulting snapshot.  The
+vadvance is needed because the Vesta builder can build <I>only</I>
+from immutable sources -- checked in versions or snapshot versions in
+session directories.
+
+<P>Now try typing &quot;<tt>vmake</tt>&quot; again. <tt>vadvance</tt>
+will notice that nothing has changed, so no new snapshot will be
+needed.  Then the Vesta builder, trying to redo a build it has just
+done, will get a top-level cache hit and finish almost instantly.
+</DD>
+<P>
+<DT><B>Ship the program.</B></DT>
+<DD>
+<P>Type:
+<PRE>
+  <A HREF="man/html/vmake.1.html">vmake</A> -shipto /tmp
+</PRE>
+
+<P>You could have typed this right away in the previous step, but we
+wanted to explain building and shipping separately.
+
+<P>This command does the same <tt>vmake</tt> again, then copies the
+final output of the build (here the program "<tt>hello</tt>") into
+<tt>/tmp</tt> so that you can try it out.  Without the ship flags,
+<tt>vmake</tt> (or <tt>vesta</tt>) simply writes everything you've
+built into the Vesta cache; it doesn't make any of the output visible
+in a directory.
+</DD>
+<P>
+<DT><B>Do some development.</B></DT>
+<DD>
+<P>Get <tt>hello.c</tt> into your favorite text editor and make some
+changes, then repeat the build and/or ship from the last two steps.
+Do this several times if you like.
+
+<P>If you'd like to build a slightly more complicated program, you can
+add more .c files to the <tt>build.ves</tt> model by adding them to
+the definition of <tt>c_files</tt> at the top, separated by commas,
+and if you have .h files, you can add them too.  For example:
+<PRE>
+files
+    c_files = [ hello.c, goodbye.c ];
+    h_files = [ greetings.h ];
+{
+    libs = &lt; ./libs/c/libc &gt;;
+    return ./C/program("hello", c_files, h_files, libs);
+}
+</PRE>
+</DD>
+<P>
+<a name="makebranch"><DT><B>Make a branch.</B></DT></a>
+<DD>
+<P>Suppose that someone else wants to work on the <tt>jones_hello</tt>
+package while you have it checked out, or that you want to work on two
+different sets of changes to the package at once.  Perhaps while
+you're working on some major changes that you aren't ready to check in
+yet, someone comes to you and asks for a quick bug fix to the latest
+checked in version.  Type:
+<PRE>
+  <A HREF="man/html/vbranch.1.html">vbranch</A> /vesta/play.example.com/jones_hello/1.quickfix
+</PRE>
+
+<P>To see what you've done, you can type:
+<PRE>
+  ls -lR /vesta/play.example.com/jones_hello
+  <A HREF="man/html/vattrib.1.html">vattrib</A> /vesta/play.example.com/jones_hello/1.quickfix
+  diff -r /vesta/play.example.com/jones_hello/{1,1.quickfix/0}
+</PRE>
+
+<P>The <tt>vbranch</tt> command creates a branch in the tree of
+versions for the <tt>jones_hello</tt> package. The main trunk versions
+have names like <tt>jones_hello/1</tt>, <tt>jones_hello/2</tt>,
+etc. Versions that branch off of version 1 have names like
+<tt>jones_hello/1.quickfix/1</tt>, <tt>jones_hello/1.quickfix/2</tt>,
+etc.
+
+<P>The directory <tt>jones_hello/1.quickfix</tt> is really a <I>new
+package</I>, but instead of starting out empty like a package made
+with <tt>vcreate</tt> does, it starts out with a version 0 that is
+identical to the version it branched from.  This is a simple but
+powerful concept.  You can use <tt>vbranch</tt> to make any number of
+branches from any version of any package, including branches from
+branches.
+</DD>
+<P>
+<DT><B>Check out the branch.</B></DT>
+<DD>
+<P>You check branches in and out just like normal packages.  Type:
+<PRE>
+  <A HREF="man/html/vcheckout.1.html">vcheckout</A> /vesta/play.example.com/jones_hello/1.quickfix
+</PRE>
+
+<P>Because you already have another version of the jones_hello package
+checked out, <tt>vcheckout</tt> will pick a new working directory name
+for you.  If you've been following the script exactly, the new working
+directory will be called <tt>/vesta-work/jones/jones_hello.1</tt>.
+Here the .1 is just an arbitrary unique number, not related to version
+numbers.
+
+<P>To see what you've done, type:
+<PRE>
+  ls -l /vesta-work/jones
+  <A HREF="man/html/vattrib.1.html">vattrib</A> /vesta-work/jones/jones_hello
+  <A HREF="man/html/vattrib.1.html">vattrib</A> /vesta-work/jones/jones_hello.1
+</PRE>
+
+<P>Notice how the attributes of the two working directories show you
+which is which.  You are also free to rename your working directories
+to whatever you like, or to choose names explicitly in the vcheckout
+command; for the latter, see
+<a href="man/html/vcheckout.1.html#-w">the description of the -w
+flag</a> in <A HREF="man/html/vcheckout.1.html">the vcheckout man
+page</A>.
+</DD>
+<P>
+<DT><B>Who has what checked out?</B></DT>
+<DD>
+<P>Type:
+<PRE>
+  <A HREF="man/html/vwhohas.1.html">vwhohas</a> /vesta/play.example.com/jones_hello
+  <A HREF="man/html/vwhohas.1.html">vwhohas</a> -b /vesta/play.example.com/jones_hello
+</PRE>
+
+<p>You can also see all active checkouts in your entire repository
+(though this can take some time if your repository is large) with:</p>
+
+<PRE>
+  <A HREF="man/html/vwhohas.1.html">vwhohas</a>
+</PRE>
+
+<P>See the <A HREF="man/html/vwhohas.1.html">vwhohas</A> man page
+for details on all the options.
+
+</DD>
+<P>
+<DT><B>What's the latest?</B></DT>
+<DD>
+<P>Type:
+<PRE>
+  <a href="http://www.vestasys.org/doc/doc/man/html/vlatest.1.html">vlatest</a> /vesta/play.example.com/jones_hello
+  ls -l /vesta/play.example.com/jones_hello/latest
+</PRE>
+
+<P>These commands use different mechanisms, but both show you what
+version of <tt>jones_hello</tt> is the latest.  They start to be useful
+when you have many versions checked in and it becomes tedious to <TT>ls</TT>
+the directory and find the highest number by eye.  The symbolic link
+<TT>latest</TT> is especially handy when you want to look at the latest
+version in a text editor.</p>
+
+<p><a href="http://www.vestasys.org/doc/doc/man/html/vlatest.1.html">vlatest</a> also has other
+options:</p>
+
+<PRE>
+  <a href="http://www.vestasys.org/doc/doc/man/html/vlatest.1.html">vlatest</a> -b /vesta/play.example.com/jones_hello
+</PRE>
+
+</DD>
+<P>
+<DT><B>Tidy up.</B></DT>
+<DD>
+<P>Type:
+<PRE>
+  cd /vesta-work/jones
+  <A HREF="man/html/vcheckin.1.html">vcheckin</A> jones_hello
+  <A HREF="man/html/vcheckin.1.html">vcheckin</A> jones_hello.1
+</PRE>
+</DD>
+<P>
+<DT><B>Merging branches.</B></DT>
+<DD>
+<P>Vesta provides no special tools for merging branches.  However,
+because the common base version and the latest version on each branch
+are kept available as directories, you can use common Unix tools like
+diff, diff3, and patch to compare versions and merge changes from one
+branch into another.  The common base version of two branches is easy
+to find given Vesta's version naming conventions.  Or, even if you've
+overridden the default naming convention (which you can do using
+special flags to the tools) you can trace back from each version to
+its predecessor by looking at the <I>old-version</I> attributes with
+<A HREF="man/html/vattrib.1.html"><I>vattrib</I></A>.
+
+<P>If a newly checked-in version logically has two predecessors, because
+you made it by merging in changes from another branch, you might want
+to make its old-version attribute show both predecessors.  Attribute
+values are actually <I>sets</I> of strings, so you can do this by adding
+the second predecessor to the set.  For instance, if you copied
+/vesta/vestasys.org/examples/hello_c/2 into the jones_hello package to
+make version 2 of jones_hello, you might do this:
+<PRE>
+  <A HREF="man/html/vattrib.1.html">vattrib</A> -a old-version /vesta/vestasys.org/examples/hello_c/2 \
+    /vesta/play.example.com/jones_hello/2
+</PRE>
+
+<P>Future Vesta branch merging tools might do this sort of thing
+automatically.
+</DD>
+<P>
+<DT><B>A note on deletion and ghosts.</B></DT>
+<DD>
+<P>In general, it's considered bad form to delete anything from the Vesta
+repository (that is, the part under /vesta, not /vesta-work).  The
+Vesta philosophy is that sources should be immutable and immortal, so
+that all builds can be reproduced and you can always get back any old
+code that may be useful later.
+
+<P>Vesta does allow deletion under some very limited circumstances.
+You can't delete anything from an immutable directory (a version or a
+subdirectory of a version).  You can delete from higher level
+directories, but a <I>ghost</I> is left behind.  A ghost is a null
+object that prevents a version number from being reused in the future
+with different contents, which could produce inconsistent builds.  A
+ghost appears in "<TT>ls -l</TT>" listings with access permissions
+"---------T".
+
+<P>Usually deletion is restricted to vadmin and the superuser, though
+you can change that by editing your site's
+<a href="man/html/vesta.cfg.5.html"><TT>vesta.cfg</TT></a> file.
+
+<P>It is possible to &quot;revive&quot; a ghost by copying the deleted
+data back into place from another replica; see the <I>vrepl</I> man
+page referenced in the next section.
+</DD>
+<P>
+<DT><B>A note on replication.</B></DT>
+<DD>
+
+<p>
+Part of the suggested Vesta installation procedure is to replicate a
+copy of the latest Vesta source code from the public repository.
+Roughly, that means that the two repositories are the same except for
+things that are present in one but missing in the other.  If the same
+name is defined in both, it means the same thing in both.
+</p>
+
+<P>There is a flag on every object in a repository saying whether or
+not that repository's copy of the object is the master copy.
+
+When you have a nonmaster copy of a directory, you are not permitted
+to insert anything into it except by copying it from another
+repository.
+
+There is a special exception for <TT>/vesta</TT> itself; you are
+allowed to create a subdirectory of <TT>/vesta</TT> using an Internet
+domain name that belongs to you.  Your repository then becomes master
+for that subdirectory and (by default) everything below it.  The Vesta
+free software project's repository is master for
+<TT>/vesta/vestasys.org</TT>, so in your repository, the master flags
+are off for all directories in that tree.  You can see an object's
+master flag using <A HREF="man/html/vattrib.1.html"><I>vattrib</I></A>.
+
+<P>The <A HREF="man/html/vrepl.1.html"><I>vrepl</I></A> tool is
+used to copy sources from one repository to another.  You can set up
+semi-automatic replication by running vrepl periodically, using (for
+example) the Unix cron(8) facility.
+
+</DD>
+<P>
+<DT><B>A note on weeding.</B></DT>
+<DD>
+<P>As you build new things with Vesta, your cache will grow until it
+begins to fill up the disk partition you've assigned to it.  At that
+point you'll need to run the <I>weeder</I> to delete some things from the
+cache.  See the <A HREF="man/html/VestaWeed.1.html">VestaWeed</A>
+man page.
+</DD>
+<P>
+<DT><B>Where to go next.</B></DT>
+<DD>
+<P>This tutorial should have given you a pretty complete feel for how to
+use Vesta's source control features.  All the commands shown above
+have many optional flags that modify their behavior, but you will
+rarely need to give any flags at all.
+
+<P>We've said very little in this tutorial about writing models.  You
+can write models for many simple programs by following the patterns in
+<TT>example/hello_c</TT> and <TT>example/hello_cxx</TT>, extending
+them to more .c and .h files as shown above.  To learn more about
+writing models, see <a href="sdl-ref/index.html">the SDL programmer's
+guide</a>.
+
+<P>A good starting point for further reading is the <A
+HREF="../index.html">Vesta home page</A>.
+</DD>
+</DL>
+
+<H3>Author</H3>
+
+<P>Tim Mann (tim&#64;tim&#45;mann&#46;org)</P>
+
+<P>(Corrections are probably better directed to the current
+maintainer:
+Ken Schalk &lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;.)</P>
+
+<HR>
+<!-- hhmts start -->
+Last modified: Fri Dec 16 19:05:21 EST 2005
+<!-- hhmts end -->
+</BODY>
+</HTML>

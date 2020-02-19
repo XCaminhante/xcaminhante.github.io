@@ -1,0 +1,752 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>How to Port Vesta to a new Platform</title>
+                    
+  <meta http-equiv="content-type"
+ content="text/html; charset=ISO-8859-1">
+</head>
+  <body bgcolor="#efefff">
+   
+    <h1>How to Port Vesta to a new Platform</h1>
+     
+    <table cellpadding="2" cellspacing="2" border="1">
+      <tbody>
+	<tr>
+	  <td valign="top">Author:<br>
+	  </td>
+
+	  <td valign="top">
+
+	    Ken Schalk &lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;<br>
+	    (based on the method first described by Tim Mann)
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">Date:<br>
+      </td>
+      <td valign="top">
+
+<!-- hhmts start -->
+Last modified: Mon Mar  7 12:47:01 EST 2005
+<!-- hhmts end -->
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+    <ul>
+
+      <li>
+	<a href="index.html#Introduction">Introduction</a>
+      </li>
+
+    <ul>
+
+      <li>
+	<a href="index.html#Target Platform Requirements">Target Platform
+	  Requirements</a>
+      </li>
+
+      <li>
+	<a href="index.html#Alternative Approaches">Alternative Approaches</a>
+      </li>
+
+    </ul>
+
+    <li>
+      <a href="index.html#Steps to Port by Boot-strapping">Steps to Port by
+	Boot-strapping</a>
+    </li>
+
+    <ul>
+
+      <li>
+	<a href="index.html#<a name="Install Vesta on the Host Platform">Install
+	Vesta on the Host Platform</a>
+      </li>
+
+      <li>
+	<a href="index.html#Set Up the Target as a Vesta Client">Set Up the
+	Target as a Vesta Client</a>
+      </li>
+
+      <li>
+	<a href="index.html#Port vmount">Port <tt>vmount</tt> and Mount the
+	Repository on the Target Platform</a>
+      </li>
+
+      <li>
+	<a href="index.html#Port tool_launcher">Port the <tt>tool_launcher</tt></a>
+      </li>
+
+      <li>
+	<a href="index.html#rsh hack">Set Up Remote Tool Execution</a>
+      </li>
+
+      <li>
+	<a href="index.html#Make std_env">Construct a Build Environment for the
+	Porting Target</a>
+      </li>
+
+      <li>
+	<a href="index.html#Port Vesta">Port and Test Vesta</a>
+      </li>
+
+    </ul>
+
+    <li>
+      <a href="index.html#Potential Problem Areas">Potential Problem Areas</a>
+    </li>
+
+    <ul>
+
+      <li>
+	<a href="index.html#64-bit Ints">64-bit Integers</a>
+      </li>
+
+      <li>
+	<a href="index.html#pthreads Quirks"><tt>pthreads</tt> Quirks</a>
+      </li>
+
+      <li>
+	<a href="index.html#NFS Quirks">NFS Client Quirks</a>
+      </li>
+
+      <li>
+	<a href="index.html#Threaded GC">Garbage Collection With Support for
+	Multi-Threading</a>
+      </li>
+
+      <li>
+	<a href="index.html#OS-Specific Information Gathering">OS-Specific
+	Information Gathering in <tt>RunToolServer</tt> and Cache
+	Server</a>
+      </li>
+
+    </ul>
+
+    <li>
+      <a href="index.html#Troubleshooting">Troubleshooting Tips</a>
+    </li>
+
+    <ul>
+
+      <li>
+	<a href="index.html#Tool Misbehavior">Tool Misbehavior</a>
+      </li>
+
+      <li>
+	<a href="index.html#Evaluator Misbehavior">Evaluator Misbehavior</a>
+      </li>
+
+    </ul>
+
+  </ul>
+
+<a name="Introduction"><h2>Introduction</h2></a>
+   Vesta is a software build system that is built using itself. &nbsp;This
+ document describes a boot-strapping approach to porting Vesta, which is
+the  way all ports have been done so far. &nbsp;In brief, the steps involved
+are:<br>
+     
+<ol>
+     <li>Use Vesta on a currently working platform to "host" the port. &nbsp;Set
+ up to run tools on the porting target through remote execution (using <tt>rsh</tt>
+or <tt>ssh</tt>).</li>
+     <li>Construct a build environment (<tt>std_env</tt>) for the porting 
+target system type.</li>
+     <li>Work through building and testing the Vesta constiuent libraries 
+and  component tools for the new platform (as with porting any other software
+ system).<br>
+     </li>
+     
+</ol>
+     
+<a name="Target Platform Requirements"><h3>Target Platform
+Requirements</h3></a>
+
+  Vesta should be readily portable to any UNIX-like platform. &nbsp;Specifically, 
+the features most neccessary for a Vesta port are:<br>
+   
+<ul>
+    <li>An NFS client. &nbsp;The Vesta repository's filesystem is presented
+ through an NFS v2 interface. &nbsp;Both building and editing in checkout
+sessions use this interface.</li>
+    <li>The <tt>chroot</tt> system call. &nbsp;Vesta's builder uses the <tt>chroot</tt>
+ system call to encapsulate the filesystem used by each build step.</li>
+   <li>C and C++ compilers. &nbsp;Vesta is written primarily in C++, with 
+a few components written in C.</li>
+
+    <li>A garbage collector for C/C++. &nbsp;Vesta ports working as of
+    this writing use
+    <a href="http://www.hpl.hp.com/personal/Hans_Boehm/gc/">the Boehm
+    collector</a> (which already supports many platforms), but it may
+    be possible to use other garbage collectors.</li>
+
+    <li>Support for POSIX threads (<tt>pthreads</tt>). &nbsp;Both the Vesta
+ servers and clients use multi-threading. &nbsp;In most cases an abstraction
+ layer (part of the <tt>basics</tt> library) is used, so other multi-threading
+ APIs may also be usable with additional effort.<br>
+    </li>
+   
+</ul>
+
+<p>
+  Ports to non-UNIX platforms may be possible, but would require much
+  more work. &nbsp;For example, one could get by without the
+  <tt>chroot</tt> system call if there were a way to intercept all
+  filesystem I/O operations (perhaps through clever uses of dynamic
+  linking) and redirect them to an encapsulated
+  filesystem. &nbsp;Another possibility would be using a virtual
+  machine to provide encapsulation. &nbsp;Similarly, one could imagine
+  adding support for a different network filesystem protocol to the
+  repository.
+</p>
+   
+<a name="Alternative Approaches"><h3>Alternative Approaches</h3></a>
+  The boot-strapping approach described below is, of course, not the only 
+way to port Vesta to a new platform. &nbsp;However, it is the method that 
+has been used for all ports completed as of this writing. &nbsp;Also, we feel
+that it's no more difficult than any of the alternatives.<br>
+  <br>
+  Here are some brief notes on alternative approaches:<br>
+   
+<ul>
+    <li>Using a coss-compiler. &nbsp;This requires making a cross-compiling
+ build environment (<tt>std_env</tt>) for executing tools on an already-working
+ platform and building for the target of the port. &nbsp;Creating a native
+ build environment for the target platform is a significant amount of the
+work of any complete port of Vesta (where Vesta can be built using itself
+on the target platform). &nbsp;Therefore, this is probably more work than
+the boot-strapping  approach. &nbsp;However, if you intend to cross-compile
+for the target platform  using Vesta anyway, this may be no extra work.</li>
+
+    <li>Using another builder (e.g. <tt>make</tt>). &nbsp;We have
+    recently put together
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/makefile_env">a method for automatically generating
+
+    <tt>make</tt> build instructions for Vesta (or other C/C++
+    programs built using Vesta)</a>.&nbsp; You can find several
+    <tt>make</tt>-based source kits of Vesta
+
+	<a href="https://sourceforge.net/project/showfiles.php?group_id=34164">available for download at
+    SourceForge</a>.&nbsp;
+
+	The main problem with this approach is that it <i>doesn't</i>
+	avoid the cost of <a href="index.html#Make std_env">constructing a build
+	environment for the target platform</a> (although it does
+	allow one to delay it).&nbsp; A port cannot really be
+	considered complete until Vesta can build itself with all
+	components running on the new platform (which necessitates
+	constructing a new build environment).&nbsp; Also, it means
+	that during the port one has to work without the benefits of
+	Vesta itself.</li>
+
+    <li>Using binary compatibility/emulation to run the Vesta binaries from 
+a working platform on the target platform. &nbsp;This may be possible in some
+cases. &nbsp;However, Vesta's use of features such as garbage collection (which
+usually makes highly platform-specific assumptions) and pthreads (which uses
+system calls that may not be properly handled under a compatibility layer)
+may make this approach difficult or impossible.<br>
+    </li>
+   
+</ul>
+     
+<a name="Steps to Port by Boot-strapping"><h2>Steps to Port by
+Boot-strapping</h2></a>
+   
+<a name="Install Vesta on the Host Platform"><h3>Install Vesta on the
+Host Platform</h3></a>
+
+ See the document "Getting Started With Vesta" for instructions on how to 
+install it.<br>
+ <br>
+ The host will run all the Vesta servers, daemons, and clients until enough 
+progress has been made to get those components functioning on the target platform.<br>
+ 
+<a name="Set Up the Target as a Vesta Client"><h3>Set Up the Target as
+a Vesta Client</h3></a>
+
+ You'll need to have the machine running the target platform meet the requirements 
+for a Vesta client node. &nbsp;Specifically, it will need to:<br>
+ 
+<ul>
+   <li>Share user and group information with the Vesta server (e.g. via NIS).</li>
+   <li>Mount the directory where the Vesta servers store their data (<tt>/vesta-srv</tt>)</li>
+   <li>Be given permission to acces the repository (in the repository's export 
+file)</li>
+   <li>Have the repository mount points (<tt>/vesta</tt> and <tt>/vesta-work</tt>)</li>
+ 
+</ul>
+ 
+<a name="Port vmount"><h3>Port <tt>vmount</tt> and Mount the Repository on the Target Platform</h3></a>
+
+<p>
+ The repository provides an NFS server interface. &nbsp;However, because
+it is not part of the normal OS-provided NFS server infrastructure, it can't 
+be mounted with the normal methods (e.g. the <tt>mount(8)</tt> command or 
+an entry in <tt>/etc/fstab</tt>). &nbsp;Instead, a small program called <tt>vmount</tt> 
+is used to make the appropriate <tt>mount</tt> system call.
+</p>
+
+<p>
+ This program is small, written in straight C, and its source can be found 
+in <a
+ href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount">the 
+<tt>vmount</tt> package</a>. &nbsp;There are currently variants for:
+</p>
+
+<ul>
+<li>
+Linux (<a
+ href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount/latest/src/vmount_linux.c"><tt>vmount_linux.c</tt></a>)
+</li>
+<li>
+Tru64 UNIX (<a
+ href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount/latest/src/vmount_tru64.c"><tt>vmount_tru64.c</tt></a>)
+</li>
+<li>
+Solaris (<a
+ href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount/latest/src/vmount_solaris.c"><tt>vmount_solaris.c</tt></a>)
+</li>
+<li>
+FreeBSD (<a
+ href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount/latest/src/vmount_freebsd.c"><tt>vmount_freebsd.c</tt></a>)
+</li>
+<li>
+Darwin (MacOS X) (<a
+ href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount/latest/src/vmount_darwin.c"><tt>vmount_darwin.c</tt></a>)
+</li>
+</ul>
+
+<p>
+The general approach is to take a copy of one of these and modify it 
+to work on the target platform. &nbsp;(Unfortunately, the <tt>mount</tt> interface 
+for NFS is not always well documented, which can make this step non-trivial.)
+</p>
+
+<p>
+ Once <tt>vmount</tt> compiles correctly on the target platform, the repository 
+can be mounted. &nbsp;You can invokve <tt>vmount</tt> directly, but an easier 
+way to mount the repository is to modify a copy of <a
+ href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/latest/src/mountrepos">the 
+<tt>mountrepos</tt> script</a>, adding defaults for all variables set by calling
+<tt>vgetconfig</tt>. &nbsp;For example:</p>
+ 
+<blockquote>   
+  <pre>NFS_host=`vgetconfig Repository NFS_host || echo "vesta.example.com"`<br>NFS_port=`vgetconfig Repository NFS_port || echo 21774`<br>AppendableRootName=`vgetconfig UserInterface AppendableRootName || echo "/vesta"`<br>MutableRootName=`vgetconfig UserInterface MutableRootName || echo "/vesta-work"`<br>VolatileRootName=`vgetconfig Run_Tool VolatileRootName || echo "/vesta-work/.volatile"`</pre>
+ </blockquote>
+ Of course the script may also need other minor modifications to work on
+the target platform (e.g. the Linux-specific use of "<tt>mount -f</tt>").<br>
+      
+<a name="Port tool_launcher"><h3>Port the
+<tt>tool_launcher</tt></h3></a>
+
+ The <tt>tool_launcher</tt> is a small program which is responsible for making 
+the chroot system call to encapsulate the filesystem used by a build step. 
+&nbsp;Like <tt>vmount</tt>, it is small and written in C. &nbsp;Unlike vmount, 
+building it for the target platform should be quite easy. &nbsp;(It's straightforward 
+POSIX code, and doesn't even contain a single platform-specific <tt>#if</tt> 
+as of this writing.)<br>
+ <br>
+ Its source can be found in <a
+ href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/run_tool">the 
+<tt>run_tool</tt> package</a>. &nbsp;Specifically, there are two source files 
+needed to compile it: <tt><a
+ href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/run_tool/latest/src/tool_launcher.c">tool_launcher.c</a></tt>, 
+and <tt><a
+ href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/run_tool/latest/src/Launcher.h">Launcher.h</a></tt>.<br>
+ <br>
+ Build this for the target platform and make it setuid root (so that it can 
+execute the <tt>chroot</tt> system call).<br>
+     
+<a name="rsh hack"><h3>Set Up Remote Tool Execution</h3></a>
+
+The <tt>RunToolServer</tt> is the daemon which accepts requests to execute
+tools and invokes them in an encapsulated environment. &nbsp;When invoking
+a tool it executes the <tt>tool_launcher</tt>. &nbsp;The location of the
+<tt>tool_launcher</tt> executable is set by the configuration setting <tt>[Run_Tool]helper</tt>.<br>
+<br>
+
+Because of this configurability, we can run a <tt>RunToolServer</tt>
+on the host platform with <tt>[Run_Tool]helper</tt> set to
+<a href="run_remote_tool.sh">a script which executes the
+<tt>tool_launcher</tt> on the target platform using <tt>rsh</tt> or
+<tt>ssh</tt></a>.  &nbsp;(This method is sometimes referred to as "the
+<tt>rsh</tt> hack".)  &nbsp;You should do this in a separate
+configuration file that starts by including your normal configuraiton
+file and then adds overrides, like so:<br>
+
+<blockquote>
+  <pre>// Include the normal vesta.cfg<br>[include /etc/vesta.cfg]<br><br>// Add overrides for remote tool execution<br>[Run_Tool]<br>helper = /foo/bar/run_remote_tool.sh<br><br>//...<br></pre>
+</blockquote>
+Before you start this <tt>RunToolServer</tt>, simply set the <tt>VESTACONFIG</tt>
+environment variable to point to this alternate configuration file.<br>
+<br>
+The <tt>RunToolServer</tt> must also be configured to report that it is of
+the host type of the target platform. &nbsp;This can be done by using other
+configuration variables in the <tt>[Run_Tool]</tt> section. &nbsp;Their values
+replace those normally acquired from the hose operating system. &nbsp;For
+example, if the target platform is a PowerPC Linux system:<br>
+<blockquote>
+  <pre>[Run_Tool]<br>sysname = Linux<br>machine = powerpc<br>release = 2.4.18<br>version = #1 Tue Oct 8 13:33:14 EDT 2002</pre>
+</blockquote>
+In most cases appropriate settings can be determined by <a
+ href="run-tool-system-config.sh">running this simple shell script</a> on
+the target platform.<br>
+<br>
+You will probably also need to change the port that the <tt>RunToolServer</tt>
+runs on, which is controlled by <tt>[Run_Tool]SRPC_port</tt>. &nbsp;(If you're
+not running a <tt>RunToolServer</tt> to run tools on the host platform, this
+is not be neccessary.)<br>
+<br>
+Lastly, you'll need to add a section to your normal vesta.cfg which indicates
+how to contact the RunToolServer for the target platform. &nbsp;Before doing
+this you'll need to chose a "platform name", which is just a string used
+to identify the system type needed to execute a tool request from the evaluatore.&nbsp;
+Continuing with the above example, if the platform name chosen was "<tt>Linux2.4-PPC</tt>",
+the platform section might look like this:<br>
+<blockquote>
+  <pre>[Linux2.4-PPC]<br>sysname = Linux<br>release = 2.4.*<br>version = *<br>machine = powerpc*<br>cpus    = 1<br>cpuMHz  = 0<br>memKB   = 0<br>hosts   = vesta.example.com:21786<br></pre>
+</blockquote>
+Once you've set this up, you should test it with a simple model that executes
+a program on the target platform. &nbsp;A good simple test is to run a statically
+linked "hello world" program on the target platform. &nbsp;Continuing with
+the above example, an SDL model for testing the RunToolServer might look
+like this:<br>
+<blockquote>
+  <pre>files<br>  hello_static;<br>{<br>  . = [ root = [ .WD = [ hello_static ],<br>		 dev/null = 0x0103,<br> 		 boot/kernel.h = "" ],<br> 	envVars = []<br>      ];<br><br>  return _run_tool("Linux2.4-PPC", &lt;"hello_static"&gt;);<br>}<br></pre>
+</blockquote>
+Once this simple test works correctly, you can move on to the next step of
+preapring a full build environment for the target platform.<br>
+<br>
+It's worth noting that there is some minor loss of functionality when using
+<tt>rsh</tt>. &nbsp;<tt>rsh</tt> doesn't propagate the exit status of the
+remote command. &nbsp;It simply returns successful status if the command
+is executed on the remote host. &nbsp;This causes the evaluator to cache
+the tool invocation as though it were successful. &nbsp;To handle this situation
+a little better, the C/C++ bridge has an option to not cache tool invocations
+which write to standard error (by passing <tt>"report_nocache"</tt> for the
+<tt>stderr_treatment</tt> argument of the <tt>_run_tool</tt> call). &nbsp;You
+can turn this feature on in your top-level model like this:<br>
+<blockquote>
+  <pre>. ++= [ C/options/cache_stderr = FALSE,<br>        Cxx/options/cache_stderr = FALSE ];<br></pre>
+</blockquote>
+
+<a name="Make std_env"><h3>Construct a Build Environment for the
+Porting Target</h3></a>
+
+The build environment (also called the "standard environment" or <tt>std_env</tt>)
+encapsulates all the files needed to perform compilations on a platform (compiler
+binaries, library archives, etc.) as well as the SDL code needed to run them
+to perform high-level operations (e.g. "construct an executable program from
+these C++ source files").<br>
+<br>
+
+The general approach is to create a set of "OS component" or "kit"
+packages, each of which contains a set of files from the target
+operating system. &nbsp;When the OS has a component packaging system,
+it's probably easiest to use its granularity. &nbsp;(For Linux we've
+constructed build environments from both sets of RPM files and sets of
+Debian packages.) &nbsp;With a little scripting, the process of
+importing these OS components can usually be automated. &nbsp;You can
+find scripts which have been used to import RPMs, Debian packages, and
+Tru64 subsets in this Vesta package (which is available for
+replication from
+<tt><a href="http://pub.vestasys.org/">pub.vestasys.org</a></tt>):
+
+    <blockquote>
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/extras/pkg2vesta">/vesta/vestasys.org/vesta/extras/pkg2vesta</a>
+    </blockquote>
+
+In
+cases where licensing restrictions disallow binary redistribution (and thus
+replication of a build environment), making scripts for importing packages
+available may be quite helpful for others wishing to build for the same target
+platform.<br>
+<br>
+The bridges (code which insulates the average SDL writer from making
+individual tool invocations) usually require only minimal changes to
+work on a new platform.  &nbsp;If using a different compiler suite
+(not the GNU C/C++ compiler), you may need to make changes to the
+<tt>c_like</tt> bridge.<br>
+<br>
+The remainder (the top-level <tt>std_env</tt> model, the handling of various
+libraries) is written by hand, but is fairly small. &nbsp;(The x86 Linux
+<tt>std_env</tt> is under 500 lines total, over 150 of which is comments.)<br>
+<br>
+In general, studying one of the existing build environments and using it
+as an example is the best approach.<br>
+<br>
+Once you believe you have a working std_env for your porting target, you
+should test it by building some simple programs (such as the "hello world"
+examples in <tt>/vesta/vestasys.org/examples</tt>). &nbsp;Once those build
+correctly you can move on to building the low-level components of Vesta.<br>
+     
+<a name="Port Vesta"><h3>Port and Test Vesta</h3></a>
+
+At this point you can simply work your way through the various
+libraries and programs that make up Vesta. &nbsp;As with any other
+porting project, you'll probably need to make some code changes to get
+it to compile. &nbsp;Once the components compile, they'll require some
+testing to verify that they're funcitoning correctly on the new
+platform. &nbsp;Here is an illustration of the dependencies between
+the different components:<br>
+
+<blockquote>
+<img src="dependency-map.gif" alt="Dependency map">
+</blockquote>
+Many of the packages come with test programs which can help you determine
+whether they are functioning correctly.<br>
+<br>
+Some notable milestones in the progress of a port:<br>
+<ul>
+  <li>Once you get the <tt>config</tt> library working, you should be able
+to start using <tt>vgetconfig</tt> on the porting target, and thus be able
+to use the normal <tt>mountrepos</tt> script.</li>
+  <li>When the <tt>RunToolServer</tt> works on the target platform, you can
+dispense with the remote tool execution method described above.</li>
+  <li>When the <tt>repos_ui</tt> programs work, you can perform repository
+operations (e.g. checkout, checkin) from the porting target.</li>
+  <li>When the evaluator works, you can run builds on the porting target.
+&nbsp;(Alernating between the host and porting target platforms is a good
+idea, to make sure that cache entreis are correctly shared between them.)</li>
+</ul>
+
+<p>
+
+Once all components seem to run on the target platform, you should try
+a more extensive test of Vesta. &nbsp;You can find a Perl script that
+can be used to test the most common aspects of Vesta in this package
+(which is available for replication from
+
+<tt><a href="http://pub.vestasys.org/">pub.vestasys.org</a></tt>):
+
+</p>
+
+    <blockquote>
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/extras/testing">/vesta/vestasys.org/vesta/extras/testing</a>
+    </blockquote>
+
+<p>
+
+(The script itself does have a few platform-specific pieces that may
+also need some work on a new platform.)
+
+</p>
+
+<a name="Potential Problem Areas"><h2>Potential Problem Areas</h2></a>
+
+     There are, of course, a few areas that could cause trouble in a port,
+and are worth mentioning.<br>
+
+<a name="64-bit Ints"><h3>64-bit Integers</h3></a>
+
+   Vesta was developed on a 64-bit platform. &nbsp;In several places, its
+source code relies on having a 64-bit integer type. &nbsp;(See the definitions
+of the types <tt>Basics::int64</tt> and <tt>Basics::uint64</tt> in <tt>Basics.H</tt>.)
+&nbsp;So far, we've simply used the "<tt>long long</tt>" type provided by
+the GNU C/C++ compiler on 32-bit platforms. &nbsp;If you need to use another
+compiler for some reason, this could be a problem.<br>
+<br>
+In addition to a 64-bit integer type, a few parts of the Vesta code also
+need to format 64-bit integers with the <tt>printf</tt>/<tt>sprintf</tt>
+family of functions. &nbsp;On Linux, we've used <tt>glibc</tt>'s "<tt>ll</tt>"
+length specifier. &nbsp;(See the definition of the <tt>FORMAT_LENGTH_INT_64</tt>
+in <tt>Basics.H</tt>.) &nbsp;This may prove difficult or impossible with
+other C run-time libraries, necessitating more significant changes.<br>
+
+<a name="pthreads Quirks"><h3><tt>pthreads</tt> Quirks</h3></a>
+
+   When porting Vesta to Linux, we had to make some changes to accomodate
+its implementation of <tt>pthreads</tt>:<br>
+<ul>
+  <li>The <tt>RunToolServer</tt> used to have one thread <tt>fork</tt> a
+child process and then have a different thread call <tt>waitpid</tt> for
+that child. &nbsp;Because Linux threads are really processes, only the <tt>fork</tt>ing
+thread could wait for the child.</li>
+  <li>Regardless of whether a program ever creates a new thread, just including
+the <tt>pthread.h</tt> header changed the definition of <tt>errno</tt> (using
+a pre-processor macro) to call a function. &nbsp;Because of the way that
+function is defined, we had to pass a linker option to force the <tt>pthread</tt>
+library to be linked into the executable. &nbsp;(Without doing this, any
+access of <tt>errno</tt> by programs that don't create pthreads would crash.)</li>
+  <li>The signal handler in the <tt>RunToolServer</tt> (for <tt>INT</tt>
+and <tt>TERM</tt>) had to be changed to take action only in the main thread.<br>
+  </li>
+  <li>The Boehm collector on Linux holds an allocation lock during blocking
+reads. &nbsp;To avoid blocking on memory allocation while waiting on network
+traffic, we had to insert a <tt>select</tt> before reading from a TCP socket.<br>
+  </li>
+</ul>
+Other implementations of <tt>pthreads</tt> will probably have subtle quirks
+of their own requiring other changes.<br>
+
+<a name="NFS Quirks"><h3>NFS Client Quirks</h3></a>
+
+   Different NFS client implementations have subtle differences. &nbsp;Several
+changes have been made to the repository's NFS implementation to adequately
+support the Linux NFS client. &nbsp;Inter-operating with other NFS clients
+may require additional changes.<br>
+
+<a name="Threaded GC"><h3>Garbage Collection With Support for
+Multi-Threading</h3></a>
+
+<a href="http://www.hpl.hp.com/personal/Hans_Boehm/gc/">The Boehm
+garbage collector</a> may not be well tested in multi-threaded
+programs on all platforms. &nbsp;(In some cases it may not be
+supported at all.) &nbsp;This is a neccessity for both the evaluator
+and the cache server, which rely heavily on both multi-threading
+<i>and</i> garbage collection.<br>
+<br>
+Even if it is fully suppoted, there may be subtle issues to deal with (such
+as the issue with blocking reads mentioned above).<br>
+
+<a name="OS-Specific Information Gathering"><h3>OS-Specific
+Information Gathering in <tt>RunToolServer</tt> and Cache
+Server</h3></a>
+
+   The <tt>RunToolServer</tt> gathers some information about the hardware
+it's running on. &nbsp;Specifically, it determines the number of CPUs, the
+CPU clock speed, and the amount of physical memory. &nbsp;These values are
+used to allow selection of the host to run tools on based on these details.
+&nbsp;(In some cases, certain tool invocations may be known to use large
+amounts of memory, and this can be used to avoid running those tools on machines
+with less than a certain threshold of physical memory.)<br>
+<br>
+The cache serve also gets informations from the operating system on how much
+memory it is using (primarily for reporting to statistics gather clients
+such as <tt>VCacheMonitor</tt>).<br>
+<br>
+Both of these areas will require attention when porting to a new operating
+system.<br>
+
+<a name="Troubleshooting"><h2>Troubleshooting Tips</h2></a>
+
+<p>
+
+When bringing up a new platform under Vesta, and particularly during
+the development of its build environment, there are often some tricky
+problems to deal with.  This section provides a few hints on
+debugging this kind of problem.
+
+</p>
+
+<a name="Tool Misbehavior"><h3>Tool Misbehavior</h3></a>
+
+<p>
+
+If tools such as the compiler or linker fail in unexpected ways, it
+may be due to some file missing from the encapsulated filesystem.
+
+</p>
+
+<p>
+
+The evaluator has
+
+<a href="../man/html/vesta.1.html#debug-options">some debug
+options</a> which can be helpful in understanding such problems.
+Specifically, the <tt>-evalcalls</tt> flag prints a message for each
+attempted access in the encapsulated filesystem, including attempts to
+access files that don't exist.  This can often provide important clues
+when something is missing from the tool invocation's root directory.
+
+</p>
+
+<p>
+
+Additionally, <a href="../man/html/RunToolServer.1.html">the
+RunToolServer</a> has some debug capabilities controlled by
+environment variables.  (These require restarting the RunToolServer to
+activate them.)  The most useful is turned on by setting the
+<tt>STOP_BEFORE_TOOL</tt> environment variable.  This causes the
+RunToolServer to print the path to the volatile directory just before
+launching each tool and wait for the user to press return before
+continuing.  This allows one to examine the contents of the
+encapsulated filesystem before the tool is executed.  There's also
+<tt>STOP_AFTER_TOOL</tt> which may also be helpful, plus a couple
+others.
+
+</p>
+
+<a name="Evaluator Misbehavior"><h3>Evaluator Misbehavior</h3></a>
+
+<p>
+
+It's possible that you may find that
+
+<a href="../man/html/vesta.1.html">the evaluator</a>
+behaves incorrectly on a new platform.  Here are a few suggestions on
+debugging such problems:
+
+</p>
+
+<ul>
+
+<li>
+Turning off the evaluator's multi-threading capabilities (with
+
+&quot;<tt><a href="../man/html/vesta.1.html#eval-options">-maxthreads</a>
+
+1</tt>&quot; or by setting
+
+<tt><a href="../man/html/vesta.1.html#configuration">[Evaluator]MaxThreads</a></tt>
+
+to 1) can make the evaluator's behavior more predictable.  While this
+probably won't solve problems, it may make them easier to debug.
+</li>
+
+<li>
+
+The
+
+&quot;<tt><a href="../man/html/vesta.1.html#debug-options">-trace</a></tt>&quot;
+
+option may be useful in understanding the caching behavior of an
+evaluation, including one that's not working correctly.
+</li>
+
+<li>
+
+You can prevent the evaluator from adding new entries to the cache
+without turning off its use of existing entries in the cache with 
+
+&quot;<tt><a href="../man/html/vesta.1.html#cache-options">-noaddentry</a></tt>&quot;.
+
+</li>
+
+<li>
+
+You can completely turn off the evaluator's use of the cache server
+with
+
+&quot;<tt><a href="../man/html/vesta.1.html#cache-options">-cache</a>
+none</tt>&quot;.  This will definitely make evaluations take longer
+(because they will re-do work), but if there's a bug in the interface
+to the cache (including fingerprint computation or collection of
+secondary dependencies), it could change the result of the evaluation.
+There are also two intermediate caching options (&quot;<tt>-cache
+runtool</tt>&quot; and &quot;<tt>-cache model</tt>&quot;).
+</li>
+
+<li>
+
+To get the complete details of the evaluator's interaction with the
+cache server, use
+&quot;<tt><a href="../man/html/vesta.1.html#cache-options">-cdebug</a>
+All</tt>&quot;.
+
+</li>
+
+</ul>
+
+<hr>  
+
+<a href="../../index.html">Back to the Vesta home page</a>
+
+</body>
+</html>

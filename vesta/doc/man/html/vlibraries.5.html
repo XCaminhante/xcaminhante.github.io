@@ -1,0 +1,170 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vlibraries(5) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vlibraries(5)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+vlibraries - a guide to the organization of libraries in Vesta-2
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vlibraries.5.html#DescriptionSect">Description</A>
+<LI> <A HREF="vlibraries.5.html#NamingSect">Library Naming</A>
+<LI> <A HREF="vlibraries.5.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="DescriptionSect">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+This man page describes the organization of libraries in the standard
+Vesta-2 building environment. In particular, it documents the
+<TT>common/std_env/18</TT> and <TT>common/cxx/14</TT> packages (presumably,
+later versions of these packages will conform to this man page as
+well).<P>
+
+The standard environment defines a collection of hierarchically
+arranged libraries. The leaves of this hierarchy are called,
+appropriately, <I>leaf libraries</I>. The non-leaves are called
+<I>umbrella libraries</I>.<P>
+
+Each package exports a single library, although it is quite possible
+for a package to export an umbrella library one of whose children is
+defined in the same package (see the "<TT>vesta/basics</TT>" package, for
+example). As a result, there is <I>not</I> a one-to-one correspondence
+between library packages and libraries. This point is important for
+understanding the distinction between how library packages are named
+and how the libraries themselves are named.<P>
+
+In order to make it easy for the client of a library to arrange
+for it to be built suitably, the system model for a library
+doesn't actually build the library. Rather, it invokes a bridge function
+("<TT>leaf</TT> or <TT>umbrella</TT>) that simply records the parts that make up
+the library. (The parts of a leaf library are header files and
+source code files; the parts of an umbrella library are the other
+libraries of which it is composed.) The results of these libraries are
+called <I>library descriptions</I>, and they correspond to the Vesta-2
+type <A HREF="vtypes.5.html#LibDesc"><TT>LibDesc</TT></A> and its three subtypes:
+<A HREF="vtypes.5.html#LeafLibDesc"><TT>LeafLibDesc</TT></A>,
+<A HREF="vtypes.5.html#UmbrellaLibDesc"><TT>UmbrellaLibDesc</TT></A>, and
+<A HREF="vtypes.5.html#PrebuiltLibDesc"><TT>PrebuiltLibDesc</TT></A>.<P>
+
+When the client actually uses a particular set of libraries to build a
+program, the necessary pieces are built. (Of course, in many cases,
+the Vesta caching machinery makes the build fast.)<P>
+
+Because the construction of libraries is delayed as long as
+possible, the client can influence the building process. For
+example, the client can:<P>
+
+<UL>
+<LI>
+control which libraries are included in an umbrella,
+<LI>
+override the specific versions of
+libraries used at all levels of the hierarchy, and
+<LI>
+set the compilation switches used when the library is built (e.g., to
+enable debugging).
+</UL>
+<P>
+
+For more information about how to build a library with overrides, see
+the <A HREF="voverrides.5.html">voverrides(5)</A> man page.
+</BLOCKQUOTE>
+
+<H3><A NAME="NamingSect">Library Naming</A></H3>
+<BLOCKQUOTE>
+<P>
+
+As previously described, libraries are arranged in a hierarchy. The
+leaves of the hierarchy are called leaf libraries, and the internal
+nodes of the hierarchy are called umbrella libraries.<P>
+
+To override the way a library or some part of a library is built, you
+must provide a name for the library. There are two styles used
+for naming libraries: <I>flat</I> and <I>hierarchical</I>. If flat naming is
+being used, then all library names are assumed to be unique; the hierarchy of
+umbrellas isn't used to name libraries.<P>
+
+The standard construction environment provides support for both flat
+and hierarchical library naming. Which naming scheme is used for a
+particular bridge depends on the value of the
+"<A HREF="vtypes.5.html#BridgeOptions"><TT>flat_lib_names</TT></A>" bridge
+option. If that value is true, flat naming is used; if it is false,
+hierarchical naming is used.<P>
+
+Hierarchical naming is desirable if the number of leaf libraries is so
+large that there is likely to be a naming conflict, i.e., that two or
+more leaf libraries will have the same name. That is certainly
+allowed, but if the library name space were flat, it would be
+impossible to name a particular leaf library uniquely for overriding
+purposes. Hence, you can build your program using hierarchical naming,
+in which cases the overrides specifications are themselves
+hierarchical. Here are the details.<P>
+
+If flat library naming is used, libraries in a library override are
+named by a single text corresponding to the the name provided to the
+"<TT>leaf</TT>" or "<TT>umbrella</TT>" call that creates the library. This is
+the simplest way to name a library, but it requires that all libraries
+have distinct names. In particular, it does not allow two different
+leaf libraries in different umbrella libraries to have the same name.<P>
+
+If hierarchical naming is used, library overrides are bindings, and
+the libraries named by such a binding correspond to paths
+in that binding. The internal nodes of the override binding are the
+names of umbrella libraries. For example, if the leaf library
+"<TT>libBasics.a</TT>" is part of the umbrella library
+"<TT>libBasicsUmb</TT>", which in turn was part of the umbrella library
+"<TT>libVestaUmb</TT>", the overrides "<TT>ovs</TT>" for the leaf would be
+specified by a binding of the form:
+<PRE>
+[ libVestaUmb = [ libBasicsUmb = [ libBasics.a = ovs ] ] ];
+</PRE>
+
+Using hierarchical names, it is possible for a single library override
+to effect multiple umbrella and leaf libraries. See the type
+"<A HREF="vlibraries.5.html#NamedLibOvs"><TT>NamedLibOvs</TT></A>" for more details about the
+form taken by library overrides.
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vmodels.5.html">vmodels(5)</A>,
+<A HREF="voverrides.5.html">voverrides(5)</A>,
+<A HREF="vtypes.5.html">vtypes(5)</A>.
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+<PRE>
+Last modified on Fri Nov  9 12:14:21 EST 2001 by ken@xorian.net
+     modified on Thu May 29 14:22:22 PDT 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

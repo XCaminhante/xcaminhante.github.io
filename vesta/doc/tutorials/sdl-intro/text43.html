@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 44</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text42.html">Back</a> <a href="text44.html">Continue</a> <a href="text60.html">Last page</a> <a href="slides.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Binding Ops : <b>bind_pp2.ves</b></h1><p>
+<ul><li><h2><b>++</b> only recurses when the value on both sides are bindings</h2>
+<li><h2>If only one is a a binding, the right-hand side value gets used (just like <b>+</b>):</h2>
+<ul><li>{
+<li>  b1 = [foo=1, bar/y=2];
+<li>  b2 = [foo/u=3, bar=4];
+<li>  return b1++b2;
+<li>}
+</ul><li><h2>In this case, the result is identical to <b>b2</b></h2>
+</ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

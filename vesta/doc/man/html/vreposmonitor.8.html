@@ -1,0 +1,401 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vreposmonitor(8) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vreposmonitor(8)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+vreposmonitor - monitor the state of the Vesta repository
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vreposmonitor</B>
+[ <A HREF="vreposmonitor.8.html#UpdateOpt"><B>-update</B> <I>time</I></A> ]
+[ <A HREF="vreposmonitor.8.html#TsOpt"><B>-ts</B> <I>time</I></A> ]
+[ <A HREF="vreposmonitor.8.html#NOpt"><B>-n</B> <I>num</I></A> ]
+[ <A HREF="vreposmonitor.8.html#RowsOpt"><B>-rows</B> <I>num</I></A> ]
+[ <A HREF="vreposmonitor.8.html#CheckOpt"><B>-check</B></A> ]
+[ <A HREF="vreposmonitor.8.html#ReposOpt"><B>-R</B> <I>host[:port]</I></A> ]
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vreposmonitor.8.html#DescSect">Description</A>
+<LI> <A HREF="vreposmonitor.8.html#SwitchesSect">Switches</A>
+<LI> <A HREF="vreposmonitor.8.html#FieldDescSect">Fields</A>
+<LI> <A HREF="vreposmonitor.8.html#ConfigSect">Configuration Variables</A>
+<LI> <A HREF="vreposmonitor.8.html#Example">Example</A>
+<LI> <A HREF="vreposmonitor.8.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="DescSect">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<I>vreposmonitor</I> is a client application for monitoring the state
+of a running Vesta repository.<P>
+
+The program starts by printing information that identifies the
+repository, including:<P>
+
+<UL>
+<LI>
+the name of the host on which the repository is running,
+<LI>
+the port number on which the repository is listening for connections,
+<LI>
+the version identifier of the repository,
+<LI>
+the date and time at which the repository was started.
+<LI>
+the amount of time the repository has been running
+</UL>
+<P>
+
+The program then prints status lines describing various aspects of the
+repository's state. See the <A HREF="vreposmonitor.8.html#FieldDescSect">Fields</A> section
+below for descriptions of each of the fields on a status line.<P>
+
+If <I>vreposmonitor</I> is unable to contact the repository it was
+monitoring, it prints an error message and continues to poll the
+repository until a connection can be re-established. Once it is able
+to contact the repository again, it resumes monitoring where it left off.
+This behavior can be changed with <A HREF="vreposmonitor.8.html#CheckOpt">the <B>-check</B>
+flag</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="SwitchesSect">Switches</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Prefixes of switch names are recognized. For example, "-u"
+can be used instead of "-update".<P>
+
+<DL>
+<DT><A NAME="UpdateOpt"><B>-update</B> <I>time</I></A><DD>
+By default, a new status line is printed every 10 seconds. If
+<B>-update</B> is specified, then a new line is printed every
+<I>time</I> seconds. <I>time</I> must be a non-negative integer.
+To specify an update time in units other than seconds, <I>time</I>
+can end with one of the following unit identifiers: <I>m</I> (minutes),
+<I>h</I> (hours), and <I>d</I> (days).<P>
+
+<DT><A NAME="TsOpt"><B>-ts</B> <I>time</I></A><DD>
+If <B>-ts</B> is specified, a timestamp is printed every <I>time</I>
+seconds. By default, timestamps are never printed. To specify a
+timestamp interval in units other than seconds, <I>time</I>
+can end with one of the following unit identifiers: <I>m</I> (minutes),
+<I>h</I> (hours), and <I>d</I> (days).<P>
+
+<DT><A NAME="NOpt"><B>-n</B> <I>num</I></A><DD>
+By default, vreposmonitor prints status lines indefinitely. If <B>-n</B>
+is specified, then only <I>num</I> status lines are printed.<P>
+
+<DT><A NAME="RowsOpt"><B>-rows</B> <I>num</I></A><DD>
+By default, <I>vreposmonitor</I> prints the column headings once at the
+start of the program. If you specify <B>-rows</B> <I>num</I>, then new
+heading columns are printed every <I>num</I> status lines.<P>
+
+<DT><A NAME="CheckOpt"><B>-check</B></A><DD>
+By default, <I>vreposmonitor</I> prints the number of requested status
+lines and then exits with status 0.  If <B>-check</B> is specified, it
+will only attempt to print one line.  If it was able to successfully
+contact the repository and print the line it will exit with status 0.
+If there was an error in reaching the repository or getting its
+status, it will exit with status 1.<P>
+
+<DT><A NAME="ReposOpt"><B>-R</B> <I>host[:port]</I></A><DD>
+By default, <I>vreposmonitor</I> prints statistics for the local
+repository.  You can have it monitor an alternate repository by
+specifying the host and port of a different server.  If not specified,
+the port defaults to the same port your local repository uses.<P>
+
+<DT><A NAME="-mem"><B>-mem</B></A><DD>
+Print information about the repository daemon's total memory usage.
+(See <B><TT>MEMORY</TT></B> under <A HREF="vreposmonitor.8.html#FieldDescSect">Fields</A>.)<P>
+
+<DT><A NAME="-nfs"><B>-nfs</B></A><DD>
+Print informaiton about the number of NFS transactions processed and
+the average time take to process them.  (See <B><TT>NFS</TT></B> under
+<A HREF="vreposmonitor.8.html#FieldDescSect">Fields</A>.)<P>
+
+<DT><A NAME="-srpc"><B>-srpc</B></A><DD>
+Print informaiton about the number of SRPC transactions processed and
+the average time take to process them.  (See <B><TT>NFS</TT></B> under
+<A HREF="vreposmonitor.8.html#FieldDescSect">Fields</A>.)<P>
+
+<DT><A NAME="-dupe"><B>-dupe</B></A><DD>
+Print statistics about the repository's NFS duplicate suppression
+mechanism.  (See <B><TT>DUPE</TT></B> under <A HREF="vreposmonitor.8.html#FieldDescSect">Fields</A>.)<P>
+
+<DT><A NAME="-fdcache"><B>-fdcache</B></A><DD>
+Print statistics about the repository's file descriptor cache.  (See
+<B><TT>FDCACHE</TT></B> under <A HREF="vreposmonitor.8.html#FieldDescSect">Fields</A>.)<P>
+
+<DT><A NAME="-vmempool"><B>-vmempool</B></A><DD> Print statistics about the
+repository's packaed CMemPool heap.  (See <B><TT>VMEMPOOL</TT></B> under
+<A HREF="vreposmonitor.8.html#FieldDescSect">Fields</A>.)<P>
+
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="FieldDescSect">Fields</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The output is divided up into sections corresponding to diferent kinds
+of information.  The kinds of information and the order they appear in
+are controlled by the command-line options.  If no options requesting
+specific information are given, the default is:
+<A HREF="vreposmonitor.8.html#-mem"><B>-mem</B></A> <A HREF="vreposmonitor.8.html#-nfs"><B>-nfs</B></A>
+<A HREF="vreposmonitor.8.html#-srpc"><B>-srpc</B></A> <A HREF="vreposmonitor.8.html#-dupe"><B>-dupe</B></A>
+<A HREF="vreposmonitor.8.html#-fdcache"><B>-fdcache</B></A>.<P>
+
+<B><TT>MEMORY</TT></B><P>
+
+Information about the repository's memory usage.<P>
+
+<DL>
+<DT><TT>SIZE</TT><DD>
+The total memory size of the repository.
+<DT><TT>RES</TT><DD>
+The memory size of the repository resident in physical memory.
+</DL>
+<P>
+
+<B><TT>NFS</TT></B><P>
+
+Information about the rate of NFS transaction processing.<P>
+
+<DL>
+<DT><TT>NUM</TT><DD>
+The number of NFS transactions since the previously printed line.
+<DT><TT>AVG</TT><DD>
+The average time to process an NFS transaction since the previously
+printed line.
+</DL>
+<P>
+
+<B><TT>SRPC</TT></B><P>
+
+Information about the rate of SRPC transaction processing.<P>
+
+<DL>
+<DT><TT>NUM</TT><DD>
+The number of SRPC transactions since the previously printed line.
+<DT><TT>AVG</TT><DD>
+The average time to process an SRPC transaction since the previously
+printed line.
+</DL>
+<P>
+
+<B><TT>DUPE</TT></B><P>
+
+Information about NFS duplicate suppression.<P>
+
+<DL>
+<DT><TT>NEW</TT><DD>
+The number of new NFS requests which have arrived since the previously
+printed line.
+<DT><TT>INPR</TT><DD>
+The number of duplicate NFS requests corresponding to transactions
+still being processed which have arrived since the previously printed
+line.
+<DT><TT>DONE</TT><DD>
+The number of duplicate NFS requests corresponding to transations
+previously completed which have arrived since the previously printed
+line.
+</DL>
+<P>
+
+<B><TT>FDCACHE</TT></B><P>
+
+Information about the repository's file descriptor cache.<P>
+
+<DL>
+<DT><TT>HELD</TT><DD>
+The number of file descriptors in the file descriptor cache.
+<DT><TT>HITS</TT><DD>
+The number of requests for a file descriptor which were able to use an
+already open file descriptor from the file descriptor cache.  The
+value represents the number since the previously printed line.
+<DT><TT>OMIS</TT><DD>
+The number of requests for a file descriptor which did not find a
+match in the file descriptor cache and for which a new file descriptor
+must be opened.  The value represents the number since the previously
+printed line.
+<DT><TT>TMIS</TT><DD>
+The number of requests for a file descriptor which did not find a
+match in the file descriptor cache that will proceed without a file
+descriptor.  (For example, using stat(2) instead of fstat(2).)  The
+value represents the number since the previously printed line.
+<DT><TT>EVIC</TT><DD>
+The number of file descriptors evicted from the file descriptor cache
+because the cache was full.  The value represents the number since the
+previously printed line.
+<DT><TT>EXPR</TT><DD>
+The number of file descriptors expired from the file descriptor cache
+after going unused for a period of time.  The value represents the
+number since the previously printed line.
+</DL>
+<P>
+
+<B><TT>VMEMPOOL</TT></B><P>
+
+Information about the repository's special purpose tightly-packaed
+heap used to store directory structure and attributes.<P>
+
+<DL>
+<DT><TT>SIZE</TT><DD>
+Total size of VMemPool heap.
+<DT><TT>NEFL</TT><DD>
+Total number of non-empty VMemPool free lists.  (Separate free lists
+are maintained for different block sizes to make allocations more
+efficient.)
+<DT><TT>FBLK</TT><DD>
+Total number of blocks on all the VMemPool free lists.
+<DT><TT>FBYT</TT><DD>
+Total number of bytes in all blocks on the VMemPool free lists.
+<DT><TT>B/FB</TT><DD>
+Avergae number of bytes in blocks on the VMemPool free lists
+(i.e. <TT>FBYT</TT> divided by <TT>FBLK</TT>)
+<DT><TT>WBYT</TT><DD>
+Total number of wasted bytes due to alignment.  (Blocks start on an
+8-byte aligned boundary.  When a block is allocated of a size not
+evenly divisible by 8, some bytes are wasted to round up to the
+alignment boundary.  These bytes can be reclaimed if the block is
+later freed.)
+<DT><TT>ALOC</TT><DD>
+Number of calls to VMemPool::allocate
+<DT><TT>AAVG</TT><DD>
+Average time for a VMemPool::allocate call
+<DT><TT>BRJS</TT><DD>
+Number of free blocks considered and rejected by VMemPool::allocate
+for being too small to be used for the requested allocation.
+<DT><TT>BRJL</TT><DD>
+Number of free blocks considered and rejected by VMemPool::allocate
+for being too large to be used for the requested allocation.  (This is
+done to avoid fragmentation from splitting large blocks and only
+happens when the next block on the free list is a better fit.)
+<DT><TT>FB/A</TT><DD>
+Average number of free blocks considered and rejected per call to
+VMemPool::allocate. (i.e. <TT>BRJS</TT>+<TT>BRJL</TT> divided by <TT>ALOC</TT>).
+<DT><TT>ASBL</TT><DD>
+Number of allocations serviced by splitting a large block.  (Splitting
+blocks leads to fragmentation.)
+<DT><TT>ANBL</TT><DD>
+Number of allocations serviced with a new block created by expanding
+the heap.  (Some expansions require calling VMemPool::grow.)
+<DT><TT>FREE</TT><DD>
+Number of calls to VMemPool::free
+<DT><TT>FAVG</TT><DD>
+Average time for a VMemPool::free call
+<DT><TT>FCOB</TT><DD>
+Number of times that a freed block was coalesced with a free block
+before it in memory.  (Freed blocks are combined with adjacent free
+blocks when possible to reduce fragmentation.)
+<DT><TT>FCOA</TT><DD>
+Number of times that a freed block was coalesced with a free block
+after it in memory.
+<DT><TT>GROW</TT><DD>
+Number of calls to VMemPool::grow (expanding the heap by mmap-ing more
+space)
+</DL>
+<P>
+
+<TT>SIZE</TT>, <TT>NEFL</TT>, <TT>FBLK</TT>, <TT>FBYT</TT>, <TT>B/FB</TT>, anf <TT>WBYT</TT>
+always represent the current values.  <TT>ALOC</TT>, <TT>AAVG</TT>, <TT>BRJS</TT>,
+<TT>BRJL</TT>, <TT>FB/A</TT>, <TT>ASBL</TT>, <TT>ANBL</TT>, <TT>FREE</TT>, <TT>FAVG</TT>,
+<TT>FCOB</TT>, <TT>FCOA</TT>, and <TT>GROW</TT> represent the number since the
+previously printed line and are totals since the repository was
+started on the first line.
+</BLOCKQUOTE>
+
+<H3><A NAME="Example">Example</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Here's some sample output:
+<PRE>
+Repository:     vesta.example.com:21776
+Server Version: release/13
+Started:        Sat Jan 29 00:57:59 EST 2005
+Uptime:         24 days 16 hours 47 minutes 39 seconds
+
+
+  MEMORY  |   NFS    |   SRPC   |     DUPE     |           FDCACHE           |
+SIZE  RES |NUM   AVG |NUM   AVG |NEW  INPR DONE|HELD HITS OMIS TMIS EVIC EXPR|
+---- ----- ---- ----- ---- ----- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+480M 480M 260M 0.3ms 284M 0.3ms 260M 2.8K 8.1K   10 297M  85M  19M  85M 123K 
+480M 480M 2.7K 0.1ms 5.0K 0.1ms 2.7K    0    0   10    0    0  975    0    0 
+480M 480M 2.3K 0.1ms 7.2K 0.1ms 2.3K    0    0   10    0    0  894    0    0 
+480M 480M 5.0K 0.5ms 4.4K 0.1ms 5.0K    0    0  362  281  462 1.3K  110    0 
+480M 480M 3.3K 100us 3.8K 0.1ms 3.3K    0    0  362    0    0  710    0    0 
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ConfigSect">Configuration Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Like most Vesta-2 applications, <I>vreposmonitor</I> reads site-specific
+configuration information from a Vesta-2 <I>configuration file</I> named
+<I>vesta.cfg</I>.<P>
+
+The configuration file is divided into a number of sections, denoted
+in the file by <TT>[</TT><I>SectionName</I><TT>]</TT>. The variables used by
+<I>vreposmonitor</I> are in the section denoted by <TT>[Repository]</TT>.
+Here are the relevant variables and their meanings; the types of the
+variables are shown in parentheses:<P>
+
+<DL>
+<DT><I>VestaSourceSRPC_host</I> (string)<DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I> (integer)<DD>
+The default TCP port number for repositories.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="repository.8.html"><B>repository</B>(8)</A>,
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Ken Schalk (<TT>ken@xorian.net</TT>)<P>
+
+Based on <A HREF="VCacheMonitor.1.html"><B>VCacheMonitor</B></A>, which was
+written by Allan Heydon (<TT>caheydon@yahoo.com</TT>)
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

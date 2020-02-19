@@ -1,0 +1,146 @@
+<HTML>
+<HEAD>
+
+<TITLE>LIM Home Page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H1>LIM Home Page</H1>
+
+<P><FONT SIZE=-1>
+Copyright &#169; 1997, Digital Equipment Corporation. All rights reserved.
+</FONT>
+
+<H2>Overview</H2>
+
+<P> LIM is a text processing language in the general family of lex, yacc,
+sed, awk, and trans, but is based on Dijkstra's calculus of guarded
+commands.  The name is an acronym for Language of the Included Miracle,
+because LIM programs can violate the so-called Law of the Excluded
+Miracle.  For details see "A Discipline of Programming", Edsger W.
+Dijkstra, Prentice-Hall, 1976, and "A generalization of Dijkstra's
+calculus", Greg Nelson, Trans. on Programming Languages and Systems,
+October 1989, or
+<A HREF="http://gatekeeper.dec.com/pub/DEC/SRC/research-reports/abstracts/src-rr-016.html">SRC Research Report 16</A>.
+
+<P> A LIM command may be <I>guarded</I> by a predicate. The command is
+said to <I>fail</I> if the predicate is false when the command is
+executed. The main novelty in LIM is that failing commands never have
+side effects. If a long computation has side effects and then fails,
+it is as though the side effects never happened. This property of the
+language makes it easy to write parsers and pretty-printers, since
+they require the ability to speculatively perform some action. In
+fact, the LIM distribution includes a pretty-printer for the LIM
+language that is itself written in LIM.
+
+<H2>Downloading LIM</H2>
+
+<P> LIM is written in C, and uses lex/yacc or flex/bison. It has been
+successfully built on the Digital Ultrix and Digital Unix operating
+systems. It should compile on most other Unix platforms.
+
+<P> To download LIM, follow these steps:
+
+<UL>
+<LI>
+Make a new directory called "lim".
+<P>
+<LI>
+Select the following link, and tell your browser to save the
+downloaded file to your new "lim" directory:
+<BLOCKQUOTE>
+<A HREF="lim.tar.Z"><CODE>lim.tar.Z</CODE></A>
+</BLOCKQUOTE>
+<P>
+<LI>
+cd into your new "lim" directory. It should contain the single file
+"<CODE>lim.tar.Z</CODE>". If it instead contains the file
+"<CODE>lim.tar</CODE>", then your browser has automatically
+uncompressed the file, and you can skip the following step.
+<P>
+<LI>
+Run "<CODE>uncompress lim.tar.Z</CODE>" on the downloaded file.
+<P>
+<LI>
+Run "<CODE>tar xvf lim.tar</CODE>" on the resulting tar file to extract
+the LIM sources.
+<P>
+<LI>
+Run "<CODE>rm lim.tar</CODE>" to remove the tar file.
+</UL>
+
+<H2>Installing LIM</H2>
+
+<P> Once you have downloaded and unpacked the LIM sources, follow
+these steps from your "lim" directory to build LIM on your system:
+
+<UL>
+<LI>
+The LIM pretty-printer, <I>pplim</I>, requires that three LIM
+programs be installed in a centralized lib directory. By default,
+<I>pplim</I> expects these scripts to be installed in
+<CODE>/usr/local/lib/lim</CODE>. If you plan to install them somewhere
+else, edit the file "<CODE>pp/pplim.sh</CODE>. Replace the pathname
+"<CODE>/usr/local/lib/lim</CODE>" on the third line of that script
+with the absolute path of the directory where you eventually plan to
+install the scripts.
+<P>
+<LI>
+From your "lim" directory, run "<CODE>make</CODE>". This will create
+a derived directory named by your machine's architecture. It's name
+is formed by running "<CODE>machine</CODE>".
+<P>
+<LI>
+You may now want to copy the LIM executables, man pages, and library
+files to centralized bin, man, and lib directories. If your derived
+directory is denoted by <I>arch</I>, the files you may want to copy
+are:
+<P>
+<DL>
+<DT>To centralized <CODE>bin</CODE>:
+<UL>
+<LI> <CODE><I>arch</I>/lim</CODE> - LIM executable
+<LI> <CODE><I>arch</I>/pplim</CODE> - LIM pretty-printer
+</UL>
+<P>
+<DT>To centralized <CODE>man/man1</CODE>:
+<UL>
+<LI> <CODE>lim.1</CODE> - lim(1) man page
+<LI> <CODE>pp/pplim.1</CODE> - pplim(1) man page
+</UL>
+<P>
+<DT>To centralized <CODE>lib/lim</CODE>:
+<UL>
+<LI> <CODE>pp/format.lim</CODE> - formats pretty-printer output
+<LI> <CODE>pp/lex.lim</CODE> - parses input for pretty-printer
+<LI> <CODE>pp/pp.lim</CODE> - LIM pretty-printer
+</UL>
+</DL>
+<P>
+The directory in which the last three files are installed should match
+the directory in the <CODE>pp/pplim.sh</CODE> script that you edited
+in the first step of this section.
+</UL>
+
+<P> Once you have successfully installed lim, you may be interested in
+downloading and installing mtex, a set of LIM scripts for producing
+man pages in HTML and nroff format from a single LaTeX-like source
+format. For more information about mtex, see the
+<!-- Original mtex home page: http://www.research.digital.com/SRC/mtex/ -->
+<A HREF="../mtex/index.html">mtex home page</A>.
+
+<P>
+<HR>
+<P>
+[ <A HREF="http://www.research.digital.com/SRC/software/"
+>Systems Research Center (SRC) Software Home Page</A> ]
+
+<PRE>
+Last modified on Thu Aug 28 22:46:04 PDT 1997 by heydon  
+</PRE>
+</BODY>
+
+</HTML>
+>
+
+</HTML>

@@ -1,0 +1,653 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vtypes(5) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vtypes(5)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+vtypes - a guide to Vesta-2 types used in the standard models
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vtypes.5.html#IntroSect">Introduction</A>
+<LI> <A HREF="vtypes.5.html#IndexSect">Index</A>
+<LI> <A HREF="vtypes.5.html#FilesSect">Files and Packages</A>
+<LI> <A HREF="vtypes.5.html#PkgResultsSect">Package Results</A>
+<LI> <A HREF="vtypes.5.html#LibDescSect">Library Descriptions</A>
+<LI> <A HREF="vtypes.5.html#OverridesSect">Overrides</A>
+<LI> <A HREF="vtypes.5.html#BridgesSect">Bridges</A>
+<LI> <A HREF="vtypes.5.html#BridgeGenericSect">Generic Bridge Functions</A>
+<LI> <A HREF="vtypes.5.html#EnvironmentsSect">Environments</A>
+<LI> <A HREF="vtypes.5.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="IntroSect">Introduction</A></H3>
+<BLOCKQUOTE>
+<P>
+
+This man page documents the Vesta-2 types used in the standard
+environment and bridge models included with the Vesta-2 system. In
+particular, it documents the <TT>common/std_env/18</TT> and
+<TT>common/cxx/14</TT> packages (presumably, later versions of these
+packages will conform to this man page as well).
+</BLOCKQUOTE>
+
+<H3><A NAME="IndexSect">Index</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Here are the types documented in this man page:<P>
+
+<DL>
+<DT><B>B</B><DD>
+<A HREF="vtypes.5.html#Bridge"><TT>Bridge</TT></A>,
+<A HREF="vtypes.5.html#BridgeExpert"><TT>BridgeExpert</TT></A>,
+<A HREF="vtypes.5.html#BridgeGenerics"><TT>BridgeGenerics</TT></A>,
+<A HREF="vtypes.5.html#BridgeOptions"><TT>BridgeOptions</TT></A>,
+<A HREF="vtypes.5.html#BridgeOvs"><TT>BridgeOvs</TT></A>,
+<A HREF="vtypes.5.html#BridgeSwitches"><TT>BridgeSwitches</TT></A>
+<A HREF="vtypes.5.html#BuiltLibs"><TT>BuiltLibs</TT></A>
+<DT><B>C</B><DD>
+<A HREF="vtypes.5.html#CompileOvs"><TT>CompileOvs</TT></A>
+<DT><B>D</B><DD>
+<A HREF="vtypes.5.html#DerivedFiles"><TT>DerivedFiles</TT></A>
+<DT><B>E</B><DD>
+<A HREF="vtypes.5.html#Env"><TT>Env</TT></A>,
+<A HREF="vtypes.5.html#EnvOvs"><TT>EnvOvs</TT></A>
+<DT><B>L</B><DD>
+<A HREF="vtypes.5.html#LeafLibDesc"><TT>LeafLibDesc</TT></A>,
+<A HREF="vtypes.5.html#LibDesc"><TT>LibDesc</TT></A>,
+<A HREF="vtypes.5.html#LibFunc"><TT>LibFunc</TT></A>,
+<A HREF="vtypes.5.html#LibFuncs"><TT>LibFuncs</TT></A>,
+<A HREF="vtypes.5.html#LibPkgResult"><TT>LibPkgResult</TT></A>,
+<A HREF="vtypes.5.html#LibPkgResults"><TT>LibPkgResults</TT></A>
+<DT><B>N</B><DD>
+<A HREF="vtypes.5.html#NamedCompileOvs"><TT>NamedCompileOvs</TT></A>,
+<A HREF="vtypes.5.html#NamedFile"><TT>NamedFile</TT></A>,
+<A HREF="vtypes.5.html#NamedFiles"><TT>NamedFiles</TT></A>,
+<A HREF="vtypes.5.html#NamedLibDesc"><TT>NamedLibDesc</TT></A>,
+<A HREF="vtypes.5.html#NamedLibDescs"><TT>NamedLibDescs</TT></A>,
+<A HREF="vtypes.5.html#NamedLibOvs"><TT>NamedLibOvs</TT></A>,
+<A HREF="vtypes.5.html#NamedLibPkgResults"><TT>NamedLibPkgResults</TT></A>,
+<A HREF="vtypes.5.html#NamedPkgOvs"><TT>NamedPkgOvs</TT></A>,
+<A HREF="vtypes.5.html#NamedPkgs"><TT>NamedPkgs</TT></A>
+<DT><B>P</B><DD>
+<A HREF="vtypes.5.html#PkgFunc"><TT>PkgFunc</TT></A>,
+<A HREF="vtypes.5.html#PkgModel"><TT>PkgModel</TT></A>,
+<A HREF="vtypes.5.html#PkgResult"><TT>PkgResult</TT></A>,
+<A HREF="vtypes.5.html#PrebuiltLibDesc"><TT>PrebuiltLibDesc</TT></A>
+<DT><B>Q</B><DD>
+<A HREF="vtypes.5.html#QNamedLibPkgResults"><TT>QNamedLibPkgResults</TT></A>,
+<A HREF="vtypes.5.html#QNamedPkgOvs"><TT>QNamedPkgOvs</TT></A>,
+<A HREF="vtypes.5.html#QNamedPkgs"><TT>QNamedPkgs</TT></A>,
+<DT><B>T</B><DD>
+<A HREF="vtypes.5.html#ToolSwitches"><TT>ToolSwitches</TT></A>
+<DT><B>U</B><DD>
+<A HREF="vtypes.5.html#UmbrellaLibDesc"><TT>UmbrellaLibDesc</TT></A>
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="FilesSect">Files and Packages</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A NAME="NamedFile"></A><A NAME="NamedFiles"></A>
+<PRE>
+type NamedFile = binding(:text);
+type NamedFiles = binding(:text);
+</PRE>
+
+A value of type "<B><TT>NamesFiles</TT></B>" is a binding containing pairs
+of the form "<TT>[ name = &lt;File&gt; ]</TT>", where "&lt;File&gt;" denotes to the
+contents of a file in the file system. A value of type
+"<B><TT>NamedFile</TT></B>" is always a singleton binding.<P>
+
+<A NAME="DerivedFiles"></A>
+<PRE>
+type DerivedFiles = binding(
+  objects: <A HREF="vtypes.5.html#NamedFiles">NamedFiles</A>, // derived object files (required)
+  others: <A HREF="vtypes.5.html#NamedFiles">NamedFiles</A>   // other derived files (optional)
+);
+</PRE>
+
+A value of type "<B><TT>DerivedFiles</TT></B>" contains derived object files
+(to be linked against) and other derived files to be installed in the
+working directory at link time. For example, the Modula-3 compiler
+produces "link info" (.ix, .mx) files in addition to object files.
+Only the object files must be named on the link line, but the link
+info files must be in the current directory for the link to succeed.<P>
+
+<A NAME="PkgModel"></A>
+<PRE>
+type PkgModel = function();
+</PRE>
+
+The type "<B><TT>PkgModel</TT></B>" corresponds to the top-level
+"<TT>build.ves</TT>" model of a package. It is a function of no arguments
+(not counting the implicit argument ".").<P>
+
+<A NAME="NamedPkgs"></A>
+<PRE>
+type NamedPkgs = binding(:PkgModel);
+</PRE>
+
+The type "<B><TT>NamedPkgs</TT></B>" is a binding mapping package names to
+their corresponding top-level models (of type
+"<A HREF="vtypes.5.html#PkgModel"><TT>PkgModel</TT></A>"). These are <I>unqualified</I> package
+names, as opposed to the <I>qualified</I> package names of the
+"<A HREF="vtypes.5.html#QNamedPkgs"><TT>QNamedPkgs</TT></A>" type below.<P>
+
+<A NAME="QNamedPkgs"></A>
+<PRE>
+type QNamedPkgs = binding(:NamedPkgs);
+</PRE>
+
+The Vesta repository uses a 2-level name space for package names.
+The base package name is <I>qualified</I> by the name of the repository
+directory in which it appears. Examples of qualified package names are
+"<TT>vesta/basics</TT>" and "<TT>common/std_env</TT>". A value of type
+"<B><TT>QNamedPkgs</TT></B>" corresponds to a set of qualified named package
+models.
+</BLOCKQUOTE>
+
+<H3><A NAME="PkgResultsSect">Package Results</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A NAME="PkgFunc"></A>
+<PRE>
+type PkgFunc = function(env: binding);
+</PRE>
+
+A "<B><TT>PkgFunc</TT></B>" is a closure for building part of a package.
+Examples are closures for building the <TT>lib</TT>, <TT>progs</TT>, and
+<TT>tests</TT> of a package.<P>
+
+<A NAME="PkgResult"></A>
+<PRE>
+type PkgResult = binding;
+</PRE>
+
+A general package's "build.ves" model evaluates to a value of type
+"<B><TT>PkgResult</TT></B>". Most of the names in a <TT>PkgResult</TT> are
+mapped to functions of type "<A HREF="vtypes.5.html#PkgFunc"><TT>PkgFunc</TT></A>", but there
+is no requirement that all names in a <TT>PkgResult</TT> are mapped to
+such values.<P>
+
+<A NAME="LibPkgResult"></A>
+<PRE>
+type LibPkgResult = /* <A HREF="vtypes.5.html#PkgResult">PkgResult</A> */ binding(
+  lib: <A HREF="vtypes.5.html#LibFunc">LibFunc</A> // a specialization of <A HREF="vtypes.5.html#PkgFunc">PkgFunc</A>; defined below
+  // other fields may be defined as well, such as "progs" and "tests"
+);
+</PRE>
+
+A library package's "build.ves" model evaluates to a value of type
+"<B><TT>LibPkgResult</TT></B>". The "<TT>lib</TT>" field is a value of type
+"<A HREF="vtypes.5.html#LibFunc"><TT>LibFunc</TT></A>", which is a function for building a
+<A HREF="vtypes.5.html#NamedLibDesc">named leaf or umbrella library description</A>.<P>
+
+<A NAME="UmbrellaPkgResult"></A>
+<PRE>
+type UmbrellaPkgResult = /* <A HREF="vtypes.5.html#LibPkgResult">LibPkgResult</A> */ binding(
+  children: <A HREF="vtypes.5.html#QNamedPkgs">QNamedPkgs</A>
+);
+</PRE>
+
+The model of a library package that builds an umbrella library
+evaluates to a value of type "<B><TT>UmbrellaPkgResult</TT></B>"; the
+"<TT>children</TT>" field evaluates to a value of type
+"<A HREF="vtypes.5.html#QNamedPkgs"><TT>QNamedPkgs</TT></A>", which are the packages
+that build the umbrella's child libraries.<P>
+
+<A NAME="LibPkgResults"></A>
+<PRE>
+type LibPkgResults = list(<A HREF="vtypes.5.html#LibPkgResult">LibPkgResult</A>);
+</PRE>
+
+Collections of libraries are represented by values of type
+"<B><TT>LibPkgResults</TT></B>". For example, the "libs" field of an
+"<A HREF="vtypes.5.html#UmbrellaLibDesc"><TT>UmbrellaLibDesc</TT></A>" is of this type.<P>
+
+<A NAME="NamedLibPkgResults"></A>
+<A NAME="QNamedLibPkgResults"></A>
+<PRE>
+type NamedLibPkgResults = binding(:<A HREF="vtypes.5.html#LibPkgResult">LibPkgResult</A>);
+type QNamedLibPkgResults = binding(:NamedLibPkgResults);
+</PRE>
+
+Collections of named library packages are represented by values of type
+"<B><TT>QNamedLibPkgResults</TT></B>". For example, the "libs" field of a
+"<A HREF="vtypes.5.html#Bridge"><TT>Bridge</TT></A>" is of this type. Like the
+"<A HREF="vtypes.5.html#QNamedPkgs"><TT>QNamedPkgs</TT></A>" type described above, a
+"<TT>QNamedLibPkgResults</TT>" is a two-level tree whose domain parallels the
+names of packages in the Vesta repository.
+</BLOCKQUOTE>
+
+<H3><A NAME="LibDescSect">Library Descriptions</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A NAME="LibDesc"></A>
+<PRE>
+type LibDesc = binding(lib_type_: text);
+</PRE>
+
+Libraries are described by a binding structure of type
+"<B><TT>LibDesc</TT></B>" that contains at least the text field
+"<TT>lib_type_</TT>", which is one of the three values "leaf", "umbrella",
+or "prebuilt". The first corresponds to a leaf library, the second to
+a library composed of other libraries, and the third to a library that
+is treated as a source file. Depending on the type of the library, the
+binding contains other fields describing how it is built. See the
+types "<A HREF="vtypes.5.html#LeafLibDesc"><TT>LeafLibDesc</TT></A>",
+"<A HREF="vtypes.5.html#UmbrellaLibDesc"><TT>UmbrellaLibDesc</TT></A>", and
+"<A HREF="vtypes.5.html#PrebuiltLibDesc"><TT>PrebuiltLibDesc</TT></A>". The field name
+"<TT>lib_type_</TT>" ends with an underscore because it
+is meant to be neither read nor written by clients.<P>
+
+<A NAME="LeafLibDesc"></A>
+<PRE>
+type LeafLibDesc = /* <A HREF="vtypes.5.html#LibDesc">LibDesc</A> */ binding(
+  lib_type_: text,              // == "leaf"
+  headers: <A HREF="vtypes.5.html#NamedFiles">NamedFiles</A>,
+  priv_headers: <A HREF="vtypes.5.html#NamedFiles">NamedFiles</A>,
+  code: <A HREF="vtypes.5.html#NamedFiles">NamedFiles</A>,
+  ovs: <A HREF="vtypes.5.html#EnvOvs">EnvOvs</A>,                  // general override for "code" files
+  per_file_ovs: <A HREF="vtypes.5.html#NamedCompileOvs">NamedCompileOvs</A> // named override for "code" files
+);
+</PRE>
+
+A "<B><TT>LeafLibDesc</TT></B>" is a logical subtype of a
+"<A HREF="vtypes.5.html#LibDesc"><TT>LibDesc</TT></A>". It describes a leaf library, and is
+produced by the bridge's "<A HREF="vtypes.5.html#Bridge"><TT>leaf</TT></A>" function. The
+"<TT>ovs</TT>" and "<TT>per_file_ovs</TT>" fields are optional. The "<TT>ovs</TT>"
+field is a <A HREF="voverrides.5.html#GeneralOverride">general override</A>
+that is recursively overlaid on the <A HREF="vtypes.5.html#Env">environment</A> "." before
+the "<TT>code</TT>" files are compiled. The "<TT>per_file_ovs</TT>" is a
+<A HREF="voverrides.5.html#NamedOverride">named override</A> that is
+consulted as each of the files named in the "<TT>code</TT>" field is
+compiled.<P>
+
+<A NAME="UmbrellaLibDesc"></A>
+<PRE>
+type UmbrellaLibDesc = /* <A HREF="vtypes.5.html#LibDesc">LibDesc</A> */ binding(
+  lib_type_: text,     // == "umbrella"
+  libs: <A HREF="vtypes.5.html#LibPkgResults">LibPkgResults</A>, // nested libraries (umbrellas or leaves)
+  flatten: bool,       // flatten archive?
+  ovs: <A HREF="vtypes.5.html#EnvOvs">EnvOvs</A>          // general override for building nested libs
+);
+</PRE>
+
+An "<B><TT>UmbrellaLibDesc</TT></B>" is a logical subtype of a
+"<A HREF="vtypes.5.html#LibDesc"><TT>LibDesc</TT></A>". It describes an umbrella library,
+that is, a library comprised (and containing) other libraries.
+The "<TT>libs</TT>" field contains a list of
+"<A HREF="vtypes.5.html#LibPkgResult"><TT>LibPkgResult</TT></A>" values, one for each library
+in the umbrella, in the order in which the libraries should be listed
+on the link line.<P>
+
+The "<TT>flatten</TT>" field controls how the archive for the umbrella is
+formed. If "<TT>flatten</TT>" is true, then the umbrella's libraries are
+exploded into object files, and the objects are then combined into a
+single archive. If "<TT>flatten</TT>" is false, the libraries remain
+separate; the names given to the libraries will be hierarchical iff
+the bridge's <A HREF="vtypes.5.html#BridgeOptions"><TT>flat_lib_names</TT></A> option is
+false.<P>
+
+The "<TT>ovs</TT>" field is a
+<A HREF="voverrides.5.html#GeneralOverride">general override</A> that is
+recursively overlaid on the <A HREF="vtypes.5.html#Env">environment</A> "." before the
+nested libraries are compiled.<P>
+
+<A NAME="PrebuiltLibDesc"></A>
+<PRE>
+type PrebuiltLibDesc = /* <A HREF="vtypes.5.html#LibDesc">LibDesc</A> */ binding(
+    lib_type_: text,          // == "prebuilt"
+    headers: <A HREF="vtypes.5.html#NamedFiles">NamedFiles</A>,      // exported header files
+    libs: <A HREF="vtypes.5.html#NamedFiles">NamedFiles</A>          // the library archives
+);
+</PRE>
+
+A "<B><TT>PrebuiltLibDesc</TT></B>" is a logical subtype of a
+"<A HREF="vtypes.5.html#LibDesc"><TT>LibDesc</TT></A>". It describes a prebuilt library,
+i.e., one in which the library archive is treated as source. The
+"<TT>headers</TT>" field contains exported header files, and the
+"<TT>libs</TT>" field contains the library archives themselves.<P>
+
+<A NAME="NamedLibDesc"></A>
+<A NAME="NamedLibDescs"></A>
+<PRE>
+type NamedLibDesc = binding(:<A HREF="vtypes.5.html#LibDesc">LibDesc</A>);
+type NamedLibDescs = binding(:<A HREF="vtypes.5.html#LibDesc">LibDesc</A>);
+</PRE>
+
+A value of type "<B><TT>NamedLibDescs</TT></B>" is a binding containing
+pairs of the form "<TT>[ name = <A HREF="vtypes.5.html#LibDesc">LibDesc</A> ]</TT>". It is a
+collection of named library descriptions. A value of type
+"<B><TT>NamedLibDesc</TT></B>" is always a singleton binding.<P>
+
+<A NAME="LibFunc"></A>
+<PRE>
+type LibFunc = function(env: binding): <A HREF="vtypes.5.html#NamedLibDesc">NamedLibDesc</A>;
+</PRE>
+
+A value of type "<B><TT>LibFunc</TT></B>" builds a library; it evaluates to
+a value of type "<A HREF="vtypes.5.html#NamedLibDesc"><TT>NamedLibDesc</TT></A>".<P>
+
+<A NAME="LibFuncs"></A>
+<PRE>
+type LibFuncs = list[LibFunc];
+</PRE>
+
+A list of "<B><TT>LibFunc</TT></B>" values obtained by selecting the
+"<TT>lib</TT>" fields from a value of type "<B><TT>LibPkgResults</TT></B>".<P>
+
+<A NAME="BuiltLibs"></A>
+<PRE>
+type BuiltLibs = binding[
+    libs: NamedFiles,
+    pub_code: binding,   // exported source code
+    sources: binding,    // optional
+    objects: binding     // optional
+];
+</PRE>
+
+The result of building a value of type "<B><TT>LibPkgResults</TT></B>" is a
+binding that stores all libraries built so far and the public code
+they export (e.g., header files). The result may optionally contain
+fields named "<TT>sources</TT>" and "<TT>objects</TT>", depending on whether
+the bridge's options are set to return the sources contributing to a
+build and their corresponding intermediate object files.
+</BLOCKQUOTE>
+
+<H3><A NAME="OverridesSect">Overrides</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A NAME="NamedPkgOvs"></A>
+<PRE>
+type NamedPkgOvs = binding(:PkgModel);
+</PRE>
+
+A value of type "<B><TT>NamedPkgOvs</TT></B>" is a binding mapping package
+names to their corresponding package models (which are typically
+imported via an "<TT>include</TT>" clause in a top-level model).<P>
+
+<A NAME="QNamedPkgOvs"></A>
+<PRE>
+type QNamedPkgOvs = binding(:NamedPkgOvs);
+</PRE>
+
+Package overrides are specified using <I>qualified</I> package names,
+similar to the "<A HREF="vtypes.5.html#QNamedPkgs"><TT>QNamedPkgs</TT></A>" type described
+above. A value of this type is used to specify how various packages
+are overridden when the standard environment is constructed.<P>
+
+<A NAME="BridgeOvs"></A>
+<PRE>
+type BridgeOvs = binding;
+</PRE>
+
+A value of type "<B><TT>BridgeOvs</TT></B>" is a binding that is recursively
+overlaid on some bridge of the current environment. It is generally of
+type "<A HREF="vtypes.5.html#Bridge"><TT>Bridge</TT></A>", except that it is not required to
+have all the fields of that type.<P>
+
+<A NAME="CompileOvs"></A>
+<PRE>
+type CompileOvs = binding(
+  lang: text,     // optional bridge name
+  ovs: <A HREF="vtypes.5.html#BridgeOvs">BridgeOvs</A>  // bridge-specific overrides
+);
+</PRE>
+
+The type "<B><TT>CompileOvs</TT></B>" specifies compiler overrides for a
+specific bridge. It is associated with named files (see
+"<A HREF="vtypes.5.html#NamedCompileOvs"><TT>NamedCompileOvs</TT></A>" below). If the
+"<TT>lang</TT>" field is present, it specifies which bridge the file
+should be compiled with; it defaults to the bridge associated with the
+file's extension. The "<TT>ovs</TT>" field is a binding that is
+recursively overlayed on the selected bridge of the current
+environment before the compiler is invoked.<P>
+
+<A NAME="NamedCompileOvs"></A>
+<PRE>
+type NamedCompileOvs = binding(:<A HREF="vtypes.5.html#CompileOvs">CompileOvs</A>);
+</PRE>
+
+A value of type "<B><TT>NamedCompileOvs</TT></B>" is a binding containing
+pairs of the form "<TT>[ filename = compile_ovs ]</TT>", where the
+"compile_ovs" value is of type <A HREF="vtypes.5.html#CompileOvs">CompileOvs</A> and
+specifies overrides to be used when compiling the file named
+"<TT>filename</TT>" as described above.<P>
+
+<A NAME="NamedLibOvs"></A>
+<PRE>
+type NamedLibOvs = binding;
+</PRE>
+
+A value of type "<B><TT>NamedLibOvs</TT></B>" represents a value used to
+override which libraries a program is linked against. There are two
+kinds of "<TT>NamedLibOvs</TT>" values, depending on whether flat or
+hierarchical library names are being used for this bridge (as
+determined by the bridge's <A HREF="vtypes.5.html#BridgeOptions"><TT>flat_lib_names</TT></A>
+option).<P>
+
+If flat library names are being used, the value will be of type
+"<A HREF="vtypes.5.html#NamedLibDescs"><TT>NamedLibDescs</TT></A>", that is, it will be a
+binding that maps library names to "<A HREF="vtypes.5.html#LibDesc"><TT>LibDesc</TT></A>"
+bindings. This "<TT>LibDesc</TT>" is overlayed (but not recursively so)
+over the "<TT>LibDesc</TT>" of the corresponding library in the libraries
+being linked against. Which fields the overriding binding contains
+depends on whether the library being overridden is a leaf
+(<A HREF="vtypes.5.html#LeafLibDesc"><TT>LeafLibDesc</TT></A>), umbrella
+(<A HREF="vtypes.5.html#UmbrellaLibDesc"><TT>UmbrellaLibDesc</TT></A>), or prebuilt
+(<A HREF="vtypes.5.html#PrebuiltLibDesc"><TT>PrebuiltLibDesc</TT></A>) library.<P>
+
+If hierarchical names are being used, the value will be a binding
+whose "leaves" are "<A HREF="vtypes.5.html#NamedLibDescs"><TT>NamedLibDescs</TT></A>"
+values and some of whose internal nodes may contain a
+"<A HREF="vtypes.5.html#NamedLibDesc"><TT>NamedLibDesc</TT></A>" value as well. A
+"<TT>NamedLibDesc</TT>" is recognized at an internal node by the
+appearence of the "<TT>lib_type_</TT>" or "<TT>ovs</TT>" field in all cases,
+or by the appearence of the "<TT>per_file_ovs</TT>" field in the case of a
+leaf library. As above, when a "<TT>NamedLibDesc</TT>" is recognized, it is
+overlayed (again, not recursively so) on the "<TT>LibDesc</TT>" of the
+corresponding library in the list of libraries being linked against.<P>
+
+<A NAME="EnvOvs"></A>
+<PRE>
+type EnvOvs = binding;
+</PRE>
+
+A value of type "<B><TT>EnvOvs</TT></B>" is a binding overlayed over some
+top-level environment of type "<A HREF="vtypes.5.html#Env"><TT>Env</TT></A>".
+</BLOCKQUOTE>
+
+<H3><A NAME="BridgesSect">Bridges</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A NAME="BridgeExpert"></A>
+<PRE>
+type BridgeExpert = binding(
+  compile: function,         // compile a single module
+  link_leaf: function,       // link a leaf library
+  link_umbrella: function,   // link an umbrella library
+  link_program: function     // link an executable program
+);
+</PRE>
+
+A value of type "<B><TT>BridgeExpert</TT></B>" defines the four low-level
+bridge functions for compiling and linking.<P>
+
+<A NAME="ToolSwitches"></A>
+<PRE>
+type ToolSwitches = binding(:text);
+</PRE>
+
+A value of type "<B><TT>ToolSwitches</TT></B>" defines command-line switches
+for one of the low-level "<A HREF="vtypes.5.html#BridgeExpert"><TT>BridgeExpert</TT></A>"
+functions. It maps abstract switch names (like "debug" and "optimize")
+to the text of an actual switch as it should appear in the tool's
+command-line. Only the values of a "<TT>ToolSwitches</TT>" binding are
+significant; the names are just used for overrides purposes.<P>
+
+<A NAME="BridgeSwitches"></A>
+<PRE>
+type BridgeSwitches = binding(
+  compile: <A HREF="vtypes.5.html#ToolSwitches">ToolSwitches</A>,  // defaults for 'compile' tool
+  leaf: <A HREF="vtypes.5.html#ToolSwitches">ToolSwitches</A>,     // defaults for 'link_leaf' tool
+  umbrella: <A HREF="vtypes.5.html#ToolSwitches">ToolSwitches</A>, // defaults for 'link_umbrella' tool
+  program: <A HREF="vtypes.5.html#ToolSwitches">ToolSwitches</A>   // defaults for 'link_program' tool
+);
+</PRE>
+
+A value of type "<B><TT>BridgeSwitches</TT></B>" defines the default
+command-line switches for the low-level
+"<A HREF="vtypes.5.html#BridgeExpert"><TT>BridgeExpert</TT></A>" functions used by a
+particular "<A HREF="vtypes.5.html#Bridge"><TT>Bridge</TT></A>". It may be overridden to
+invoke each tool with different command-line switches.<P>
+
+<A NAME="BridgeOptions"></A>
+<PRE>
+type BridgeOptions = binding(
+  flat_lib_names: bool,   // use hierachical library naming iff false
+  useGClib: text          // name of gc library (or "no" for none)
+);
+</PRE>
+
+A value of type "<B><TT>BridgeOptions</TT></B>" defines a set of general
+options that pertain to a particular bridge. The values of these
+options are used by user models and by the low-level
+"<A HREF="vtypes.5.html#BridgeExpert"><TT>BridgeExpert</TT></A>" functions.<P>
+
+<A NAME="Bridge"></A>
+<PRE>
+type Bridge = binding(
+  libs: <A HREF="vtypes.5.html#QNamedLibPkgResults">QNamedLibPkgResults</A>, // named per-bridge library models
+  program: function,         // builds an executable
+  leaf: function,            // defines a leaf library
+  umbrella: function,        // defines a non-leaf library
+  prebuilt: function,        // defines a pre-built library
+  expert: <A HREF="vtypes.5.html#BridgeExpert">BridgeExpert</A>,      // low-level functions; can be overridden
+  switches: <A HREF="vtypes.5.html#BridgeSwitches">BridgeSwitches</A>,  // default switches for "expert" functions
+  options: <A HREF="vtypes.5.html#BridgeOptions">BridgeOptions</A>     // default options for "expert" functions
+);
+</PRE>
+
+A value of type "<B><TT>Bridge</TT></B>" provides an interface to a
+collection of language-specific tools, called a <I>bridge</I>.
+The "<TT>libs</TT>" field contains a binding of libraries built for this
+bridge; the binding is typically installed by the function that
+constructs the standard environment.<P>
+
+Each bridge exports the "<TT>program</TT>", "<TT>leaf</TT>", "<TT>umbrella</TT>",
+and "<TT>prebuilt</TT>" functions for building programs and the three
+kinds of libraries. The "<TT>expert</TT>" field hides a binding of
+<A HREF="vtypes.5.html#BridgeExpert">expert functions</A> used to implement the bridge.<P>
+
+The "<TT>switches</TT>" field is a binding of
+<A HREF="vtypes.5.html#BridgeSwitches">command-line switches</A> for the bridge's tools.
+The "<TT>options</TT>" field is a binding of
+<A HREF="vtypes.5.html#BridgeOptions">options</A> that control how programs are built
+with this bridge.
+</BLOCKQUOTE>
+
+<H3><A NAME="BridgeGenericSect">Generic Bridge Functions</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A NAME="BridgeGenerics"></A>
+<PRE>
+type BridgeGenerics = binding(
+  base_name: function,         // base name of a file name
+  extension: function,         // extension of a file name
+  binding_names: function,     // return list of names in a binding
+  binding_values: function,    // return list of values in a binding
+  reverse_list: function,      // reverse a list value
+  reverse_binding: function,   // reverse a binding value
+  eval_binding_vals: function, // evaluate values of a binding
+  compile: function,           // compile list of sources, various langs
+  bridge_map: binding          // maps file extensions -&gt; bridge names
+    // for example [ c = "C", C = "Cxx", i3 = "M3", m3 = "M3" ]
+);
+</PRE>
+
+A value of type "<B><TT>BridgeGenerics</TT></B>" defines various generic
+functions for use by bridge implementations. See the
+"<TT>common/bridge_generic</TT>" package for details. This type should not
+be of interest to most general users.
+</BLOCKQUOTE>
+
+<H3><A NAME="EnvironmentsSect">Environments</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A NAME="Env"></A>
+<PRE>
+type Env = binding(
+  target_platform: text,   // name of target platform (a platform name)
+  root: binding,           // file system for bridge tools
+  envVars: binding,        // environment variables
+  generic: <A HREF="vtypes.5.html#BridgeGenerics">BridgeGenerics</A>, // generic functions
+  C: <A HREF="vtypes.5.html#Bridge">Bridge</A>,               // C bridge
+  Cxx: <A HREF="vtypes.5.html#Bridge">Bridge</A>,             // C++ bridge
+  M3: <A HREF="vtypes.5.html#Bridge">Bridge</A>,              // Modula-3 bridge
+  lib_ovs: <A HREF="vtypes.5.html#NamedLibOvs">NamedLibOvs</A>,    // library override definitions
+  env_ovs: <A HREF="vtypes.5.html#EnvOvs">EnvOvs</A>,         // environment override definitions
+  env_for_bridges: <A HREF="vtypes.5.html#Env">Env</A>,    // environment used to build bridges
+  temp: binding(           // temporary files
+    includes: <A HREF="vtypes.5.html#NamedFiles">NamedFiles</A>,  // header files during C compilations
+    libs: <A HREF="vtypes.5.html#NamedFiles">NamedFiles</A>       // library archives
+  )
+);
+</PRE>
+
+A value of type "<B><TT>Env</TT></B>" corresponds to an environment,
+typically bound to the name "." (dot). A value of this type is usually
+constructed using the standard environment model, and then augmented.
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vlibraries.5.html">vlibraries(5)</A>,
+<A HREF="vmodels.5.html">vmodels(5)</A>,
+<A HREF="voverrides.5.html">voverrides(5)</A>.
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+<PRE>
+Last modified on Fri Nov  9 12:14:21 EST 2001 by ken@xorian.net
+     modified on Mon Feb 22 16:43:04 PST 1999 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

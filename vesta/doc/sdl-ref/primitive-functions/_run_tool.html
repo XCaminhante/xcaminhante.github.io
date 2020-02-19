@@ -1,0 +1,2585 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Function: _run_tool</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_run_tool"></A><TT>_run_tool(<br>
+&nbsp; platform:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; text,<br>
+&nbsp; command:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list(text),<br>
+&nbsp; stdin:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; text = "",<br>
+&nbsp; stdout_treatment:&nbsp; text = "report",<br>
+&nbsp; stderr_treatment:&nbsp; text = "report",<br>
+&nbsp; status_treatment:&nbsp; text = "report_nocache",<br>
+&nbsp; signal_treatment:&nbsp; text = "report_nocache",<br>
+&nbsp; fp_content:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int = -2,<br>
+&nbsp; wd:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; text = ".WD",<br>
+&nbsp; existing_writable: bool = FALSE): binding</TT></H4>
+
+
+
+<p>
+<tt>_run_tool</tt> is the function for invoking an external tool (such
+as a compiler or linker) from a Vesta SDL program.&nbsp; Thus, it is
+arguably the central function of Vesta SDL.
+</p>
+
+<p>
+Most users should not have to directly use, or even understand,
+<tt>_run_tool</tt>.&nbsp; In most cases it will be invoked by an
+abstract <i>bridge function</i> which implements some higher-level
+operation (e.g. &quot;compile this source file&quot;, &quot;build a
+program from these sources&quot;, etc.).&nbsp; In fact, one of the
+major goals of the design of Vesta SDL is abstraction of complex build
+targets into such functions.&nbsp; Only those user who need to write
+new bridges should have to understand <tt>_run_tool</tt>.
+</p>
+
+<p>
+The documentation of <tt>_run_tool</tt> is broken up into the
+following sections:
+</p>
+
+<ul>
+
+<li>
+<a href="_run_tool.html#Simple">A Simple example</a>
+</li>
+
+<li>
+<a href="_run_tool.html#Encapsulation">Encapsulation</a>
+</li>
+
+<li>
+<a href="_run_tool.html#stdout_treatment">Capturing Standard Output</a>
+</li>
+
+<li>
+<a href="_run_tool.html#Result Files">Result Files</a>
+</li>
+
+<li>
+<a href="_run_tool.html#Return Value"><tt>_run_tool</tt>Return Value</a>
+</li>
+
+<li>
+<a href="_run_tool.html#stdin">Providing Standard Input</a>
+</li>
+
+<li>
+<a href="_run_tool.html#existing_writable">Modifying Files</a>
+</li>
+
+<li>
+<a href="_run_tool.html#wd">Changing the Working Directory</a>
+</li>
+
+<li>
+<a href="_run_tool.html#Failure">Failure</a>
+</li>
+
+<li>
+<a href="_run_tool.html#fp_content">Deterministically Fingerprinting Result Files</a>
+</li>
+
+<li>
+<a href="_run_tool.html#platform"><tt>platform</tt> and Host Selection</a>
+</li>
+
+<li>
+<a href="_run_tool.html#tool_dep_control">Controlling how Dependencies are Recorded</a> <i>[New]</i>
+</li>
+
+<li>
+<a href="_run_tool.html#Summary">Summary</a>
+</li>
+
+</ul>
+
+<p>
+Also <a
+href="../../sdl-spec/node158.html">see the
+language specification</a> for another description of <tt>_run_tool</tt>.
+</p>
+
+<h4><a name="Simple">A Simple example</a></h4>
+
+<p>
+Suppose we have a very simple program which we would like to run
+inside a Vesta evaluation.&nbsp; This program simply prints
+&quot;Hello world&quot; to its standard output.&nbsp; Let's also
+suppose that we have a statically linked copy of this program,
+compiled for Linux on the IA-32 architecture, in a file named
+&quot;<tt>hello_world</tt>&quot;.&nbsp; If we place this file into a
+Vesta checkout working directory, a simple <a
+href="../models.html">model</a> to invoke it might look like this:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000"><a href="../models.html#files">files</a>
+  hello_world;    // import the executable into a variable
+{
+  // Set up the required ./envVars and a root filesystem with the
+  // executable in the working directory.
+  . = [ envVars = [ ],
+        root/.WD = [ hello_world ],
+      ];
+
+  // The platform to execute the command on.
+  platform = &quot;Linux2.4-ia32&quot;;
+
+  // The command line to execute.
+  cmd = &lt;&quot;hello_world&quot;&gt;;
+
+  // Run the program
+  r = _run_tool(platform, cmd);
+  return r;
+}</font></pre>
+</td></tr></table>
+
+<p>
+If this model is evaluated, the output will be something like this:
+</p>
+
+<table border=1 width="100%" bgcolor="#000000"><tr><td align=left>
+<pre><font color="#FFFFFF">0/linuxhost.foobar.com: hello_world 
+Hello world!</font></pre>
+</td></tr></table>
+
+<p>
+The first parameter to <tt>_run_tool</tt> is a string specifying which
+<i>platform</i> the command is to be executed on.  For now, you can
+just think of this as an arbitrary string.&nbsp; (This <a
+href="_run_tool.html#platform">is described in detail below</a>, and <a
+href="../../man/html/vesta.1.html#runtool">the
+evaluator man page also describes <tt>_run_tool</tt> host
+selection</a>.)
+</p>
+
+<p>
+The second parameter to <tt>_run_tool</tt> is a list of text values
+which specifies the command line to be executed.  In this case the
+program takes no command-line arguments, so the list contains just one
+element: the name of the executable to run.
+</p>
+
+<p>
+Like any other <a href="../expressions.html#FunctionCall">function
+call</a>, there is an implicit final parameter to <tt>_run_tool</tt>
+which defaults to the value of the variable named
+&quot;<tt>.</tt>&quot; (aka &quot;dot&quot;).&nbsp; <tt>_run_tool</tt>
+expects this parameter to have the following type:
+</p>
+
+<blockquote>
+<pre>binding(
+  envVars:binding(:text),
+  root:binding
+)</pre>
+</blockquote>
+
+<p>
+That is, it must be a binding with at least two names defined:
+&quot;<tt>envVars</tt>&quot;, and &quot;<tt>root</tt>&quot;.
+</p>
+
+<p>
+The value of <tt>./envVars</tt> must a binding containing only text
+values.&nbsp; This specifies the complete set of environment variables
+when the command is run.&nbsp; In other words, when <tt>_run_tool</tt>
+invokes a command, it does so in an <i>encapsulated
+environment</i>.&nbsp; In this case, since we know that
+&quot;<tt>hello_world</tt>&quot; doesn't need any environment
+variables to execute, we leave <tt>./envVars</tt> empty.
+</p>
+
+<p>
+The value of <tt>./root</tt> defines the entire filesystem seen by the
+command being executed.&nbsp; All filesystem accesses are redirected
+such that they are interpreted as look-ups within the binding
+<tt>./root</tt>.&nbsp; That is, <tt>_run_tool</tt> invokes commands in
+<i>encapsulated filesystems</i>.&nbsp; (This is implemented with the
+<tt>chroot</tt>(2) system call.)&nbsp; The only file we need is the
+<tt>hello_world</tt> executable, which we place in a directory which
+the command will see as &quot;<tt>/.WD</tt>&quot;.  This is the
+default working directory for <tt>_run_tool</tt>.
+</p>
+
+<p>
+Note that if <tt>hello_world</tt> were not statically linked, then we
+would also need to include whatever shared libraries it needed to run
+(e.g. <tt>/usr/lib/libc.so</tt>) in the value of <tt>./root</tt>.
+</p>
+
+<h4><a name="Encapsulation">Encapsulation</a></h4>
+
+<p>
+Probably the most important feature of <tt>_run_tool</tt> is its
+encapsulation of both the filesystem and the environment in which
+commands are executed.&nbsp; The goal of encapsulation is simple:
+control all the inputs which have an effect on the result of a
+build.&nbsp; This provides several important properties:
+</p>
+
+<ul>
+
+<li>
+Users can neither make nor break a build with their personal
+environment variable settings.&nbsp; <em>If a build works for one
+user, it will work exactly the same for everyone</em>.
+</li>
+
+<li>
+Builds are not affected by changes to files in the filesystem at
+large.&nbsp; Since the root filesystem is passed in as an argument to
+<tt>_run_tool</tt>, changes to the compiler version in
+<tt>/usr/bin</tt> or the library versions in <tt>/usr/lib</tt>
+<em>simply cannot affect tools run from a Vesta evaluation</em>.&nbsp;
+(Some people say this solves the &quot;sands shifting beneath your
+feet&quot; problem.)
+</li>
+
+<li>
+<em>Builds are guaranteed the be repeatable over time.</em>&nbsp;
+Since the environment variables and filesystem are specified precisely
+and completely in the arguments to <tt>_run_tool</tt>, re-evaluating
+the same Vesta SDL model always produces the same results.
+</li>
+
+<li>
+<em>Dependency detection is automatic, language-independent, and
+complete.</em>&nbsp; When a tool is invoked with <tt>_run_tool</tt>,
+the evaluator keeps track of which files in <tt>./root</tt> the
+command reads.&nbsp; When the command completes, the evaluator records
+the parameters, the dependencies, and the result in <a
+href="../../man/html/VCache.1.html">the cache server</a>.&nbsp; If
+<tt>_run_tool</tt> is later invoked again with the same command-line,
+the same <tt>./envVars</tt>, and all the files which the previous
+<tt>_run_tool</tt> call used having the same contents, the saved
+result from the old call can be re-used without re-running the tool.
+</li>
+
+<li>
+<em>Developers can benefit from work done by each others
+builds.</em>&nbsp; Since <tt>_run_tool</tt> calls are user-independent
+and have all their dependencies recorded, one user can make use of the
+result files produced by a build that another user previously ran.
+</li>
+
+</ul>
+
+<p>
+Of course, <tt>_run_tool</tt> does not provide a complete virtual
+environment.&nbsp; The person writing Vesta SDL code invoking a
+command with <tt>_run_tool</tt> should be aware of any cases in which
+the behavior of the tool depends on something other than environment
+variables and files.&nbsp; Some tools make use of information obtained
+from the operating system, such as the date and time when they are
+run.&nbsp; Also, any tool which makes network connections is obviously
+problematic.&nbsp; For the kind of processes Vesta SDL was intended to
+support (running a sequence of tools that process source files and
+produce result files), this sort of issue normally isn't a problem.
+</p>
+
+<h4><a name="stdout_treatment">Capturing Standard Output</a></h4>
+
+<p>
+Returning to our earlier example, suppose that we want to capture the
+standard output of <tt>hello_world</tt>.&nbsp; Perhaps we want to
+return it as the result of the model, so that even if the
+<tt>_run_tool</tt> call is cached, the user who evaluates the build
+can get the output text.&nbsp; Another reason we might want to save it
+is that we want to use it as an input to another tool.
+</p>
+
+<p>
+The fourth parameter to <tt>_run_tool</tt>, <tt>stdout_treatment</tt>,
+determines what is done with the standard output of the command.&nbsp;
+The default for this parameter is <tt>&quot;report&quot;</tt>, which
+means that it should be displayed to the terminal of the user
+performing the build.&nbsp; To capture it, we'll use one of the other
+possible choices: <tt>&quot;value&quot;</tt>.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000"><a href="../models.html#files">files</a>
+  hello_world;    // import the executable into a variable
+{
+  // Set up the required ./envVars and a root filesystem with the
+  // executable in the working directory.
+  . = [ envVars = [ ],
+        root/.WD = [ hello_world ],
+      ];
+
+  // The platform to execute the command on.
+  platform = &quot;Linux2.4-ia32&quot;;
+
+  // The command line to execute.
+  cmd = &lt;&quot;hello_world&quot;&gt;;
+
+  // Run the program
+  r =  _run_tool(platform, cmd,
+		 /*stdin=*/ "" /* (the default value) */,
+		 /*stdout_treatment=*/ "value" /* (save stdout) */);
+
+  // Return just the standard output
+  return r/stdout;
+}</font></pre>
+</td></tr></table>
+
+<p>
+If this revised model is evaluated, the output will be something like
+this:
+</p>
+
+<table border=1 width="100%" bgcolor="#000000"><tr><td align=left>
+<pre><font color="#FFFFFF">0/linuxhost.foobar.com: hello_world</font></pre>
+</td></tr></table>
+
+<p>
+You'll note that the standard output was <strong>not</strong>
+displayed in the output of the evaluator.&nbsp; If you add &quot;<tt><a
+href="../../man/html/vesta.1.html#shipping-options">-shipto</a>
+/tmp/hello_world.out</tt>&quot; to the evaluator command line
+(<em>before</em> the model name), then the output will be placed in
+the file <tt>/tmp/hello_world.out</tt>.
+</p>
+
+<p>
+If we wanted to both display and capture the standard output, then we
+would pass <tt>&quot;report_value&quot;</tt> for
+<tt>stdout_treatment</tt>.&nbsp; The table below summarizes all the
+possible values for <tt>stdout_treatment</tt>.
+</p>
+
+<table border=1>
+
+<tr>
+<th>
+<tt>stdout_treatment</tt>
+</th>
+<th>
+Handling of standard output
+</th>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;report&quot;</tt> (default)
+</td>
+<td>
+Displayed by the evaluator but not captured.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;value&quot;</tt>
+</td>
+<td>
+Captured and returned in the result of <tt>_run_tool</tt>, but not
+displayed.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;ignore&quot;</tt>
+</td>
+<td>
+Discarded without being displayed or captured.&nbsp; (Think &quot;<tt>&gt;
+/dev/null</tt>&quot;.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;report_value&quot;</tt>
+</td>
+<td>
+Both displayed and returned in the result of <tt>_run_tool</tt>.
+(Think &quot;<tt>| tee</tt>&quot;.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;report_nocache&quot;</tt>
+</td>
+<td>
+Displayed by the evaluator and not captured.&nbsp; If non-empty, the
+evaluator will not add a cache entry for this <tt>_run_tool</tt> call.
+(Causes a tool to be re-executed in subsequent evaluations if it
+produced any output.)
+</td>
+</tr>
+
+</table>
+
+<p>
+The possible values for <tt>stderr_treatment</tt>, and their effects
+on the handling of the standard error stream, are exactly the
+same.
+</p>
+
+<h4><a name="Result Files">Result Files</a></h4>
+
+<p>
+Suppose that <tt>hello_world</tt> takes a command line option that
+specifies a file to which it should write its message, rather than
+standard output.&nbsp; So the command line &quot;<tt>hello_world -o
+hi_there.dat</tt>&quot; would cause <tt>hello_world</tt> to write its
+message to a file named &quot;<tt>hi_there.dat</tt>&quot;.  We can
+re-write the model to use this feature.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000"><a href="../models.html#files">files</a>
+  hello_world;    // import the executable into a variable
+{
+  // Set up the required ./envVars and a root filesystem with the
+  // executable in the working directory.
+  . = [ envVars = [ ],
+        root/.WD = [ hello_world ],
+      ];
+
+  // The platform to execute the command on.
+  platform = &quot;Linux2.4-ia32&quot;;
+
+  // The command line to execute.
+  cmd = &lt;&quot;hello_world&quot;, &quot;-o&quot;, &quot;hi_there.dat&quot;&gt;;
+
+  // Run the program
+  r =  _run_tool(platform, cmd);
+
+  // Return the file written
+  return r/root/.WD/hi_there.dat;
+}</font></pre>
+</td></tr></table>
+
+<p>
+The sub-binding named &quot;root&quot; within the result of
+<tt>_run_tool</tt> represents changes made to the filesystem by the
+command during its execution.&nbsp; As mentioned earlier, the default
+working directory is &quot;<tt>/.WD</tt>&quot;.&nbsp; Since we didn't
+specify an absolute path for the output file, it will be written in
+the working directory.&nbsp; So, we can find the contents of the file
+written with the expression
+&quot;<tt>r/root/.WD/hi_there.dat</tt>&quot;.
+</p>
+
+<p>
+(Note that the value of <tt>./root</tt> is unaffected by
+<tt>_run_tool</tt>.&nbsp; Vesta SDL is a <a
+href="../functional.html">functional
+language</a>, so calling <tt>_run_tool</tt>, or any other function,
+can't have any side-effects.)
+</p>
+
+<h4><a name="Return Value"><tt>_run_tool</tt>Return Value</a></h4>
+
+<p>
+Now that we've seen a few examples using it, let's take a detailed
+look at the value returned by <tt>_run_tool</tt>.  Its <a
+href="../data-types.html#Aggregate Type Expressions">data type</a>
+could be written like this:
+</p>
+
+<blockquote>
+<pre>binding(code   : int,
+        signal : int,
+        stdout_written : bool,
+        stderr_written : bool,
+        stdout : text,
+        stderr : text,
+        root   : binding)</pre>
+</blockquote>
+
+<p>
+So, in the examples above:
+</p>
+
+<ul>
+
+<li>
+<tt>r/code</tt> is the exit status of the process invoked by
+<tt>_run_tool</tt>.  (Unless it failed, this will be 0.)
+</li>
+
+<li>
+<tt>r/signal</tt> is the signal that terminated the process, or 0 if
+it exited voluntarily.  (This is usually also 0.)
+</li>
+
+<li>
+<tt>r/stdout_written</tt> is <tt>TRUE</tt> if the command wrote
+anything to its standard output stream and <tt>FALSE</tt> otherwise.
+(This would be <tt>TRUE</tt> for <a href="_run_tool.html#Simple">the first example
+above</a> and <a href="_run_tool.html#stdout_treatment">the second</a>, but
+<tt>FALSE</tt> for <a href="_run_tool.html#Result Files">the third</a>.)
+</li>
+
+<li>
+Similarly, <tt>r/stderr_written</tt> is <tt>TRUE</tt> if the command
+wrote anything to its standard error stream and <tt>FALSE</tt>
+otherwise.
+</li>
+
+<li>
+<tt>r/stdout</tt> is a <a href="../data-types.html#text">text</a>
+value containing the bytes written to standard output by the tool.
+Note that <tt>r/stdout</tt> is only defined if <a
+href="_run_tool.html#stdout_treatment"><tt>stdout_treatment</tt></a> is
+<tt>&quot;value&quot;</tt> or <tt>&quot;report_value&quot;</tt>.  (So
+<tt>r/stdout</tt> would only be defined in <a
+href="_run_tool.html#stdout_treatment">the second example above</a>. )
+</li>
+
+<li>
+Similarly, <tt>r/stderr</tt> is a <a
+href="../data-types.html#text">text</a> value containing the bytes
+written to standard error by the tool.  Note that <tt>r/stderr</tt> is
+only defined if <tt>stderr_treatment</tt> is
+<tt>&quot;value&quot;</tt> or <tt>&quot;report_value&quot;</tt>.  (So
+actually, <tt>r/stderr</tt> would not be defined in any of the
+preceding examples, as in all of them we left
+<tt>stderr_treatment</tt> with its default value of
+<tt>&quot;report&quot;</tt>.)
+</li>
+
+<li>
+<tt>r/root</tt> is a binding representing the changes made to the
+filesystem by the tool.  More specifically:
+
+<ul>
+
+<li>
+Any files which the tool creates or modifies while it runs which still
+exist when the tool exits will have their contents in text values
+within the <tt>root</tt> sub-binding of the result.&nbsp; Above, we
+used this to get the contents of the file which the tool wrote as
+&quot;<tt>/.WD/hi_there.dat</tt>&quot; with the expression
+&quot;<tt>r/root/.WD/hi_there.dat</tt>&quot;.&nbsp; If the tool wrote
+some other file such as &quot;<tt>/foo/bar/blah.bin</tt>&quot;, we
+could get its contents at the end of the tool's run with
+&quot;<tt>r/root/foo/bar/blah.bin</tt>&quot;.
+</li>
+
+<li>
+Any files which the tool deletes during its run will have a value of
+<tt>FALSE</tt> in the <tt>root</tt> sub-binding of the result.&nbsp;
+This is the case both for files which existed when the tool is started
+(those in <tt>./root</tt> when <tt>_run_tool</tt> is called), and any
+files created and then deleted by the tool (such as temporary files
+used by the tool to store intermediate results).&nbsp; So, if there
+was a file &quot;<tt>/foo/bar/blah.bin</tt>&quot; at the start of the
+tool which the tool deleted, then
+&quot;<tt>r/root/foo/bar/blah.bin</tt>&quot; would evaluate to
+<tt>FALSE</tt>.&nbsp; Similarly, if the tool created and then deleted
+a file named &quot;<tt>/tmp/hello.XXXXuKmKuL</tt>&quot;, then
+&quot;<tt>r/root/tmp/hello.XXXXuKmKuL</tt>&quot; would be
+<tt>FALSE</tt>.
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+<p>
+Note that if you wanted to apply the changes made to the filesystem by
+a tool to subsequent code, you would have to do something like this:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">/**nocache**/
+remove_deleted(b: binding): binding
+{
+  res: binding = [];
+  <a href="../statements.html#Iteration">foreach</a> [ n = v ] in b do
+    res += if (v == FALSE) then []
+           else if <a href="_is_type.html#_is_binding">_is_binding</a>(v) then [ $n = remove_deleted(v) ]
+           else [ $n = v ];
+  return res;
+};
+
+// ...
+
+r = _run_tool(/* ... */);
+
+// Apply filesystem changes from this point forward
+new_root = remove_deleted(./root ++ r/root);
+. += [ root = new_root ];</font></pre>
+</td></tr></table>
+
+<h4><a name="stdin">Providing Standard Input</a></h4>
+
+<p>
+The standard input for commands executed by <tt>_run_tool</tt> is
+empty by default.&nbsp; It's controlled by the <tt>stdin</tt>
+parameter.&nbsp; This parameter is literally the entire contents of
+the standard input stream, much like it had been redirected from a
+file.
+</p>
+
+<p>
+Continuing with our running example, let's suppose that
+<tt>hello_world</tt> will replace the word &quot;world&quot; in its
+output with a word read from standard input if it is passed the
+&quot;-i&quot; command-line flag.&nbsp; To use this, we need only pass
+a text string with the word we want for the <tt>stdin</tt> parameter
+to <tt>_run_tool</tt>.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000"><a href="../models.html#files">files</a>
+  hello_world;    // import the executable into a variable
+{
+  // Set up the required ./envVars and a root filesystem with the
+  // executable in the working directory.
+  . = [ envVars = [ ],
+        root/.WD = [ hello_world ],
+      ];
+
+  // The platform to execute the command on.
+  platform = &quot;Linux2.4-ia32&quot;;
+
+  // The command line to execute.
+  cmd = &lt;&quot;hello_world&quot;, &quot;-i&quot;&gt;;
+
+  // Run the program
+  r = _run_tool(platform, cmd,
+                /*stdin=*/ "foobar");
+
+  return r/root/.WD/message.txt;
+}</font></pre>
+</td></tr></table>
+
+<p>
+Evaluating this model would produce output like this.
+</p>
+
+<table border=1 width="100%" bgcolor="#000000"><tr><td align=left>
+<pre><font color="#FFFFFF">0/linuxhost.foobar.com: hello_world -i
+Hello foobar!</font></pre>
+</td></tr></table>
+
+<h4><a name="existing_writable">Modifying Files</a></h4>
+
+<p>
+By default, the files passed into a <tt>_run_tool</tt> call appear
+read-only to the command executed.&nbsp; However sometimes we want a
+tool to be able to modify a file (rather than just creating new
+ones).&nbsp; To allow modification of existing files, pass
+<tt>TRUE</tt> for the <tt>existing_writable</tt> parameter.
+</p>
+
+<p>
+Building on earlier examples, suppose <tt>hello_world</tt> has
+another command line option that specifies a file to which it should
+append its message.&nbsp; So the command line &quot;<tt>hello_world -a
+message.txt</tt>&quot; would cause <tt>hello_world</tt> to append its
+message to the end of a file named &quot;<tt>message.txt</tt>&quot;.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000"><a href="../models.html#files">files</a>
+  hello_world;    // import the executable into a variable
+  message.txt;    // file to be modified
+{
+  // Set up the required ./envVars and a root filesystem with the
+  // executable in the working directory.
+  . = [ envVars = [ ],
+        root/.WD = [ hello_world, message.txt ],
+      ];
+
+  // The platform to execute the command on.
+  platform = &quot;Linux2.4-ia32&quot;;
+
+  // The command line to execute.
+  cmd = &lt;&quot;hello_world&quot;, &quot;-a&quot;, &quot;message.txt&quot;&gt;;
+
+  // Run the program
+  r = _run_tool(platform, cmd,
+                /*stdin=*/ "",
+                /*stdout_treatment=*/ "report",
+                /*stderr_treatment=*/ "report",
+                /*status_treatment=*/ "report_nocache",
+                /*signal_treatment=*/ "report_nocache",
+                /*fp_content=*/ -2,
+                /*wd=*/ ".WD",
+                /*existing_writable=*/ TRUE);
+
+  return r/root/.WD/message.txt;
+}</font></pre>
+</td></tr></table>
+
+<p>
+In this example, the file <tt>message.txt</tt> must exist in the
+directory with this model file and the <tt>hello_world</tt>
+executable.&nbsp; If it contains the text:
+</p>
+
+<blockquote>
+<pre>Goodbye home...</pre>
+</blockquote>
+
+<p>
+Then the result of the model will be this text:
+</p>
+
+<blockquote>
+<pre>Goodbye home...
+Hello world!</pre>
+</blockquote>
+
+<p>
+(Of course the original <tt>message.txt</tt> in the directory with the
+model will be unmodified.&nbsp; It's treated as an immutable source,
+kept separate from the changes made by tools.)
+</p>
+
+<h4><a name="wd">Changing the Working Directory</a></h4>
+
+<p>
+As mention above, the working directory when the command executed by a
+<tt>_run_tool</tt> starts defaults to &quot;<tt>/.WD</tt>&quot;.&nbsp;
+(This corresponds to the value of <tt>./root/.WD</tt> at the time of
+the <tt>_run_tool</tt> call.)&nbsp; For many tools, the working
+directory isn't important, so the default is often used.
+</p>
+
+<p>
+However, a different working directory can be specified with
+<tt>_run_tool</tt>'s <tt>wd</tt> parameter.&nbsp; The leading slash
+should be omitted when specifying the working directory.&nbsp; So, if
+we wanted to run a tool in the directory <tt>/foo/bar</tt>, we would
+pass &quot;<tt>foo/bar</tt>&quot; for the <tt>wd</tt> parameter.&nbsp;
+Here's a model illustrating this with <tt>hello_world</tt>:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000"><a href="../models.html#files">files</a>
+  hello_world;    // import the executable into a variable
+{
+  // Set up the required ./envVars and a root filesystem with the
+  // executable in the working directory.
+  . = [ envVars = [ ],
+        root/foo/bar = [ hello_world ],
+      ];
+
+  // The platform to execute the command on.
+  platform = &quot;Linux2.4-ia32&quot;;
+
+  // The command line to execute.
+  cmd = &lt;&quot;hello_world&quot;, &quot;-o&quot;, &quot;hi_there.dat&quot;&gt;;
+
+  // Run the program
+  r =  _run_tool(platform, cmd,
+                /*stdin=*/ "",
+                /*stdout_treatment=*/ "report",
+                /*stderr_treatment=*/ "report",
+                /*status_treatment=*/ "report_nocache",
+                /*signal_treatment=*/ "report_nocache",
+                /*fp_content=*/ -2,
+                /*wd=*/ "foo/bar");
+
+  // Return the file written
+  return r/root/foo/bar/hi_there.dat;
+}</font></pre>
+</td></tr></table>
+
+<h4><a name="Failure">Failure</a></h4>
+
+<p>
+There are several different ways that a <tt>_run_tool</tt> call can
+fail.  The handling of some of these cases is affected by the values
+passed for the <tt>status_treatment</tt> and <tt>signal_treatment</tt>
+parameters.
+</p>
+
+<ul>
+
+<li>
+If the tool exits with a non-zero status (indicating failure), the
+default behavior is to display an error message and halt the
+evaluation.&nbsp; This is controlled by the <tt>status_treatment</tt>
+parameter, which has the following possible values:
+
+<table border=1>
+
+<tr>
+<th>
+<tt>status_treatment</tt>
+</th>
+<th>
+Handling of tool exit status
+</th>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;report_nocache&quot;</tt> (default)
+</td>
+<td>
+If the exit status is non-zero do not add a cache entry for this
+<tt>_run_tool</tt> call (or any of the functions in the call stack
+above it).&nbsp; If <a
+href="../../man/html/vesta.1.html#eval-options">the <tt>-k</tt>
+(&quot;keep going&quot;) flag</a> was specified on the evaluator
+command-line, record the exit status in the <tt>_run_tool</tt> result
+and continue.&nbsp; Otherwise, treat this as a run-time error and halt
+the evaluation.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;report&quot;</tt>
+</td>
+<td>
+Record the exit status in the <tt>_run_tool</tt> result, and continue
+regardless of its value.
+</td>
+
+</table>
+
+</li>
+
+<li>
+If the tool was terminated by a signal (segmentation fault,
+floating-point exception, etc.), the default behavior is to display an
+error message and halt the evaluation.&nbsp; This is controlled by the
+<tt>signal_treatment</tt> parameter, which has the same possible
+values and associated effects as <tt>status_treatment</tt>.
+</li>
+
+<li>
+If the tool can't be executed (the specified executable doesn't exist
+in <tt>./root</tt>, or isn't executable, or has the wrong format,
+etc.), an error message will be printed and the evaluation will halt.
+</li>
+
+<li>
+If there is an error with the arguments to <tt>_run_tool</tt>
+(<tt>./root</tt> or <tt>./envVars</tt> is not set, the wrong data type
+was passed for one of the parameters, an illegal value was passed for
+<tt>stdout_treatment</tt>, etc.), an error message will be printed
+and the evaluation will halt.
+</li>
+
+</ul>
+
+<h4><a name="fp_content">Deterministically Fingerprinting Result Files</a></h4>
+
+<p>
+All files in the Vesta repository, both sources and derived files
+produced by commands executed with <tt>_run_tool</tt> are assigned a
+unique identifying number called a <i>fingerprint</i>.&nbsp;
+Fingerprints are primarily used by the evaluator and cache server to
+identify when a previously produced (e.g. an object file produced by a
+previous compilation) result can be re-used.&nbsp; Fingerprints have a
+fixed size, so it's much faster to compare two fingerprints than to
+compare the complete contents of two files.
+</p>
+
+<p>
+There are two different ways in which fingerprints can be assigned: by
+content, and arbitrarily.&nbsp; Fingerprinting by content is
+essentially a check-sum.&nbsp; Arbitrarily assigned fingerprints are
+simply chosen in a way that is very likely to be unique.
+</p>
+
+<p>
+The main value in having files fingerprinted by content is that it
+allows for cache hits when a file is identical but was produced in a
+different way.&nbsp; For example, <a
+href="../../man/html/vadvance.1.html#-F">the <tt>vadvance</tt> command
+can fingerprint source files by content</a>.&nbsp; That way if a
+developer makes a change and performs a build, and then removes the
+change (maybe because it didn't work), when they <tt>vadvance</tt>
+again, the repository will recognize that the file's contents are the
+same.&nbsp; A subsequent build using that file could re-use a cached
+result from a build performed before the change was made.
+</p>
+
+<p>
+Fingerprinting of derived files produced during a <tt>_run_tool</tt>
+calls is controlled by the <tt>fp_content</tt> parameter, and the
+associated configuration variable <tt>[Evaluator]FpContent</tt>.  The
+table below summarizes how these two affect the fingerprinting of
+derived files.
+</p>
+
+<table border=1>
+
+<tr>
+<th>
+<tt>fp_content</tt>
+</th>
+<th>
+Fingerprinting of derived files
+</th>
+</tr>
+
+<tr>
+<td>
+A positive integer
+</td>
+<td>
+Any derived files whose size in bytes is less than
+<tt>fp_content</tt> will be fingerprinted by content.  All other
+derived files will be given an arbitrary unique fingerprint.
+</td>
+</tr>
+
+<tr>
+<td>
+-1
+</td>
+<td>
+All derived files will be fingerprinted by content.
+</td>
+</tr>
+
+<tr>
+<td>
+0
+</td>
+<td>
+All derived files will be given an arbitrary unique fingerprint.
+</td>
+</tr>
+
+<tr>
+<td>
+-2 (default)
+</td>
+<td>
+Act as though the value of <tt>fp_content</tt> is the value of
+<tt>[Evaluator]FpContent</tt>.  (Thus: if
+<tt>[Evaluator]FpContent</tt> is set to a positive integer all files
+smaller than that number of bytes will be fingerprinted by content, if
+it is set to -1 all derived files will be fingerprinted by content,
+and if it is 0 all derived files will be given an arbitrary unique
+fingerprint.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>TRUE</tt>
+</td>
+<td>
+Synonym for -1.  (All derived files will be fingerprinted by content.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>FALSE</tt>
+</td>
+<td>
+Synonym for 0.  (All derived files will be given an arbitrary unique
+fingerprint.)
+</td>
+</tr>
+
+</table>
+
+<p>
+Why would you want to fingerprint derived files by content?&nbsp;
+Suppose you have a compiler which will produce bit-wise identical
+results from semantically equivalent sources even if the sources are
+not bit-wise identical.&nbsp; <tt>gcc</tt> behaves this way: adding or
+removing comments of white-space will not change the binary contents of
+the object files it produces.&nbsp; If you fingerprint the result
+files of such a compiler by content, then subsequent dependent tool
+invocations could re-use previously cached results, even though the
+sources changed.&nbsp; If <tt>gcc</tt>'s derived files are
+deterministically fingerprinted, then a developer who builds, adds
+source comments, and rebuilds would see the evaluator run <tt>gcc</tt>
+but <b>skip</b> the final link.&nbsp; The compilation would be re-run
+because the source file changed, but the previously cached link
+operation could be re-used because the object file would be recognized
+as identical to what was used in the previous build.
+</p>
+
+<p>
+Why wouldn't you always fingerprint all derived files by
+content?&nbsp; Because there is a computational cost for
+fingerprinting files.&nbsp; (It takes approximately 1 second per
+megabyte on machines circa 2000, and obviously goes down as computing
+power goes up.)&nbsp; Furthermore, the computation is performed by <a
+href="../../man/html/repository.8.html">the repository server</a>,
+<b>not</b> the client machine performing the evaluation.&nbsp; Since
+the repository is a central resource shared by all users at a site,
+care must be taken when deciding to fingerprint derived files by
+content.
+</p>
+
+<h4><a name="platform"><tt>platform</tt> and Host Selection</a></h4>
+
+<p>
+Vesta is designed to be a multi-platform system.&nbsp; A single
+evaluation can use <tt>_run_tool</tt> to execute commands on different
+computers, even of different CPU architectures and running different
+operating systems.
+</p>
+
+<p>
+To execute the command specified by a <tt>_run_tool</tt> call, the
+evaluator contacts <a href="../../man/html/RunToolServer.1.html">the
+<tt>RunToolServer</tt> daemon</a> running on an appropriate
+machine.&nbsp; (This could of course be the same machine running the
+evaluator, but it need not be.)&nbsp; The selection of which hosts are
+considered appropriate for a given <tt>_run_tool</tt> call is
+controlled by the <tt>platform</tt> argument to <tt>_run_tool</tt> and
+associated settings in the Vesta configuration file.
+</p>
+
+<p>
+To select a host, the evaluator looks up several values in the section
+named after the <tt>platform</tt> argument.&nbsp; Here's a typical
+section from a <tt>vesta.cfg</tt> defining a platform for Linux
+machines with IA-32 processors running a 2.4 kernel (corresponding to
+the platform &quot;<tt>Linux2.4-ia32</tt>&quot; that we've been using
+above):
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">[Linux2.4-ia32]
+sysname = Linux
+release = 2.4.*
+version = *
+machine = i?86
+cpus    = 1
+cpuMHz  = 0
+memKB   = 0
+hosts   = romulus remus</font></pre>
+</td></tr></table>
+
+<p>
+The setting for <tt>[Linux2.4-ia32]hosts</tt> is a list of hostnames
+to be considered as candidates for this platform.&nbsp; In this case
+it specifies two machines: one named &quot;<tt>romulus</tt>&quot; and
+one named &quot;<tt>remus</tt>&quot;.
+</p>
+
+<p>
+The other variables in this section (<tt>sysname</tt>,
+<tt>release</tt>, <tt>version</tt>, <tt>machine</tt>, <tt>cpus</tt>,
+<tt>cpuMHz</tt>, <tt>memKB</tt>) describe the characteristics a
+machine must have to be used for this platform..&nbsp; The <a
+href="../../man/html/RunToolServer.1.html"><tt>RunToolServer</tt>
+daemon</a> provides information corresponding to each of these fields
+about the machine on which it is running to any evaluator that queries
+it.&nbsp; In detail here's what each of these fields mean and how they
+are used:
+</p>
+
+<table border=1>
+
+<tr>
+<th>
+<tt>platform</tt> section setting
+</th>
+<th>
+Meaning
+</th>
+<th>
+Matching
+</th>
+</tr>
+
+<tr>
+<td>
+<tt>sysname</tt>
+</td>
+<td>
+The operating system type (the same thing returned by &quot;<tt>uname
+-s</tt>&quot;).
+</td>
+<td>
+Matched against the OS type of each host like a shell wild-card (aka
+glob) pattern.&nbsp; (The example above has to wild-card characters, so
+only matches machines running Linux.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>release</tt>
+</td>
+<td>
+The operating system release (the same thing returned by
+&quot;<tt>uname -r</tt>&quot;).
+</td>
+<td>
+Matched against the OS release of each host like a shell wild-card
+pattern.&nbsp; (The example above matches &quot;<tt>2.4.17</tt>&quot;,
+&quot;<tt>2.4.3-12</tt>&quot;, and &quot;<tt>2.4.2-2smp</tt>&quot;,
+but not &quot;<tt>2.2.17</tt>&quot;.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>version</tt>
+</td>
+<td>
+The operating system version (the same thing returned by
+&quot;<tt>uname -v</tt>&quot;).
+</td>
+<td>
+Matched against the OS version of each host like a shell wild-card
+pattern.&nbsp; (The example above matches <em>any</em> system
+version.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>machine</tt>
+</td>
+<td>
+The machine type (the same thing returned by
+&quot;<tt>uname -m</tt>&quot;).
+</td>
+<td>
+Matched against the machine type of each host like a shell wild-card
+pattern.&nbsp; (The example above matches all of
+&quot;<tt>i386</tt>&quot;, &quot;<tt>i486</tt>&quot;,
+&quot;<tt>i586</tt>&quot;, &quot;<tt>i686</tt>&quot;, but would not
+match &quot;<tt>alpha</tt>&quot;, &quot;<tt>9000/785</tt>&quot;, or
+&quot;<tt>ia64</tt>&quot;.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>cpus</tt>
+</td>
+<td>
+The number of CPUs.&nbsp; (How to get this value varies between
+operating systems, but on Linux you can get it with the command
+&quot;<tt>grep -c '^cpu[0-9]' /proc/stat</tt>&quot;.)
+</td>
+<td>
+Any system with at least this many CPUs will be considered
+acceptable.&nbsp; (The example above would accept uni-processor
+machines, dual-processors, and any other machine, unless someone
+invents a 0-processor computer. :-)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>cpuMHz</tt>
+</td>
+<td>
+The CPU speed in MHz.&nbsp; (How to get this value varies between
+operating systems, but on Linux you can usually find it in
+<tt>/proc/cpuinfo</tt>.)
+</td>
+<td>
+Any system with at least this CPU speed will be considered
+acceptable.&nbsp; (The example above would accept machines regardless
+of speed.&nbsp; It can be set to a higher value if you have a reason
+to limit tool executions to faster machines.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>memKB</tt>
+</td>
+<td>
+The memory size in kilobytes.&nbsp; (How to get this value varies
+between operating systems, but on Linux you can usually find it in
+<tt>/proc/cpuinfo</tt>.)
+</td>
+<td>
+Any system with at least this much physical memory will be considered
+acceptable.&nbsp; (The example above would accept machines regardless
+of physical memory size.&nbsp; It can be set to a higher value if you
+have a reason to limit tool executions to machines with more memory.)
+</td>
+</tr>
+
+</table>
+
+<p>
+After finding the set of hosts which match the criteria specified for
+the platform, the evaluator simply selects one which is the least
+heavily loaded.&nbsp; (Note that as of this writing, <a
+href="../../man/html/RunToolServer.1.html">the
+<tt>RunToolServer</tt></a> only reports load in terms of the number of
+tool invocations it is currently executing <i>not</i> the load average
+on the whole system.)&nbsp; This can be used to distribute the
+computational load of a build over a number of hosts (when <a
+href="../../man/html/vesta.1.html#eval-options">running the evaluator
+multi-threaded</a> with models using <a
+href="_map-_par_map.html#_par_map"><tt>_par_map</tt></a>).
+</p>
+
+<p>
+Here are some other examples of platform sections that you might see
+in a <tt>vesta.cfg</tt> file (without any <tt>hosts</tt> lists):
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">;
+; Tru64 Alpha machines
+;
+[DU4.0]
+sysname = OSF1
+release = V[45].0
+version = *
+machine = alpha
+cpus    = 1
+cpuMHz  = 0
+memKB   = 0
+
+;
+; Linux Alpha with a 2.4 kernel
+;
+[Linux2.4-alpha]
+sysname = Linux
+release = 2.4.*
+version = *
+machine = alpha
+cpus    = 1
+cpuMHz  = 0
+memKB   = 0</font></pre>
+</td></tr></table>
+
+<p>
+You can define as many platforms as you want, give them whatever names
+you want, and make them as general or as specific as you like.&nbsp;
+One interesting example of the use of additional platform definitions
+is the way one site partitioned certain tool invocations which were
+known to have large memory requirements.&nbsp; They defined a platform
+named &quot;<tt>bigmemDU4.0</tt>&quot; which had <tt>memKB</tt> set to
+1024000, so that only hosts with a gigabyte of memory or more would be
+considered candidates for that platform.&nbsp; Then in their models
+they used &quot;<tt>DU4.0</tt>&quot; for most of their tool
+invocations but switched to this &quot;<tt>bigmemDU4.0</tt>&quot; for
+the memory-intensive tool runs.&nbsp; This allowed them to make use of
+a large pool of personal workstations for most tool runs, while
+limiting certain tools to servers with large physical memory (as
+sending them to the workstations would cause virtual memory
+thrashing).
+</p>
+
+<p>
+<a href="../../man/html/vesta.1.html#runtool">The evaluator man
+page</a> has a shorter description of <tt>_run_tool</tt> host
+selection.  You may also find it useful to refer to <a
+href="../../man/html/RunToolServer.1.html"><tt>RunToolServer</tt> man
+page</a>.
+</p>
+
+<h4><a name="tool_dep_control">Controlling how Dependencies are Recorded</a></h4>
+
+<p><i> [This section refers to a new feature introduced in
+
+<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/91">eval/91</a>.
+
+Though some people are using it, it is not yet available in any major
+or minor Vesta release.]  </i></p>
+
+<p>
+For caching, the <i>primary key</i> of each <tt>_run_tool</tt> call
+includes all the arguments (<tt>platform</tt>, <tt>command</tt>,
+<tt>stdin</tt>, <tt>stdout_treatment</tt>, <tt>stderr_treatment</tt>,
+<tt>status_treatment</tt>, <tt>signal_treatment</tt>,
+<tt>fp_content</tt>, <tt>wd</tt>, and <tt>existing_writable</tt>) plus
+<tt>./envVars</tt>.  (It must include all of <tt>./envVars</tt>,
+because it's impossible to determine which environment variables a
+tool uses and which ones it ignores.)  The <i>secondary
+dependencies</i> are recorded as the tool runs.  The following table
+lists different kinds of filesystem accesses and the corresponding
+dependency that would be recorded.  (Secondary dependencies are
+written with a leading character representing the kind of dependency
+followed by a slash followed by a path repesenting a specific value.)
+</p>
+
+<table border=1>
+
+<tr>
+<th>
+Example of Filesystem Access
+</th>
+<th>
+Recorded Dependency
+</th>
+</tr>
+
+<tr>
+<td>
+Opening the file <tt>/foo/bar</tt>
+</td>
+<td>
+<tt>N/./root/foo/bar</tt><br><br>
+
+(&quot;N&quot; type dependencies are on the entire value.)
+</td>
+
+<tr>
+<td>
+Calling <tt>stat(2)</tt> on the file <tt>/foo/bar</tt>
+</td>
+<td>
+<tt>N/./root/foo/bar</tt><br><br>
+
+(This is the same as opening the file.  Recorded dependencies can't
+distinguish between opening a file and checking its attributes such as
+size and executable status.)
+
+</td>
+
+<tr>
+<td>
+Looking for a file/directory <tt>/foo/bar</tt> that doesn't exist
+</td>
+<td>
+<tt>!/./root/foo/bar</tt><br><br>
+
+(&quot;!&quot; type dependencies are on the existence of a particular
+name in a binding.)
+</td>
+
+<tr>
+<td>
+Listing a directory <tt>/foo/bar</tt>
+</td>
+<td>
+<tt>B/./root/foo/bar</tt><br><br>
+
+(&quot;B&quot; type dependencies are on the list of names in a
+binding.  Note that this includes the order of the names in the
+binding, as bindings are ordered lists of name/value pairs.)
+</td>
+
+<tr>
+<td>
+Looking for a directory <tt>/foo/bar</tt> but not looking inside it (rare)
+</td>
+<td>
+<tt>T/./root/foo/bar</tt><br><br>
+
+(&quot;T&quot; type dependencies are on the type of a value.)
+</td>
+
+</tr>
+
+</table>
+
+<p>
+In some cases, it may be desirable to change the way
+<tt>_run_tool</tt> is cached.&nbsp; For example, if you are certain that
+particular files will always be read by a tool, it may be desirable to
+include them in the primary key.&nbsp; If there is an empty directory in
+which temporary files are created with random names, rather than
+recording one "!" dependency for each such filename it may be
+preferable to record a dependency on the entire directory.
+<tt>./tool_dep_control</tt> can be used to make these kinds of
+adjustments.
+</p>
+
+<p>
+<tt>./tool_dep_control</tt> may be left unset.&nbsp; If it is set, it
+should be a binding.&nbsp; It has three sub-bindings:
+</p>
+
+<ul>
+
+<li> <b><tt>pk</tt></b>: Any names in this binding bound to
+<tt>TRUE</tt> or a non-zero integer will cause the corresponding piece
+of <tt>./root</tt> to be incorporated into the primary key of the
+<tt>_run_tool</tt> call.&nbsp; You can include individual files or entire
+directories into the primary key this way.&nbsp; If anything included in
+the primary key changes in a later evaluation, the <tt>_run_tool</tt>
+call will not be able to get a hit in the cache (even if the previous
+tool didn't actually use the file that was included in the primary
+key).&nbsp; Any files or directories included in the primary key will not
+be recorded as secondary dependency in the cache.&nbsp; (However,
+files/directories included in the primary key that the tool makes use
+of will still be recorded in dependencies and propagated along with
+the result value of <tt>_run_tool</tt> as they might not be included
+in the primary key of higher level function calls.)  It's worth noting
+that the order of elements in <tt>./tool_dep_control/pk</tt> and its
+sub-bindings do not affect the primary key.&nbsp; The binding elements are
+sorted by name before using them to form the primary key.&nbsp; (Normally
+binding order is significant when computing primary keys.)</li>
+
+<li> <b><tt>coarse</tt></b>: Any names in this binding bound to
+<tt>TRUE</tt> or a non-zero integer will cause the corresponding
+directory in <tt>./root</tt> to be recorded coarsely, as though the
+tool used all of it.&nbsp; If a directory is recorded coarsely and the
+tool uses only one file in the directory, future calls will cache miss
+if anything in the directory changes regardless of whether the tool
+actually used it.&nbsp; Even adding or removing files to such a directory
+will cause a cache miss.&nbsp; A common use of coarse directory recording
+is for temporary directories where a tool creates files with random
+temporary names.&nbsp; Recording the directory coarsely will avoid
+accumulating many &quot;!&quot; dependencies across different tool
+runs.</li>
+
+<li> <b><tt>coarse_names</tt></b>: Any names in this binding bound to
+<tt>TRUE</tt> or a non-zero integer will cause the corresponding
+directory in <tt>./root</tt> to have non-existence dependencies
+recorded coarsely, as though the tool had listed the entire
+directory.&nbsp; If the tool looks for names which don't exist inside
+a directory recorded this way, future calls will cache miss if the set
+of names in the directory has changed or if the order of the names has
+changed.&nbsp; (Remember that directories like
+<a href="../data-types.html#binding">bindings</a> have an order to the
+names they contain.)&nbsp; If <tt>./tool_dep_control/coarse_names</tt>
+is a true boolean or a non-zero integer rather than a binding, all
+fine-grained recording of non-existence dependencies will be
+disabled.</li>
+
+</ul>
+
+<p>
+Suppose you have an input file which a tool will always read that is
+named on the tool command line and placed in the working directory.
+Making the input file part of the <tt>_run_tool</tt> primary key will
+split up cache entries for different input file contents.&nbsp; This will
+reduce the number of cache entries that need to be considered when
+checking for a cache hit and make builds more efficient.&nbsp; You could do
+this with SDL code something like the following:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">run_foo(input_file:binding(:text))
+{
+  // ...
+
+  // Place the input file in the working directory
+  . ++= [ root/.WD = input_file ];
+
+  // Include the input file in the tool primary key
+  . ++= [ tool_dep_control/pk/.WD/$(_n(input_file)) = TRUE ];
+
+  tool_result = _run_tool(./target_platform,
+                          <"foo", _n(input_file)>);
+
+  // ...
+};</font></pre>
+</td></tr></table>
+
+<p>
+Imagine a complex tool provided by a vendor that that generates C code
+and then compiles it by invoking a C compiler.&nbsp; Suppose that each time
+it runs it creates a header file with a random temporary name which is
+included by the C file being compiled.&nbsp; Suppose also that this file is
+searched for along the include path even though it is placed in the
+working directory.&nbsp; Over time this could result in a large number of
+secondary dependencies accumulating across multiple <tt>_run_tool</tt>
+cache entries:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">!/./root/usr/include/pKWNnmjYGE.h
+!/./root/usr/include/YGCwYNLNMn.h
+!/./root/usr/include/0XThnvz0Nf.h
+!/./root/usr/include/5S0SS9B6CP.h
+!/./root/usr/include/MQvxLwk0GY.h
+...</font></pre>
+</td></tr></table>
+
+<p>
+If all the cache entries have the same primary key, having so many
+existence secondary dependencies will force the evaluator to check for
+the existence of all previous temporary file names on each successive
+tool invocation.&nbsp; One way to avoid this would be to record the names
+in <tt>/usr/include</tt> coarsely, which might make sense if the set
+of header files in that directory don't change very often.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">// Keep from accumulating existence dependencies for temporary names in /usr/include
+. ++= [ tool_dep_control/coarse_names/usr/include = TRUE ];</font></pre>
+</td></tr></table>
+
+<p>
+If <tt>./tool_dep_control</tt> is not set, it defaults to
+<tt>[coarse=[tmp=TRUE,usr/tmp=TRUE,var/tmp=TRUE]]</tt>.&nbsp; In other
+words, any accesses of the directories &quot;<tt>/tmp</tt>&quot;,
+&quot;<tt>/usr/tmp</tt>&quot;, and &quot;<tt>/var/tmp</tt>&quot;, will
+record a dependency on the entire directory.&nbsp; (These directories are
+often used for temporary files and are typically empty at the start of
+a <tt>_run_tool</tt> call.)  However, if <tt>./tool_dep_control</tt>
+is set thse directories are not recorded coarsely unless specified in
+<tt>./tool_dep_control/coarse</tt>.&nbsp; You can of course add in these
+default coarse directories with the following statement:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">. ++= [ tool_dep_control/coarse = [tmp=TRUE,usr/tmp=TRUE,var/tmp=TRUE] ];</font></pre>
+</td></tr></table>
+
+<p>
+Finally, the following table shows how the same <tt>_run_tool</tt>
+call would record dependencies and be cached with different settings
+for <tt>./tool_dep_control</tt>.  The tool is a fictional one named
+(<tt>/usr/bin/foo</tt>) which reads some files from the working
+directory and some from another directory (<tt>/usr/share/foo</tt>).
+For purposes of illustrating some of the operating system pieces we'll
+assume it's running on a Linux-like system.
+</p>
+
+<table border=1>
+
+<tr>
+<th>
+<tt>./tool_dep_control</tt>
+</th>
+<th>
+Primary Key
+</th>
+<th>
+Secondary Dependencies
+</th>
+<th>
+Description
+</th>
+</tr>
+
+<tr>
+<td>
+<pre>[ ]</pre>
+</td>
+<td>
+<b><i>A</i></b>
+</td>
+<td>
+<tt>
+<ol>
+
+<li>N/./root/usr/bin/foo
+<li>N/./root/lib/ld-linux.so.2
+<li>!/./root/etc/ld.so.preload
+<li>!/./root/etc/ld.so.cache
+<li>N/./root/lib/libc.so.6
+<li>N/./root/lib/libm.so.6
+<li>N/./root/dev/null
+<li>N/./root/.WD/a.x
+<li>!/./tmp/edizLqM816.z
+<li>N/./root/usr/share/foo/b.y
+<li>!/./root/usr/share/foo/c.y
+<li>N/./root/.WD/c.y
+<li>!/./root/usr/share/foo/d.y
+<li>N/./root/.WD/d.y
+<li>!/./tmp/192WmQkAd0.z
+
+</ol>
+</tt>
+</td>
+<td>
+<p>This is the original call with no modifications made to the the normal
+dependency recording and primary key.&nbsp; (We'll use letters to
+represent different primary keys rather than writing out several
+different 128-bit numbers in hex.)&nbsp; A few things to note:</p>
+
+<ul>
+<li>Initial loading of the program executable and shared libraries</li>
+<li>Using a search path to look for some names in <tt>/usr/share/foo</tt> and then in <tt>/.WD</tt> </li>
+<li>Creating temporary files in <tt>/tmp</tt></li>
+<li>Accessing <tt>/dev/null</tt></li>
+</ul>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre>[
+  coarse = [ lib = TRUE ]
+]</pre>
+</td>
+<td>
+<b><i>A</i></b>
+</td>
+<td>
+<tt>
+<ol>
+
+<li>N/./root/usr/bin/foo
+<li>N/./root/lib
+<li>!/./root/etc/ld.so.preload
+<li>!/./root/etc/ld.so.cache
+<li>N/./root/dev/null
+<li>N/./root/.WD/a.x
+<li>!/./tmp/edizLqM816.z
+<li>N/./root/usr/share/foo/b.y
+<li>!/./root/usr/share/foo/c.y
+<li>N/./root/.WD/c.y
+<li>!/./root/usr/share/foo/d.y
+<li>N/./root/.WD/d.y
+<li>!/./tmp/192WmQkAd0.z
+
+</ol>
+</tt>
+</td>
+<td>
+<p>Here we've made the recording of <tt>/lib</tt> coarse.&nbsp; Rather
+than the three secondary dependencies on specific files within
+<tt>/lib</tt>, <tt>_run_tool</tt> acts as though the tool read the
+entire <tt>/lib</tt> directory.&nbsp; Looking for a cache hit or miss
+will be less work because there are fewer secondary
+dependencies.&nbsp; However, if anything at all in <tt>/lib</tt> is
+different on a later <tt>_run_tool</tt> (i.e. if files and directories
+never used by this tool are changed, added, or removed), a cache hit
+on this earlier entry will not be possible.&nbsp; Since <tt>/lib</tt>
+is primarily basic components provided by the operating system that
+change infrequently, changes to its contents would probably mean that
+the <tt>_run_tool</tt> is using a different OS version and would miss
+anyway.
+</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre>[
+  pk = [ lib = TRUE ]
+]</pre>
+</td>
+<td>
+<b><i>B</i></b><br><br>
+(Includes the entire <tt>/lib</tt> directory)
+</td>
+<td>
+<tt>
+<ol>
+
+<li>N/./root/usr/bin/foo
+<li>!/./root/etc/ld.so.preload
+<li>!/./root/etc/ld.so.cache
+<li>N/./root/dev/null
+<li>N/./root/.WD/a.x
+<li>!/./tmp/edizLqM816.z
+<li>N/./root/usr/share/foo/b.y
+<li>!/./root/usr/share/foo/c.y
+<li>N/./root/.WD/c.y
+<li>!/./root/usr/share/foo/d.y
+<li>N/./root/.WD/d.y
+<li>!/./tmp/192WmQkAd0.z
+
+</ol>
+</tt>
+</td>
+<td>
+<p>An alternative to recording <tt>/lib</tt> as a single coarse
+dependency would be to include it in the <tt>_run_tool</tt> primary
+key.&nbsp; Since we expect it to be used by this <tt>_run_tool</tt>
+call every time, it's perfectly reasonable to put it in the primary
+key.&nbsp; (You would not want to include a directory in the primary
+key if the tool would use it in some cases but not in others.)</p>
+
+<p>Putting <tt>/lib</tt> in the primary key causes the evaluator to
+fingerprint the directory before beginning the cache lookup
+process.&nbsp; This is different from recording <tt>N/./root/lib</tt>
+as a coarse dependency, as the cache first tells the evaluator the
+secondary dependencies to compute and then the cache searches for a
+match.&nbsp; Doing the work up front means more work done in the
+evaluator and less done in the cache server.&nbsp; (In a large
+installation this means distributing more work to clients and doing
+less in a central location.)</p>
+
+<p>
+It's worth noting that putting a directory in the primary key removes
+recorded secondary dependencies when caching <tt>_run_tool</tt>, but
+it doesn't change how they are recorded.&nbsp; While the tool runs, it
+will still record the three secondary dependencies on specific files
+in <tt>/lib</tt> (&quot;<tt>N/./root/lib/ld-linux.so.2</tt>&quot;,
+&quot;<tt>N/./root/lib/libc.so.6</tt>&quot;, and
+&quot;<tt>N/./root/lib/libm.so.6</tt>&quot;).&nbsp; If these files are
+passed down in the value of <tt>./root</tt> through several layers of
+function calls, then these secondary dependencies can propagate back
+up through those calls anywhere the result of our <tt>_run_tool</tt>
+is used.&nbsp; For this reason, it may make sense to put a directory
+in both <tt>./tool_dep_control/pk</tt> and
+<tt>./tool_dep_control/coarse</tt>.
+</p>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<pre>[
+  coarse = [ lib = TRUE,
+             tmp = TRUE ]
+]</pre>
+</td>
+<td>
+<b><i>A</i></b>
+</td>
+<td>
+<tt>
+<ol>
+
+<li>N/./root/usr/bin/foo
+<li>N/./root/lib
+<li>!/./root/etc/ld.so.preload
+<li>!/./root/etc/ld.so.cache
+<li>N/./root/dev/null
+<li>N/./root/.WD/a.x
+<li>N/./tmp
+<li>N/./root/usr/share/foo/b.y
+<li>!/./root/usr/share/foo/c.y
+<li>N/./root/.WD/c.y
+<li>!/./root/usr/share/foo/d.y
+<li>N/./root/.WD/d.y
+
+</ol>
+</tt>
+</td>
+<td>
+<p>Now we've made the recording of <tt>/tmp</tt> coarse as well.&nbsp;
+Instead of two existence dependencies for the temporary files created
+by the tool, we now simply record a dependency on the whole value of
+<tt>/tmp</tt>.&nbsp; Since <tt>/tmp</tt> is empty at the start of each
+time we make this <tt>_run_tool</tt> call, this is fine.</p>
+
+<p>More importantly, we avoid accumulating many different existence
+dependencies that we would have to check each time we look for a cache
+hit or miss.&nbsp; When performing a lookup, some work must be done
+for each secondary dependency in the union of all secondary dependency
+sets across all current cache entries with the same primary key.&nbsp;
+Suppose this <tt>_run_tool</tt> call had been made 100 times in the
+past and that each of those created two temporary files each with a
+different name.&nbsp; Checking that <tt>/tmp</tt> is empty is much
+more efficient than individually checking to see whether <tt>/tmp</tt>
+contains each of those 200 different temporary file names.</p>
+</td>
+</tr>
+
+
+<tr>
+<td>
+<pre>[
+  coarse = [ lib = TRUE ],
+  coarse_names = [ tmp = TRUE ]
+]</pre>
+</td>
+<td>
+<b><i>A</i></b>
+</td>
+<td>
+<tt>
+<ol>
+
+<li>N/./root/usr/bin/foo
+<li>N/./root/lib
+<li>!/./root/etc/ld.so.preload
+<li>!/./root/etc/ld.so.cache
+<li>N/./root/dev/null
+<li>N/./root/.WD/a.x
+<li>B/./tmp
+<li>N/./root/usr/share/foo/b.y
+<li>!/./root/usr/share/foo/c.y
+<li>N/./root/.WD/c.y
+<li>!/./root/usr/share/foo/d.y
+<li>N/./root/.WD/d.y
+
+</ol>
+</tt>
+</td>
+<td>
+<p>An alternative to recording <tt>/tmp</tt> coarsely would be to just
+record its names coarsely as we've done here.&nbsp; The difference is
+that the dependency is only on the list of names (i.e. the output of
+&quot;<tt>ls /tmp</tt>&quot;) rather than the entire contents of the
+directory.&nbsp; Rather than having a cache miss if anything in
+<tt>/tmp</tt> changes, this would cause a cache miss if any files or
+directories were added to or removed from <tt>/tmp</tt>.&nbsp; Since
+there are no files or directories in <tt>/tmp</tt> initially they're
+effectively the same in this case.&nbsp; However, if there were any
+files in <tt>/tmp</tt> that might change without the set of files in
+<tt>/tmp</tt> changing, using <tt>./tool_dep_control/coarse_names</tt>
+rather than <tt>./tool_dep_control/coarse</tt> could avoid some false
+cache misses.</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre>[
+  coarse = [ lib = TRUE,
+             tmp = TRUE ],
+  pk = [ .WD/a.x = TRUE ]
+]</pre>
+</td>
+<td>
+<b><i>C</i></b><br><br>
+(Includes source file <tt>/.WD/a.x</tt>.)
+</td>
+<td>
+<tt>
+<ol>
+
+<li>N/./root/usr/bin/foo
+<li>N/./root/lib
+<li>!/./root/etc/ld.so.preload
+<li>!/./root/etc/ld.so.cache
+<li>N/./root/dev/null
+<li>N/./tmp
+<li>N/./root/usr/share/foo/b.y
+<li>!/./root/usr/share/foo/c.y
+<li>N/./root/.WD/c.y
+<li>!/./root/usr/share/foo/d.y
+<li>N/./root/.WD/d.y
+
+</ol>
+</tt>
+</td>
+<td>
+<p>Let's suppose that the file <tt>/.WD/a.x</tt> is frequently
+modified and is the primary input to our fictional tool.&nbsp; The SDL
+code that makes the <tt>_run_tool</tt> places it in <tt>/.WD</tt> and
+passes its name on the tool command line.&nbsp; We know that every
+time we run the tool it will read this file.&nbsp; Including it in the
+primary key will separate cache entries for different runs of the tool
+when this source file has different contents.&nbsp; This means there
+will be fewer potential cache entries to consider when searching for a
+cache hit, which means the lookup process will be more efficient.</p>
+
+<p>Also, since it is now in the primary key it does not appear in the
+secondary dependencies of the <tt>_run_tool</tt> cache entry.&nbsp;
+(There's no point in having it in both the primary key and the
+secondary dependencies.)&nbsp; This doesn't mean that the evaluator
+forgets that the tool read it.&nbsp; higher-level function calls that
+use the result of this <tt>_run_tool</tt> will still include a
+dependency on <tt>a.x</tt>.</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre>[
+  coarse = [ lib = TRUE,
+             tmp = TRUE ],
+  pk = [ .WD/a.x = TRUE,
+         usr/bin/foo = TRUE ]
+]</pre>
+</td>
+<td>
+<b><i>D</i></b><br><br>
+(Includes source file <tt>/.WD/a.x</tt> and tool executable <tt>/usr/bin/foo</tt>.)
+</td>
+<td>
+<tt>
+<ol>
+
+<li>N/./root/lib
+<li>!/./root/etc/ld.so.preload
+<li>!/./root/etc/ld.so.cache
+<li>N/./root/dev/null
+<li>N/./tmp
+<li>N/./root/usr/share/foo/b.y
+<li>!/./root/usr/share/foo/c.y
+<li>N/./root/.WD/c.y
+<li>!/./root/usr/share/foo/d.y
+<li>N/./root/.WD/d.y
+
+</ol>
+</tt>
+</td>
+<td>
+<p>Obviously every time the tool is run it will read the tool
+executable file <tt>/usr/bin/foo</tt>.&nbsp; Suppose there are
+multiple different versions of the tool in use.&nbsp; It might even be
+under active development as an in-house tool.&nbsp; Including it in
+the primary key will separate cache entries using different versions
+of the tool.&nbsp; Just as with the input file, this separates cache
+entries and gives each cache lookup operation fewer entries to
+consider.</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<pre>[
+  coarse = [ lib = TRUE,
+             tmp = TRUE ],
+  pk = [ .WD/a.x = TRUE,
+         usr/bin/foo = TRUE ],
+  coarse_names = [
+    usr/share/foo = TRUE
+  ]
+]</pre>
+</td>
+<td>
+<b><i>D</i></b><br><br>
+(Includes source file <tt>/.WD/a.x</tt> and tool executable <tt>/usr/bin/foo</tt>.)
+</td>
+<td>
+<tt>
+<ol>
+
+<li>N/./root/lib
+<li>!/./root/etc/ld.so.preload
+<li>!/./root/etc/ld.so.cache
+<li>N/./root/dev/null
+<li>N/./tmp
+<li>N/./root/usr/share/foo/b.y
+<li>B/./root/usr/share/foo
+<li>N/./root/.WD/c.y
+<li>N/./root/.WD/d.y
+
+</ol>
+</tt>
+</td>
+<td>
+<p>For some reason, our tool is searching for the files <tt>c.y</tt>
+and <tt>d.y</tt> in <tt>/usr/share/foo</tt> even though they're in
+<tt>/.WD</tt>.&nbsp; Perhaps for our tool <tt>/usr/share/foo</tt> is
+a library of common files similar to how <tt>/usr/include</tt> is
+used by the C compiler.&nbsp; Maybe it always searches this shared
+directory before the local directory, which means it will often record
+such non-existence secondary dependencies.&nbsp; Let's suppose that
+the set of files in the shared directory doesn't change very often
+(i.e. files don't get added to or removed from the library), though
+the contents of the shared files may change.</p>
+
+<p>If we add <tt>/usr/share/foo</tt> to
+<tt>./tool_dep_control/coarse_names</tt>, we can collapse all the
+non-existence dependencies on names in <tt>/usr/share/foo</tt> to a
+single dependency on the set of names in that directory.&nbsp; Because
+we expect the contents of the shared files to change, recording a
+single dependency on the entire directory or putting the directory in
+the primary key would be too coarse.&nbsp; If the contents of unused
+files changed, our <tt>_run_tool</tt> call would get a false cache
+miss.&nbsp; Recording a dependency on the set of names alone could
+still cause a false cache miss (if anything in <tt>/usr/share/foo</tt>
+were added or removed), but in some cases it may still be a good
+trade-off over the non-existence dependencies.</p>
+</td>
+</tr>
+
+</table>
+
+
+<h4><a name="Summary">Summary</a></h4>
+
+<p>
+The parameters to <tt>_run_tool</tt> are as follows:
+</p>
+
+<table border=1>
+
+<tr>
+<th>
+Parameter
+</th>
+<th>
+Type
+</th>
+<th>
+Default
+</th>
+<th>
+Description
+</th>
+</tr>
+
+<tr>
+<td>
+<tt>platform</tt>
+</td>
+<td>
+<a href="../data-types.html#text"><tt>text</tt></a>
+</td>
+<td>
+<i>none</i>
+</td>
+<td>
+A string specifying the platform on which the tool should be run.&nbsp;
+Refer to <a href="_run_tool.html#platform">the description above</a> and/or <a
+href="../../man/html/vesta.1.html#runtool">the evaluator man page</a>
+for more information.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>command</tt>
+</td>
+<td>
+<tt><a href="../data-types.html#list">list</a>(<a href="../data-types.html#text">text</a>)</tt>
+</td>
+<td>
+<i>none</i>
+</td>
+<td>
+The command-line to execute.&nbsp; (Used with the <tt>execve</tt>(2)
+system call to start the command.)&nbsp; Note that the file to execute
+(specified by the first element of <tt>command</tt>) must be present in
+the filesystem passed in through <tt>./root</tt>.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>stdin</tt>
+</td>
+<td>
+<a href="../data-types.html#text"><tt>text</tt></a>
+</td>
+<td>
+<tt>&quot;&quot;</tt>
+</td>
+<td>
+The standard input given to the invoked tool.&nbsp; Acts as though the
+standard input is from a file with the contents of this text
+string.&nbsp; (Can be a file accessed with <a
+hre="../models.html#files">a <tt>files</tt> clause</a>, as those are
+just text strings.)&nbsp; Refer to <a href="_run_tool.html#stdin">the example
+above</a> for more information.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>stdout_treatment</tt>
+</td>
+<td>
+<a href="../data-types.html#text"><tt>text</tt></a><br>
+(limited values)
+</td>
+<td>
+<tt>&quot;report&quot;</tt>
+</td>
+<td>
+<p>
+Determines the handling of the standard output stream of the executed
+command.&nbsp; The possible values are summarized below.
+</p>
+
+<table border=1>
+
+<tr>
+<th>
+Value
+</th>
+<th>
+Handling of standard output
+</th>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;report&quot;</tt> (default)
+</td>
+<td>
+Displayed by the evaluator but not captured.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;value&quot;</tt>
+</td>
+<td>
+Captured and returned in the result of <tt>_run_tool</tt> under the
+name <tt>stdout</tt>, but not displayed.&nbsp; (See <a
+href="_run_tool.html#stdout_treatment">the example above</a>.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;ignore&quot;</tt>
+</td>
+<td>
+Discarded without being displayed or captured.&nbsp; (Think &quot;<tt>&gt;
+/dev/null</tt>&quot;.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;report_value&quot;</tt>
+</td>
+<td>
+Both displayed and returned in the result of <tt>_run_tool</tt>.
+(Think &quot;<tt>| tee</tt>&quot;.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;report_nocache&quot;</tt>
+</td>
+<td>
+Displayed by the evaluator and not captured.&nbsp; If non-empty, the
+evaluator will not add a cache entry for this <tt>_run_tool</tt> call.
+(Causes a tool to be re-executed in subsequent evaluations if it
+produced any output.)
+</td>
+</tr>
+
+</table>
+
+<tr>
+<td>
+<tt>stderr_treatment</tt>
+</td>
+<td>
+<a href="../data-types.html#text"><tt>text</tt></a><br>
+(limited values)
+</td>
+<td>
+<tt>&quot;report&quot;</tt>
+</td>
+<td>
+Determines the handling of the standard error stream of the executed
+command.&nbsp; The possible values are the same as those for
+<tt>stdout_treatment</tt>.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>status_treatment</tt>
+</td>
+<td>
+<a href="../data-types.html#text"><tt>text</tt></a><br>
+(limited values)
+</td>
+<td>
+<tt>&quot;report_nocache&quot;</tt>
+</td>
+<td>
+
+<p>
+Determines what happens if the command exits with a non-zero
+status.&nbsp; The possible values are summarized below.
+</p>
+
+<table border=1>
+
+<tr>
+<th>
+Value
+</th>
+<th>
+Handling of tool exit status
+</th>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;report_nocache&quot;</tt><br>
+(default)
+</td>
+<td>
+If the exit status is non-zero do not add a cache entry for this
+<tt>_run_tool</tt> call (or any of the functions in the call stack
+above it).&nbsp; If <a
+href="../../man/html/vesta.1.html#eval-options">the <tt>-k</tt>
+(&quot;keep going&quot;) flag</a> was specified on the evaluator
+command-line, record the exit status in the <tt>_run_tool</tt> result
+under the name <tt>code</tt> and continue.&nbsp; Otherwise, treat this
+as a run-time error and halt the evaluation.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>&quot;report&quot;</tt>
+</td>
+<td>
+Record the exit status in the <tt>_run_tool</tt> result, and continue
+regardless of its value.
+</td>
+
+</table>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>signal_treatment</tt>
+</td>
+<td>
+<a href="../data-types.html#text"><tt>text</tt></a><br>
+(limited values)
+</td>
+<td>
+<tt>&quot;report_nocache&quot;</tt>
+</td>
+<td>
+Determines what happens if the command is terminated by a signal
+(segmentation fault, floating-point exception, etc.) rather than
+exiting voluntarily.&nbsp; The possible values are the same as those
+for <tt>status_treatment</tt>.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>fp_content</tt>
+</td>
+<td>
+<a href="../data-types.html#int"><tt>int</tt></a> <i>or</i><br>
+<a href="../data-types.html#bool"><tt>bool</tt></a> 
+</td>
+<td>
+<tt>-2</tt>
+</td>
+<td>
+<p>
+Along with the configuration setting <tt>[Evaluator]FpContent</tt>,
+determines the method used to assign fingerprints to derived
+files.&nbsp; (See <a href="_run_tool.html#fp_content">the discussion
+above</a>.)&nbsp; The possible values and their effects are summarized
+below.
+</p>
+
+<table border=1>
+
+<tr>
+<th>
+Value
+</th>
+<th>
+Fingerprinting of derived files
+</th>
+</tr>
+
+<tr>
+<td>
+A positive integer
+</td>
+<td>
+Any derived files whose size in bytes is less than
+<tt>fp_content</tt> will be fingerprinted by content.&nbsp; All other
+derived files will be given an arbitrary unique fingerprint.
+</td>
+</tr>
+
+<tr>
+<td>
+-1
+</td>
+<td>
+All derived files will be fingerprinted by content.
+</td>
+</tr>
+
+<tr>
+<td>
+0
+</td>
+<td>
+All derived files will be given an arbitrary unique fingerprint.
+</td>
+</tr>
+
+<tr>
+<td>
+-2 (default)
+</td>
+<td>
+Act as though the value of <tt>fp_content</tt> is the value of
+<tt>[Evaluator]FpContent</tt>.&nbsp; (Thus: if
+<tt>[Evaluator]FpContent</tt> is set to a positive integer all files
+smaller than that number of bytes will be fingerprinted by content, if
+it is set to -1 all derived files will be fingerprinted by content,
+and if it is 0 all derived files will be given an arbitrary unique
+fingerprint.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>TRUE</tt>
+</td>
+<td>
+Synonym for -1.&nbsp; (All derived files will be fingerprinted by content.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>FALSE</tt>
+</td>
+<td>
+Synonym for 0.&nbsp; (All derived files will be given an arbitrary unique
+fingerprint.)
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>wd</tt>
+</td>
+<td>
+<a href="../data-types.html#text"><tt>text</tt></a>
+</td>
+<td>
+<tt>&quot;.WD&quot;</tt>
+</td>
+<td>
+Specifies the current working directory at the start of the command's
+execution with the leading slash omitted.&nbsp; Note that this is
+relative to the filesystem passed in <tt>./root</tt>.&nbsp; See <a
+href="_run_tool.html#wd">the example above</a> for more information.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>existing_writable</tt>
+</td>
+<td>
+<a href="../data-types.html#bool"><tt>bool</tt></a> 
+</td>
+<td>
+<tt>FALSE</tt>
+</td>
+<td>
+Determines whether files existing at the start of the command's
+execution (those passed in <tt>./root</tt>) will be writable by the
+tool.&nbsp; (Note that <em>the default is for existing files to be
+read-only</em>.)&nbsp; See <a href="_run_tool.html#existing_writable">the example
+above</a> for more information.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>.</tt>
+</td>
+<td>
+<pre><a href="../data-types.html#binding">binding</a>(
+  envVars:<a href="../data-types.html#binding">binding</a>(
+    :<a href="../data-types.html#text">text</a>
+  ),
+  root:<a href="../data-types.html#binding">binding</a>
+  tool_dep_control:<a href="../data-types.html#binding">binding</a>(
+    pk:<a href="../data-types.html#binding">binding</a>,
+    coarse:<a href="../data-types.html#binding">binding</a>,
+    coarse_names:<a href="../data-types.html#binding">binding</a>
+  ),
+)</pre>
+</td>
+<td>
+<tt>.</tt>
+</td>
+
+<td>
+<p>
+The special variable named &quot;<tt>.</tt>&quot; (aka
+&quot;dot&quot;).&nbsp; For <tt>_run_tool</tt>, dot must have two
+sub-bindings named <tt>envVars</tt> and <tt>root</tt>.&nbsp; The value
+of <tt>./envVars</tt> defines the complete set of environment
+variables when the command is run.&nbsp; The value of <tt>./root</tt>
+defines the entire filesystem seen by the command being
+executed.&nbsp; Dot may also have a sub-binding named
+<tt>tool_dep_control</tt> that can be used to control how
+<tt>_run_tool</tt> calls are cached.
+</p>
+
+<p>
+See the description accompanying <a href="_run_tool.html#Simple">the first example
+above</a>, the following <a href="_run_tool.html#Encapsulation">section on
+encapsulation</a>, and the <a href="_run_tool.html#tool_dep_control">section on
+controlling dependencies</a> for more information.
+</p>
+</td>
+</tr>
+
+</table>
+
+<p>
+The return type of <tt>_run_tool</tt> is as:
+</p>
+
+<blockquote>
+<pre><a href="../data-types.html#binding">binding</a>(code   : <a href="../data-types.html#int">int</a>,
+        signal : <a href="../data-types.html#int">int</a>,
+        stdout_written : <a href="../data-types.html#bool">bool</a>,
+        stderr_written : <a href="../data-types.html#bool">bool</a>,
+        stdout : <a href="../data-types.html#text">text</a>,
+        stderr : <a href="../data-types.html#text">text</a>,
+        root   : <a href="../data-types.html#binding">binding</a>)</pre>
+</blockquote>
+
+<p>
+The purpose of each name in the result binding is summarized below.
+</p>
+
+<table border=1>
+
+<tr>
+<th>
+Name
+</th>
+<th>
+Type
+</th>
+<th>
+Description
+</th>
+</tr>
+
+<tr>
+<td>
+<tt>code</tt>
+</td>
+<td>
+<a href="../data-types.html#int"><tt>int</tt></a>
+</td>
+<td>
+The exit status of the process invoked by <tt>_run_tool</tt>.&nbsp;
+Note that if the exit status is non-zero, evaluation will halt with a
+run-time error unless the <tt>status_treatment</tt> parameter is
+<tt>&quot;report&quot;</tt> or the <a
+href="../../man/html/vesta.1.html#eval-options">the <tt>-k</tt>
+(&quot;keep going&quot;) flag</a> is specified on the evaluator
+command-line.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>signal</tt>
+</td>
+<td>
+<a href="../data-types.html#int"><tt>int</tt></a>
+</td>
+<td>
+The signal that terminated the process invoked by <tt>_run_tool</tt>,
+or 0 if it exited voluntarily.&nbsp; Note that if the process is
+terminated by a signal, evaluation will halt with a run-time error
+unless the <tt>signal_treatment</tt> parameter is
+<tt>&quot;report&quot;</tt> or the <a
+href="../../man/html/vesta.1.html#eval-options">the <tt>-k</tt>
+(&quot;keep going&quot;) flag</a> is specified on the evaluator
+command-line.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>stdout_written</tt>
+</td>
+<td>
+<a href="../data-types.html#bool"><tt>bool</tt></a> 
+</td>
+<td>
+Indicates whether the command wrote anything to its standard output
+stream.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>stderr_written</tt>
+</td>
+<td>
+<a href="../data-types.html#bool"><tt>bool</tt></a> 
+</td>
+<td>
+Indicates whether the command wrote anything to its standard error
+stream.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>stdout</tt>
+</td>
+<td>
+<a href="../data-types.html#text"><tt>text</tt></a>
+</td>
+<td>
+The bytes written to standard output by the tool.&nbsp; Note that the
+name <tt>stdout</tt> is only defined if the <tt>stdout_treatment</tt>
+parameter is <tt>&quot;value&quot;</tt> or
+<tt>&quot;report_value&quot;</tt>.&nbsp; (See <a
+href="_run_tool.html#stdout_treatment">the above example of capturing standard
+output</a>.)
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>stderr</tt>
+</td>
+<td>
+<a href="../data-types.html#text"><tt>text</tt></a>
+</td>
+<td>
+The bytes written to standard error by the tool.&nbsp; Note that the
+name <tt>stderr</tt> is only defined if the <tt>stderr_treatment</tt>
+parameter is <tt>&quot;value&quot;</tt> or
+<tt>&quot;report_value&quot;</tt>.
+</td>
+</tr>
+
+<tr>
+<td>
+<tt>root</tt>
+</td>
+<td>
+<a href="../data-types.html#binding"><tt>binding</tt></a>
+</td>
+<td>
+<p>
+A record of the filesystem changes made by the tool.&nbsp; Specifically:
+</p>
+<ul>
+<li>
+Any files
+which the tool creates or modifies while it runs which still exist
+when the tool exits will have their contents in text values within the
+<tt>root</tt> sub-binding of the result.
+</li>
+<li>
+Any files which the
+tool deletes during its run will have a value of <tt>FALSE</tt> in the
+<tt>root</tt> sub-binding of the result.&nbsp; This is the case both
+for files which existed when the tool is started (those in
+<tt>./root</tt> when <tt>_run_tool</tt> is called), and any files
+created and then deleted by the tool (such as temporary files used by
+the tool to store intermediate results).</li>
+</ul>
+
+<p>
+Also see <a href="_run_tool.html#Result Files">the above example on result
+files</a>.
+</p>
+</td>
+</tr>
+
+</table>
+
+<p>
+Also see <a href="_run_tool.html#Return Value">the earlier section on the
+<tt>_run_tool</tt> return value</a>.
+</p>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

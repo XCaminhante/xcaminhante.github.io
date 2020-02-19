@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Functions on Type t_text</TITLE>
+<META NAME="description" CONTENT="Functions on Type t_text">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node154.html">
+<LINK REL="previous" HREF="node152.html">
+<LINK REL="up" HREF="node150.html">
+<LINK REL="next" HREF="node154.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2448"
+  HREF="node154.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2444"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2438"
+  HREF="node152.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2446"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2449"
+  HREF="node154.html">Functions on Type t_list</A>
+<B> Up:</B> <A NAME="tex2html2445"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2439"
+  HREF="node152.html">Functions on Type t_int</A>
+ &nbsp <B>  <A NAME="tex2html2447"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001334300000000000000">
+Functions on Type t_text</A>
+</H3>
+
+<P>
+The first byte of a t_text value has index 0.
+
+<P>
+<PRE>
+t_bool
+operator==(t_text t1, t_text t2)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>t1</EM> and <EM>t2</EM> are identical byte
+sequences, and <EM>false</EM> otherwise.
+
+<P>
+<PRE>
+t_bool
+operator!=(t_text t1, t_text t2) =
+  operator!(operator==(t1, t2))
+</PRE>
+
+<P>
+<PRE>
+t_text
+operator+(t_text t1, t_text t2)
+</PRE>
+<BR>
+Returns the byte sequence formed by appending the byte sequence <EM>t2</EM>
+to the byte sequence <EM>t1</EM> (concatenation).
+
+<P>
+<PRE>
+t_int
+_length(t_text t)
+</PRE>
+<BR>
+Returns the number of bytes in the byte sequence <EM>t</EM>.
+
+<P>
+<PRE>
+t_text
+_elem(t_text t, t_int i)
+</PRE>
+<BR>
+If <IMG
+ WIDTH="58" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img130.png"
+ ALT="$0 \leq i &lt; $"> <TT>_length(<EM>t</EM>)</TT>,
+returns a byte sequence of length 1 consisting of byte <EM>i</EM>
+ of the byte sequence <EM>t</EM>.  Otherwise, returns the empty byte
+sequence.
+
+<P>
+<PRE>
+t_text
+_sub(t_text t, t_int start = 0, t_int len = _length(t)) =
+{
+  int w = _length(t);
+  int i = _min(_max(start, 0)), w);
+  int j = _min(i + _max(len, 0), w);
+  // 0 &lt;= i &lt;= j &lt;= _length(t); extract [i..j)
+  t_text r = "";
+  for (; i &lt; j; i++) r = operator+(r, _elem(t, i));
+  return r;
+}
+</PRE>
+<BR>
+Extracts from <EM>t</EM> and returns a byte sequence of length <EM>len</EM>
+beginning at byte <EM>start</EM>. Note the boundary cases defined by
+the pseudo-code; <TT>_sub</TT> produces a runtime error only if it
+is passed arguments of the wrong type.
+
+<P>
+<PRE>
+t_int
+_find(t_text t, t_text p, t_int start = 0) =
+{
+  int j = _length(t) - _length(p);
+  if (j &lt; 0) return -1;
+  int i = _max(start, 0);
+  if (i &gt; j) return -1;
+  for (; i &lt;= j; i++) {
+    int k = 0;
+    while (k &lt; _length(p) &amp;&amp; 
+           _elem(t, i+k) == _elem(p, k)) k++;
+    if (k == _length(p)) return i;
+  }
+  return -1;
+}
+</PRE>
+<BR>
+Finds the leftmost occurrence of <EM>p</EM> in <EM>t</EM> that begins at or
+after position <EM>start</EM>.  Returns the index of the first byte
+of the occurrence, or -1 if none exists.
+
+<P>
+<PRE>
+t_int
+_findr(t_text t, t_text p, t_int start = 0) =
+{
+  int j = _length(t) - _length(p);
+  if (j &lt; 0) return -1;
+  int i = _max(start, 0);
+  if (i &gt; j) return -1;
+  for (; i &lt;= j; j--) {
+    int k = 0;
+    while (k &lt; _length(p) &amp;&amp; 
+           _elem(t, j+k) == _elem(p, k)) k++;
+    if (k == _length(p)) return j;
+  }
+  return -1;
+}
+</PRE>
+<BR>
+Finds the rightmost occurrence of <EM>p</EM> in <EM>t</EM> that begins at or
+after position <EM>start</EM>.  Returns the index of the first byte
+of the occurrence, or -1 if none exists.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2448"
+  HREF="node154.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2444"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2438"
+  HREF="node152.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2446"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2449"
+  HREF="node154.html">Functions on Type t_list</A>
+<B> Up:</B> <A NAME="tex2html2445"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2439"
+  HREF="node152.html">Functions on Type t_int</A>
+ &nbsp <B>  <A NAME="tex2html2447"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

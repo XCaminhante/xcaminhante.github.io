@@ -1,0 +1,221 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (X11; U; OSF1 V4.0 alpha) [Netscape]">
+   <meta name="Author" content="Kenneth C. Schalk">
+   <meta name="Description" content="The little things you won't find in the manual but may need to know.">
+   <title>Vesta SDL reference - Important Points and Potential "Gotchas"</title>
+</head>
+<body bgcolor="#efefff">
+
+<h1>
+Important Points and Potential "Gotchas"</h1>
+Often the most important things about a language are the things the manual
+doesn't tell you.&nbsp; In other words, here are a few of those things
+which one could easily spend days trying to figure out.
+<ul>
+<li>
+<p>There is no way to compare <a href="data-types.html#text">text</a> values
+for lexical ordering.&nbsp; In other words, you can't sort a list of strings.</p></li>
+
+
+<li>
+<p>The <a href="statements.html#return"><tt>return</tt>/<tt>value</tt> statement</a>
+can only ever appear at the end of a block of statements; there is no analog
+of the C/C++ return statement that terminates execution of the function
+in which it appears.</p></li>
+
+<li>
+<p>Assignments are <a href="statements.html#Assignment">a type of statement</a>,
+but <b>not</b> a type of <i>expression</i>.&nbsp; (Easy to trip over if
+you're used to C/C++.)</p></li>
+
+<li>
+<p><a href="expressions.html#if"><tt>if</tt> is a type of expression</a>,
+but <b>not</b> a type of <i>statement</i>.&nbsp; (Another C/C++ gotcha.)</p></li>
+
+
+    <li>
+
+      <p>
+	<a href="expressions.html#Block">Statement blocks</a> <em>do
+	not have side effects</em>.&nbsp; In other words,
+
+	<a href="statements.html#Assignment">assignments</a> made
+	within a <a href="expressions.html#Block">statement block</a>
+	do not leave that block.&nbsp; For example:
+
+      </p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>foo = 1;
+
+bar = {
+  foo = 2;    // assignment local to statement block!
+  value foo;
+};
+
+// foo == 1
+// bar == 2</pre>
+</td></tr></table>
+
+      <p>
+
+	People who are used to imperative languages find this quite
+	confusing, particularly when using statement blocks as the
+	<tt>then</tt> and <tt>else</tt> portions of <a
+	href="expressions.html#if"><tt>if</tt> expressions</a>.&nbsp;
+	Adding to the confusion is the fact that
+
+	<a href="statements.html#Iteration">iteration statements</a>,
+	which also contain a block of statements, <strong>do</strong>
+	have side effects.
+      </p>
+
+    </li>
+
+<li>
+<p>There is no straightforward way to iterate over a range of integers or
+the characters in a text value.&nbsp; However, either of these could be
+accomplished through a recursive function, for instance:</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>range_iterate(start : int, end : int, step : int,
+              body : function(int)) : list
+{
+  return if (start &lt; end) then
+    {
+      result = &lt;body(start)>;
+      return result + range_iterate(start + step, end, step, body);
+    }
+    else &lt;>;
+};</pre>
+</td></tr></table>
+</li>
+
+<li>
+<p>Function calls are a type of expression, but <b>not</b> a type of <i>statement</i>.&nbsp;
+The most obvious one with which this is an issue is <tt><a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a></tt>.&nbsp;
+In order to call <tt><a href="primitive-functions/_assert-_print.html#_print(any,int,bool)">_print</a></tt>,
+you must do something with its return value, such as assign it to a variable:</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>_print("foo");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // This is a syntax error
+dummy = _print("foo");&nbsp;&nbsp;&nbsp; // This prints "foo" as well as assigning "foo" to the variable <b>dummy</b></pre>
+</td></tr></table>
+</li>
+
+<li>
+<p>Function declaration and iteration are statements, and all statements end
+with a semicolon. In other words, you need a semicolon following the close
+brace ending a function or iteration block:</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>foreach [ n = v ] in binding do
+{
+&nbsp;&nbsp;&nbsp; ...
+}; // Without this semi-colon, you'll get a syntax error.
+
+myFunc(n : int, s : text) : text
+{
+&nbsp;&nbsp;&nbsp; ...
+}; // Same thing here: no semi-colon = syntax error.</pre>
+</td></tr></table>
+</li>
+
+<li>
+<p>
+The Vesta SDL is a <a href="functional.html">pure
+functional language</a>. It's been dressed up to appear imperative (at
+least in some respects), but it has all the classic hallmarks of a functional
+language: no side effects, functions as first class values, etc.&nbsp; Once you
+realize the SDL is a functional language, a lot of things make more sense
+(for example, why <tt>if</tt> is an expression rather than a statement,
+and why you have to do something with the return value of <tt>_print</tt>).</p></li>
+
+<li>
+
+<p>
+Overlapping nested <a href="data-types.html#binding">binding</a> paths
+<b>do not merge</b>.&nbsp; It's possible to specify nested bindings by
+separating names with path delimiters, like this:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>[ Cxx/switches/program/debug = "-g" ] // Equivalent to: [ Cxx = [ switches = [ program = [ debug = "-g" ] ] ] ]</pre>
+</td></tr></table>
+
+<p>
+This is a very handy shortcut, and you'll see it used a lot.&nbsp; The
+problem is that it's very easy to write something like this:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>[ Cxx/switches/program/debug = "-g",
+&nbsp; Cxx/switches/program/shared_libs = "-non_shared" ]</pre>
+</td></tr></table>
+
+<p>
+If you have two paths in the same binding which overlap (as above), you'll
+get an evaluation error.&nbsp; Really what you want to do is use the recursive
+overlay operator, like this:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>[ Cxx/switches/program/debug = "-g" ] ++
+[ Cxx/switches/program/shared_libs = "-non_shared" ]</pre>
+</td></tr></table>
+
+<p>
+Or only write the shared part of the path once, like this:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>[ Cxx/switches/program = [ debug = "-g",
+                           shared_libs = "-non_shared" ] ]</pre>
+</td></tr></table>
+
+</li>
+
+<li>
+
+<p>
+The result of the <a href="expressions.html#Binding%20Lookup%20Operator">binding lookup operator</a> cannot be used on the left-hand side of an <a href="statements.html#Assignment">assignment statement</a> (i.e. is not an <a href="http://en.wikipedia.org/wiki/Lvalue#In_C:_L-value_and_r-value">l-value</a>).  In other words, you can't do this:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>b = [ x = 1 ];
+y = 2;
+b/x = y;</pre>
+</td></tr></table>
+
+<p>
+Instead you have to do somehting like this:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>b += [ x = y ];</pre>
+</td></tr></table>
+
+<p>
+This often comes up when modifying the special &quot;.&quot; variable:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>./envVars/PATH = "/bin:/usr/bin:/usr/local/bin"; // WRONG!
+
+. ++= [ envVars/PATH = "/bin:/usr/bin:/usr/local/bin" ]; // Right</pre>
+</td></tr></table>
+
+
+</li>
+
+</ul>
+
+<hr WIDTH="100%">
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i> &nbsp;
+/ <a href="index.html">Vesta SDL Programmer's Reference</a></i>
+</body>
+</html>

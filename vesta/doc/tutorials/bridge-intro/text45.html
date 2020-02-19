@@ -1,0 +1,24 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 46</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text44.html">Back</a> <a href="text46.html">Continue</a> <a href="text68.html">Last page</a> <a href="bridge-intro.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Investigating The Problem</h1><p>
+<ul><li><h2>Let's see what we imported:</h2>
+<li><h2>% ls -lR /vesta/example.com/platforms/linux/redhat/i386/components/grep/2.4.2-5/1/root</h2>
+<li><h2>/vesta/example.com/platforms/linux/redhat/i386/components/grep/2.4.2-5/1/root:</h2>
+<li><h2>total 1</h2>
+<li><h2>dr-xr-xr-x  1 ken root 512 May 27 14:43 bin</h2>
+<li><h2>/vesta/example.com/platforms/linux/redhat/i386/components/grep/2.4.2-5/1/root/bin:</h2>
+<li><h2>total 156</h2>
+<li><h2>-r-xr-xr-x  1 ken root 49244 May 27 14:43 egrep</h2>
+<li><h2>-r-xr-xr-x  1 ken root 49244 May 27 14:43 fgrep</h2>
+<li><h2>-r-xr-xr-x  1 ken root 49244 May 27 14:43 grep</h2>
+<li><h2>Sure enough, no /lib or /usr</h2>
+</ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

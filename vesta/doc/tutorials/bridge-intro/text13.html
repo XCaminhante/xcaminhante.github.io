@@ -1,0 +1,33 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 14</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text12.html">Back</a> <a href="text14.html">Continue</a> <a href="text68.html">Last page</a> <a href="bridge-intro.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Simple Bridge</h1><p>
+<ul><li><h2>{</h2>
+<li><h2>  // Search for pattern in file</h2>
+<li><h2>  grep(pattern: text, file: text): text</h2>
+<li><h2>  {</h2>
+<li><h2>    // Add the root for the tool and an empty working directory</h2>
+<li><h2>    . += [ root = [.WD=[]] + ./build_root(&lt;&quot;grep&quot;&gt;) ];</h2>
+<li><h2>    // Build a command line</h2>
+<li><h2>    cmd = &lt;&quot;grep&quot;, pattern&gt;;</h2>
+<li><h2>    // Run the tool</h2>
+<li><h2>    r = _run_tool(./target_platform, cmd,</h2>
+<li><h2>                  // Pass file as standard input</h2>
+<li><h2>                  file,</h2>
+<li><h2>                  // Capture standard output as a value</h2>
+<li><h2>                  &quot;value&quot;);</h2>
+<li><h2>    return (if r == ERR || r/signal != 0 then ERR</h2>
+<li><h2>            else r/stdout);</h2>
+<li><h2>  };</h2>
+<li><h2>  // The bridge model returns this binding.</h2>
+<li><h2>  return [ grep = [ grep ] ];</h2>
+<li><h2>}</h2>
+</ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

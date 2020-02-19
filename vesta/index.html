@@ -1,0 +1,505 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html  prefix="og: http://ogp.me/ns#" xmlns:og="http://ogp.me/ns#">
+  <head>
+    <title>Vesta Configuration Management System</title>
+    <meta property="og:title" content="Vesta Configuration Management System" />
+    <meta property="og:url" content="http://www.vestasys.org/" />
+    <meta property="og:image" content="http://www.vestasys.org/images/vestawall60t.gif" />
+    <meta property="og:description" content="Vesta is an advanced version control, configuration management and build automation system.  Its guarantees of build correctness and repeatability are unparalleled.  Vesta's ability to identify and eliminate redundant build work across teams can substantially reduce build times and lower compute costs." />
+  </head>
+
+  <body BGCOLOR="#efefff">
+
+<IMG ALT="Vesta Logo" SRC="images/vestawall60t.gif" ALIGN=MIDDLE>
+
+<H1>Welcome to the home page of the Vesta Configuration Management System!</H1>
+
+<H3>On this page:</H3>
+<UL>
+<LI><A HREF="index.html#project-summary">Project summary</A>
+<LI><A HREF="index.html#publications">Publications</A>
+<LI><A HREF="index.html#documentation">Reference documentation</A>
+<LI><A HREF="index.html#man-pages">Man pages</A>
+</UL>
+
+<H3>See also:</H3>
+<UL>
+
+<LI><A HREF="doc/getting-started.html">Getting Started with Vesta</A>
+(documentation on how to install and run Vesta)<br>
+<i>[New]</i>  Alternatively, you can try
+<a href="doc/getting-started-installable.html">install-able RedHat/Debian packages</a>.
+
+<LI><A HREF="http://wiki.vestasys.org/VestaFAQ">The Vesta FAQ</A>
+
+<LI><i>[New]</i> <A HREF="http://wiki.vestasys.org/">The Vesta Wiki</A>
+
+<LI><A HREF="why-vesta.html">Why You Should be Using Vesta</A> (our top ten reasons)
+
+<LI><A HREF="https://sourceforge.net/projects/vesta/">The Vesta SourceForge project page</A></li>
+
+<ul>
+
+<li><a href="https://sourceforge.net/project/showfiles.php?group_id=34164">Download the Vesta system</a></li>
+
+<li><a href="https://sourceforge.net/mail/?group_id=34164">Read or join our mailing lists</a></li>
+
+<li><a href="https://sourceforge.net/tracker/?group_id=34164">Report bugs or request features</a></li>
+
+</ul>
+
+<LI><A HREF="http://www.research.compaq.com/SRC/vesta/">The Vesta page at Compaq research</A>
+
+<LI><A HREF="doc/comparison.html">A comparison to other popular SCM systems</A>
+
+<LI><A HREF="http://www.scooter.cx/vestaweb/">A web interface to the Vesta repository</A> (<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org">Try it out!</a>)
+
+<li>
+
+<i>[New]</i> Discuss Vesta in
+
+<a href="irc://irc.vestasys.org/#vesta">the #vesta IRC channel on
+irc.vestasys.org</a>.  You can also read
+
+<a href="http://www.scooter.cx/~mozbot/">logs of conversations that
+have taken place on the IRC channel</a>.
+
+</li>
+
+<li><i>[New]</i> Monitor <a href="http://pub.vestasys.org/">the public repository</a> for new versions with RSS:</li>
+<ul>
+<li><a href="http://pub.vestasys.org/rss/vlatest-rss.xml">Just main-line versions</a></li>
+<li><a href="http://pub.vestasys.org/rss/vlatest-b-rss.xml">Main-line versions and branches</a></li>
+</ul>
+
+<li><a href="doc/porting-guide/index.html">How to port Vesta to a new platform</a></li>
+
+<LI><A HREF="other-vesta.html">Other things called
+&quot;Vesta&quot;</A> (or &quot;Whose van is that
+<i>really</i>?&quot;)
+
+<LI><A HREF="humor/index.html">Vesta-related humor and other nonsense</A> (for
+those with too much free time)
+
+</UL>
+
+<hr>
+
+<H2><A NAME="project-summary">Project summary</A></H2>
+
+<P>For substantial software systems (say, 500k source lines or
+larger), effective software configuration management (SCM) is a
+serious problem. It is not generally known how to make a configuration
+management system that is both easy to use and general enough to
+handle multi-million line software projects. As a result, the world is
+full of easy-to-use, small-scale configuration management tools and
+large-scale, hard-to-use ones.
+
+<P>Vesta is a portable SCM system targeted at supporting development
+of software systems of almost any size, from fairly small (under
+10,000 source lines) to very large (10,000,000 source lines).
+
+<P>Vesta is a mature system. It is the result of over 10 years of
+research and development at the Compaq/Digital Systems Research
+Center, and it was in production use by Compaq's Alpha microprocessor
+group for over two and a half years.  The Alpha group had over 150
+active developers at two sites thousands of miles apart, on the east
+and west coasts of the United States. The group used Vesta to manage
+builds with as much as 130 MB of source data, each producing 1.5 GB of
+derived data.  The builds done at the eastern site in an average day
+produced about 10-15 GB of derived data, all managed by
+Vesta. Although Vesta was designed with software development in mind,
+the Alpha group demonstrated the system's flexibility by using it for
+hardware development, checking their hardware description language
+files into Vesta's source code control facility and building
+simulators and other derived objects with Vesta's builder.  The
+members of the former Alpha group, now a part of Intel, are continuing
+to use Vesta today in a new microprocessor project.
+
+<p>In the latter half of 2001, Vesta was released by Compaq under <a
+href="http://www.gnu.org/licenses/lgpl.html">the GNU LGPL</a>.</p>
+
+<hr>
+
+<A NAME="publications"><IMG ALT="Vesta: Roman goddess" SRC="images/vesta-statue.png" ALIGN=MIDDLE>
+
+<H2>Publications</H2></A>
+
+There are several papers and other publications about Vesta 2:
+
+<OL>
+
+<LI>Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu.
+<BR><A HREF="http://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/abstracts/src-rr-168.html"><B>The Vesta Approach to Software Configuration Management</B> (abstract)</A>
+<a href="ftp://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/SRC-168.pdf">(pdf)</a> 
+<a href="http://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-168.pdf">(pdf, alternate host)</a> 
+<a href="ftp://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/SRC-168.ps">(postscript)</a> 
+
+<BR>Compaq Systems Research Center Research Report 168, March 9, 2001
+
+<P>An introduction to the main concepts used in Vesta. It describes
+Vesta's advantages over traditional software configuration management
+tools, how those benefits are achieved, and the system's overall
+performance.<P>
+
+<li>Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu.
+<br><a href="http://www.springer.com/sgw/cda/frontpage/0,11855,4-102-22-2307961-0,00.html">Software Configuration Management Using Vesta</a> (hardcover)
+<br>Springer-Verlag, 2006, ISBN: 0-387-00229-4
+
+<p>
+The definitive research report describing the entire system in detail. 
+This is the most complete reference for the system.  (Note that this
+is a research report, not a user's manual.)
+</p>
+
+<ol>
+
+<LI type=a>Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu.
+<BR><A HREF="http://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/abstracts/src-rr-177.html"><B>The Vesta Software Configuration Management System</B> (abstract)</a>
+<a href="ftp://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/SRC-177.pdf">(pdf)</a> 
+<a href="http://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-177.pdf">(pdf, alternate host)</a> 
+<a href="ftp://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/SRC-177.ps">(postscript)</a> 
+<BR>Compaq Systems Research Center Research Report 177, January 22, 2002, 231 pp. 
+
+<P>An earlier version of the book-length research report.
+<P>
+
+</ol>
+
+<LI>Allan Heydon, Jim Horning, Roy Levin, Timothy Mann, Yuan Yu.
+<BR><A HREF="http://gatekeeper.research.compaq.com/pub/DEC/SRC/technical-notes/SRC-1997-005c.html"><B>The Vesta-2 Software Description Language</B> (html)</A>
+<A HREF="http://gatekeeper.research.compaq.com/pub/DEC/SRC/technical-notes/abstracts/src-tn-1997-005.html">(abstract)</A> 
+<BR>Compaq Systems Research Center Technical Note 1997-005c, Revised June
+2, 1998.
+
+<P>A technical note defining the Vesta software description language.
+Slightly outdated.  Refer to the <A
+HREF="doc/sdl-spec/index.html">language specification</A> instead.<P>
+
+<LI>Timothy Mann.
+<BR><A HREF="http://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/abstracts/src-rr-172.html"><B>Partial Replication in the Vesta Software Repository</B> (abstract)</A> 
+<a href="ftp://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/SRC-172.pdf">(pdf)</a> 
+<a href="http://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-172.pdf">(pdf, alternate host)</a> 
+<a href="ftp://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/SRC-172.ps">(postscript)</a> 
+<BR>Compaq Systems Research Center Research Report 172, August 17, 2001.
+
+<P>This report explains the concepts behind Vesta's replication
+capabilities, which are central to distributed development using
+Vesta.<P>
+
+<LI>Allan Heydon, Roy Levin, Yuan Yu.
+<!-- Originally: http://www.research.compaq.com/SRC/vesta/pubs/pldi-00-04-20.pdf -->
+<BR><A HREF="doc/pubs/pldi-00-04-20.pdf"><B>Caching Function Calls Using Precise Dependencies</B> (pdf)</A>
+<!-- Originally: http://www.research.compaq.com/SRC/vesta/pubs/pldi-00-04-20.ps -->
+<A HREF="doc/pubs/pldi-00-04-20.ps">(postscript)</A>
+<BR>Appeared in <I>Programming Language Design and Implementation
+2000</I>. 
+
+<P>A technical paper on fine-grained dependency analysis and caching.
+These techniques are the basis for Vesta's incremental build support.
+<P>
+
+<LI> Kenneth Schalk
+<BR><A HREF="doc/pubs/codecon-2004/index.html">Presentation from CodeCon 2004 (html)</A>
+
+<P>Slides describing Vesta presented at CodeCon 2004.
+<P>
+
+</OL>
+
+<hr>
+
+<A NAME=documentation><IMG ALT="To the Vesta-mobile!" SRC="images/Vesta-car2.gif" ALIGN=MIDDLE>
+
+<H2>Reference documentation</H2></A>
+
+<UL>
+
+<li>Tutorials</li>
+<ul>
+<LI><A HREF="doc/tutorial.html">User's Tutorial</A>
+
+<P>This document walks you through an example use of Vesta. The
+tutorial covers the main commands you'll need to know as a Vesta user.</P></li>
+
+<LI><i>Introduction to SDL</i> <A HREF="doc/tutorials/sdl-intro/index.html">HTML</A> <A HREF="doc/tutorials/sdl-intro.pdf">PDF</A> <i>[New]</i>
+
+<p>This set of slides is designed as a short class (2 hours) to
+introduce new users to the Vesta System Description Language.  (See
+also the <A HREF="doc/sdl-ref/index.html">language reference</a> below.)  The
+examples from these slides can found in the package
+
+<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/examples/sdl_intro">/vesta/vestasys.org/examples/sdl_intro</a>
+
+which can be <A HREF="doc/man/html/vrepl.1.html">replicated</a> from
+<tt>pub.vestasys.org</tt> .</p></li>
+
+<LI><i>Writing Vesta Bridges</i> <A HREF="doc/tutorials/bridge-intro/index.html">HTML</A> <A HREF="doc/tutorials/bridge-intro.pdf">PDF</A> <i>[New]</i>
+
+<p>This set of slides is designed as a short class (2 hours) to
+introduce people to integrating new tools and tool flows into Vesta
+builds.  This assumes some initial knowledge about SDL, so going
+through the previous set of slides first may help.  (See also the
+<A HREF="doc/sdl-ref/index.html">language reference</a> below.)  The examples
+from these slides can found in the package
+
+<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/examples/bridge_intro">/vesta/vestasys.org/examples/bridge_intro</a>
+
+which can be <A HREF="doc/man/html/vrepl.1.html">replicated</a> from
+<tt>pub.vestasys.org</tt> .</p></li>
+
+</ul>
+
+<LI><A HREF="doc/command-summary.html">Command Summary</A>
+
+<P>This document summarizes the most common Vesta commands.<P>
+
+<LI><A HREF="doc/sdl-ref/index.html">Language Reference</A>
+
+<P>This is a reference guide to the Vesta System Description Language,
+which is how builds are described under Vesta.  (It still needs some
+work in a few places.)  There is also the more precise <A
+HREF="doc/sdl-spec/index.html">technical specification of the SDL</A>, but it's
+not terribly useful until you have a basic grasp of the language.
+<P>
+
+<LI><A HREF="doc/sdl-spec/index.html">Language Specification</A>
+
+<P>This is a complete and precise specification of the Vesta SDL.
+Also appears as Appendix A of <a
+href="http://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/abstracts/src-rr-177.html">the
+book-length research report</a>.  (Note: this is not a guide for new
+users.  For that, see the <A HREF="doc/sdl-ref/index.html">language
+reference</A>.)
+<P>
+
+<li>
+<p>
+Usage notes: short documents on tips, tricks, and
+advanced usage.
+</p>
+</li>
+
+<ul>
+
+<li>
+<a href="doc/notes/ship-release/index.html">Upgrading Vesta by Shipping a New
+Release</a>.  Why waste time and bandwidth downloading new binaries
+when Vesta guarantees that you build precisely the same thing?
+</li>
+
+<li>
+<a href="doc/notes/samba/index.html">Re-exporting the repository with Samba</a>.
+A simple method that allows Windows clients to read and write files in
+the Vesta repository.
+</li>
+
+<li>
+<i>[New]</i> <a href="doc/notes/ssh-repl/index.html">Replicating Over SSH
+Port-Forwarding</a>.  When firewalls get in the way of replicating,
+securely tunnel your replication with SSH.
+</li>
+
+</ul>
+
+<li>
+<p>
+API documentation.  (If you're interested in modifying or extending
+Vesta, you might want to start here.)
+</p>
+</li>
+
+<ul>
+
+<li>
+<a href="doc/api-ref/vcheckout-dissection.html"><tt>vcheckout</tt>
+dissection</a>.  A detailed look at the implementation of
+<tt>vcheckout</tt>.
+</li>
+
+</ul>
+
+</ul>
+
+<hr>
+
+<H2><A NAME="man-pages">Man pages</A></H2>
+
+Most components of the system are documented by man pages in html
+format, some of which have helpful diagrams.
+
+<UL>
+<LI>Introduction and glossary:
+<A HREF="doc/man/html/vesta-intro.1.html">vesta-intro(1)</A><P>
+
+<LI>Standard Construction Environment
+<UL>
+<LI>Writing standard user models:
+<A HREF="doc/man/html/vmodels.5.html">vmodels(5)</A>
+<LI>Organization of libraries in Vesta:
+<A HREF="doc/man/html/vlibraries.5.html">vlibraries(5)</A>
+<LI>Building with overrides:
+<A HREF="doc/man/html/voverrides.5.html">voverrides(5)</A>
+<LI>Standard types:
+<A HREF="doc/man/html/vtypes.5.html">vtypes(5)</A>
+</UL>
+<P>
+<LI>Evaluator
+<UL>
+<LI>Delete junk, advance to the next version, and run the evaluator:
+<A HREF="doc/man/html/vmake.1.html">vmake(1)</A>
+<LI>Just run the evaluator:
+<A HREF="doc/man/html/vesta.1.html">vesta(1)</A>
+<LI>Determine model imports:
+<A HREF="doc/man/html/vimports.1.html">vimports(1)</A>
+<LI>Update model imports:
+<A HREF="doc/man/html/vupdate.1.html">vupdate(1)</A>
+<LI>Start a RunToolServer for running external tools:
+<A HREF="doc/man/html/RunToolServer.1.html">RunToolServer(1)</A>
+</UL>
+<P>
+<LI>Repository user interface
+<UL>
+<LI>Overview: 
+<A HREF="doc/man/html/repos-ui.1.html">repos-ui(1)</A>
+<LI>Create a directory:
+<A HREF="doc/man/html/vmkdir.1.html">vmkdir(1)</A> <i>[New in release/8]</i>
+<LI>Delete a file or directory:
+<A HREF="doc/man/html/vrm.1.html">vrm(1)</A> <i>[New in release/11]</i>
+<LI>Create a package:
+<A HREF="doc/man/html/vcreate.1.html">vcreate(1)</A>
+<LI>Check out a package:
+<A HREF="doc/man/html/vcheckout.1.html">vcheckout(1)</A>
+<LI>Advance a checkout session:
+<A HREF="doc/man/html/vadvance.1.html">vadvance(1)</A>
+<LI>Check in a package:
+<A HREF="doc/man/html/vcheckin.1.html">vcheckin(1)</A>
+<LI>Create a branch:
+<A HREF="doc/man/html/vbranch.1.html">vbranch(1)</A>
+<LI>Who has packages checked out:
+<A HREF="doc/man/html/vwhohas.1.html">vwhohas(1)</A>
+<LI>Find latest package versions:
+<A HREF="doc/man/html/vlatest.1.html">vlatest(1)</A>
+<LI>Show the history of a package:
+<A HREF="doc/man/html/vhistory.1.html">vhistory(1)</A> <i>[New in release/11]</i>
+<LI>Manipulate mutable attributes:
+<A HREF="doc/man/html/vattrib.1.html">vattrib(1)</A>
+<LI>Replicate sources from one repository to another:
+<A HREF="doc/man/html/vrepl.1.html">vrepl(1)</A>
+<LI>Transfer mastership between repositories:
+<A HREF="doc/man/html/vmaster.1.html">vmaster(1)</A>
+<LI>Expand a pattern using the same syntax as vrepl:
+<A HREF="doc/man/html/vglob.1.html">vglob(1)</A> <i>[New in release/11]</i>
+</UL>
+<P>
+<LI>Repository server
+<UL>
+<LI>Main program:
+<A HREF="doc/man/html/repository.8.html">repository(8)</A>
+<LI>Ancillary shell scripts:
+<A HREF="doc/man/html/mountrepos.8.html">mountrepos(8)</A>,
+<A HREF="doc/man/html/umountrepos.8.html">umountrepos(8)</A>
+<LI>Access control utilities:
+<A HREF="doc/man/html/vid.1.html">vid(1)</A> <i>[New in release/8]</i>,
+<A HREF="doc/man/html/vaccessrefresh.8.html">vaccessrefresh(8)</A> <i>[New in release/8]</i>
+<LI>Test programs:
+<A HREF="doc/man/html/TestShortId.8.html">TestShortId(8)</A>,
+<A HREF="doc/man/html/TestVDirSurrogate.8.html">TestVDirSurrogate(8)</A>
+</UL>
+<P>
+<LI>Cache server
+<UL>
+<LI>Main program:
+<A HREF="doc/man/html/VCache.1.html">VCache(1)</A>
+<LI>Identify the cache:
+<A HREF="doc/man/html/WhichCache.1.html">WhichCache(1)</A>
+<LI>List/erase stable cache files:
+<A HREF="doc/man/html/CleanCache.1.html">CleanCache(1)</A>,
+<A HREF="doc/man/html/EraseCache.1.html">EraseCache(1)</A>,
+<A HREF="doc/man/html/ShowCache.1.html">ShowCache(1)</A>
+<LI>Monitor a running cache:
+<A HREF="doc/man/html/VCacheMonitor.1.html">VCacheMonitor(1)</A>
+<LI>Configure the cache:
+<A HREF="doc/man/html/CreateCacheDirs.1.html">CreateCacheDirs(1)</A>
+<LI>Flush volatile cache entries to stable cache:
+<A HREF="doc/man/html/FlushCache.1.html">FlushCache(1)</A>
+<LI>Print statistics about the contents of the stable cache:
+<A HREF="doc/man/html/VCacheStats.1.html">VCacheStats(1)</A>
+<LI>Examine cache files:
+<A HREF="doc/man/html/PrintCacheLog.1.html">PrintCacheLog(1)</A>,
+<A HREF="doc/man/html/PrintGraphLog.1.html">PrintGraphLog(1)</A>,
+<A HREF="doc/man/html/PrintMPKFile.1.html">PrintMPKFile(1)</A>
+<LI>Manually checkpoint the cache:
+<A HREF="doc/man/html/ChkptCache.1.html">ChkptCache(1)</A>
+<LI>Test programs:
+<A HREF="doc/man/html/TestCache.1.html">TestCache(1)</A>,
+<A HREF="doc/man/html/TestCacheRandom.1.html">TestCacheRandom(1)</A>
+</UL>
+<P>
+<LI>Weeder
+<UL>
+<LI>Real weeder:
+<A HREF="doc/man/html/VestaWeed.1.html">VestaWeed(1)</A>
+<LI>Conservative weeder:
+<A HREF="doc/man/html/QuickWeed.1.html">QuickWeed(1)</A>
+</UL>
+<P>
+<LI>Miscellaneous
+<UL>
+<LI>The Vesta config file:
+<A HREF="doc/man/html/vesta.cfg.5.html">vesta.cfg(5)</A>
+<LI>Read the Vesta config file:
+<A HREF="doc/man/html/vgetconfig.1.html">vgetconfig(1)</A>
+<LI>Vesta mount program:
+<A HREF="doc/man/html/vmount.8.html">vmount(8)</A>
+<LI>Simple tools for VestaLog atomically appendable logs:
+<A HREF="doc/man/html/vdumplog.8.html">vdumplog(8)</A>,
+<A HREF="doc/man/html/vappendlog.8.html">vappendlog(8)</A>
+</UL>
+</UL>
+    <hr>
+
+<center>
+
+<p>
+Hosting donated by:
+</p>
+
+<blockquote>
+<a href="http://www.enertronllc.com/">Enertron LLC</a>
+and
+<A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=34164"
+     width="88" height="31" border="0" alt="SourceForge Logo" align=middle></A>
+</blockquote>
+
+<p>
+Hardware, and original research, provided by:
+</p>
+
+<blockquote>
+<A href="http://www.compaq.com/"><img src="images/compaq-logo.png" alt="Compaq Logo" border="0" align=middle></a>
+(formerly <img src="images/dec-logo.png" alt="DEC Logo" align=middle>)
+</blockquote>
+
+<p>
+Several components of Vesta use <a
+href="http://www.hpl.hp.com/personal/Hans_Boehm/gc/">the
+Boehm-Demers-Weiser conservative garbage collector</a>.
+</p>
+
+<p>
+Some components of Vesta use <a
+href="http://www.gzip.org/zlib/">zlib</a> for compression.
+</p>
+
+</center>
+
+    <hr>
+<!-- Created: Sat Sep  1 19:29:55 EDT 2001 -->
+<i>
+<!-- hhmts start -->
+Last modified: Wed Mar 29 22:59:42 EST 2006
+<!-- hhmts end -->
+</i>
+  </body>
+</html>

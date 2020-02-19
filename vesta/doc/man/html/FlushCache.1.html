@@ -1,0 +1,102 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>FlushCache(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>FlushCache(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+FlushCache - flush volatile Vesta cache entries to the stable cache
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>FlushCache</B>
+[ <B>-n</B> ]
+</BLOCKQUOTE>
+
+<H3>Description</H3>
+<BLOCKQUOTE>
+<P>
+
+<I>FlushCache</I> invokes the <I>FlushAll</I> method of the Vesta-2
+cache server named in the user's Vesta-2 configuration file.<P>
+
+By default, <I>FlushCache</I> flushes any cache entries currently stored
+only in the cache server's volatile (in-memory) cache to the cache
+server's stable cache on disk. These entries will then appear in the
+cache's so-called MultiPKFiles, which are read by programs like
+<A HREF="PrintMPKFile.1.html">PrintMPKFile(1)</A> and
+<A HREF="VCacheStats.1.html">VCacheStats(1)</A>. Since it involves reading
+and writing potentially many files, <I>FlushCache</I> may take a fair
+amount of time to complete.<P>
+
+If <B>-n</B> is specified, the name and port number of the cache that
+would be flushed is printed, but no action is taken.
+</BLOCKQUOTE>
+
+<H3><A NAME="ConfigSect">Configuration Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Like most Vesta-2 applications, <I>FlushCache</I> reads site-specific
+configuration information from a Vesta-2 <I>configuration file</I> named
+<I>vesta.cfg</I>. The program first looks for this file in the
+current directory; if none is found there, it looks in your home
+directory.<P>
+
+The configuration file is divided into a number of sections, denoted
+in the file by <TT>[</TT><I>SectionName</I><TT>]</TT>. The variables used by
+<I>FlushCache</I> are in the section denoted by <TT>[CacheServer]</TT>. Here
+are the variables and their meanings; the types of the variables are
+shown in parentheses.<P>
+
+<DL>
+<DT><TT>Host</TT> (string)<DD>
+The hostname of the machine on which the cache server is running.<P>
+
+<DT><TT>Port</TT> (integer)<DD>
+The port number on host named by <I>Host</I> to contact. This allows
+multiple cache servers to be running on the same machine; each one
+listens on a different port for connections.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3>See Also</H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="VCache.1.html">VCache(1)</A>,
+<A HREF="ChkptCache.1.html">ChkptCache(1)</A>,
+<A HREF="PrintMPKFile.1.html">PrintMPKFile(1)</A>,
+<A HREF="VCacheStats.1.html">VCacheStats(1)</A>.
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Last modified on Thu Nov  8 12:40:15 EST 2001 by ken@xorian.net
+     modified on Fri Feb 28 10:50:43 PST 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>
+TML>

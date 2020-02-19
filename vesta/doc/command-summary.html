@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<HEAD>
+<TITLE>Summary of Vesta Commands</TITLE>
+</HEAD>
+<BODY BGCOLOR="#efefff">
+
+<H1>Summary of Vesta Commands</H1>
+
+<P>This document summarizes the most common Vesta commands.</P>
+
+<H3>Contents</H3>
+
+<UL>
+<LI> <A HREF="command-summary.html#Notation">Notation</A>
+<LI> <A HREF="command-summary.html#NewPackageParent">Creating a new package-parent
+directory using mkdir(1) and vattrib(1)</A>
+<LI> <A HREF="command-summary.html#NewPackage">Creating a new package using vcreate(1)</A>
+<LI> <A HREF="command-summary.html#CheckoutPackage">Checking out a package using vcheckout(1)</A>
+<LI> <A HREF="command-summary.html#CheckinPackage">Checking in a package using vcheckin(1)</A>
+<LI> <A HREF="command-summary.html#NewBranch">Creating a package branch using vbranch(1)</A>
+<LI> <A HREF="command-summary.html#CheckoutBranch">Checking out a package branch using
+vcheckout(1)</A>
+<LI> <A HREF="command-summary.html#CheckinBranch">Checking in a package branch using
+vcheckin(1)</A>
+<LI> <A HREF="command-summary.html#Building">Advancing and building a package using vmake(1)</A>
+<LI> <A HREF="command-summary.html#Update">Updating a package's imports using vupdate(1)</A>
+<LI> <A HREF="command-summary.html#Imports">Listing a package's imports using vimports(1)</A>
+<LI> <A HREF="command-summary.html#Ship">Shipping package derived files using vmake(1)</A>
+</UL>
+
+<H3><A NAME=Notation>Notation</A></H3>
+
+<P>In the following examples:</P>
+
+<UL>
+<LI>
+<I>site</I> denotes the name of the site where the repository is
+installed. For example, the SRC site is <TT>src.dec.com</TT>.
+<LI>
+<I>pp</I> denotes the name of a <I>package-parent</I> directory; that is,
+a directory in which packages can be created. Package parents at
+a given site typically have names like
+<TT>/vesta/</TT><I>site</I><TT>/</TT><I>pp</I>.
+<LI>
+<I>pkg</I> denotes the basename of a package; the full name of this
+package would look like 
+<TT>/vesta/</TT><I>site</I><TT>/</TT><I>pp</I><TT>/</TT><I>pkg</I>.
+<LI>
+<I>username</I> denotes your user name.
+</UL>
+
+<H3><A NAME=NewPackageParent>Creating</A> a new package-parent
+directory using mkdir(1) and
+<A HREF="man/html/vattrib.1.html">vattrib(1)</A></H3>
+
+<OL>
+<LI> <TT>cd /vesta/</TT><I>site</I>
+<LI> <TT>mkdir </TT><I>pp</I>
+<LI> <TT>vattrib -s type package-parent </TT><I>pp</I>
+</OL>
+
+<H3><A NAME=NewPackage>Creating</A> a new package using
+<A HREF="man/html/vcreate.1.html">vcreate(1)</A></H3>
+
+<OL>
+<LI> vcreate <I>pp</I>/<I>pkg</I>
+</OL>
+
+<H3><A NAME=CheckoutPackage>Checking</A> out a package using
+<A HREF="man/html/vcheckout.1.html">vcheckout(1)</A></H3>
+
+<OL>
+<LI> <TT>vcheckout </TT><I>pp</I><TT>/</TT><I>pkg</I>
+<LI> <TT>cd /vesta-work/</TT><I>username</I><TT>/</TT><I>pkg</I>
+</OL>
+
+<P>The first step creates the directory named <I>pkg</I> in
+/vesta-work/<I>username</I>. You can then cd into that directory to do
+builds from it.</P>
+
+<H3><A NAME=CheckinPackage>Checking</A> in a package using
+<A HREF="man/html/vcheckin.1.html">vcheckin(1)</A></H3>
+
+<OL>
+<LI> <TT>cd /vesta-work/</TT><I>username</I><TT>/</TT><I>pkg</I>
+<LI> <TT>vcheckin</TT>
+<LI> <TT>cd</TT>
+</OL>
+
+<P>The second step deletes your current directory
+/vesta-work/<I>username</I>/<I>pkg</I>, so afterwards
+you will usually want to cd into some other directory, as
+shown in the third step.</P>
+
+<H3><A NAME=NewBranch>Creating</A> a package branch using
+<A HREF="man/html/vbranch.1.html">vbranch(1)</A></H3>
+
+<P>The most common case is to create a branch off the main line of a
+package. For example, let <I>NN</I> denote a package version number.
+To create a branch named <I>NN</I><TT>.bugfix</TT> off of the main package
+version <I>pp</I>/<I>pkg</I>/<I>NN</I>, do:</P>
+
+<OL>
+<LI> <TT>vbranch </TT><I>pp</I>/<I>pkg</I>/<I>NN</I><TT>.bugfix</TT>
+</OL>
+
+<P>For example, the following command creates a branch off of the
+<TT>vesta/eval</TT> package:</P>
+
+<PRE>
+  $ vbranch vesta/eval/47.bugfix
+  Creating branch /vesta/src.dec.com/vesta/eval/47.bugfix
+</PRE>
+
+<P>The new directory /vesta/src.dec.com/vesta/eval/47.bugfix is like
+its own package: it has its own version numbers and its own
+<TT>checkout</TT> sub-directory. See the
+<A HREF="man/html/vbranch.1.html">vbranch(1) man page</A> for details.</P>
+
+<H3><A NAME=CheckoutBranch>Checking</A> out a package branch using
+<A HREF="man/html/vcheckout.1.html">vcheckout(1)</A></H3>
+
+<P>Checking out a branch is essentially the same as checking out a
+regular package.  Let <I>branch</I> be the name of a main-line package
+branch in the package <I>pp</I>/<I>pkg</I>. The following commands
+check out the package, using the name <I>pkg</I> for the local working
+directory.</P>
+
+<OL>
+<LI> <TT>vcheckout </TT><I>pp</I><TT>/</TT><I>pkg</I><TT>/</TT><I>branch</I>
+<LI> <TT>cd /vesta-work/</TT><I>username</I><TT>/</TT><I>pkg</I>
+</OL>
+
+<P>If there is already a working directory named <I>pkg</I>, an
+alternative new name like <I>pkg</I><TT>.1</TT> is automatically
+synthesized.
+
+<P>Continuing the branch example from above, the following commands
+would checkout out the new branch:</P>
+
+<PRE>
+  $ cd /vesta-work/heydon
+  $ vbranch vesta/eval/47.bugfix
+  Reserving version /vesta/src.dec.com/vesta/eval/47.bugfix/1
+  Creating session /vesta/src.dec.com/vesta/eval/47.bugfix/checkout/1
+  Making working directory /vesta-work/heydon/eval
+  $ cd eval
+</PRE>
+
+<H3><A NAME=CheckinBranch>Checking</A> in a branch using
+<A HREF="man/html/vcheckin.1.html">vcheckin(1)</A></H3>
+
+<P>Checking in a package branch works identically to checking in a
+regular package version.</P>
+
+<OL>
+<LI> <TT>cd /vesta-work/</TT><I>username</I><TT>/</TT><I>pkg</I>
+<LI> <TT>vcheckin</TT>
+</OL>
+
+<P>Continuing the branch example from above, here is the output
+produced by checking in the branch:
+
+<PRE>
+  $ cd /vesta-work/heydon/eval
+  $ vcheckin
+  Checking in /vesta/src.dec.com/vesta/eval/47.bugfix/1
+  Deleting /vesta-work/heydon/eval
+  $ cd
+</PRE>
+
+<H3><A NAME=Building>Advancing</A> and building a package using
+<A HREF="man/html/vmake.1.html">vmake(1)</A></H3>
+
+<OL>
+<LI> <TT>cd /vesta-work/</TT><I>username</I><TT>/</TT><I>pkg</I>
+<LI> <TT>vmake</TT>
+</OL>
+
+The <A HREF="man/html/vmake.1.html">vmake(1)</A> command deletes the backup files in the package, advances
+it using
+<A HREF="man/html/vadvance.1.html">vadvance(1)</A>, and invokes the vesta evaluator
+<A HREF="man/html/vesta.1.html">vesta(1)</A> on it. vadvance(1) creates a copy of the working version in
+the checkout directory
+/vesta/<I>site</I>/<I>pp</I>/<I>pkg</I>/checkout/<I>maj</I>/<I>min</I>,
+where <I>maj</I> is the major package version you are working on, and
+<I>min</I> is the new sub-version number.</P>
+
+<H3><A NAME=Update>Updating</A> a package's imports using
+<A HREF="man/html/vupdate.1.html">vupdate(1)</A></H3>
+
+<OL>
+<LI> <TT>cd /vesta-work/</TT><I>username</I><TT>/</TT><I>pkg</I>
+<LI> <TT>vupdate</TT>
+</OL>
+
+<P>By default, vupdate(1) updates the imports of the package's
+<TT>.main.ves</TT> model only. To update other models within
+the package, use the <B>-r</B> switch. To see what vupdate would
+do without making any changes, use the <B>-n</B> switch.</P>
+
+<H3><A NAME=Imports>Listing</A> a package's imports using
+<A HREF="man/html/vimports.1.html">vimports(1)</A></H3>
+
+<P>The vimports(1) program lists the models imported directly or
+indirectly by a model. It can be used both on checked in and checked
+out packages. To see the transitive closure of the imports of a
+checked-out package, do:</P>
+
+<OL>
+<LI> <TT>cd /vesta-work/</TT><I>username</I><TT>/</TT><I>pkg</I>
+<LI> <TT>vimports .main.ves</TT>
+</OL>
+
+<P>The output produced by <I>vimports</I> can be quite verbose. The
+program includes several options for eliding parts of its output.
+The <TT>-depth</TT> option elides all imports below a certain depth.
+The <TT>-show</TT> option can then be used to selectively show the
+imports below some package. See the man page for details.
+
+<H3><A NAME=Ship>Shipping</A> package derived files using
+<A HREF="man/html/vmake.1.html">vmake(1)</A></H3>
+
+<P>To use access the derived files produced by a package build, you
+have to instruct the evaluator to copy (parts of) the build's result
+binding into your normal file system. This is done using the
+evaluator's <B>-shipfrom</B> and <B>-shipto</B> arguments.</P>
+
+<OL>
+<LI> <TT>cd /vesta-work/</TT><I>username</I><TT>/</TT><I>pkg</I>
+<LI> <TT>vmake -shipfrom </TT><I>src</I><TT> -shipto </TT><I>dest</I>
+</OL>
+
+<P>Here, <I>src</I> is the (sub-)binding within the package result to
+be shipped, and <I>dest</I> is the destination directory in the normal
+file system to which the result should be copied. To create symbolic
+links rather than full copies, use the <B>-s</B> switch. Warning:
+the referents of such symbolic links may be deleted by the weeder, so
+the <B>-s</B> switch should be used only to ship test versions of
+deriveds for temporary use.</P>
+
+<P>For example, the result value produced by building the
+<TT>examples/hello_c</TT> package is a singleton binding containing
+the name <I>progs</I>. Here's the result value as printed by the
+evaluator:</P>
+
+<PRE>
+  Return value of `.main.ves':
+    [ progs=[ hello=<FILE 0X8E97FC5E> ] ]
+</PRE>
+
+<P>To ship the <I>hello</I> executable to the directory <I>~/bin</I>,
+you would run:</P>
+
+<PRE>
+  vmake -shipfrom progs -shipto ~/bin
+</PRE>
+
+<P>To create a symbolic link rather than a full copy, use the
+<B>-s</B> switch:</P>
+
+<PRE>
+  vmake -s -shipfrom progs -shipto ~/bin
+</PRE>
+
+<H3>Author</H3>
+
+<P>Allan Heydon (caheydon&#64;yahoo&#46;com)</P>
+
+<HR>
+
+<!-- hhmts start -->
+Last modified: Mon Oct 13 11:31:19 EDT 2003
+<!-- hhmts end -->
+
+</BODY>
+</HTML>

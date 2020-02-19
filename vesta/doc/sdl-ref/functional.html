@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Vesta SDL is a Functional Language</title>
+  </head>
+
+  <body BGCOLOR="#efefff">
+    <h1>Vesta SDL is a Functional Language</h1>
+
+    <p>
+      In a
+
+      <a href="http://en.wikipedia.org/wiki/Functional_programming">functional programming</a>
+
+      language, function calls do not have side-effects.&nbsp; In
+      other words, there are no global variables, and a function
+      cannot change the value of variables in the calling scope.&nbsp;
+      A function's only inputs are its arguments, and a function's
+      only output is its result value.
+    </p>
+
+    <p>
+      Most programmers are more familiar with
+
+      <a href="http://en.wikipedia.org/wiki/Imperative_programming">imperative programming</a>.&nbsp;
+ 
+      BASIC, Pascal, C, C++, Java, Perl, Python, and Tcl are all
+      imperative programming languages (and there are many more).
+    </p>
+
+    <h2>Traps for Imperative Programmers</h2>
+
+    <p>
+      There are several aspects of Vesta SDL which may be confusing to
+      people used to imperative programming languages:
+    </p>
+
+    <ul>
+
+      <li>
+	<a href="expressions.html#Block">Statement blocks</a> <em>do
+	not have side effects</em>.&nbsp; In other words,
+
+	<a href="statements.html#Assignment">assignments</a> made
+	within a statement block do not leave that block.
+      </li>
+
+      <li>
+	Function calls are <a href="expressions.html#FunctionCall">a
+	type of expression</a>, but <b>not</b> a type of
+	<i>statement</i>.&nbsp; Something must be done with the return
+	value of every function call (such as assigning it to a
+	variable).
+      </li>
+
+      <li>
+	The
+
+	<a href="statements.html#return"><tt>return</tt>/<tt>value</tt> statement</a>
+
+	can only ever appear at the end of the block of statements in
+	the body of a <a href="statements.html#FuncDef">function
+	definition</a> or at the end of a
+
+	<a href="expressions.html#Block">statement block
+	expression</a>.
+      </li>
+
+      <li>
+	Assignments are <a href="statements.html#Assignment">a type of
+	statement</a>, but <b>not</b> a type of <i>expression</i>.
+      </li>
+
+      <li>
+	<a href="expressions.html#if"><tt>if</tt> is a type of
+	expression</a>, but <b>not</b> a type of <i>statement</i>.
+      </li>
+
+    </ul>
+
+    <p>
+      See <a href="gotchas.html">the &quot;Gotchas&quot; page</a> for
+      more on these and other things that may cause confusion.
+    </p>
+
+    <h2>Syntactic Sugar</h2>
+
+    <p>
+      Vesta SDL has a few features which make it seem to be imperative
+      in some ways.&nbsp; Specifically:
+    </p>
+
+    <ul>
+      <li>
+	<a href="statements.html#Assignment">Assignment
+	statements</a>, as they appear to change the value of a
+	variable.&nbsp; (Really they introduce a new variable of the
+	same name that shadows the old one.)
+      </li>
+
+      <li>
+	Similarly, <a href="statements.html#Iteration">iteration</a>
+	is another method for introducing a new scope.&nbsp; Each
+	iteration creates a scope for the loop control variables that
+	shadows those from previous iterations.&nbsp; (Most functional
+	languages lack iteration constructs, and recursion must be
+	used instead.)
+      </li>
+    </ul>
+
+    <h2>Language Implementation Details</h2>
+
+    <p>
+      The current implementation uses
+
+      <a href="http://en.wikipedia.org/wiki/Eager_evaluation">eager evalution</a>.
+
+      The main performance optimizations it uses are:
+    </p>
+
+    <ul>
+
+      <li>
+
+	<a href="http://en.wikipedia.org/wiki/Memoization">Memoization</a>,
+
+	through the <a href="../man/html/VCache.1.html">cache
+	server</a>.&nbsp; (It's worth noting that this is a shared,
+	persistent memoization mechanism.)
+
+      </li>
+
+      <li>
+
+	Multi-threaded evaluation with the
+
+	<a href="primitive-functions/_map-_par_map.html#_par_map(function,list)"><tt>_par_map</tt> primitive function</a>.
+
+      </li>
+
+    </ul>
+
+    <hr>
+    <address>Kenneth C. Schalk &lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</address>
+<!-- Created: Fri Dec 24 10:57:04 EST 2004 -->
+<!-- hhmts start -->
+Last modified: Fri Dec 24 20:19:17 EST 2004
+<!-- hhmts end -->
+  </body>
+</html>

@@ -1,0 +1,435 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>VCache(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>VCache(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+VCache - the Vesta-2 function cache server
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>VCache</B>
+[ <A HREF="VCache.1.html#DebugOption"><B>-debug</B> <I>level</I></A> ]
+[ <A HREF="VCache.1.html#NoHitsOption"><B>-noHits</B></A> ]
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="VCache.1.html#DescSect">Description</A>
+<LI> <A HREF="VCache.1.html#OptionsSect">Options</A>
+<LI> <A HREF="VCache.1.html#ConfigSect">Configuration Variables</A>
+<LI> <A HREF="VCache.1.html#FilesSect">Files</A>
+<LI> <A HREF="VCache.1.html#BugsSect">Bugs</A>
+<LI> <A HREF="VCache.1.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="DescSect">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<I>VCache</I> is the Vesta-2 function cache server process. It keeps a
+persistent record of Vesta-2 function evaluations. The primary client
+of the function cache is the Vesta-2 evaluator vesta(1), which evaluates
+Vesta build descriptions, also known as models.<P>
+
+The function cache expects certain directories to exist, and creates
+files in those directories. To create the necessary directories, use
+the <A HREF="CreateCacheDirs.1.html">CreateCacheDirs(1)</A> program. For
+information about the files written by <I>VCache</I>, see the
+<A HREF="VCache.1.html#ConfigSect">Configuration Variables</A> and
+<A HREF="VCache.1.html#FilesSect">Files</A> sections below.
+</BLOCKQUOTE>
+
+<H3><A NAME="OptionsSect">Options</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The function cache recognizes the following command-line options:<P>
+
+<DL>
+<DT><A NAME="DebugOption"><B>-debug</B> <I>level</I></A><DD>
+By default, no debugging information is printed. However, the cache
+server has support for printing various kinds of debugging
+information. This debugging output is catagorized into various levels.
+All levels at and below the specified <I>level</I> will be printed. The
+possible values for <I>level</I> (in increasing order) are:<P>
+
+<DL>
+<DT><I>None</I><DD>
+Don't print any debugging information. This is the default.<P>
+
+<DT><I>StatusMsgs</I><DD>
+Print function cache status messages, such as a message when the cache
+server starts up and messages when clients disconnect. The startup
+message includes the name of the <A HREF="VCache.1.html#ConfigSect">configuration
+file</A>, the selected debugging levels, and the value for the
+<A HREF="VCache.1.html#MaxRunning"><I>MaxRunning</I></A> configuration variable.<P>
+
+<DT><I>LeaseExp</I><DD>
+Print a message when leases on cache entries expire. The duration of
+cache entry leases is controlled by the
+<A HREF="VCache.1.html#LeaseTimeoutHrs"><I>LeaseTimeoutHrs</I></A> configuration variable
+(described below). Cache entry leases are implemented as a pair of bit
+vectors, <I>new</I> and <I>old</I>. When a new lease is taken out on a
+cache entry, the corresponding bit is set in the <I>new</I> vector. A
+lease exists for a cache entry if its bit is set in either vector. To
+expire leases, a background thread repeatedly copies <I>new</I> to
+<I>old</I> and zeros out <I>new</I>. The lease debugging output shows a
+prefix of both vectors before they are expired. The bit vectors are
+printed in hex, a byte at a time, least significant byte first. When
+the vector is longer than 256 bits, the output is elided with
+ellipses.<P>
+
+<DT><I>LogRecover</I><DD>
+Print a description of data recovered from the function cache's logs at
+start-up.<P>
+
+<DT><I>LogFlush</I><DD>
+Print a message each time the flush of a function cache log is started
+or finished. The logs are typically flushed whenever a client
+invokes the function cache's <I>Checkpoint</I> method. At this
+debugging level, the values flushed to the logs are not printed;
+use the <I>LogFlushEntries</I> level below for that.<P>
+
+<DT><I>MPKFileFlush</I><DD>
+Print messages when volatile cache entries are flushed to the stable
+cache (namely, to stable MultiPKFiles).<P>
+
+<DT><I>LogFlushEntries</I><DD>
+Print (possibly elided versions of) the values written to the function
+cache's logs when they are flushed. The output in this case may be
+interspersed with other debugging output, but whole lines are
+guaranteed to be printed atomically.<P>
+
+<DT><I>WeederOps</I><DD>
+Print the arguments and results of all weeder calls  to the cache
+server.<P>
+
+<DT><I>AddEntryOp</I><DD>
+Print the arguments and results of <I>AddEntry</I> calls to the cache
+server.<P>
+
+<DT><I>OtherOps</I><DD>
+Print the arguments and results of all other calls to the cache
+server, including <I>FreeVariables</I>, <I>Lookup</I>, and
+<I>Checkpoint</I>.<P>
+
+<DT><I>All</I><DD>
+Print all debugging information. This is equivalent to <I>OtherOps</I>.
+</DL>
+<P>
+
+Debugging output is grouped into logical <I>entries</I>. Each debugging
+output entry includes a timestamp, and debugging output is
+synchronized so that entries produced by different threads are not
+interleaved.<P>
+
+<DT><A NAME="NoHitsOption"><B>-noHits</B></A><DD>
+If <B>-noHits</B> is specified, the lookup operation on the cache
+will never produce a hit. This is useful for debugging clients of the
+function cache.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ConfigSect">Configuration Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Like most Vesta-2 applications, the function cache reads site-specific
+configuration information from a Vesta-2 <I>configuration file</I> named
+<I>vesta.cfg</I>. The function cache first looks for this file in the
+current directory; if none is found there, it looks in your home
+directory.<P>
+
+The configuration file is divided into a number of sections, denoted
+in the file by <TT>[</TT><I>SectionName</I><TT>]</TT>. The variables used by the
+function cache are in the section denoted by <TT>[CacheServer]</TT>. Here
+are the variables and their meanings; the types of the variables are
+shown in parentheses. Those variables corresponding to paths or
+directories should <I>not</I> end with a slash ("/") character.<P>
+
+The following variables are the function cache's operating
+parameters:<P>
+
+<DL>
+<DT><TT>Port</TT> (integer)<DD>
+The port number on which the server listens for connections.<P>
+
+<DT><TT>Host</TT> (hostname)<DD>
+The host on which the cache server runs.  Used by clients to connect
+to the cache server.<P>
+
+<DT><A NAME="MaxRunning"><TT>MaxRunning</TT> (integer) (optional)</A><DD>
+The maximum number of client requests that the function cache will
+handle at any given time. If this many requests are currently running
+and another is received, it will block. Defaults to 32.<P>
+
+<DT><TT>MaxCacheLogCnt</TT> (integer) (optional)<DD>
+Controls the frequency of attempts to clean the cache log. Whenever
+the cache log is flushed and the number of cache entries written to
+the cache log since it was last cleaned exceeds this value, the
+background cache log cleaner thread is signaled to clean the cache
+log. Defaults to 500 entries.<P>
+
+<DT><TT>MPKFileFlushNum</TT> (integer) (optional)<DD>
+Whenever a new cache entry is added to a MultiPKFile and the total
+number of new cache entries in that MultiPKFile exceeds this value,
+the MultiPKFile is flushed to disk by a background MultiPKFile flusher
+thread. Defaults to 20.<P>
+
+<DT><A NAME="LeaseTimeoutHrs"><TT>LeaseTimeoutHrs</TT> (integer)</A><DD>
+A lower-bound (in hours) on the duration of cache entry leases.<P>
+
+<DT><TT>FlushWorkerCnt</TT> (integer) (optional)<DD>
+Controls the number of background threads initially allocated for
+flushing MultiPKFiles to disk. Certain cache activities, like the
+background MultiPKFile freeing thread (described below), and
+invocations of the <TT>CacheS::FlushAll</TT> method, block unless an idle
+worker thread is available. Hence, this variable controls how many
+MultiPKFiles the cache may be flushing concurrently as the result of
+certain operations. Defaults to 5.<P>
+
+<DT><TT>FreePauseDur</TT> (integer)<DD>
+The number of seconds that the background MultiPKFile/PKFile
+freeing/flushing thread sleeps between attempts to flush new cache
+entries to disk and free memory.  When the MultiPKFile freeing thread
+wakes up, it attempts to flush new entries in MultiPKFiles that have
+not been recently accessed, thereby freeing memory consumed by those
+cache entries.  It also frees memory by purging "warm" entries paged
+in from disk and freeing datat structures for PKFiles and MultiPKFiles
+that haven't been used recently.  See the related
+<TT>FlushNewPeriodCnt</TT>, <TT>PurgeWarmPeriodCnt</TT>, <TT>EvictPeriodCnt</TT>,
+and <TT>FreeAggressively</TT> variables below.<P>
+
+<DT><TT>FlushNewPeriodCnt</TT> (integer) (optional)<DD>
+Each time the background freeing/flushing thread wakes up to do work,
+it increments an epoch. An MPKFile is considered "stale" (and hence,
+in need of being flushed), if it has not been had any entries added
+within <TT>FlushNewPeriodCnt</TT> epochs. Defaults to 1.  (If this
+variable is not set and the older name <TT>FreePeriodCnt</TT> is set, it
+will be used, for backward compatibility.)<P>
+
+<DT><TT>PurgeWarmPeriodCnt</TT> (integer) (optional)<DD>
+Each time the background freeing/flushing thread wakes up to do work,
+it increments an epoch. A PKFile with no new entries waiting to be
+flushed to disk will have its "warm" entries (those paged in from
+disk) freed from memory if it hasn't been used by any client calls
+(FreeVariables, Lookup, AddEntry) in <TT>PurgeWarmPeriodCnt</TT> epochs.
+Defaults to <TT>FlushNewPeriodCnt</TT> plus 1.<P>
+
+<DT><TT>EvictPeriodCnt</TT> (integer) (optional)<DD>
+Each time the background freeing/flushing thread wakes up to do work,
+it increments an epoch. A PKFile with no new entries waiting to be
+flushed to disk and no "warm" entries paged in from disk will have
+its data structures removed from the cache (to free memory) if it
+hasn't been used by any client calls (FreeVariables, Lookup, AddEntry)
+in <TT>EvictPeriodCnt</TT> epochs.  Defaults to <TT>PurgeWarmPeriodCnt</TT>
+plus 1.<P>
+
+<DT><TT>FreeAggressively</TT> (integer) (optional)<DD>
+By default, when the background MultiPKFile freeing thread wakes up, it
+increments the flush epoch, but goes back to sleep if there has been
+any activity on the cache since the thread originally went to sleep.
+If this variable is non-zero, the thread will attempt to flush stale
+MultiPKFiles even if there has been some load on the cache. Defaults
+to 0 (false).<P>
+
+<DT><TT>KeepNewOnFlush</TT>, <TT>KeepOldOnFlush</TT> (integers) (optional)<DD>
+These values control the policy that determines which cache entries
+are kept in memory when a PKFile is flushed (updated). The first
+controls what happens to new entries that are not yet saved on disk,
+and the second controls what happens to "old" entries that have been
+paged-in from disk. If non-zero, the entries are kept in memory; if
+zero, they are dropped for the garbage collector to reclaim. Both
+default to 0 (false).
+</DL>
+<P>
+
+Here are the function cache's file system variables:<P>
+
+<DL>
+<DT><TT>MetaDataRoot</TT> (string)<DD>
+The pathname of the directory in which the Vesta system's metadata is
+stored. If this variable is undefined, the current directory is used.
+Other configuration variables are interpreted relative to this path.
+The directories (relative to the MetaDataRoot/MetaDataDir) in which
+the function cache stores its cache log, graph log, cache index (CI),
+and weeded MPKFile logs, respectively.<P>
+
+<DT><TT>MetaDataDir</TT> (string)<DD>
+The directory (relative to the MetaDataRoot) in which the cache
+server's metadata is stored.<P>
+
+<DT><TT>SCacheDir</TT> (string)<DD>
+The directory (relative to the MetaDataRoot/MetaDataDir) in which the
+function cache stores cache entries.<P>
+
+<DT><TT>CacheLogDir</TT>, <TT>EmptyPKLogDir</TT>, <TT>GraphLogDir</TT>, <TT>CILogDir</TT>, <TT>WeededLogDir</TT> (strings)<DD>
+The directories (relative to the MetaDataRoot/MetaDataDir) in which
+the function cache stores its cache log, empty PKFile log, graph log,
+cache index (CI) log, and weeded MPKFile log, respectively.<P>
+
+<DT><TT>StableVarsDir</TT> (string)<DD>
+The directory (relative to the MetaDataRoot/MetaDataDir) in which the
+function cache stores files corresponding to its stable variables.<P>
+
+<DT><TT>Deleting</TT>, <TT>HitFilter</TT>, <TT>MPKsToWeed</TT> (strings)<DD>
+The files (relative to MetaDataRoot/MetaDataDir/StableVarsDir)
+corresponding to stable function cache variables.
+</DL>
+<P>
+
+The following configuration variables are for debugging purposes only:<P>
+
+<DL>
+<DT><TT>LeaseTimeoutSpeedup</TT> (integer) (optional)<DD>
+The factor by which the <TT>LeaseTimeoutHrs</TT> should be reduced. For
+example, if <TT>LeaseTimeoutHrs</TT> is 1 and <TT>LeaseTimeoutSpeedup</TT> is
+120, then the cache entry leases will time out every 30 seconds.
+Defaults to 1.<P>
+
+<DT><TT>WeedPauseDur</TT> (integer) (optional)<DD>
+The number of seconds that a thread flushing a MultiPKFile pauses
+after updating cache entries in memory but before it begins atomically
+replacing volatile PKFiles and commiting the new stable MultiPKFile.
+Defaults to 0.<P>
+
+<DT><TT>ReadImmutable</TT> (integer) (optional)<DD>
+Controls whether the immutable parts of cache entries are read into
+memory when a MultiPKFile is flushed. If non-zero, the immutable
+fields are read into memory. If zero, the immutable parts of a cache
+entry are copied from the original MultiPKFile to the new one. 
+Defaults to 0 (false).
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="FilesSect">Files</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><TT>./vesta.cfg</TT><DD>
+The Vesta-2 configuration file (first check is in current directory).<P>
+
+<DT><TT>$HOME/vesta.cfg</TT><DD>
+The Vesta-2 configuration file (second check is in home directory).<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$SCacheDir/</TT><DD>
+The root of the sub-tree in which stable cache entry files (also known
+as MultiPKFiles) are stored. The files are stored under a pathname
+formed from their respective primary keys. See 
+<A HREF="PrintMPKFile.1.html">PrintMPKFile(1)</A>.<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$CacheLogDir/*.log</TT><DD>
+CacheLog files. The cache log contains new cache entries that have not
+yet been written to stable cache files. See
+<A HREF="PrintCacheLog.1.html">PrintCacheLog(1)</A>.<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$GraphLogDir/*.log</TT><DD>
+GraphLog files. The graph log records elements of the cache entry
+graph for use by the Vesta-2 weeder. See
+<A HREF="PrintGraphLog.1.html">PrintGraphLog(1)</A>.<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$CILogDir/*.log</TT><DD>
+Cache entry index (CI) files. The CI-log records which cache entry
+indices are in use.<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$WeededLogDir/*.log</TT><DD>
+Weeded MPKFile log files. This log records a prefix of the $MPKsToWeed
+variable (below) corresponding to those MultiPKFiles that have been
+successfully weeded.<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$StableVarsDir/$Deleting</TT><DD>
+Records the current state of the function cache's <I>deleting</I>
+stable variable.<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$StableVarsDir/$HitFilter</TT><DD>
+Records the current state of the function cache's <I>hit-filter</I>
+stable variable.<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$StableVarsDir/$MPKsToWeed</TT><DD>
+Records the current state of the function cache's <I>mpksToWeed</I>
+stable variable. This records the list of MultiPKFiles that need
+weeding, and is only relevant if <I>deleting</I> is true.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="BugsSect">Bugs</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The function cache crashes occasionally due to a memory smash we
+have not tracked down. A common symptom of the crash is the following
+assertion failure:
+<PRE>
+Assertion failed: logNode-&gt;kind == GraphLog::NodeKind, file CacheS.C, line 2003
+</PRE>
+
+However, the bug is not terribly serious because the function cache
+recovers just fine when it is restarted.<P>
+
+See the <A HREF="VCacheToDo.7.html">VCacheToDo(7)</A> man page for
+a complete list of things that remain to be done to complete the cache
+server implementation.
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="CleanCache.1.html">CleanCache(1)</A>,
+<A HREF="ChkptCache.1.html">ChkptCache(1)</A>,
+<A HREF="CreateCacheDirs.1.html">CreateCacheDirs(1)</A>,
+<A HREF="EraseCache.1.html">EraseCache(1)</A>,
+<A HREF="FlushCache.1.html">FlushCache(1)</A>,
+<A HREF="PrintCacheLog.1.html">PrintCacheLog(1)</A>,
+<A HREF="PrintCacheVal.1.html">PrintCacheVal(1)</A>,
+<A HREF="PrintGraphLog.1.html">PrintGraphLog(1)</A>,
+<A HREF="PrintMPKFile.1.html">PrintMPKFile(1)</A>,
+<A HREF="ShowCache.1.html">ShowCache(1)</A>,
+<A HREF="VCacheMonitor.1.html">VCacheMonitor(1)</A>,
+<A HREF="VCacheStats.1.html">VCacheStats(1)</A>,
+<A HREF="VestaWeed.1.html">VestaWeed(1)</A>,
+<A HREF="WhichCache.1.html">WhichCache(1)</A>,
+<A HREF="MultiPKFile.5.html">MultiPKFile(5)</A>,
+<A HREF="VCacheImpl.7.html">VCacheImpl(7)</A>,
+<A HREF="VCacheLocks.7.html">VCacheLocks(7)</A>,
+<A HREF="VCacheSources.7.html">VCacheSources(7)</A>,
+<A HREF="VCacheToDo.7.html">VCacheToDo(7)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

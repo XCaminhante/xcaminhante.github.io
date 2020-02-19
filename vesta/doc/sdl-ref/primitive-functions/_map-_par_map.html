@@ -1,0 +1,130 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Functions: _map, _par_map</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_map(function,list)"></A><TT>_map(<I>f</I>: function, <I>l</I>:
+list): list</TT></H4>
+
+<p>
+Returns the list that results from applying the function
+<I><TT>f</TT></I> to each element of the list <I><TT>l</TT></I>, and
+concatenating the results in order. The closure <I><TT>f</TT></I>
+should take one argument and may return a value of any type. If
+<I><TT>f</TT></I> has the wrong signature or if any evaluation of
+<I><TT>f</TT></I> returns <TT>ERR</TT>, then <TT>_map</TT> returns
+<TT>ERR</TT>. However, <I><TT>f</TT></I> will be applied to every
+element of the list, even if one of its evaluations produces
+<TT>ERR</TT>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>plus3(x: int): int
+{
+  return x + 3;
+}
+
+_map(plus3, &lt;1, 2, 3&gt;) == &lt;4, 5, 6&gt;
+
+strip_extension(file: text): text
+{
+  pos: int = _findr(file, ".");
+  return if (pos >= 0) then _sub(file, 0, pos) else file;
+}
+
+_map(strip_extension, &lt;"hello.c", "index.html", "build.ves"&gt;)
+  == &lt;"hello", "index", "build"&gt;</PRE>
+</BLOCKQUOTE>
+
+<p>
+Note that the value of the implicit final parameter
+&quot;<tt>.</tt>&quot; (aka <i>dot</i>) of the function
+<I><TT>f</TT></I> is <strong>always</strong> taken form the value of
+the variable &quot;<tt>.</tt>&quot; at the point of the <TT>_map</TT>
+call.&nbsp; Unlike <a href="../expressions.html#FunctionCall">a normal
+function call</a>, there is no way to override it's value by passing
+an additional argument.
+</p>
+
+<p>
+Also, remember that Vesta SDL is a <a
+href="../functional.html">pure
+functional language</a>.&nbsp; There is no sharing of variables
+between the differen functions called by <TT>_map</TT>.&nbsp; Just as
+with any other function call, each call to the function
+<I><TT>f</TT></I> has no side effects.
+</p>
+
+<H4>
+<A NAME="_map(function,binding)"></A><TT>_map(<I>f</I>: function, <I>b</I>:
+binding): binding</TT></H4>
+
+<p>
+Returns the binding that results from applying the function
+<I><TT>f</TT></I> to each &lt;<b>name</b>, <b>value</b>&gt; pair of
+the binding <I><TT>b</TT></I>, and appending the resulting bindings
+together. The function <I><TT>f</TT></I> should take the <b>name</b>
+(of type <TT>text</TT>) and <b>value</b> (of type <TT>any</TT>) as
+arguments, and return a value of type <TT>binding</TT>. If
+<I><TT>f</TT></I> has the wrong signature or if any evaluation of
+<I><TT>f</TT></I> returns <TT>ERR</TT>, then <TT>_map</TT> returns
+<TT>ERR</TT>. However, <I><TT>f</TT></I> will be applied to every pair
+of the binding, even if one of its evaluations produces <TT>ERR</TT>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>text_only(n: text, v: any): binding
+{
+  return if _is_text(v) then _bind1(n, v) else [];
+}
+
+_map(text_only, [ foo = 1, bar = TRUE, msg = "Vesta evaluator, version 2.21" ])
+   == [ msg = "Vesta evaluator, version 2.21" ]
+</PRE>
+</BLOCKQUOTE>
+
+<p>
+As with the list version of <TT>_map</TT>, the value of <i>dot</i>
+(the variable &quot;<tt>.</tt>&quot;) is always taken from the context
+calling <TT>_map</TT>, and the calls to the function <I><TT>f</TT></I>
+have no side effects (just like <a
+href="../expressions.html#FunctionCall">all other function calls</a>).
+</p>
+
+<a name="_par_map"></a>
+<H4>
+<A NAME="_par_map(function,list)"></A><TT>_par_map(<I>f</I>: function,
+<I>l</I>: list): list</TT></H4>
+
+<H4>
+<A NAME="_par_map(function,binding)"></A><TT>_par_map(<I>f</I>: function,
+<I>b</I>: binding): binding</TT></H4>
+
+<p>
+Equivalent to <TT>_map</TT>, but the implementation may perform each
+application of <I><TT>f</TT></I> in a separate parallel
+thread.&nbsp; External tools invoked by <TT>_run_tool</TT> in different
+threads may be run simultaneously on different machines.
+</p>
+
+<p>
+Using <TT>_par_map</TT> can significantly increase the parallelism of
+your builds.&nbsp; If you have a large number of hosts available for
+tool invocations (i.e. running <a
+href="../../man/html/RunToolServer.1.html">the <tt>RunToolServer</tt>
+daemon</a>), this can make your builds complete more quickly.&nbsp;
+However, the operations performed by the parallel threads are
+interleaved in an arbitrary order, which can make the evaluator's
+output harder to follow.
+</p>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

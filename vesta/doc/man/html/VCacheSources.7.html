@@ -1,0 +1,411 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>VCacheSources(7) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>VCacheSources(7)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+VCacheSources - description of the Vesta-2 cache server source files
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="VCacheSources.7.html#MajorSect">Major Source Files</A>
+<LI> <A HREF="VCacheSources.7.html#SubsidiarySect">Subsidiary Source Files</A>
+<LI> <A HREF="VCacheSources.7.html#AuxiliarySect">Auxiliary Program Sources</A>
+<LI> <A HREF="VCacheSources.7.html#ImportSect">The IMPORT Relation on Interfaces</A>
+<LI> <A HREF="VCacheSources.7.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="MajorSect">Major Source Files</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Here are the major source files in the <B>vesta/cache-common</B> package and
+brief descriptions of their functionality:<P>
+
+<DL>
+<DT><TT>BitVector.[HC]</TT><DD>
+Defines a class for storing and manipulating bit vectors of arbitrary
+length. The standard bit-wise operators are overloaded to apply to bit
+vectors.<P>
+
+<DT><TT>CacheIntf.H</TT><DD>
+Defines constants for the version of the cache server interface,
+identifiers for cache server methods, and for the results of those methods.<P>
+
+<DT><TT>CacheTypes.[CH]</TT><DD>
+Defines several basic types and values used by the cache server, including
+<TT>PKFile::Epoch</TT>, <TT>CacheEntry::Index</TT>, <TT>CacheEntry::Indices</TT>,
+<TT>TS::MinTS</TT>, <TT>TS::T</TT>, <TT>TS::List</TT>, <TT>Derived::Index</TT>,
+<TT>Derived::Indices</TT>, <TT>VestaVal::T</TT>, <TT>Model::T</TT>, <TT>FV::T</TT>,
+<TT>FV::List</TT>, and <TT>FV::ListApp</TT>.<P>
+
+<DT><TT>Constants.[HC]</TT><DD>
+Defines constants needed by the cache, evaluator, and/or weeder, such
+as the duration of leases on derived files.<P>
+
+<DT><TT>CacheConfig.[HC]</TT><DD>
+Defines global constants corresponding to cache server configuration
+variables read from the Vesta-2 configuration file.<P>
+
+<DT><TT>PKPrefix.[HC]</TT><DD>
+Defines the type <TT>PKPrefix::T</TT> for computing the prefix of a
+fingerprint tag. Fingerprint prefixes are used to name MultiPKFiles.
+Also defined the type <TT>PKPrefix::List</TT>.<P>
+
+<DT><TT>ReadConfig.[HC]</TT><DD>
+Defines wrapper routines for the operations of a <TT>VestaConfig</TT>
+object for accessing values in the Vesta configuration file.
+</DL>
+<P>
+
+Here are the major source files in the <B>vesta/cache-client</B>
+package:<P>
+
+<DL>
+<DT><TT>CacheC.[HC]</TT><DD>
+Provides the client interface to the cache server's main functions:
+<TT>FreeVariables</TT>, <TT>Lookup</TT>, <TT>AddEntry</TT>, <TT>Checkpoint</TT>, and
+<TT>RenewLeases</TT>. This is the interface used by the evaluator.<P>
+
+<DT><TT>DebugC.[HC]</TT><DD>
+Provides the client interface to the cache server's debugging
+function(s): <TT>FlushAll</TT>. This interface is only used by test
+programs.<P>
+
+<DT><TT>FV2.[HC]</TT><DD>
+Defines a modified representation of free variables. As opposed to the
+type "FV::T" defined in the cache-common package, which is a subtype
+of a Text, a "FV2::T" is a <I>sequence</I> of texts. This is the
+representation of free variables used by the evaluator. The <I>Send</I>
+methods of "FV2::T" and "FV2::List" marshal a text
+sequence as a single string so it can be represented as an "FV::T" on
+the server side; the "FV2::T" and "FV2::List" <I>Recv</I> methods
+convert a single text back into a sequence.<P>
+
+<DT><TT>ParCacheC.[HC]</TT><DD>
+Defines the client interface for interacting with a partitioned
+version of the cache server. A partitioned version of the
+cache server is not currently implemented, but this interface provides
+dummy operations that would be required by clients if it were.<P>
+
+<DT><TT>WeederC.[HC]</TT><DD>
+Provides the client interface to the cache server's weeder-related
+functions. This is the interface used by the weeder.
+</DL>
+<P>
+
+Here are the major source files in the <B>vesta/cache-server</B> package:<P>
+
+<DL>
+<DT><TT>VCache.C</TT><DD>
+The main module for the Vesta-2 cache server. It simply parses any
+command-line options and instantiates a <TT>CacheS</TT> object.<P>
+
+<DT><TT>CacheS.[HC]</TT><DD>
+The main cache server class.<P>
+
+<DT><TT>VPKFile.[HC]</TT><DD>
+The volatile PKFile class. There is one of instance of this class
+for each primary key stored in the cache.<P>
+
+<DT><TT>VPKFileChkPt.H</TT><DD>
+A structure for recording the state of a <TT>VPKFile</TT>. This is used by
+the <TT>SMultiPKFile::Rewrite</TT> method and related methods.<P>
+
+<DT><TT>SPKFile.[HC]</TT><DD>
+A class for reading/writing PKFiles in the stable cache.<P>
+
+<DT><TT>SPKFileRep.[HC]</TT><DD>
+Data structure objects for the PKFile header data. These implement
+the representation of the PKFile header data on disk.<P>
+
+<DT><TT>VMultiPKFile.[HC]</TT><DD>
+A class for grouping together VPKFile objects that contain new entries
+to be written to the stable cache.<P>
+
+<DT><TT>SMultiPKFile.[HC]</TT><DD>
+A class for reading/writing MultiPKFiles in the stable cache.<P>
+
+<DT><TT>SMultiPKFileRep.[HC]</TT><DD>
+Data structure objects for the MultiPKFile header data. These
+implement the representation of the MultiPKFile header data on disk.<P>
+
+<DT><TT>CacheLog.[HC]</TT><DD>
+An in-memory log of new cache entries. The log is maintained by the
+main <TT>CacheS</TT> object.<P>
+
+<DT><TT>GraphLog.[HC]</TT><DD>
+An in-memory log of new nodes, reflecting the reachability graph on
+cache entries and deriveds. The log is maintained by the main
+<TT>CacheS</TT> object.<P>
+
+<DT><TT>EmptyPKLog.[HC]</TT><DD>
+A disk log that records PKFiles that have become empty, along with
+their corresponding <I>pkEpoch</I> values. See the discussion on
+<A HREF="VCacheImpl.7.html#CacheLog">supporting deletions in the
+CacheLog</A>.<P>
+
+<DT><TT>Leases.[HC]</TT><DD>
+A class implementing a set of leases together with a background thread
+for periodically expiring them.<P>
+
+<DT><TT>CacheEntry.[HC]</TT><DD>
+Defines the <TT>CE::T</TT> object type, a cache entry. The cache entries
+are stored in volatile PKFiles, stable PKFiles, and the cache log.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="SubsidiarySect">Subsidiary Source Files</A></H3>
+<BLOCKQUOTE>
+<P>
+
+These are subsidiary sources in the <B>cache-server</B> package that
+don't play quite as major a role in the implementation of the cache
+server as those in the previous section.<P>
+
+<DL>
+<DT><TT>Combine.[HC]</TT><DD>
+An interface for combining fingerprints into a tag comprising the XOR
+of their words, a new fingerprint, or both (the latter is used to
+represent the uncommon free variable values in a cache entry).<P>
+
+<DT><TT>ExpCache.[HC]</TT><DD>
+An interface for exporting the cache server via SRPC.<P>
+
+<DT><TT>Generics.[C]</TT><DD>
+A module for instantiating all of the generic templates in one
+place. Eventually, these will be generated automatically by the
+compiler.<P>
+
+<DT><TT>IntKeyLR.[H]</TT><DD>
+Integer type that can be used as the key of a Table and that
+supports logging and recovery.<P>
+
+<DT><TT>IntIntTbl.[HC]</TT><DD>
+A subtype of <TT>Table&lt;IntKeyLR,int&gt;</TT> that supports logging and
+recovery.<P>
+
+<DT><TT>Intvl.[HC]</TT><DD>
+A list of integer-valued intervals. Used to store the log of used
+CI's.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="AuxiliarySect">Auxiliary Program Sources</A></H3>
+<BLOCKQUOTE>
+<P>
+
+These are sources for auxiliary programs related to the
+Vesta-2 cache server.<P>
+
+<DL>
+<DT><TT>CreateCacheDirs</TT><DD>
+A script for creating the necessary directories in which the cache
+server's persistent files are stored.
+See <A HREF="CreateCacheDirs.1.html">CreateCacheDirs(1)</A>.<P>
+
+<DT><TT>EraseCache</TT><DD>
+A script for erasing the persistent log files, stable variable
+files, and MultiPKFiles maintained by the cache server.
+See <A HREF="EraseCache.1.html">EraseCache(1)</A>.<P>
+
+<DT><TT>PrintCacheLog.C</TT><DD>
+A program for printing the contents of the cache log.
+See <A HREF="PrintCacheLog.1.html">PrintCacheLog(1)</A>.<P>
+
+<DT><TT>PrintGraphLog.C</TT><DD>
+A program for printing the contents of the graph log.
+See <A HREF="PrintGraphLog.1.html">PrintGraphLog(1)</A>.<P>
+
+<DT><TT>PrintMPKFile.C</TT><DD>
+A program for printing the contents of a MultiPKFile.
+See <A HREF="PrintMPKFile.1.html">PrintMPKFile(1)</A>.<P>
+
+<DT><TT>ShowCache</TT><DD>
+A script for listing the persistent log files, stable variable
+files, and MultiPKFiles maintained by the cache server.
+See <A HREF="ShowCache.1.html">ShowCache(1)</A>.<P>
+
+<DT><TT>TestMarshalS.C</TT><DD>
+A program for testing the <TT>ExpCache</TT> interface and the underlying
+marshalling routines in the <TT>CacheCommon</TT> library.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ImportSect">The IMPORT Relation on Interfaces</A></H3>
+<BLOCKQUOTE>
+<P>
+
+This section documents the IMPORT relations (partial orders) of the
+interfaces in the various packages comprising the Vesta-2 cache
+server. For each package, the interfaces are arranged in levels, and
+after each interface, the interfaces imported directly by that
+interface are listed.<P>
+
+<B>vesta/cache-common</B> import relation:<P>
+
+<DL>
+<DT><B>Level 0</B><DD>
+<PRE>
+BitVector        [ ]
+CacheConfig      [ ]
+CacheIntf        [ ]
+Constants        [ ]
+Debug            [ ]
+PKPrefix         [ ]
+ReadConfig       [ ]
+Timer            [ ]
+</PRE>
+
+<DT><B>Level 1</B><DD>
+<PRE>
+CacheTypes       [ BitVector ]
+LookupStats      [ Timer ]
+</PRE>
+
+<DT><B>Level 2</B><DD>
+<PRE>
+NewVal           [ BitVector, CacheTypes ]
+</PRE>
+
+</DL>
+<P>
+
+<B>vesta/cache-server</B> import relation:<P>
+
+<DL>
+<DT><B>Level 0</B><DD>
+<PRE>
+EmptyPKLog       [ ]
+GraphLog         [ ]
+IntKeyLR         [ ]
+Leases           [ ]
+SPKFileRep       [ ]
+</PRE>
+
+<DT><B>Level 1</B><DD>
+<PRE>
+IntIntTbl        [ IntKeyLR ]
+</PRE>
+
+<DT><B>Level 2</B><DD>
+<PRE>
+Combine          [ IntIntTbl ]
+</PRE>
+
+<DT><B>Level 3</B><DD>
+<PRE>
+CacheEntry       [ IntIntTbl, Combine ]
+</PRE>
+
+<DT><B>Level 4</B><DD>
+<PRE>
+VPKFileChkPt     [ CacheEntry ]
+</PRE>
+
+<DT><B>Level 5</B><DD>
+<PRE>
+CacheLog         [ CacheEntry ]
+Intvl            [ CacheEntry ]
+SPKFile          [ SPKFileRep, IntIntTbl, CacheEntry, VPKFileChkPt ]
+</PRE>
+
+<DT><B>Level 6</B><DD>
+<PRE>
+SMultiPKFileRep  [ SPKFileRep, IntIntTbl, SPKFile ]
+</PRE>
+
+<DT><B>Level 7</B><DD>
+<PRE>
+VPKFile          [ IntIntTbl, CacheEntry, SPKFile,
+                   VPKFileChkPt, SMultiPKFileRep ]
+</PRE>
+
+<DT><B>Level 8</B><DD>
+<PRE>
+SMultiPKFile     [ SMultiPKFileRep, VPKFile ]
+</PRE>
+
+<DT><B>Level 9</B><DD>
+<PRE>
+VMultiPKFile     [ VPKFile, SMultiPKFile ]
+</PRE>
+
+<DT><B>Level 10</B><DD>
+<PRE>
+CacheS           [ GraphLog, Leases, CacheEntry, CacheLog,
+                   Intvl, VPKFile, VMultiPKFile ]
+</PRE>
+
+<DT><B>Level 11</B><DD>
+<PRE>
+ExpCache         [ CacheS ]
+</PRE>
+
+</DL>
+<P>
+
+<B>vesta/cache-client</B> import relation:<P>
+
+<DL>
+<DT><B>Level 0</B><DD>
+<PRE>
+CacheC           [ ]
+FV2              [ ]
+ParCacheC        [ ]
+WeederC          [ ]
+</PRE>
+
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="VCache.1.html">VCache(1)</A>,
+<A HREF="VCacheImpl.7.html">VCacheImpl(7)</A>,
+<A HREF="VCacheLocks.7.html">VCacheLocks(7)</A>,
+<A HREF="VCacheToDo.7.html">VCacheToDo(7)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Last modified on Thu Nov  8 12:48:54 EST 2001 by ken@xorian.net
+     modified on Fri Feb 28 10:49:39 PST 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

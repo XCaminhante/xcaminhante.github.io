@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Functions on Type t_bool</TITLE>
+<META NAME="description" CONTENT="Functions on Type t_bool">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node152.html">
+<LINK REL="previous" HREF="node150.html">
+<LINK REL="up" HREF="node150.html">
+<LINK REL="next" HREF="node152.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2424"
+  HREF="node152.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2420"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2414"
+  HREF="node150.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2422"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2425"
+  HREF="node152.html">Functions on Type t_int</A>
+<B> Up:</B> <A NAME="tex2html2421"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2415"
+  HREF="node150.html">Primitives</A>
+ &nbsp <B>  <A NAME="tex2html2423"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001334100000000000000">
+Functions on Type t_bool</A>
+</H3>
+
+<P>
+Recall that <EM>true</EM> and <EM>false</EM> are Vesta values, not
+C++ quantities.
+
+<P>
+<PRE>
+t_bool
+operator==(t_bool b1, t_bool b2)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>b1</EM> and <EM>b2</EM> are the same, and
+<EM>false</EM> otherwise.
+
+<P>
+<PRE>
+t_bool
+operator!=(t_bool b1, t_bool b2)
+  operator!(operator==(b1, b2))
+</PRE>
+
+<P>
+<PRE>
+t_bool
+operator!(t_bool b) =
+{
+  int ib = b; // convert to C++ integer
+  if (ib) return false; else return true;
+}
+</PRE>
+
+<P>
+<BR><HR>
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

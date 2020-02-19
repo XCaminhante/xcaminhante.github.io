@@ -1,0 +1,234 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vimports(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vimports(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+vimports - print the models imported directly and indirectly by a Vesta model
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vimports</B>
+[ <A HREF="vimports.1.html#DepthOpt"><B>-depth</B> <I>num</I></A> ]
+[ <A HREF="vimports.1.html#ShowOpt"><B>-show</B> <I>name</I> [ <I>depth</I> ]</A> ]...
+[ <A HREF="vimports.1.html#ElideOpt"><B>-elide</B> <I>name</I></A> ]...
+[ <A HREF="vimports.1.html#-plain"><B>-plain</B></A> ]
+[ <I>model</I> ]
+</BLOCKQUOTE>
+
+<H3>Description</H3>
+<BLOCKQUOTE>
+<P>
+
+<I>vimports</I> displays the names of all models directly and indirectly
+imported by <I>model</I>. If no <I>model</I> is specified, it defaults to
+".main.ves".<P>
+
+The import relation on models forms a directed acyclic graph, or DAG. However,
+<I>vimports</I> flattens the DAG into a tree: the sub-DAG rooted at any
+model with multiple parents is printed multiple times, once for each
+visited parent. Indentation is used to indicated depth in the import tree.<P>
+
+The <I>model</I> argument is resolved according to the rules for
+<TT>import</TT> clauses as specified in
+<A HREF="ftp://ftp.digital.com/pub/DEC/SRC/technical-notes/SRC-1997-005.html"><I>The Vesta-2 Software Description Language</I></A>. In particular, if
+<I>model</I> is not an absolute path, it is interpreted relative to the
+current working directory. If <I>model</I> names a directory, the string
+"<TT>/build.ves</TT>" is appended to it; otherwise, if it does not end
+in "<TT>.ves</TT>", that extension is appened to it.
+</BLOCKQUOTE>
+
+<H3>Options</H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="DepthOpt"><B>-depth</B> <I>num</I></A><DD>
+By default, the complete import tree is displayed. If <B>-depth</B>
+<I>num</I> is specified, only those models with depth at most <I>num</I>
+in the import tree are displayed. The depth of the root model is zero.
+When <B>-depth</B> is specified, elipses are printed after the names of
+those models at depth <I>num</I> that contain elided imports.<P>
+
+<DT><A NAME="ShowOpt"><B>-show</B> <I>name</I> [ <I>depth</I> ]</A><DD>
+If the complete pathname of a model containing the string <I>name</I> is
+printed, the subtree rooted at that model is displayed to a depth of
+<I>depth</I> (where the subtree depth is counted relative to the subtree
+root); if <I>depth</I> is negative or omitted, the complete subtree is
+printed.<P>
+
+Multiple <B>-show</B> clauses may be specified. If two or more different
+<B>-show</B> clauses apply to the same model, the maximum elision depth
+over the matching clauses is used (where a negative or omitted depth
+is taken to mean infinity in the maximum calculation).<P>
+
+<DT><A NAME="ElideOpt"><B>-elide</B> <I>name</I></A><DD>
+All imports of any pathname containing the string <I>name</I> are
+elided. This is like "show <I>name</I> 0", except that if both
+<B>-show</B> and <B>-elide</B> clauses apply to the same model,
+the <B>-elide</B> clauses take precedence. Multiple <B>-elide</B>
+clauses may be specified.<P>
+
+<DT><A NAME="-plain"><B>-plain</B></A><DD>
+With <B>-plain</B>, import paths will be printed without any decoration
+(i.e. no leading indentation to show the nesting level and no
+following "...").  Also, each path will be printed only once.  This
+option is useful for getting a list of all the imported models.  A
+common use is to then process the imported model files individually
+(e.g. search them for a string).
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3>Exit Status</H3>
+<BLOCKQUOTE>
+<P>
+
+The following exit values are returned:<P>
+
+<UL>
+<LI> 0 : Successful completion.
+<LI> 1 : Command line parsing error.
+<LI> 2 : A model file referred to by an import clause did not exist.
+<LI> 3 : Model file parsing error.
+<LI> 4 : Filesystem operation error (e.g. error reading a model file).
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3>Examples</H3>
+<BLOCKQUOTE>
+<P>
+
+Here are examples of running <I>vimports</I> on its own control panel
+model with various depth thresholds.
+<PRE>
+$ vimports -depth 0 .main.ves
+/vesta-work/heydon/vimports/.main.ves...
+
+$ vimports -depth 1 .main.ves
+/vesta-work/heydon/vimports/.main.ves
+| /vesta-work/heydon/vimports/build.ves...
+| /vesta/src.dec.com/common/std_env/42/build.ves...
+
+$ vimports -depth 2 .main.ves
+/vesta-work/heydon/vimports/.main.ves
+| /vesta-work/heydon/vimports/build.ves
+| | /vesta-work/heydon/vimports/src/progs.ves...
+| | /vesta-work/heydon/vimports/src/docs.ves
+| /vesta/src.dec.com/common/std_env/42/build.ves
+| | /vesta/src.dec.com/common/bridge_generics/11/build.ves
+| | /vesta/src.dec.com/common/c/3/build.ves
+| | /vesta/src.dec.com/common/cxx/25/build.ves...
+| | /vesta/src.dec.com/common/m3/10/build.ves...
+| | /vesta/src.dec.com/common/lex/2/build.ves...
+| | /vesta/src.dec.com/common/yacc/3/build.ves...
+| | /vesta/src.dec.com/common/lim/6/build.ves...
+| | /vesta/src.dec.com/common/mtex/7/build.ves...
+| | /vesta/src.dec.com/common/etp/1/build.ves...
+| | /vesta/src.dec.com/common/std_env/39.backstop/3/build.ves...
+| | /vesta/src.dec.com/c/X11/1/build.ves...
+| | /vesta/src.dec.com/c/yacc/2/build.ves...
+| | /vesta/src.dec.com/c/lex/2/build.ves...
+| | /vesta/src.dec.com/c/gc/7/build.ves...
+| | /vesta/src.dec.com/c/math/5/build.ves...
+| | /vesta/src.dec.com/c/libcxx/2/build.ves...
+| | /vesta/src.dec.com/c/pthreads/5/build.ves...
+| | /vesta/src.dec.com/c/mach/5/build.ves...
+| | /vesta/src.dec.com/c/exc/2/build.ves...
+| | /vesta/src.dec.com/c/libc/6/build.ves...
+| | /vesta/src.dec.com/vesta/vesta_umb/28/build.ves...
+| | /vesta/src.dec.com/m3/libumb/2/build.ves...
+| | /vesta/src.dec.com/m3/juno-umbrella/3/build.ves...
+</PRE>
+
+To see the direct imports for the "vesta_umb" model in the last
+listing, a <B>-show</B> clause can be used:
+<PRE>
+$ vimports -depth 2 -show vesta_umb 1 .main.ves
+/vesta-work/heydon/vimports/.main.ves
+| /vesta-work/heydon/vimports/build.ves
+| | /vesta-work/heydon/vimports/src/progs.ves...
+| | /vesta-work/heydon/vimports/src/docs.ves
+| /vesta/src.dec.com/common/std_env/42/build.ves
+| | /vesta/src.dec.com/common/bridge_generics/11/build.ves
+| | /vesta/src.dec.com/common/c/3/build.ves
+| | /vesta/src.dec.com/common/cxx/25/build.ves...
+| | /vesta/src.dec.com/common/m3/10/build.ves...
+| | /vesta/src.dec.com/common/lex/2/build.ves...
+| | /vesta/src.dec.com/common/yacc/3/build.ves...
+| | /vesta/src.dec.com/common/lim/6/build.ves...
+| | /vesta/src.dec.com/common/mtex/7/build.ves...
+| | /vesta/src.dec.com/common/etp/1/build.ves...
+| | /vesta/src.dec.com/common/std_env/39.backstop/3/build.ves...
+| | /vesta/src.dec.com/c/X11/1/build.ves...
+| | /vesta/src.dec.com/c/yacc/2/build.ves...
+| | /vesta/src.dec.com/c/lex/2/build.ves...
+| | /vesta/src.dec.com/c/gc/7/build.ves...
+| | /vesta/src.dec.com/c/math/5/build.ves...
+| | /vesta/src.dec.com/c/libcxx/2/build.ves...
+| | /vesta/src.dec.com/c/pthreads/5/build.ves...
+| | /vesta/src.dec.com/c/mach/5/build.ves...
+| | /vesta/src.dec.com/c/exc/2/build.ves...
+| | /vesta/src.dec.com/c/libc/6/build.ves...
+| | /vesta/src.dec.com/vesta/vesta_umb/28/build.ves
+| | | /vesta/src.dec.com/vesta/run_tool/13/build.ves...
+| | | /vesta/src.dec.com/vesta/cache/28/build.ves...
+| | | /vesta/src.dec.com/vesta/repos/16/build.ves...
+| | | /vesta/src.dec.com/vesta/fp/12/build.ves...
+| | | /vesta/src.dec.com/vesta/log/15/build.ves...
+| | | /vesta/src.dec.com/vesta/srpc/12/build.ves...
+| | | /vesta/src.dec.com/vesta/config/11/build.ves...
+| | | /vesta/src.dec.com/vesta/basics/39/build.ves...
+| | /vesta/src.dec.com/m3/libumb/2/build.ves...
+| | /vesta/src.dec.com/m3/juno-umbrella/3/build.ves...
+</PRE>
+
+To search the imported models for a string (e.g. where a particular
+bridge is used or where a message orginates) one can use
+<A HREF="vimports.1.html#-plain"><B>-plain</B></A> combined with the standard grep(1)
+utility:
+<PRE>
+$ vimports -plain linux_i386.main.ves | xargs grep './lex/lex'
+/vesta/vestasys.org/bridges/lim/2/src/prog.ves:    lex_res_c = ./lex/lex(lex_source, "llim");
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta.1.html">vesta(1)</A>,
+<A HREF="vlatest.1.html">vlatest(1)</A>,
+<A HREF="vupdate.1.html">vupdate(1)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon (<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Created on Wed Jul  2 16:15:20 PDT 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

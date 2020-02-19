@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Diagnostic Functions</TITLE>
+<META NAME="description" CONTENT="Diagnostic Functions">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="previous" HREF="node158.html">
+<LINK REL="up" HREF="node150.html">
+<LINK REL="next" HREF="node160.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2518"
+  HREF="node160.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2514"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2510"
+  HREF="node158.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2516"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2519"
+  HREF="node160.html">Concrete Syntax</A>
+<B> Up:</B> <A NAME="tex2html2515"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2511"
+  HREF="node158.html">Tool Invocation Function</A>
+ &nbsp <B>  <A NAME="tex2html2517"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001334900000000000000">
+Diagnostic Functions</A>
+</H3>
+
+<P>
+<PRE>
+t_value
+_print(t_value v, t_int deps = 0, t_bool verbose = FALSE)
+</PRE>
+<BR>
+Print the value <EM>v</EM> to standard output followed by a newline, and
+return <EM>v</EM>. What gets printed depends on <EM>v</EM>'s type. If <EM>v</EM> is of type t_err, <TT>ERR</TT> is printed. If <EM>v</EM> is of type
+t_bool, <TT>TRUE</TT> or <TT>FALSE</TT> is printed. If <EM>v</EM> is of type
+t_int, its decimal value is printed.
+
+<P>
+The printed representation of a t_text value is
+<code>&lt;file</code>&nbsp;<code>0x</code><EM>XXXXXXXX</EM><code>&gt;</code> if <EM>verbose</EM> is
+false and the text is
+represented by a backing file, in which case <EM>XXXXXXXX</EM> is the
+file's hexadecimal identifier.  Otherwise, it is the text value's
+contents enclosed in double quotes.
+
+<P>
+The printed representation of a t_list value containing the values
+<!-- MATH
+ $v_1, v_2, \ldots, v_k$
+ -->
+<IMG
+ WIDTH="94" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img132.png"
+ ALT="$v_1, v_2, \ldots, v_k$"> is <code>&lt;</code>&nbsp;<!-- MATH
+ $p_1, p_2, \ldots, p_k$
+ -->
+<IMG
+ WIDTH="95" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img133.png"
+ ALT="$p_1, p_2, \ldots, p_k$">&nbsp;<code>&gt;</code>,
+where <IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img134.png"
+ ALT="$p_i$"> denotes the printed representation of the value <IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img101.png"
+ ALT="$v_i$">.
+
+<P>
+The printed representation of a t_binding value containing the (name, value)
+pairs <!-- MATH
+ $(n_1, v_1), (n_2, v_2), \ldots, (n_k, v_k)$
+ -->
+<IMG
+ WIDTH="203" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img135.png"
+ ALT="$(n_1, v_1), (n_2, v_2), \ldots, (n_k, v_k)$"> is
+<code>[</code>&nbsp;<!-- MATH
+ $n_1 = p_1, \ldots, n_k = p_k$
+ -->
+<IMG
+ WIDTH="149" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img136.png"
+ ALT="$n_1 = p_1, \ldots, n_k = p_k$">&nbsp;<code>]</code>, where again <IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img134.png"
+ ALT="$p_i$">
+denotes the printed representation of the value <IMG
+ WIDTH="19" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img101.png"
+ ALT="$v_i$">.
+
+<P>
+The printed representation of a t_closure value is
+<code>&lt;Model</code>&nbsp;<EM>name</EM><code>&gt;</code> if the closure is represented
+by a model, in which case <EM>name</EM> is a name for the model file
+in the repository.  Otherwise, if <EM>verbose</EM> is true,
+it is the complete list of formals, body, and context; if not
+it is simply <code>&lt;Closure&gt;</code>.
+
+<P>
+If <EM>deps</EM> is greater than zero, the value's dependencies are also
+printed.  In the current implementation, values of 1 and 2 provide
+different levels of detail.  This feature is meant for debugging the
+evaluator itself.
+
+<P>
+Typically, <TT>_print</TT> is used for debugging purposes, and its result
+is ignored. However, it is important to remember that <TT>_print</TT>
+is a function, not a statement. Hence, one cannot simply write:
+
+<P>
+<PRE>
+  _print(v);
+</PRE>
+
+<P>
+inside a function body. Instead, the call to <TT>_print</TT> must be
+used in a functional way, such as:
+
+<P>
+<PRE>
+  dummy = _print(v);
+</PRE>
+
+<P>
+Note also that efficient implementations of the Vesta language will
+cache function results and re-use those cached results whenever it is
+safe to do so. Calls to the <TT>_print</TT> function itself are never
+cached. However, the <TT>_print</TT> function's side effect of printing
+to the terminal is not repeated whenever the call to <TT>_print</TT> is
+skipped due to a higher level hit on the function cache.
+
+<P>
+<PRE>
+t_bool
+_assert(t_bool cond, t_value msg)
+</PRE>
+<BR>
+If the value <EM>cond</EM> is <EM>true</EM>, return <EM>true</EM>.  Otherwise,
+print the value <EM>msg</EM> as with the <TT>_print</TT> primitive, then
+terminate the evaluation with a runtime error.  As a diagnostic aid,
+our implementation allows the context of a false assertion and/or a
+stack trace to be printed as well, if selected by command-line options
+to the evaluator.  Note that, like <TT>_print</TT>,
+<TT>_assert</TT> is a function, not a statement.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2518"
+  HREF="node160.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2514"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2510"
+  HREF="node158.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2516"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2519"
+  HREF="node160.html">Concrete Syntax</A>
+<B> Up:</B> <A NAME="tex2html2515"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2511"
+  HREF="node158.html">Tool Invocation Function</A>
+ &nbsp <B>  <A NAME="tex2html2517"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

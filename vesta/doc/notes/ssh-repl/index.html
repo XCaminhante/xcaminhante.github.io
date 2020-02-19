@@ -1,0 +1,419 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Replicating Over SSH Port-Forwarding</title>
+  </head>
+
+  <body bgcolor="#efefff">
+    <h1>Replicating Over SSH Port-Forwarding</h1>
+
+    <ul>
+      <li><a href="index.html#Introduction">Introduction</a></li>
+      <li><a href="index.html#Hosts">Hosts</a></li>
+      <li><a href="index.html#Access Control">Access Control</a></li>
+      <li><a href="index.html#Example #1">Example #1</a></li>
+      <li><a href="index.html#Example #2">Example #2</a></li>
+      <li><a href="index.html#Limitations">Limitations</a></li>
+      <li><a href="index.html#Troubleshooting">Troubleshooting</a></li>
+    </ul>
+
+    <h2><a name="Introduction">Introduction</a></h2>
+
+    <p>
+      In some situations, it's not possible to initiate a direct TCP
+      connection to the source repository you want to replicate
+      from.&nbsp; Your destination repository could be behind a
+      firewall with strict rules about outgoing connections, or the
+      source repository could be behind a firewall with strict rules
+      about incoming connections.
+    </p>
+
+    <p>
+      Replication only requires connections to a single TCP
+      port.&nbsp; (Specifically the one in the
+
+      <a href="../../man/html/vesta.cfg.5.html">config file</a>
+      setting <tt>[Repository]VestaSourceSRPC_port</tt>, usually
+      21776.)&nbsp; Because of this, it's possible to securely tunnel
+      a replication with the <i>port forwarding</i> feature provided
+      by
+
+      <a href="http://www.openssh.org/">OpenSSH</a> and other SSH
+      implementations.
+    </p>
+
+    <h2><a name="Hosts">Hosts</a></h2>
+
+    <p>
+      Replication over SSH port-forwarding involves at least two
+      different hosts (an SSH client and an SSH server), but possibly
+      as many as five:
+    </p>
+
+    <ol>
+      <li>
+	The host where
+	<a href="../../man/html/vrepl.1.html">the replicator</a> is
+	run
+      </li>
+      <li>
+	The destination repository
+      </li>
+      <li>
+	A host which the destination repository can connect to (which
+	can be either the SSH client or the SSH server)
+      </li>
+      <li>
+	A host which can connect to the source repository (the other
+	end of the SSH connection)
+      </li>
+      <li>
+	The source repository
+      </li>
+    </ol>
+
+    <p>
+      In the simplest case, 1-3 are all the same host and 4 and 5 are
+      the same host, but they could all be different.
+    </p>
+
+    <p>
+      Port forwarding can go in either direction (from the SSH client
+      to the SSH server, or from the server to the client).&nbsp;
+      Because of this flexibility, host 3 can act as an SSH client to
+      host 4, or host 4 can act as an SSH client to host 3.&nbsp;
+      However, the port-forward must always go from the destination
+      side to the source side (from host 3 to host 4).
+    </p>
+
+    <h2><a name="Access Control">Access Control</a></h2>
+    
+    <p>
+      One important prerequisite is ensuring that the source
+      repository will allow read access over the port-forwarded
+      connection.&nbsp; This usually requires using one of the
+      following methods:
+    </p>
+
+    <ul>
+      <li>
+	Adjusting the
+
+	<a href="../../man/html/repository.8.html#Export%20file">repository export file</a>.&nbsp;
+
+	Specifically, the source repository must allow read access
+	with the realm used at the destination from the host on the
+	source end of the SSH connection (host #4 above).&nbsp; (If
+	you don't know what your realm is, you can find out with the
+	command
+
+	&quot;<tt><a href="../../man/html/vgetconfig.1.html">vgetconfig</a>
+
+	  <a href="../../man/html/repository.8.html#Configuration">Repository</a>
+	  realm</tt>&quot;.)
+      </li>
+      <li>
+	Explicitly specifying the global user name to be used when
+	talking to the source repository during replication on the
+	replicator command line with
+
+	<a href="../../man/html/vrepl.1.html#-s">the &quot;<tt>-s</tt>&quot; option</a>.&nbsp;
+
+	This allows one to bypass the need to change the export file
+	at the source repository, but requires knowing a global user
+	name which will be allowed access from the source end of the
+	SSH connection.&nbsp; (If you don't know what a global name
+	is, refer to
+
+	<a href="../../man/html/repository.8.html#Principal%20identification%20and%20authentication">the section on pricipal identification
+	in the repository(8) man page</a>.)
+      </li>
+    </ul>
+
+    <p>
+      In addition to having access to the source repository over the
+      SSH port forward, the destination repository will also have to
+      be told to allow replication from the destination end of the SSH
+      connection.&nbsp; This requires adding an appropriate
+      &quot;<tt>#replicate-from</tt>&quot; attribute in the
+      destination repository.&nbsp; (See
+
+      <a href="../../man/html/vrepl.1.html">the vrepl(1) man page</a>
+
+      for a description of this attribute.)
+    </p>
+
+    <h2><a name="Example #1">Example #1</a></h2>
+
+    <p>
+      A user with Vesta installed behind a corporate firewall that
+      wishes to replicate from <tt>pub.vestasys.org</tt>, but can't
+      because of outgoing restrictions on the firewall.&nbsp; However,
+      the corporate firewall <em>does</em> allow outgoing SSH
+      connections, and they want to use this to tunnel out to the
+      public repository.&nbsp; They have a Linux machine at home on a
+      broadband connection which is running an SSH server.
+    </p>
+
+    <p>
+      In this example the hosts will be:
+    </p>
+
+    <ol>
+      <li>
+	<b><tt>workstation.example.com</tt></b>: The user will run
+
+	<a href="../../man/html/vrepl.1.html">the replicator</a> on
+	their workstation, which is behind the corporate firewall and
+	is a client of the destination repository
+      </li>
+      <li>
+	<b><tt>vesta.example.com</tt></b>: The destination repository,
+	also behind the corporate firewall
+      </li>
+      <li>
+	<b><tt>workstation.example.com</tt></b>: The user will also
+	run the SSH client on their workstation
+      </li>
+      <li>
+	<b><tt>user1234.dsl.exampleisp.net</tt></b>: The user's Linux
+	machine at home on a broadband connection, which will be used
+	as an SSH server.
+      </li>
+      <li>
+	<b><tt>pub.vestasys.org</tt></b>: The source repository
+      </li>
+    </ol>
+
+    <p>
+      The user first arranges to allow replications using their
+      workstation as the source repository:
+    </p>
+
+    <blockquote>
+      <pre>jsmith@workstation.example.com% <b>su vadmin</b>
+Password:
+vadmin@workstation.example.com% <b>vattrib -a "#replicate-from" workstation.example.com:21776 /vesta</b></pre>
+    </blockquote>
+
+    <p>
+      Of course their workstation isn't really the source repository,
+      but it will look like it is to the replication and the
+      destination repository, since that's where the incoming end of
+      the port-forward will be.
+    </p>
+
+    <p>
+      Next the user starts the SSH client, connecting out to their
+      home Linux machine with a port forward through to
+      <tt>pub.vestasys.org</tt>:
+    </p>
+
+    <blockquote>
+      <pre>jsmith@workstation.example.com% <b>ssh -L 21776:pub.vestasys.org:21776 -g jsmith@user1234.dsl.exampleisp.net</b></pre>
+    </blockquote>
+
+    <p>
+      Leaving the ssh client running, they start the replication on
+      their workstation:
+    </p>
+
+    <blockquote>
+      <pre>jsmith@workstation.example.com%  <b>vrepl -s workstation.example.com:21776 -e@ /vesta/vestasys.org/vesta/release/LAST/linux_i386.main.ves</b></pre>
+    </blockquote>
+
+    <p>
+      It's worth noting that this requires no changes to the access
+      control configuration on the source repository, because
+      <tt>pub.vestasys.org</tt> allows anyone to have read-only
+      access.
+    </p>
+
+    <h2><a name="Example #2">Example #2</a></h2>
+
+    <p>
+      A user with Vesta installed both at work behind a corporate
+      firewall and at home behind a personal firewall wishes to
+      replicate from their repository at home to their repository at
+      work.&nbsp; Both machines are behind firewalls that would
+      prevent this.&nbsp; However, the corporate firewall allows
+      incoming SSH connections, which the user will use to tunnel
+      between the two repositories.
+    </p>
+
+    <p>
+      In this example the hosts will be:
+    </p>
+
+    <ol>
+      <li>
+	<b><tt>workstation.example.com</tt></b>: The user will run
+
+	<a href="../../man/html/vrepl.1.html">the replicator</a> on
+	their workstation, which is behind the corporate firewall and
+	is a client of the destination repository
+      </li>
+      <li>
+	<b><tt>vesta.example.com</tt></b>: The destination repository,
+	also behind the corporate firewall
+      </li>
+      <li>
+	<b><tt>user1234.dsl.exampleisp.net</tt></b>: The user will run
+	the SSH client on their home Linux machine to connect into the
+	corporate network
+      </li>
+      <li>
+	<b><tt>ssh.example.com</tt></b>: The corporate SSH server.
+      </li>
+      <li>
+	<b><tt>user1234.dsl.exampleisp.net</tt></b>: The source
+	repository is also running on the user's home Linux machine
+      </li>
+    </ol>
+
+    <p>
+      First, the user adds a line to the source repository's export
+      file to allow the realm of the destination repository access:
+    </p>
+
+    <blockquote>
+      <pre>jsmith@user1234.dsl.exampleisp.net% <b>su vadmin</b>
+Password:
+vadmin@user1234.dsl.exampleisp.net% <b>echo "127.0.0.1: ro example.com" >> /etc/vesta/repos.export</b></pre>
+    </blockquote>
+
+    <p>
+      (Note that unless you've used the RPM or Dedian packages to
+      install Vesta, this may not be where your export file is.)
+    </p>
+
+    <p>
+      Next the user starts the SSH client, connecting into the company
+      network with a port forward pointing back to the repository
+      running on their home computer:
+    </p>
+
+    <blockquote>
+      <pre>jsmith@user1234.dsl.exampleisp.net% <b>ssh -R 21776:localhost:21776 -g jsmith@ssh.example.com</b></pre>
+    </blockquote>
+
+    <p>
+      Now that they've logged into the company network, the user
+      arranges to allow replications using the company SSH server
+      (which is be the destination end of the port forward) as the
+      source repository:
+    </p>
+
+    <blockquote>
+      <pre>jsmith@workstation.example.com% <b>su vadmin</b>
+Password:
+vadmin@workstation.example.com% <b>vattrib -a "#replicate-from" ssh.example.com:21776 /vesta</b></pre>
+    </blockquote>
+
+    <p>
+      Before trying a replication, just to make sure everything's
+      working, the user runs a simple client to test the port
+      forwarded connection to their home repository:
+    </p>
+
+    <blockquote>
+      <pre>jsmith@workstation.example.com%  <b>vid -R ssh.example.com</b>
+User names and aliases:
+  jsmith@example.com
+Groups:
+Unix (NFS) user ID:          203
+Unix (NFS) primary group ID: 202
+</pre>
+    </blockquote>
+
+    <p>
+      Satisfied that everything's working, they start the replication
+      on their workstation:
+    </p>
+
+    <blockquote>
+      <pre>jsmith@workstation.example.com%  <b>vrepl -s ssh.example.com:21776 -e+ /vesta/jsmith_exampleisp.net/*/LAST</b></pre>
+    </blockquote>
+
+    <h2><a name="Limitations">Limitations</a></h2>
+
+    <p>
+      While replication only requires a uni-directional connection to
+      the source repository, mastership transfer requires
+      bi-directional connections.&nbsp; That means that SSH
+      port-forwarding alone is <b>not</b> sufficient for checking out
+      an object mastered at a remote repository.&nbsp; For that, you
+      need a more significant VPN solution.
+    </p>
+
+    <h2><a name="Troubleshooting">Troubleshooting</a></h2>
+
+    <dl>
+      <dt>Connection refused</dt>
+      <dd>
+	<p>
+	  Port forwarding can go either from the SSH client to the SSH
+	  server, or from the server to the client.&nbsp; Make sure
+	  you have it going in the right direction (from the
+	  destination side to the source side).
+	</p>
+
+	<p>
+	  Other possible causes include:
+	</p>
+
+	<ul>
+	  <li>The source repository isn't running</li>
+
+	  <li>The wrong host was specified for the source end of the
+	  port forward</li>
+
+	  <li>Something is preventing the source end of the SSH
+	  conenction from connecting to the source repository</li>
+	</ul>
+      </dd>
+
+      <dt>SRPC::failure unauthorized user</dt>
+      <dd>
+	<p>
+	  <a href="index.html#Access Control">As described above</a>, the source
+	  repository must allow read access from the source end of the
+	  SSH connection.&nbsp; Check the
+
+	  <a href="../../man/html/repository.8.html#Export%20file">export file</a>
+
+	  at the source repository, and make sure it allows access
+	  from that host with the realm used at the destination.&nbsp;
+	  You can check whether you've gotten it right by running
+	  simple commands that will access the source repository over
+	  the SSH port forward:
+	</p>
+
+	<blockquote>
+	  <pre>vid -R <i>ssh-host</i>:<i>forwarded-port</i>
+vattrib -R <i>ssh-host</i>:<i>forwarded-port</i> /vesta</pre>
+	</blockquote>
+      </dd>
+
+      <dt>vrepl: No permission, copying ...</dt>
+      <dd>
+	<p>
+	  Make sure you've added a
+	  &quot;<tt>#replicate-from</tt>&quot; attribute at the
+	  destination repository to allow using the destination end of
+	  the SSH port forward as a replication source.
+	</p>
+      </dd>
+
+    </dl>
+
+    <hr>
+    <address>
+      <a href="mailto&#58;ken&#64;xorian&#46;net">Kenneth C. Schalk</a>
+    </address>
+<!-- Created: Wed May 14 08:58:53 EDT 2003 -->
+<!-- hhmts start -->
+Last modified: Tue Nov 16 13:26:40 EST 2004
+<!-- hhmts end -->
+  </body>
+</html>

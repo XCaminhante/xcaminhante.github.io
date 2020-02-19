@@ -1,0 +1,130 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>EraseCache(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>EraseCache(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+EraseCache - delete files maintained by the Vesta-2 cache server
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>EraseCache</B> [ <B>-f</B> ] [ <B>-v</B> ]
+</BLOCKQUOTE>
+
+<H3>Description</H3>
+<BLOCKQUOTE>
+<P>
+
+<I>EraseCache</I> deletes files maintained by the Vesta-2 cache server.
+In particular, it deletes the cache server's log files, stable cache
+files (i.e., all of the so-called MultiPKFiles), and stable
+variable files. It also deletes any stable files written by the
+Vesta-2 weeder, <A HREF="VestaWeed.1.html">VestaWeed(1)</A>.<P>
+
+By default, the files containing the stable cache entries are not
+listed when they are deleted, since there are likely to be so many of
+them. If you specify the <B>-v</B> switch, all of the stable cache files
+are listed as they are deleted.<P>
+
+Since erasing a cache server's cache is a serious operation,
+by default <I>EraseCache</I> displays the directory of the cache
+that will be erased, and then asks for confirmation:
+<PRE>
+  Are you sure you want to erase this cache (y/n)?
+</PRE>
+
+The cache will only be erased if your response begins with the letter
+"y". The <B>-f</B> switch forces the cache to be erased without a
+request for confirmation.<P>
+
+When you erase the cache files created by some cache server, you must
+run <I>EraseCache</I> as the same user that ran the cache server that
+created those files. In particular, to erase the centralized cache,
+you must run <I>EraseCache</I> as <I>vestasrv</I>.<P>
+
+When you run <I>EraseCache</I>, cache entries are only deleted from the
+disk, not from the memory of a running cache server
+<A HREF="VCache.1.html">VCache(1)</A>. To run the cache server on an empty
+cache, you must kill any running instance of the cache server, run
+<I>EraseCache</I>, and then restart the server.<P>
+
+<B>Warning!</B> You should never erase a stable cache that is in use by
+some cache server. Doing so will most likely cause the cache server to
+crash. Be sure there is no cache server running on the stable cache in
+question before using this program.
+</BLOCKQUOTE>
+
+<H3>Configuration Variables</H3>
+<BLOCKQUOTE>
+<P>
+
+<I>EraseCache</I> deletes files contained in a part of the filesystem
+pointed to by the current Vesta configuration file. In particular, it
+reads the following values from the <I>CacheServer</I> section of the
+configuration file:
+<PRE>
+[CacheServer]
+MetaDataRoot     - root of Vesta-2 meta-data
+  MetaDataDir    - root of cache server meta-data sub-tree
+    SCacheDir    - root of stable cache entries sub-tree
+    SVarsDir     - root of stable variables sub-tree
+    WeededLogDir - directory containing log of weeded MPKFiles
+    CacheLogDir  - directory containing the cache log
+    GraphLogDir  - directory containing the graph log
+    CILogDir     - directory containing the used cache index log
+</PRE>
+
+It also reads the following value from the <I>Weeder</I> section of
+the configuration file:
+<PRE>
+[Weeder]
+  MetaDataDir    - root of weeder meta-data files
+</PRE>
+
+Nesting indicates how the directory tree corresponding to these names
+is structured. If the <I>MetaDataRoot</I> value is the empty string,
+then the current directory is used.
+</BLOCKQUOTE>
+
+<H3>See Also</H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="CleanCache.1.html">CleanCache(1)</A>,
+<A HREF="CreateCacheDirs.1.html">CreateCacheDirs(1)</A>,
+<A HREF="PrintMPKFile.1.html">PrintMPKFile(1)</A>,
+<A HREF="ShowCache.1.html">ShowCache(1)</A>,
+<A HREF="VCache.1.html">VCache(1)</A>,
+<A HREF="VestaWeed.1.html">VestaWeed(1)</A>,
+<A HREF="WhichCache.1.html">WhichCache(1)</A>.
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Last modified on Thu Nov  8 12:48:54 EST 2001 by ken@xorian.net
+     modified on Sun Oct  4 19:22:45 PDT 1998 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>
+TML>

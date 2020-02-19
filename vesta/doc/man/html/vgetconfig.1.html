@@ -1,0 +1,96 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vgetconfig - Get a Vesta configuration value</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vgetconfig(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vgetconfig</B> - Get values from the Vesta configuration file
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vgetconfig</B> [-l <I>location</I>] [-L] [-V] [-I] [-i] [-b] [-f] [-s [<I>section</I>]] [[-w|W] <I>section</I> <I>name</I> [<I>section</I> <I>name</I> ...]]
+</BLOCKQUOTE>
+
+<H3>Description</H3>
+<BLOCKQUOTE>
+<P>
+
+See the <A HREF="vesta-intro.1.html#Terminology">Terminology</A> section
+of the <A HREF="vesta-intro.1.html">vesta-intro</A> man page
+for definitions of terms.
+See the <A HREF="vesta.cfg.5.html">vesta.cfg</A> man page for syntax of the Vesta configuration file.<P>
+
+If <I>section</I> and <I>name</I> are provided, <B>vgetconfig</B> prints the
+value of <I>name</I> in section <I>section</I> of the Vesta configuration
+file.  If multiple <I>section</I> <I>name</I> pairs are provided, the values
+are printed one per line in order.<P>
+
+The -w -W flags are useful when trying to locate a configuration setting in the set of config files.
+The -s flag is useful when trying to locate a setting or section name.
+The -I flag gives a way to list all the files used to define the configuration, with their include hierarchy.<P>
+
+If the arguments given to <B>vgetconfig</B> leave it with nothing to do,
+it prints a usage message.
+</BLOCKQUOTE>
+
+<H3>Flags</H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT>-l <I>location</I><DD> 
+Use the configuration file named by <I>location</I>, overriding the default
+search path established by <TT>VestaConfig.H</TT>.
+<DT>-L<DD> Print the config file location.
+<DT>-V<DD> Print the version of vgetconfig.
+<DT>-I<DD> Print the tree of config files processed during parsing by following all include directives.
+<DT>-i<DD> Use <TT>VestaConfig::get_int</TT> to read the configuration file,
+thereby insisting that the configuration values be an integer.
+The default is to use <TT>VestaConfig::get_Text</TT>, which allows any value.
+<DT>-b<DD> Use <TT>VestaConfig::get_bool</TT> to read the configuration file,
+thereby insisting that the configuration values be a boolean.
+<DT>-f<DD> Use <TT>VestaConfig::get_float</TT> to read the configuration
+file, thereby insisting that the configuration values be a
+floating-point value.
+<DT>-w<DD> Prefix value with filename and line number that defined it.  (Mnemonic: "<I><B>W</B>here</I> was this setting assigned?")  If the value is not defined, nothing will be printed.
+<DT>-W<DD> Like -w, but print values of <B>all</B> settings of [<I>section</I>]<I>name</I> found and prefix each with filename and line number that defined it.  If multiple settings are found, the last one printed is the value actually used.
+<DT>-s [<I>section</I>]<DD> Print out all the sections, one per line.  If
+a <I>section</I> name is given, prints out the names of all variables in
+the section, one per line.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3>See Also</H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>
+TML>

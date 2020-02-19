@@ -1,0 +1,534 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vesta-intro - Introduction to Vesta</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vesta-intro(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vesta-intro</B> - Introduction to the Vesta configuration management system
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vesta-intro.1.html#Description">Description</A>
+<LI> <A HREF="vesta-intro.1.html#Terminology">Terminology</A>
+<LI> <A HREF="vesta-intro.1.html#ConfigFiles">Configuration Files</A>
+<LI> <A HREF="vesta-intro.1.html#Name_Interpretation">Name Interpretation</A>
+<LI> <A HREF="vesta-intro.1.html#See_Also">See Also</A>
+<LI> <A HREF="vesta-intro.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vesta-intro.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Vesta is a system for software configuration management.
+It consists of a source code storage and control component,
+comprising the <I>repository</I> and <I>repository tools</I>,
+and a building component, comprising
+the <I>evaluator</I>, the <I>function cache</I>, and the <I>weeder</I>.
+For an overview, see the paper
+<A HREF="http://gatekeeper.dec.com/pub/DEC/SRC/research-reports/abstracts/src-rr-168.html"><I>The Vesta Approach to Software Configuration Management</I></A>, 
+available as Research Report 168, Compaq Systems Research Center.
+Additional documentation is available in the references listed 
+under <A HREF="vesta-intro.1.html#See_Also">See Also</A> below.
+</BLOCKQUOTE>
+
+<H3><A NAME="Terminology">Terminology</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Here is a brief introduction to some basic Vesta terminology.
+The terms are ordered to avoid forward references as much as possible.<P>
+
+Alphabetical list:
+<A HREF="vesta-intro.1.html#advance">advance</A>,
+<A HREF="vesta-intro.1.html#agreement">agreement</A>,
+<A HREF="vesta-intro.1.html#appendable_directory">appendable directory</A>,
+<A HREF="vesta-intro.1.html#base">base</A>,
+<A HREF="vesta-intro.1.html#branch">branch</A>,
+<A HREF="vesta-intro.1.html#checkin">checkin</A>,
+<A HREF="vesta-intro.1.html#checkout">checkout</A>,
+<A HREF="vesta-intro.1.html#ConfigFiles">configuration file</A>,
+<A HREF="vesta-intro.1.html#evaluator">evaluator</A>,
+<A HREF="vesta-intro.1.html#function_cache">function cache</A>,
+<A HREF="vesta-intro.1.html#ghost">ghost</A>,
+<A HREF="vesta-intro.1.html#immutable">immutable</A>,
+<A HREF="vesta-intro.1.html#immutable_directory">immutable directory</A>,
+<A HREF="vesta-intro.1.html#immutable_file">immutable file</A>,
+<A HREF="vesta-intro.1.html#import">import</A>,
+<A HREF="vesta-intro.1.html#master">master</A>,
+<A HREF="vesta-intro.1.html#master_stub">master stub</A>,
+<A HREF="vesta-intro.1.html#model">model</A>,
+<A HREF="vesta-intro.1.html#mutable_attributes">mutable attributes</A>,
+<A HREF="vesta-intro.1.html#mutable_directory">mutable directory</A>,
+<A HREF="vesta-intro.1.html#mutable_file">mutable file</A>,
+<A HREF="vesta-intro.1.html#nonmaster_stub">nonmaster stub</A>,
+<A HREF="vesta-intro.1.html#package">package</A>,
+<A HREF="vesta-intro.1.html#replication">replication</A>,
+<A HREF="vesta-intro.1.html#repository">repository</A>,
+<A HREF="vesta-intro.1.html#repository_tools">repository tools</A>,
+<A HREF="vesta-intro.1.html#reservation_stub">reservation stub</A>,
+<A HREF="vesta-intro.1.html#runtool_server">runtool server</A>,
+<A HREF="vesta-intro.1.html#SDL">SDL</A>,
+<A HREF="vesta-intro.1.html#session">session</A>,
+<A HREF="vesta-intro.1.html#snapshot">snapshot</A>,
+<A HREF="vesta-intro.1.html#standard_construction_environment">standard construction environment</A>,
+<A HREF="vesta-intro.1.html#stub">stub</A>,
+<A HREF="vesta-intro.1.html#symlink-to">symlink-to</A>,
+<A HREF="vesta-intro.1.html#version">version</A>,
+<A HREF="vesta-intro.1.html#ConfigFiles">vesta.cfg</A>,
+<A HREF="vesta-intro.1.html#volatile_directory">volatile directory</A>,
+<A HREF="vesta-intro.1.html#weeder">weeder</A>,
+<A HREF="vesta-intro.1.html#working_directory">working directory</A><P>
+
+<DL>
+<DT><A NAME="repository">repository</A><DD> The Vesta <I>repository</I> is responsible for
+long-term data storage in files and directories.  It acts as an NFS
+file server, making all source code stored in Vesta visible in the
+ordinary file name space.  See <A HREF="repository.8.html"><B>repository</B>(8)</A>.<P>
+
+<DT><A NAME="repository_tools">repository tools</A><DD> The repository has several special features
+not shared by ordinary NFS servers, which are accessible through the
+command line tools referenced below.  Many of the standard Vesta
+conventions and policies are implemented in the tools, not in the
+repository proper, making them relatively easy to change.
+The documentation for each tool is referenced under
+<A HREF="vesta-intro.1.html#See_Also">See Also</A> below.<P>
+
+<DT><A NAME="immutable">immutable</A><DD> All source code permanently stored by the repository
+is <I>immutable</I>; that is, it cannot be modified.  Once a filename is
+bound to a particular file, that file cannot be edited or replaced
+with a different file.  This feature supports reproducible building
+and simplifies both source replication and build caching.<P>
+
+<DT><A NAME="version">version</A><DD> By convention, every file permanently stored in the
+repository has a <I>version number</I> somewhere in its name.  Thus,
+although each file is immutable, the repository can represent an
+evolving program as a sequence of files with different version
+numbers.<P>
+
+<DT><A NAME="package">package</A><DD> We have found it convenient to organize sources into
+<I>packages</I>.  A package is a tree of files and directories that
+typically change together.  The Vesta repository tools do versioning
+at the package level, not the level of individual files: each package
+is a sequence of versions.  For example,
+<TT>/vesta/src.dec.com/vesta/repos/74/src/RepositoryMain.C</TT>
+is one of the files in version 74 of the package named
+<TT>/vesta/src.dec.com/vesta/repos</TT>.
+The <A HREF="vcreate.1.html"><B>vcreate</B>(1)</A> tool creates a package.<P>
+
+<DT><A NAME="branch">branch</A><DD> The versions of a package are numbered in a linear
+sequence.  To represent forked or parallel development, the repository
+tools support the concept of a <I>branch</I>.  A branch is a new package
+that is placed as a subdirectory of the parent package, with a name
+based on one of the versions of the parent package (the branch base),
+and with a version 0 that is identical to the branch base.
+The <A HREF="vbranch.1.html"><B>vbranch</B>(1)</A> tool creates a branch.<P>
+
+<DT><A NAME="appendable_directory">appendable directory</A><DD> An <I>appendable directory</I> is a
+directory in which new names can be inserted, but existing names
+cannot be deleted and reused.  Packages are stored in a tree of
+appendable directories that is conventionally mounted as <TT>/vesta</TT>.
+Each package is itself an appendable directory so that new versions
+can be added.<P>
+
+<DT><A NAME="immutable_directory">immutable directory</A><DD> An <I>immutable directory</I> is a directory
+that cannot be changed at all; names can neither be created nor
+deleted.  A package version is stored as a tree of immutable directories.<P>
+
+<DT><A NAME="immutable_file">immutable file</A><DD>  An <I>immutable file</I> is a file whose contents
+cannot be changed.  The files in a package version are immutable.<P>
+
+<DT><A NAME="mutable_attributes">mutable attributes</A><DD> A source object's <I>mutable attributes</I>
+are a set of (name, value) pairs that the repository attaches to the
+object.  The repository tools use mutable attributes to store
+many kinds of information; for example, when and by whom a package was
+created, and on what previous versions a new version was based.
+The <A HREF="vattrib.1.html"><B>vattrib</B>(1)</A> tool can be used to
+view or modify mutable attributes.<P>
+
+<DT><A NAME="mutable_directory">mutable directory</A><DD> A <I>mutable directory</I> is a directory
+implemented by the repository that looks much like an ordinary
+filesystem directory; files and subdirectories in such a directory can
+be freely created, deleted, or edited.  Mutable directories are
+stored in a tree that is conventionally mounted as <TT>/vesta-work</TT>.<P>
+
+<DT><A NAME="mutable_file">mutable file</A><DD> A <I>mutable file</I> is a file in a mutable
+directory.  Internally, a mutable file may be implemented as a link to
+an immutable file, with copy-on-write if a user attempts to edit the
+file, but this detail is not visible through the NFS interface.<P>
+
+<DT><A NAME="base">base</A><DD> The repository can quickly create a mutable directory that
+is <I>based on</I> (initialized from) any immutable directory.<P>
+
+<DT><A NAME="snapshot">snapshot</A><DD> The repository can quickly create an immutable
+directory that is a <I>snapshot</I> (immutable copy) of any mutable directory.<P>
+
+<DT><A NAME="working_directory">working directory</A><DD>  A <I>working directory</I> is a mutable
+directory created for the purpose of editing sources and developing
+new package versions.  It may either be initially empty or based on
+a previous package version.<P>
+
+<DT><A NAME="checkout">checkout</A><DD> To <I>check out</I> a package means to initiate
+development of the package's next version.  The repository tools use a
+locking (pessimistic) concurrency control model, so the next version
+number is reserved at checkout time.  The
+<A HREF="vcheckout.1.html"><B>vcheckout</B>(1)</A> tool is used to check out a
+package.  By default, it creates a working directory based on the
+most recent previous package version.  It also creates a session
+directory and a reservation stub, described next.<P>
+
+<DT><A NAME="session">session</A><DD> Because the Vesta evaluator (builder)
+can operate only on
+immutable sources, Vesta users end up creating a large number of
+versions, most of which are of little long-term interest.  For
+example, each attempt to modify and recompile a program will generate a
+new version. Typically many of these versions will have syntax errors or
+other simple bugs.  We have therefore found it convenient to
+distinguish between two kinds of package versions: <I>public versions</I>,
+which a developer typically creates when he is ready to release code
+for use by others, and <I>session versions</I>, in-between versions
+created during development and debugging.  A <I>session directory</I>
+holds session versions.  For example, the versions in the development
+session that led up to the creation of version
+<TT>/vesta/src.dec.com/vesta/repos/74</TT> appear in the session
+directory <TT>/vesta/src.dec.com/vesta/repos/checkout/74</TT>, under
+the names <TT>0</TT>, <TT>1</TT>, <TT>2</TT>, etc.<P>
+
+<DT><A NAME="advance">advance</A><DD> To <I>advance</I> a session means to create the
+next session version, by making a snapshot of the working directory
+and placing it in the session directory.
+The <A HREF="vadvance.1.html"><B>vadvance</B>(1)</A> tool handles this task.<P>
+
+<DT><A NAME="stub">stub</A><DD> A <I>stub</I> is an object that can appear in the repository
+name space as a placeholder.  A stub is manifested through the NFS
+interface as an empty file with unusual access permissions (details below).<P>
+
+<DT><A NAME="reservation_stub">reservation stub</A><DD> A <I>reservation stub</I> is a stub created by
+the checkout tool as a placeholder to reserve the next package version
+number.  On a reservation stub, all the read and execute permissions
+are turned off, but the setuid bit is turned on. The write permissions
+are meaningful, so they are allowed to show through. Thus a reservation
+stub will typically appear in an "ls -l" listing with mode
+<TT>--wS------</TT> or <TT>--wS-w----</TT>.<P>
+
+<DT><A NAME="checkin">checkin</A><DD> To <I>check in</I> a package means to create a new public
+version.  The <A HREF="vcheckin.1.html"><B>vcheckin</B>(1)</A> tool handles
+this task.  It works by replacing the reservation stub created at
+checkout time with a copy of the last version in the session
+directory.  Checkin also ends the session by deleting the working directory.<P>
+
+<DT><A NAME="ghost">ghost</A><DD> Although names in appendable directories can never be
+deleted and reused for different objects, the repository does support
+a limited form of deletion.  A <I>ghost</I> is a placeholder for an
+object that has been deleted.  The ghost preserves the knowledge that
+its name was used for a real (non-ghost) object in the past and must
+not be used for a different object in the future.  A ghost can safely
+be replaced with an exact copy of the deleted object if one can be
+found, but it is otherwise unchangeable and cannot be deleted.  A ghost
+is manifested through the NFS interface as an empty file with all
+access permissions turned off and the sticky bit turned on, so "ls -l"
+will show <TT>---------T</TT>.<P>
+
+<DT><A NAME="replication">replication</A><DD> Conceptually, all objects in all
+Vesta repositories are named in one large hierarchical namespace
+rooted at <TT>/vesta</TT>.  (We exclude mutable and volatile directories here.)
+Each repository may contain some subtree of the global namespace.
+<I>Replication</I> exists when the subtrees stored at two or more
+repositories overlap.  The <A HREF="vrepl.1.html#Vesta_Replication">Vesta
+Replication</A> section in the <A HREF="vrepl.1.html"><B>vrepl</B>(1)</A> man
+page explains replication in more detail.<P>
+
+<DT><A NAME="agreement">agreement</A><DD> Roughly speaking, in the presence of replication, one or
+more repositories <I>agree</I> (are consistent) if (1) there are no cases
+where the same name means something different in two different
+repositories, and (2) each name is marked as master in at most one
+repository.  Agreement is a somewhat subtle concept that is explained
+more fully in the <A HREF="vrepl.1.html#Vesta_Replication">Vesta Replication</A>
+section of the <A HREF="vrepl.1.html"><B>vrepl</B>(1)</A> man page, and
+defined precisely in <I>Vesta: A System for Software Configuration
+Management</I>.<P>
+
+<DT><A NAME="master">master</A><DD> Each object under <TT>/vesta</TT> has a boolean <I>master</I> flag.
+Mastership is used for several purposes, explained more fully in
+the <A HREF="vrepl.1.html#Vesta_Replication">Vesta Replication</A>
+section of the <A HREF="vrepl.1.html"><B>vrepl</B>(1)</A> man page.<P>
+
+<DT><A NAME="master_stub">master stub</A><DD>  A stub whose master flag is true.
+A reservation stub is always a master stub.<P>
+
+<DT><A NAME="symlink-to">symlink-to</A><DD> The repository stores symbolic links in a somewhat
+odd way, as stubs or ghosts with the mutable attribute <TT>symlink-to</TT>.
+The value of this attribute is the link value.  This detail is not
+visible through the NFS interface, but is mentioned in the man
+pages for some of the repository tools.<P>
+
+<DT><A NAME="nonmaster_stub">nonmaster stub</A><DD> A stub whose master flag is false.  A nonmaster
+stub is used as a placeholder for an object that may exist in some
+repository, but is not replicated locally.  On a non-master stub, all
+permissions are turned off, but the setgid bit is turned on, so "ls
+-l" will show <TT>------S---</TT>.<P>
+
+<DT><A NAME="SDL">SDL</A><DD> The Vesta <I>software description language</I> is a specialized
+language used to describe how to build a software system from its
+components.  It includes native data structures suited for
+representing files and directories, a primitive for invoking
+external tools like compilers and linkers, and general-purpose
+language features such as functions, conditionals, arithmetic, lists,
+and string manipulation.
+See <A HREF="http://gatekeeper.dec.com/pub/DEC/SRC/technical-notes/abstracts/src-tn-1997-005.html"><I>The Vesta-2 Software Description Language</I></A>, also
+available as an appendix in <I>Vesta: A System for Software Configuration Management</I>.<P>
+
+<DT><A NAME="model">model</A><DD>  A <I>model</I> or <I>system model</I> 
+is a program written in the Vesta SDL.<P>
+
+<DT><A NAME="import">import</A><DD> The Vesta SDL is modular; the description of a large software
+system can be broken up into many different models.  One model uses
+another by <I>importing</I> it.<P>
+
+<DT><A NAME="standard_construction_environment">standard construction environment</A><DD> The <I>standard construction
+environment</I> is a standard set of build tools (such as compilers and
+linkers), libraries, and header files.  User-written models gain
+access to this environment by importing a Vesta-provided model that
+describes it.  For example, the standard construction 
+environment models that are used to build Vesta on Red Hat i686 Linux come
+from the package <TT>/vesta/vestasys.org/platforms/linux/redhat/i686/std_env</TT>.<P>
+
+<DT><A NAME="evaluator">evaluator</A><DD>  The <I>evaluator</I> is an interpreter for the
+Vesta SDL.  See <A HREF="vesta.1.html"><B>vesta</B>(1)</A>.<P>
+
+<DT><A NAME="runtool_server">runtool server</A><DD>  The <I>runtool server</I> is a server process
+that runs on each Vesta client machine.  It assists the evaluator
+in invoking external tools like compilers and linkers.  See 
+<A HREF="RunToolServer.1.html"><B>RunToolServer</B>(1)</A>.<P>
+
+<DT><A NAME="function_cache">function cache</A><DD> The <I>function cache</I> is a central server that
+stably caches the results of past Vesta evaluations in order to speed up
+future evaluations.  See <A HREF="VCache.1.html"><B>VCache</B>(1)</A>.<P>
+
+<DT><A NAME="weeder">weeder</A><DD> The <I>weeder</I> deletes material from the function
+cache that is no longer wanted, in order to free up disk space.
+See <A HREF="VestaWeed.1.html"><B>VestaWeed</B>(1)</A>.<P>
+
+<DT><A NAME="volatile_directory">volatile directory</A><DD> <I>Volatile directories</I> allow tools
+started by the evaluator to view Vesta bindings as filesystem
+directories, with the changes the tools make recorded by the
+repository and available to the evaluator.  The volatile directory
+tree is conventionally mounted under <TT>/vesta-work/.volatile</TT>.
+It should normally never be accessed directly by users, to avoid
+creating false dependencies in ongoing evaluations.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ConfigFiles">Configuration Files</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Most Vesta tools use a standard mechanism for
+determining configuration information about a Vesta installation.
+This mechanism attempts to locate a configuration file named
+<I>vesta.cfg</I> by searching in a number of locations. The 
+<A HREF="vgetconfig.1.html"><B>vgetconfig</B>(1)</A> man page
+describes a command-line interface for determining the location of the
+configuration file and for printing the value of a particular
+configuration variable. The meanings of the configuration variables
+recognized by the various tools are documented in their individual man
+pages.<P>
+
+For information on configuration file location and syntax, see the
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A> man page.
+</BLOCKQUOTE>
+
+<H3><A NAME="Name_Interpretation">Name Interpretation</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Although the names that you can give on the command line to a Vesta
+repository tool look like filenames, they have somewhat different
+properties, because they must be looked up directly in the
+repository, not in the local filesystem.<P>
+
+First, if a name is unqualified (does not have "<TT>/</TT>", "<TT>.</TT>", or
+"<TT>..</TT>" as its first arc), it is usually qualified by prepending an
+appropriate default directory name, as explained in the individual
+documentation for each tool.<P>
+
+Next, a name that does not begin with "<TT>/</TT>" is handled by asking the
+system for the absolute name of the current working directory (using
+the <B>getcwd</B>(3) library routine) and prepending the string that is
+returned.  This is the only case where the state of the local
+filesystem matters.<P>
+
+Next, the name is textually processed to remove "<TT>.</TT>", empty, and
+"<TT>..</TT>" arcs.  Note that we do not check whether an arc cancelled
+out by "<TT>..</TT>" actually exists in the repository.<P>
+
+Finally, a name that begins with <TT>/vesta</TT> or
+<I>[UserInterface]AppendableRootName</I> is looked up in the
+appendable part of the repository.  Usually the default local
+repository is used, but some of the tools have command line options to
+let you specify a different repository, and some will automatically
+find the master copy or another copy of the specified source, as
+explained in their individual documentation.  Similarly, a name that
+begins with <TT>/vesta-work</TT> or <I>[UserInterface]MutableRootName</I> is
+always looked up in the mutable part of the default local repository.
+It makes no difference whether the default repository (or even
+some other repository) is NFS mounted on the machine where you run the
+command.<P>
+
+Any name that does not begin with one of the recognized prefixes
+is rejected with the error message "not in the Vesta repository".<P>
+
+Note that symbolic links are not expanded during this name processing
+and are not understood by the repository.  Thus, for example,
+the command "<TT>vcheckout -o latest foo/bar</TT>" will not use the
+latest version of foo/bar as the old version; it will attempt to
+use the "latest" link itself as the old version, which will not work.
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>Papers and books</B>
+<BR>
+<A HREF="http://gatekeeper.dec.com/pub/DEC/SRC/research-reports/abstracts/src-rr-168.html"><I>The Vesta Approach to Software Configuration Management</I></A>.<BR>
+<A HREF="http://gatekeeper.dec.com/pub/DEC/SRC/technical-notes/abstracts/src-tn-1997-005.html"><I>The Vesta-2 Software Description Language</I></A>.<BR>
+<I>Vesta: A System for Software Configuration Management</I>.<BR>
+<BR>
+<P>
+
+<B>Standard construction environment</B>
+<BR>
+<A HREF="vmodels.5.html"><B>vmodels</B>(5)</A> - Writing standard user models.<BR>
+<A HREF="vlibraries.5.html"><B>vlibraries</B>(5)</A> - Organization of libraries in Vesta.<BR>
+<A HREF="voverrides.5.html"><B>voverrides</B>(5)</A> - Building with overrides.<BR>
+<A HREF="vtypes.5.html"><B>vtypes</B>(5)</A> - Standard types.<BR>
+<BR>
+<P>
+
+<B>Evaluator</B>
+<BR>
+<A HREF="vmake.1.html"><B>vmake</B>(1)</A> - Delete junk, advance to the next version, and run the evaluator.<BR>
+<A HREF="vimports.1.html"><B>vimports</B>(1)</A> - Determine model imports.<BR>
+<A HREF="RunToolServer.1.html"><B>RunToolServer</B>(1)</A> - Start a RunToolServer for running external tools.<BR>
+<BR>
+<P>
+
+<B>Repository tools</B>
+<BR>
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A> - Overview.<BR>
+<A HREF="vcreate.1.html"><B>vcreate</B>(1)</A> - Create a package.<BR>
+<A HREF="vcheckout.1.html"><B>vcheckout</B>(1)</A> - Check out a package.<BR>
+<A HREF="vadvance.1.html"><B>vadvance</B>(1)</A> - Advance a checkout session.<BR>
+<A HREF="vcheckin.1.html"><B>vcheckin</B>(1)</A> - Check in a package.<BR>
+<A HREF="vbranch.1.html"><B>vbranch</B>(1)</A> - Create a branch.<BR>
+<A HREF="vwhohas.1.html"><B>vwhohas</B>(1)</A> - Who has packages checked out.<BR>
+<A HREF="vlatest.1.html"><B>vlatest</B>(1)</A> - Find latest package versions.<BR>
+<A HREF="vattrib.1.html"><B>vattrib</B>(1)</A> - Manipulate mutable attributes.<BR>
+<BR>
+<P>
+
+<B>Replication</B>
+<BR>
+<A HREF="vrepl.1.html"><B>vrepl</B>(1)</A> - Replicate sources from one repository to another.<BR>
+<A HREF="vmaster.1.html"><B>vmaster</B>(1)</A> - Move mastership of a source to a different replica.<BR>
+<BR>
+<P>
+
+<B>Repository server</B>
+<BR>
+<A HREF="repository.8.html"><B>repository</B>(8)</A> - Main program.<BR>
+<A HREF="mountrepos.8.html"><B>mountrepos</B>(8)</A> - Mount the repository on a client machine.<BR>
+<A HREF="umountrepos.8.html"><B>umountrepos</B>(8)</A> - Unmount the repository.<BR>
+<A HREF="TestShortId.8.html"><B>TestShortId</B>(8)</A>,
+<A HREF="TestVDirSurrogate.8.html"><B>TestVDirSurrogate</B>(8)</A> - Test programs.<BR>
+<BR>
+<P>
+
+<B>Cache server</B>
+<BR>
+<A HREF="VCache.1.html"><B>VCache</B>(1)</A> - Main program.<BR>
+<A HREF="WhichCache.1.html"><B>WhichCache</B>(1)</A> - Identify the cache.<BR>
+<A HREF="CleanCache.1.html"><B>CleanCache</B>(1)</A>,
+<A HREF="EraseCache.1.html"><B>EraseCache</B>(1)</A>,
+<A HREF="ShowCache.1.html"><B>ShowCache</B>(1)</A> 
+- List/erase stable cache files.<BR>
+<A HREF="VCacheMonitor.1.html"><B>VCacheMonitor</B>(1)</A> - Monitor a running cache.<BR>
+<A HREF="CreateCacheDirs.1.html"><B>CreateCacheDirs</B>(1)</A> - Configure the cache.<BR>
+<A HREF="FlushCache.1.html"><B>FlushCache</B>(1)</A> - Flush volatile cache entries to stable cache.<BR>
+<A HREF="VCacheStats.1.html"><B>VCacheStats</B>(1)</A>
+- Print statistics about the contents of the stable cache.<BR>
+<A HREF="PrintCacheLog.1.html"><B>PrintCacheLog</B>(1)</A>,
+<A HREF="PrintGraphLog.1.html"><B>PrintGraphLog</B>(1)</A>,
+<A HREF="PrintMPKFile.1.html"><B>PrintMPKFile</B>(1)</A> 
+- Print contents of various cache files.<BR>
+<A HREF="ChkptCache.1.html"><B>ChkptCache</B>(1)</A> - Manually checkpoint the cache.<BR>
+<A HREF="TestCache.1.html"><B>TestCache</B>(1)</A>,
+<A HREF="TestCacheRandom.1.html"><B>TestCacheRandom</B>(1)</A> 
+- Test programs.<BR>
+<BR>
+<P>
+
+<B>Weeder</B>
+<BR>
+<A HREF="VestaWeed.1.html"><B>VestaWeed</B>(1)</A> - Real weeder.<BR>
+<A HREF="QuickWeed.1.html"><B>QuickWeed</B>(1)</A> - Conservative weeder.<BR>
+<BR>
+<P>
+
+<B>Miscellaneous</B>
+<BR>
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A> - Configuration file for Vesta.<BR>
+<A HREF="vgetconfig.1.html"><B>vgetconfig</B>(1)</A> - Read the Vesta config file.<BR>
+<A HREF="vmount.8.html"><B>vmount</B>(8)</A> - Vesta mount program.<BR>
+<A HREF="vdumplog.8.html"><B>vdumplog</B>(8)</A>,
+<A HREF="vappendlog.8.html"><B>vappendlog</B>(8)</A> 
+- Simple tools for VestaLog atomically appendable logs.<BR>
+<BR>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+This man page should probably cover the SDL, evaluator, cache, and
+weeder in more detail.  Maybe the glossary should be divided into sections.
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author (of this document)</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+<PRE>
+Last modified on Fri Nov  9 12:14:21 EST 2001 by ken@xorian.net  
+     modified on Fri Mar  9 16:56:30 PST 2001 by mann  
+     modified on Tue Jul 20 14:59:25 PDT 1999 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

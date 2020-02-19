@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Functions on type t_binding</TITLE>
+<META NAME="description" CONTENT="Functions on type t_binding">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node156.html">
+<LINK REL="previous" HREF="node154.html">
+<LINK REL="up" HREF="node150.html">
+<LINK REL="next" HREF="node156.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2472"
+  HREF="node156.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2468"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2462"
+  HREF="node154.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2470"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2473"
+  HREF="node156.html">Special Purpose Functions</A>
+<B> Up:</B> <A NAME="tex2html2469"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2463"
+  HREF="node154.html">Functions on Type t_list</A>
+ &nbsp <B>  <A NAME="tex2html2471"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001334500000000000000"></A><A NAME="sect:SDL-binding-funcs"></A>
+<BR>
+Functions on type t_binding
+</H3>
+
+<P>
+<PRE>
+t_bool
+operator==(t_binding b1, t_binding b2)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>b1</EM> and <EM>b2</EM> are bindings of the same
+length containing the same names (in order) bound to (recursively)
+equal values, and <EM>false</EM> otherwise.
+
+<P>
+<PRE>
+t_bool
+operator!=(t_binding b1, t_binding b2) =
+  operator!(operator==(b1, b2))
+</PRE>
+
+<P>
+<PRE>
+t_binding
+_bind1(t_text n, t_value v)
+</PRE>
+<BR>
+If <EM>n</EM> is not empty,
+returns a binding with
+the single (name, value) pair (<EM>n</EM>, <EM>v</EM>).
+If <EM>n</EM> is empty, the evaluation halts with a runtime error.
+
+<P>
+<PRE>
+t_binding
+_head(t_binding b)
+</PRE>
+<BR>
+Returns a binding with one (name, value) pair equal to the first
+element of <EM>b</EM>.  If <EM>b</EM> is empty, 
+the evaluation halts with a runtime error.
+
+<P>
+<PRE>
+t_binding
+_tail(t_binding b)
+</PRE>
+<BR>
+Returns the binding consisting of all elements of <EM>b</EM>, in order,
+except the first.  If <EM>b</EM> is empty, 
+the evaluation halts with a runtime error.
+
+<P>
+<PRE>
+t_int
+_length(t_binding b)
+</PRE>
+<BR>
+Returns the number of (name, value) pairs in <EM>b</EM>.
+
+<P>
+<PRE>
+t_binding
+_elem(t_binding b, t_int i)
+</PRE>
+<BR>
+Returns a binding consisting solely of the <EM>i</EM>-th
+(name, value) pair in the binding <EM>b</EM>.
+If no such pair exists, the evaluation halts with a runtime error. The
+first pair of a binding has index 0.
+
+<P>
+<PRE>
+t_text
+_n(t_binding b)
+</PRE>
+<BR>
+If <TT>_length(b) = 1</TT>, returns the name part of the
+(name, value) pair that constitutes <EM>b</EM>.  Otherwise,
+the evaluation halts with a runtime error.
+
+<P>
+<PRE>
+t_value
+_v(t_binding b)
+</PRE>
+<BR>
+If <TT>_length(<EM>b</EM>)</TT> differs from 1, 
+the evaluation halts with a runtime error.
+Otherwise, let <EM>v</EM> be the value part of the (name, value)
+pair that constitutes <EM>b</EM>. This function returns <EM>v</EM>.
+
+<P>
+<PRE>
+t_bool
+_defined(t_binding b, t_text name)
+</PRE>
+<BR>
+If <EM>name</EM> is empty, the evaluation halts with a runtime error.
+Otherwise, the function returns
+<EM>true</EM> if the binding <EM>b</EM> contains a pair (n, v) with
+<EM>n</EM> identical to <EM>name</EM>, and <EM>false</EM> otherwise.
+
+<P>
+<PRE>
+t_value
+_lookup(t_binding b, t_text name)
+</PRE>
+<BR>
+If <EM>name</EM> is nonempty and is
+defined in <EM>b</EM>, returns the value associated with it; otherwise,
+the evaluation halts with a runtime error.
+
+<P>
+<PRE>
+t_binding
+_append(t_binding b1, t_binding b2)
+</PRE>
+<BR>
+Returns a binding formed by appending <EM>b2</EM> to <EM>b1</EM>, but only
+if all the names in <EM>b1</EM> and <EM>b2</EM> are distinct.  Otherwise,
+the evaluation halts with a runtime error.
+
+<P>
+<PRE>
+t_binding
+operator+(t_binding b1, t_binding b2) =
+{
+  val r = emptybinding;
+  for (; !(b1 == emptybinding); b1 = _tail(b1)) {
+    val n = _n(_head(b1));
+    val v;
+    if (_defined(b2, n) == true)
+      v = _lookup(b2, n);
+    else v = _v(_head(b1));
+    r = _append(r, _bind1(n, v));
+  }
+  for (; !(b2 == emptybinding); b2 = _tail(b2)) {
+    if (_defined(b1, _n(_head(b2)) == false)
+      r = _append(r, _head(b2));
+  }
+  return r;
+}
+</PRE>
+<BR>
+Returns a binding formed by appending <EM>b2</EM> to <EM>b1</EM>, giving
+precedence to <EM>b2</EM> when both <EM>b1</EM> and <EM>b2</EM> contain
+(name, value) pairs with the same <EM>name</EM>. 
+
+<P>
+<PRE>
+t_binding
+operator++(t_binding b1, t_binding b2) =
+{
+  val r = emptybinding;
+  for (; !(b1 == emptybinding); b1 = _tail(b1)) {
+    val n = _n(_head(b1));
+    val v;
+    if (_defined(b2, n) == true) {
+      val v2 = _lookup(b2, n);
+      if (_is_binding(v2) == true) {
+        v = _v(_head(b1);
+        if (_is_binding(v) == true)
+          v = operator++(v, v2);
+        else v = v2;
+      }
+      else v = v2;
+    }
+    else v = _v(_head(b1));
+    r = _append(r, _bind1(n, v));
+  }
+  for (; !(b2 == emptybinding); b2 = _tail(b2)) {
+    if (_defined(r, _n(_head(b2)) == false)
+      r = _append(r, _head(b2));
+  }
+  return r;
+}
+</PRE>
+<BR>
+Similar to operator+, but performs the operation recursively for each
+name <EM>n</EM> that is associated with a binding value in both <EM>b1</EM>
+and <EM>b2</EM>.
+
+<P>
+<PRE>
+t_binding
+operator-(t_binding b1, t_binding b2) =
+{
+  val r = emptybinding;
+  for (; !(b1 = emptybinding); b1 = _tail(b1)) {
+    val n = _n(_head(b1));
+    if (_defined(b2, n) == false)
+      r = _append(r, _head(b1));
+  }
+  return r;
+}
+</PRE>
+<BR>
+Returns a binding formed by removing from <EM>b1</EM> any pair
+(<EM>n</EM>, <EM>v</EM>) such that the name <EM>n</EM> is defined in <EM>b2</EM>.
+The value <EM>v</EM> associated with <EM>n</EM> in <EM>b2</EM> is irrelevant.
+
+<P>
+<PRE>
+t_binding
+_sub(t_binding b, t_int start = 0, t_int len = _length(b))
+{
+  int w = _length(b);
+  int i = _min(_max(start, 0)), w);
+  int j = _min(i + _max(len, 0), w);
+  // 0 &lt;= i &lt;= j &lt;= _length(b); extract [i..j)
+  t_binding r = emptybinding;
+  for (; i &lt; j; i++) r = _append(r, _elem(b, i));
+  return r;
+}
+</PRE>
+<BR>
+Returns the sub-binding of <EM>b</EM> of length <EM>len</EM> starting at
+element <EM>start</EM>. Note the boundary cases defined by
+the pseudo-code; <TT>_sub</TT> produces a runtime error only if it
+is passed arguments of the wrong type.
+
+<P>
+<PRE>
+t_binding
+_map(t_closure f, t_binding b) =
+{
+  t_binding res = emptybinding;
+  for (; !(b == emptybinding); b = _tail(l)) {
+    // apply the closure "f"
+    t_binding b1 = f(_n(_head(b)), _v(_head(b)));
+    res = _append(res, b1);
+  }
+  return res;
+}
+</PRE>
+<BR>
+Returns the binding that results from applying the closure <EM>f</EM> to each
+(<EM>name</EM>, <EM>value</EM>) pair of the binding <EM>b</EM>, and
+appending the resulting bindings together. The closure <EM>f</EM> should take
+the <EM>name</EM> (of type t_text) and <EM>value</EM> (of type t_value) as
+arguments, and return a value of type t_binding. If <EM>f</EM> has the
+wrong signature, the evaluation halts with a runtime error.
+
+<P>
+<PRE>
+t_binding
+_par_map(t_closure f, t_binding b)
+</PRE>
+<BR>
+Formally equivalent to <TT>_map</TT>, but the implementation
+may perform each application of <EM>f</EM> in a separate parallel thread.
+External tools invoked by <TT>_run_tool</TT> in different threads
+may be run simultaneously on different machines.
+If a runtime error occurs in one thread, the other threads may
+still run to completion before the evaluation terminates.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2472"
+  HREF="node156.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2468"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2462"
+  HREF="node154.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2470"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2473"
+  HREF="node156.html">Special Purpose Functions</A>
+<B> Up:</B> <A NAME="tex2html2469"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2463"
+  HREF="node154.html">Functions on Type t_list</A>
+ &nbsp <B>  <A NAME="tex2html2471"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

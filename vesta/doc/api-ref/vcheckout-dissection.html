@@ -1,0 +1,2709 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>vcheckout Dissection</title>
+  </head>
+
+  <body bgcolor="#efefff">
+    <h1>vcheckout Dissection</h1>
+
+    <h2>Introduction</h2>
+
+    <p>
+
+      This is an explanation of the implementation of
+
+      <a href="../man/html/vcheckout.1.html"><tt>vcheckout</tt></a>.&nbsp;
+
+      The indended audience is anyone interested in the workings of
+
+      <a href="../man/html/repos-ui.1.html">the repository user-interface tools</a>,
+
+      and the Vesta repository APIs in general.&nbsp; This document
+      assumes that you're already fairly familiar with how
+      <tt>vcheckout</tt> works, as well as various Vesta concepts such
+      as mutable attributes, replication, and mastership
+      transfer.&nbsp; No time will be spent here explaining those
+      concepts.
+
+    </p>
+
+    <p>
+
+      <tt>vcheckout</tt> is one of the most complicated repository
+      tools.&nbsp; It may not be the best place to start learning
+      about the Vesta APIs, but it does illustrate more precisely
+      because it is complicated.
+
+    </p>
+
+    <p>
+
+      The code listings in this document are taken from
+
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos_ui/22/src/vcheckout.C"><tt>/vesta/vestasys.org/vesta/repos_ui/22/src/vcheckout.C</tt></a>.&nbsp;
+
+      At several points, APIs from other packages are mentioned.&nbsp;
+      The specifiec versions this document is written relative to are:
+
+    </p>
+
+    <ul>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics/20"><tt>/vesta/vestasys.org/basics/basics/20</tt></a>
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/generics/8"><tt>/vesta/vestasys.org/basics/generics/8</tt></a>
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/config/9"><tt>/vesta/vestasys.org/vesta/config/9</tt></a>
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repltools/15"><tt>/vesta/vestasys.org/vesta/repltools/15</tt></a>
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/39"><tt>/vesta/vestasys.org/vesta/repos/39</tt></a>
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics/20/src/Text.H"><tt>/vesta/vestasys.org/basics/basics/20</tt></a>
+
+      </li>
+
+    </ul>
+
+    <h2>The Code</h2>
+
+    <p>
+
+      <i>[Note: not every line of code is covered here.&nbsp; In some
+      cases, enclosing <tt>if</tt>s are not shown, so be sure to
+      follow along in the complete source.&nbsp; The point of this
+      document is to illustrate how <tt>vcheckout</tt> uses the Vesta
+      APIs, not to go over every single line of code.]</i>
+
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">29
+30
+31
+32
+33
+34
+35
+36
+37<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt><font color="#000080">#include</font> <font color="#33CC00">&lt;Basics.H&gt;</font>
+<font color="#000080">#include</font> <font color="#33CC00">&lt;Text.H&gt;</font>
+<font color="#000080">#include</font> <font color="#33CC00">&lt;VestaConfig.H&gt;</font>
+<font color="#000080">#include</font> <font color="#33CC00">&lt;VestaSource.H&gt;</font>
+<font color="#000080">#include</font> <font color="#33CC00">&lt;VDirSurrogate.H&gt;</font>
+<font color="#000080">#include</font> <font color="#33CC00">&lt;VestaSourceAtomic.H&gt;</font>
+<font color="#000080">#include</font> <font color="#33CC00">&lt;Replicator.H&gt;</font>
+<font color="#000080">#include</font> <font color="#33CC00">&lt;signal.h&gt;</font>
+<font color="#000080">#include</font> <font color="#33CC00">"ReposUI.H"</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+
+      Inclusion of header files mostly from Vesta:
+
+    </p>
+
+    <ul>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics/20/src/Basics.H"><tt>Basics.H</tt></a>
+
+	(in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics"><tt>/vesta/vestasys.org/basics/basics</tt></a>)
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics/20/src/Text.H"><tt>Text.H</tt></a>
+
+	(also in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics"><tt>/vesta/vestasys.org/basics/basics</tt></a>)
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/config/9/src/VestaConfig.H"><tt>VestaConfig.H</tt></a>
+
+      (in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/config"><tt>/vesta/vestasys.org/vesta/config</tt></a>)
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/39/src/VestaSource.H"><tt>VestaSource.H</tt></a>
+
+	(in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos"><tt>/vesta/vestasys.org/vesta/repos</tt></a>)
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/39/src/VDirSurrogate.H"><tt>VDirSurrogate.H</tt></a>
+
+	(in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos"><tt>/vesta/vestasys.org/vesta/repos</tt></a>)
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/39/src/VestaSourceAtomic.H"><tt>VestaSourceAtomic.H</tt></a>
+
+	(in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos"><tt>/vesta/vestasys.org/vesta/repos</tt></a>)
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repltools/15/src/Replicator.H"><tt>Replicator.H</tt></a>
+
+	(in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repltools"><tt>/vesta/vestasys.org/vesta/repltools</tt></a>)
+
+      </li>
+
+      <li>
+
+	<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos_ui/22/src/ReposUI.H"><tt>ReposUI.H</tt></a>
+
+	(in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos_ui"><tt>/vesta/vestasys.org/vesta/repos_ui</tt></a>)
+
+      </li>
+
+    </ul>
+
+     <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">72
+73
+74
+75
+76
+77<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    Text defpkgpar<font color="#990000">,</font> defworkpar<font color="#990000">,</font> timefmt<font color="#990000">;</font>
+    defpkgpar <font color="#990000">=</font> VestaConfig<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">get_Text</font><font color="#990000">(</font><font color="#33CC00">"UserInterface"</font><font color="#990000">,</font>
+                                      <font color="#33CC00">"DefaultPackageParent"</font><font color="#990000">)</font><font color="#990000">;</font>
+    defworkpar <font color="#990000">=</font> VestaConfig<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">get_Text</font><font color="#990000">(</font><font color="#33CC00">"UserInterface"</font><font color="#990000">,</font>
+                                       <font color="#33CC00">"DefaultWorkParent"</font><font color="#990000">)</font><font color="#990000">;</font>
+    timefmt <font color="#990000">=</font> VestaConfig<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">get_Text</font><font color="#990000">(</font><font color="#33CC00">"UserInterface"</font><font color="#990000">,</font> <font color="#33CC00">"TimeFormat"</font><font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Read settings from
+
+      <a href="../man/html/vesta.cfg.5.html">the Vesta configuration file</a>
+
+      using <tt><a href="vcheckout-dissection.html#VestaConfig">VestaConfig</a>::get_Text</tt>
+      into <a href="vcheckout-dissection.html#Text"><tt>Text</tt></a> variables of &nbsp; See
+
+      <a href="../man/html/vcheckout.1.html">The <tt>vcheckout</tt> man page</a> for how these are used.
+
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">79
+80
+81<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    time_t now <font color="#990000">=</font> <font color="#9A1900">time</font><font color="#990000">(</font>NULL<font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#008080">char</font> timebuf<font color="#990000">[</font><font color="#993399">256</font><font color="#990000">]</font><font color="#990000">;</font>
+    <font color="#9A1900">strftime</font><font color="#990000">(</font>timebuf<font color="#990000">,</font> <font color="#9A1900">sizeof</font><font color="#990000">(</font>timebuf<font color="#990000">)</font><font color="#990000">,</font> timefmt<font color="#990000">.</font><font color="#9A1900">cchars</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font> <font color="#9A1900">localtime</font><font color="#990000">(</font><font color="#990000">&amp;</font>now<font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+
+      Format the current time into a string.&nbsp; Used for setting
+      &quot;<tt>checkout-time</tt>&quot; attribute.&nbsp; See the
+      <tt>strftime(3)</tt> man page.
+
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">82
+83
+84
+85<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    Text <font color="#9A1900">cuser</font><font color="#990000">(</font>AccessControl<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">self</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">user</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#008080">int</font> atpos <font color="#990000">=</font> cuser<font color="#990000">.</font><font color="#9A1900">FindChar</font><font color="#990000">(</font><font color="#33CC00">'@'</font><font color="#990000">)</font><font color="#990000">;</font>
+    Text <font color="#9A1900">user</font><font color="#990000">(</font>cuser<font color="#990000">.</font><font color="#9A1900">Sub</font><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">,</font> atpos<font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+    Text <font color="#9A1900">uuser</font><font color="#990000">(</font>user <font color="#990000">+</font> <font color="#33CC00">"_"</font> <font color="#990000">+</font> cuser<font color="#990000">.</font><font color="#9A1900">Sub</font><font color="#990000">(</font>atpos<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font> <font color="#0000FF">// cuser with @ replaced by _</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Get the user's global identifier
+      (<tt><i>username</i>@<i>realm</i></tt>).&nbsp;
+
+      (<tt><a href="vcheckout-dissection.html#AccessControl">AccessControl</a>::self</tt>
+      returns the user's identity object, and its <tt>user</tt> member
+      function returns the global username as a text string.)&nbsp;
+      From that, construct a string that can be used in generating a
+      unique session directory name for non-exclusive checkouts by
+      replacing &quot;<tt>@</tt>&quot; with &quot;<tt>_</tt>&quot;.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">86
+87
+88
+89<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#008080">char</font> mode<font color="#990000">[</font><font color="#993399">8</font><font color="#990000">]</font><font color="#990000">;</font>
+    mode_t oumask<font color="#990000">;</font>
+    <font color="#9A1900">umask</font><font color="#990000">(</font>oumask <font color="#990000">=</font> <font color="#9A1900">umask</font><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#9A1900">sprintf</font><font color="#990000">(</font>mode<font color="#990000">,</font> <font color="#33CC00">"%03o"</font><font color="#990000">,</font> <font color="#993399">0777</font> <font color="#990000">&amp;</font> <font color="#990000">~</font>oumask<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+
+      Generate a text string representing the umask.&nbsp; Used in
+      setting &quot;<tt>#mode</tt>&quot; attribute on created
+      objects.&nbsp; See the <tt>umask(2)</tt> man page.
+
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">90
+91<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    Text <font color="#9A1900">lhost</font><font color="#990000">(</font>VDirSurrogate<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">defaultHost</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+    Text <font color="#9A1900">lport</font><font color="#990000">(</font>VDirSurrogate<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">defaultPort</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Get the default repository host and port as text strings using
+      the <tt>static</tt> member functions
+
+      <tt><a href="vcheckout-dissection.html#VDirSurrogate">VDirSurrogate</a>::defaultHost</tt>
+      and
+
+      <tt><a href="vcheckout-dissection.html#VDirSurrogate">VDirSurrogate</a>::defaultHost</tt>.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">93
+94
+95<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#9A1900">const</font> Replicator<font color="#990000">:</font><font color="#990000">:</font>Flags rflags <font color="#990000">=</font> <font color="#990000">(</font>Replicator<font color="#990000">:</font><font color="#990000">:</font>Flags<font color="#990000">)</font> 
+      <font color="#990000">(</font>Replicator<font color="#990000">:</font><font color="#990000">:</font>attrNew <font color="#990000">|</font> Replicator<font color="#990000">:</font><font color="#990000">:</font>attrOld <font color="#990000">|</font> Replicator<font color="#990000">:</font><font color="#990000">:</font>attrAccess <font color="#990000">|</font>
+       Replicator<font color="#990000">:</font><font color="#990000">:</font>revive <font color="#990000">|</font> Replicator<font color="#990000">:</font><font color="#990000">:</font>inclStubs <font color="#990000">|</font> Replicator<font color="#990000">:</font><font color="#990000">:</font>latest<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+
+      Initialize a
+
+      <tt><a href="vcheckout-dissection.html#Replicator">Replicator</a>::Flags</tt>.  These
+      replicator options are used when replicating the old version and
+      the created new version and session directory to the repository
+      where the checkout is performed.
+
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">// </font>
+    <font color="#0000FF">// Parse command line</font>
+    <font color="#0000FF">//</font>
+    Text oldver<font color="#990000">,</font> newver<font color="#990000">,</font> sessdir<font color="#990000">,</font> workdir<font color="#990000">,</font> pkg<font color="#990000">,</font> hints<font color="#990000">,</font> repos<font color="#990000">;</font>
+    <font color="#008080">bool</font> default_old <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">,</font> default_new <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">,</font> default_sess <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">;</font>
+    <font color="#008080">bool</font> uniquify_nondefault_sess <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">;</font>
+    <font color="#008080">bool</font> default_work <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">,</font> default_repos <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">;</font>
+    <font color="#008080">bool</font> omit_old <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">,</font> omit_new <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">,</font> omit_sess <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">;</font>
+    <font color="#008080">bool</font> omit_work <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">;</font>
+    <font color="#008080">bool</font> quiet <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">,</font> query <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">,</font> force <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">;</font>
+    opterr <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">;</font>
+    <font color="#9A1900">for</font> <font color="#990000">(</font><font color="#990000">;</font><font color="#990000">;</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+      <font color="#008080">char</font><font color="#990000">*</font> slash<font color="#990000">;</font>
+      <font color="#008080">int</font> c <font color="#990000">=</font> <font color="#9A1900">getopt</font><font color="#990000">(</font>argc<font color="#990000">,</font> argv<font color="#990000">,</font> <font color="#33CC00">"qQfo:On:Ns:Suw:Wh:R:"</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font>c <font color="#990000">=</font><font color="#990000">=</font> EOF<font color="#990000">)</font> <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">switch</font> <font color="#990000">(</font>c<font color="#990000">)</font> <font color="#FF0000">{</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'q'</font><font color="#990000">:</font>
+        quiet <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'Q'</font><font color="#990000">:</font>
+        query <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'f'</font><font color="#990000">:</font>
+        force <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'o'</font><font color="#990000">:</font>
+        oldver <font color="#990000">=</font> optarg<font color="#990000">;</font>
+        default_old <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'O'</font><font color="#990000">:</font>
+        omit_old <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">;</font>
+        oldver <font color="#990000">=</font> <font color="#33CC00">"0"</font><font color="#990000">;</font>
+        default_old <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'n'</font><font color="#990000">:</font>
+        newver <font color="#990000">=</font> optarg<font color="#990000">;</font>
+        default_new <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'N'</font><font color="#990000">:</font>
+        omit_new <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">;</font>
+        newver <font color="#990000">=</font> <font color="#33CC00">"1"</font><font color="#990000">;</font>
+        default_new <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'s'</font><font color="#990000">:</font>
+        sessdir <font color="#990000">=</font> optarg<font color="#990000">;</font>
+        default_sess <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'S'</font><font color="#990000">:</font>
+        omit_sess <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'u'</font><font color="#990000">:</font>
+        uniquify_nondefault_sess <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'w'</font><font color="#990000">:</font>
+        workdir <font color="#990000">=</font> optarg<font color="#990000">;</font>
+        default_work <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'W'</font><font color="#990000">:</font>
+        omit_work <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'h'</font><font color="#990000">:</font>
+        hints <font color="#990000">=</font> optarg<font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'R'</font><font color="#990000">:</font>
+        repos <font color="#990000">=</font> optarg<font color="#990000">;</font>
+        default_repos <font color="#990000">=</font> <font color="#9A1900">false</font><font color="#990000">;</font>
+        <font color="#9A1900">break</font><font color="#990000">;</font>
+      <font color="#9A1900">case</font> <font color="#33CC00">'?'</font><font color="#990000">:</font>
+      <font color="#9A1900">default</font><font color="#990000">:</font>
+        <font color="#9A1900">usage</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">;</font>
+        <font color="#0000FF">/* not reached */</font>
+      <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+
+      Command line parsing.  See <tt>getopt(3)</tt> man page.
+
+      See
+
+      <a href="../man/html/vcheckout.1.html">The <tt>vcheckout</tt> man page</a>
+
+      for the meaning of the different options.
+
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#9A1900">switch</font> <font color="#990000">(</font>argc <font color="#990000">-</font> optind<font color="#990000">)</font> <font color="#FF0000">{</font>
+    <font color="#9A1900">case</font> <font color="#993399">1</font><font color="#990000">:</font>
+      pkg <font color="#990000">=</font> argv<font color="#990000">[</font>optind<font color="#990000">]</font><font color="#990000">;</font>
+      <font color="#9A1900">break</font><font color="#990000">;</font>
+    <font color="#9A1900">case</font> <font color="#993399">0</font><font color="#990000">:</font>
+      pkg <font color="#990000">=</font> <font color="#33CC00">"."</font><font color="#990000">;</font>
+      <font color="#9A1900">break</font><font color="#990000">;</font>
+    <font color="#9A1900">default</font><font color="#990000">:</font>
+      <font color="#9A1900">usage</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#0000FF">/* not reached */</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+
+      Determine the package to check out.&nbsp; If there's a
+      command-line argument left, use that.&nbsp; Otherwise default to
+      the current working directory.
+
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Use a nondefault repository if specified, and automatically</font>
+    <font color="#0000FF">// add it to the hints if not already present.</font>
+    <font color="#0000FF">//</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>default_repos<font color="#990000">)</font> <font color="#FF0000">{</font>
+      <font color="#008080">int</font> colon <font color="#990000">=</font> repos<font color="#990000">.</font><font color="#9A1900">FindCharR</font><font color="#990000">(</font><font color="#33CC00">':'</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font>colon <font color="#990000">=</font><font color="#990000">=</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+        lhost <font color="#990000">=</font> repos<font color="#990000">;</font>
+        repos <font color="#990000">=</font> repos <font color="#990000">+</font> <font color="#33CC00">":"</font> <font color="#990000">+</font> lport<font color="#990000">;</font>
+      <font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#FF0000">{</font>
+        lhost <font color="#990000">=</font> repos<font color="#990000">.</font><font color="#9A1900">Sub</font><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">,</font> colon<font color="#990000">)</font><font color="#990000">;</font>
+        lport <font color="#990000">=</font> repos<font color="#990000">.</font><font color="#9A1900">Sub</font><font color="#990000">(</font>colon<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      hints <font color="#990000">=</font> hints <font color="#990000">+</font> <font color="#33CC00">" "</font> <font color="#990000">+</font> repos<font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+
+      If a non-default repository was specified as local, parse it
+      into a hostname and port.&nbsp; The port is optional, and if not
+      supplied the default will be used.
+
+    </p>
+
+    <p>
+
+      A non-default repository is also added to the &quot;hints&quot;
+      list, which is used when searching for the master repository of
+      the package and its checkout subdirectory, as well as when
+      searching for a copy of the old version.&nbsp; (Normally only
+      the default repository and any repositories mentioned in
+      &quot;<tt>master-repository</tt>&quot; attributes will be
+      searched, which is why it's necessary to add a non-default
+      repository to the hints.)
+
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">199
+200
+201
+202<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Canonicalize pkg</font>
+    <font color="#0000FF">//</font>
+    Text cpkg <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">canonicalize</font><font color="#990000">(</font>pkg<font color="#990000">,</font> defpkgpar<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Convert the package path to a canonical form (a fully-qualified
+      absolute pathname that starts with &quot;<tt>/vesta/</tt>&quot;)
+      using
+
+      <tt><a href="vcheckout-dissection.html#ReposUI">ReposUI</a>::canonicalize</tt>.&nbsp; A
+      relative pathname that does not start with
+      &quot;<tt>.</tt>&quot; or &quot;<tt>..</tt>&quot; will be
+      interpreted relative to
+      <tt>[UserInterface]DefaultPackageParent</tt>.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">210
+211<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      VestaSource<font color="#990000">*</font> vs_mpkg <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToMasterVS</font><font color="#990000">(</font>cpkg<font color="#990000">,</font> hints<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#008080">long</font> high <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">highver</font><font color="#990000">(</font>vs_mpkg<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Locate the master copy of the package with
+
+      <tt><a href="vcheckout-dissection.html#ReposUI">ReposUI</a>::filenameToMasterVS</tt> and
+      find the highest version that exists there with
+
+      <tt><a href="vcheckout-dissection.html#ReposUI">ReposUI</a>::highver</tt>.&nbsp;
+      Consulting the master copy is necessary for determining the new
+      version to reserve and/or the basis version of the
+      checkout.&nbsp; Only the master repository is guaranteed to know
+      all names that exist in the package, so looking at a non-master
+      repository might overlook versions not replicated there.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#9A1900">if</font> <font color="#990000">(</font>default_old<font color="#990000">)</font> <font color="#FF0000">{</font>
+        <font color="#9A1900">if</font> <font color="#990000">(</font>high <font color="#990000">=</font><font color="#990000">=</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+          <font color="#0000FF">// No existing versions, pretend old was version 0</font>
+          omit_old <font color="#990000">=</font> <font color="#9A1900">true</font><font color="#990000">;</font>
+          oldver <font color="#990000">=</font> <font color="#33CC00">"0"</font><font color="#990000">;</font>
+        <font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#FF0000">{</font>
+          <font color="#008080">char</font> valbuf<font color="#990000">[</font><font color="#993399">64</font><font color="#990000">]</font><font color="#990000">;</font>
+          <font color="#9A1900">sprintf</font><font color="#990000">(</font>valbuf<font color="#990000">,</font> <font color="#33CC00">"%ld"</font><font color="#990000">,</font> high<font color="#990000">)</font><font color="#990000">;</font>
+          oldver <font color="#990000">=</font> valbuf<font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+      <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+
+      If the old version should be determined automatically (the
+      default), do so based on the highest version in the
+      package.&nbsp; If no versions exist in the package, remember
+      that we will have no old version.
+
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">223
+224
+225
+226
+227
+228
+229<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#9A1900">if</font> <font color="#990000">(</font>default_new<font color="#990000">)</font> <font color="#FF0000">{</font>
+        <font color="#0000FF">// Set newver to next version after highest in use,</font>
+        <font color="#0000FF">// minimum 1.</font>
+        <font color="#008080">char</font> valbuf<font color="#990000">[</font><font color="#993399">64</font><font color="#990000">]</font><font color="#990000">;</font>
+        <font color="#9A1900">sprintf</font><font color="#990000">(</font>valbuf<font color="#990000">,</font> <font color="#33CC00">"%ld"</font><font color="#990000">,</font> <font color="#990000">(</font>high <font color="#990000">&lt;</font> <font color="#993399">0</font><font color="#990000">)</font> <font color="#990000">?</font> <font color="#993399">1</font> <font color="#990000">:</font> high <font color="#990000">+</font> <font color="#993399">1</font><font color="#990000">)</font><font color="#990000">;</font>
+        newver <font color="#990000">=</font> valbuf<font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+
+      If the new version should be determined automatically (the
+      default), do so based on the highest version in the
+      package.&nbsp; If no versions exist in the package, the new
+      version will be version 1.
+
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Canonicalize oldver and newver</font>
+    <font color="#0000FF">//</font>
+    Text coldver<font color="#990000">,</font> coldverpar<font color="#990000">,</font> oldverarc<font color="#990000">;</font>
+    Text cnewver<font color="#990000">,</font> cnewverpar<font color="#990000">,</font> newverarc<font color="#990000">;</font>
+    coldver <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">canonicalize</font><font color="#990000">(</font>oldver<font color="#990000">,</font> cpkg<font color="#990000">)</font><font color="#990000">;</font>
+    ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">split</font><font color="#990000">(</font>coldver<font color="#990000">,</font> coldverpar<font color="#990000">,</font> oldverarc<font color="#990000">,</font> <font color="#33CC00">"old-version"</font><font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_new<font color="#990000">)</font> <font color="#FF0000">{</font>
+      cnewver <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">canonicalize</font><font color="#990000">(</font>newver<font color="#990000">,</font> cpkg<font color="#990000">)</font><font color="#990000">;</font>
+      ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">split</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> cnewverpar<font color="#990000">,</font> newverarc<font color="#990000">,</font> <font color="#33CC00">"new-version"</font><font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+
+      Convert the old and new versions to fully-qualified pathnames
+      that start with &quot;<tt>/vesta/</tt>&quot; using
+
+      <tt><a href="vcheckout-dissection.html#ReposUI">ReposUI</a>::canonicalize</tt>.&nbsp; If
+      either are relative paths that don't start with
+      &quot;<tt>.</tt>&quot; or &quot;<tt>..</tt>&quot;, they will
+      interpreted relative to the package to be checked out.&nbsp;
+      After this conversion, split them into their parent directory
+      and last pathname component with
+
+      <tt><a href="vcheckout-dissection.html#ReposUI">ReposUI</a>::splt</tt>.&nbsp; (It may
+      seem like <tt>ReposUI::splt</tt> is being used to perform the
+      reverse of <tt>ReposUI::canonicalize</tt> here, but if the new
+      or old versions are supplied explicitly on the command-line,
+      both steps must be performed as the arguments could be either
+      absolute or relative paths.)
+
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Compute default for sessdir</font>
+    <font color="#0000FF">//</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font>default_sess<font color="#990000">)</font> <font color="#FF0000">{</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_new<font color="#990000">)</font> <font color="#FF0000">{</font>
+        <font color="#0000FF">// Set sessdir to newver with "checkout/" inserted before</font>
+        <font color="#0000FF">// last component.</font>
+        sessdir <font color="#990000">=</font> cnewverpar <font color="#990000">+</font> <font color="#33CC00">"/checkout/"</font> <font color="#990000">+</font> newverarc<font color="#990000">;</font>
+      <font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#FF0000">{</font>
+        <font color="#0000FF">// Need to make up a unique name, since newver is</font>
+        <font color="#0000FF">// meaningless.  First, test whether oldver comes from a</font>
+        <font color="#0000FF">// checkout session.</font>
+        <font color="#9A1900">if</font> <font color="#990000">(</font>coldver<font color="#990000">.</font><font color="#9A1900">FindText</font><font color="#990000">(</font><font color="#33CC00">"/checkout/"</font><font color="#990000">)</font> <font color="#990000">&gt;</font><font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+          <font color="#0000FF">// Oldver is from a checkout session, so set sessdir to</font>
+          <font color="#0000FF">// oldver with the last "/" changed to a ".", and "." +</font>
+          <font color="#0000FF">// uuser appended.  Later we will further append a</font>
+          <font color="#0000FF">// uniquifying integer ".u" (starting at 1) to this.</font>
+          sessdir <font color="#990000">=</font> coldverpar <font color="#990000">+</font> <font color="#33CC00">"."</font> <font color="#990000">+</font> oldverarc <font color="#990000">+</font> <font color="#33CC00">"."</font> <font color="#990000">+</font> uuser<font color="#990000">;</font>
+        <font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#FF0000">{</font>
+          <font color="#0000FF">// Oldver is not from a checkout session, so set sessdir</font>
+          <font color="#0000FF">// to oldver with "checkout/" inserted before the last</font>
+          <font color="#0000FF">// component and "." + uuser appended.  Later we will</font>
+          <font color="#0000FF">// further append a uniquifying integer ".u" (starting</font>
+          <font color="#0000FF">// at 1) to this.</font>
+          sessdir <font color="#990000">=</font> coldverpar <font color="#990000">+</font> <font color="#33CC00">"/checkout/"</font> <font color="#990000">+</font> oldverarc <font color="#990000">+</font> <font color="#33CC00">"."</font> <font color="#990000">+</font> uuser<font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+      <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Determine the session directory name to create.
+    </p>
+
+    <p>
+      The simplest case (handled on line 251) is when we are reserving
+      a new version, in which case the session directory is just:
+    </p>
+
+    <blockquote>
+      <tt><i>package</i>/checkout/<i>newverarc</i></tt>
+    </blockquote>
+
+    <p>
+      In the case of non-exclusive checkouts, if the old version is
+      itself a snapshot in a checkout session, the name of the new
+      session is based on the old version, in an attempt to make the
+      naming show the derivation.  <tt>uuser</tt> (set on line 85) is
+      appended to the session directory to form a more unique name.
+      For example, if the old-version is:
+    </p>
+
+    <blockquote>
+      <tt><i>package</i>/checkout/1/2</tt>
+    </blockquote>
+
+    <p>
+      The value of <tt>sessdir</tt> will be:
+    </p>
+
+    <blockquote>
+      <tt><i>package</i>/checkout/1.2.<i>uuser</i></tt>
+    </blockquote>
+
+    <p>
+      This is handled on line 261.
+    </p>
+
+    <p>
+      For a non-exclusive checkout where the old-version is not itself
+      in a checkout session (its path doesn't contain
+      &quot;/checkout/&quot;), the value of <tt>sessdir</tt> will be:
+    </p>
+    
+    <blockquote>
+      <tt><i>package</i>/checkout/<i>oldverarc</i>.<i>uuser</i></tt>
+    </blockquote>
+
+    <p>
+      This is handled on line 268.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">279
+280<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      csessdir <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">canonicalize</font><font color="#990000">(</font>sessdir<font color="#990000">,</font> cpkg<font color="#990000">)</font><font color="#990000">;</font>
+      ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">split</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> csessdirpar<font color="#990000">,</font> sessdirarc<font color="#990000">,</font> <font color="#33CC00">"session-dir"</font><font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Convert the session directory to a fully-qualified absolute
+      pathname that starts with &quot;<tt>/vesta/</tt>&quot; (with
+
+      <tt><a href="vcheckout-dissection.html#ReposUI">ReposUI</a>::canonicalize</tt>), and
+      split it into its parent and parent directory and last pathname
+      arc (with
+
+      <tt><a href="vcheckout-dissection.html#ReposUI">ReposUI</a>::split</tt>).&nbsp; If
+      <tt>sessdir</tt> is a relative path that doesn't start with
+      &quot;<tt>.</tt>&quot; or &quot;<tt>..</tt>&quot;, it will
+      interpreted relative to the package to be checked out.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">283
+284
+285
+286
+287
+288
+289<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">(</font>default_sess <font color="#990000">&amp;</font><font color="#990000">&amp;</font> omit_new<font color="#990000">)</font> <font color="#990000">|</font><font color="#990000">|</font>
+          <font color="#990000">(</font><font color="#990000">!</font>default_sess <font color="#990000">&amp;</font><font color="#990000">&amp;</font> uniquify_nondefault_sess<font color="#990000">)</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+        <font color="#0000FF">// Need to uniquify the session dir</font>
+        vs_msessdirpar <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToMasterVS</font><font color="#990000">(</font>csessdirpar<font color="#990000">,</font> hints<font color="#990000">)</font><font color="#990000">;</font>
+        sessdirarc <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">uniquify</font><font color="#990000">(</font>vs_msessdirpar<font color="#990000">,</font> sessdirarc<font color="#990000">)</font><font color="#990000">;</font>
+        csessdir <font color="#990000">=</font> csessdirpar <font color="#990000">+</font> <font color="#33CC00">"/"</font> <font color="#990000">+</font> sessdirarc<font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      There are two cases where &quot;<tt>.<i>N</i></tt>&quot; (for
+      some small integer <tt><i>N</i></tt>) is appended to make a
+      session directory unique:
+    </p>
+
+    <ul>
+
+      <li>
+	This is a non-exclusive checkout with a default session
+	directory name
+      </li>
+
+      <li>
+	The user supplied a session directory with
+
+	<a href="../man/html/vcheckout.1.html#-s">the <tt>-s</tt> command-line option</a>
+
+	and explicitly requested it be made unique with
+
+	<a href="../man/html/vcheckout.1.html#-u">the <tt>-u</tt> command-line option</a>.
+
+      </li>
+
+    </ul>
+
+    <p>
+      In order to determine a unique name to use, the master copy of
+      the session directory parent must be consulted (as only the
+      master copy of an appendable directory knows all the names that
+      exist in it).&nbsp; On line 286,
+
+      <tt><a href="vcheckout-dissection.html#ReposUI">ReposUI</a>::filenameToMasterVS</tt> is
+      used to find the master copy.
+    </p>
+
+    <p>
+      On line 287,
+
+      <tt><a href="vcheckout-dissection.html#ReposUI">ReposUI</a>::uniquify</tt> is used to
+      generate a unique session directory name by appending
+      &quot;<tt>.<i>N</i></tt>&quot;.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Compute default for workdir</font>
+    <font color="#0000FF">//</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font>default_work<font color="#990000">)</font> <font color="#FF0000">{</font>
+      <font color="#0000FF">// Get last arc of absolute package name that does not</font>
+      <font color="#0000FF">// begin with a digit</font>
+      <font color="#008080">int</font> i<font color="#990000">,</font> j<font color="#990000">;</font>
+      j <font color="#990000">=</font> cpkg<font color="#990000">.</font><font color="#9A1900">Length</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#9A1900">for</font> <font color="#990000">(</font><font color="#990000">;</font><font color="#990000">;</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+        i <font color="#990000">=</font> cpkg<font color="#990000">.</font><font color="#9A1900">FindCharR</font><font color="#990000">(</font><font color="#33CC00">'/'</font><font color="#990000">,</font> j<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">)</font><font color="#990000">;</font>
+        <font color="#9A1900">if</font> <font color="#990000">(</font>i <font color="#990000">=</font><font color="#990000">=</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+          <font color="#0000FF">// Should not happen</font>
+          cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name
+               <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": can't find base package name in "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> cpkg <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+          <font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font><font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font><font color="#9A1900">isdigit</font><font color="#990000">(</font>cpkg<font color="#990000">[</font>i<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">]</font><font color="#990000">)</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+          workdir <font color="#990000">=</font> cpkg<font color="#990000">.</font><font color="#9A1900">Sub</font><font color="#990000">(</font>i<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">,</font> j<font color="#990000">-</font>i<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">)</font><font color="#990000">;</font>
+          <font color="#9A1900">break</font><font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        j <font color="#990000">=</font> i<font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Determine the name of the working directory.&nbsp; This is a
+      simple text search upward through directory path components
+      starting with the package name for an arc that starts with a
+      non-digit.&nbsp; (I believe this is intended to get the name of
+      the package rather than a branch within it, although it isn't a
+      particularly precise algorithm.)
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">316
+317
+318
+319
+320
+321
+322
+323<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Canonicalize workdir</font>
+    <font color="#0000FF">//</font>
+    Text cworkdir<font color="#990000">,</font> cworkdirpar<font color="#990000">,</font> workdirarc<font color="#990000">;</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_work<font color="#990000">)</font> <font color="#FF0000">{</font>
+      cworkdir <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">canonicalize</font><font color="#990000">(</font>workdir<font color="#990000">,</font> <font color="#9A1900">Text</font><font color="#990000">(</font><font color="#33CC00">"/vesta-work/"</font><font color="#990000">)</font> <font color="#990000">+</font> user<font color="#990000">)</font><font color="#990000">;</font>
+      ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">split</font><font color="#990000">(</font>cworkdir<font color="#990000">,</font> cworkdirpar<font color="#990000">,</font> workdirarc<font color="#990000">,</font> <font color="#33CC00">"work-dir"</font><font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Similar to what we've seen earlier, <tt>canonicalize</tt> and
+      <tt>split</tt> the working directory name.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Look up oldver, first replicating here if needed</font>
+    <font color="#0000FF">//</font>
+    VestaSource<font color="#990000">*</font> vs_oldver <font color="#990000">=</font> NULL<font color="#990000">;</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_old<font color="#990000">)</font> <font color="#FF0000">{</font>
+      VestaSource<font color="#990000">*</font> vs_roldver <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToRealVS</font><font color="#990000">(</font>coldver<font color="#990000">,</font> hints<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font>vs_roldver<font color="#990000">-</font><font color="#990000">&gt;</font>type <font color="#990000">=</font><font color="#990000">=</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>stub<font color="#990000">)</font> <font color="#FF0000">{</font>
+        cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> coldver
+             <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">" is not checked in yet"</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+        <font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#9A1900">if</font> <font color="#990000">(</font>vs_roldver<font color="#990000">-</font><font color="#990000">&gt;</font>type <font color="#990000">=</font><font color="#990000">=</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>ghost<font color="#990000">)</font> <font color="#FF0000">{</font>
+        cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> coldver
+             <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">" has been deleted"</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+        <font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font>vs_roldver<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">=</font><font color="#990000">=</font> lhost <font color="#990000">&amp;</font><font color="#990000">&amp;</font> vs_roldver<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">=</font><font color="#990000">=</font> lport<font color="#990000">)</font> <font color="#FF0000">{</font>
+        <font color="#0000FF">// A local replica exists</font>
+        vs_oldver <font color="#990000">=</font> vs_roldver<font color="#990000">;</font>
+      <font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>query<font color="#990000">)</font> <font color="#FF0000">{</font>
+        <font color="#0000FF">// Get a local replica</font>
+        <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>quiet<font color="#990000">)</font> <font color="#FF0000">{</font> 
+          cout <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">"Replicating "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> coldver <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">" from "</font>
+               <font color="#990000">&lt;</font><font color="#990000">&lt;</font> vs_roldver<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">":"</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> vs_roldver<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        Replicator <font color="#9A1900">repl</font><font color="#990000">(</font>vs_roldver<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font> vs_roldver<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font> lhost<font color="#990000">,</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+        Replicator<font color="#990000">:</font><font color="#990000">:</font>DirectiveSeq direcs<font color="#990000">;</font>
+        Replicator<font color="#990000">:</font><font color="#990000">:</font>Directive <font color="#9A1900">d</font><font color="#990000">(</font><font color="#33CC00">'+'</font><font color="#990000">,</font> coldver<font color="#990000">.</font><font color="#9A1900">Sub</font><font color="#990000">(</font>vlen<font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+        direcs<font color="#990000">.</font><font color="#9A1900">addhi</font><font color="#990000">(</font>d<font color="#990000">)</font><font color="#990000">;</font>
+        repl<font color="#990000">.</font><font color="#9A1900">replicate</font><font color="#990000">(</font><font color="#990000">&amp;</font>direcs<font color="#990000">,</font> rflags<font color="#990000">)</font><font color="#990000">;</font>
+        vs_oldver <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToVS</font><font color="#990000">(</font>coldver<font color="#990000">,</font> lhost<font color="#990000">,</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Locate and possibly replicate the old version to the local
+      repository.
+    </p>
+
+    <p>
+      On line 330,
+
+      <tt><a href="vcheckout-dissection.html#ReposUI">ReposUI</a>::filenameToRealVS</tt> is
+      used to find a &quot;real&quot; (not a non-master ghost and not
+      a non-master stub) copy of the old version.&nbsp; If the object
+      located is of type ghost or stub (which must be a master ghost
+      or stub), print an error message and exit.
+    </p>
+
+    <p>
+      If the object is in the local repository (line 340), use
+      it.&nbsp; Otherwise, use the replicator to copy it to the local
+      repository (lines 349-353), unless operating in
+
+      <a href="../man/html/vcheckout.1.html#-Q">&quot;query&quot; mode</a>.&nbsp;
+
+      An instance of
+
+      <tt><a href="vcheckout-dissection.html#Replicator">Replicator</a></tt> is created to
+      perform the replication, using a single
+
+      <tt><a href="vcheckout-dissection.html#Replicator">Replicator</a>::Directive</tt> to copy
+      the old version.
+    </p>
+
+    <p>
+      After replicating it, look it up in the local repository with
+      <tt><a href="vcheckout-dissection.html#ReposUI">ReposUI</a>::filenameToVS</tt>.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Look up master of newverpar and sanity check</font>
+    <font color="#0000FF">//</font>
+    VestaSource<font color="#990000">*</font> vs_mnewverpar <font color="#990000">=</font> NULL<font color="#990000">;</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_new<font color="#990000">)</font> <font color="#FF0000">{</font>  
+      vs_mnewverpar <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToMasterVS</font><font color="#990000">(</font>cnewverpar<font color="#990000">,</font> hints<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>force <font color="#990000">&amp;</font><font color="#990000">&amp;</font> <font color="#990000">!</font>vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">inAttribs</font><font color="#990000">(</font><font color="#33CC00">"type"</font><font color="#990000">,</font> <font color="#33CC00">"package"</font><font color="#990000">)</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+        cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> cnewverpar
+          <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">" is not a package or branch"</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+        <font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>quiet<font color="#990000">)</font> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">"Reserving version "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> cnewver<font color="#990000">;</font>
+        <font color="#9A1900">if</font> <font color="#990000">(</font>vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">!</font><font color="#990000">=</font> lhost <font color="#990000">|</font><font color="#990000">|</font>
+            vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">!</font><font color="#990000">=</font> lport<font color="#990000">)</font> <font color="#FF0000">{</font>
+          cout <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">" at "</font>
+               <font color="#990000">&lt;</font><font color="#990000">&lt;</font> vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">":"</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        cout <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      If we're reserving a new version, find the master copy of the
+      new version's parent (line 363).
+    </p>
+
+    <p>
+      Check whether the new version's parent's
+      &quot;<tt>type</tt>&quot; attribute contain the value
+      &quot;<tt>package</tt>&quot; with the
+
+      <tt><a href="vcheckout-dissection.html#VestaSource">VestaSource</a>::inAttribs</tt>
+      member function.  If it doesn't contain this value, print an
+      error message and exit unless
+
+      <a href="../man/html/vcheckout.1.html#-f">the &quot;force&quot; command-line option</a>
+
+      was given.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Look up master of sessdirpar and sanity check</font>
+    <font color="#0000FF">//</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_sess<font color="#990000">)</font> <font color="#FF0000">{</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>vs_msessdirpar<font color="#990000">)</font> <font color="#FF0000">{</font>
+	vs_msessdirpar <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToMasterVS</font><font color="#990000">(</font>csessdirpar<font color="#990000">,</font> hints<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>force <font color="#990000">&amp;</font><font color="#990000">&amp;</font> <font color="#990000">!</font>vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">inAttribs</font><font color="#990000">(</font><font color="#33CC00">"type"</font><font color="#990000">,</font> <font color="#33CC00">"checkout"</font><font color="#990000">)</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+	cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> csessdirpar <font color="#990000">&lt;</font><font color="#990000">&lt;</font>
+	  <font color="#33CC00">" is not a checkout directory"</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+	<font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>quiet<font color="#990000">)</font> <font color="#FF0000">{</font>
+	cout <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">"Creating session "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> csessdir<font color="#990000">;</font>
+	<font color="#9A1900">if</font> <font color="#990000">(</font>vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">!</font><font color="#990000">=</font> lhost <font color="#990000">|</font><font color="#990000">|</font>
+	    vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">!</font><font color="#990000">=</font> lport<font color="#990000">)</font> <font color="#FF0000">{</font>
+	  cout <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">" at "</font>
+	       <font color="#990000">&lt;</font><font color="#990000">&lt;</font> vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">":"</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#FF0000">}</font>
+	cout <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      If we're creating a session directory and we haven't already
+      located the master copy of the session directory parent, find it
+      now (line 385).
+    </p>
+
+    <p>
+      If the session directory parent's &quot;<tt>type</tt>&quot;
+      attribute doesn't contain the value
+      &quot;<tt>checkout</tt>&quot;, print an error message and exit,
+      unless
+
+      <a href="../man/html/vcheckout.1.html#-f">the &quot;force&quot; command-line option</a>
+
+      was given.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">409<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>	vs_workdirpar <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToVS</font><font color="#990000">(</font>cworkdirpar<font color="#990000">,</font> lhost<font color="#990000">,</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Look up the working directory parent in the local repository.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>	  Text cworkdirparpar<font color="#990000">,</font> workdirpararc<font color="#990000">;</font>
+	  ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">split</font><font color="#990000">(</font>cworkdirpar<font color="#990000">,</font> cworkdirparpar<font color="#990000">,</font> workdirpararc<font color="#990000">,</font>
+			 <font color="#33CC00">"work-dir parent"</font><font color="#990000">)</font><font color="#990000">;</font>
+	  VestaSource<font color="#990000">*</font> vs_workdirparpar <font color="#990000">=</font>
+	    ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToVS</font><font color="#990000">(</font>cworkdirparpar<font color="#990000">,</font> lhost<font color="#990000">,</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+	  VestaSource<font color="#990000">:</font><font color="#990000">:</font>errorCode err <font color="#990000">=</font> vs_workdirparpar<font color="#990000">-</font><font color="#990000">&gt;</font>
+	    <font color="#9A1900">insertMutableDirectory</font><font color="#990000">(</font>workdirpararc<font color="#990000">.</font><font color="#9A1900">cchars</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font> NULL<font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font>
+				   NULL<font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>dontReplace<font color="#990000">,</font>
+				   <font color="#990000">&amp;</font>vs_workdirpar<font color="#990000">)</font><font color="#990000">;</font>
+	  <font color="#9A1900">if</font> <font color="#990000">(</font>err <font color="#990000">!</font><font color="#990000">=</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>ok<font color="#990000">)</font> <font color="#FF0000">{</font>
+	    cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": error creating "</font>
+		 <font color="#990000">&lt;</font><font color="#990000">&lt;</font> cworkdirpar <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font>
+		 <font color="#990000">&lt;</font><font color="#990000">&lt;</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">errorCodeText</font><font color="#990000">(</font>err<font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+	    <font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font><font color="#990000">;</font>
+	  <font color="#FF0000">}</font>
+	  err <font color="#990000">=</font> vs_workdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font><font color="#33CC00">"#mode"</font><font color="#990000">,</font> mode<font color="#990000">)</font><font color="#990000">;</font>
+	  <font color="#9A1900">assert</font><font color="#990000">(</font>err <font color="#990000">=</font><font color="#990000">=</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>ok<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      If the working directory parent doesn't exist, split its path to
+      get its parent (lines 415-416), look up the parent (lines
+      417-418), and create a new mutable directory for the working
+      directory parent with the
+
+      <tt><a href="vcheckout-dissection.html#VestaSource">VestaSource</a>::insertMutableDirectory</tt>
+
+      member function (lines 419-422).&nbsp; After creating it, give
+      it a &quot;<tt>#mode</tt>&quot; attribute with the
+
+      <tt><a href="vcheckout-dissection.html#VestaSource">VestaSource</a>::setAttrib</tt>
+      member function (line 429).
+    </p>
+
+    <p>
+      This handles the case of a new user performing their first
+      checkout.&nbsp; Unless they've explicitly created the directory
+      &quot;<tt>/vesta-work/<i>username</i></tt>&quot;, it won't
+      exist, which is why <tt>vcheckout</tt> creates it here.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">435
+436
+437
+438
+439
+440
+441
+442
+443
+444<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#9A1900">if</font> <font color="#990000">(</font>vs_workdirpar <font color="#990000">&amp;</font><font color="#990000">&amp;</font> default_work<font color="#990000">)</font> <font color="#FF0000">{</font>
+	<font color="#0000FF">// Make name unique by adding numeric suffix if needed</font>
+	VestaSource<font color="#990000">*</font> vs_dummy<font color="#990000">;</font>
+	VestaSource<font color="#990000">:</font><font color="#990000">:</font>errorCode err <font color="#990000">=</font> 
+	  vs_workdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">lookup</font><font color="#990000">(</font>workdirarc<font color="#990000">.</font><font color="#9A1900">cchars</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font> vs_dummy<font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#9A1900">if</font> <font color="#990000">(</font>err <font color="#990000">!</font><font color="#990000">=</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>notFound<font color="#990000">)</font> <font color="#FF0000">{</font>
+	  workdirarc <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">uniquify</font><font color="#990000">(</font>vs_workdirpar<font color="#990000">,</font> workdirarc<font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#FF0000">}</font>
+	cworkdir <font color="#990000">=</font> cworkdirpar <font color="#990000">+</font> <font color="#33CC00">"/"</font> <font color="#990000">+</font> workdirarc<font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      If the working directory name is to be automatically determined,
+      see if the working directory name already exists by looking it
+      up with the
+
+      <tt><a href="vcheckout-dissection.html#VestaSource">VestaSource</a>::lookup</tt> member
+      function (lines 438-439).&nbsp; If it does exist, uniquify it by
+      appending &quot;<tt>.<i>N</i></tt>&quot; (line 441).
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">450
+451
+452
+453<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#9A1900">if</font> <font color="#990000">(</font>query<font color="#990000">)</font> <font color="#FF0000">{</font>
+      cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": nothing done (-Q flag given)"</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+      <font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      If operating in
+
+      <a href="../man/html/vcheckout.1.html#-Q">&quot;query&quot; mode</a>,
+
+      exit without making any more changes.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// If needed, construct action to create newver remotely</font>
+    <font color="#0000FF">// and replicator directives to replicate it here.</font>
+    <font color="#0000FF">//</font>
+    VestaSource<font color="#990000">*</font> vs_newverpar <font color="#990000">=</font> NULL<font color="#990000">;</font>
+    VestaSource<font color="#990000">*</font> vs_newver <font color="#990000">=</font> NULL<font color="#990000">;</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_new<font color="#990000">)</font> <font color="#FF0000">{</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font>vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">=</font><font color="#990000">=</font> lhost <font color="#990000">&amp;</font><font color="#990000">&amp;</font>
+	  vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">=</font><font color="#990000">=</font> lport<font color="#990000">)</font> <font color="#FF0000">{</font>
+	<font color="#0000FF">// Master is local</font>
+	vs_newverpar <font color="#990000">=</font> vs_mnewverpar<font color="#990000">;</font>
+      <font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#FF0000">{</font>
+	<font color="#0000FF">// Master is remote</font>
+	rvsa1 <font color="#990000">=</font> <font color="#9A1900">new</font> <font color="#9A1900">VestaSourceAtomic</font><font color="#990000">(</font>vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font>
+				      vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+	VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>VSIndex vsi_mnewverpar <font color="#990000">=</font>
+	  rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">decl</font><font color="#990000">(</font>cnewverpar<font color="#990000">,</font> vs_mnewverpar<font color="#990000">)</font><font color="#990000">;</font>
+	VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>VSIndex vsi_mnewver <font color="#990000">=</font>
+	  rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">insertStub</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_mnewverpar<font color="#990000">,</font> newverarc<font color="#990000">,</font>
+			    <font color="#9A1900">true</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>dontReplace<font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_old<font color="#990000">)</font> <font color="#FF0000">{</font>
+	  rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_mnewver<font color="#990000">,</font> <font color="#33CC00">"old-version"</font><font color="#990000">,</font> coldver<font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#FF0000">}</font>
+	<font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_sess<font color="#990000">)</font> <font color="#FF0000">{</font>
+	  rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_mnewver<font color="#990000">,</font> <font color="#33CC00">"session-dir"</font><font color="#990000">,</font> csessdir<font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#FF0000">}</font>
+	rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_mnewver<font color="#990000">,</font> <font color="#33CC00">"checkout-time"</font><font color="#990000">,</font> timebuf<font color="#990000">)</font><font color="#990000">;</font>
+	rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_mnewver<font color="#990000">,</font> <font color="#33CC00">"checkout-by"</font><font color="#990000">,</font> cuser<font color="#990000">)</font><font color="#990000">;</font>
+	rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_mnewver<font color="#990000">,</font> <font color="#33CC00">"checkout-from"</font><font color="#990000">,</font>
+			 vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">+</font> <font color="#33CC00">":"</font> <font color="#990000">+</font> vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+	rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_mnewver<font color="#990000">,</font> <font color="#33CC00">"checkout-to"</font><font color="#990000">,</font>
+			 lhost <font color="#990000">+</font> <font color="#33CC00">":"</font> <font color="#990000">+</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+	rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_mnewver<font color="#990000">,</font> <font color="#33CC00">"#mode"</font><font color="#990000">,</font> mode<font color="#990000">)</font><font color="#990000">;</font>
+
+	repl1 <font color="#990000">=</font> <font color="#9A1900">new</font> <font color="#9A1900">Replicator</font><font color="#990000">(</font>vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font> vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font>
+			       lhost<font color="#990000">,</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+	direcs1 <font color="#990000">=</font> <font color="#9A1900">new</font> Replicator<font color="#990000">:</font><font color="#990000">:</font>DirectiveSeq<font color="#990000">;</font>
+	Replicator<font color="#990000">:</font><font color="#990000">:</font>Directive <font color="#9A1900">d</font><font color="#990000">(</font><font color="#33CC00">'+'</font><font color="#990000">,</font> cnewver<font color="#990000">.</font><font color="#9A1900">Sub</font><font color="#990000">(</font>vlen<font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+	direcs1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">addhi</font><font color="#990000">(</font>d<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Determine whether the master copy of the new version parent is
+      local.&nbsp; If it isn't, construct a repository atomic action
+      and replication objects to create the new version remotely and
+      replicate it to the local repository.
+    </p>
+
+    <p>
+      Lines 475-476 check whether the master new version parent is
+      local.&nbsp; If it is, there's no remote atomic action or
+      replication required, as the new version can be created in the
+      local repository.
+    </p>
+
+    <p>
+      Lines 481-482 create an instance of
+
+      <tt><a href="vcheckout-dissection.html#VestaSourceAtomic">VestaSourceAtomic</a></tt> that
+      will be used to create the new version in the remote master
+      repository.&nbsp; The first step in the atomic action (lines
+      483-484) is to declare the object we'll be working with (the new
+      version's parent).&nbsp; The second step (lines 485-487) is to
+      create the new version reservation stub.&nbsp; Subsequent
+      actions (lines 488-500) set attributes on the newly created
+      version reservation.
+    </p>
+
+    <p>
+      Finally, instances of
+
+      <tt><a href="vcheckout-dissection.html#Replicator">Replicator</a></tt> and
+
+      <tt><a href="vcheckout-dissection.html#Replicator">Replicator</a>::DirectiveSeq</tt> are
+      created to replicate the new version reservation stub to the
+      local repository (lines 502-506).
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// If needed, construct action to create sessdir remotely</font>
+    <font color="#0000FF">// and replicator directives to replicate it here.</font>
+    <font color="#0000FF">//</font>
+    VestaSource<font color="#990000">*</font> vs_sessdirpar <font color="#990000">=</font> NULL<font color="#990000">;</font>
+    VestaSource<font color="#990000">*</font> vs_sessdir <font color="#990000">=</font> NULL<font color="#990000">;</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_sess<font color="#990000">)</font> <font color="#FF0000">{</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font>vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">=</font><font color="#990000">=</font> lhost <font color="#990000">&amp;</font><font color="#990000">&amp;</font>
+	  vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">=</font><font color="#990000">=</font> lport<font color="#990000">)</font> <font color="#FF0000">{</font>
+	<font color="#0000FF">// Master is local</font>
+	vs_sessdirpar <font color="#990000">=</font> vs_msessdirpar<font color="#990000">;</font>
+      <font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#FF0000">{</font>
+	<font color="#0000FF">// Master is remote</font>
+	<font color="#9A1900">if</font> <font color="#990000">(</font>rvsa1 <font color="#990000">!</font><font color="#990000">=</font> NULL <font color="#990000">&amp;</font><font color="#990000">&amp;</font>
+	    vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">=</font><font color="#990000">=</font> vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">&amp;</font><font color="#990000">&amp;</font>
+	    vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">=</font><font color="#990000">=</font> vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+	  rvsa2 <font color="#990000">=</font> rvsa1<font color="#990000">;</font>
+	  repl2 <font color="#990000">=</font> repl1<font color="#990000">;</font>
+	  direcs2 <font color="#990000">=</font> direcs1<font color="#990000">;</font>
+	<font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#FF0000">{</font>
+	  rvsa2 <font color="#990000">=</font> <font color="#9A1900">new</font> <font color="#9A1900">VestaSourceAtomic</font><font color="#990000">(</font>vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font>
+					vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+	  repl2 <font color="#990000">=</font> <font color="#9A1900">new</font> <font color="#9A1900">Replicator</font><font color="#990000">(</font>vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font>
+				 vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font> lhost<font color="#990000">,</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+	  direcs2 <font color="#990000">=</font> <font color="#9A1900">new</font> Replicator<font color="#990000">:</font><font color="#990000">:</font>DirectiveSeq<font color="#990000">;</font>
+	<font color="#FF0000">}</font>
+	VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>VSIndex vsi_msessdirpar <font color="#990000">=</font>
+	  rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">decl</font><font color="#990000">(</font>csessdirpar<font color="#990000">,</font> vs_msessdirpar<font color="#990000">)</font><font color="#990000">;</font>
+	VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>VSIndex vsi_msessdir <font color="#990000">=</font>
+	  rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">insertAppendableDirectory</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_msessdirpar<font color="#990000">,</font>
+					   sessdirarc<font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font>
+					   VestaSource<font color="#990000">:</font><font color="#990000">:</font>dontReplace<font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_old<font color="#990000">)</font> <font color="#FF0000">{</font>
+	  rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_msessdir<font color="#990000">,</font> <font color="#33CC00">"old-version"</font><font color="#990000">,</font> coldver<font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#FF0000">}</font>
+	<font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_new<font color="#990000">)</font> <font color="#FF0000">{</font>
+	  rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_msessdir<font color="#990000">,</font> <font color="#33CC00">"new-version"</font><font color="#990000">,</font> cnewver<font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#FF0000">}</font>
+	rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_msessdir<font color="#990000">,</font> <font color="#33CC00">"checkout-time"</font><font color="#990000">,</font> timebuf<font color="#990000">)</font><font color="#990000">;</font>
+	rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_msessdir<font color="#990000">,</font> <font color="#33CC00">"checkout-by"</font><font color="#990000">,</font> cuser<font color="#990000">)</font><font color="#990000">;</font>
+	rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_msessdir<font color="#990000">,</font> <font color="#33CC00">"checkout-from"</font><font color="#990000">,</font>
+			 <font color="#990000">(</font>vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">+</font> <font color="#33CC00">":"</font> <font color="#990000">+</font>
+			  vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+	rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_msessdir<font color="#990000">,</font> <font color="#33CC00">"checkout-to"</font><font color="#990000">,</font>
+			 <font color="#990000">(</font>lhost <font color="#990000">+</font> <font color="#33CC00">":"</font> <font color="#990000">+</font> lport<font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+	rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_msessdir<font color="#990000">,</font> <font color="#33CC00">"type"</font><font color="#990000">,</font> <font color="#33CC00">"session"</font><font color="#990000">)</font><font color="#990000">;</font>
+	rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_msessdir<font color="#990000">,</font> <font color="#33CC00">"#mode"</font><font color="#990000">,</font> mode<font color="#990000">)</font><font color="#990000">;</font>
+
+	Replicator<font color="#990000">:</font><font color="#990000">:</font>Directive <font color="#9A1900">d1</font><font color="#990000">(</font><font color="#33CC00">'+'</font><font color="#990000">,</font> csessdir<font color="#990000">.</font><font color="#9A1900">Sub</font><font color="#990000">(</font>vlen<font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+	Replicator<font color="#990000">:</font><font color="#990000">:</font>Directive <font color="#9A1900">d2</font><font color="#990000">(</font><font color="#33CC00">'+'</font><font color="#990000">,</font> cslatest<font color="#990000">.</font><font color="#9A1900">Sub</font><font color="#990000">(</font>vlen<font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+	direcs2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">addhi</font><font color="#990000">(</font>d1<font color="#990000">)</font><font color="#990000">;</font>
+	direcs2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">addhi</font><font color="#990000">(</font>d2<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Similar to lines 472-508, determine whether the master copy of
+      the session directory parent is local or in the same repository
+      as the master copy of the new version parent.&nbsp; If necessary,
+      construct a repository atomic action and replication objects,
+      or append to the existing ones.
+    </p>
+
+    <p>
+      Lines 517-518 check whether the the master copy of the session
+      directory parent is local.&nbsp; If it is, there's no remote atomic
+      action or replication required.
+    </p>
+
+    <p>
+      Lines 523-528 handle the case where the master copy of the
+      session directory parent is in the same repository as the master
+      copy of the new version parent.&nbsp; In this case, we add more
+      atomic actions and replication directives to the existing
+      objects.
+    </p>
+
+    <p>
+      Lines 530-534 handle the case where the master copy of the
+      session directory parent is not in the local repository and not
+      in the repository with the master copy of the new version
+      parent.&nbsp; In this case, new instances of
+
+      <tt><a href="vcheckout-dissection.html#VestaSourceAtomic">VestaSourceAtomic</a></tt>,
+      <tt><a href="vcheckout-dissection.html#Replicator">Replicator</a></tt>, and
+
+      <tt><a href="vcheckout-dissection.html#Replicator">Replicator</a>::DirectiveSeq</tt> are
+      created.
+    </p>
+
+    <p>
+      Lines 536-556 add steps to the atomic action for creating and
+      adding attributes to the session directory.
+    </p>
+
+    <p>
+      Lines 558-561 add replication directives to the replication object.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">565
+566
+567
+568
+569
+570<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Disable ^C signal to make it less likely that we will be</font>
+    <font color="#0000FF">// killed after having done one or more remote actions but</font>
+    <font color="#0000FF">// before having finished the whole job.</font>
+    <font color="#0000FF">//</font>
+    <font color="#9A1900">signal</font><font color="#990000">(</font>SIGINT<font color="#990000">,</font> SIG_IGN<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Ignore the interrupt signal (generated by the user hitting
+      control-C).&nbsp; This provides some minor protection against a
+      half-completed checkout when multiple repositories are involved.
+    </p>
+
+    <p>
+      See the <tt>signal(2)</tt> man page.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Run the remote action(s) and replication(s)</font>
+    <font color="#0000FF">//</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font>rvsa1<font color="#990000">)</font> <font color="#FF0000">{</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">run</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+	VestaSource<font color="#990000">:</font><font color="#990000">:</font>errorCode err<font color="#990000">;</font>
+	<font color="#9A1900">if</font> <font color="#990000">(</font>rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font>lasterr <font color="#990000">=</font><font color="#990000">=</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>ok<font color="#990000">)</font> <font color="#FF0000">{</font>
+	  err <font color="#990000">=</font> rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font>okreplace<font color="#990000">;</font>
+	<font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#FF0000">{</font>
+	  err <font color="#990000">=</font> rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font>lasterr<font color="#990000">;</font>
+	<font color="#FF0000">}</font>
+	cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">name</font><font color="#990000">(</font>rvsa1<font color="#990000">-</font><font color="#990000">&gt;</font>ndone<font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">" at "</font>
+	     <font color="#990000">&lt;</font><font color="#990000">&lt;</font> vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">":"</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font>
+	     <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">errorCodeText</font><font color="#990000">(</font>err<font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+	<font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      repl1<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">replicate</font><font color="#990000">(</font>direcs1<font color="#990000">,</font> rflags<font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font>rvsa2 <font color="#990000">&amp;</font><font color="#990000">&amp;</font> rvsa2 <font color="#990000">!</font><font color="#990000">=</font> rvsa1<font color="#990000">)</font> <font color="#FF0000">{</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">run</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+	VestaSource<font color="#990000">:</font><font color="#990000">:</font>errorCode err<font color="#990000">;</font>
+	<font color="#9A1900">if</font> <font color="#990000">(</font>rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font>lasterr <font color="#990000">=</font><font color="#990000">=</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>ok<font color="#990000">)</font> <font color="#FF0000">{</font>
+	  err <font color="#990000">=</font> rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font>okreplace<font color="#990000">;</font>
+	<font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#FF0000">{</font>
+	  err <font color="#990000">=</font> rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font>lasterr<font color="#990000">;</font>
+	<font color="#FF0000">}</font>
+	cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">name</font><font color="#990000">(</font>rvsa2<font color="#990000">-</font><font color="#990000">&gt;</font>ndone<font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">" at "</font>
+	     <font color="#990000">&lt;</font><font color="#990000">&lt;</font> vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">":"</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font>
+	     <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">errorCodeText</font><font color="#990000">(</font>err<font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+	<font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      repl2<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">replicate</font><font color="#990000">(</font>direcs2<font color="#990000">,</font> rflags<font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Run the one or two remote atomic actions and perform the one or
+      two replications to the local repository.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Do the mastership transfer(s)</font>
+    <font color="#0000FF">//</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_new <font color="#990000">&amp;</font><font color="#990000">&amp;</font> vs_newverpar <font color="#990000">=</font><font color="#990000">=</font> NULL<font color="#990000">)</font> <font color="#FF0000">{</font>
+      VestaSource<font color="#990000">:</font><font color="#990000">:</font>errorCode err <font color="#990000">=</font>
+	VDirSurrogate<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">acquireMastership</font><font color="#990000">(</font>cnewver<font color="#990000">.</font><font color="#9A1900">Sub</font><font color="#990000">(</font>vlen<font color="#990000">)</font><font color="#990000">.</font><font color="#9A1900">cchars</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font>
+					 lhost<font color="#990000">,</font> lport<font color="#990000">,</font>
+					 vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font>
+					 vs_mnewverpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font>err <font color="#990000">!</font><font color="#990000">=</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>ok<font color="#990000">)</font> <font color="#FF0000">{</font>
+	cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": error acquiring mastership of "</font>
+	     <font color="#990000">&lt;</font><font color="#990000">&lt;</font> cnewver <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">errorCodeText</font><font color="#990000">(</font>err<font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+	<font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      vs_newverpar <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToVS</font><font color="#990000">(</font>cnewverpar<font color="#990000">,</font> lhost<font color="#990000">,</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+      vs_newver <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToVS</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> lhost<font color="#990000">,</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_sess <font color="#990000">&amp;</font><font color="#990000">&amp;</font> vs_sessdirpar <font color="#990000">=</font><font color="#990000">=</font> NULL<font color="#990000">)</font> <font color="#FF0000">{</font>
+      VestaSource<font color="#990000">:</font><font color="#990000">:</font>errorCode err <font color="#990000">=</font>
+	VDirSurrogate<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">acquireMastership</font><font color="#990000">(</font>csessdir<font color="#990000">.</font><font color="#9A1900">Sub</font><font color="#990000">(</font>vlen<font color="#990000">)</font><font color="#990000">.</font><font color="#9A1900">cchars</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font>
+					 lhost<font color="#990000">,</font> lport<font color="#990000">,</font>
+					 vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">host</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">,</font>
+					 vs_msessdirpar<font color="#990000">-</font><font color="#990000">&gt;</font><font color="#9A1900">port</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font>err <font color="#990000">!</font><font color="#990000">=</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>ok<font color="#990000">)</font> <font color="#FF0000">{</font>
+	cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": error acquiring mastership of "</font>
+	     <font color="#990000">&lt;</font><font color="#990000">&lt;</font> csessdir <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">errorCodeText</font><font color="#990000">(</font>err<font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+	<font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      vs_sessdirpar <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToVS</font><font color="#990000">(</font>csessdirpar<font color="#990000">,</font> lhost<font color="#990000">,</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+      vs_sessdir <font color="#990000">=</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">filenameToVS</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> lhost<font color="#990000">,</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+     Transfer mastership of the remotely created objects to the local
+     repository using
+
+      <tt><a href="vcheckout-dissection.html#VDirSurrogate">VDirSurrogate</a>::acquireMastership</tt>.&nbsp;
+
+      First, the local repository acquires mastership of the new
+      version (lines 610-614).&nbsp; Second, the local repository
+      acquires mastership of the session directory (lines 624-628).
+    </p>
+
+    <p>
+      The local repository needs mastership of the session directory
+      so that
+
+      <tt><a href="../man/html/vadvance.1.html">vadvance</a></tt>
+
+      can take immutable snapshots of the working directory.&nbsp; The
+      local repository needs mastership of the new version reservation
+      stub so that
+
+      <tt><a href="../man/html/vcheckin.1.html">vcheckin</a></tt>
+
+      can replace it with an immutable directory.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">638
+639
+640
+641
+642
+643
+644<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Construct the local atomic action</font>
+    <font color="#0000FF">//</font>
+    VestaSourceAtomic <font color="#9A1900">vsa</font><font color="#990000">(</font>lhost<font color="#990000">,</font> lport<font color="#990000">)</font><font color="#990000">;</font>
+    VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>VSIndex vsi_oldver <font color="#990000">=</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">,</font> vsi_newverpar <font color="#990000">=</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">,</font>
+      vsi_sessdirpar <font color="#990000">=</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">,</font> vsi_workdirpar <font color="#990000">=</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">,</font>
+      vsi_newver <font color="#990000">=</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">,</font> vsi_sessdir <font color="#990000">=</font> <font color="#990000">-</font><font color="#993399">1</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Construct a
+
+      <tt><a href="vcheckout-dissection.html#VestaSourceAtomic">VestaSourceAtomic</a></tt>
+      object for performing the local action.&nbsp; (This may include
+      all the work of <tt>vcheckout</tt> if all objects are mastered
+      locally.)&nbsp; Declare several
+
+      <tt><a href="vcheckout-dissection.html#VestaSourceAtomic">VestaSourceAtomic</a>::VSIndex</tt>
+
+      variables that will be used while constructing the local atomic
+      action.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">649
+650
+651
+652
+653
+654
+655
+656<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_old<font color="#990000">)</font> <font color="#FF0000">{</font>
+      vsi_oldver <font color="#990000">=</font> vsa<font color="#990000">.</font><font color="#9A1900">decl</font><font color="#990000">(</font>coldver<font color="#990000">,</font> vs_oldver<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">typeCheck</font><font color="#990000">(</font>coldver<font color="#990000">,</font> vsi_oldver<font color="#990000">,</font> VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>
+		    <font color="#9A1900">typebit</font><font color="#990000">(</font>VestaSource<font color="#990000">:</font><font color="#990000">:</font>immutableDirectory<font color="#990000">)</font><font color="#990000">,</font>
+		    VestaSource<font color="#990000">:</font><font color="#990000">:</font>inappropriateOp<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">accessCheck</font><font color="#990000">(</font>coldver<font color="#990000">,</font> vsi_oldver<font color="#990000">,</font> AccessControl<font color="#990000">:</font><font color="#990000">:</font>read<font color="#990000">,</font>
+		      <font color="#9A1900">true</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>noPermission<font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      If we have an old version, declare the old version to the atomic
+      action.&nbsp; Add steps to check that it is an immutable
+      directory and that the user has read access to it.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">658<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      vsi_newverpar <font color="#990000">=</font> vsa<font color="#990000">.</font><font color="#9A1900">decl</font><font color="#990000">(</font>cnewverpar<font color="#990000">,</font> vs_newverpar<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Declare the new version parent to the atomic action.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">660
+661
+662
+663
+664
+665
+666
+667<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>	<font color="#0000FF">// newver already exists</font>
+	vsi_newver <font color="#990000">=</font> vsa<font color="#990000">.</font><font color="#9A1900">decl</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vs_newver<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">typeCheck</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_newver<font color="#990000">,</font> VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>
+		      <font color="#9A1900">typebit</font><font color="#990000">(</font>VestaSource<font color="#990000">:</font><font color="#990000">:</font>stub<font color="#990000">)</font><font color="#990000">,</font>
+		      VestaSource<font color="#990000">:</font><font color="#990000">:</font>inappropriateOp<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">testMaster</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_newver<font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>notMaster<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">accessCheck</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_newver<font color="#990000">,</font> AccessControl<font color="#990000">:</font><font color="#990000">:</font>write<font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font>
+			VestaSource<font color="#990000">:</font><font color="#990000">:</font>noPermission<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      In the case where the new version already exists (because it was
+      created in a remote repository), declare it to the atomic
+      action.&nbsp; Also, check that it is a stub, that its master
+      flag is set, and that the user has write access to it.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>	<font color="#0000FF">// newver will be created in newverpar</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">typeCheck</font><font color="#990000">(</font>cnewverpar<font color="#990000">,</font> vsi_newverpar<font color="#990000">,</font> VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>
+		      <font color="#9A1900">typebit</font><font color="#990000">(</font>VestaSource<font color="#990000">:</font><font color="#990000">:</font>appendableDirectory<font color="#990000">)</font><font color="#990000">,</font>
+		      VestaSource<font color="#990000">:</font><font color="#990000">:</font>inappropriateOp<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">testMaster</font><font color="#990000">(</font>cnewverpar<font color="#990000">,</font> vsi_newverpar<font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font>
+		       VestaSource<font color="#990000">:</font><font color="#990000">:</font>notMaster<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">accessCheck</font><font color="#990000">(</font>cnewverpar<font color="#990000">,</font> vsi_newverpar<font color="#990000">,</font> AccessControl<font color="#990000">:</font><font color="#990000">:</font>write<font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font>
+			VestaSource<font color="#990000">:</font><font color="#990000">:</font>noPermission<font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#0000FF">// Be sure new version doesn't already exist</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setTarget</font><font color="#990000">(</font><font color="#33CC00">""</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>notFound<font color="#990000">,</font>
+		      VestaSource<font color="#990000">:</font><font color="#990000">:</font>notFound<font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>nameInUse<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">lookup</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_newverpar<font color="#990000">,</font> newverarc<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setTarget</font><font color="#990000">(</font><font color="#33CC00">""</font><font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      In the case where the new version doesn't exist, check that the
+      new version parent is an appendable directory, that its master
+      flag is set, and that the user has write permission to it.&nbsp;
+      Also, check that the new version to be created doesn't already
+      exist.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">685<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      vsi_sessdirpar <font color="#990000">=</font> vsa<font color="#990000">.</font><font color="#9A1900">decl</font><font color="#990000">(</font>csessdirpar<font color="#990000">,</font> vs_sessdirpar<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Declare the session directory parent to the atomic action.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">687
+688
+689
+690
+691
+692
+693
+694<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>	<font color="#0000FF">// sessdir already exists</font>
+	vsi_sessdir <font color="#990000">=</font> vsa<font color="#990000">.</font><font color="#9A1900">decl</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vs_sessdir<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">typeCheck</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>
+		      <font color="#9A1900">typebit</font><font color="#990000">(</font>VestaSource<font color="#990000">:</font><font color="#990000">:</font>appendableDirectory<font color="#990000">)</font><font color="#990000">,</font>
+		      VestaSource<font color="#990000">:</font><font color="#990000">:</font>inappropriateOp<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">testMaster</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>notMaster<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">accessCheck</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> AccessControl<font color="#990000">:</font><font color="#990000">:</font>write<font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font>
+			VestaSource<font color="#990000">:</font><font color="#990000">:</font>noPermission<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      In the case where the session directory already exists (because
+      it was created in a remote repository), declare it to the atomic
+      action.&nbsp; Also, check that it is an appendable directory,
+      that its master flag is set, and that the user has write access
+      to it.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>	<font color="#0000FF">// sessdir will be created in sessdirpar</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">typeCheck</font><font color="#990000">(</font>csessdirpar<font color="#990000">,</font> vsi_sessdirpar<font color="#990000">,</font> VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>
+		      <font color="#9A1900">typebit</font><font color="#990000">(</font>VestaSource<font color="#990000">:</font><font color="#990000">:</font>appendableDirectory<font color="#990000">)</font><font color="#990000">,</font>
+		      VestaSource<font color="#990000">:</font><font color="#990000">:</font>inappropriateOp<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">testMaster</font><font color="#990000">(</font>csessdirpar<font color="#990000">,</font> vsi_sessdirpar<font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font>
+		       VestaSource<font color="#990000">:</font><font color="#990000">:</font>notMaster<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">accessCheck</font><font color="#990000">(</font>csessdirpar<font color="#990000">,</font> vsi_sessdirpar<font color="#990000">,</font> AccessControl<font color="#990000">:</font><font color="#990000">:</font>write<font color="#990000">,</font>
+			<font color="#9A1900">true</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>noPermission<font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#0000FF">// Be sure sessdir doesn't already exist</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setTarget</font><font color="#990000">(</font><font color="#33CC00">""</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>notFound<font color="#990000">,</font>
+		      VestaSource<font color="#990000">:</font><font color="#990000">:</font>notFound<font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>nameInUse<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">lookup</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdirpar<font color="#990000">,</font> sessdirarc<font color="#990000">)</font><font color="#990000">;</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setTarget</font><font color="#990000">(</font><font color="#33CC00">"setTarget"</font><font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      In the case where the session directory doesn't exist, check
+      that the session directory parent is an appendable directory,
+      that its master flag is set, and that the user has write
+      permission to it.&nbsp; Also, check that the session directory
+      to be created doesn't already exist.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_work<font color="#990000">)</font> <font color="#FF0000">{</font>
+      vsi_workdirpar <font color="#990000">=</font> vsa<font color="#990000">.</font><font color="#9A1900">decl</font><font color="#990000">(</font>cworkdirpar<font color="#990000">,</font> vs_workdirpar<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">typeCheck</font><font color="#990000">(</font>cworkdirpar<font color="#990000">,</font> vsi_workdirpar<font color="#990000">,</font> VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>
+		    <font color="#9A1900">typebit</font><font color="#990000">(</font>VestaSource<font color="#990000">:</font><font color="#990000">:</font>mutableDirectory<font color="#990000">)</font><font color="#990000">,</font>
+		    VestaSource<font color="#990000">:</font><font color="#990000">:</font>inappropriateOp<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">accessCheck</font><font color="#990000">(</font>cworkdirpar<font color="#990000">,</font> vsi_workdirpar<font color="#990000">,</font> AccessControl<font color="#990000">:</font><font color="#990000">:</font>write<font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font>
+		      VestaSource<font color="#990000">:</font><font color="#990000">:</font>noPermission<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#0000FF">// Be sure workdir doesn't already exist</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setTarget</font><font color="#990000">(</font><font color="#33CC00">""</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>notFound<font color="#990000">,</font>
+		    VestaSource<font color="#990000">:</font><font color="#990000">:</font>notFound<font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>nameInUse<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">lookup</font><font color="#990000">(</font>cworkdir<font color="#990000">,</font> vsi_workdirpar<font color="#990000">,</font> workdirarc<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setTarget</font><font color="#990000">(</font><font color="#33CC00">""</font><font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      If a working directory is being created, declare the working
+      directory parent to the atomic action.&nbsp; Then check that it
+      is a mutable directory and that the user has write permission to
+      it.&nbsp; Finally, check that the working directory to be
+      created doesn't already exist.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">729
+730
+731
+732
+733
+734<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>vs_newver<font color="#990000">)</font> <font color="#FF0000">{</font>
+	<font color="#0000FF">// Insert reservation stub for newver</font>
+	vsi_newver <font color="#990000">=</font>
+	  vsa<font color="#990000">.</font><font color="#9A1900">insertStub</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_newverpar<font color="#990000">,</font> newverarc<font color="#990000">,</font>
+			 <font color="#9A1900">true</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>dontReplace<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      In the case where the new version needs to be created locally,
+      add a step to create it.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#0000FF">// Set attributes on newver stub</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_old<font color="#990000">)</font> <font color="#FF0000">{</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_newver<font color="#990000">,</font> <font color="#33CC00">"old-version"</font><font color="#990000">,</font> coldver<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_sess<font color="#990000">)</font> <font color="#FF0000">{</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_newver<font color="#990000">,</font> <font color="#33CC00">"session-dir"</font><font color="#990000">,</font> csessdir<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_work<font color="#990000">)</font> <font color="#FF0000">{</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_newver<font color="#990000">,</font> <font color="#33CC00">"work-dir"</font><font color="#990000">,</font> cworkdir<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_newver<font color="#990000">,</font> <font color="#33CC00">"checkout-time"</font><font color="#990000">,</font> timebuf<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_newver<font color="#990000">,</font> <font color="#33CC00">"checkout-by"</font><font color="#990000">,</font> cuser<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cnewver<font color="#990000">,</font> vsi_newver<font color="#990000">,</font> <font color="#33CC00">"#mode"</font><font color="#990000">,</font> mode<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Add steps to the action to set attributes on the new version.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">752
+753
+754
+755
+756
+757<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>vs_sessdir<font color="#990000">)</font> <font color="#FF0000">{</font>
+	<font color="#0000FF">// Insert session directory</font>
+	vsi_sessdir <font color="#990000">=</font>
+	  vsa<font color="#990000">.</font><font color="#9A1900">insertAppendableDirectory</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdirpar<font color="#990000">,</font> sessdirarc<font color="#990000">,</font>
+					<font color="#9A1900">true</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>dontReplace<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      In the case where the session directory needs to be created
+      locally, add a step to create it.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#0000FF">// Set attribs on session directory</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_old<font color="#990000">)</font> <font color="#FF0000">{</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> <font color="#33CC00">"old-version"</font><font color="#990000">,</font> coldver<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_new<font color="#990000">)</font> <font color="#FF0000">{</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> <font color="#33CC00">"new-version"</font><font color="#990000">,</font> cnewver<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_work<font color="#990000">)</font> <font color="#FF0000">{</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> <font color="#33CC00">"work-dir"</font><font color="#990000">,</font> cworkdir<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> <font color="#33CC00">"checkout-time"</font><font color="#990000">,</font> timebuf<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> <font color="#33CC00">"checkout-by"</font><font color="#990000">,</font> cuser<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> <font color="#33CC00">"type"</font><font color="#990000">,</font> <font color="#33CC00">"session"</font><font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>csessdir<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> <font color="#33CC00">"#mode"</font><font color="#990000">,</font> mode<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Add steps to the action to set attributes on the session
+      directory.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">773
+774
+775
+776
+777
+778<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#0000FF">// Insert session version 0</font>
+      Text csessver0 <font color="#990000">=</font> csessdir <font color="#990000">+</font> <font color="#33CC00">"/0"</font><font color="#990000">;</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_old<font color="#990000">)</font> <font color="#FF0000">{</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">insertImmutableDirectory</font><font color="#990000">(</font>csessver0<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> <font color="#33CC00">"0"</font><font color="#990000">,</font> vsi_oldver<font color="#990000">,</font>
+				     <font color="#9A1900">true</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>dontReplace<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      If there's an old version, insert a copy of it in the session
+      directory with the name &quot;<tt>0</tt>&quot;.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">780
+781
+782
+783
+784
+785<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#0000FF">// Insert "latest" link in session</font>
+      Text clatest <font color="#990000">=</font> csessdir <font color="#990000">+</font> <font color="#33CC00">"/latest"</font><font color="#990000">;</font>
+      VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>VSIndex vsi_latest <font color="#990000">=</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">insertStub</font><font color="#990000">(</font>clatest<font color="#990000">,</font> vsi_sessdir<font color="#990000">,</font> <font color="#33CC00">"latest"</font><font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font>
+		       VestaSource<font color="#990000">:</font><font color="#990000">:</font>dontReplace<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>clatest<font color="#990000">,</font> vsi_latest<font color="#990000">,</font> <font color="#33CC00">"symlink-to"</font><font color="#990000">,</font> <font color="#33CC00">"$LAST"</font><font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Add steps to the action to insert the
+      &quot;<tt>latest</tt>&quot; symbolic link in the session
+      directory.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">789
+790
+791
+792
+793
+794<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#0000FF">// Insert working directory</font>
+      <font color="#0000FF">// Note: okay for vsi_oldver to be -1 here;</font>
+      <font color="#0000FF">// this makes workdir empty.</font>
+      VestaSourceAtomic<font color="#990000">:</font><font color="#990000">:</font>VSIndex vsi_workdir <font color="#990000">=</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">insertMutableDirectory</font><font color="#990000">(</font>cworkdir<font color="#990000">,</font> vsi_workdirpar<font color="#990000">,</font> workdirarc<font color="#990000">,</font>
+				   vsi_oldver<font color="#990000">,</font> <font color="#9A1900">true</font><font color="#990000">,</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>dontReplace<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Add an action to create the working directory.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>      <font color="#0000FF">// Set attribs on workdir</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_old<font color="#990000">)</font> <font color="#FF0000">{</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cworkdir<font color="#990000">,</font> vsi_workdir<font color="#990000">,</font> <font color="#33CC00">"old-version"</font><font color="#990000">,</font> coldver<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_new<font color="#990000">)</font> <font color="#FF0000">{</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cworkdir<font color="#990000">,</font> vsi_workdir<font color="#990000">,</font> <font color="#33CC00">"new-version"</font><font color="#990000">,</font> cnewver<font color="#990000">)</font><font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_sess<font color="#990000">)</font> <font color="#FF0000">{</font>
+	vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cworkdir<font color="#990000">,</font> vsi_workdir<font color="#990000">,</font> <font color="#33CC00">"session-dir"</font><font color="#990000">,</font> csessdir<font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>omit_old<font color="#990000">)</font> <font color="#FF0000">{</font>
+	  vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cworkdir<font color="#990000">,</font> vsi_workdir<font color="#990000">,</font> <font color="#33CC00">"session-ver-arc"</font><font color="#990000">,</font> <font color="#33CC00">"0"</font><font color="#990000">)</font><font color="#990000">;</font>
+	<font color="#FF0000">}</font>
+      <font color="#FF0000">}</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cworkdir<font color="#990000">,</font> vsi_workdir<font color="#990000">,</font> <font color="#33CC00">"checkout-time"</font><font color="#990000">,</font> timebuf<font color="#990000">)</font><font color="#990000">;</font>
+      vsa<font color="#990000">.</font><font color="#9A1900">setAttrib</font><font color="#990000">(</font>cworkdir<font color="#990000">,</font> vsi_workdir<font color="#990000">,</font> <font color="#33CC00">"checkout-by"</font><font color="#990000">,</font> cuser<font color="#990000">)</font><font color="#990000">;</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Add actions to set attributes on the working directory.
+    </p>
+
+ <table border=0><tr><td align=left valign=top bgcolor="#000000"><pre><font color="#ffffff">812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825<font></pre></td>
+  <td align=left valign=top bgcolor="#FFFFFF"><pre><tt>    <font color="#0000FF">//</font>
+    <font color="#0000FF">// Run the local action</font>
+    <font color="#0000FF">//</font>
+    <font color="#9A1900">if</font> <font color="#990000">(</font><font color="#990000">!</font>vsa<font color="#990000">.</font><font color="#9A1900">run</font><font color="#990000">(</font><font color="#990000">)</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+      VestaSource<font color="#990000">:</font><font color="#990000">:</font>errorCode err<font color="#990000">;</font>
+      <font color="#9A1900">if</font> <font color="#990000">(</font>vsa<font color="#990000">.</font>lasterr <font color="#990000">=</font><font color="#990000">=</font> VestaSource<font color="#990000">:</font><font color="#990000">:</font>ok<font color="#990000">)</font> <font color="#FF0000">{</font>
+	err <font color="#990000">=</font> vsa<font color="#990000">.</font>okreplace<font color="#990000">;</font>
+      <font color="#FF0000">}</font> <font color="#9A1900">else</font> <font color="#FF0000">{</font>
+	err <font color="#990000">=</font> vsa<font color="#990000">.</font>lasterr<font color="#990000">;</font>
+      <font color="#FF0000">}</font>
+      cerr <font color="#990000">&lt;</font><font color="#990000">&lt;</font> program_name <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> vsa<font color="#990000">.</font><font color="#9A1900">name</font><font color="#990000">(</font>vsa<font color="#990000">.</font>ndone<font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> <font color="#33CC00">": "</font>
+	   <font color="#990000">&lt;</font><font color="#990000">&lt;</font> ReposUI<font color="#990000">:</font><font color="#990000">:</font><font color="#9A1900">errorCodeText</font><font color="#990000">(</font>err<font color="#990000">)</font> <font color="#990000">&lt;</font><font color="#990000">&lt;</font> endl<font color="#990000">;</font>
+      <font color="#9A1900">exit</font><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font><font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+</tt></pre>
+  </td></table>
+
+    <p>
+      Execute the local repository atomic action.&nbsp; If it fails,
+      print an error message and exit.
+    </p>
+
+    <h2>Class and Member Function Descriptions</h2>
+
+    <a name="Text"><h3><tt>class Text</tt></h3></a>
+
+    <p>
+      A class for holding ASCII text strings.&nbsp; Declared in 
+
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics/20/src/Text.H"><tt>Text.H</tt></a>
+
+      (in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics"><tt>/vesta/vestasys.org/basics/basics</tt></a>).
+
+    </p>
+
+    <a name="Sequence"><h3><tt>class Sequence</tt></h3></a>
+
+    <p>
+      A template class used to hold a linear sequence of other
+      objects.&nbsp; Declared in 
+
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/generics/8/src/Sequence.H"><tt>Sequence.H</tt></a>
+
+      (in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/generics"><tt>/vesta/vestasys.org/basics/generics</tt></a>).
+
+    </p>
+
+    <a name="VestaConfig"><h3><tt>class VestaConfig</tt></h3></a>
+
+    <p>
+
+      A collection of functions making up the interface to
+
+      <a href="../man/html/vesta.cfg.5.html">the Vesta configuration file</a>.&nbsp;
+
+      Declared in
+
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/config/9/src/VestaConfig.H"><tt>VestaConfig.H</tt></a>
+
+      (in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/config"><tt>/vesta/vestasys.org/vesta/config</tt></a>).
+
+    </p>
+
+    <p>
+      <tt>static</tt> member functions called by <tt>vcheckout</tt>:
+    </p>
+
+    <ul>
+      <li>
+	<tt>get_Text</tt>: retrieve a configuration value as a
+
+	<a name="#Text"><tt>Text</tt></a> value.
+      </li>
+    </ul>
+
+    <a name="AccessControl"><h3><tt>class AccessControl</tt></h3></a>
+
+    <p>
+      The repository's access control API.  Declared in 
+
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/39/src/AccessControl.H"><tt>AccessControl.H</tt></a>
+
+      (in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos"><tt>/vesta/vestasys.org/vesta/repos</tt></a>).
+    </p>
+
+    <p>
+      Member types used in <tt>vcheckout</tt>:
+    </p>
+
+    <ul>
+      <li>
+	<tt>class IdentityRep</tt>: Base class of an identity used to
+	authenticate users to the repository.&nbsp; Member functions
+	used in <tt>vcheckout</tt>:
+      </li>
+      <ul>
+	<li>
+	  <tt>user</tt>: Returns a text string (as a <tt>const char
+	  *</tt>) containing one of the gloabl names
+	  (&quot;<tt><i>user</i>@<i>realm</i></tt>&quot;) of the
+	  identity.
+	</li>
+      </ul>
+      <li>
+	<tt>Identity</tt>: A <tt>typedef</tt> for a pointer to
+	<tt>IdentityRep</tt>.&nbsp; This type is commonly used for
+	arguments to functions, and is often defaulted to 0 (or
+	<tt>NULL</tt>).
+      </li>
+    </ul>
+
+    <p>
+      <tt>static</tt> member functions used in <tt>vcheckout</tt>:
+    </p>
+
+    <ul>
+      <li>
+	<tt>self</tt>: Returns the default <tt>Identity</tt>
+	representing the user.
+      </li>
+    </ul>
+
+    <a name="VestaSource"><h3><tt>class VestaSource</tt></h3></a>
+
+    <p>
+      A base class that represents objects in the repository.&nbsp; In
+      client applications, instances of the derived class
+
+      <a href="vcheckout-dissection.html#VDirSurrogate"><tt>VDirSurrogate</tt></a> are used.
+    </p>
+
+    <p>
+      See
+
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/39/src/VestaSource.H"><tt>VestaSource.H</tt></a>
+
+      (in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos"><tt>/vesta/vestasys.org/vesta/repos</tt></a>)
+
+      for the class declararion.
+    </p>
+
+    <p>
+      Member functions called in <tt>vcheckout</tt>:
+    </p>
+
+    <ul>
+
+      <li>
+	<tt>inAttribs</tt>: check whether a particular value is in the
+	set of values for a particular attribute of a repository
+	object
+      </li>
+
+      <li>
+	<tt>setAttrib</tt>: set a particular attribute of the object
+	to a singleton set of the specified value
+      </li>
+
+      <li>
+	<tt>lookup</tt>: look up an arc within the directory the
+	object represents
+      </li>
+
+      <li>
+	<tt>insertMutableDirectory</tt>: create new mutable directory
+	within the object (which must be a mutable directory)
+      </li>
+
+    </ul>
+
+    <a name="VDirSurrogate"><h3><tt>class VDirSurrogate</tt></h3></a>
+
+    <p>
+      A class derived from
+
+      <a href="vcheckout-dissection.html#VestaSource"><tt>VestaSource</tt></a> used in clienat
+      applications.&nbsp; Most member functions implementations are
+      actually remote procedure calls to the repository server.&nbsp;
+      Also has static member functions for other operations clients
+      need.
+    </p>
+
+    <p>
+      See
+
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/39/src/VDirSurrogate.H"><tt>VDirSurrogate.H</tt></a>
+
+      (in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos"><tt>/vesta/vestasys.org/vesta/repos</tt></a>).
+
+      for the class declaration.
+    </p>
+
+    <p>
+      <tt>static</tt> member functions called in <tt>vcheckout</tt>:
+    </p>
+
+    <ul>
+      <li>
+	<tt>defaultHost</tt>: Returns a <tt>Text</tt> value for the
+	hostname of the default repository (taken from the
+	<tt>[Repository]VestaSourceSRPC_host</tt> setting in 
+
+	<a href="../man/html/vesta.cfg.5.html">the Vesta configuration file</a>).
+      </li>
+
+      <li>
+	<tt>defaultPort</tt>: Returns a <tt>Text</tt> value for the
+	hostname of the default repository (taken from the
+	<tt>[Repository]VestaSourceSRPC_port</tt> setting in the Vesta
+	configuration file).
+      </li>
+
+      <li>
+	<tt>acquireMastership</tt>: Request that the one repository
+	acquire mastership of an object from another repository.
+      </li>
+    </ul>
+
+    <a name="Replicator"><h3><tt>class Replicator</tt></h3></a>
+
+    <p>
+      A helper class for performing replications between
+      repositories.&nbsp; An instance of <tt>Replicator</tt> is used
+      for performing replications from a particular source repository
+      to a particular destination repository.
+    </p>
+
+    <p>
+      See
+
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repltools/15/src/Replicator.H"><tt>Replicator.H</tt></a>
+
+      (in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repltools"><tt>/vesta/vestasys.org/vesta/repltools</tt></a>)
+
+      for the class declaration.
+    </p>
+
+    <p>
+      Member types used in <tt>vcheckout</tt>:
+    </p>
+
+    <ul>
+      <li>
+	<tt>enum Flags</tt>: Options that control replication.&nbsp;
+	Many of these flags correspond to
+
+	<a href="../man/html/vrepl.1.html#Flags">the command-line flags of <tt>vrepl</tt></a>.
+
+      </li>
+      <li>
+	<tt>struct Directive</tt>: An individual replicator
+	directive.&nbsp; Essentially the same as a single
+
+	<a href="../man/html/vrepl.1.html#Directives">directive given to <tt>vrepl</tt></a>,
+
+	although &quot;<tt>@</tt>&quot; (imports of a model) and
+	&quot;<tt>.</tt>&quot; (incldue a file of directives) aren't
+	allowed
+      </li>
+      <li>
+	<tt>class DirectiveSeq</tt>: A sequence of directives.&nbsp;
+	Uses the <a href="vcheckout-dissection.html#Sequence"><tt>Sequence</tt></a> template
+	class.
+      </li>
+    </ul>
+
+    <p>
+      Member functions called in <tt>vcheckout</tt>:
+    </p>
+
+    <ul>
+      <li>
+	<tt>replicate</tt>: Performs a replication between the
+	object's source and desitantion repositories.&nbsp; Takes a
+	<tt>DirectiveSeq</tt> (specifying what to replicate) and a
+	<tt>Flags</tt> (controlling options of the replication) as
+	parameters.
+      </li>
+    </ul>
+
+    <a name="ReposUI"><h3><tt>class ReposUI</tt></h3></a>
+
+    <p>
+      A collection of helper functions to make writing repository
+      tools easier.&nbsp; Declared in
+
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos_ui/22/src/ReposUI.H"><tt>ReposUI.H</tt></a>
+
+      (in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos_ui"><tt>/vesta/vestasys.org/vesta/repos_ui</tt></a>).
+    </p>
+
+    <p>
+      <tt>static</tt> member functions called in <tt>vcheckout</tt>:
+    </p>
+
+    <ul>
+      <li>
+	<tt>canonicalize</tt>: Convert a path to a canonical
+	form.&nbsp; The result is an absolute pathname with no
+	&quot;<tt>.</tt>&quot; or &quot;<tt>..</tt>&quot; path
+	components and with <tt>[UserInterface]AppendableRootName</tt>
+	replaced it by &quot;<tt>/vesta</tt>&quot; and
+	<tt>[UserInterface]MutableRootName</tt> replaced it by
+	&quot;<tt>/vesta-work</tt>&quot;.
+      </li>
+      <li>
+	<tt>split</tt>: Split a path into its parent directory and
+	last path component.
+      </li>
+      <li>
+	<tt>highver</tt>: Return the highest version number in
+	directory.
+      </li>
+      <li>
+	<tt>filenameToMasterVS</tt>: Attempt to locate the master copy
+	of an object.&nbsp; The search consults the local repositopry
+	plus any repositories in the &quot;<tt>hints</tt>&quot;
+	parameter and any repositories in
+	&quot;<tt>master-repository</tt>&quot; attributes on the
+	object or enclosing directories.
+      </li>
+      <li>
+	<tt>filenameToRealVS</tt>: Similar to
+	<tt>filenameToMasterVS</tt>, but tries to find a copy that is
+	not a non-master ghost or non-master stub.
+      </li>
+      <li>
+	<tt>uniquify</tt>: Generate a unique name within a directory
+	by appending &quot;<tt>.<i>N</i></tt>&quot; (for some small
+	integer <tt><i>N</i></tt>) to a name prefix.
+      </li>
+    </ul>
+
+    <!-- @@@ -->
+
+    <a name="VestaSourceAtomic"><h3><tt>class VestaSourceAtomic</tt></h3></a>
+
+    <p>
+      An alternative interface to the repository which allows a
+      sequence of operations to be performed in a single atomic
+      step.&nbsp; Most steps that can be sued in an atomic action
+      correspond to <a href="vcheckout-dissection.html#"VestaSource><tt>VestaSource</tt></a>
+      member functions.&nbsp; Declared in
+
+      <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/39/src/VestaSourceAtomic.H"><tt>VestaSourceAtomic.H</tt></a>
+
+      (in <a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos"><tt>/vesta/vestasys.org/vesta/repos</tt></a>).
+
+    </p>
+
+    <p>
+      Member types used in <tt>vcheckout</tt>:
+    </p>
+
+    <ul>
+      <li>
+	<tt>VSIndex</tt>: Represents a particular repository object
+	used in the atomic action.
+      </li>
+    </ul>
+
+    <p>
+      Member functions called in <tt>vcheckout</tt>:
+    </p>
+
+    <ul>
+      <li>
+	<tt>decl</tt>: Declares an object to be used in the atomic
+	action.&nbsp; Takes a
+
+	<a href="vcheckout-dissection.html#"VestaSource><tt>VestaSource</tt></a> and returns a
+	<tt>VSIndex</tt>.
+      </li>
+      <li>
+	<tt>insertStub</tt>: Creates a stub.&nbsp; Returns the
+	<tt>VSIndex</tt> of the created object.
+      </li>
+      <li>
+	<tt>insertAppendableDirectory</tt>: Creates a appendable
+	directory.&nbsp; Returns the <tt>VSIndex</tt> of the created
+	object.
+      </li>
+      <li>
+	<tt>insertImmutableDirectory</tt>: Creates an immutable
+	directory.&nbsp; Returns the <tt>VSIndex</tt> of the created
+	object.
+      </li>
+      <li>
+	<tt>insertMutableDirectory</tt>: Creates a mutable
+	directory.&nbsp; Returns the <tt>VSIndex</tt> of the created
+	object.
+      </li>
+      <li>
+	<tt>setAttrib</tt>: Sets an attribute to a singleton set.
+      </li>
+      <li>
+	<tt>typeCheck</tt>: Checks whether an object is one of a set
+	of allowed types.&nbsp; Used for error checking to halt an
+	atomic action before making changes if an object is not of the
+	correct type.
+      </li>
+      <li>
+	<tt>accessCheck</tt>: Checks whether the user has a particular
+	level of access (e.g. read, write) to an object.&nbsp; Used
+	for error checking to halt an atomic action before making
+	changes if the user lacks needed permissions.
+      </li>
+      <li>
+	<tt>testMaster</tt>: Checks whether an object's master flag
+	has the expected value.&nbsp; Used for error checking to halt
+	an atomic action before making changes if an objects master
+	flag is different from the expected value.
+      </li>
+      <li>
+	<tt>lookup</tt>: Look up a name within a directory.&nbsp;
+	Returns the <tt>VSIndex</tt> of the created object looked up.
+      </li>
+      <li>
+	<tt>setTarget</tt>: Change what result(s) are considered
+	&quot;successful&quot; for subsequent steps in the atomic
+	action.&nbsp; (This makes it possible to test whether a name
+	exists in a directory by looking it up and having the atomic
+	action stop if the lookup fails.)
+      </li>
+      <li>
+	<tt>run</tt>: Perform all steps accumulated in the atomic
+	action.
+      </li>
+    </ul>
+
+<hr WIDTH="100%">
+<address>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</address>
+
+<!-- Created: Tue Sep 28 12:18:40 EDT 2004 -->
+<!-- hhmts start -->
+Last modified: Fri Oct  1 12:20:10 EDT 2004
+<!-- hhmts end -->
+  </body>
+</html>

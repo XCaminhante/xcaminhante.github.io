@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Functions: _type_of, _same_type</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4><A NAME="_type_of(any)"></A><TT>_type_of(v: any): text</TT></H4>
+
+<p>
+Returns a text string which indicates the type of the argument.
+</p>
+
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Type of <tt><i>v</i></tt></TD>
+<TD ALIGN="LEFT">Text returned by <TT>_type_of</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><a href="../data-types.html#bool"><tt>bool</tt></a></TD>
+<TD ALIGN="LEFT">"t_bool"</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><a href="../data-types.html#int"><tt>int</tt></a></TD>
+<TD ALIGN="LEFT">"t_int"</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><a href="../data-types.html#text"><tt>text</tt></a></TD>
+<TD ALIGN="LEFT">"t_text"</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><a href="../data-types.html#err"><tt>err</tt></a></TD>
+<TD ALIGN="LEFT">"t_err"</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><a href="../data-types.html#list"><tt>list</tt></a></TD>
+<TD ALIGN="LEFT">"t_list"</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><a href="../data-types.html#binding"><tt>binding</tt></a></TD>
+<TD ALIGN="LEFT">"t_binding"</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><a href="../data-types.html#function"><tt>function</tt></a></TD>
+<TD ALIGN="LEFT">"t_closure"</TD>
+</TR>
+</TABLE>
+
+<br>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<PRE>_type_of(FALSE) == &quot;t_bool&quot;
+_type_of(1234) == &quot;t_int&quot;
+_type_of(&quot;The fox jumped over the lazy dog.&quot;) == &quot;t_text&quot;
+_type_of(&lt;1,2,3,&quot;foo&quot;,&quot;bar&quot;&gt;) == &quot;t_list&quot;
+_type_of([ foo = 1 ]) == &quot;t_binding&quot;
+_type_of(ERR) == &quot;t_err&quot;
+
+foo()
+{
+  //...
+};
+_type_of(foo) == &quot;t_closure&quot;</PRE>
+</td></tr></table>
+
+<H4><A NAME="_same_type(any,any)"><TT>_same_type(v1: any, v2: any): bool</TT></A></H4>
+
+<p>
+Returns <tt>TRUE</tt> if the type of <tt><i>v1</i></tt> is the same as
+the type of <tt><i>v2</i></tt> and <tt>FALSE</tt> otherwise.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<PRE>_same_type(FALSE, TRUE) == TRUE
+_same_type(1, 7) == TRUE
+_same_type(&quot;foo&quot;, &quot;bar&quot;) == TRUE
+_same_type([ foo = 1 ], [ bar = &lt;1,2,3&gt; ]) == TRUE
+_same_type(&lt;1,2,3&gt;, &lt;&quot;foo&quot;,&quot;bar&quot;&gt;) == TRUE
+
+foo()
+{
+  //...
+};
+bar()
+{
+  // ...
+};
+_same_type(foo, bar) == TRUE
+
+_same_type(FALSE, 3) == FALSE
+_same_type(1, &quot;foo&quot;) == FALSE
+_same_type(&quot;bar&quot;, [ foo = 1 ]) == FALSE
+_same_type([ foo = 1 ], &lt;1,2,3&gt;) == FALSE</PRE>
+</td></tr></table>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

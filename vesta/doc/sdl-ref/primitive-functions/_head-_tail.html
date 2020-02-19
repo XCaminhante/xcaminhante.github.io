@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Functions: _head, _tail</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_head(list)"></A><TT>_head(<I>l</I>: list): any</TT></H4>
+
+<p>
+Returns the first element of <I><TT>l</TT></I>. If <I><TT>l</TT></I> is
+empty, returns <TT>ERR</TT>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_head(&lt;46, 83, 25, "hike!"&gt;) == 46</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_head(binding)"></A><TT>_head(<I>b</I>: binding): binding</TT></H4>
+
+<p>
+Returns a binding with only one &lt;name, value&gt; pair equal to the
+first element of <I><TT>b</TT></I>. If <I><TT>b</TT></I> is empty,
+returns <TT>ERR</TT>.</p>
+
+<BLOCKQUOTE>
+<PRE>_head([ foo = 1, bar = 2, moxy = TRUE ]) == [ foo = 1 ]
+_head([]) == ERR</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_tail(list)"></A><TT>_tail(<I>l</I>: list): list</TT></H4>
+
+<p>
+Returns the list consisting of all elements of <I><TT>l</TT></I>, in order,
+except the first. If <I><TT>l</TT></I> is empty, returns <TT>ERR</TT>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_tail(&lt;"the", "lowest", "highest", "point"&gt;) == &lt;"lowest", "highest", "point"&gt;</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_tail(binding)"></A><TT>_tail(<I>b</I>: binding): binding</TT></H4>
+
+<p>
+Returns the binding consisting of all &lt;name, value&gt; pairs of
+<I><TT>b</TT></I>, in order, except the first. If <I><TT>b</TT></I> is
+empty, returns <TT>ERR</TT>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_tail([ foo = 1, bar = 2, moxy = TRUE ]) == [ bar = 2, moxy = TRUE ]</PRE>
+</BLOCKQUOTE>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

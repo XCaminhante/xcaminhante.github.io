@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Function: _length</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_length(text)"></A><TT>_length(<I>t</I>: text): int</TT></H4>
+
+<p>
+Returns the number of bytes in the byte string t.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_length("") == 0
+_length("abcdefg") == 7
+_length("This is a nice long string.\n") == 28</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_length(list)"></A><TT>_length(<I>l</I>: list): int</TT></H4>
+
+<p>
+Returns the number of values in the list <I><TT>l</TT></I>.&nbsp; (Note
+that this only counts the top-level entries of <I><TT>l</TT></I>, not those
+in embedded lists.)
+</p>
+
+<BLOCKQUOTE>
+<PRE>_length(&lt;&gt;) == 0
+_length(&lt;"abc", 1, 2, 3,&gt;) == 4
+_length(&lt; &lt;"king", "of", "spain"&gt;, &lt;"kasparov", "vs.", "deep blue"&gt;&gt;) == 2</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_length(binding)"></A><TT>_length(<I>b</I>: binding): int</TT></H4>
+
+<p>
+Returns the number of &lt;name, value&gt; pairs in <I><TT>b</TT></I>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_length([]) == 0
+_length([ foo = 1, bar = 2, moxy = TRUE, msg = "gotta get a _ to you" ]) == 4
+_length([ Cxx/switches/program/shared_libs = "-non_shared" ]) == 1</PRE>
+</BLOCKQUOTE>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

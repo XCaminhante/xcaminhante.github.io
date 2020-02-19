@@ -1,0 +1,82 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vdumplog - Dump a VestaLog file</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vdumplog(8)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vdumplog</B> - Dump a VestaLog file to standard output
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vdumplog</B> [<A HREF="vdumplog.8.html#-n">-n <I>number</I></A>] [<A HREF="vdumplog.8.html#-l">-l</A>] [<I>directory</I>]
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Linearize and dump the contents of a log file written by 
+VestaLog (see <TT>VestaLog.H</TT>) to
+standard output.  If <I>directory</I> is omitted, the log is found in
+the current directory.<P>
+
+This command is useful by itself for debugging Vesta components that
+write log files, particularly the repository.  It is useful together
+with <A HREF="vappendlog.8.html"><B>vappendlog</B>(8)</A> if you need to
+manually edit the data in a log.  You can dump the log into a plain
+file with <B>vdumplog</B>, edit the file with an ordinary text editor,
+and write the modified data to a new log with <B>vappendlog</B>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-n">-n</A> <I>number</I><DD>
+If -n is omitted, the highest-numbered log file with a committed checkpoint 
+is dumped, or 0.log if there are no committed checkpoints.
+If -n is supplied, <I>number</I>.log is dumped.
+<DT><A NAME="-l">-l</A><DD>
+If -l is omitted, only the log records in one log file are dumped.
+If -l is supplied, the program loops through all higher-numbered log files 
+and appends their records as well.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vappendlog.8.html"><B>vappendlog</B>(8)</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+<PRE>
+Last modified on Fri Nov  9 14:19:11 EST 2001 by ken@xorian.net
+     modified on Thu May  2 16:17:58 PDT 1996 by mann
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

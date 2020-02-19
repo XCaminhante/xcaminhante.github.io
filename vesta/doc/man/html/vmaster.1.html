@@ -1,0 +1,301 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vmaster - Acquire Vesta mastership</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vmaster(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vmaster</B> - Acquire mastership of objects in the Vesta repository
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vmaster</B> [<A HREF="vmaster.1.html#-r">-r</A>]
+[<A HREF="vmaster.1.html#-s">-s</A> <I>srchost</I>[:[<I>srcport</I>][:<I>srcuser</I>]]]
+[<A HREF="vmaster.1.html#-d">-d</A> <I>dsthost</I>[:[<I>dstport</I>][:<I>dstuser</I>]]]
+[<A HREF="vmaster.1.html#-h">-h</A> <I>hints</I>] object ...
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vmaster.1.html#Description">Description</A>
+<LI> <A HREF="vmaster.1.html#Flags">Flags</A>
+<LI> <A HREF="vmaster.1.html#Diagnostics">Diagnostics</A>
+<LI> <A HREF="vmaster.1.html#Environment">Environment</A>
+<LI> <A HREF="vmaster.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vmaster.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vmaster.1.html#See_Also">See Also</A>
+<LI> <A HREF="vmaster.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+See the
+<A HREF="vesta-intro.1.html#Terminology">Terminology</A> section of the
+<A HREF="vesta-intro.1.html">vesta-intro</A> man page for definitions of
+terms.<P>
+
+The <B>vmaster</B> command tells the destination (-d) repository to
+acquire mastership of the specified objects from the source (-s)
+repository.  
+By default, the local repository is taken as the
+destination and the source repository is guessed; see below for details.
+The objects must be specified by their full global pathnames (that is, by
+names beginning with "/vesta").
+The objects must already exist in the destination repository;
+use the Vesta replicator
+<A HREF="vrepl.1.html">vrepl</A> first if they do not.
+If the destination repository already has mastership, the command
+has no effect; this is not considered an error.<P>
+
+For mastership transfer on an object to be allowed, the user must have
+ownership permission in both the source and destination repositories.
+The source repository must be willing to cede mastership to the
+destination repository, and the destination repository must be willing
+to accept mastership from the source repository.  A repository is
+willing to cede (or accept) mastership on an object from another
+repository if, when searching upward from the object's pathname in its
+copy of the namespace, the first object it finds that has a
+<TT>#mastership-to</TT> (or respectively <TT>#mastership-from</TT>) attribute
+includes the other repository's host:port name (or '<TT>*</TT>') in its
+value.  If no object with the appropriate attribute is found,
+permission is denied.
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-r">-r</A><DD>
+Recursively acquire mastership on all children of the specified
+objects, as well as the objects themselves.
+Default: off.<P>
+
+<DT><A NAME="-s">-s</A> <I>srchost</I>[:[<I>srcport</I>][:<I>srcuser</I>]]<DD>
+Specifies the source repository by host name and TCP port number.  If
+not specified, vmaster tries to guess the correct
+source repository, by looking for "master-repository" attributes on
+the specified objects or their ancestor directories.  If <I>srchost</I> is
+specified but <I>srcport</I> is omitted, <I>srcport</I> defaults to the local
+repository's port number as specified in the active Vesta
+configuration file (see the <A HREF="vmaster.1.html#Configuration">Configuration</A>
+section below).  Alternatively, the string "local" can be given to
+explicitly specify the local repository.<P>
+
+You can also specify the global user name under which you will access
+the source repository.  The default is <I>user</I>@<I>realm</I>, where
+<I>user</I> is your local user name and <I>realm</I> is the value of
+[UserInterface]realm in the active Vesta configuration file.
+If vrepl cannot authenticate you to the source repository as 
+being the specified user, the transfer will fail with an error message.<P>
+
+<DT><A NAME="-d">-d</A> <I>dsthost</I>[:[<I>dstport</I>][:<I>dstuser</I>]]<DD>
+Specifies the destination repository by host name and TCP port number.
+Both <I>dsthost</I> and <I>dstport</I>
+default to the values specified for the local
+repository in the active Vesta configuration file (see the 
+<A HREF="vmaster.1.html#Configuration">Configuration</A> section below).  Alternatively, the string
+"local" can be given to explicitly specify the local repository.<P>
+
+You can also specify the global user name under which you will access
+the destination repository.  The default is <I>user</I>@<I>realm</I>, where
+<I>user</I> is your local user name and <I>realm</I> is the value of
+[UserInterface]realm in the active Vesta configuration file.
+If vrepl cannot authenticate you to the destination repository as 
+being the specified user, the transfer will fail with an error message.<P>
+
+<DT><A NAME="-h">-h</A> <I>hints</I><DD>
+If you do not give the -s flag to specify the source repository
+explicitly, and <B>vmaster</B> fails to guess it,
+you can suggest additional repositories to look in using this option.
+The <I>hints</I> argument is a comma- or space-separated list of repositories,
+specified by host name and TCP port number 
+in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it
+defaults to <A HREF="vmaster.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.<P>
+
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Diagnostics">Diagnostics</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Here are the most common error messages you are likely to see and what they
+generally mean.<P>
+
+<I>Can't find master replica</I>: The algorithm for guessing the
+appropriate source repository failed.  The object's name and a list of
+repositories that were unsuccessfully tried follows on the same line.
+You can correct the problem by either explicitly specifying the source
+repository with the -s flag, supplying additional hints with the -h
+flag, or correcting the object's <TT>master-repository</TT> attribute in
+the destination repository.<P>
+
+<I>Invalid argument</I>: Returned for implementation errors where one of
+the two repositories supplies invalid data to the other; these should
+never occur.<P>
+
+<I>Name too long</I>: Overly long arc in pathname.<P>
+
+<I>No permission</I>: Permission to change either the destination
+or source repository was denied.<P>
+
+<I>Not a directory</I>: Invalid pathname that has arcs beyond a leaf.<P>
+
+<I>Not found</I>: The object was not found in the destination repository.
+You may need to use the Vesta replicator
+<A HREF="vrepl.1.html">vrepl</A> first to copy it in.<P>
+
+<I>Not master replica</I>: The specified source repository
+is not the master for this object.  This includes the case where the
+source repository does not have a copy of the object (or a stub
+or ghost).<P>
+
+<I>Operation not available on given source type</I>: Mastership transfer
+is not permitted between the specified object types.  The forbidden
+types of transfer are:
+<UL>
+<LI> To a stub from a non-stub.
+<LI> To an appendable directory from a ghost.
+<LI> To a ghost from a non-ghost.  (Technically legal,
+but disallowed because it probably represents a mistake.)
+<LI> On an object
+that does not have independent mastership (e.g., a file in an
+immutable directory).
+<LI> Between types that should not occur together
+because they violate the replica agreement invariant (e.g., to an immutable
+directory from a file).
+</UL>
+<P>
+
+<I>Remote call from repository to another server failed</I>:
+A remote procedure call from destination to source repository failed.
+One of the following two messages will normally appear on the next line:
+<UL>
+<LI> <I>Note: transfer was not started</I>: The error occurred before the 
+transfer protocol got under way.  Neither repository was modified.
+<LI> <I>Note: transfer is still in progress; may finish later</I>: The error
+occurred after the transfer was partially done.  The destination
+object is left with a "#master-request" attribute set, and the
+destination repository has forked a recovery thread to complete 
+or abort the transfer.  This thread runs periodically, persisting even after
+reboots, until the source repository can be contacted to resolve the
+transfer.  If necessary, you can force the destination to give up on recovery
+by manually removing the "#master-request" attribute, but this may leave
+the object with no master replica, and/or leave a dangling "#master-grant" 
+attribute on the source replica.
+</UL>
+<P>
+
+<I>SRPC failure</I>: The remote procedure call from <B>vmaster</B> to the
+destination repository failed.  More information about the failure
+follows on the same line, and if it is possible that the call was
+started, the message "<I>Note: transfer might have been started</I>"
+appears on the next line.  If the transfer was in fact started, it may
+either have finished successfully, have been aborted, or be still in progress
+as described above.
+</BLOCKQUOTE>
+
+<H3><A NAME="Environment">Environment</A></H3>
+<BLOCKQUOTE>
+<P>
+
+As with all Vesta tools, $VESTACONFIG can be used to override the
+default location for the Vesta configuration file.  No other
+environment variables are used.
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the Vesta configuration file
+(vesta.cfg).<P>
+
+From the <TT>[Repository]</TT> section:
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+Host name of the default local repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+TCP port number of the default local repository.
+</DL>
+<P>
+
+From the <TT>[UserInterface]</TT> section:
+<DL>
+<DT><I>realm</I><DD>
+Name of the local realm.  <TT>@</TT><I>realm</I> is appended to local user names
+to obtain global user names.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+!! It might be nice to optionally call the replicator for the
+specified objects (but not their children) first.  -r should
+probably not make this recursive, but maybe a stronger (-R?) flag should
+be available to do so.  What about all the flags the replicator
+can take, though?<P>
+
+!! When/if GSS-API authentication is added, your credentials for the
+source repository will have to be delegatable to the destination
+repository.
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="vmaster.1.html"><B>vrepl</B>(1)</A>,
+<A HREF="repository.8.html"><B>repository</B>(8)</A><BR>
+<I>Vesta: A System for Software Configuration Management</I>
+<BR>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+<BR>
+<P>
+
+<PRE>
+Last modified on Fri Nov  9 14:37:59 EST 2001 by ken@xorian.net  
+     modified on Fri Jun  1 16:05:43 PDT 2001 by mann  
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,584 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vcheckin - Check in a Vesta package</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vcheckin(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vcheckin</B> - Check a new version of a package into the Vesta repository
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vcheckin</B> [<A HREF="vcheckin.1.html#-q">-q</A>] [<A HREF="vcheckin.1.html#-Q">-Q</A>] [<A HREF="vcheckin.1.html#-v">-v</A>]
+[<A HREF="vcheckin.1.html#-f">-f</A>] 
+[<A HREF="vcheckin.1.html#-m">-m <I>message</I></A> | <A HREF="vcheckin.1.html#-M">-M</A>]
+[<A HREF="vcheckin.1.html#-s">-s <I>session-dir</I></A>] [<A HREF="vcheckin.1.html#-S">-S</A>]
+[<A HREF="vcheckin.1.html#-c">-c <I>content</I></A> | <A HREF="vcheckin.1.html#-C">-C</A>] 
+[<A HREF="vcheckin.1.html#-n">-n <I>new-version</I></A>]
+[<A HREF="vcheckin.1.html#-R">-R <I>repos</I></A>]
+[<A HREF="vcheckin.1.html#-d">-d <I>dstrepos</I></A> | <A HREF="vcheckin.1.html#-D">-D</A>]
+[<A HREF="vcheckin.1.html#-w">[-w] <I>work-dir</I></A>] [<A HREF="vcheckin.1.html#-W">-W</A>]<P>
+
+In the most common usage, vcheckin is invoked from the checkout
+session's working directory, and no arguments are needed.
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vcheckin.1.html#Description">Description</A>
+<LI> <A HREF="vcheckin.1.html#Flags">Flags</A>
+<LI> <A HREF="vcheckin.1.html#Message">Message Entry</A>
+<LI> <A HREF="vcheckin.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vcheckin.1.html#Triggers">Triggers</A>
+<LI> <A HREF="vcheckin.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vcheckin.1.html#Env_Vars">Environment Variables</A>
+<LI> <A HREF="vcheckin.1.html#See_Also">See Also</A>
+<LI> <A HREF="vcheckin.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+See the <A HREF="vesta-intro.1.html">vesta-intro</A> man page's
+<A HREF="vesta-intro.1.html#Terminology">Terminology</A> section
+for definitions of terms, and its
+<A HREF="vesta-intro.1.html#Name_Interpretation">Name Interpretation</A>
+section for an explanation of how names are looked up.<P>
+
+The <B>vcheckin</B> command checks in a new public version of a package,
+binding the new package content that was created in a checkout session
+to the new version name that was reserved by
+<A HREF="vcheckout.1.html"><B>vcheckout</B></A>.  It
+also ends the checkout session by deleting the session's working
+directory.<P>
+
+<B>vcheckin</B> will abort the checkin and print the following error
+message if any files in the working directory tree have been changed,
+renamed, or deleted since the most recent <I>vadvance</I> or <I>vmake</I>
+operation.
+<PRE>
+  vcheckin: work-dir has been modified since last advance
+</PRE>
+
+This safeguard is included to prevent inadvertent checkins of changes
+that have yet to be built. To proceed with the checkin, you should
+first run <I>vmake</I>; <I>vadvance</I> can be used instead of <I>vmake</I>,
+but if the changes in question are substantive, you may very well
+check in changes that fail to build successfully.<P>
+
+<IMG SRC="vcheckin.gif" ALT="vcheckin figure"
+WIDTH=436 HEIGHT=427 BORDER=0>
+<P>
+
+In more detail, <B>vcheckin</B>:
+<UL>
+<LI> Prompts the user to enter a change history <I>message</I>.
+(<A HREF="vcheckin.1.html#Message">See the "Message Entry" section below.</A>)
+<LI> Deletes the master stub <I>new-version</I> and rebinds its name,
+either to the
+immutable directory <I>content</I>,
+or (with the -C flag) to an empty immutable directory.
+<LI> Deletes the mutable directory <I>work-dir</I>.
+<LI> Sets the following attributes:
+<DL>
+<DT>On <I>new-version</I><DD>
+<TT>old-version</TT>, <TT>session-dir</TT>, <TT>content</TT>, <TT>checkin-time</TT>,
+<TT>checkin-by</TT>, and <TT>message</TT>.
+<DT>On <I>session-dir</I><DD>
+<TT>checkin-time</TT> and <TT>checkin-by</TT>.
+</DL>
+</UL>
+<P>
+
+Directory names used as attribute values are canonicalized to start with 
+"<TT>/</TT>".
+The <TT>checkout-by</TT> attribute is set to the invoking user's global name and
+the <TT>creation-time</TT> attribute to the current date and time.  The
+<TT>old-version</TT> attribute is copied from the corresponding attribute on
+<I>session-dir</I>, or from the master stub if there is no <I>session-dir</I>.<P>
+
+You must have read access to <I>content</I>, write access to
+the existing <I>new-version</I> stub, and write access to
+the parent directories of <I>new-version</I> and <I>work-dir</I>.
+The newly created version is owned by you, but
+has access permissions inherited from its parent directory.<P>
+
+In the presence of replication, the package may have been checked out
+from another repository.  (See <A HREF="vrepl.1.html"><B>vrepl</B>(1)</A> 
+and <A HREF="vmaster.1.html"><B>vmaster</B>(1)</A> 
+for more information about
+replication and mastership.)  
+As a convenience, if the <I>new-version</I> 
+stub has a <TT>checkout-from</TT> attribute specifying a remote repository,
+<B>vcheckin</B> attempts to replicate <I>new-version</I> to that repository
+after checking it in.  This behavior can be altered with the
+<A HREF="vcheckin.1.html#-d">-d</A> or <A HREF="vcheckin.1.html#-D">-D</A> flag.<P>
+
+<B>vcheckin</B> returns status 0 for success,
+1 for parameter syntax errors, or 2 for more serious errors.  (Note
+that if any of the <A HREF="vcheckin.1.html#Triggers">trigger commands</A> fail,
+<B>vcheckin</B> returns status 2.)
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-q">-q</A><DD>
+Quiet; suppress printing out what is being done.
+<DT><A NAME="-Q">-Q</A><DD>
+Query; print out what the command would do, but don't do it.
+Also suppresses prompting for the change history message.
+<DT><A NAME="-m">-m</A> <I>message</I><DD>
+Specify the change history message.  If the <I>message</I> argument is
+<TT>"-"</TT>, the user will be prompted to enter a message.
+(<A HREF="vcheckin.1.html#Message">See the "Message Entry" section below.</A>)  If
+<I>message</I> is any other text, it will be used as the change history
+message without prompting the user.  If neither the -m flag nor the
+<A HREF="vcheckin.1.html#-M">-M flag</A> is used, the default is "<TT>-m -</TT>" (although this
+can be changed with the
+<A HREF="vcheckin.1.html#Configuration"><TT>[UserInterface]vcheckin_message</TT>
+configuration setting</A>).
+<DT><A NAME="-M">-M</A><DD>
+Omit the change history message.  (Note that if the new version
+reservation already has a message attribute, such as one added by
+<B>vcheckout</B>, <B>vcheckin</B> will not remove it.  With newer versions
+of the repository, such a message will be preserved on the new
+version.)
+<DT><A NAME="-s">-s</A> <I>session-dir</I><DD>
+The session directory that was created at checkout time.
+If the name <I>session-dir</I> 
+is unqualified (does not have "<TT>/</TT>", "<TT>.</TT>", or "<TT>..</TT>"
+as its first arc), it is interpreted relative to the
+site's default directory of packages,
+<A HREF="vcheckin.1.html#Configuration"><I>DefaultPackageParent</I></A>.  
+Defaults to the <TT>session-dir</TT>
+attribute of <I>work-dir</I>, if any.
+<DT><A NAME="-S">-S</A><DD>
+There is no session directory.  Other flags whose default values depend
+on <I>session-dir</I> must be given explicitly, and the step of updating
+the session directory's attributes is omitted.
+<DT><A NAME="-c">-c</A> <I>content</I><DD>
+The content of the new version that is to be checked in.
+If the name <I>content</I> is 
+unqualified, it is interpreted 
+relative to <I>session-dir</I>, or to 
+<A HREF="vcheckin.1.html#Configuration"><I>DefaultPackageParent</I></A> if there is no 
+<I>session-dir</I>.
+Defaults to the highest version
+number bound in <I>session-dir</I>, if any.
+That is, if there is a <I>session-dir</I>, it is searched
+for arcs consisting entirely of decimal digits, 
+and the one with the highest value is chosen.
+If there are no such arcs, -C is taken as the default.
+Hint: You can "vcheckin -c 0" to
+abandon a checkout session by checking in a version identical to
+what you checked out.
+<DT><A NAME="-C">-C</A><DD>
+Check in an empty directory as the new version.
+<DT><A NAME="-n">-n</A> <I>new-version</I><DD>
+The name of the new version.  A master stub by this name must exist.
+If the name <I>new-version</I> 
+is unqualified, it is interpreted relative to the
+site's default directory of packages,
+<A HREF="vcheckin.1.html#Configuration"><I>DefaultPackageParent</I></A>.  
+Defaults to the <TT>new-version</TT>
+attribute of <I>session-dir</I> if any; otherwise
+to the <TT>new-version</TT> attribute of <I>work-dir</I>, if any.
+<DT><A NAME="-w">-w</A> <I>work-dir</I><DD>
+The mutable working directory.
+If you place this option last on the command line, you can omit the -w.
+If <I>work-dir</I> is unqualified, it is relative
+to <A HREF="vcheckin.1.html#Configuration"><I>DefaultWorkParent</I></A><TT>/</TT><I>user</I>,
+where <I>user</I> is your local user name.
+Defaults to the current directory.
+<DT><A NAME="-W">-W</A><DD>
+There is no working directory.  Other flags whose default values depend
+on <I>work-dir</I> must be given explicitly, and the step of deleting the
+working directory is omitted.
+<DT><A NAME="-R">-R</A> <I>repos</I><DD>
+Check in a working directory and session from <I>repos</I> instead of
+the default local repository.  The repository is specified by host
+name and TCP port number in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it
+defaults to <A HREF="vcheckin.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><A NAME="-d">-d</A> <I>dstrepos</I><DD>
+Replicate <I>new-version</I> to the specified destination repository
+after checking it in.  The repository is
+specified by host name and TCP port number 
+in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it
+defaults to <A HREF="vcheckin.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+If neither -d nor -D is given, the default is
+taken from the <TT>checkout-from</TT> attribute on the <I>new-version</I> stub;
+if this attribute does not have a value, no replication is done.
+<DT><A NAME="-D">-D</A><DD>
+Do not replicate <I>new-version</I> to another repository after checking it in.
+<DT><A NAME="-f">-f</A><DD>
+Force; omit sanity checking.
+The directory <I>session-dir</I> must be of type <TT>session</TT> (that is, its
+<TT>type</TT> attribute must include this value), unless the
+<A HREF="vcheckin.1.html#-f">-f</A> or <A HREF="vcheckin.1.html#-S">-S</A> flag is given.
+The directory <I>work-dir</I> must 
+have a nonempty <TT>checkout-time</TT> attribute, unless the
+<A HREF="vcheckin.1.html#-f">-f</A> or <A HREF="vcheckin.1.html#-W">-W</A> flag is given.
+The directory tree rooted at <I>work-dir</I> must not have been modified since
+<I>content</I> was created, unless the <A HREF="vcheckin.1.html#-f">-f</A>, <A HREF="vcheckin.1.html#-c">-c</A>, or
+<A HREF="vcheckin.1.html#-C">-C</A> flag is given.
+The <I>new-version</I> must initially be a checkout stub (a master stub with
+a nonempty <TT>checkout-time</TT> attribute), unless the <A HREF="vcheckin.1.html#-f">-f</A> flag
+is given.  Even with -f, <I>new-version</I> must be a master stub.
+<DT><A NAME="-v">-v</A><DD>
+Displays extra information about <A HREF="vcheckin.1.html#Triggers">triggers</A>.  Before
+executing any trigger commands, the environment variables used to
+provide information to them are printed.  Also, each trigger setting
+is printed before the command is executed.  This can be used to help
+debug trigger problems.  When used with <A HREF="vcheckin.1.html#-Q">the query flag
+(-Q)</A>, the triggers are displayed in their sorted order without
+actually running them.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Message">Message Entry</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vcheckin</B>'s default behavior is to prompt the user for a
+<I>change history message</I>.  If the <TT>EDITOR</TT>
+<A HREF="vcheckin.1.html#Env_Vars">environment variable</A> is set, the external editor
+program it specifies is invoked to edit the message.  Otherwise, the
+message is read from standard input.  A prompt is printed if the
+standard input is a terminal:
+<PRE>
+Enter change history message, terminated with ^D or . on a line by itself
+: 
+</PRE>
+
+If the standard input is not a terminal (e.g. it was redirected to a
+file or a pipe), no prompt will be printed, but the standard input
+will still be used as the change history message.  (Note that when
+<TT>EDITOR</TT> is set, the external editor is invoked even if the
+standard input is not a terminal.)<P>
+
+When using an external editor, the initial text will either be the
+checkout description entered with
+<A HREF="vcheckout.1.html"><B>vcheckout</B></A>, or "<TT>&lt;enter change history
+message here&gt;</TT>" if there is no checkout description.  If the initial
+text is left unedited or the user enters an empty message, they will
+be asked for confirmation before completing the checkin operation:
+<PRE>
+Empty change history message.  Continue (y/n)? 
+</PRE>
+
+This is the only chance to abort when <TT>EDITOR</TT> is set.  (So if you
+change your mind and are using an external editor, exit the editor
+either with the message unedited or with an empty message.)<P>
+
+The <A HREF="vcheckin.1.html#-m">-m flag</A> can be used to specify the change history
+message on the command line.  The <A HREF="vcheckin.1.html#-M">-M flag</A> can be used to
+omit the change history message.  In either of these cases, no
+external editor will be invoked, and the standard input will not be
+read.<P>
+
+The default of prompting for a change history message can be disabled
+with the <A HREF="vcheckin.1.html#Configuration"><TT>[UserInterface]vcheckin_message</TT>
+configuration setting</A>.  However, this can be overridden on the
+command line with "<TT>-m -</TT>", which will always cause <B>vcheckin</B>
+to prompt for a change history message.
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>AppendableRootName</I><DD>
+The filename under which the global root directory of
+Vesta repositories is mounted.  Ordinarily set to <TT>/vesta</TT>.
+<DT><I>MutableRootName</I><DD>
+The filename under which the local tree of mutable directories provided
+by Vesta is mounted.  Ordinarily set to <TT>/vesta-work</TT>.
+<DT><I>DefaultPackageParent</I><DD>
+The default directory to put new packages in.  Ordinarily a
+subdirectory of the appendable root, named with an Internet domain name
+belonging to the local site.
+<DT><I>DefaultWorkParent</I><DD>
+The default parent directory for mutable working directory trees belonging to
+individual users.  Ordinarily the same as the mutable root.
+<DT><I>realm</I><DD>
+Global user names are formed by appending
+<TT>@</TT><I>realm</I> to the local name.
+<DT><I>TimeFormat</I><DD>
+A format string for <B>strftime</B>(3) to produce time strings for Vesta
+attributes.  A common setting is "%a %b %e %T %Z %Y".
+<DT><I>vcheckin_message</I><DD>
+A boolean configuration setting.  Determines whether <B>vcheckin</B>
+will prompt the user for a change history message.  If it is equal
+(without regard to case) to "yes", "on", or "true", or can be parsed
+as an integer that is non-zero, <B>vcheckin</B> will ask the user to
+enter a message (as if "<TT><A HREF="vcheckin.1.html#-m">-m</A> -</TT>" had been given on the
+command line).  If it is equal (without regard to case) to "no",
+"off", or "false", or can be parsed as an integer that is zero,
+<B>vcheckin</B> will not prompt for a message (as if the <A HREF="vcheckin.1.html#-M">-M</A>
+flag had been given).  If not set, defaults to "true".
+</DL>
+<P>
+
+The following values are obtained from the <TT>[Repository]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+The default TCP port number for repositories.
+</DL>
+<P>
+
+Settings in the <TT>[vcheckin pre trigger]</TT> and <TT>[vcheckin post
+trigger]</TT> sections of the configuration file are used as commands to
+be run before and after the repository is modified.  See
+<A HREF="vcheckin.1.html#Triggers">the next section</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Triggers">Triggers</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Users can configure commands in <A HREF="vesta.cfg.5.html">the Vesta
+configuration file (vesta.cfg)</A> to be executed before and after
+<B>vcheckin</B> modifies the repository.  Each setting in the
+<TT>[vcheckin pre trigger]</TT> section specifies a command to be run
+before any action is taken, and each setting in the <TT>[vcheckin post
+trigger]</TT> section specifies a command to be run after all actions are
+complete.<P>
+
+The value of each setting specifies a command to run.  The names of
+the settings define the order in which these commands are run.  The
+setting names are sorted as strings, but comparing embedded sequences
+of digits as decimal integers.  (So, for example "foo_10_bar" will
+sort after "foo_2_bar".)  The suggested naming convention for trigger
+settings is to start with an integer, follow with a descriptive name,
+and follow that with any other text.  (This is based on the convention
+used for System V style init script links typically stored in
+<TT>/etc/rc<I><B>N</B></I>.d</TT>.)<P>
+
+Here's a simple example of how we suggest naming trigger settings, and
+how they are ordered for execution:
+<PRE>
+[vcheckin pre trigger]
+100world = echo World!
+9tada    = echo Tada:
+50hello  = echo Hello,
+</PRE>
+
+Because these all start with numbers, they will be executed in the
+order "9tada", "50hello", "100world".  The output will look like this:
+<PRE>
+% vcheckin /vesta-work/jsmith/foo
+Tada:
+Hello,
+World!
+Checking in /vesta/example.com/foo/3
+Deleting directory /vesta-work/jsmith/foo
+</PRE>
+
+Trigger commands are executed with <TT>system</TT>(3).  On most operating
+systems this means "<TT>/bin/sh -c <I>command</I></TT>", so simple in-line
+shell scripts can be used.  (Note that each is executed in its own
+shell process, so environment variables set during one trigger command
+<I>will not propagate to subsequent ones</I>.)<P>
+
+If any of the commands in the <TT>[vcheckin pre trigger]</TT> section exit
+with error (non-zero) status or are terminated by a signal
+(e.g. segmentation fault, abort), <B>vcheckin</B> will exit without
+performing the checkin.<P>
+
+The commands in the <TT>[vcheckin post trigger]</TT> section will only be
+executed if the checkout is successfully completed.  If <B>vcheckin</B>
+fails with an error, the commands in the <TT>[vcheckin post trigger]</TT>
+section <I>will not be executed</I>.<P>
+
+Note that all the trigger commands (both pre and post) are executed
+sequentially.  Once a trigger command is started, nothing else happens
+until it completes.  If any of the pre trigger commands runs forever,
+<B>vcheckin</B> will not perform the checkin.  If any of the post
+trigger commands runs forever, <B>vcheckin</B> will not complete.  (In
+other words, <I>a trigger command that hangs will cause <B>vcheckin</B>
+to hang</I>.)  If any of the pre or post trigger commands exit with error
+status or are terminated by a signal, <B>vcheckin</B> will exit without
+running any more commands from those sections.  (In other words, <I>a
+trigger command that fails will prevent further trigger commands from
+being run</I>.)<P>
+
+If the <A HREF="vcheckin.1.html#-Q">the query flag (-Q)</A> is given, the trigger commands
+will not actually be run.<P>
+
+Information about what <B>vcheckin</B> is going to do or has just done
+is provided to the trigger commands through the following environment
+variables:<P>
+
+<DL>
+
+<DT>VESTA_TOOL<DD>
+The name of the Vesta tool the trigger command has been invoked from.
+(For <B>vcheckin</B>, this will always be "vcheckin".)
+<DT>VESTA_REPOS<DD>
+The local repository (<I>host</I><TT>:</TT><I>port</I>) <B>vcheckin</B>
+communicates with (either the default from the configuration file or
+the one specified with the <A HREF="vcheckin.1.html#-R">-R flag</A>.
+<DT>VESTA_WORK_DIR<DD>
+The full path to <I>work-dir</I>.  Set to the empty string if
+<A HREF="vcheckin.1.html#-W">-W was used</A>.
+<DT>VESTA_OMIT_WORK<DD>
+Set to 1 if <A HREF="vcheckin.1.html#-W">the -W flag</A> was given, set to 0
+otherwise.
+<DT>VESTA_SESSION_DIR<DD>
+The path to the session directory to be use during checkin (typically
+to find the snapshot to use as the new version), either automatically
+determined or specified with the <A HREF="vcheckin.1.html#-s">-s flag</A>).  Set to the
+empty string if <A HREF="vcheckin.1.html#-S">-S was used</A>.
+<DT>VESTA_OMIT_SESSION_DIR<DD>
+Set to 1 if no session directory will be used (if <A HREF="vcheckin.1.html#-S">the -S
+flag</A> was given), set to 0 otherwise.
+<DT>VESTA_CONTENT<DD>
+The full path to <I>content</I>.  Set to the empty string if
+<A HREF="vcheckin.1.html#-C">-C was used</A>.
+<DT>VESTA_OMIT_CONTENT<DD>
+Set to 1 if the new version will have no content (if <A HREF="vcheckin.1.html#-C">the -C
+flag</A> was given), set to 0 otherwise.
+<DT>VESTA_NEW_VERSION<DD>
+The path to the new version being checked in (either automatically
+determined or specified with the <A HREF="vcheckin.1.html#-n">-n flag</A>).
+<DT>VESTA_OLD_VERSION<DD>
+The path to the old version of the version being checked in.  This is
+determined from the <I>content</I> being checked in and may be different
+from the <TT>old-version</TT> attribute on the version reservation stub
+set by <B>vcheckout</B>.
+<DT>VESTA_DEST_REPOS<DD>
+The repository to which the new version will be replicated, if any
+(either automatically determined or specified with the <A HREF="vcheckin.1.html#-d">-d
+flag</A>).  Will be set to the empty string if no replication is to be
+performed.
+<DT>VESTA_OMIT_DEST_REPOS<DD>
+Set to 1 if no replication of the new version will be performed (if it
+was no checked out from a remote master repository or if the
+<A HREF="vcheckin.1.html#-D">-D flag was used</A>), set to 0 otherwise.
+<DT>VESTA_MESSAGE<DD>
+The checkin message, or the empty string if there is no checkin
+message.
+<DT>VESTA_OMIT_MESSAGE<DD>
+Set to 1 if there is no checkin message (if <A HREF="vcheckin.1.html#-M">the -M flag</A>
+was given or
+<A HREF="vcheckin.1.html#Configuration"><TT>[UserInterface]vcheckin_message</TT></A> was used
+to disable checkout messages), set to 0 otherwise.
+<DT>VESTA_QUIET<DD>
+Set to 1 if <A HREF="vcheckin.1.html#-q">the quiet flag (-q) was given</A>, set to 0
+otherwise.
+<DT>VESTA_FORCE<DD>
+Set to 1 if <A HREF="vcheckin.1.html#-f">the force flag (-f) was given</A>, set to 0
+otherwise.
+</DL>
+<P>
+
+(Note that the environment variables are the same for both the pre and
+post trigger commands.)<P>
+
+Here are some examples using these environment variables:
+<PRE>
+[vcheckin pre trigger]
+// Force users to describe all checkins
+50force_message = if [ $VESTA_OMIT_MESSAGE -eq 1 -o -z "$VESTA_MESSAGE" ]; then echo "Policy requires a checkin description"; exit 1; fi
+
+[vcheckin post trigger]
+// Replicate all new checkins to known peer repositories so that
+// they're immediately available
+50repl_checkins = for r in `vgetconfig UserInterface DefaultHints 2&gt; /dev/null`; do vrepl -s $VESTA_REPOS -d $r -e+ $VESTA_NEW_VERSION; done
+</PRE>
+
+If the <A HREF="vcheckin.1.html#-v">verbose trigger flag (-v)</A> is given, these
+environment variables will be printed, and each trigger command will
+be printed before executing it.  This can be useful for debugging
+trigger problems.  If both <A HREF="vcheckin.1.html#-v">verbose trigger flag</A> and the
+<A HREF="vcheckin.1.html#-Q">the query flag (-Q)</A> are given, the triggers are displayed
+in their sorted order without actually running them.  This can be used
+to find out what trigger commands are configured without actually
+running them.
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+It is annoying when <B>vcheckin</B> deletes the current directory, which is what
+happens in the default case; you tend to get messages like "Stale NFS file
+handle" from the shell afterwards.  Here is a csh alias that avoids the
+problem by automatically changing to the parent directory after a successful
+vcheckin:
+<PRE>
+alias vcheckin "pushd .. &gt; /dev/null ; pushd &gt; /dev/null ; \
+	\vcheckin \!* || pushd &gt; /dev/null ; popd &gt; /dev/null"
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Env_Vars">Environment Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><TT>VESTACONFIG</TT><DD>
+If set, specifies the Vesta configuration file to be used. See
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A>.
+<DT><TT>EDITOR</TT><DD>
+If set, specifies the editor to use for
+<A HREF="vcheckin.1.html#Message">editing the change history message</A>.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>,
+<A HREF="vadvance.1.html"><B>vadvance</B>(1)</A>,
+<A HREF="vmake.1.html"><B>vmake</B>(1)</A>,
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

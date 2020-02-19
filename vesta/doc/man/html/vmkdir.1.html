@@ -1,0 +1,441 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vmkdir - Create a directory in the Vesta repository</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vmkdir(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vmkdir</B> - Create a new directory in the Vesta repository
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vmkdir</B> [<A HREF="vmkdir.1.html#-q">-q</A>] [<A HREF="vmkdir.1.html#-Q">-Q</A>]
+[<A HREF="vmkdir.1.html#-v">-v</A>]
+[<A HREF="vmkdir.1.html#-aA">-a</A>] [<A HREF="vmkdir.1.html#-aA">-A</A>]
+[<A HREF="vmkdir.1.html#-p">-p</A>] [<A HREF="vmkdir.1.html#-f">-f</A>] 
+[<A HREF="vmkdir.1.html#-h">-h <I>hints</I></A>]
+[<A HREF="vmkdir.1.html#-R">-R <I>repos</I></A>]
+<I>directory</I><P>
+
+In the most common usage, only the <I>directory</I> argument is given.
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vmkdir.1.html#Description">Description</A>
+<LI> <A HREF="vmkdir.1.html#Flags">Flags</A>
+<LI> <A HREF="vmkdir.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vmkdir.1.html#Triggers">Triggers</A>
+<LI> <A HREF="vmkdir.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vmkdir.1.html#See_Also">See Also</A>
+<LI> <A HREF="vmkdir.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+See the <A HREF="vesta-intro.1.html">vesta-intro</A> man page's
+<A HREF="vesta-intro.1.html#Terminology">Terminology</A> section for
+definitions of terms, and its
+<A HREF="vesta-intro.1.html#Name_Interpretation">Name Interpretation</A>
+section for an explanation of how names are looked up.<P>
+
+The <B>vmkdir</B> command creates a new directory in the Vesta
+repository.  This provides an alternative to creating a directory with
+the normal <B>mkdir</B> command through the repository's NFS interface
+(which in some cases doesn't work depending on the quirks of different
+NFS client implementations).  It also makes it possible to create a
+directory in a remote repository and acquire local mastership of it
+with one command.<P>
+
+You must have write access to the directory in which <I>directory</I> is
+to be placed. The newly created directory is owned by you, but has
+access permissions inherited from its parent directory.<P>
+
+In the presence of replication, the directory creation cannot always
+be carried out in the local repository.  In particular, the local
+repository may not have the master copy of the parent directory.
+Also, the <A HREF="vmkdir.1.html#-aA">-a/-A</A> flags control which repository
+<B>vmkdir</B> will give mastership of the created directory.  (See
+<A HREF="vrepl.1.html"><B>vrepl</B>(1)</A> and
+<A HREF="vmaster.1.html"><B>vmaster</B>(1)</A> for more information about
+replication and mastership.)<P>
+
+If the parent directory is mastered locally, <B>vmkdir</B> creates the
+new directory in the local repository (and the <A HREF="vmkdir.1.html#-aA">-a/-A</A>
+flags have no effect).<P>
+
+If the parent directory is not mastered locally, <B>vmkdir</B> may give
+mastership of <I>directory</I> to the local repository, if either the
+<A HREF="vmkdir.1.html#-aA">-a</A> flag is specified or
+<A HREF="vmkdir.1.html#vmkdir_acquires"><I>[UserInterface]vmkdir_acquires</I></A> is set to
+true.  In this case, it creates the directory remotely in the master
+copy, replicates it to the local repository, and transfers mastership.<P>
+
+If the <A HREF="vmkdir.1.html#-aA">-A</A> flag is specified or
+<A HREF="vmkdir.1.html#vmkdir_acquires"><I>[UserInterface]vmkdir_acquires</I></A> is set to
+false and the parent directory is mastered remotely, <B>vmkdir</B> will
+leave mastership of the new directory with the master repository of
+its parent directory.  It creates the directory remotely in the master
+copy and replicates it to the local repository.<P>
+
+Without the <A HREF="vmkdir.1.html#-f">-f</A> flag, <B>vmkdir</B> will refuse to create a
+directory anywhere inside a package or branch (that is, in any
+directory whose <TT>type</TT> attribute contains any of the following
+values: <TT>package</TT>, <TT>branch</TT>, <TT>checkout</TT>, <TT>session</TT>).<P>
+
+The <A HREF="vmkdir.1.html#-p">-p</A> flag is a convenience feature which causes
+<B>vmkdir</B> to give the created directory type "<TT>package-parent</TT>",
+which allows packages to be created as children of the new directory.<P>
+
+Creating a directory that is directly below the repository root
+(<TT>/vesta</TT>) is a special case (as there is <B>no</B> master copy of
+the repository root).  To create such a top-level directory, you must
+be the special <I>wizard user</I>.  Also, all top-level directories must
+be globally unique across all repositories in the universe in the
+past, present, or future.  We strongly recommend that every name you
+create in this directory be an Internet domain name that belongs to
+you (or, failing that, an e-mail address with '@' changed to '_'); if
+everyone follows this convention, uniqueness is guaranteed.  (See the
+<A HREF="vrepl.1.html#Vesta_Replication"><B>vrepl</B>(1)</A> and
+<A HREF="repository.8.html#Warning"><B>repository</B>(8)</A> man pages for
+more information.)  Before creating a top-level directory, <B>vmkdir</B>
+will remind you of this and ask for confirmation.<P>
+
+<B>vmkdir</B> returns status 0 for success, 1 for parameter syntax
+errors, or 2 for more serious errors.  (Note that if any of the
+<A HREF="vmkdir.1.html#Triggers">trigger commands</A> fail, <B>vmkdir</B> returns status
+2.)
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-q">-q</A><DD>
+Quiet; suppress printing out what is being done.
+<DT><A NAME="-Q">-Q</A><DD>
+Query; print out what the command would do, but don't do it.
+<DT><A NAME="-h">-h</A> <I>hints</I><DD>
+If <B>vmkdir</B> fails to find the master copy of the parent directory
+either the local repository or any of those repositories listed in
+<A HREF="vmkdir.1.html#Configuration"><I>[UserInterface]DefaultHints</I></A>, you can
+suggest additional repositories for it to look in using this option.
+The <I>hints</I> argument is a comma- or space-separated list of
+repositories, specified by host name and TCP port number in the format
+<I>host</I><TT>:</TT><I>port</I>.  The <TT>:</TT><I>port</I> portion may be omitted;
+it defaults to
+<A HREF="vmkdir.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><A NAME="-R">-R</A> <I>repos</I><DD>
+Create the directory in <I>repos</I> instead of the default local
+repository.  The repository is
+specified by host name and TCP port number 
+in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it
+defaults to <A HREF="vmkdir.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><A NAME="-aA">-a or -A</A><DD>
+Do (-a) or do not (-A) acquire mastership of the created directory
+when the local repository doesn't have mastership of the parent
+directory.  The default is controlled by the
+<A HREF="vmkdir.1.html#vmkdir_acquires"><I>[UserInterface]vmkdir_acquires</I></A>
+configuration setting.  (Note that if the parent directory of
+<I>directory</I> is mastered in the local repository, these flags have
+no effect.)
+<DT><A NAME="-p">-p</A><DD>
+Give the created directory the type "<TT>package-parent</TT>" (that is, a
+<TT>type</TT> attribute with this value).  This allows packages to be
+created as children of the new directory.  (See the
+<A HREF="vcreate.1.html"><B>vcreate</B>(1)</A> man page for more information.)
+<DT><A NAME="-f">-f</A><DD>
+Force; omit sanity checking.  If the -f flag is not given, the new
+directory's parent may not be any part of a package or branch (that
+is, a directory with a <TT>type</TT> attribute that contains any of the
+following values: <TT>package</TT>, <TT>branch</TT>, <TT>checkout</TT>,
+<TT>session</TT>).
+<DT><A NAME="-v">-v</A><DD>
+Displays extra information about <A HREF="vmkdir.1.html#Triggers">triggers</A>.  Before
+executing any trigger commands, the environment variables used to
+provide information to them are printed.  Also, each trigger setting
+is printed before the command is executed.  This can be used to help
+debug trigger problems.  When used with <A HREF="vmkdir.1.html#-Q">the query flag
+(-Q)</A>, the triggers are displayed in their sorted order without
+actually running them.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>AppendableRootName</I><DD>
+The filename under which the global root directory of
+Vesta repositories is mounted.  Ordinarily set to <TT>/vesta</TT>.
+<DT><I>MutableRootName</I><DD>
+The filename under which the local tree of mutable directories provided
+by Vesta is mounted.  Ordinarily set to <TT>/vesta-work</TT>.
+<DT><I>realm</I><DD>
+Global user names are formed by appending <TT>@</TT><I>realm</I> to the
+local name.  This setting is optional.  If it is not set,
+<TT>[Repository]realm</TT> is used.
+<DT><I>TimeFormat</I><DD>
+A format string for <B>strftime</B>(3) to produce time strings for Vesta
+attributes.  A common setting is "%a %b %e %T %Z %Y".
+<DT><A NAME="vmkdir_acquires"><I>vmkdir_acquires</I></A><DD>
+Sets the default policy for which repository should have mastership of
+the created directory when the master repository of the parent
+directory is remote.  If it is equal (witout regard to case) to "yes",
+"on", or "true", or can be parsed as an integer that is non-zero, the
+local repository will acquire mastership (as if the <A HREF="vmkdir.1.html#-aA">-a</A>
+flag had been given).  If it is equal (witout regard to case) to "no",
+"off", or "false", or can be parsed as an integer that is zero, the
+master repository of the parent directory will retain mastership of
+the created directory (as if the <A HREF="vmkdir.1.html#-aA">-A</A> flag had been given).
+If not set, defaults to "false".
+<DT><I>DefaultHints</I><DD>
+A comma- or space-separated list of additional repositories to search
+for the master copy of an object.  Each repository is specified by
+host name and TCP port number in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it defaults to
+<I>[Repository]VestaSourceSRPC_port</I>.  This setting is optional.
+</DL>
+<P>
+
+The following values are obtained from the <TT>[Repository]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+The default TCP port number for repositories.
+<DT><I>realm</I><DD>
+Global user names are formed by appending <TT>@</TT><I>realm</I> to the
+local name.  This setting is only used if <TT>[UserInterface]realm</TT> is
+not set.
+</DL>
+<P>
+
+The following value is obtained from the <TT>[Run_Tool]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VolatileRootName</I><DD>
+The mount point used for temporary directories used during tool
+invocations.  Attempting to create a directory inside the volatile
+root (which is often below the mutable root) is considered an error.
+</DL>
+<P>
+
+Settings in the <TT>[vmkdir pre trigger]</TT> and <TT>[vmkdir post
+trigger]</TT> sections of the configuration file are used as commands to
+be run before and after the repository is modified.  See
+<A HREF="vmkdir.1.html#Triggers">the next section</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Triggers">Triggers</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Users can configure commands in <A HREF="vesta.cfg.5.html">the Vesta
+configuration file (vesta.cfg)</A> to be executed before and after
+<B>vmkdir</B> modifies the repository.  Each setting in the <TT>[vmkdir
+pre trigger]</TT> section specifies a command to be run before any action
+is taken, and each setting in the <TT>[vmkdir post trigger]</TT> section
+specifies a command to be run after all actions are complete.<P>
+
+The value of each setting specifies a command to run.  The names of
+the settings define the order in which these commands are run.  The
+setting names are sorted as strings, but comparing embedded sequences
+of digits as decimal integers.  (So, for example "foo_10_bar" will
+sort after "foo_2_bar".)  The suggested naming convention for trigger
+settings is to start with an integer, follow with a descriptive name,
+and follow that with any other text.  (This is based on the convention
+used for System V style init script links typically stored in
+<TT>/etc/rc<I><B>N</B></I>.d</TT>.)<P>
+
+Here's a simple example of how we suggest naming trigger settings, and
+how they are ordered for execution:
+<PRE>
+[vmkdir pre trigger]
+100world = echo World!
+9tada    = echo Tada:
+50hello  = echo Hello,
+</PRE>
+
+Because these all start with numbers, they will be executed in the
+order "9tada", "50hello", "100world".  The output will look like this:
+<PRE>
+% vmkdir /vesta/example.com/...
+Tada:
+Hello,
+World!
+Creating directory /vesta/example.com/...
+</PRE>
+
+Trigger commands are executed with <TT>system</TT>(3).  On most operating
+systems this means "<TT>/bin/sh -c <I>command</I></TT>", so simple in-line
+shell scripts can be used.  (Note that each is executed in its own
+shell process, so environment variables set during one trigger command
+<I>will not propagate to subsequent ones</I>.)<P>
+
+If any of the commands in the <TT>[vmkdir pre trigger]</TT> section exit
+with error (non-zero) status or are terminated by a signal
+(e.g. segmentation fault, abort), <B>vmkdir</B> will exit without
+creating a directory.<P>
+
+The commands in the <TT>[vmkdir post trigger]</TT> section will only be
+executed if a new directory is successfully created.  If <B>vmkdir</B>
+fails with an error, the commands in the <TT>[vmkdir post trigger]</TT>
+section <I>will not be executed</I>.<P>
+
+Note that all the trigger commands (both pre and post) are executed
+sequentially.  Once a trigger command is started, nothing else happens
+until it completes.  If any of the pre trigger commands runs forever,
+<B>vmkdir</B> will not create a directory.  If any of the post trigger
+commands runs forever, <B>vmkdir</B> will not complete.  (In other
+words, <I>a trigger command that hangs will cause <B>vmkdir</B> to
+hang</I>.)  If any of the pre or post trigger commands exit with error
+status or are terminated by a signal, <B>vmkdir</B> will exit without
+running any more commands from those sections.  (In other words, <I>a
+trigger command that fails will prevent further trigger commands from
+being run</I>.)<P>
+
+If the <A HREF="vmkdir.1.html#-Q">the query flag (-Q)</A> is given, the trigger commands
+will not actually be run.<P>
+
+Information about what <B>vmkdir</B> is going to do or has just done
+is provided to the trigger commands through the following environment
+variables:<P>
+
+<DL>
+
+<DT>VESTA_TOOL<DD>
+The name of the Vesta tool the trigger command has been invoked from.
+(For <B>vmkdir</B>, this will always be "vmkdir".)
+<DT>VESTA_REPOS<DD>
+The local repository (<I>host</I><TT>:</TT><I>port</I>) <B>vmkdir</B>
+communicates with (either the default from the configuration file or
+the one specified with the <A HREF="vmkdir.1.html#-R">-R flag</A>.
+<DT>VESTA_MASTER_HINTS<DD>
+Additional repositories which may have been consulted in order to find
+the master copy of the parent directory.  This is the combination of
+the argument to the <A HREF="vmkdir.1.html#-h">-h flag</A> (if it was used) and the hints
+from the <A HREF="vmkdir.1.html#Configuration"><I>[UserInterface]DefaultHints</I>
+configuration setting</A> (if set in the configuration file).
+<DT>VESTA_MASTER_REMOTE<DD>
+Set to 1 if the parent directory of the directory created by
+<B>vmkdir</B> is mastered in a remote repository, set to 0 otherwise.
+If this is set to 1, the directory will be created in the remote
+master ($VESTA_MASTER_REPOS) and replicated to the local repository
+($VESTA_REPOS).
+<DT>VESTA_MASTER_REPOS<DD>
+The repository (<I>host</I><TT>:</TT><I>port</I>) with mastership of the
+parent directory of the directory created by <B>vmkdir</B>.  If this is
+different from $VESTA_REPOS, $VESTA_MASTER_REMOTE will be set to 1 and
+the directory is created at the remote master repository.
+<DT>VESTA_DIR<DD>
+The directory created by <B>vmkdir</B>.
+<DT>VESTA_ACQUIRE_MASTERSHIP<DD>
+Set to 1 if <B>vmkdir</B> is creating a directory at a remote master
+repository and acquiring mastership of it in the local repository, set
+to 0 otherwise.  (If $VESTA_REPOS is the same as $VESTA_MASTER_REPOS
+this will be 0.)  See <A HREF="vmkdir.1.html#-aA">the description of the -a/-A flags
+above</A>.
+<DT>VESTA_PACKAGE_PARENT<DD>
+Set to 1 if <A HREF="vmkdir.1.html#-p">the -p flag was given</A> and the directory is
+being created under <TT>/vesta</TT>, set to 0 otherwise.  (This will be 0
+if the directory being created is under <TT>/vesta-work</TT>, even if the
+-p flag was given.)
+<DT>VESTA_QUIET<DD>
+Set to 1 if <A HREF="vmkdir.1.html#-q">the quiet flag (-q) was given</A>, set to 0
+otherwise.
+<DT>VESTA_FORCE<DD>
+Set to 1 if <A HREF="vmkdir.1.html#-f">the force flag (-f) was given</A>, set to 0
+otherwise.
+</DL>
+<P>
+
+(Note that the environment variables are the same for both the pre and
+post trigger commands.)<P>
+
+Here are some examples using these environment variables:
+<PRE>
+[vmkdir pre trigger]
+// If the user tries to create a directory with type package-parent
+// directly below /vesta, cause vmkdir to fail
+50no_toplevel_pp = if [ "`dirname $VESTA_DIR`" = "/vesta" -a $VESTA_PACKAGE_PARENT -eq 1 ]; then exit 1; fi
+
+[vmkdir post trigger]
+// Add an attribute when a directory is created remotely and has local
+// mastership acquired
+50made_remote = [ $VESTA_ACQUIRE_MASTERSHIP -eq 0 ] || vattrib -R $VESTA_REPOS -s "created-at" $VESTA_MASTER_REPOS $VESTA_DIR
+</PRE>
+
+If the <A HREF="vmkdir.1.html#-v">verbose trigger flag (-v)</A> is given, these
+environment variables will be printed, and each trigger command will
+be printed before executing it.  This can be useful for debugging
+trigger problems.  If both <A HREF="vmkdir.1.html#-v">verbose trigger flag</A> and the
+<A HREF="vmkdir.1.html#-Q">the query flag (-Q)</A> are given, the triggers are displayed
+in their sorted order without actually running them.  This can be used
+to find out what trigger commands are configured without actually
+running them.
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vmkdir</B> is atomic if it modifies only the local
+repository.  If a remote repository must be modified, however, the
+action performed at each repository is individually atomic, but
+<B>vmkdir</B> can die between the actions on the remote and local
+repositories.  To make this problem less likely to occur, <B>vmkdir</B>
+ignores <TT>SIGINT</TT> (the ^C interrupt) during the critical section.
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>
+<A HREF="vcreate.1.html"><B>vcreate</B>(1)</A>
+<A HREF="vrepl.1.html"><B>vrepl</B>(1)</A>
+<A HREF="repository.8.html"><B>repository</B>(8)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Ken Schalk &lt;<A HREF="mailto:ken@xorian.net"><TT>ken@xorian.net</TT></A>&gt;<P>
+
+(Derived from <B>vcreate</B>, written by Tim Mann.)
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

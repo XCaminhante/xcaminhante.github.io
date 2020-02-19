@@ -1,0 +1,15 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 25</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text23.html">Back</a> <a href="text25.html">Continue</a> <a href="text29.html">Last page</a> <a href="codecon-2004.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Build Encapsulation</h1><p>
+<ul><li><h2>Each build step uses chroot into a temporary filesystem that exists just for that step</h2>
+<ul><li>Makes each step <i>functional</i> (well-defined inputs and outputs, no side effects) which enables caching and safe re-use
+<li>Temporary filesystem provided through repository's NFS interface
+<li>Provides automatic dependency detection: if a file was read, the tool depended on it, otherwise it didn't
+</ul></ul></body>
+</html>

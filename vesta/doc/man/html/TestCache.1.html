@@ -1,0 +1,274 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>TestCache(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>TestCache(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+TestCache - a client for testing the Vesta-2 cache server
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>TestCache</B>
+[ <B>-comments</B> ]
+[ <I>file</I> ]
+</BLOCKQUOTE>
+
+<H3>Description</H3>
+<BLOCKQUOTE>
+<P>
+
+<I>TestCache</I> reads a description of function arguments and results
+from the file named <I>file</I>, or from standard input if no <I>file</I>
+is specified. For each function described in the input, it performs a
+lookup or other function on the cache server running on the Vesta-2
+cache server <A HREF="VCache.1.html">VCache(1)</A> named in the user's Vesta
+configuration file, as described <A HREF="TestCache.1.html#ConfigSect">below</A>.
+If the lookup fails, it makes the necessary calls to add a new entry
+to the cache. There are also commands for exercising the cache
+server's weeder interface, to checkpoint the contents of the cache, or
+to pause the <I>TestCache</I> program until the user presses a key.<P>
+
+If the <B>-comments</B> option is specified, all comments in the input
+file are echoed to standard output.
+</BLOCKQUOTE>
+
+<H3>Input File Format</H3>
+<BLOCKQUOTE>
+<P>
+
+The input supplied to <I>TestCache</I> consists of a sequence of
+<I>entries</I>. There are several kinds of entries: <I>function
+specifications</I>, <I>checkpoint commands</I>, <I>renew leases commands</I>,
+<I>pause commands</I>, and <I>weeder commands</I>. Comments are indicated
+in the input by lines that start with the percent (%) character; all
+characters from the percent character up to (and including) the next
+newline character are ignored. Blank lines are also ignored.<P>
+
+<DL>
+<DT>Function Specifications<P>
+
+<DD>A function specification describes a function, its arguments, and its
+result. It takes the following form:<P>
+
+<I>primary-key-text</I><BR>
+<I>name-1</I> <I>name-2</I> ... <I>name-n</I><BR>
+<I>fp-1</I> <I>fp-2</I> ... <I>fp-n</I><BR>
+<I>result-text</I>
+<BR>
+<P>
+
+The test program computes the fingerprint of the
+<I>primary-key-text</I>, and uses that fingerprint as the function's
+primary key. The <I>name-i</I> are whitespace-separated strings; they
+are the names of the function's free variables. The <I>fp-i</I>
+are used to compute the fingerprints of the free variables.
+The <I>fp-i</I> are texts; the fingerprint of each text
+is computed and used as the fingerprint for the corresponding
+<I>name-i</I>. Finally, the <I>result-text</I> is used
+as the function result.<P>
+
+Given a function specification, the <I>TestCache</I> program performs
+the following steps:<P>
+
+<OL>
+<LI>
+<I>TestCache</I> computes the fingerprint corresponding to
+<I>primary-key-text</I> to produce a primary key <I>PK</I>.<P>
+
+<LI>
+It then calls the cache server's <I>FreeVariables</I> method with the
+argument <I>PK</I>, and receives the list of free
+variables corresponding to <I>PK</I> from the cache server.<P>
+
+<LI>
+It then calls the cache server's <I>Lookup</I> method, supplying the
+fingerprints of the names returned in the previous
+step. For each name in that list that matches one of the names
+<I>name-i</I>, it gets the fingerprint of that name's
+value from <I>fp-i</I>. For each requested name that is
+not one of the <I>name-i</I>, it supplies the fingerprint of the empty
+string.<P>
+
+<LI>
+If the <I>Lookup</I> call produces a hit from the cache, the processing
+of this function specification is complete. Otherwise, <I>TestCache</I>
+makes a call to the cache server's <I>AddEntry</I> method to add a new
+cache entry.
+</OL>
+<P>
+
+<DT>Checkpoint Commands<P>
+
+<DD>A checkpoint command consists of a single line of the form:
+<PRE>
+Checkpoint
+</PRE>
+
+or
+<PRE>
+CheckpointOnly
+</PRE>
+
+<I>TestCache</I> processes a <I>Checkpoint</I> command by calling
+the cache server's <I>Checkpoint</I> method with an empty list of cache
+indices, and a <I>done</I> value of <I>true</I>. It then calls the cache
+server's <I>FlushAll</I> method to flush all new, pending cache entries
+to the stable cache.<P>
+
+The <I>CheckpointOnly</I> command is like the <I>Checkpoint</I> command
+except that it does not invoke the cache server's <I>FlushAll</I> method.<P>
+
+<DT>Renew Leases Command<P>
+
+<DD>A renew leases command consists of lines of the form:<P>
+
+<TT>RenewLeases</TT><BR>
+<I>ci-1</I> <I>ci-2</I> ... <I>ci-n</I>
+<BR>
+<P>
+
+This invokes the cache server's <I>RenewLeases</I> method with the named
+cache indices as arguments.<P>
+
+<DT>Pause Commands<P>
+
+<DD>A pause command conists of a single line of the form:
+<PRE>
+Pause
+</PRE>
+
+<I>TestCache</I> processes a pause command by prompting the user to
+press a key to continue. A pause command is usually used immediately
+after a checkpoint command. While the program is paused, you can check
+that the files written by the cache server are correct before you
+continue the test.<P>
+
+<DT>Weeder Commands<P>
+
+<DD>Weeder commands take the following form:<P>
+
+<TT>Weed</TT><BR>
+<I>ci-1</I> <I>ci-2</I> ... <I>ci-n</I><BR>
+<I>pfx-1</I> <I>pfx-2</I> ... <I>pfx-l</I>
+<BR>
+<P>
+
+These commands actually invoke four separate methods on the cache
+server: <I>StartMark</I>, <I>SetHitFilter</I>, <I>ResumeLeaseExp</I>,
+and <I>EndMark</I>.<P>
+
+The <I>ci</I> list specifies the indices of the cache entries to delete.
+The <I>pfx</I> list is a list of texts analogous to the
+<I>primary-key-text</I>s of the function specifications above. The
+fingerprints of these texts are computed, then a prefix of each
+resulting fingerprint is computed. The set of resulting prefixes
+names the MultiPKFiles that contain all of the entries to delete.<P>
+
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3>Example</H3>
+<BLOCKQUOTE>
+<P>
+
+Here is a sample input file:
+<PRE>
+func1
+name1 name2 name3
+val1  val2  val3
+result1
+
+func1
+name2 name4 name3
+val2  val4  val3
+result2
+
+Checkpoint
+
+func1
+name3 name5 name2
+val4  val5  val3
+result3
+
+func1
+name3 name1 name2
+val3  val1  val2
+dummy-result
+
+Checkpoint
+</PRE>
+
+Only the very last function specification will produce a hit on the
+cache. After processing this file, there will be three cache entries
+for <I>func1</I>, and its common names will be <I>name2</I> and
+<I>name3</I>.
+</BLOCKQUOTE>
+
+<H3><A NAME="ConfigSect">Configuration Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Like most Vesta-2 applications, <I>TestCache</I> reads site-specific
+configuration information from a Vesta-2 <I>configuration file</I> named
+<I>vesta.cfg</I>. The program first looks for this file in the
+current directory; if none is found there, it looks in your home
+directory.<P>
+
+The configuration file is divided into a number of sections, denoted
+in the file by <TT>[</TT><I>SectionName</I><TT>]</TT>. The variables used by
+<I>TestCache</I> are in the section denoted by <TT>[CacheServer]</TT>.
+Here are the variables and their meanings; the types of the variables
+are shown in parentheses.<P>
+
+<DL>
+<DT><TT>Host</TT> (string)<DD>
+The hostname of the machine on which the cache server is running.<P>
+
+<DT><TT>Port</TT> (integer)<DD>
+The port number on the host named by <I>Host</I> to contact. This allows
+multiple cache servers to be running on the same machine; each one
+listens on a different port for connections.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3>See Also</H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="VCache.1.html">VCache(1)</A>,
+<A HREF="ChkptCache.1.html">ChkptCache(1)</A>,
+<A HREF="TestCacheRandom.1.html">TestCacheRandom(1)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Last modified on Thu Nov  8 12:40:15 EST 2001 by ken@xorian.net
+     modified on Fri Feb 28 10:50:43 PST 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

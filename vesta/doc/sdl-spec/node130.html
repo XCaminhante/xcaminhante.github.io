@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Semantics</TITLE>
+<META NAME="description" CONTENT="Semantics">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node160.html">
+<LINK REL="previous" HREF="node127.html">
+<LINK REL="up" HREF="node125.html">
+<LINK REL="next" HREF="node131.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2122"
+  HREF="node131.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2118"
+  HREF="node125.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2112"
+  HREF="node129.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2120"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2123"
+  HREF="node131.html">Value Space</A>
+<B> Up:</B> <A NAME="tex2html2119"
+  HREF="node125.html">The Vesta Software Description</A>
+<B> Previous:</B> <A NAME="tex2html2113"
+  HREF="node129.html">Terminals</A>
+ &nbsp <B>  <A NAME="tex2html2121"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001330000000000000000"></A><A NAME="sect:SDL-semantics"></A>
+<BR>
+Semantics
+</H1>
+
+<P>
+The semantics of programs written in the Vesta SDL are described
+by a function <EM>Eval</EM> that maps a syntactic <EM>expression</EM> and
+a <EM>context</EM> to a <EM>value</EM>. That is, Eval(E, C) returns the
+value of the syntactic expression E in the context C. In addition to
+syntactic expressions (denoted by the non-terminal Expr in the
+grammar), the domain of Eval includes additional syntactic constructs.
+Some of these additional constructs are defined by the concrete
+grammar, while others are introduced as ``intermediate results''
+during the evaluation process. (the latter are noted where they are
+introduced.) Each value returned by Eval is in the Vesta value space,
+described in the next section. The context parameter C to Eval is a
+value of type t_binding in the Vesta value space.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html2124"
+  HREF="node131.html">Value Space</A>
+<LI><A NAME="tex2html2125"
+  HREF="node132.html">Type Declarations</A>
+<LI><A NAME="tex2html2126"
+  HREF="node133.html">Evaluation Rules</A>
+<UL>
+<LI><A NAME="tex2html2127"
+  HREF="node134.html">Expr</A>
+<LI><A NAME="tex2html2128"
+  HREF="node135.html">Literal</A>
+<LI><A NAME="tex2html2129"
+  HREF="node136.html">Id</A>
+<LI><A NAME="tex2html2130"
+  HREF="node137.html">List</A>
+<LI><A NAME="tex2html2131"
+  HREF="node138.html">Binding</A>
+<LI><A NAME="tex2html2132"
+  HREF="node139.html">Select</A>
+<LI><A NAME="tex2html2133"
+  HREF="node140.html">Block</A>
+<LI><A NAME="tex2html2134"
+  HREF="node141.html">Stmt</A>
+<LI><A NAME="tex2html2135"
+  HREF="node142.html">Assign</A>
+<LI><A NAME="tex2html2136"
+  HREF="node143.html">Iterate</A>
+<LI><A NAME="tex2html2137"
+  HREF="node144.html">FuncDef</A>
+<LI><A NAME="tex2html2138"
+  HREF="node145.html">FuncCall</A>
+<LI><A NAME="tex2html2139"
+  HREF="node146.html">Model</A>
+<LI><A NAME="tex2html2140"
+  HREF="node147.html">Files</A>
+<LI><A NAME="tex2html2141"
+  HREF="node148.html">Imports</A>
+<LI><A NAME="tex2html2142"
+  HREF="node149.html">Filename Interpretation</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html2143"
+  HREF="node150.html">Primitives</A>
+<UL>
+<LI><A NAME="tex2html2144"
+  HREF="node151.html">Functions on Type t_bool</A>
+<LI><A NAME="tex2html2145"
+  HREF="node152.html">Functions on Type t_int</A>
+<LI><A NAME="tex2html2146"
+  HREF="node153.html">Functions on Type t_text</A>
+<LI><A NAME="tex2html2147"
+  HREF="node154.html">Functions on Type t_list</A>
+<LI><A NAME="tex2html2148"
+  HREF="node155.html">Functions on type t_binding</A>
+<LI><A NAME="tex2html2149"
+  HREF="node156.html">Special Purpose Functions</A>
+<LI><A NAME="tex2html2150"
+  HREF="node157.html">Type Manipulation Functions</A>
+<LI><A NAME="tex2html2151"
+  HREF="node158.html">Tool Invocation Function</A>
+<LI><A NAME="tex2html2152"
+  HREF="node159.html">Diagnostic Functions</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

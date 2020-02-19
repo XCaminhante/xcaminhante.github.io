@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Tool Invocation Function</TITLE>
+<META NAME="description" CONTENT="Tool Invocation Function">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node159.html">
+<LINK REL="previous" HREF="node157.html">
+<LINK REL="up" HREF="node150.html">
+<LINK REL="next" HREF="node159.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2508"
+  HREF="node159.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2504"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2498"
+  HREF="node157.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2506"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2509"
+  HREF="node159.html">Diagnostic Functions</A>
+<B> Up:</B> <A NAME="tex2html2505"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2499"
+  HREF="node157.html">Type Manipulation Functions</A>
+ &nbsp <B>  <A NAME="tex2html2507"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001334800000000000000"></A><A NAME="sect:SDL-tool-func"></A>
+<BR>
+Tool Invocation Function
+</H3>
+
+<P>
+<PRE>
+t_binding
+_run_tool(
+  t_text platform,
+  t_list command,
+  t_text stdin = "",
+  t_text stdout_treatment = "report",
+  t_text stderr_treatment = "report",
+  t_text status_treatment = "report_nocache",
+  t_text signal_treatment = "report_nocache",
+  t_int  fp_content = -2,
+  t_text wd = ".WD",
+  t_bool existing_writable = FALSE)
+</PRE>
+<BR>
+<TT>_run_tool</TT> is the mechanism by which external programs like compilers
+and linkers are executed from a Vesta SDL program. It provides
+functionality that is fairly platform-independent. The following
+description, however, is somewhat Unix-specific (for example, in its
+description of exit codes and signals).
+
+<P>
+The <EM>platform</EM> argument specifies the platform on which the tool
+is to be executed. <TT>_run_tool</TT> selects a specific machine for the given
+platform. The legal values for <EM>platform</EM> and the mechanism by
+which a machine of the appropriate platform is chosen are
+implementation dependent.
+
+<P>
+The tool to be executed is specified by the <EM>command</EM>
+argument. This argument is a t_list of t_text values. The first member
+of the list is the name of the tool (interpretation of the name is
+discussed below); the remaining members of the list are the arguments
+passed to the tool as its command line. The tool is executed on the
+specified <EM>platform</EM> in an environment with the following
+characteristics:
+
+<P>
+
+<UL>
+<LI>The file system is encapsulated so that absolute paths (i.e., those
+beginning with a Delim) are interpreted relative to <TT>./root</TT>,
+where `.' is the implicit final parameter to <TT>_run_tool</TT>. Non-absolute
+paths are interpreted relative to <TT>./root/$<EM>wd</EM></TT>, where <EM>wd</EM> is a parameter to <TT>_run_tool</TT>. The interpretation of filenames is
+discussed in more detail below.
+
+<P>
+</LI>
+<LI>The environment variables are taken from <TT>./envVars</TT>, where
+`.' is the implicit final parameter to <TT>_run_tool</TT>.
+
+<P>
+</LI>
+<LI>The content of standard input is the value of the <EM>stdin</EM>
+<TT>_run_tool</TT> parameter.
+
+<P>
+</LI>
+<LI>Treatment of standard output and standard error is specified by the
+<EM>stdout_treatment</EM> and <EM>stderr_treatment</EM> parameters.
+These parameters may be one of the t_text values
+<TT>"ignore"</TT>, <TT>"report"</TT>, <TT>"report_nocache"</TT>,
+<TT>"value"</TT>, or <TT>"report_value"</TT>. 
+If the treatment is <TT>"ignore"</TT>, any bytes written to
+the corresponding output stream (stdout or stderr) are discarded. If
+the treatment is <TT>"report"</TT>, the corresponding output is made visible
+to the user. If the treatment is <TT>"report_nocache"</TT>, the
+corresponding output is made visible to the user and, if it is not
+empty, the evaluator does not cache the result of the <TT>_run_tool</TT> call.
+If the treatment is <TT>"value"</TT>, the output stream is converted to a
+Vesta value of type t_text and returned as part of the <TT>_run_tool</TT> result, as described below.  If the treatment is
+<TT>"report_value"</TT>, the output stream is both made visible to the
+user and also returned as part of the result.
+
+<P>
+</LI>
+<LI>The <EM>status_treatment</EM> and <EM>signal_treatment</EM> arguments may
+take on the t_text value <TT>"report"</TT> or
+<TT>"report_nocache"</TT>. Regardless of their values, the
+<TT>code</TT> and <TT>signal</TT> fields of the result value
+will be set as described below. If the value of <EM>status_treatment</EM> is
+<TT>"report_nocache"</TT>, this <TT>_run_tool</TT> call will not be cached
+if the result <TT>code</TT> is nonzero; similarly, if
+<EM>signal_treatment</EM> is <TT>"report_nocache"</TT>, the <TT>_run_tool</TT> call will not be cached if the result <TT>signal</TT> is nonzero.
+Additionally, in our implementation, a runtool call that is not
+cached because of its return code or signal is considered a runtime
+error and halts the evaluation with an error message, unless
+the -k (``keep going'') flag is given on the evaluator command line.
+
+<P>
+</LI>
+<LI>The <EM>fp_content</EM> argument controls how fingerprints are assigned
+to any derived files created by the tool execution, including derived
+files created for stdout or stderr when the value of the <EM>stdout_treatment</EM> or <EM>stderr_treatment</EM> parameter is ``value''. 
+A value of -1 causes the fingerprints of all such
+derived files to be computed deterministically from their contents. A
+non-negative <EM>fp_content</EM> value of <IMG
+ WIDTH="15" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img131.png"
+ ALT="$x$"> causes only those files
+less than <IMG
+ WIDTH="15" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img131.png"
+ ALT="$x$"> bytes in length to have their fingerprints computed from
+the file contents; an arbitrary unique fingerprint is chosen for files
+at least <IMG
+ WIDTH="15" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img131.png"
+ ALT="$x$"> bytes in length. Hence, a value of 0 causes all derived
+files to be assigned arbitrary fingerprints. Setting <EM>fp_content</EM>
+to -2 selects a site-dependent default value (set by the
+[Evaluator]/FpContent configuration variable, in our implementation).
+The boolean values <TT>TRUE</TT> and <TT>FALSE</TT> are accepted as synonyms
+for -1 and 0, respectively.
+
+<P>
+The cost of fingerprinting a file's contents is non-trivial
+(approximately 1 second per megabyte on the prototype implementation),
+but doing so allows for cache hits in cases where two evaluations
+depend on a value that is identical, but was computed in two different
+ways.
+
+<P>
+</LI>
+<LI>The <EM>existing_writable</EM> argument controls whether the tool is
+permitted to write to files that already exist in its encapsulated
+file system when it is started. If the argument is <TT>TRUE</TT>, such
+files may be opened for writing and written to; if it is <TT>FALSE</TT>,
+they may not. For technical reasons in the NFS-based repository
+implementation, tools will get much better file system performance
+when <EM>existing_writable</EM> is <TT>FALSE</TT>. It should be set to
+<TT>TRUE</TT> only for tools that require it.
+</LI>
+</UL>
+
+<P>
+The <TT>_run_tool</TT> primitive returns a binding that contains
+the results of the command execution.  This binding has type:
+
+<P>
+<PRE>
+  type run_tool_result = binding [
+    code   : int,
+    signal : int,
+    stdout_written : bool,
+    stderr_written : bool,
+    stdout : text,
+    stderr : text,
+    root   : binding
+  ]
+</PRE>
+
+<P>
+If <EM>r</EM> is of type run_tool_result, then:
+
+<P>
+
+<UL>
+<LI><TT><EM>r</EM>/code</TT> is an integer value that characterizes how
+the command terminated (i.e., the exit status of the Unix process).
+
+<P>
+</LI>
+<LI><TT><EM>r</EM>/signal</TT> is an integer value identifying the Unix
+signal that terminated the process, or 0 if the process exited
+voluntarily.
+
+<P>
+</LI>
+<LI><TT><EM>r</EM>/stdout_written</TT> and
+<TT><EM>r</EM>/stderr_written</TT> indicate whether data was
+written to the stdout and stderr streams, respectively.
+
+<P>
+</LI>
+<LI><TT><EM>r</EM>/stdout</TT> is defined if and only if the <EM>stdout_treatment</EM>
+<TT>_run_tool</TT> parameter is <TT>"value"</TT> or <TT>"report_value"</TT>, in which
+case it contains the bytes written to stdout.
+
+<P>
+</LI>
+<LI><TT><EM>r</EM>/stderr</TT> is defined if and only if the <EM>stderr_treatment</EM>
+<TT>_run_tool</TT> parameter is <TT>"value"</TT> or <TT>"report_value"</TT>, in which
+case it contains the bytes written to stderr.
+
+<P>
+</LI>
+<LI><TT><EM>r</EM>/root</TT> is a binding containing all files created
+by the command that are extant upon exit. See the description
+under ``File System Encapsulation'' below for details.
+</LI>
+</UL>
+
+<P>
+Two fine points relating to the results of <TT>_run_tool</TT>:
+
+<P>
+
+<OL>
+<LI>If the tool cannot be invoked--for example, because of errors in the
+parameters to <TT>_run_tool</TT>--the evaluator always prints a diagnostic and
+halts with a runtime error. However, errors that occur during the
+execution of the tool are reported in a tool-specific fashion, as
+discussed under <TT>"status_treatment"</TT> and
+<TT>"signal_treatment"</TT> above.
+
+<P>
+</LI>
+<LI>If <TT>"report_nocache"</TT> is specified as the treatment for an
+output stream (stdout or stderr) or the exit or signal status, the
+evaluator will not make a cache entry for the <TT>_run_tool</TT> call if any
+output is produced on the corresponding output stream or if the exit
+or signal status is nonzero, respectively. In addition, none of the
+ancestor functions of the failing <TT>_run_tool</TT> call in the call graph are
+cached either. Since no cache entries are made, a subsequent
+re-interpretation of the model will produce the same output (on stdout
+or stderr). This can be useful for reproducing error messages from a
+compiler or other external tool that are displayed through the Vesta
+user interface.
+</LI>
+</OL>
+
+<P>
+<
+<P>
+
+<UL>
+<LI>When the command process (or any subprocess it creates) executes a
+Unix system call that includes a file path as a parameter, the file
+path is translated into a reference into the `.' binding that is the
+last parameter to <TT>_run_tool</TT>.
+
+<P>
+</LI>
+<LI>The path is interpreted relative to <TT>./root</TT> if it is absolute
+(i.e., if it begins with ``/''), and relative to <TT>./root/$wd</TT>
+otherwise, where <TT>$wd</TT> is the value of the <EM>wd</EM> parameter to
+<TT>_run_tool</TT>. Each component of the path--except possibly the final
+one--must name a Vesta binding. The interpretation of the final
+component of the path depends on the semantics of the system call. If
+the system call expects an extant file, the final component must name
+a Vesta value of type t_text. If the system call expects an extant
+directory, the Vesta value must be of type t_binding. If the system
+call expects an unbound name, the name must not be bound by the
+binding corresponding to the penultimate path component.
+
+<P>
+</LI>
+<LI>A file created or modified by the command process (or a subprocess) remains
+visible in the name space throughout the remainder of the
+process's execution (or until deleted), just as in a regular
+file system.  This is achieved by modeling file creation, modification, and
+deletion as a suitable overlaying of <TT>./root</TT>. For example,
+if the process creates ``foo.o'' in its working directory, this has
+the effect of:
+<PRE>
+  ./root/$wd += [ foo.o = &lt;bytes of file&gt; ];
+  &lt;subsequent execution of the command process&gt;
+</PRE>
+
+<P>
+</LI>
+<LI>File modification is handled in exactly the same way.  For example, 
+if the process opens the existing file ``foo.db'' in its working directory
+and writes to it, this has the effect of:
+<PRE>
+  ./root/$wd += [ foo.db = &lt;new contents of file&gt; ];
+  &lt;subsequent execution of the command process&gt;
+</PRE>
+Note that modification of preexisting files is forbidden if the
+<EM>existing_writable</EM> argument to <TT>_run_tool</TT> is set to 
+FALSE (its default value).
+
+<P>
+</LI>
+<LI>File deletions are modeled similarly, but the files are removed from
+the context using the binding difference (-) operator, instead of
+added using the binding overlay (+) operator.
+
+<P>
+</LI>
+<LI>When the command process exits, the accumulated effects
+of the file creations and deletions it has performed 
+are returned as part of the <TT>_run_tool</TT> result (in
+<TT><EM>r</EM>/root</TT>). In this binding, the names of files
+deleted by the tool are bound to <EM>false</EM>. Such names
+correspond either to files that existed in <TT>./root</TT> before
+the tool was invoked, or to files created and subsequently deleted by
+the tool.
+
+<P>
+Thus, if <TT>./root</TT> represents the state of the file system
+visible to the command process at the time it is launched, then the
+state of the file system when it exits can be described as:
+<PRE>
+  ./root ++ r/root
+</PRE>
+So, if the invoker of <TT>_run_tool</TT> wanted to update <TT>./root</TT>
+to reflect the changes made by calling <TT>_run_tool</TT>, the code might
+look like this:
+<PRE>
+  r = _run_tool( &lt;suitable parameters&gt; );
+  new_fs = ./root ++ r/root;
+  . += [ root = new_fs ];
+</PRE>
+After the last assignment, names in <TT>./root</TT> bound to
+<EM>false</EM> are files that were deleted by the tool. Here is a
+recursive function for removing such files:
+<PRE>
+  /**nocache**/
+  remove_deleted(b: binding): binding
+  {
+    res: binding = [];
+    foreach [ n = v ] in b do
+      res += if v = false then [] else
+        if _is_binding(v)
+          then [ $n = remove_deleted(v) ]
+          else [ $n = v ];
+    return res;
+  };
+</PRE>
+</LI>
+</UL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2508"
+  HREF="node159.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2504"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2498"
+  HREF="node157.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2506"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2509"
+  HREF="node159.html">Diagnostic Functions</A>
+<B> Up:</B> <A NAME="tex2html2505"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2499"
+  HREF="node157.html">Type Manipulation Functions</A>
+ &nbsp <B>  <A NAME="tex2html2507"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

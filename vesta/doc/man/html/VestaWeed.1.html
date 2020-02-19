@@ -1,0 +1,606 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+
+<HEAD>
+<TITLE>VestaWeed(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>VestaWeed(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+VestaWeed - the Vesta-2 weeder
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>VestaWeed</B>
+[<A HREF="VestaWeed.1.html#NOption"><B>-nodelete</B></A> | <A HREF="VestaWeed.1.html#QOption"><B>-query</B></A>]
+[<A HREF="VestaWeed.1.html#MOption"><B>-models</B></A>]
+[<A HREF="VestaWeed.1.html#ROption"><B>-roots</B></A>]
+[<A HREF="VestaWeed.1.html#KeepOption"><B>-keep</B> <I>dur</I></A>]
+[<A HREF="VestaWeed.1.html#DebugOption"><B>-debug</B> <I>level</I></A>]
+[<I>root-file</I>]<P>
+
+All options can be abbreviated to a single letter.
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="VestaWeed.1.html#DescSect">Description</A>
+<LI> <A HREF="VestaWeed.1.html#StepsSect">Step-by-Step Instructions</A>
+<LI> <A HREF="VestaWeed.1.html#OptionsSect">Options</A>
+<LI> <A HREF="VestaWeed.1.html#InputSect">Input File Format</A>
+<LI> <A HREF="VestaWeed.1.html#DiagnosticsSect">Diagnostics</A>
+<LI> <A HREF="VestaWeed.1.html#ExampleSect">Examples</A>
+<LI> <A HREF="VestaWeed.1.html#ConfigSect">Configuration Variables</A>
+<LI> <A HREF="VestaWeed.1.html#FilesSect">Files</A>
+<LI> <A HREF="VestaWeed.1.html#BugsSect">Bugs</A>
+<LI> <A HREF="VestaWeed.1.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="DescSect">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<I>VestaWeed</I> is the Vesta-2 weeder. It reads the instructions file
+<I>root-file</I>, which specifies a set of package builds to be kept, as
+described in the <A HREF="VestaWeed.1.html#InputSect">Input File Format</A> section below.
+Any cache entries and derived files that participated in those builds
+are kept, and all others are deleted.
+<I>VestaWeed</I> runs in parallel with the Vesta-2 function cache server
+<A HREF="VCache.1.html">VCache(1)</A>, so new builds can be performed while
+the weeder is running.<P>
+
+Weeding has two phases. The <I>mark</I> phase marks all cache entries
+and derived files that are reachable from any of the <I>root</I> package
+builds specified in <I>root-file</I>.  During the subsequent
+<I>deletion</I> phase, any unmarked cache entries and derived files are
+deleted.<P>
+
+Depending on the number of packages that have been built and the size
+of the repository being used, a weed may take quite a long time to
+run.  Further, once the mark phase is finished, the weed must run to
+completion before a new weed can be started with a different
+instructions file.  Therefore, when the mark phase finishes, the
+weeder writes its state to stable storage so that it can resume after
+a crash.  The next time the weeder is run after a crash, it will
+resume the deletion phase where it left off and complete it before
+beginning a new weed.  To complete a previous weed without starting
+a new one, run <I>VestaWeed</I> without specifying a <I>root-file</I>.
+To check whether an incomplete weed exists without completing it,
+run <I>VestaWeed</I> with the -nodelete flag and without a <I>root-file</I>.<P>
+
+It is a fatal error to run two weeds simultaneously. If you do, you'll
+receive the following error message, and the weed will be aborted:
+<PRE>
+  Fatal error: another weed is already in progress!
+</PRE>
+
+<I>VestaWeed</I> requires that both a function cache and repository are
+running. Since <I>VestaWeed</I> requires root access to the repository,
+it must be run as the Vesta administrator.
+</BLOCKQUOTE>
+
+<H3><A NAME="StepsSect">Step-by-Step Instructions</A></H3>
+<BLOCKQUOTE>
+<P>
+
+To run the weeder, you should follow these steps:<P>
+
+<OL>
+<LI>
+Create a file of weeder instructions for the weeder to read. The
+instructions file has the <A HREF="VestaWeed.1.html#InputSect">file format</A> described
+below. As an example, here is the file currently used by the Vesta
+developers:
+<PRE>
+  # VestaWeed(1) instruction file for keeping:
+  #  - last main version of each package
+  #  - last main version of each package branch
+  #  - last version of each checkout session
+  #  - last version of each private checkout session
+  #  - last version of each checkout session of each branch
+
+  + /vesta/src.dec.com/vesta/*/LAST/.main.ves
+  + /vesta/src.dec.com/vesta/*/*.*/LAST/.main.ves
+  + /vesta/src.dec.com/vesta/*/checkout/LAST/LAST/.main.ves
+  + /vesta/src.dec.com/vesta/*/checkout/LAST.*/LAST/.main.ves
+  + /vesta/src.dec.com/vesta/*/*.*/checkout/LAST/LAST/.main.ves
+</PRE>
+
+You will need to modify these instructions to suit your particular
+package organization, and to keep the package builds that you consider
+important.<P>
+
+<LI>
+su to the Vesta administrator account. VestaWeed must be run as the
+Vesta administrator!<P>
+
+<LI>
+Run the weeder using the <A HREF="VestaWeed.1.html#QOption">-query</A> option to have the weeder
+prompt you before actually doing any deletions. For example, if your
+<I>root-file</I> instructions file is named <TT>weed-pkgs.txt</TT>, you
+could run:
+<PRE>
+  % VestaWeed -q -m -r -keep 2d -debug All weed-pkgs.txt
+</PRE>
+
+The <I><A HREF="VestaWeed.1.html#KeepOption">-keep 2d</A></I> option instructs the weeder to
+keep any builds performed within the past 2 days. The other
+<A HREF="VestaWeed.1.html#OptionsSect">options</A> are described below. Be sure to
+scrutinize the output produced by the <A HREF="VestaWeed.1.html#ROption">-roots</A> option to
+make sure that everything that you expect to be kept has a disposition
+of either "+" or "&gt;".<P>
+
+<LI>
+If you are satisfied with the output from the previous step, answer
+the weeder's query in the affirmative to tell it to perform the
+deletions.
+</OL>
+<P>
+
+More examples of weeder use are described in the
+<A HREF="VestaWeed.1.html#ExampleSect">Examples</A> section below.
+</BLOCKQUOTE>
+
+<H3><A NAME="OptionsSect">Options</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The weeder recognizes the following command-line options. All options
+can be abbreviated to a single letter.<P>
+
+<DL>
+<DT><A NAME="NOption"><B>-nodelete</B></A><DD>
+Do not actually delete any cache entries or derived files. This option
+is intended to be used with the <B>-models</B>, <B>-roots</B>, and/or <B>-debug</B>
+options below to determine which package builds will be kept and which
+will not. This option is mutually exclusive with <B>-query</B>.<P>
+
+<DT><A NAME="QOption"><B>-query</B></A><DD>
+Query the user before proceeding to the weeder's deletion phase. This option
+is intended to be used with the <B>-models</B>, <B>-roots</B>, and/or <B>-debug</B>
+options below to determine which package builds will be kept and which
+will not. If the results from the mark phase are satisfactory, type
+"yes" to continue the weeding process. This option is mutually
+exclusive with <B>-nodelete</B>.<P>
+
+<DT><A NAME="MOption"><B>-models</B></A><DD>
+As described in the <A HREF="VestaWeed.1.html#InputSect">Input File Format</A> section
+below, the <I>root-file</I> contains <I>model patterns</I>, each of which
+matches a <I>set</I> of model files in the Vesta repository. The <B>-models</B>
+option prints the names of all the actual model files matched by each
+of the patterns.<P>
+
+<DT><A NAME="ROption"><B>-roots</B></A><DD>
+For each package built against the function cache, this option prints an
+indication as to whether or not that package will be treated as a root
+of the weed or not. This option is useful for determining exactly
+which builds will be kept and which will be deleted according to the
+<I>root-file</I>. Since the processing for this option requires scanning the
+entire repository, it can take a while to run.<P>
+
+For each different package build found in the function cache's graph
+log, this option prints the name of the package build (i.e., the full
+pathname of the evaluated model) preceded by a single character
+indicating its disposition:<P>
+
+<DL>
+<DT>"<TT>+</TT>"<DD>
+indicates that the <I>root-file</I> specifies the package
+should be kept;
+<DT>"<TT>&gt;</TT>"<DD>
+indicates that the <I>root-file</I> does <I>not</I> specify
+that the package should be kept, but the package will be kept because
+it is new enough according the specified <B>-keep</B> value, as
+described below; and
+<DT>"<TT>-</TT>"<DD>
+indicates that the package will not be kept.
+</DL>
+<P>
+
+In some cases, a full pathname is not printed. Instead, lines like
+the following may be printed:
+<PRE>
+  - /vesta/src.dec.com/test2/test/checkout/3/17; modelShortId = 0xa178760d
+</PRE>
+
+<PRE>
+  - pkgDirFP = 79325c4a7da511f8 a64f3b1646bdb47b; modelShortId = 0xa178760d
+</PRE>
+
+The first line indicates the disposition of the evaluation of the
+model with the specified shortid residing in the named directory.
+This sort of line is usually caused by the fact that the evaluated
+model did not end with a "<I>.ves</I>" extension. In this case,
+you can use "ls -li" in the named directory to see the shortids
+(in decimal) of the files in that directory. Unless the model
+has since been deleted, one of the listed shortids will match
+the one printed by VestaWeed.<P>
+
+The second line indicates the disposition of the evaluation of the
+model with the specified shortid residing in the immutable directory
+with the specified 128-bit fingerprint. This degenerate output is
+printed as a last resort when not even the directory of the evaluated
+model could be found. It is most likely caused by the fact that the
+model in question (and the directory in which it was contained) have
+been deleted.<P>
+
+<DT><A NAME="KeepOption"><B>-keep</B> <I>dur</I></A><DD>
+Specifies that the weeder should keep any package build performed less
+than <I>dur</I> hours ago, regardless of whether the <I>root-file</I>
+says that it should be kept. If <B>-keep</B> is not specified,
+<I>dur</I> defaults to 0.<P>
+
+By default, the duration <I>dur</I> specifies a time interval in hours.
+Different time units may be specified by adding a trailing letter to
+specify other units: "d" for days, "h" for hours, and "m" for
+minutes. For example, "-keep 2d" specifies a keep interval of two
+days.<P>
+
+<DT><A NAME="DebugOption"><B>-debug</B> <I>level</I></A><DD>
+By default, no debugging information is printed. However, the weeder
+has support for printing various kinds of debugging information. This
+debugging output is categorized into various levels. All levels at and
+below the specified <I>level</I> will be printed. The values of
+<I>level</I> that are relevant to the weeder (in increasing order) are:<P>
+
+<DL>
+<DT><I>None</I><DD>
+Don't print any debugging information. This is the default.<P>
+
+<DT><I>StatusMsgs</I><DD>
+Print weeder status messages.<P>
+
+<DT><I>LogRecover</I><DD>
+Print a description of data recovered from the weeder's logs at
+start-up.<P>
+
+<DT><I>LogFlush</I><DD>
+Print a description of data written to the weeder's logs when
+they are flushed.<P>
+
+<DT><I>WeederOps</I><DD>
+Print the arguments and results of all weeder calls  to the cache
+server.<P>
+
+<DT><I>WeederScans</I><DD>
+Print a message each time the graph log (or intermediate
+representation of the graph log) is scanned.<P>
+
+<DT><I>All</I><DD>
+Print all debugging information. This is equivalent to <I>WeederScans</I>.
+</DL>
+<P>
+
+Debugging output is grouped into logical <I>entries</I>. Each debugging
+output entry includes a timestamp.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="InputSect">Input File Format</A></H3>
+<BLOCKQUOTE>
+<P>
+
+This section describes the format of the input <I>root-file</I>. The
+<I>root-file</I> consists of a series of <I>model patterns</I>, each
+separated by a newline. Comments and blank lines are also allowed. A
+comment is any line starting with a pound character "<TT>#</TT>"; all
+characters from the start of the line up to and including the first
+newline are ignored.<P>
+
+Each model pattern is the character "<TT>+</TT>" or "<TT>-</TT>" followed
+by a pathname. The pathname specifies a set of models. The set of
+models to be used as roots of the weed is built up incrementally.
+Model patterns that start with "<TT>+</TT>" are added to the current set
+of roots to keep, while model patterns that start with "<TT>-</TT>" are
+removed from the set. In this way, selectively smaller subsets may be
+alternatingly added and removed from the final set of roots. After all
+of the patterns have been processed, the remaining set of models are
+the ones that will be treated as roots of the weed.<P>
+
+The pathname portion of a model pattern may contain the familiar
+meta-characters recognized by the shell globbing mechanism. These
+include:<P>
+
+<DL>
+<DT>*<DD>
+Match zero or more characters.<P>
+
+<DT>?<DD>
+Match a single character.<P>
+
+<DT>[<I>chars</I>]<DD>
+Match one of the characters listed in <I>chars</I>.<P>
+
+<DT>{<I>x_1</I>,<I>x_2</I>,<I>...</I>,<I>x_n</I>}<DD>
+Match any of the strings <I>x_i</I>. Nested meta-characters
+within such patterns are not supported.
+</DL>
+<P>
+
+In addition to these patterns, the following special patterns
+are also recognized in model patterns:<P>
+
+<DL>
+<DT>FIRST<DD>
+Matches the name in the specified directory consisting entirely of
+decimal digits (with no leading zeroes) and with the smallest numerical
+value.<P>
+
+<DT>LAST<DD>
+Matches the name in the specified directory consisting entirely of
+decimal digits (with no leading zeroes) and with the largest numerical
+value.<P>
+
+<DT>[<I>exprLow</I>,<I>exprHigh</I>]<DD>
+Here, both <I>exprLow</I> and <I>exprHigh</I> are integer-valued expressions.
+This matches any name in the specified directory consisting entirely of
+decimal digits (with no leading zeroes) whose value is in the closed
+interval <I>[low,high]</I>, where <I>low</I> and <I>high</I> are the values of
+the expressions <I>exprLow</I> and <I>exprHigh</I>, respectively. If 
+<I>high &lt; low</I>, then the interval is empty. Each expression in an
+interval pattern may be of the form "<I>expr</I> - <I>expr</I>" or
+"<I>expr</I> + <I>expr</I>", where each <I>expr</I> is either a decimal
+number, one of the special patterns <TT>FIRST</TT> or <TT>LAST</TT>
+described above, or an <I>expr</I>.
+</DL>
+<P>
+
+Note: The traditional square-bracket metasymbols to match one of a set
+of characters can still be used, even though square brackets are also used
+to represent integer-valued intervals. The two cases can be
+disambiguated by the appearance or absence of a comma. To specify a
+set of characters that includes a comma, you must include the comma as
+either the first or the last character of the set.<P>
+
+Each model pattern is matched against the contents of the filesystem
+on which <I>VestaWeed</I> is run. If the pattern contains any of the
+meta-symbols described above, it may match several different model
+files. If the <A HREF="VestaWeed.1.html#MOption"><B>-models</B></A> option is specified, the full
+pathname of each model file so matched is written to the standard
+output.<P>
+
+Technical point: File and directory names in the file system that begin
+with dot are not matched by any meta-symbols.
+</BLOCKQUOTE>
+
+<H3><A NAME="DiagnosticsSect">Diagnostics</A></H3>
+<BLOCKQUOTE>
+<P>
+
+If the weeder fails, it prints out a diagnostic error message. These
+error messages are meant to be self-explanatory.<P>
+
+The error message:
+<PRE>
+  Repository error: noPermission (code = 2)
+    Failing operation: VestaSource::list
+  Exiting...
+</PRE>
+
+indicates that the weeder got a permission-denied error accessing the
+repository. This error can be avoided by running VestaWeed from the
+Vesta administrator account.
+</BLOCKQUOTE>
+
+<H3><A NAME="ExampleSect">Examples</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Here are some examples of various weeder instructions and subsequent
+runs of the weeder:<P>
+
+<DL>
+<DT><B>Example 1</B><P>
+
+<DD><PRE>
++ /vesta/src.dec.com/vesta/*/LAST/.main.ves
+</PRE>
+
+This <I>root-file</I> specifies that only the last main build of each
+vesta package should be kept. Here is a sample run of the program
+using this file:
+<PRE>
+$ VestaWeed -n -r -keep 1h last-main.txt
+Disposition of GraphLog roots:
+  + /vesta/src.dec.com/vesta/release/13/.main.ves
+  + /vesta/src.dec.com/vesta/srpc/6/.main.ves
+  + /vesta/src.dec.com/vesta/log/7/.main.ves
+  - /vesta/src.dec.com/vesta/log/5/.main.ves
+  - /vesta/src.dec.com/vesta/srpc/5/.main.ves
+  &gt; /vesta/src.dec.com/vesta/basics/24/.main.ves
+</PRE>
+
+Notice that the "vesta/basics/24" package is only
+kept because it was built less than one hour ago.<P>
+
+<DT><B>Example 2</B><P>
+
+<DD><PRE>
++ /vesta/src.dec.com/{common,vesta}/*/[LAST-4,LAST]/.main.ves
++ /vesta/src.dec.com/{common,vesta}/*/checkout/LAST/*/.main.ves
+</PRE>
+
+This <I>root-file</I> specifies that the last 5 builds of every package in
+the "common" and "vesta" portions of the repository should be
+kept, and that all of the builds in the last checkout session of those
+packages should also be kept.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ConfigSect">Configuration Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Like most Vesta-2 applications, the weeder reads site-specific
+configuration information from a Vesta-2 <I>configuration file</I> named
+<I>vesta.cfg</I>. The weeder first looks for this file in the
+current directory; if none is found there, it looks in your home
+directory.<P>
+
+The configuration file is divided into a number of sections, denoted
+in the file by <TT>[</TT><I>SectionName</I><TT>]</TT>. The weeder uses variables
+in the <TT>[CacheServer]</TT> and <TT>[Weeder]</TT> sections of the
+configuration file. Here are the variables and their meanings; the
+types of the variables are shown in parentheses. Those variables
+corresponding to paths or directories should <I>not</I> end with a slash
+("/") character.<P>
+
+The following variables are read from the <TT>[CacheServer]</TT> section
+of the configuration file:<P>
+
+<DL>
+<DT><TT>Host</TT> (string)<DD>
+The name of the machine on which the cache server is running.<P>
+
+<DT><TT>Port</TT> (string)<DD>
+The port on the above machine to contact for RPC connections.<P>
+
+<DT><TT>MetaDataRoot</TT> (string)<DD>
+The pathname of the directory in which the Vesta system's metadata is
+stored. If this variable is undefined, the current directory is used.
+Other configuration variables are interpreted relative to this path.<P>
+
+<DT><TT>MetaDataDir</TT> (string)<DD>
+The directory (relative to the MetaDataRoot) in which the cache
+server's metadata is stored.<P>
+
+<DT><TT>GraphLogDir</TT> (string)<DD>
+The directory (relative to the MetaDataRoot/MetaDataDir) in which
+the cache server stores its graph log, which is read by the weeder.
+</DL>
+<P>
+
+The following variables are read from the <TT>[Weeder]</TT> section of the
+configuration file:<P>
+
+<DL>
+<DT><TT>MetaDataDir</TT> (string)<DD>
+The directory (relative to the $MetaDataRoot) in which the weeder's
+metadata is stored.<P>
+
+<DT><TT>Weeded</TT>, <TT>MiscVars</TT> (strings)<DD>
+The files (relative to $MetaDataRoot/$MetaDataDir)
+corresponding to stable weeder variables.<P>
+
+<DT><TT>PendingGL</TT>, <TT>WorkingGL</TT> (strings)<DD>
+The names of the cache server's "pending" and "working"
+graphLog files. The files are stored in $MetaDataRoot/$MetaDataDir.<P>
+
+<DT><TT>GLNodeBuffSize</TT> (integer)<DD>
+This is the maximum number of graph log nodes the weeder keeps
+buffered in memory when it processes the graph log. The larger the
+number, the more memory required by the weeder, but the fewer times
+the weeder will have to scan the graph log during its mark phase.<P>
+
+<DT><TT>DIBuffSize</TT> (integer)<DD>
+This is the maximum number of derived indices the weeder keeps
+buffered in memory to avoiding writing duplicate derived indices to
+the "derived keep file" to be read by the repository.<P>
+
+<DT><TT>GracePeriod</TT> (integer)<DD>
+This optional setting specifies an amount of time (in seconds) to
+subtract from the weeder start time.  Any files in the repository
+(source or derived) changed after that time will be kept during
+weeding.  This closes a small hole which can allow files written by
+long-running tools that finish close to when the weeder starts to be
+deleted incorrectly.  An ideal setting would be the duration of the
+longest running tool.  Defaults to 60 seconds if not set.  Ignored if
+set to a negative value.
+</DL>
+<P>
+
+The following variables are also read from the <TT>[Weeder]</TT> section
+of the configuration file. They are used to prevent weeds against local
+caches. They specify the location of the centralized cache server, and
+should not be overridden by local configuration files. If you try to
+run the weeder against a local cache, you will get an error message
+and the weed will not proceed. Check your configuration file to be sure
+that it is selecting the centralized cache at your site.<P>
+
+<UL>
+<LI> <TT>CacheHost</TT> (string)
+<LI> <TT>CachePort</TT> (string)
+<LI> <TT>CacheMDRoot</TT> (string)
+<LI> <TT>CacheMDDir</TT> (string)
+<LI> <TT>CacheGLDir</TT> (string)
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="FilesSect">Files</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><TT>./vesta.cfg</TT><DD>
+The Vesta-2 configuration file (first check is in current directory).<P>
+
+<DT><TT>$HOME/vesta.cfg</TT><DD>
+The Vesta-2 configuration file (second check is in home directory).<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$Weeded</TT><DD>
+Records the current state of the weeder's <I>weeded</I>
+stable variable.<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$MiscVars</TT><DD>
+Records the current state of several of the weeder's other
+stable variable.<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$PendingGL</TT><DD>
+The weeder's "pending" version of the graphLog. This is the on-disk
+file in which overflow graphLog nodes are written.<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$WorkingGL</TT><DD>
+The weeder's "working" version of the graphLog.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="BugsSect">Bugs</A></H3>
+<BLOCKQUOTE>
+<P>
+
+There are no known bugs.
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="QuickWeed.1.html">QuickWeed(1)</A>,
+<A HREF="VCache.1.html">VCache(1)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://src-www.pa.dec.com/~heydon/home.html">Allan Heydon</A>
+(<TT>heydon@pa.dec.com</TT>)
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

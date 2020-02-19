@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Re-exporting the repository with Samba</title>
+  </head>
+
+  <body bgcolor="#efefff">
+    <h1>Re-exporting the repository with Samba</h1>
+
+    <p>
+
+      At this time, Vesta doesn't directly support Windows clients.
+      However, it's easy to give them access to the repository by
+      re-exporting it using <a href="http://www.samba.org/">Samba</a>.
+
+    </p>
+
+    <p>
+
+      All you need is a Vesta client machine with Samba installed.
+      Simply add this to the end of your <tt>smb.conf</tt>
+      configuration file (probably <tt>/etc/smb.conf</tt> or
+      <tt>/etc/samba/smb.conf</tt>):
+
+    </p>
+
+    <pre>[vesta]
+   comment = Vesta Repository
+   browsable = yes
+   writable = no
+   path = /vesta
+
+[vestawork]
+   comment = vesta-work Directory
+   browsable = yes
+   writable = yes
+   path = /vesta-work/%u</pre>
+
+    <p>
+
+      After adding this (and restarting the Samba daemon to make the
+      changes take effect), you can access
+      <tt>\\<i>sambaserver</i>\vesta</tt> and
+      <tt>\\<i>sambaserver</i>\vestawork</tt> from a Windows machine.
+      You can map them to drive letters <tt>V:</tt> and <tt>W:</tt> to
+      make them easier to access.
+
+    </p>
+
+    <p>
+
+      Of course this won't allow any of the client programs to work on
+      Windows.  You'll still need a shell on a supported platform to
+      create packages, check out, check in, etc.  However, this will
+      allow you to use native Windows editors and filesystem
+      utilities.
+
+      You can read all files in the appendable part of the repository
+      and make changes to your checkout working directories.  The user
+      you log in as will determine which subdirectory of
+      <tt>/vesta-work</tt> appears in
+      <tt>\\<i>sambaserver</i>\vestawork</tt>.  Changes that you make
+      with Vesta command-line tools (e.g. creating packages,
+      checkouts, etc.) will show up in the drives exported by Samba.
+
+    </p>
+
+    <p>
+      <i>[We're no Samba experts.  Suggestions for improvement are
+      welcome.]</i>
+    </p>
+
+    <hr>
+    <address>
+      Web page by <a href="mailto&#58;ken&#64;xorian&#46;net">Kenneth C. Schalk</a><br>
+      Implementation by <a href="mailto&#58;scott&#64;scooter&#46;cx">Scott Venier</a>
+    </address><br>
+<!-- Created: Wed May 14 08:58:53 EDT 2003 -->
+<!-- hhmts start -->
+Last modified: Mon Oct 13 10:38:55 EDT 2003
+<!-- hhmts end -->
+  </body>
+</html>

@@ -1,0 +1,214 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vglob - Expand a file pattern with metacharacters in the Vesta repository</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vglob(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vglob</B> - Expand a file pattern with metacharacters in the Vesta repository
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vglob</B>
+    [<A HREF="vglob.1.html#-v">-v</A>]
+    [<A HREF="vglob.1.html#-R">-R</A> <I>host</I>[:<I>port</I>]]
+    <I>patterns...</I>
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vglob.1.html#Description">Description</A>
+<LI> <A HREF="vglob.1.html#Flags">Flags</A>
+<LI> <A HREF="vglob.1.html#Patterns">Patterns</A>
+<LI> <A HREF="vglob.1.html#Environment">Environment</A>
+<LI> <A HREF="vglob.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vglob.1.html#See_Also">See Also</A>
+<LI> <A HREF="vglob.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The <B>vglob</B> command expands filename patterns with metacharacters
+in the Vesta repository.  It accepts the same kinds of patterns as the
+<B>vrepl</B> command.<P>
+
+<B>vglob</B> can be an aid in developing replicator instructions and can
+also be used by scripts to expand filename patterns in local or remote
+repositories.
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-v">-v</A><DD>
+Turn on verbose output.  When there are multiple patterns given, this
+makes it clear which pattern expanded to which pathnames.  This is
+more human-readable, but less useful for scripts.<P>
+
+<DT><A NAME="-R">-R</A> host[:port]<DD>
+Specifies which repository to contact. This makes it possible to
+expand patterns in remote repositories.  Defaults to the local
+repository.<P>
+
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Patterns">Patterns</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The pattern language uses a syntax similar to Unix shell filename
+wildcards with some extensions.<P>
+
+A pathname pattern is a sequence of arcs separated by '<TT>/</TT>'
+characters.  Metacharacters can appear within an arc, but a
+metacharacter cannot match a '<TT>/</TT>' except as specifically noted
+below.  The following metacharacters are recognized.<P>
+
+<DL>
+<DT><TT>*</TT><DD> Matches zero or more characters.<P>
+
+<DT><TT>#</TT><DD> Matches zero or more decimal digits.<P>
+
+<DT><TT>?</TT><DD> Matches a single character.<P>
+
+<DT><TT>[</TT><I>chars</I><TT>]</TT><DD> Matches one of the characters listed in
+<I>chars</I>.  The notation <I>b-e</I> may be used to mean the range of
+ASCII characters from <I>b</I> through <I>e</I> inclusive.  Most
+metacharacters lose their special meanings within brackets, but '<TT>/</TT>'
+may not appear, '<TT>]</TT>' may appear only if it is the first character in
+the list, '<TT>^</TT>' may appear only if it is not the first character in the
+list, and '<TT>-</TT>' or '<TT>,</TT>' may appear only if it is the first or last
+character in the list.<P>
+
+<DT><TT>[^</TT><I>chars</I><TT>]</TT><DD> As above, but matches one of the characters not
+in <I>chars</I>.<P>
+
+<DT><TT>{</TT><I>p1</I><TT>,</TT><I>p2</I><TT>,</TT>...<TT>,</TT><I>pn</I><TT>}</TT><DD>
+Matches any one of the patterns
+<I>p1</I> through <I>pn</I>.  The patterns can contain arbitrary
+metacharacters including nested <TT>{ }</TT>'s, but they cannot contain '<TT>/</TT>'
+characters.<P>
+
+<DT><TT>FIRST</TT><DD> Matches an arc in the current directory (as specified by
+the previous arcs in the pattern) that consists entirely of decimal
+digits, has no leading zeroes, is not bound to a ghost or stub, and
+has the smallest numeric value of all such arcs.<P>
+
+<DT><TT>LAST</TT><DD> Same as <TT>FIRST</TT>, except that the arc with the largest
+numeric value is matched.<P>
+
+<DT><TT>[</TT>exprLow<TT>,</TT>exprHigh<TT>]</TT><DD> Matches a nonempty sequence of decimal
+digits whose numeric value is in the closed interval [exprLow,
+exprHigh].  Here <I>exprLow</I> and <I>exprHigh</I> are integer-valued
+expressions &lt;expr&gt; of the form &lt;value&gt; or &lt;expr&gt;&lt;op&gt;&lt;value&gt;, where
+&lt;value&gt; is either a decimal number, <TT>FIRST</TT>, or <TT>LAST</TT>, and &lt;op&gt; is 
+either '<TT>+</TT>' or '<TT>-</TT>'.  The 
+tokens <TT>FIRST</TT> and <TT>LAST</TT> have the same meaning as when
+they appear alone.  For example, "/vesta/foo/bar/[LAST-2,LAST]" would
+match any of the three most recent versions of the foo/bar package.<P>
+
+<DT><TT>%</TT><DD> If the first character of a pattern arc is '<TT>%</TT>', 
+the remainder 
+of the pattern arc matches zero or more complete arcs in the repository.
+For example, the pattern "/vesta/%*/checkout" matches every checkout
+directory in the repository, no matter how many levels below the root
+it is.  This is the only case where a metacharacter can match a string
+containing '<TT>/</TT>'.<P>
+
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Environment">Environment</A></H3>
+<BLOCKQUOTE>
+<P>
+
+As with all Vesta tools, <TT>$VESTACONFIG</TT> can be used to override the
+default location for the Vesta configuration file.  No other
+environment variables are used.
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the Vesta configuration file
+(vesta.cfg).<P>
+
+From the <TT>[Repository]</TT> section:
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+Host name of the default local repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+TCP port number of the default local repository.
+</DL>
+<P>
+
+From the <TT>[UserInterface]</TT> section:
+<DL>
+<DT><I>realm</I><DD>
+Name of the local realm.  <TT>@</TT><I>realm</I> is appended to local user names
+to obtain global user names.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vrepl.1.html"><B>vrepl</B>(1)</A>,
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<BR>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Ken Schalk &lt;<A HREF="mailto:ken@xorian.net"><TT>ken@xorian.net</TT></A>&gt;<P>
+
+Most of the actual pattern matching code is common with
+<A HREF="vrepl.1.html"><B>vrepl</B>(1)</A>, and was written by Tim Mann.
+Portions of this man page are copied directly from the
+<A HREF="vrepl.1.html"><B>vrepl</B>(1) man page</A>, also by Tim Mann.
+<BR>
+<P>
+
+<PRE>
+Last modified on Mon May 12 11:27:07 EDT 2003 by ken@xorian.net         
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

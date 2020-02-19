@@ -1,0 +1,448 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vadvance - Advance version in a Vesta session</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vadvance(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vadvance</B> - Advance to the next version within a Vesta checkout session
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vadvance</B> [<A HREF="vadvance.1.html#-t">-t</A>] [<A HREF="vadvance.1.html#-q">-q</A>] [<A HREF="vadvance.1.html#-Q">-Q</A>] [<A HREF="vadvance.1.html#-f">-f</A>]
+[<A HREF="vadvance.1.html#-v">-v</A>]
+[<A HREF="vadvance.1.html#-F">-F <I>fp-content</I></A>]
+[<A HREF="vadvance.1.html#-j">-j</A> <I>junk</I> | <A HREF="vadvance.1.html#-J">-J</A>]
+[<A HREF="vadvance.1.html#-z">-z</A> <I>maxsize</I> | <A HREF="vadvance.1.html#-Z">-Z</A>]
+[<A HREF="vadvance.1.html#-s">-s <I>session-dir</I></A>]
+[<A HREF="vadvance.1.html#-a">-a <I>session-ver-arc</I></A>]
+[<A HREF="vadvance.1.html#-R">-R <I>repos</I></A>]
+[<A HREF="vadvance.1.html#-w">[-w] <I>work-dir</I></A>] <P>
+
+In the most common usage, vadvance is invoked from the checkout
+session's working directory, and no arguments are needed.
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vadvance.1.html#Description">Description</A>
+<LI> <A HREF="vadvance.1.html#Flags">Flags</A>
+<LI> <A HREF="vadvance.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vadvance.1.html#Triggers">Triggers</A>
+<LI> <A HREF="vadvance.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vadvance.1.html#See_Also">See Also</A>
+<LI> <A HREF="vadvance.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+See the <A HREF="vesta-intro.1.html">vesta-intro</A> man page's
+<A HREF="vesta-intro.1.html#Terminology">Terminology</A> section
+for definitions of terms, and its
+<A HREF="vesta-intro.1.html#Name_Interpretation">Name Interpretation</A>
+section for an explanation of how names are looked up.<P>
+
+The <B>vadvance</B> command cleans up and snapshots the contents of a working
+directory to form the next version in a Vesta checkout session.<P>
+
+In more detail: <B>vadvance</B>'s cleanup phase walks the directory tree
+rooted at <I>work-dir</I>.
+If the last arc of any file's name matches one of the patterns in
+<I>junk</I>, the file is deleted.  Here <I>junk</I> is a
+space-separated list of <B>glob</B>(3) patterns.  If a file 
+added since the last advance is larger
+than <I>maxsize</I>, <B>vadvance</B> exits with an error message upon
+encountering it.  Next, by default, <B>vadvance</B> checks whether
+anything under <I>work-dir</I> has changed since the last advance; if
+not, it exits with an informational message.  Finally, <B>vadvance</B>'s
+snapshot phase binds <I>session-dir</I><TT>/</TT><I>session-ver-arc</I> to a
+new immutable directory that is a copy of the mutable directory
+<I>work-dir</I>, and then sets the <TT>session-ver-arc</TT> attribute of
+<I>work-dir</I> to <I>session-ver-arc</I>.<P>
+
+<IMG SRC="vadvance.gif" ALT="vadvance figure"
+WIDTH=436 HEIGHT=427 BORDER=0>
+<P>
+
+You must have read and write access to <I>work-dir</I> and 
+write access to <I>session-dir</I>.
+The newly created snapshot is owned by you, but
+has access permissions inherited from
+<I>session-dir</I>.<P>
+
+Without the <A HREF="vadvance.1.html#-t">-t</A> flag, <B>vadvance</B> returns status 0 if
+the advance was successful or if no advance was performed because
+nothing changed, 1 for parameter syntax errors, or 2 for more serious
+errors.  See the description of <A HREF="vadvance.1.html#-t">-t</A> below for how it affects
+the exit status.  (Note that if any of the <A HREF="vadvance.1.html#Triggers">trigger
+commands</A> fail, <B>vadvance</B> returns status 2.)<P>
+
+<A NAME="renamed-work-dir">If <I>work-dir</I> has been renamed,
+<B>vadvance</B> will silently re-connect it to <I>session-dir</I> and any
+version reservation.  (To be specific, it checks whether <I>work-dir</I>
+matches the "<TT>work-dir</TT>" attribute on <I>session-dir</I> and the
+version reservation pointed to by the "<TT>new-version</TT>" attribute of
+<I>work-dir</I>, if any.  If they don't match, it corrects those
+"<TT>work-dir</TT>" attributes.)  So if you rename a <I>work-dir</I>, just
+run <B>vadvance</B> on it to update the "<TT>work-dir</TT>" attributes which
+link to it from these other objects.  With either the <A HREF="vadvance.1.html#-t">-t</A>
+or <A HREF="vadvance.1.html#-Q">-Q</A> flag, it will <I>not</I> correct the "<TT>work-dir</TT>"
+attributes.</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-q">-q</A><DD>
+Quiet; suppress printing out what is being done.
+<DT><A NAME="-Q">-Q</A><DD>
+Query; print out what the command would do, but don't do it.  (Note
+that this disables running any <A HREF="vadvance.1.html#Triggers">triggers</A> you have
+configured.)
+<DT><A NAME="-t">-t</A><DD>
+Test; exit with 0 status only if no advance would be performed because
+nothing changed.  Exit with 255 if the working directory has been modified.
+Implies -Q.
+<DT><A NAME="-w">-w</A> <I>work-dir</I><DD>
+The mutable working directory to snapshot to produce the new version.
+If you place this option last on the command line, you can omit the -w.
+If the name <I>work-dir</I> is 
+unqualified (does not have "<TT>/</TT>", "<TT>.</TT>", or "<TT>..</TT>" as its first arc),
+it is interpreted relative
+to <A HREF="vadvance.1.html#Configuration"><I>DefaultWorkParent</I></A><TT>/</TT><I>user</I>,
+where <I>user</I> is your local user name.
+Defaults to the current directory, or if <A HREF="vadvance.1.html#-s">-s</A> is not used
+and the current directory has no <TT>session-dir</TT> attribute, the
+nearest parent directory with a non-empty <TT>session-dir</TT> attribute.
+<DT><A NAME="-s">-s</A> <I>session-dir</I><DD>
+The session directory that will hold the new version.
+If the name <I>session-dir</I> is unqualified,
+it is interpreted relative to the
+site's default directory of packages, 
+<A HREF="vadvance.1.html#Configuration"><I>DefaultPackageParent</I></A>.  
+Defaults to the <TT>session-dir</TT>
+attribute of <I>work-dir</I>, if any.
+<DT><A NAME="-a">-a</A> <I>session-ver-arc</I><DD>
+The new version in the session directory.  Must be a single arc (i.e.,
+must contain no "<TT>/</TT>" characters).
+Defaults to the highest version
+number bound in <I>session-dir</I> plus 1.  That is, <I>session-dir</I> is searched
+for arcs consisting entirely of decimal digits, the one with the highest value
+is chosen, and it is incremented by 1 to obtain the default.  
+If no such arcs are found, the default is set to <TT>1</TT>.
+<DT><A NAME="-f">-f</A><DD>
+Force; omit sanity checking.
+If the -f flag is not given:
+<UL>
+<LI> The directory <I>session-dir</I> must be of type "session".
+(That is, its <TT>type</TT> attribute must include this value.)
+<LI> Some file or directory in the tree rooted at the working directory 
+must have changed since the last <B>vadvance</B>.
+</UL>
+<DT><A NAME="-F">-F</A> <I>fp-content</I><DD>
+Any new or modified files in the directory that are strictly less than
+<I>fp-content</I> bytes long are fingerprinted deterministically
+according to their contents.  Longer files are fingerprinted with
+arbitrary unique identifiers.  The cost of fingerprinting a file's
+contents is non-trivial, but doing so allows for cache hits in cases
+where two evaluations depend on files that have identical contents but
+were inserted into the repository separately.  The default value for
+this parameter is determined by the Vesta configuration file; 
+<A HREF="vadvance.1.html#Configuration">see below</A>.
+The special value -1 causes all files to be fingerprinted by
+contents, while 0 causes all files to be fingerprinted by unique
+identifier.
+<DT><A NAME="-j">-j</A> <I>junk</I><DD>
+A space-separated list of <B>glob</B>(3) patterns used to delete
+unwanted files from the working directory tree before advancing.
+If the last arc of a file's name matches one of the patterns in
+<I>junk</I>, and the file was created or modified since the last advance,
+the file is deleted.
+The default value is obtained from the
+Vesta configuration file; <A HREF="vadvance.1.html#Configuration">see below</A>.
+<DT><A NAME="-J">-J</A><DD>
+Clears the <I>junk</I> pattern list; equivalent to <TT>-j ""</TT>.
+<DT><A NAME="-z">-z</A> <I>maxsize</I><DD>
+Size of the largest new file that <B>vadvance</B> will advance into the
+repository, in bytes.  <I>maxsize</I> can be specified with a unit
+multiplier:
+<UL>
+<LI> <B>K</B> = 2^10
+<LI> <B>M</B> = 2^20
+<LI> <B>G</B> = 2^30
+<LI> <B>T</B> = 2^40
+</UL>
+If a file larger than <I>maxsize</I> was created or modified since
+the last advance, the new advance will fail with an error message.
+The default value is obtained from the
+Vesta configuration file; <A HREF="vadvance.1.html#Configuration">see below</A>.
+<DT><A NAME="-Z">-Z</A><DD>
+Disables the file size limit; equivalent to <TT>-z -1</TT>.
+<DT><A NAME="-R">-R</A> <I>repos</I><DD>
+Advance the package in <I>repos</I> instead of the default local
+repository.  The repository is
+specified by host name and TCP port number 
+in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it
+defaults to <A HREF="vadvance.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><A NAME="-v">-v</A><DD>
+Displays extra information about <A HREF="vadvance.1.html#Triggers">triggers</A>.  Before
+executing any trigger commands, the environment variables used to
+provide information to them are printed.  Also, each trigger setting
+is printed before the command is executed.  This can be used to help
+debug trigger problems.  When used with <A HREF="vadvance.1.html#-Q">the query flag
+(-Q)</A>, the triggers are displayed in their sorted order without
+actually running them.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT>
+section of <A HREF="vesta.cfg.5.html">the Vesta configuration file
+(vesta.cfg)</A>.<P>
+
+<DL>
+<DT><I>AppendableRootName</I><DD>
+The filename under which the global root directory of
+Vesta repositories is mounted.  Ordinarily set to <TT>/vesta</TT>.
+<DT><I>MutableRootName</I><DD>
+The filename under which the local tree of mutable directories provided
+by Vesta is mounted.  Ordinarily set to <TT>/vesta-work</TT>.
+<DT><I>DefaultPackageParent</I><DD>
+The default directory to put new packages in.  Ordinarily a
+subdirectory of the appendable root, named with an Internet domain name
+belonging to the local site.
+<DT><I>DefaultWorkParent</I><DD>
+The default parent directory for mutable working directory trees belonging to
+individual users.  Ordinarily the same as the mutable root.
+<DT><I>realm</I><DD>
+Global user names are formed by appending
+<TT>@</TT><I>realm</I> to the local name.
+<DT><I>TimeFormat</I><DD>
+A format string for <B>strftime</B>(3) to produce time strings for Vesta
+attributes.  A common setting is "%a %b %e %T %Z %Y".
+<DT><I>FpContent</I><DD>
+The default value for the <A HREF="vadvance.1.html#-F">-F</A> flag.
+<DT><I>vadvance_junk</I><DD>
+The default value for the <A HREF="vadvance.1.html#-j">-j</A> flag.  If not set,
+the default is "<TT>*~ .*~ core</TT>".
+<DT><I>vadvance_maxsize</I><DD>
+The default value for the <A HREF="vadvance.1.html#-z">-z</A> flag.  If not set,
+the default is 1048576 (1 megabyte).
+</DL>
+<P>
+
+The following values are obtained from the <TT>[Repository]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+The default TCP port number for repositories.
+</DL>
+<P>
+
+Settings in the <TT>[vadvance pre trigger]</TT> and <TT>[vadvance post
+trigger]</TT> sections of the configuration file are used as commands to
+be run before and after the repository is modified.  See
+<A HREF="vadvance.1.html#Triggers">the next section</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Triggers">Triggers</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Users can configure commands in <A HREF="vesta.cfg.5.html">the Vesta
+configuration file (vesta.cfg)</A> to be executed before and after
+<B>vadvance</B> modifies the repository.  Each setting in the
+<TT>[vadvance pre trigger]</TT> section specifies a command to be run
+before any action is taken, and each setting in the <TT>[vadvance post
+trigger]</TT> section specifies a command to be run after all actions are
+complete.<P>
+
+The value of each setting specifies a command to run.  The names of
+the settings define the order in which these commands are run.  The
+setting names are sorted as strings, but comparing embedded sequences
+of digits as decimal integers.  (So, for example "foo_10_bar" will
+sort after "foo_2_bar".)  The suggested naming convention for trigger
+settings is to start with an integer, follow with a descriptive name,
+and follow that with any other text.  (This is based on the convention
+used for System V style init script links typically stored in
+<TT>/etc/rc<I><B>N</B></I>.d</TT>.)<P>
+
+Here's a simple example of how we suggest naming trigger settings, and
+how they are ordered for execution:
+<PRE>
+[vadvance pre trigger]
+100world = echo World!
+9tada    = echo Tada:
+50hello  = echo Hello,
+</PRE>
+
+Because these all start with numbers, they will be executed in the
+order "9tada", "50hello", "100world".  The output will look like this:
+<PRE>
+% vadvance
+Tada:
+Hello,
+World!
+Advancing to /vesta/...
+</PRE>
+
+Trigger commands are executed with <TT>system</TT>(3).  On most operating
+systems this means "<TT>/bin/sh -c <I>command</I></TT>", so simple in-line
+shell scripts can be used.  (Note that each is executed in its own
+shell process, so environment variables set during one trigger command
+<I>will not propagate to subsequent ones</I>.)<P>
+
+If any of the commands in the <TT>[vadvance pre trigger]</TT> section exit
+with error (non-zero) status or are terminated by a signal
+(e.g. segmentation fault, abort), <B>vadvance</B> will exit without
+taking a new snapshot or deleting junk files from the working
+directory.<P>
+
+The commands in the <TT>[vadvance post trigger]</TT> section will only be
+executed if a new snapshot is taken.  If the working directory hasn't
+been modified since the last snapshot or <B>vadvance</B> fails with an
+error, the commands in the <TT>[vadvance post trigger]</TT> section
+<I>will not be executed</I>.<P>
+
+Note that all the trigger commands (both pre and post) are executed
+sequentially.  Once a trigger command is started, nothing else happens
+until it completes.  If any of the pre trigger commands runs forever,
+<B>vadvance</B> will not take a new snapshot.  If any of the post
+trigger commands runs forever, <B>vadvance</B> will not complete.  (In
+other words, <I>a trigger command that hangs will cause <B>vadvance</B>
+to hang</I>.)  If any of the pre or post trigger commands exit with error
+status or are terminated by a signal, <B>vadvance</B> will exit without
+running any more commands from those sections.  (In other words, <I>a
+trigger command that fails will prevent further trigger commands from
+being run</I>.)<P>
+
+If the <A HREF="vadvance.1.html#-Q">the query flag (-Q)</A> is given (or <A HREF="vadvance.1.html#-t">the
+test flag (-t)</A>, which implies query), the trigger commands will not
+actually be run.<P>
+
+Information about what <B>vadvance</B> is going to do or has just done
+is provided to the trigger commands through the following environment
+variables:<P>
+
+<DL>
+
+<DT>VESTA_TOOL<DD>
+The name of the Vesta tool the trigger command has been invoked from.
+(For <B>vadvance</B>, this will always be "vadvance".)
+<DT>VESTA_REPOS<DD>
+The repository (<I>host</I><TT>:</TT><I>port</I>) <B>vadvance</B> communicates
+with (either the default from the configuration file or the one
+specified with the <A HREF="vadvance.1.html#-R">-R flag</A>.
+<DT>VESTA_WORK_DIR<DD>
+The working directory of which a new snapshot is taken.
+<DT>VESTA_SESSION_DIR<DD>
+The session directory within which the new snapshot version is
+created.
+<DT>VESTA_SESSION_VER_ARC<DD>
+The name of the new snapshot version created by <B>vadvance</B> inside
+the session directory.
+<DT>VESTA_SESSION_VER<DD>
+The full path of the new snapshot version created by <B>vadvance</B>.
+(This is the same as "$VESTA_SESSION_DIR/$VESTA_SESSION_VER_ARC".)
+<DT>VESTA_PREV_SESSION_VER_ARC<DD>
+The name of the highest version existing in the session directory when
+<B>vadvance</B> started.
+<DT>VESTA_PREV_SESSION_VER<DD>
+The full path of the highest version existing in the session directory
+when <B>vadvance</B> started.  (This is the same as
+"$VESTA_SESSION_DIR/$VESTA_PREV_SESSION_VER_ARC".)
+<DT>VESTA_JUNK<DD>
+The pattern of "junk files" removed before taking the snapshot.  Set
+to the empty string if removal of junk files is disabled with
+<A HREF="vadvance.1.html#-J">the -J flag</A>.
+<DT>VESTA_MAXSIZE<DD>
+The maximum size of file allowed in the snapshot.
+<DT>VESTA_FP_CONTENT<DD>
+The maximum size of file deterministically fingerprinted by content.
+(If set to -1, then all files will be fingerprinted by content,
+regardless of size.)
+<DT>VESTA_QUIET<DD>
+Set to 1 if <A HREF="vadvance.1.html#-q">the quiet flag (-q) was given</A>, set to 0
+otherwise.
+<DT>VESTA_FORCE<DD>
+Set to 1 if <A HREF="vadvance.1.html#-f">the force flag (-f) was given</A>, set to 0
+otherwise.
+</DL>
+<P>
+
+(Note that the environment variables are the same for both the pre and
+post trigger commands.)<P>
+
+Here are some examples using these environment variables:
+<PRE>
+[vadvance pre trigger]
+50print_change = diff -r -u $VESTA_SESSION_VER $VESTA_WORK_DIR | more
+
+[vadvance post trigger]
+50stamp_wd = vattrib -R $VESTA_REPOS_HOST:$VESTA_REPOS_PORT -s "last-advanced-at" "`date`" $VESTA_WORK_DIR
+</PRE>
+
+If the <A HREF="vadvance.1.html#-v">verbose trigger flag (-v)</A> is given, these
+environment variables will be printed, and each trigger command will
+be printed before executing it.  This can be useful for debugging
+trigger problems.  If both <A HREF="vadvance.1.html#-v">verbose trigger flag</A> and the
+<A HREF="vadvance.1.html#-Q">the query flag (-Q)</A> are given, the triggers are displayed
+in their sorted order without actually running them.  This can be used
+to find out what trigger commands are configured without actually
+running them.
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

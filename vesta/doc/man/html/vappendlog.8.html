@@ -1,0 +1,77 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vappendlog - Append to a VestaLog file</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vappendlog(8)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vappendlog</B> - Append standard input to a VestaLog file
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vappendlog</B> [<A HREF="vappendlog.8.html#-n">-n <I>number</I></A>] [<I>directory</I>]
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Append standard input to a log file written by 
+VestaLog (see <TT>VestaLog.H</TT>).
+The append is done as a single atomic action.
+If <I>directory</I> is omitted, the log is found in
+the current directory.<P>
+
+If there is no log in the given directory, <B>vappendlog</B> creates
+a new log and appends to that.
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-n">-n</A> <I>number</I><DD>
+If -n is omitted, recovery begins from
+the highest-numbered log file in the directory;
+otherwise, recovery begins from <I>number</I>.log.
+New records are always appended to the highest-numbered log file.
+(This flag is not particularly useful.)
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vdumplog.8.html"><B>vdumplog</B>(8)</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+<PRE>
+Last modified on Fri Nov  9 14:19:11 EST 2001 by ken@xorian.net
+     modified on Fri Aug  9 12:28:36 PDT 1996 by mann
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

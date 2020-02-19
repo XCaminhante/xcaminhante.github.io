@@ -1,0 +1,692 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>VCacheStats(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>VCacheStats(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+VCacheStats - print statistics about the Vesta-2 stable cache
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>VCacheStats</B>
+[ <A HREF="VCacheStats.1.html#histoOption"><B>-histo</B></A> ]
+[ <A HREF="VCacheStats.1.html#minMaxOption"><B>-min</B></A> ]
+[ <A HREF="VCacheStats.1.html#minMaxOption"><B>-max</B></A> ]
+[ <A HREF="VCacheStats.1.html#vOption"><B>-v</B></A> | <A HREF="VCacheStats.1.html#VOption"><B>-V</B></A> ]
+[ <A HREF="VCacheStats.1.html#-redundant"><B>-redundant</B></A> ]
+[ <A HREF="VCacheStats.1.html#-report"><B>-report</B></A> <I>statistic</I> <I>limit</I> ]
+[ <A HREF="VCacheStats.1.html#-mask"><B>-mask</B></A> <I>statistic</I> <I>regular-expression</I> ]
+[ <I>pathname</I> ]
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="VCacheStats.1.html#DescSect">Description</A>
+<LI> <A HREF="VCacheStats.1.html#FanoutSect">Fanout Statistics</A>
+<LI> <A HREF="VCacheStats.1.html#AttrSect">Attribute Statistics</A>
+<LI> <A HREF="VCacheStats.1.html#ReportSect">Function Reporting</A>
+<LI> <A HREF="VCacheStats.1.html#OptionsSect">Options</A>
+<LI> <A HREF="VCacheStats.1.html#ConfigSect">Configuration Variables</A>
+<LI> <A HREF="VCacheStats.1.html#FilesSect">Files</A>
+<LI> <A HREF="VCacheStats.1.html#DiagnosticsSect">Diagnostics</A>
+<LI> <A HREF="VCacheStats.1.html#BugsSect">Bugs</A>
+<LI> <A HREF="VCacheStats.1.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="DescSect">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+VCacheStats prints statistics about the part of a Vesta-2 stable cache
+rooted at <I>pathname</I>. If <I>pathname</I> is a relative path, it is
+interpreted relative to the stable cache root specified in the user's
+<A HREF="VCacheStats.1.html#ConfigSect">Vesta configuration file</A>, as specified below. If
+<I>pathname</I> is empty, statistics about the entire stable cache are
+printed.<P>
+
+The statistics printed by VCacheStats are grouped in two parts: the
+first part prints fan-out statistics about the stable cache hierarchy,
+and the second part prints statistics about various cache file and
+cache entry attributes. These two categories are described in the next
+two sections.<P>
+
+VCacheStats searches the portion of the stable cache rooted at the
+directory or file named by <I>pathname</I>. By default, the entire
+stable cache is searched. To search a part of the stable cache,
+specify one of the directories or MultiPKFiles listed by the
+<A HREF="ShowCache.1.html">ShowCache(1)</A> program. To avoid problems
+reading incomplete MultiPKFiles, any temporary files written by the
+VestaAtomicFile package that are encountered during the search are
+ignored.
+</BLOCKQUOTE>
+
+<H3><A NAME="FanoutSect">Fanout Statistics</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The Vesta-2 cache server's stable cache is organized in a conceptual
+hierarchy for fast lookup. Some parts of this conceptual hierarchy
+correspond to files and directories in the physical file system
+hierarchy. The levels of the stable cache hierarchy are:<P>
+
+<DL>
+<DT>Directories (levels 4 and higher)<DD>
+To make lookups in the file system faster, the actual files that
+contain cache entries are stored in a depth-2 directory tree. The root
+of the tree is a directory named "<TT>gran-XXX</TT>", where "XXX" is the
+implementation-dependent (decimal) number of bits of the primary key
+that are ignored in grouping PKFiles into MultiPKFiles (see below).
+The next two levels are each named by hex digits that encode part of
+the 128 - XXX significant prefix bits of the primary key.<P>
+
+<DT>MultiPKFiles (level 3)<DD>
+Each cache entry has an associated fingerprint called its <I>primary
+key</I> (PK). Cache entries are stored in disk files called <I>MultiPKFiles</I>.
+A MultiPKFile is a collection of PKFiles, the next level down in the
+hierarchy. Two PKFiles are in the same MultiPKFile if and only if
+their corresponding primary keys (PK's) share some
+implementation-dependent number of prefix bits in common.<P>
+
+<DT>Primary Key Files (PKFiles) (level 2)<DD>
+Within a MultiPKFile, cache entries are grouped by primary
+key. A PKFile is a collection of cache entries that share the same PK.
+PKFiles have various attributes described below.<P>
+
+<DT>Common Fingerprint (CFP) Groups (level 1)<DD>
+Each cache entry has an associated fingerprint called its
+<I>common fingerprint</I> (CFP). Within each PKFile, cache entries
+are grouped by common fingerprint values. In other words, each CFP
+group within a PKFile is a collection of cache entries with the
+same CFP value.<P>
+
+<DT>Cache Entries (level 0)<DD>
+At the leaves of the stable cache hierarchy are the individual cache
+entries themselves. VCacheStats print the total number of cache
+entries found in its search. Cache entries have various attributes
+described below.
+</DL>
+<P>
+
+For each level of the hierarchy, VCacheStats prints the number of
+elements encountered at that level, and the minimum, mean, and maximum
+<I>fanout</I> (i.e., number of children) encountered at that level. Here
+an example of output produced by the program:
+<PRE>
+  *** FANOUT STATISTICS ***
+
+  Directories (level 6):
+    number = 1
+    min = 1, mean = 1, max = 1
+
+  Directories (level 5):
+    number = 1
+    min = 289, mean = 289, max = 289
+
+  Directories (level 4):
+    number = 289
+    min = 1, mean = 1.03806, max = 2
+
+  MultiPKFiles (level 3):
+    number = 300
+    min = 1, mean = 1, max = 1
+
+  PKFiles (level 2):
+    number = 300
+    min = 1, mean = 17.66, max = 786
+
+  Common finger print (CFP) groups (level 1):
+    number = 5298
+    min = 1, mean = 1.03473, max = 75
+
+  Cache entries (level 0):
+    number = 5482
+</PRE>
+
+Here is how the results for this particular run are interpreted.
+Working up from the bottom, we see that the stable cache contains a
+total of 5482 cache entries. These are grouped into 5298 CFP groups.
+The average CFP group contains just over 1 cache entry. All of them
+contain at least one entry, but there is at least one CFP group that
+contains 75 cache entries. At the next level up, the cache contains
+300 PKFiles. The average PKFile contains 17.66 CFP groups; at least
+one PKFile contains 786 CFP groups! At level 3, there were also 300
+MultiPKFiles found. Since the minimum, mean, and maximum number of
+PKFiles per MultiPKFile is 1, we see that every MultiPKFile in the
+stable cache contains exactly one PKFile. At level 4, most directories
+contain one MultiPKFile, but some contain two. There is only one
+directory at level 5, and it contains 289 level-4 directories.
+Finally, the root directory of the stable cache at level 6 contains
+exactly one directory.
+</BLOCKQUOTE>
+
+<H3><A NAME="AttrSect">Attribute Statistics</A></H3>
+<BLOCKQUOTE>
+<P>
+
+VCacheStats also keeps statistics about various attributes of the
+MultiPKFiles (at level 3), PKFiles (at level 2), and cache entries (at
+level 0) it scans. As in the fanout statistics printed above, for each
+attribute VCacheStats prints the number of values considered for each
+attribute, and the minimum, mean, and maximum of those values. It also
+<A HREF="VCacheStats.1.html#histoOption">optionally</A> prints a histogram of those values.<P>
+
+The <I>MultiPKFile attribute</I> and its meaning is:<P>
+
+<DL>
+<DT>MultiPKFile size (in bytes)<DD>
+The size of the entire MultiPKFile on disk.
+</DL>
+<P>
+
+The <I>PKFile attributes</I> and their meanings are:<P>
+
+<DL>
+<DT>PKFile size (in bytes)<DD>
+The size of the PKFile proper within the MultiPKFile on disk.<P>
+
+<DT>Number of free variables per PKFile<DD>
+Stored in each PKFile are the names of <I>all</I> the free variables of
+all the cache entries stored in the PKFile. VCacheStats prints the number
+of free variable names per PKFile. Not all of these names are used by
+all cache entries in the PKFile. See the statistics below for the
+number of total and uncommon free variable names associated with cache
+entries.<P>
+
+<DT>Free variable name length<DD>
+For each free variable stored in all the PKFiles it encounters,
+VCacheStats records the length of the free variable name. It prints
+the number of such free variables, and their minimum, mean, and
+maximum lengths.<P>
+
+<DT>Number of common free variables per PKFile<DD>
+Also stored in each PKFile is the intersection of the free variable
+names associated with the PKFile's cache entries. These are the
+PKFile's so-called <I>common free variables</I>. This field is the
+number of common free variables per PKFile. Only those cache entries
+with at least one free variable (either common or uncommon) are
+included in the statistics for this field.<P>
+
+<DT>Percentage of common free variables per PKFile<DD>
+The percentage of all a PKFile's names that are common. Only those
+cache entries with at least one free variable (either common or
+uncommon) are included in the statistics for this field.<P>
+
+<DT>Number of cache entries per PKFile<DD>
+The number of total cache entries in each PKFile. This data is similar
+to the fanout statistics described above, but it ignores the grouping
+of cache entries into common fingerprint groups at level 1.
+</DL>
+<P>
+
+The <I>cache entry attributes</I> and their meanings are:<P>
+
+<DL>
+<DT>Number of total free variables per cache entry<DD>
+Associated with each cache entry is the set of the entry's free
+variables that are not common to all entries in the PKFile. These are
+the cache entry's so-called <I>uncommon free variables</I>. This field
+is the total number of common and uncommon free variables associated
+with each invidual cache entry. It is also the total number of free
+variable fingerprint values stored with the cache entry.<P>
+
+<DT>Number of uncommon free variables per cache entry<DD>
+This field is the number of uncommon free variables associated with
+each individual cache entry. Only those cache entries with at
+least one free variable (either common or uncommon) are included in
+the statistics for this field.<P>
+
+<DT>Percentage of uncommon free variables per cache entry<DD>
+This field is the fraction of free variables per cache entry that are
+uncommon, expressed as a percentage. Only those cache entries with at
+least one free variable (either common or uncommon) are included in
+the statistics for this field.<P>
+
+<DT>Cache value size (in bytes)<DD>
+Each entry has a pickled value. This field is
+the size of the pickled value (in bytes).<P>
+
+<DT>Number of derived indices (DI's) per cache value<DD>
+Each entry has a set of indices of derived files contained in the
+entry's pickled value. These are the cache values <I>derived indices</I>
+(DI's). This field is the number of DI's per cache value.<P>
+
+<DT>Number of child entries (kids) per cache entry<DD>
+Each cache entry has an associated set of child cache entries. The
+children correspond to functions called directly from the body of the
+function to which the cache entry corresponds. This field is the
+number of kids per cache entry.<P>
+
+<DT>Number of entries in name index map per cache entry<DD>
+The free variables corresponding to a cache entry are stored in the
+cache entry's PKFile, so free variables that are common to many cache
+entries within a PKFile will only be stored once. However, when a
+cache entry is created, the order of the free variables supplied for
+the entry will not necessarily agree with the order in which the
+names, and more important, the order of the fingerprints of values
+corresponding to those names, are stored in the PKFile.
+The order of a cache entry's free variable fingerprints is important,
+because the fingerprints must always be combined in a consistent order
+determined by the order of the free variables stored in the PKFile.
+Hence, associated with each cache entry is a mapping from indices
+in the PKFile free variable array to indices in the cache entry's
+fingerprint array. Sometimes, this mapping is the identity, in which
+case no entries are stored in the map to save space. Otherwise, there
+will be one entry in the name index map for each of the cache entry's
+free variables. This field is the number of entries in the name index
+map.<P>
+
+<DT>Number of non-empty name index maps per cache entry (0 or 1)<DD>
+As mentioned in the description of the previous attribute, the cache
+server uses an empty table to represent the identity name index map.
+This attribute is either 0 or 1, depending on whether the cache
+entry's name index map is empty or not, respectively. The mean value
+printed by VCacheStats is the fraction of cache entries that have
+non-empty name index maps.<P>
+
+<DT>Size of the cached value's PrefixTbl<DD>
+Each value stored in the cache has an associated <TT>PrefixTbl</TT> data
+structure.  This is used by the evaluator to store a compressed
+representation of the dependencies associated with the cached value,
+so that when an evaluation uses the stored value it can carry
+dependency analysis forward.  (Because of internal limits, the maximum
+size of this table is 65535.  Most functions never come anywhere near
+this limit.)<P>
+
+<DT>Number of redundant free variables per cache entry<DD>
+As the evaluator records dependencies, it can have both a dependency
+on a a complete compound value (e.g. a binding or list) and on some
+sub-component of the same value.  In such cases, dependencies on the
+sub-values do not record any additional information.  A future
+implementation of the evaluator may eliminate redundant dependencies,
+making this statistic unnecessary.  Note that unless the
+<A HREF="VCacheStats.1.html#-redundant"><B>-redundant</B></A> option is specified, this
+statistic will not be gathered.<P>
+
+<DT>Percentage redundant free variables per cache entry<DD>
+Related to the above statistic, but computed as a percentage of total
+free variables for each cache entry.  Unless the
+<A HREF="VCacheStats.1.html#-redundant"><B>-redundant</B></A> option is specified, this
+statistic will not be gathered.<P>
+
+</DL>
+<P>
+
+Here is an example of the attribute statistics printed by VCacheStats:
+<PRE>
+  *** MULTIPKFILE, PKFILE, AND CACHE ENTRY STATISTICS ***
+  
+  MultiPKFile size (in bytes):
+    number = 9
+    min = 504, mean = 8858.56, max = 23996
+  
+  PKFile size (in bytes):
+    number = 9
+    min = 466, mean = 8820.56, max = 23958
+  
+  Number of free variables per PKFile:
+    number = 9
+    min = 0, mean = 52.2222, max = 173
+  
+  Free variable name length:
+    number = 470
+    min = 3, mean = 26.8468, max = 44
+  
+  Number of cache entries per PKFile:
+    number = 9
+    min = 1, mean = 1.55556, max = 2
+  
+  Number of common free variables per PKFile:
+    number = 9
+    min = 0, mean = 51.6667, max = 173
+  
+  Number of total free variables per cache entry:
+    number = 14
+    min = 0, mean = 48.5714, max = 173
+  
+  Number of uncommon free variables per cache entry:
+    number = 14
+    min = 0, mean = 0.357143, max = 3
+  
+  Percentage of uncommon free variables per cache entry:
+    number = 14
+    min = 0, mean = 2.5, max = 33
+  
+  Cache value size (in bytes):
+    number = 14
+    min = 301, mean = 3649.36, max = 11389
+  
+  Number of derived indices (DI's) per cache value:
+    number = 14
+    min = 1, mean = 6.21429, max = 30
+  
+  Number of child entries (kids) per cache entry:
+    number = 14
+    min = 0, mean = 1, max = 5
+  
+  Number of entries in name index map per cache entry:
+    number = 14
+    min = 0, mean = 9.21429, max = 126
+  
+  Number of non-empty name index maps per cache entry (0 or 1):
+    number = 14
+    min = 0, mean = 0.142857, max = 1
+
+  Size of the cached value's PrefixTbl:
+    number = 14
+    min = 0, mean = 676.359, max = 34271
+
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ReportSect">Function Reporting</A></H3>
+<BLOCKQUOTE>
+<P>
+
+When trying to identify model changes to improve caching performance,
+it's often most useful to get a list of the functions with the highest
+values in some categories.  You can use the
+<A HREF="VCacheStats.1.html#-report"><B>-report</B></A> option to generate such lists.  Also,
+the <A HREF="VCacheStats.1.html#-mask"><B>-mask</B></A> allows you to remove some functions from
+the lists.<P>
+
+The algorithm used to gather a list of "bad" functions is simple.
+Each item processed during statistics collection is added to the "bad"
+list if it's "worse" that the "least bad" item currently in the list.
+(For all statistics but "Percentage of common free variables per
+PKFile", a high value is considered worse than a low value.)  If this
+increases the number of distinct <I>source function annotations</I>
+present in the list above the <I>limit</I> given with
+<A HREF="VCacheStats.1.html#-report"><B>-report</B></A>, the "least bad" item is removed
+repeatedly until the the number of functions is no longer above the
+limit.<P>
+
+Here is an example of a list printed by VCacheStats when run with
+"<A HREF="VCacheStats.1.html#-report"><B>-report</B></A> ValueSize 4":
+<PRE>
+  High 4 functions:
+    /vesta/example.com/platforms/linux/redhat/i686/std_env/checkout/8.jsmith_shr.intel.com.1/1/build.ves/build_env(), line 101, col 12
+    /vesta/example.com/platforms/linux/redhat/i686/std_env/8/build.ves/build_env(), line 101, col 12
+    /vesta/example.com/bridges/foo/checkout/133/1/build.ves/bar(), line 511, col 9
+    /vesta/example.com/foo/builds/build_foo/checkout/820.bjones_shr.intel.com.1/2/.main.ves() (special)
+  Detailed high cases:
+    value = 5652627
+    path = /vesta01/cache/sCache/gran-16/ea/3d
+    pk = ea3d22e88cff5b07 a1cb7ba4cf91a672
+    sourceFunc = /vesta/example.com/platforms/linux/redhat/i686/std_env/checkout/8.jsmith_shr.intel.com.1/1/build.ves/build_env(), line 101, col 12
+    namesEpoch = 1
+    cfp = f3295172fb97a4c6 83ed337d96131c36
+    ci = 202976
+
+    ...more cases for the above function...
+
+    value = 5234973
+    path = /vesta01/cache/sCache/gran-16/be/76
+    pk = be7612d3cc7015dc e21c6d76edf69820
+    sourceFunc = /vesta/example.com/platforms/linux/redhat/i686/std_env/8/build.ves/build_env(), line 101, col 12
+    namesEpoch = 1
+    cfp = f3295172fb97a4c6 83ed337d96131c36
+    ci = 169355
+
+    ...more cases for the above function...
+
+    value = 3327936
+    path = /vesta01/cache/sCache/gran-16/2a/ee
+    pk = 2aee6d1363fc78e5 6ecf521daa54f2a8
+    sourceFunc = /vesta/example.com/bridges/foo/checkout/133/1/build.ves/bar(), line 511, col 9
+    namesEpoch = 1
+    cfp = bc1b6de30de77f94 75d909d010b5e512
+    ci = 141842
+
+    ...more cases for the above function...
+
+    value = 1905820
+    path = /vesta01/cache/sCache/gran-16/46/1b
+    pk = 461b854b5b79562b a037b669f19abbfd
+    sourceFunc = /vesta/example.com/foo/builds/build_foo/checkout/820.bjones_shr.intel.com.1/2/.main.ves() (special)
+    namesEpoch = 0
+    cfp = 5cf96df9689a3aaf c4926c327de9d8b0
+    ci = 211414
+
+    ...more cases for the above function...
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="OptionsSect">Options</A></H3>
+<BLOCKQUOTE>
+<P>
+
+VCacheStats recognizes the following command-line options:<P>
+
+<DL>
+<DT><A NAME="histoOption"><B>-histo</B></A><DD>
+In addition to printing the minimum, mean, and maximum value in each
+collection, a histogram of the values in the collection is also
+printed. The histogram printout takes the form:
+<PRE>
+{ value_i -&gt; number_i }
+</PRE>
+
+The histogram means that the "value_i" occurred in the collection
+"number_i" times.<P>
+
+Since the domains of some collections are sparse, some categories have
+a function applied to their domain to make the histogram printed
+more dense. Since all domains are integer-valued, the function maps
+integers to integers. In the case where a histogram mapping function 
+is applied, a description of that function is printed before the
+histogram itself. For example:
+<PRE>
+Cache value size (in bytes):
+  number = 14
+  min = 301, mean = 3649.36, max = 11389
+  Histogram mapping function: ceiling(log_2(x))
+  { 9 -&gt; 5, 10 -&gt; 1, 11 -&gt; 2, 13 -&gt; 5, 14 -&gt; 1 }
+</PRE>
+
+In this example, the histogram domain values correspond to the ceiling
+of the log (base 2) of the cache value size. Hence, five cache values had
+sizes in the half-open interval (2^8, 2^9], while one had a size in
+the range (2^13, 2^14].<P>
+
+<DT><A NAME="minMaxOption"><B>-min</B> or <B>-max</B></A><DD>
+Print information identifying where the minimum or maximum value,
+respectively, was found.  Exactly what information gets printed
+depends on the scope of the statistic.  It may include:<P>
+
+<UL>
+<LI> The path to a directory or MultiPKFile
+<LI> The <I>primary key</I> and <I>source function annotation</I> of a
+PKFile
+<LI> The <I>common fingerprint</I> of a CFP group and <I>names epoch</I>
+of the enclosing PKFile
+<LI> The <I>cache index</I> of a cache entry
+</UL>
+<P>
+
+<DT><A NAME="vOption"><B>-v</B> <I>or</I> <B>-verbose</B></A><DD>
+Prints the names of all directories that are searched.<P>
+
+<DT><A NAME="VOption"><B>-V</B> <I>or</I> <B>-Verbose</B></A><DD>
+Like <B>-v</B> above, but also prints the names of all
+MultiPKFiles that are searched.<P>
+
+<DT><A NAME="-redundant"><B>-redundant</B></A><DD>
+Enables gathering of statistics about redundant secondary
+dependencies.  Gathering this information is computationally
+expensive, so it's turned off by default.<P>
+
+<DT><A NAME="-report"><B>-report</B> <I>statistic</I> <I>limit</I></A><DD>
+Collects and reports the "worst" <I>limit</I> functions for a given
+<I>statistic</I>.  (For all statistics but "Percentage of common free
+variables per PKFile", a high value is considered worse than a low
+value.)  The list of <I>source function annotations</I> for the
+<I>limit</I> worst functions are printed, followed by detailed
+information about the locations in the cache that put it on the "bad"
+list.  (The detailed information is the same as printed with the
+<A HREF="VCacheStats.1.html#minMaxOption"><B>-min</B>/<B>-max</B> options</A>.)  Symbolic names
+are used to specify the <I>statistic</I>:<P>
+
+<UL>
+<LI> MPKFileSize = MultiPKFile size (in bytes)
+<LI> PKFileSize = PKFile size (in bytes)
+<LI> NumNames = Number of free variables per PKFile
+<LI> NameSize = Free variable name length
+<LI> NumEntries = Number of cache entries per PKFile
+<LI> NumCommonNames = Number of common free variables per PKFile
+<LI> PcntCommonNames = Percentage of common free variables per PKFile
+<LI> NumEntryNames = Number of total free variables per cache entry
+<LI> NumUncommonNames = Number of uncommon free variables per cache entry
+<LI> PcntUncommonNames = Percentage of uncommon free variables per cache entry
+<LI> ValueSize = Cache value size (in bytes)
+<LI> NumDIs = Number of derived indices (DI's) per cache value
+<LI> NumKids = Number of child entries (kids) per cache entry
+<LI> NameMapSize = Number of entries in name index map per cache entry
+<LI> ValPfxTblSize = Size of the cached value's PrefixTbl
+<LI> NumRedundantNames = Number of redundant free variables per cache entry
+<LI> PcntRedundantNames = Percentage redundant free variables per cache entry
+<LI> PKFileFanout = PKFiles in "FANOUT STATISTICS" section
+<LI> CFPFanout = Common finger print (CFP) groups in "FANOUT STATISTICS" section
+</UL>
+<P>
+
+<DT><A NAME="-mask"><B>-mask</B> <I>statistic</I>
+<I>regular-expression</I></A><DD> Removes some functions from consideration
+for the lists generated by the <A HREF="VCacheStats.1.html#-report"><B>-report</B></A> option.
+The <I>statistic</I> must be one of the symbolic names listed above.
+The <I>regular-expression</I> is matched against the <I>source function
+annotation</I>.  (<A HREF="http://www.pcre.org/">The regular expression
+syntax is Perl compatible</A>.)  Any entires matching this will not be
+considered for the <A HREF="VCacheStats.1.html#-report"><B>-report</B></A> lists.  Multiple
+<B>-mask</B> options may be given for the same statistic.<P>
+
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ConfigSect">Configuration Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Like most Vesta-2 applications, VCacheStats reads site-specific
+configuration information from a Vesta-2 <I>configuration file</I> named
+<I>vesta.cfg</I>. The program first looks for this file in the
+current directory; if none is found there, it looks in your home
+directory.<P>
+
+The configuration file is divided into a number of sections, denoted
+in the file by <TT>[</TT><I>SectionName</I><TT>]</TT>. The variables used by
+VCacheStats are in the section denoted by <TT>[CacheServer]</TT>. Here
+are the variables and their meanings; the types of the variables are
+shown in parentheses. Those variables corresponding to paths or
+directories should <I>not</I> end with a slash ("/") character.<P>
+
+<DL>
+<DT><TT>MetaDataRoot</TT> (string)<DD>
+The pathname of the directory in which the Vesta system's metadata is
+stored. If this variable is undefined, the current directory is used.
+Other configuration variables are interpreted relative to this path.<P>
+
+<DT><TT>MetaDataDir</TT> (string)<DD>
+The directory (relative to the MetaDataRoot) in which the cache
+server's metadata is stored.<P>
+
+<DT><TT>SCacheDir</TT> (string)<DD>
+The directory (relative to the MetaDataRoot/MetaDataDir) in which the
+cache server stores cache entries.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="FilesSect">Files</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><TT>vesta.cfg</TT><DD>
+The Vesta-2 configuration file.  (See
+<A HREF="vesta.cfg.5.html#Locations">the vesta.cfg(5) man page</A> for a
+description of how the config file is located.)<P>
+
+<DT><TT>$MetaDataRoot/$MetatDataDir/$SCacheDir/</TT><DD>
+The root of the sub-tree in which stable cache entry files (also known
+as MultiPKFiles) are stored. The files are stored under a pathname
+formed from their respective primary keys. See 
+<A HREF="ShowCache.1.html">ShowCache(1)</A> and
+<A HREF="PrintMPKFile.1.html">PrintMPKFile(1)</A>.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="DiagnosticsSect">Diagnostics</A></H3>
+<BLOCKQUOTE>
+<P>
+
+In the event of an I/O error, such as not being able to open a file or
+a filesystem failure, the program prints an error message and halts.<P>
+
+If the <I>pathname</I> argument names a directory, VCacheStats expects
+the MultiPKFiles directly or indirectly reachable from that directory
+to have uniform depth in the directory tree. This is the way the cache
+server's stable cache is organized. If that is not the case,
+VCacheStats will print an error message and halt.
+</BLOCKQUOTE>
+
+<H3><A NAME="BugsSect">Bugs</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Since version 1 of the MultiPKFile file format didn't include a magic
+number, VCacheStats cannot tell the difference between these old
+MultiPKFiles and arbitrary files. The program assumes that any file it
+encounters in its search that is not a directory is a MultiPKFile. If
+it tries to read a file that begins with bytes indicating version 1 of
+the MultiPKFile format but that is not a true MultiPKFile, it will
+probably crash. If it tries to read any other kind of file that is not
+a MultiPKFile, it reports an error.
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="PrintMPKFile.1.html">PrintMPKFile(1)</A>,
+<A HREF="ShowCache.1.html">ShowCache(1)</A>,
+<A HREF="VCache.1.html">VCache(1)</A>,
+<A HREF="MultiPKFile.5.html">MultiPKFile(5)</A>,
+<A HREF="http://www.pcre.org/">http://www.pcre.org/</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

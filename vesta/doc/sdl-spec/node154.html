@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Functions on Type t_list</TITLE>
+<META NAME="description" CONTENT="Functions on Type t_list">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node155.html">
+<LINK REL="previous" HREF="node153.html">
+<LINK REL="up" HREF="node150.html">
+<LINK REL="next" HREF="node155.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2460"
+  HREF="node155.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2456"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2450"
+  HREF="node153.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2458"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2461"
+  HREF="node155.html">Functions on type t_binding</A>
+<B> Up:</B> <A NAME="tex2html2457"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2451"
+  HREF="node153.html">Functions on Type t_text</A>
+ &nbsp <B>  <A NAME="tex2html2459"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001334400000000000000"></A><A NAME="sect:SDL-list-funcs"></A>
+<BR>
+Functions on Type t_list
+</H3>
+
+<P>
+<PRE>
+t_bool
+operator==(t_list l1, t_list l2)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>l1</EM> and <EM>l2</EM> are lists of the same
+length containing (recursively) equal values, and <EM>false</EM> otherwise.
+
+<P>
+<PRE>
+t_bool
+operator!=(t_list l1, t_list l2) =
+  operator!(operator==(l1, l2))
+</PRE>
+
+<P>
+<PRE>
+t_list
+_list1(t_value v)
+</PRE>
+<BR>
+Returns a list containing a single element whose value is <EM>v</EM>.
+
+<P>
+<PRE>
+t_value
+_head(t_list l)
+</PRE>
+<BR>
+Returns the first element of <EM>l</EM>.
+If <EM>l</EM> is empty, evaluation halts with a runtime error.
+
+<P>
+<PRE>
+t_list
+_tail(t_list l)
+</PRE>
+<BR>
+Returns the list consisting of all elements of <EM>l</EM>, in order,
+except the first.  If <EM>l</EM> is empty, 
+evaluation halts with a runtime error.
+
+<P>
+<PRE>
+t_int
+_length(t_list l)
+</PRE>
+<BR>
+Returns the number of (top-level) values in the list <EM>l</EM>.
+
+<P>
+<PRE>
+t_value
+_elem(t_list l, t_int i)
+</PRE>
+<BR>
+Returns the <EM>i</EM>-th value in the list <EM>l</EM>.
+If no such value exists, evaluation halts with a runtime error.
+The first value of a list has index 0.
+
+<P>
+<PRE>
+t_list
+operator+(t_list l1, t_list l2)
+</PRE>
+<BR>
+Returns the list formed by appending <EM>l2</EM> to <EM>l1</EM>.
+
+<P>
+<PRE>
+t_list
+_sub(t_list l, t_int start = 0, t_int len = _length(l))
+{
+  int w = _length(l);
+  int i = _min(_max(start, 0)), w);
+  int j = _min(i + _max(len, 0), w);
+  // 0 &lt;= i &lt;= j &lt;= _length(l); extract [i..j)
+  t_list r = emptylist;
+  for (; i &lt; j; i++) r = operator+(r, _elem(l, i));
+  return r;
+}
+</PRE>
+<BR>
+Returns the sub-list of <EM>l</EM> of length <EM>len</EM> starting at
+element <EM>start</EM>. Note the boundary cases defined by
+the pseudo-code; <TT>_sub</TT> produces a runtime error only if it
+is passed arguments of the wrong type.
+
+<P>
+<PRE>
+t_list
+_map(t_closure f, t_list l) =
+{
+  t_list res = emptylist;
+  for (; !(l == emptylist); l = _tail(l)) {
+    t_value v = f(_head(l)); // apply the closure "f"
+    res = operator+(res, v);
+  }
+  return res;
+}
+</PRE>
+<BR>
+Returns the list that results from applying the closure <EM>f</EM> to each
+element of the list <EM>l</EM>, and concatenating the results in order.
+The closure <EM>f</EM> should take one value (of type t_value) as
+argument and return a value of any type. If <EM>f</EM> has the wrong
+signature, the evaluation halts with a runtime error.
+
+<P>
+<PRE>
+t_list
+_par_map(t_closure f, t_list l)
+</PRE>
+<BR>
+Formally equivalent to <TT>_map</TT>, but the implementation
+may perform each application of <EM>f</EM> in a separate parallel thread.
+External tools invoked by <TT>_run_tool</TT> in different threads
+may be run simultaneously on different machines.
+If a runtime error occurs in one thread, the other threads may
+still run to completion before the evaluation terminates.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2460"
+  HREF="node155.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2456"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2450"
+  HREF="node153.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2458"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2461"
+  HREF="node155.html">Functions on type t_binding</A>
+<B> Up:</B> <A NAME="tex2html2457"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2451"
+  HREF="node153.html">Functions on Type t_text</A>
+ &nbsp <B>  <A NAME="tex2html2459"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

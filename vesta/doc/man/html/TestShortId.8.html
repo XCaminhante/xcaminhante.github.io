@@ -1,0 +1,136 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>TestShortId - test program for repository</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>TestShortId(8)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>TestShortId</B> - test program for repository
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>TestShortId</B>
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="TestShortId.8.html#Description">Description</A>
+<LI> <A HREF="TestShortId.8.html#Flags">Flags</A>
+<LI> <A HREF="TestShortId.8.html#Configuration">Configuration</A>
+<LI> <A HREF="TestShortId.8.html#Limitations">Limitations</A>
+<LI> <A HREF="TestShortId.8.html#See_Also">See Also</A>
+<LI> <A HREF="TestShortId.8.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+See the <A HREF="vesta-intro.1.html#Terminology">Terminology</A> section
+of the <A HREF="vesta-intro.1.html">vesta-intro</A> man page
+for definitions of terms.<P>
+
+<B>TestShortId</B> is a test program for the Vesta repository.
+It provides a way to exercise most of the functions of the 
+<TT>SourceOrDerived</TT> interface.
+A portion of the <TT>SourceOrDerived</TT> interface is
+implemented in library code, but the code also makes SRPC calls to the
+repository server, using the underlying
+<TT>ShortIdSRPC</TT> interface.<P>
+
+After starting the program, type "?" for a list of available commands.
+Most commands relate directly to a similarly-named method of 
+<TT>SourceOrDerived</TT>.<P>
+
+For some of the commands to work, you must be running under the user
+id that is permitted to read and write directly to files named by
+ShortId.  This is normally <TT>vadmin</TT>.  Affected commands include
+create, open, and touch.
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+None.
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <I>[Repository]</I> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>metadata_root</I><DD>
+All files and directories in the underlying filesystem that are
+needed by the repository server are named relative to metadata_root.
+This value must begin and end with "/".  The repository server does a
+<I>chdir()</I> to this directory.
+<DT><I>sid_dir</I><DD>
+The directory tree rooted at metadata_root/sid_dir is used to store
+source and derived files, with names derived from their ShortIds.
+The sid_dir must end with "/" (or be empty).
+<DT><I>ShortIdSRPC_port</I><DD>
+UDP port on which the SRPC interface that supports SourceOrDerived is
+exported.  The SRPC interface itself is described in <TT>ShortIdSRPC.H</TT>;
+hence the name.
+<DT><I>ShortIdSRPC_host</I><DD>
+Host from which ShortIdSRPC is exported.  This must be the host on
+which the <B>repository</B> process is running.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>TestShortId</B> has very rudimentary input error checking.  If you
+type a letter where it wants to see a number, you could easily put it
+into an infinite loop.
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repository.8.html"><B>repository</B></A>(8),
+<A HREF="TestVDirSurrogate.8.html"><B>TestVDirSurrogate</B></A>(8).
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+<PRE>
+Last modified on Tue Apr 29 23:15:37 PDT 2003 by mann
+     modified on Mon Nov 12 18:37:13 EST 2001 by ken@xorian.net
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

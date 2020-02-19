@@ -1,0 +1,465 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.77 [en] (X11; U; OSF1 V4.0 alpha) [Netscape]">
+   <meta name="Author" content="Kenneth C. Schalk">
+   <meta name="Description" content="A complete file which the Vesta evaluator can execute is called a model.">
+   <title>Vesta SDL reference - Models</title>
+</head>
+<body bgcolor="#efefff">
+
+<h1>
+Models</h1>
+
+<p>
+A &quot;model&quot; is a complete source file which the Vesta
+evaluator can execute.
+</p>
+
+<p>
+A Vesta model is made up of three parts in sequence:
+</p>
+
+<ol>
+<li>
+An optional <a href="models.html#files"><tt>files</tt> clause</a></li>
+
+<li>
+An optional <a href="models.html#import"><tt>import</tt> clause</a></li>
+
+<li>
+<a href="models.html#body">A block of statements, ending with a return/value statement</a></li>
+</ol>
+
+<p>
+The <tt>files</tt> and <tt>import</tt> clauses bring in external
+data. The block of statements is the body of the model. Every model is
+really a program, or more precisely a function, which is why they end
+with a return statement.  The return statement specifies the result
+value which will be produced when the model is evaluated.
+</p>
+
+<h4><a NAME="files"><tt>files</tt> Clause</a></h4>
+
+<p>
+A files clause turns files and directories into variables in your
+model.&nbsp; For example, in a model in the same directory with a file
+named "<tt>foo.c</tt>" this files clause:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">files
+  foo = foo.c;</font></pre>
+</td></tr></table>
+
+<p>
+Would put the contents of <tt>foo.c</tt> into a variable named <tt>foo</tt>
+as a <a href="data-types.html#text">text value</a>.&nbsp; There's
+a shortcut for naming the variable created after the file or directory
+being referenced, which works just like the self-assignment shortcut for
+<tt><a href="data-types.html#binding">binding</a></tt>s.&nbsp; A shorter
+way to write the above would be:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">files
+&nbsp; foo.c;</font></pre>
+</td></tr></table>
+
+<p>With the difference being that the variable introduced is named
+"<tt>foo.c</tt>" rather than just "<tt>foo</tt>".&nbsp; (<a
+href="syntax.html#Identifiers">The SDL identifier syntax rules</a>
+allow periods in variable names.)  <p>Entire directories can also be
+turned into variables.&nbsp; If there was a sub-directory named
+"<tt>sources</tt>" in the same directory as a model then this:</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">files
+&nbsp; sources;</font></pre>
+</td></tr></table>
+
+<p>
+Would introduce a variable named <tt>sources</tt> with the contents of
+the directory represented as a <tt><a
+href="data-types.html#binding">binding</a></tt> as its value.&nbsp;
+Each file or directory within <tt>sources</tt> would become a
+name/value pair of the <tt><a
+href="data-types.html#binding">binding</a></tt>.&nbsp; Files would get
+<a href="data-types.html#text"><tt>text</tt> values</a> with their
+contents, and directories would get nested <a
+href="data-types.html#binding"><tt>binding</tt> values</a>.
+</p>
+
+<p>This brings up a key feature of the Vesta SDL:</p>
+
+<ul>
+<li>
+A file is the same thing as a <a href="data-types.html#text"><tt>text</tt>
+value</a></li>
+
+<li>
+A directory is the same thing as a <tt><a href="data-types.html#binding">binding</a></tt></li>
+</ul>
+
+<p>
+As is the first example, you can use any variable name you want to
+store the contents of the directory:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">files
+&nbsp; c_files = sources;</font></pre>
+</td></tr></table>
+
+<p>
+It's also possible to create a binding in-line in a files clause, like this:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">files
+&nbsp; c_files = [ utils.c, main.c ];</font></pre>
+</td></tr></table>
+
+<p>
+This creates a variable named <tt>c_files</tt> whose value is a two-element
+<tt><a href="data-types.html#binding">binding</a></tt>.&nbsp; Within it,
+the names "<tt>utils.c</tt>" and "<tt>main.c</tt>" are bound the to contents
+of those files as <a href="data-types.html#text"><tt>text</tt> values</a>.
+</p>
+
+<p>
+You can even create a binding with files from sub-directories:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">files
+&nbsp; c_files = [ sources/utils.c, sources/main.c ];</font></pre>
+</td></tr></table>
+
+<p>
+The files and directories referenced in a <tt>files</tt> clause are
+almost always named by <i>relative</i> paths, which are interpreted
+relative to the location of the model containing the <tt>files</tt>
+clause.&nbsp; Absolute paths are permitted, but they are considered
+poor form and only immutable files and directories within the Vesta
+repository can be referenced.&nbsp; (So, for example, you couldn't
+turn "<tt>/vesta</tt>" into a variable, because it's appendable not
+immutable, and you couldn't turn "<tt>/usr/lib/libc.a</tt>" into a
+variable because it's outside the repository.)
+</p>
+
+<p>
+Note that you can't use &quot;.&quot; or &quot;..&quot; in a
+<tt>files</tt> clause.  
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">files
+  foo = ./file1.txt;      // evaluation stops with &quot;Not found&quot; error
+
+  bar = ../file2.c;       // evaluation stops with &quot;Not found&quot; error
+</td></tr></table>
+
+<p>
+If you reference a nested file/directory without specifying a variable
+name, the first arc of the path will be used as the variable name.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">files
+  dir1/dir2/file.txt;               // creates variable named &quot;dir1&quot;
+
+  file.txt = dir1/dir2/file.txt;    // probably more useful</font></pre>
+</td></tr></table>
+
+<p>
+Note that the &quot;=&quot; in a files clause isn't really an <a
+href="statements.html#Assignment">assignment statement</a>.  You can't
+use operators on the right-hand side.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">files
+&nbsp; files = sources ++ headers;    // syntax error</font></pre>
+</td></tr></table>
+
+<p>
+If you need to reference a file or directory which has a name that is
+neither <a href="syntax.html#Identifiers">a legal identifier</a> nor
+<a href="data-types.html#int">an integer constant</a> or is a <a
+href="syntax.html#Reserved Words">reserved word</a>, you can quote it
+(just like <a href="data-types.html#text">a text string</a>):
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">files
+&nbsp; files = [ &quot;file-with-dashes.c&quot;, &quot;sub-dir&quot;/foo.txt ];
+  dir = &quot;sub-dir&quot;/another_dir;</font></pre>
+</td></tr></table>
+
+<p>
+Take care when referencing files/directories not to try assign them to
+variables which aren't proper identifiers.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">files
+  &quot;file-with-dashes.c&quot;;    // &quot;not an identifier&quot; error
+
+  1234/foo.txt;            // &quot;not an identifier&quot; error</font></pre>
+</td></tr></table>
+
+<h4><a NAME="import"><tt>import</tt> Clause</a></h4>
+
+<p>
+The import clause allows one Vesta SDL model to use another.&nbsp; For
+example, this is how <tt>std_env</tt> references a version of the C++
+compiler bridge, how a model to build an executable references the
+libraries the program is linked against, and how a release model
+references particular versions of each sub-component.&nbsp; In other
+words, imports are used to make <i>modular builds</i>.
+</p>
+
+<p>
+Imported models become <a href="data-types.html#function">
+functions</a> with no formal arguments.&nbsp; Just as the <a
+href="models.html#files">the <tt>files</tt> clause</a> assigns files and
+directories to variables, the <tt>import</tt> clause creates variables
+which hold models.&nbsp; They can be <a
+href="expressions.html#FunctionCall">called</a> in the body of the
+model, just like <a href="statements.html#FuncDef">a function defined
+within the model</a>.
+</p>
+
+<p>
+The simplest way to import another model is with a relative path.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">import
+  model1 = tests.ves;     // creates the variable &quot;model1&quot; from tests.ves
+
+  model2 = src/lib.ves;   // creates the variable &quot;model2&quot; from src/lib.ves
+{
+  foo = model1();         // calls tests.ves, storing its result in &quot;foo&quot;
+
+  bar = model2();         // calls src/lib.ves, storing its result in &quot;bar&quot;
+
+  // ...
+}</font></pre>
+</td></tr></table>
+
+<p>
+This is often used to separate different components of a build in the
+same package.&nbsp; For example, separating the instructions for building a
+library from the instructions for building associated test programs,
+or separating the description of how to build a program from the
+specification of which target platform it should be built for.
+</p>
+
+<p>
+Note that unlike in <a href="models.html#files">a <tt>files</tt> clause</a>, you
+must provide an explicit variable name for models imported with
+relative paths.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">import
+  tests.ves;     // parse error
+
+  src/lib.ves;   // also a parse error</font></pre>
+</td></tr></table>
+
+<p>
+As in <a href="models.html#files">a <tt>files</tt> clause</a>, you
+can import several models into a binding.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">import
+  b = [ tests = tests.ves,
+        lib = src/lib.ves ];
+{
+  foo = b/tests();    // calls tests.ves, storing its result in &quot;foo&quot;
+
+  bar = b/lib();      // calls src/lib.ves, storing its result in &quot;bar&quot;
+
+  // ...
+}</font></pre>
+</td></tr></table>
+
+<p>
+Unlike in <a href="models.html#files">a <tt>files</tt> clause</a>, importing a
+directory will not create a binding.&nbsp; Instead, it is equivalent to
+importing the model named &quot;build.ves&quot; within that directory.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">import
+  foo = src;    // If &quot;src&quot; is a directory this is equivalent 
+                // to &quot;foo = src/build.ves&quot;.</font></pre>
+</td></tr></table>
+
+<p>
+As in <a href="models.html#files">a <tt>files</tt> clause</a>, any path component
+that is neither <a href="syntax.html#Identifiers">a legal
+identifier</a> nor <a href="data-types.html#int">an integer
+constant</a> or is a <a href="syntax.html#Reserved Words">reserved
+word</a> must be quoted:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">import
+  foo = &quot;subdir-with-dashes&quot;/foo.ves;
+  bar = &quot;binding&quot;/bar.ves;</font></pre>
+</td></tr></table>
+
+<p>
+Also note that models must end in &quot;.ves&quot;.&nbsp; If you try
+to import something which is not a directory and doesn't end in
+&quot;.ves&quot;, the evaluator automatically adds the
+&quot;.ves&quot; for you.&nbsp; (It does this even if the file without
+&quot;.ves&quot; exists, which can be a little counter-intuitive.)
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">import
+  foo = src;    // If &quot;src&quot; is <b>not</b> a directory (even if it <b>is</b> a file)
+                // this is equivalent to &quot;foo = src.ves&quot;!</font></pre>
+</td></tr></table>
+
+<p>
+The <tt>from</tt> keyword can be used to import models relative to a
+different directory.&nbsp; This is used to import components from
+specific versions of other packages.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">from /vesta/vestasys.org/vesta import
+  progs = eval/4/src/progs.ves;
+
+  // progs = /vesta/vestasys.org/vesta/eval/4/src/progs.ves</font></pre>
+</td></tr></table>
+
+<p>
+The shortcut for &quot;build.ves&quot; and the requirement that model
+files end in &quot;.ves&quot; also apply within the scope of a
+<tt>from</tt>.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">from /vesta/vestasys.org/vesta import
+  eval = eval/4;
+  progs = eval/4/src/progs;
+
+  // eval  = /vesta/vestasys.org/vesta/eval/4/build.ves
+  // progs = /vesta/vestasys.org/vesta/eval/4/src/progs.ves</font></pre>
+</td></tr></table>
+
+<p>
+Unlike with local imports, within a <tt>from</tt> you can omit the
+variable name and &quot;=&quot; and have the first path component be
+used as the variable name.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">from /vesta/vestasys.org/vesta import
+  eval/4;
+  weeder/1/src/progs.ves;
+
+  // eval   = /vesta/vestasys.org/vesta/eval/4/build.ves
+  // weeder = /vesta/vestasys.org/vesta/weeder/1/src/progs.ves</font></pre>
+</td></tr></table>
+
+<p>
+As with local imports, a binding can be created with several imports.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">from /vesta/vestasys.org/vesta import
+  b = [ eval/4,
+        weeder/1,
+        cache/5 ];
+
+  // b/eval   = /vesta/vestasys.org/vesta/eval/4/build.ves
+  // b/weeder = /vesta/vestasys.org/vesta/weeder/1/build.ves
+  // b/cache  = /vesta/vestasys.org/vesta/cache/5/build.ves</font></pre>
+</td></tr></table>
+
+<p>
+Note that a <tt>from</tt> changes the path of all imports up to the
+next <tt>from</tt>.&nbsp; Therefore, you must place all local imports
+<strong>before</strong> the first <tt>from</tt>.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">from /vesta/vestasys.org/vesta import
+  eval/4;
+
+import
+  local = local.ves;  // error, tries to import:
+                      //     /vesta/vestasys.org/vesta/local.ves</font></pre>
+</td></tr></table>
+
+<p>
+Use of symbolic links (such as the <tt>latest</tt> link in packages)
+is not allowed in an <tt>import</tt> clause.  (To do so would allow
+the possibility of a model's imports changing without the model's
+contents changing, which would lead to irreproducible builds.)
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">from /vesta/vestasys.org/vesta import
+  eval/latest/build.ves;    // &quot;Not a directory&quot; error</font></pre>
+</td></tr></table>
+
+<p>
+The <tt><a href="../man/html/vimports.1.html">vimports</a></tt>
+command parses the <tt>import</tt> clause of a model and displays
+the models imported.&nbsp; The <tt><a
+href="../man/html/vupdate.1.html">vupdate</a></tt> command provides a
+method of automatically editing the <tt>import</tt> clause of a model.
+</p>
+
+<p>
+There is <a href="expressions.html#_self">a special variable named
+&quot;<tt>_self</tt>&quot;</a> which is essentially an implicit import
+of the model in which it is used.
+</p>
+
+<h4><a NAME="body">Model Body</a></h4>
+
+<p>
+A block of <a href="statements.html">statements</a>, ending with a <a
+href="statements.html#return">return/value statement</a>.  The return
+statement specifies the result value which will be produced when the
+model is evaluated.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">{
+  return [ foo/bar = 2 ];
+}</font></pre>
+</td></tr></table>
+
+<br>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">{
+  ovs = [ Cxx/switches/program = [ shared_libs = &quot;-static&quot; ]] ++
+        [ Cxx/switches/compile = [ optimize = &quot;-O2&quot;, debug = &quot;-g3&quot; ]];
+
+  libs = &lt;./libs/c/clib_umb&gt;;
+
+  return ./Cxx/program("foo", foo_c, foo_h, libs, ovs) ++
+         ./Cxx/program("bar", bar_c, bar_h, libs, ovs);
+}</font></pre>
+</td></tr></table>
+
+<hr WIDTH="100%">
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i> &nbsp;
+/ <a href="index.html">Vesta SDL Programmer's Reference</a></i>
+</body>
+</html>

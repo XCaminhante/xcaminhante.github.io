@@ -1,0 +1,23 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 62</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text60.html">Back</a> <a href="text62.html">Continue</a> <a href="text68.html">Last page</a> <a href="bridge-intro.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Bridge Parameters</h1><p>
+<ul><li><h2>At the beginning of the bridge model, we'll add code which saves parameters from the value of “.” when the bridge model is called</h2>
+<ul><li>  // The command to invoke.  (Optional parameter; defaults to &quot;grep&quot;.)
+<li>  command = if .!command then ./command else &quot;grep&quot;;
+<li>  // The root filesystem to use for this platform (which must include
+<li>  // the executable named by &quot;command&quot;).
+<li>  root = ./root;
+<li>  
+<li>  // The name of this bridge.  (Optional parameter; defaults to
+<li>  // &quot;grep&quot;.)
+<li>  bridge_name = if .!bridge_name then ./bridge_name else &quot;grep&quot;;
+</ul></ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

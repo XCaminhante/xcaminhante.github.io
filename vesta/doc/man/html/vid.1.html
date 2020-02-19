@@ -1,0 +1,203 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vid - Get user access control information from the repository</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vid(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vid</B> - Get user access control information from the repository
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vid</B> [<A HREF="vid.1.html#-R">-R <I>repos</I></A>] [<I>user</I>]
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vid.1.html#Description">Description</A>
+<LI> <A HREF="vid.1.html#Flags">Flags</A>
+<LI> <A HREF="vid.1.html#ExamplesSect">Examples</A>
+<LI> <A HREF="vid.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vid.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vid.1.html#See_Also">See Also</A>
+<LI> <A HREF="vid.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The <B>vid</B> command prints out access control information about
+users.  It gets this information from the repository, which makes it
+possible to determine exactly what permissions a user has.  It can be
+useful for debugging permissions problems.<P>
+
+<B>vid</B> prints out several pieces of information:<P>
+
+<UL>
+<LI> The user's global name and aliases are displayed one per line.
+These are represented as global usernames (<I>user</I>@<I>realm</I>).
+(The first name listed is the global name about which the request was
+made.)
+<LI> The user's group memberships are displayed one per line.  These
+are represented as global group names (^<I>group</I>@<I>realm</I>).
+<LI> The user's UNIX user id.  (This is the user id used in the NFS
+interface for anything owned by the user.  For non-local users, this
+will be <TT>[Repository]vforeign_uid</TT>.)
+<LI> The user's UNIX primary group id.
+<LI> Any special powers granted to the user are displayed.
+Specically, these include: <TT>root</TT> (the user is
+<TT>[Repository]root_user</TT>), <TT>admin</TT> (this user has administrator
+access), <TT>wizard</TT> (this user has wizard access), <TT>runtool</TT> (this
+user is <TT>[Repository]runtool_user</TT>),
+</UL>
+<P>
+
+Users with administrator access may inquire about any user.  The
+optional <I>user</I> may be specified either as a global username
+(<I>user</I>@<I>realm</I>) or as a local username without a realm, in
+which case the local realm will be assumed.<P>
+
+If you are inquiring about yourself at the local repository (the -R
+option is not used), <B>vid</B> will check that your user ID on the
+client machine matches the user ID that the repository has for you.
+If it doesn't (which probably indicates a misconfiguration), a warning
+will be printed.<P>
+
+<B>vid</B> returns status 0 for success, 1 for configuration errors, and
+2 for network or permissions errors.
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-R">-R <I>repos</I></A><DD>
+Make the request for user information to <I>repos</I> instead of the
+default local repository.  The repository is specified by host name
+and TCP port number in the format <I>host</I><TT>:</TT><I>port</I>.  The
+<TT>:</TT><I>port</I> portion may be omitted; it defaults to
+<A HREF="vid.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ExamplesSect">Examples</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Sample output for a normal user:
+<PRE>
+% vid
+User names and aliases:
+  john@smith.org
+  jsmith@example.com
+Groups:
+  ^john@smith.org
+  ^vesta@smith.org
+  ^staff@example.com
+  ^users@example.com
+Unix (NFS) user ID:          1012
+Unix (NFS) primary group ID: 1015
+</PRE>
+
+Sample output for an administrator inquiring about the wizard user:
+<PRE>
+# vid vwizard 
+User names and aliases:
+  vwizard@example.com
+Groups:
+  ^vadmin@example.com
+  ^vesta@example.com
+Unix (NFS) user ID:          1002
+Unix (NFS) primary group ID: 1003
+Special permissions:
+  admin
+  wizard
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>realm</I> (optional)<DD>
+If set, specifies the default realm to be used with an unqualified
+<I>user</I> argument (i.e. one containing no "@").  (If not set,
+<TT>[Repository]realm</TT> is used.)
+</DL>
+<P>
+
+The following values are obtained from the <TT>[Repository]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+The default TCP port number for repositories.
+<DT><I>realm</I><DD>
+If <TT>[UserInterface]realm is not set</TT>, specifies the default realm
+to be used with an unqualified <I>user</I> argument
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+To inquire about any user (even yourself), you must be granted access
+to the repository.  If you have no access, you cannot make inquiries.<P>
+
+As mentioned above, normal users can only inquire about themselves.
+Administrators can inquire about anyone.
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="repository.8.html#AccessControl"><B>repository</B>(8), "Access Control" section</A>,
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Ken Schalk &lt;<A HREF="mailto:ken@xorian.net"><TT>ken@xorian.net</TT></A>&gt;
+<PRE>
+Last modified on Wed Jan 22 23:04:28 EST 2003 by ken@xorian.net
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,1242 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.77 [en] (X11; U; OSF1 V4.0 alpha) [Netscape]">
+   <meta name="Author" content="Kenneth C. Schalk">
+   <meta name="Description" content="A description of the different expression types and operators and what they do.">
+   <title>Vesta SDL reference - Expressions and Operators</title>
+</head>
+<body bgcolor="#efefff">
+
+<h1>
+Expressions and Operators</h1>
+
+<ul>
+
+  <li><a href="expressions.html#Variables">Variable References</a></li>
+
+  <li><a href="expressions.html#if"><tt>if</tt> Expressions</a></li>
+
+  <li><a href="expressions.html#Block">Statement Blocks</a></li>
+
+  <li><a href="expressions.html#FunctionCall">Function Calls</a></li>
+
+  <li><a href="expressions.html#_self"><tt>_self</tt> Special Variable</a></li>
+
+  <li><a href="expressions.html#Operators">Operators</a>
+
+  <ul>
+
+    <li><a href="expressions.html#Equality Operators">Equality Operators</a></li>
+
+    <li><a href="expressions.html#Relational Operators">Relational Operators</a></li>
+
+    <li><a href="expressions.html#Logical Operators">Logical Operators</a></li>
+
+    <li><a href="expressions.html#Arithmetic Operators">Arithmetic Operators</a></li>
+
+    <li><a href="expressions.html#Concatenation Operators">Concatenation Operators</a></li>
+
+    <li><a href="expressions.html#Binding Lookup Operator">Binding Lookup Operator</a></li>
+
+    <li><a href="expressions.html#Binding Name-Existence Test Operator">Binding Name-Existence Test Operator</a></li>
+
+    <li><a href="expressions.html#Binding Manipulation Operators">Binding Manipulation Operators</a></li>
+
+    <li><a href="expressions.html#Assignment Operators">Assignment Operators</a></li>
+
+  </ul>
+
+  <li><a href="expressions.html#Summary">Summary</a></li>
+
+  </li>
+
+</ul>
+
+<h3><a NAME="Variables">Variable References</a></h3>
+
+<i><tt>identifier</tt></i>
+
+<p>An <a href="syntax.html#Identifiers">identifier</a> by itself is an
+expression referring to the value of a variable.</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>x = 1;
+y = 2;
+
+z = x + y;    // z == 1 + 2 == 3</pre>
+</td></tr></table>
+
+
+<p>The notable exception to this is identifiers used as names in <a
+href="data-types.html#binding">binding</a> literals.</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>b = [ foo = 1 ];    // "foo" does not refer to a variable</pre>
+</td></tr></table>
+
+<h3><a NAME="if"><tt>if</tt> Expressions</a></h3>
+
+<p>
+<tt>if <i>test_expr</i> then <i>expr_1</i> else <i>expr_2</i></tt>
+</p>
+
+<p>
+The test expression must evaluate to a <a href="data-types.html#bool">boolean</a>.&nbsp;
+If it evaluates to <tt>TRUE</tt>, then the result of the if expression is
+the result of <tt>expr_1</tt>.&nbsp; Otherwise, the result of the expression
+is the result of <tt>expr_2</tt>.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>b = if x >= 0 then [ x_positive = TRUE ] else [];
+
+l += if <a href="primitive-functions/_is_type.html#_is_list">_is_list</a>(v) then v then v else &lt;v&gt;;</pre>
+</td></tr></table>
+
+<p>
+Note that <tt>if</tt> is only a kind of expression,
+<strong>not</strong> a kind of <em>statement</em>.
+</p>
+
+<h3><a NAME="FunctionCall">Function Calls</a></h3>
+
+<tt><i>expr_1</i>([<i>expr_2</i>, <i>expr_3</i>, ...])</tt>
+
+<p><tt><i>expr_1</i></tt> must evaluate to a <a
+href="data-types.html#function">function</a>.&nbsp; There can be zero
+or more expressions as arguments, separated by commas.&nbsp; A
+trailing comma is permitted.</p>
+
+<p>The function call mechanism provides special treatment for the
+identifier consisting of a single period, called the current
+environment and pronounced "dot". Dot is typically assigned a binding
+that contains the tools, switches, and file system required for the
+rest of the build. The initial environment of a model does not bind
+dot.</p>
+
+<p>When a function is called, the value of "." which is used while
+executing its body is determined as follows:</p>
+
+<ul>
+<li>
+If the function is defined with <b>n</b> formal parameters and called
+with <b>n</b> or fewer actual parameters, then the value for "."
+inside the function is the value of "." in the calling scope.</li>
+
+<li>
+If the function is defined with <b>n</b> formal parameters and called with
+<b>n+1</b>
+actual parameters, then the value bound to the implicit formal parameter
+named "." is the value
+ of the last actual parameter.</li>
+</ul>
+
+<p>
+Thus, the value of ".", if any, is passed through the dynamic call
+chain until it is altered either explicitly by an <a
+href="statements.html#Assignment">assignment statement</a> or
+implicitly by calling a function with an extra actual parameter.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>foo(y = 1)
+{
+  return ./x + y;
+};
+. = [x=1];
+
+// Passing "." implicitly:
+a = foo();                 // a = 1+1 == 2
+b = foo(2);                // b = 1+2 == 3
+. = [x=3];
+c = foo();                 // c = 3+1 == 4
+
+// Passing "." explicitly:
+d = foo(1, [x=4]);         // d = 4+1 == 5
+e = foo(6, [x=0]);         // e = 0+6 == 6</pre>
+</td></tr></table>
+
+<p>
+Note that <em>function calls do not have side effects</em>.&nbsp;
+Vesta SDL is a <a
+href="functional.html">functional
+language</a>, so the only effect a function can have is the result
+value it produces.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>foo(a, b)
+{
+  . += [ x = a + b ];
+  return ./x;
+};
+
+. = [x=1];
+c = foo(1, 2);            // c == 1+2 == 3, but ./x == 1
+d = foo(&quot;foo&quot;, &quot;bar&quot;);    // d == &quot;foobar&quot;, but ./x == 1
+
+bar(x)
+{
+  c += x;
+  return x;
+}
+
+e = bar(3);               // e == 3+3 == 6, but c == 3;
+</pre>
+</td></tr></table>
+
+<h3><a NAME="Block">Statement Blocks</a></h3>
+
+<pre>{ <i>statement</i>; ... return <i>expr</i>; }
+{ <i>statement</i>; ... value <i>expr</i>; }</pre>
+
+<p>
+Blocks of statements are a type of expression. Every block must end
+with a <a href="statements.html#return"><tt>return</tt> statement</a>,
+which may not appear anywhere else within the block. (The
+<tt>value</tt> and <tt>return</tt> keywords are interchangeable.)
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>x = {
+       // Modify the value of dot before calling foo
+       . ++= [ foo/options/bar = 3 ];
+       r = foo(i);
+       // Extract part of the return value of foo
+       value r/state;
+    };</pre>
+</td></tr></table>
+
+<p>
+Blocks are often used in conjunction with <tt>if</tt>:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>x = if kind == "foo" then {
+       r = foo(i);
+       value r/state;
+    } else {
+       r = bar(i, j);
+       value r+1;
+    };</pre>
+</td></tr></table>
+
+<p>
+The final semicolon in a block is optional.
+</p>
+
+<p>
+Note that like functions <em>statement block expressions do not have
+side effects</em>.&nbsp; The only effect a block can have is the
+result value it produces.&nbsp; (Remember, Vesta SDL is a <a
+href="functional.html">functional
+language</a>.)
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>foo = 1;
+
+bar = {
+  foo = 2;    // assignment local to statement block!
+  value foo;
+};
+
+// foo == 1
+// bar == 2</pre>
+</td></tr></table>
+
+<p>
+(Don't confuse this with statement blocks used in <a
+href="statements.html#Iteration">iteration statements</a>, which
+<strong>do</strong> have side effects.)
+</p>
+
+<h3><a NAME="_self"><tt>_self</tt> Special Variable</a></h3>
+
+<p>
+The variable named &quot;<tt>_self</tt>&quot; is predefined as a <a
+href="data-types.html#function">function</a> which refers to the model
+in which it is used.&nbsp; In other words, it is as though every model
+<a href="models.html#import">imports</a> itself under this name.
+</p>
+
+<p>
+This feature is most often used with
+
+<a href="primitive-functions/_model_name-_fingerprint.html#_model_name">the <tt>_model_name</tt> primitive function</a>
+
+to insert a version identifier into the result of a build.
+
+</p>
+
+<p>
+Like any other variable, <tt>_self</tt> can be assigned a new value.
+</p>
+
+<h3><a name="Operators">Operators</a></h3>
+
+<h4><a name="Equality Operators">Equality Operators</a></h4>
+
+<p><tt><i>expr == expr</i></tt></p>
+
+<p>
+The binary equality operator is written &quot;<tt>==</tt>&quot;.  Its
+result is <tt>TRUE</tt> if the left and right operands are equal and
+<tt>FALSE</tt> otherwise.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>
+1 == 2                     // FALSE
+4 == (2+2)                 // TRUE
+
+&quot;foo&quot;    == &quot;bar&quot;          // FALSE
+&quot;foobar&quot; == (&quot;foo&quot;+&quot;bar&quot;)  // TRUE
+
+ERR == ERR                 // TRUE
+
+FALSE == FALSE             // TRUE
+FALSE == TRUE              // FALSE</pre>
+</td></tr></table>
+
+<p>
+For <a href="data-types.html#list">lists</a> and <a
+href="data-types.html#binding">bindings</a>, the equality test
+recursively compares each element of the aggregate object.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>
+b = <a href="primitive-functions/_append.html#_append(binding,binding)">_append</a>(<a href="primitive-functions/_list1-_bind1.html#_bind1(text,any)">_bind1</a>(&quot;x&quot;, 1), <a href="primitive-functions/_list1-_bind1.html#_bind1(text,any)">_bind1</a>(&quot;y&quot;, 2));
+
+b == [x=1, y=2]            // TRUE
+b == [x=2, y=2]            // FALSE
+b == [x=1, y=2, z=3]       // FALSE
+
+l = <a href="primitive-functions/_append.html#_append(list,list)">_append</a>(<a href="primitive-functions/_list1-_bind1.html#_list1(any)">_list1</a>(&quot;foo&quot;), <a href="primitive-functions/_list1-_bind1.html#_list1(any)">_list1</a>(&quot;bar&quot;));
+
+l == &lt;&quot;foo&quot;, &quot;bar&quot;&gt;        // TRUE
+l == &lt;&quot;foo&quot;, 2&gt;            // FALSE
+l == &lt;&quot;foo&quot;&gt;               // FALSE
+</pre>
+</td></tr></table>
+
+<p>
+Note that the name/value pairs in a <a
+href="data-types.html#binding">binding</a> are ordered.&nbsp; (See the
+primitive functions <tt><a
+href="primitive-functions/_head-_tail.html#_head(binding)">_head</a></tt>,
+<tt><a
+href="primitive-functions/_head-_tail.html#_tail(binding)">_tail</a></tt>,
+<tt><a
+href="primitive-functions/_elem.html#_elem(binding,int)">_elem</a></tt>,
+and <tt><a
+href="primitive-functions/_sub.html#_sub(binding,int,int)">_sub</a></tt>,
+all of which can be used on bindings.)&nbsp; For two bindings to be
+considered equal, their name/value pairs <em>must be in the same
+order</em>.&nbsp; (For this reason, using the equality operator with
+bindings may not produce the results you would expect.)
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>
+b = <a href="primitive-functions/_append.html#_append(binding,binding)">_append</a>(<a href="primitive-functions/_list1-_bind1.html#_bind1(text,any)">_bind1</a>(&quot;x&quot;, 1), <a href="primitive-functions/_list1-_bind1.html#_bind1(text,any)">_bind1</a>(&quot;y&quot;, 2));
+
+b == [x=1, y=2]            // TRUE
+b == [y=2, x=1]            // FALSE !
+</pre>
+</td></tr></table>
+
+<p>
+The equality operator cannot be used to compare <a
+href="data-types.html#function">functions</a> (user-defined, imported
+models, or primitives).
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>foo()
+{
+  return 2+2;
+};
+bar = foo;
+
+foo == bar   // run-time error</pre>
+</td></tr></table>
+
+<p>
+If the operands have different types, they are always considered
+in-equal.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>
+1 == &quot;foo&quot;                 // FALSE
+TRUE == &lt;1,2,3&gt;           // FALSE
+_append == [ x=1, y=2 ]   // FALSE</pre>
+</td></tr></table>
+
+<p><tt><i>expr != expr</i></tt></p>
+
+<p>
+The binary inequality operator is written &quot;<tt>!=</tt>&quot;.
+Its result is exactly the opposite of the equality operator:
+<tt>TRUE</tt> if the left and right operands are different and
+<tt>FALSE</tt> if they are equal.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>
+1 != 2                     // TRUE
+4 != (2+2)                 // FALSE
+
+&quot;foo&quot;    != &quot;bar&quot;          // TRUE
+&quot;foobar&quot; != (&quot;foo&quot;+&quot;bar&quot;)  // FALSE
+
+l = <a href="primitive-functions/_list1-_bind1.html#_list1(any)">_list1</a>(&quot;foo&quot;);
+l != &lt;&quot;foo&quot;, 2&gt;            // TRUE
+l != &lt;&quot;foo&quot;&gt;               // FALSE
+
+b = <a href="primitive-functions/_list1-_bind1.html#_bind1(text,any)">_bind1</a>(&quot;x&quot;, 1);
+b != [x=1, y=2]            // TRUE
+b != [x=1]                 // FALSE
+</pre>
+</td></tr></table>
+
+<p>
+The ordering constraint on bindings also applies to the inequality
+operator, as does the inability to compare functions.
+</p>
+
+<h4><a name="Relational Operators">Relational Operators</a></h4>
+
+<p><tt><i>int_expr &lt; int_expr<br>
+int_expr &gt; int_expr<br>
+int_expr &lt;= int_expr<br>
+int_expr &gt;= int_expr<br>
+</i></tt></p>
+
+<p>
+There are four binary relational operators, which only operate on <a
+href="data-types.html#int">integers</a>:
+</p>
+
+<ul>
+
+<li> &quot;&lt;&quot; returns <tt>TRUE</tt> if the left operand is
+numerically less than the right operand, and <tt>FALSE</tt>
+otherwise.</li>
+
+<li> &quot;&gt;&quot; returns <tt>TRUE</tt> if the left operand is
+numerically greater than the right operand, and <tt>FALSE</tt>
+otherwise.</li>
+
+<li> &quot;&lt;=&quot; returns <tt>TRUE</tt> if the left operand is
+numerically less than or equal to the right operand, and
+<tt>FALSE</tt> otherwise.</li>
+
+<li> &quot;&gt;=&quot; returns <tt>TRUE</tt> if the left operand is
+numerically greater than or equal to the right operand, and
+<tt>FALSE</tt> otherwise.</li>
+
+</ul>
+
+<p>
+Note that <em>the relational operators do not work on <a
+href="data-types.html#text">text</a> values</em>.  (In fact, Vesta SDL
+provides <em>no way</em> to compare text strings for lexical
+ordering.)  Operands of non-integer types will cause a run-time error.
+</p>
+
+<h4><a name="Logical Operators">Logical Operators</a></h4>
+
+<p><tt><i>! bool_expr</i></tt></p>
+
+<p>
+The unary &quot;!&quot; operator performs logical negation: it returns
+<tt>TRUE</tt> if its operand is <tt>FALSE</tt> and <tt>FALSE</tt> if
+its operand is <tt>TRUE</tt>.  (Don't confuse this with the binary
+&quot;!&quot; operator used for <a href="expressions.html#Binding Name-Existence Test Operator">binding name-existence tests</a>.)
+</p>
+
+<p><tt><i>bool_expr &amp;&amp; bool_expr</i></tt></p>
+
+<p>
+The binary &quot;&amp;&amp;&quot; operator performs a logical
+<b>AND</b> with short-circuit evaluation.  That is, if the left
+operand evaluates to <tt>FALSE</tt>, the result is <tt>FALSE</tt> and
+the right operand is never evaluated.  If both operands evaluate to
+<tt>TRUE</tt>, the result will be <tt>TRUE</tt>.
+</p>
+
+<p><tt><i>bool_expr || bool_expr</i></tt></p>
+
+<p>
+The binary &quot;||&quot; operator performs a logical <b>OR</b> with
+short-circuit evaluation.  If the left operand evaluates to
+<tt>TRUE</tt>, the result is <tt>TRUE</tt> and the right operand is
+never evaluated.  If either operand evaluates to <tt>TRUE</tt>, the
+result will be <tt>TRUE</tt>.
+</p>
+
+<p><tt><i>bool_expr =&gt; bool_expr</i></tt></p>
+
+<p>
+The binary &quot;=&gt;&quot; operator performs logical implication
+with short-circuit evaluation.  (&quot;<tt><i>A</i> =&gt;
+<i>B</i></tt>&quot; is equivalent to &quot;<tt>!<i>A</i> ||
+<i>B</i></tt>&quot;.)  If the left operand evaluates to
+<tt>FALSE</tt>, the result is <tt>TRUE</tt> and the right operand is
+never evaluated.  If both operands evaluate to <tt>TRUE</tt>, the
+result will be <tt>TRUE</tt>.  If the left operand evaluates to
+<tt>TRUE</tt> and the right operand evaluates to <tt>FALSE</tt>, the
+result will be <tt>FALSE</tt>.
+</p>
+
+<h4><a name="Arithmetic Operators">Arithmetic Operators</a></h4>
+
+<p>
+<a href="data-types.html#int">Integers</a> are the only numeric type,
+so arithmetic operators are obviously limited to integer operands.
+However, &quot;+&quot; and &quot;-&quot; also server other purposes
+(see below).
+</p>
+
+<p><tt><i>int_expr + int_expr</i></tt></p>
+
+<p>
+The binary &quot;+&quot; operator performs integer addition.  Its
+result is the sum of the left and right operands.
+</p>
+
+<p><tt><i>int_expr - int_expr</i></tt></p>
+
+<p>
+The binary &quot;-&quot; operator performs integer addition.  Its
+result is the difference of the left and right operands.
+</p>
+
+<p><tt><i>- int_expr</i></tt></p>
+
+<p>
+The unary &quot;-&quot; operator performs integer negation.
+(&quot;<tt>-<i>i</i></tt>&quot; is equivalent to &quot;<tt>0 -
+<i>i</i></tt>&quot;.)
+</p>
+
+<p><tt><i>int_expr * int_expr</i></tt></p>
+
+<p>
+The binary &quot;*&quot; operator performs integer multiplication.
+Its result is the product of the left and right operands.
+</p>
+
+<p>
+Note that there are no operators for division and modulus.  To perform
+those functions, use the <a
+href="primitive-functions/_div-_mod.html#_div(int,int)"><tt>_div</tt></a>
+and <a
+href="primitive-functions/_div-_mod.html#_mod(int,int)"><tt>_mod</tt></a>
+primitive functions.
+</p>
+
+<p>
+If the result of any of the arithmetic operators lies outside the
+implementation-defined range, the evaluation halts with a run-time
+error.  (As of this writing, the implementation is limited to integers
+which can be represented as two's-complement in 32-bits.)
+</p>
+
+<h4><a name="Concatenation Operators">Concatenation Operators</a></h4>
+
+<p><tt><i>list_expr + list_expr<br>
+text_expr + text_expr</i></tt></p>
+
+<p>
+When used on <a href="data-types.html#list">list</a> or <a
+href="data-types.html#text">text</a> values, the binary &quot;+&quot;
+operator appends the left and right operands together.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>
+&quot;foo&quot;+&quot;bar&quot; == &quot;foobar&quot;
+
+&lt;1,2&gt;+&lt;3,4&gt; == &lt;1,2,3,4&gt;
+</pre>
+</td></tr></table>
+
+<p>
+For lists, the &quot;+&quot; operator is equivalent to the <tt><a
+href="primitive-functions/_append.html#_append(list,list)">_append</a></tt>
+primitive function.
+</p>
+
+<p>
+Note that when using &quot;+&quot;, <em>both operands must be the same
+type</em>.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>
+&lt;1,2,3&gt;+4                          // run-time error
+&lt;1,2,3&gt;+<a href="primitive-functions/_list1-_bind1.html#_list1(any)">_list1</a>(4) == &lt;1,2,3,4&gt;
+
+&quot;foo&quot;+4                            // run-time error</pre>
+</td></tr></table>
+
+<h4><a name="Binding Lookup Operator">Binding Lookup Operator</a></h4>
+
+<p>
+<tt><i>binding_expr</i>/<i>identifier</i></tt>
+</p>
+
+<p>
+This is the simplest way to look up the value associated with a name
+in a <a href="data-types.html#binding">binding</a>.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>b = [ x = 1, y = 2 ];
+
+u = b/x;          // u == 1
+v = b/y;          // v == 2
+
+w = b/x + b/y;    // w == 3</pre>
+</td></tr></table>
+
+
+
+<p>
+<tt><i>binding_expr</i>/&quot;<i>string</i>&quot;</tt>
+</p>
+
+<p>
+Names which are not legal <a
+href="syntax.html#Identifiers">identifiers</a> or are <a
+href="syntax.html#Reserved Words">reserved words</a> can still be used
+for binding lookups, as long as they are enclosed in double quotes.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>b = [ &quot;bad-ident&quot; = 1,
+      &quot;foreach&quot; = 2,
+      &quot;4321&quot; = 1234 ];
+
+u = b/&quot;bad-ident&quot;;        // u == 1
+v = b/&quot;foreach&quot;;          // v == 2
+w = b/&quot;4321&quot;;             // w == 1234</pre>
+</td></tr></table>
+
+<p>
+<tt><i>binding_expr</i>/$<i>text_var</i></tt>
+</p>
+
+<p>
+<tt><i>text_var</i></tt> must hold a <a href="data-types.html#text">text
+value</a>.  This will look up the value associated with the name
+of <tt><i>text_var</i></tt>'s value.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>b = [ x = 1, y = 2 ];
+
+name1 = &quot;x&quot;;
+name2 = &quot;y&quot;;
+
+u = b/$name1;     // u == 1
+v = b/$name2;     // v == 2</pre>
+</td></tr></table>
+
+<p>
+If <tt><i>text_var</i></tt>'s value is not a <a
+href="data-types.html#text">text</a>, the evaluation will stop with a
+run-time error.
+</p>
+
+<p>
+<tt><i>binding_expr</i>/$(<i>text_expr</i>)</tt><br>
+<tt><i>binding_expr</i>/%<i>text_expr</i>%</tt>
+</p>
+
+<p>
+<tt><i>text_expr</i></tt> must evaluate to a <a
+href="data-types.html#text">text value</a>.  This will look up the
+value associated with the name of <tt><i>text_expr</i></tt>'s result.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>b = [ foobar = 1, barfoo = 2 ];
+
+name1 = &quot;foo&quot;;
+name2 = &quot;bar&quot;;
+
+u = b/$(name1 + name2);    // u == 1
+v = b/%name2 + name1%;     // v == 2</pre>
+</td></tr></table>
+
+<p>
+If <tt><i>text_expr</i></tt> doesn't evaluate to a <a
+href="data-types.html#text">text</a>, the evaluation will stop with a
+run-time error.
+</p>
+
+<p>
+The binding lookup operator is left-associative which facilitates
+nested lookups.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>b = [ foo = [ bar = [ x = 1, y = 2 ] ] ];
+
+name1 = &quot;foo&quot;;
+name2 = &quot;ba&quot;;
+
+u = b/foo/bar/x;              // u == 1
+v = b/$name1/$(name2+&quot;r&quot;);    // v == 2</pre>
+</td></tr></table>
+
+<p>
+Note that binding lookups can also be performed with the <tt><a
+href="primitive-functions/_defined-_lookup.html#_lookup(binding,text)">_lookup</a></tt>
+primitive function, which is essentially equivalent to the forms
+described above.
+</p>
+
+<h4>
+<a NAME="Binding Name-Existence Test Operator">Binding Name-Existence Test Operator</a></h4>
+
+<p>
+<tt><i>binding</i>!<i>identifier</i></tt><br>
+<tt><i>binding</i>!&quot;<i>string</i>&quot;</tt><br>
+<tt><i>binding</i>!$<i>var</i></tt><br>
+<tt><i>binding</i>!$(<i>expr</i>)</tt><br>
+<tt><i>binding</i>!%<i>expr</i>%</tt>
+</p>
+
+<p>
+Tests whether a name is assigned a value within a <a
+href="data-types.html#binding">binding</a>.&nbsp; Has the the same
+forms as <a href="expressions.html#Binding Lookup Operator">binding lookups</a>.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left><pre>b = [ foo = 1, foobar = 2 ];
+
+test1 = b!foo;               // test1 == TRUE
+
+test2 = b!&quot;import&quot;;          // test2 == FALSE
+
+name1 = &quot;bar&quot;;
+test3 = b!$name1;            // test3 == FALSE
+
+test4 = b!$(&quot;foo&quot;+name1);    // test4 == TRUE
+
+</pre>
+</td></tr></table>
+
+<p>
+Equivalent to the <a
+href="primitive-functions/_defined-_lookup.html#_defined(binding,text)"><tt>_defined</tt>
+primitive function</a> in functionality.
+</p>
+
+<h4><a name="Binding Manipulation Operators">Binding Manipulation Operators</a></h4>
+
+<a name="binding-overlay"><p><tt><i>binding_expr + binding_expr</i></tt></p></a>
+
+<p>
+The binary &quot;+&quot; operator, called the <i>binding overlay
+operator</i>, produces a new binding with name/value pairs for all the
+names in its left and right operands.  For any names which have values
+in both operands, the value from the right operand is used in the
+result.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>[foo=&quot;bar&quot;] + [bar=&quot;foo&quot;] == [foo=&quot;bar&quot;,bar=&quot;foo&quot;]
+[x=1,y=2]   + [y=3,z=4]   == [x=1,y=3,z=4]
+[foo=7]     + [foo=FALSE] == [foo=FALSE]</pre>
+</td></tr></table>
+
+<p>
+Contrast this with the <tt><a
+href="primitive-functions/_append.html#_append(binding,binding)">_append</a></tt>
+primitive function, which causes a run-time error if its two arguments
+have any names in common.
+</p>
+
+<p>
+Note that with &quot;+&quot;, sub-bindings are not merged.  The
+sub-binding from the right operand is used.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>[foo=[x=1]] + [foo=[y=2]] == [foo=[y=2]]
+[foo=[x=1]] + [foo=[]]    == [foo=[]]</pre>
+</td></tr></table>
+
+<a name="recursive-binding-overlay"><p><tt><i>binding_expr ++ binding_expr</i></tt></p></a>
+
+<p>
+The binary &quot;++&quot;operator, called the <i>recursive binding
+overlay operator</i>, is similar to binding overlay operator, except
+that it recursively merges values that are bindings in both operands.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>[foo=[x=1]] ++ [foo=[y=2]] == [foo=[x=1,y=2]]
+
+[foo/bar/a=TRUE] ++ [foo/baz/b=FALSE] == [foo=[bar=[a=TRUE],baz[b=FALSE]]]
+
+[foo=[x=1,y=2]] ++ [foo=[y=3,z=4], bar=TRUE] == [foo=[x=1,y=3,z=4], bar=TRUE]</pre>
+</td></tr></table>
+
+<p>
+Note that if a name that is bound to a binding in the left operand is
+bound to a non-binding in the right operand, the value from the right
+operand will be chosen instead of the sub-binding.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>[foo/bar/a=TRUE,blah=TRUE] ++ [foo=FALSE] == [foo=FALSE,blah=TRUE]</pre>
+</td></tr></table>
+
+<a name="binding-difference"><p><tt><i>binding_expr - binding_expr</i></tt></p></a>
+
+<p>
+The binary &quot;-&quot; is the binding difference operator.  Its
+result is a binding formed by removing from the left operand all
+name/value pairs whose names are defined in the right operand. (The
+values associated in the right operand are ignored.)
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>
+[x=1,y=2,z=3] - [y=&quot;foo&quot;] == [x=1,z=3]
+
+[x=1,y=2,z=3] - [a=1,b=2,c=2] == [x=1,y=2,z=3]</pre>
+</td></tr></table>
+
+<h4><a name="Assignment Operators">Assignment Operators</a></h4>
+
+<p><tt><i>int_var += int_expr<br>
+int_var -= int_expr<br>
+int_var *= int_expr<br>
+<br>
+list_var += list_expr<br>
+<br>
+text_var += text_expr<br>
+<br>
+binding_var += binding_expr<br>
+binding_var ++= binding_expr<br>
+binding_var -= binding_expr
+</i></tt></p>
+
+
+<p>The additive (&quot;<tt>+</tt>&quot;, &quot;<tt>++</tt>&quot;,
+&quot;<tt>-</tt>&quot;) and multiplicative (&quot;<tt>*</tt>&quot;)
+operators also have assignment versions (&quot;<tt>+=</tt>&quot;,
+&quot;<tt>++=</tt>&quot;, &quot;<tt>-=</tt>&quot;,
+&quot;<tt>*=</tt>&quot;).
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>i = 1;
+i += 2;             // i == 3
+i *= 3;             // i == 9
+i -= 4;             // i == 5
+
+l = &lt;1,2&gt;;
+l += &lt;3,4&gt;;         // l == &lt;1,2,3,4&gt;
+
+t = &quot;foo&quot;;
+t += &quot;bar&quot;;         // t == &quot;foobar&quot;
+
+b = [foo/x=1];
+b += [bar=TRUE];    // b == [foo=[x=1],bar=TRUE]
+b ++= [foo/y=2];    // b == [foo=[x=1,y=2],bar=TRUE]
+b -= [foo=0];       // b == [bar=TRUE]
+</pre>
+</td></tr></table>
+
+<p>
+Note that using an assignment operator is not an expression, but an <a
+href="statements.html#Assignment">assignment statement</a>.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>
+i = (j *= 2) + 1;                  // syntax error
+
+j *= 2; i = j + 1;                 // correct
+
+b -= (c ++= [foo/bar/baz=&lt;2&gt;]);    // syntax error
+
+c ++= [foo/bar/baz=&lt;2&gt;]; b -= c;   // correct
+</pre>
+</td></tr></table>
+
+<h3><a name="Summary">Summary</a></h3>
+
+<table BORDER NOSAVE >
+<tr NOSAVE>
+<th>Operator/Expression and Operand Types</th>
+
+<th>Result Type</th>
+
+<th NOSAVE>Description</th>
+</tr>
+
+<tr>
+<td><tt>identifier</tt></td>
+
+<td><tt>any</tt></td>
+
+<td>Variable reference.</td>
+</tr>
+
+<tr>
+<td><tt>if bool then expr_1 else expr_2</tt></td>
+
+<td><tt>any</tt></td>
+
+<td>Conditional expression.</td>
+</tr>
+
+<tr>
+<td><tt>function([arg_1, arg_2, ...])</tt></td>
+
+<td><tt>any</tt></td>
+
+<td>Function call.</td>
+</tr>
+
+<tr>
+<td><tt>{ statement; ... return expr; }<br>
+{ statement; ... value expr; }</tt></td>
+
+<td><tt>any</tt></td>
+
+<td>Statement block.</td>
+</tr>
+
+<tr>
+<td><tt>bool == bool&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Boolean equality test.</td>
+</tr>
+
+<tr>
+<td><tt>bool != bool&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Boolean inequality test.</td>
+</tr>
+
+<tr>
+<td><tt>int == int&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Integer equality test.</td>
+</tr>
+
+<tr>
+<td><tt>int != int&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Integer inequality test.</td>
+</tr>
+
+<tr>
+<td><tt>text == text&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Text equality test.</td>
+</tr>
+
+<tr>
+<td><tt>text != text&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Text inequality test.</td>
+</tr>
+
+<tr>
+<td><tt>list == list&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>List equality test.  Recursively compares all list elements.</td>
+</tr>
+
+<tr>
+<td><tt>list != list&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>List inequality test.  Recursively compares all list elements.</td>
+</tr>
+
+<tr>
+<td><tt>binding == binding&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Binding equality test.  Recursively compares all name/value pairs.
+The name/value pairs in a binding are ordered, and bindings must have
+the same order to be considered equal.</td>
+</tr>
+
+<tr>
+<td><tt>binding != binding&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Binding inequality test.  Recursively compares all name/value
+pairs.  The name/value pairs in a binding are ordered, and bindings
+are considered in-equal if they do not have the same order.</td>
+</tr>
+
+<tr>
+<td><tt>int &lt; int&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Integer less-than comparison.</td>
+</tr>
+
+<tr>
+<td><tt>int &gt; int&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Integer greater-than comparison.</td>
+</tr>
+
+<tr>
+<td><tt>int &lt;= int&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Integer less-than-or-equal-to comparison.</td>
+</tr>
+
+<tr>
+<td><tt>int &gt;= int&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Integer greater-than-or-equal-to comparison.</td>
+</tr>
+
+<tr>
+<td><tt>!bool&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Boolean inversion.</td>
+</tr>
+
+<tr>
+<td><tt>bool || bool&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Conditional <b>OR</b>, with the same short-circuit semantics as C/C++.</td>
+</tr>
+
+<tr>
+<td><tt>bool &amp;&amp; bool&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Conditional <b>AND</b>, with the same short-circuit semantics as C/C++.</td>
+</tr>
+
+<tr>
+<td><tt>bool => bool&nbsp;</tt></td>
+
+<td><tt>bool</tt></td>
+
+<td>Conditional implication, with short-circuit semantics.&nbsp; <tt><i>A</i>
+=> <i>B</i></tt> is equivalent to <tt>!<i>A</i> || <i>B</i></tt>.</td>
+</tr>
+
+<tr>
+<td><tt>int + int</tt></td>
+
+<td><tt>int</tt></td>
+
+<td>Integer addition.&nbsp; Returns the sum of the two integer operands.
+is returned.&nbsp;</td>
+</tr>
+
+<tr>
+<td><tt>int - int</tt></td>
+
+<td><tt>int</tt></td>
+
+<td>Integer subtraction.&nbsp; Returns the integer difference (the first
+operand minus the second).
+</tr>
+
+<tr>
+<td><tt>- int&nbsp;</tt></td>
+
+<td><tt>int</tt></td>
+
+<td>Unary integer negation.&nbsp; <tt>-<i>I</i></tt> is equivalent to <tt>0
+- <i>I</i></tt>.</td>
+</tr>
+
+<tr>
+<td><tt>int * int</tt></td>
+
+<td><tt>int</tt></td>
+
+<td>Integer multiplication.&nbsp; Returns the integer product of the two
+operands.
+</tr>
+
+<tr>
+<td><tt>text + text&nbsp;</tt></td>
+
+<td><tt>text</tt></td>
+
+<td>Text concatenation operator.</td>
+</tr>
+
+<tr>
+<td><tt>list + list&nbsp;</tt></td>
+
+<td><tt>list</tt></td>
+
+<td>List concatenation operator.  Equivalent to <tt><a
+href="primitive-functions/_append.html#_append(list,list)">_append</a>.</td>
+</tr>
+
+<tr>
+<td><tt>binding / identifier<br>
+binding / $text_var<br>
+binding / $(text_expr)<br>
+binding / %text_expr%</td>
+
+<td><tt>any</tt></td>
+
+<td>Binding lookup operator.</td>
+</tr>
+
+<tr>
+<td><tt>binding ! identifier<br>
+binding ! $text_var<br>
+binding ! $(text_expr)<br>
+binding ! %text_expr%</td>
+
+<td><tt>bool</tt></td>
+
+<td>Binding name-existence test operator.</td>
+</tr>
+
+<tr>
+<td><tt>binding + binding&nbsp;</tt></td>
+
+<td><tt>binding</tt></td>
+
+<td>Binding overlay operator.</td>
+</tr>
+
+<tr>
+<td><tt>binding ++ binding&nbsp;</tt></td>
+
+<td><tt>binding</tt></td>
+
+<td>Binding recursive overlay operator.</td>
+</tr>
+
+<tr>
+<td><tt>binding - binding&nbsp;</tt></td>
+
+<td><tt>binding</tt></td>
+
+<td>Binding subtraction operator.</td>
+</tr>
+</table>
+
+<br>
+
+<table BORDER NOSAVE >
+<tr NOSAVE>
+<th>Assignment Operator and Operand Type</th>
+
+<th>Variable Type</th>
+
+<th NOSAVE>Description</th>
+</tr>
+
+<tr>
+<td><tt>var += int;</tt></td>
+
+<td><tt>int</tt></td>
+
+<td>Integer addition.</td>
+</tr>
+
+<tr>
+<td><tt>var -= int;</tt></td>
+
+<td><tt>int</tt></td>
+
+<td>Integer subtraction.</td>
+</tr>
+
+<tr>
+<td><tt>var *= int;</tt></td>
+
+<td><tt>int</tt></td>
+
+<td>Integer multiplication.</td>
+</tr>
+
+<tr>
+<td><tt>var += text;</tt></td>
+
+<td><tt>text</tt></td>
+
+<td>Text concatenation.</td>
+</tr>
+
+<tr>
+<td><tt>var += list;</tt></td>
+
+<td><tt>list</tt></td>
+
+<td>List concatenation.</td>
+</tr>
+
+<tr>
+<td><tt>var += binding;</tt></td>
+
+<td><tt>binding</tt></td>
+
+<td>Binding overlay.</td>
+</tr>
+
+<tr>
+<td><tt>var ++= binding;</tt></td>
+
+<td><tt>binding</tt></td>
+
+<td>Binding recursive overlay.</td>
+</tr>
+
+<tr>
+<td><tt>var -= binding;</tt></td>
+
+<td><tt>binding</tt></td>
+
+<td>Binding subtraction.</td>
+</tr>
+
+</table>
+
+<br>
+<hr WIDTH="100%">
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i> &nbsp;
+/ <a href="index.html">Vesta SDL Programmer's Reference</a></i>
+</body>
+</html>

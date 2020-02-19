@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Ambiguity Resolution</TITLE>
+<META NAME="description" CONTENT="Ambiguity Resolution">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node163.html">
+<LINK REL="previous" HREF="node161.html">
+<LINK REL="up" HREF="node160.html">
+<LINK REL="next" HREF="node163.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2557"
+  HREF="node163.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2553"
+  HREF="node160.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2547"
+  HREF="node161.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2555"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2558"
+  HREF="node163.html">Tokens</A>
+<B> Up:</B> <A NAME="tex2html2554"
+  HREF="node160.html">Concrete Syntax</A>
+<B> Previous:</B> <A NAME="tex2html2548"
+  HREF="node161.html">Grammar</A>
+ &nbsp <B>  <A NAME="tex2html2556"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION001342000000000000000"></A><A NAME="sect:SDL-ambiguity"></A>
+<BR>
+Ambiguity Resolution
+</H2>
+
+<P>
+The grammar as given above is ambiguous.  We resolve the ambiguity as
+follows.
+
+<P>
+The Vesta parser accepts a modified grammar in which the &gt;
+token is replaced by two distinct tokens: GREATER in the production
+for Expr4 and RANGLE in the production for List.  The modified grammar
+is unambiguous and can easily be parsed by an LL(1) or LALR(1)
+automaton.
+
+<P>
+The Vesta tokenizer is responsible for disambiguating between GREATER
+and RANGLE wherever <code>&gt;</code> appears in the input. It does so by
+looking ahead to the next token after the <code>&gt;</code>. If the next token
+is one of
+
+<P>
+<PRE>
+    - ! ( ERR TRUE FALSE Text Integer Id &lt; [ {
+</PRE>
+
+<P>
+then the <code>&gt;</code> is taken as GREATER; otherwise, it is taken as
+RANGLE.
+
+<P>
+Why is this solution reasonable?  Inspection of the grammar shows
+that in a syntactically valid program, the next token after GREATER
+must be one of those in the list above.  The next token after RANGLE
+must be one of the following:
+
+<P>
+<PRE>
+    : * + ++ - == != &lt; GREATER &lt;= &gt;= &amp;&amp; || =&gt;
+    ; do , ) then else RANGLE ] % / \ ! (
+</PRE>
+
+<P>
+These sets overlap in the tokens <TT>-</TT>, <TT>!</TT>,
+<TT>(</TT>, and <TT>&lt;</TT>.  Because we have chosen to
+resolve these cases as GREATER, it is impossible to write certain
+syntactically valid programs containing RANGLE.  However, any such
+program can be rewritten by replacing every List nonterminal by
+<TT>(</TT> List <TT>)</TT>, yielding a semantically equivalent
+program in which the closing &gt; of the List is correctly resolved as
+RANGLE.  Moreover, we claim (without presenting a proof) that any
+program in which RANGLE is followed by <TT>-</TT>, <TT>!</TT>,
+<TT>(</TT>, or <TT>&lt;</TT> must have a runtime type error,
+due to the paucity of operators defined on the list type, so in
+practice such programs are never written.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2557"
+  HREF="node163.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2553"
+  HREF="node160.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2547"
+  HREF="node161.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2555"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2558"
+  HREF="node163.html">Tokens</A>
+<B> Up:</B> <A NAME="tex2html2554"
+  HREF="node160.html">Concrete Syntax</A>
+<B> Previous:</B> <A NAME="tex2html2548"
+  HREF="node161.html">Grammar</A>
+ &nbsp <B>  <A NAME="tex2html2556"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

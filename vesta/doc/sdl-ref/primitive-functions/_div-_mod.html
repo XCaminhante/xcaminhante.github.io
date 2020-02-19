@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+   <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+   <META NAME="GENERATOR" CONTENT="Mozilla/4.05 [en] (X11; I; OSF1 V4.0 alpha) [Netscape]">
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Functions: _div, _mod</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_div(int,int)"></A><TT>_div(<I>i1</I>: int, <I>i2</I>: int): int</TT></H4>
+
+<p>
+Returns the integer quotient <I><TT>i1</TT></I> / <I><TT>i2</TT></I> (that
+is, the floor of the real quotient) unless it lies outside the implementation-defined
+range, in which case a runtime error is generated.  (This is possible
+only if <I><TT>i2</TT></I> is zero or if <I><TT>i2</TT></I> is -1 and <I><TT>i1</TT></I>
+is the largest implementation-defined negative number.)
+</p>
+
+<BLOCKQUOTE>
+<PRE>_div(6, 2) == 3
+_div(39, 4) == 9</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_mod(int,int)"></A><TT>_mod(<I>i1</I>: int, <I>i2</I>: int): int</TT></H4>
+
+<p>
+Returns the integer modulus <I><TT>i1</TT></I> % <I><TT>i2</TT></I>
+(that is, the remainder from the integer division <I><TT>i1</TT></I> /
+<I><TT>i2</TT></I>).&nbsp; It will generate a runtime error under the same
+circumstances as <TT><A HREF="_div-_mod.html#_div(int,int)">_div</A>(<I>i1</I>,
+<I>i2</I>)</TT>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_mod(10, 4) == 2
+_mod(23, 8) == 7</PRE>
+</BLOCKQUOTE>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A> / <A HREF="../index.html">Vesta
+SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

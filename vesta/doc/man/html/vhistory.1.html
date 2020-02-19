@@ -1,0 +1,109 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vhistory - Show the version history of a Vesta package</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vhistory(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vhistory</B> - Show the version history of a Vesta package
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vhistory</B> [-v] <I>package</I>
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The <B>vhistory</B> command is a small shell script that 
+prints the version history of a Vesta package.<P>
+
+In more detail, <B>vhistory</B> enumerates the versions of the
+specified package, sorts them from newest to oldest,
+and prints the <TT>message</TT> attribute of each one.  
+If the name <I>package</I> does not
+begin with "<TT>/</TT>", it is interpreted
+relative to the site's default parent directory for packages,
+<A HREF="vhistory.1.html#Configuration"><I>DefaultPackageParent</I></A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-v">-v</A><DD>
+Verbose; print all the attributes of each version, not just its
+message attribute.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>DefaultPackageParent</I><DD>
+The default directory to look for packages in.  Ordinarily a
+subdirectory of the appendable root, named with an Internet domain name
+belonging to the local site.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+This program should probably be reimplemented in C, using the skeleton
+of <A HREF="vlatest.1.html"><B>vlatest</B>(1)</A>.
+Limitations of the shell script version:<P>
+
+<UL>
+<LI> Should have an -m flag to look in the master repository.  Without
+      this, you see only the versions that happen to be in your repository.
+<LI> Should have a -b flag to control whether to recurse into branches.
+      Currently it always recurses into branches.
+<LI> The sorting is crude.
+<LI> It would be nice to be able to print different subsets of the 
+      attributes.
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

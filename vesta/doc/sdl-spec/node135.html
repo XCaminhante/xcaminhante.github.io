@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Literal</TITLE>
+<META NAME="description" CONTENT="Literal">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node136.html">
+<LINK REL="previous" HREF="node134.html">
+<LINK REL="up" HREF="node133.html">
+<LINK REL="next" HREF="node136.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2227"
+  HREF="node136.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2223"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2217"
+  HREF="node134.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2225"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2228"
+  HREF="node136.html">Id</A>
+<B> Up:</B> <A NAME="tex2html2224"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2218"
+  HREF="node134.html">Expr</A>
+ &nbsp <B>  <A NAME="tex2html2226"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001333200000000000000">
+Literal</A>
+</H3>
+
+<P>
+<
+<P>
+<PRE>
+Literal    ::= ERR | TRUE | FALSE | Text | Integer
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+Eval( ERR    , C) = err
+Eval( TRUE   , C) = true
+Eval( FALSE  , C) = false
+Eval( Text   , C) = the corresponding t_text value
+Eval( Integer, C) = the corresponding t_int value
+</PRE>
+
+<P>
+In the Text evaluation rule, the C++ interpretation of escape
+characters is used. In the Integer evaluation rule, evaluation halts
+with a runtime error if the integer is too large or small to be
+represented by the implementation.
+
+<P>
+<BR><HR>
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

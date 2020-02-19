@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Type Manipulation Functions</TITLE>
+<META NAME="description" CONTENT="Type Manipulation Functions">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node158.html">
+<LINK REL="previous" HREF="node156.html">
+<LINK REL="up" HREF="node150.html">
+<LINK REL="next" HREF="node158.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2496"
+  HREF="node158.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2492"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2486"
+  HREF="node156.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2494"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2497"
+  HREF="node158.html">Tool Invocation Function</A>
+<B> Up:</B> <A NAME="tex2html2493"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2487"
+  HREF="node156.html">Special Purpose Functions</A>
+ &nbsp <B>  <A NAME="tex2html2495"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001334700000000000000"></A><A NAME="sect:SDL-type-funcs"></A>
+<BR>
+Type Manipulation Functions
+</H3>
+
+<P>
+<PRE>
+t_text
+_type_of(t_value v)
+</PRE>
+<BR>
+<TT>_type_of</TT> returns a text value corresponding to the type of the
+value <EM>v</EM> as shown in Table&nbsp;<A HREF="node157.html#tbl:SDL-type-of">A.9</A>.
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="7055"></A>
+<TABLE>
+<CAPTION><STRONG>Table A.9:</STRONG>
+Text values returned by the <TT>_type_of</TT>
+primitive for each possible input value.</CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1" ALIGN="CENTER">
+<TR><TD ALIGN="LEFT">Value</TD>
+<TD ALIGN="LEFT">Text returned by <TT>_type_of</TT></TD>
+</TR>
+<TR><TD ALIGN="LEFT">true, false</TD>
+<TD ALIGN="LEFT">"t_bool"</TD>
+</TR>
+<TR><TD ALIGN="LEFT">integer</TD>
+<TD ALIGN="LEFT">"t_int"</TD>
+</TR>
+<TR><TD ALIGN="LEFT">byte sequence</TD>
+<TD ALIGN="LEFT">"t_text"</TD>
+</TR>
+<TR><TD ALIGN="LEFT">err</TD>
+<TD ALIGN="LEFT">"t_err"</TD>
+</TR>
+<TR><TD ALIGN="LEFT">list</TD>
+<TD ALIGN="LEFT">"t_list"</TD>
+</TR>
+<TR><TD ALIGN="LEFT">binding</TD>
+<TD ALIGN="LEFT">"t_binding"</TD>
+</TR>
+<TR><TD ALIGN="LEFT">closures</TD>
+<TD ALIGN="LEFT">"t_closure"</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<A NAME="tbl:SDL-type-of"></A></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+<PRE>
+t_bool
+_same_type(t_value v1, t_value v2) =
+   operator==(_type_of(v1), _type_of(v2))
+</PRE>
+
+<P>
+<PRE>
+t_bool
+_is_bool(t_value v)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>v</EM> is of type t_bool; returns
+<EM>false</EM> otherwise.
+
+<P>
+<PRE>
+t_bool
+_is_int(t_value v)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>v</EM> is of type t_int; returns <EM>false</EM>
+otherwise.
+
+<P>
+<PRE>
+t_bool
+_is_text(t_value v)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>v</EM> is of type t_text; returns
+<EM>false</EM> otherwise.
+
+<P>
+<PRE>
+t_bool
+_is_err(t_value v)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>v</EM> is of type t_err; returns <EM>false</EM>
+otherwise.
+
+<P>
+<PRE>
+t_bool
+_is_list(t_value v)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>v</EM> is of type t_list; returns
+<EM>false</EM> otherwise.
+
+<P>
+<PRE>
+t_bool
+_is_binding(t_value v)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>v</EM> is of type t_binding; returns
+<EM>false</EM> otherwise.
+
+<P>
+<PRE>
+t_bool
+_is_closure(t_value v)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>v</EM> is of type t_closure; returns
+<EM>false</EM> otherwise.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2496"
+  HREF="node158.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2492"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2486"
+  HREF="node156.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2494"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2497"
+  HREF="node158.html">Tool Invocation Function</A>
+<B> Up:</B> <A NAME="tex2html2493"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2487"
+  HREF="node156.html">Special Purpose Functions</A>
+ &nbsp <B>  <A NAME="tex2html2495"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

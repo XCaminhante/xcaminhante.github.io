@@ -1,0 +1,30 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 26</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text24.html">Back</a> <a href="text26.html">Continue</a> <a href="text68.html">Last page</a> <a href="bridge-intro.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>linux_i386.main.ves</h1><p>
+<ul><li><h2>import</h2>
+<li><h2>  self = build.ves;</h2>
+<li><h2>from /vesta/vestasys.org/platforms/linux/redhat/i386 import</h2>
+<li><h2>  std_env/9;</h2>
+<li><h2>from /vesta/example.com/platforms/linux/redhat/i386/components import</h2>
+<li><h2>  grep/&quot;2.4.2-5&quot;/1; // Our grep binary package</h2>
+<li><h2>from /vesta/example.com/bridge_intro import</h2>
+<li><h2>  grep_bridge/1; // Our grep bridge</h2>
+<li><h2>{ </h2>
+<li><h2>  // Build the basic environment.</h2>
+<li><h2>  . = std_env()/env_build([]);</h2>
+<li><h2>  // Add the grep OS component package</h2>
+<li><h2>  . ++= [ components = grep() ];</h2>
+<li><h2>  // Add the grep bridge</h2>
+<li><h2>  . ++= grep_bridge();</h2>
+<li><h2>  return self();</h2>
+<li><h2>}</h2>
+</ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

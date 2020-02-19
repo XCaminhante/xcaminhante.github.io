@@ -1,0 +1,186 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vlatest - Find latest Vesta package versions</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vlatest(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vlatest</B> - Find the latest versions of Vesta packages
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vlatest</B> [<A HREF="vlatest.1.html#-n">-n</A> | <A HREF="vlatest.1.html#-p">-p</A> | <A HREF="vlatest.1.html#-b">-b</A> | 
+<A HREF="vlatest.1.html#-c">-c</A>] [<A HREF="vlatest.1.html#-m">-m</A>] [<A HREF="vlatest.1.html#-t">-t</A>] [<A HREF="vlatest.1.html#-v">-v</A>] 
+[<A HREF="vlatest.1.html#-R">-R <I>repos</I></A>] [<I>directory...</I>]
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vlatest.1.html#Description">Description</A>
+<LI> <A HREF="vlatest.1.html#Flags">Flags</A>
+<LI> <A HREF="vlatest.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vlatest.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vlatest.1.html#See_Also">See Also</A>
+<LI> <A HREF="vlatest.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+See the <A HREF="vesta-intro.1.html">vesta-intro</A> man page's
+<A HREF="vesta-intro.1.html#Terminology">Terminology</A> section
+for definitions of terms, and its
+<A HREF="vesta-intro.1.html#Name_Interpretation">Name Interpretation</A>
+section for an explanation of how names are looked up.<P>
+
+The <B>vlatest</B> command prints the latest checked-in version name for
+the given packages, or for the packages in the given directory trees.
+By default, it considers both the given directories and (recursively)
+any of their subdirectories that are not branches, and it prints the
+absolute pathname of each latest version found.<P>
+
+In more detail, <B>vlatest</B> walks the directory tree rooted at each
+of the given <I>package</I> arguments, with the extent of the walk
+controlled by the <A HREF="vlatest.1.html#Flags">flags</A> documented below.  For each
+package found, it prints out the version pathname whose last arc is
+entirely composed of decimal digits with no extra leading zeros and
+whose numeric value is highest.  A <I>package</I> argument can be either
+a package, or an appendable directory that might have packages in the
+subtree below it.<P>
+
+If the name <I>package</I> is unqualified
+(does not have "<TT>/</TT>", "<TT>.</TT>", or "<TT>..</TT>" as its first arc),
+it is interpreted relative to the site's default
+directory of packages, <A HREF="vlatest.1.html#Configuration"><I>DefaultPackageParent</I></A>.  
+If <I>package</I> is omitted, it defaults to <TT>/vesta</TT>.<P>
+
+<B>vlatest</B> returns status 0 for success, 1 for parameter syntax
+errors, or 2 for more serious errors.
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-n">-n</A><DD>
+No recursion.  Only the specified directories are searched for 
+package versions, not any branches or other subdirectories.  Each
+directory must be a package.
+<DT><A NAME="-p">-p</A><DD>
+Recurse to the package level.  All the specified directories are
+searched, and (recursively) any subdirectories that are not branches
+or checkout sessions.  This is the default.
+<DT><A NAME="-b">-b</A><DD>
+Recurse into branches.  All the specified directories are
+searched, and (recursively) any subdirectories that are not
+checkout sessions.
+<DT><A NAME="-c">-c</A><DD>
+Recurse into checkout sessions.  The specified directories and all
+subdirectories are searched, including branches and checkout sessions.
+<DT><A NAME="-m">-m</A><DD>
+Try to get more complete and authoritative information by accessing
+the master copy of each object.  Without this flag, packages and versions
+that are not replicated in the local repository are missed.
+<DT><A NAME="-t">-t</A><DD>
+Print only the tail of each package version name, that is, only
+the portion following what was given on the command line.  
+If you specify this flag, you may give at most one package argument.
+<DT><A NAME="-v">-v</A><DD>
+Print change history message for latest versions.
+<DT><A NAME="-R">-R <I>repos</I></A><DD>
+Look in <I>repos</I> instead of the default local
+repository.  The repository is
+specified by host name and TCP port number 
+in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it
+defaults to <A HREF="vlatest.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>AppendableRootName</I><DD>
+The filename under which the global root directory of
+Vesta repositories is mounted.  Ordinarily set to <TT>/vesta</TT>.
+<DT><I>DefaultPackageParent</I><DD>
+The default directory to put new packages in.  Ordinarily a
+subdirectory of the appendable root, named with an Internet domain name
+belonging to the local site.
+</DL>
+<P>
+
+The following values are obtained from the <TT>[Repository]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+The default TCP port number for repositories.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+If a package is mastered at one repository but has been checked out at
+another, it can be checked back in without the master repository's
+knowledge.  If this happens, "vwhohas -m" will not know about the new
+version.  This occurrence should be rare, however, since by default
+<B>vcheckin</B> replicates the new version back to the package's master
+repository.
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+<PRE>
+Last modified on Fri Jan 21 10:53:58 EST 2005 by irina.furman@intel.com
+     modified on Tue Apr 29 23:57:11 PDT 2003 by mann
+     modified on Tue Nov 13 11:49:37 EST 2001 by ken@xorian.net
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,24 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 55</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text53.html">Back</a> <a href="text55.html">Continue</a> <a href="text60.html">Last page</a> <a href="slides.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1><b>/vesta/vestasys.org/vesta/config/16/src/lib.ves</b></h1><p>
+<ul><ul><li>files
+<li>    c_files = [ VestaConfig.C ];
+<li>    h_files = [ VestaConfig.H ];
+<li>{
+<li>    ovs = [ Cxx/options/thread_safe = TRUE ];
+<li>    return ./Cxx/leaf(&quot;libVestaConfig.a&quot;,
+<li>      c_files, h_files, /*priv_h_files=*/ [], ovs);
+<li>}
+</ul><li><h2>The <b>files</b> caluse creates two bindings:</h2>
+<ul><li><b>c_files</b> containing <b>VestaConfig.C</b>
+<li><b>h_files</b> containing <b>VestaConfig.H</b>
+</ul></ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

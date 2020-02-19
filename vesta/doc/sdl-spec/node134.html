@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Expr</TITLE>
+<META NAME="description" CONTENT="Expr">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node135.html">
+<LINK REL="previous" HREF="node133.html">
+<LINK REL="up" HREF="node133.html">
+<LINK REL="next" HREF="node135.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2215"
+  HREF="node135.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2211"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2205"
+  HREF="node133.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2213"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2216"
+  HREF="node135.html">Literal</A>
+<B> Up:</B> <A NAME="tex2html2212"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2206"
+  HREF="node133.html">Evaluation Rules</A>
+ &nbsp <B>  <A NAME="tex2html2214"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001333100000000000000">
+Expr</A>
+</H3>
+
+<P>
+<
+<P>
+<PRE>
+Expr    ::= if Expr then Expr else Expr | Expr1
+Expr1   ::= Expr2 {  =&gt;  Expr2 }*
+Expr2   ::= Expr3 {  ||  Expr3 }*
+Expr3   ::= Expr4 {  &amp;&amp;  Expr4 }*
+Expr4   ::= Expr5 [ { == | != | &lt; | &gt; | &lt;= | &gt;= } Expr5 ]
+Expr5   ::= Expr6 { AddOp Expr6 }*
+AddOp   ::= +  |  ++  |  -
+Expr6   ::= Expr7 { MulOp Expr7 }*
+MulOp   ::= *
+Expr7   ::= [ UnaryOp ] Expr8
+UnaryOp ::= -  |  !
+Expr8   ::= Primary [ TypeQual ]
+Primary ::= ( Expr ) | Literal | Id | List
+            | Binding | Select | Block | FuncCall
+</PRE>
+
+<P>
+The grammar lists the operators in increasing order of precedence.
+The binary operators at each precedence level are left-associative.
+
+<P>
+<
+<P>
+The evaluation rules for conditional, implication, disjunction,
+conjunction, comparison, AddOp, MulOp, UnaryOp, and parenthesized
+expressions are shown in Tables&nbsp;<A HREF="node134.html#tbl:SDL-expr1-eval">A.4</A> and
+<A HREF="node134.html#tbl:SDL-expr2-eval">A.5</A>. There are seven remaining possibilities for
+a Primary: Literal, Id, List, Binding, Select, Block, and FuncCall.
+These are treated separately in subsequent sections.
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="tbl:SDL-expr1-eval"></A><A NAME="6920"></A>
+<TABLE>
+<CAPTION><STRONG>Table A.4:</STRONG>
+Evaluation rules for conditional, implication, disjunction,
+and conjunction expressions. As defined in
+Section&nbsp;<A HREF="node157.html#sect:SDL-type-funcs">A.3.4.7</A>, <TT>_is_bool</TT>(<EM>b</EM>) is <EM>true</EM> if <EM>b</EM> is a value of type t_bool and <EM>false</EM>
+otherwise.</CAPTION>
+<TR><TD><IMG
+ WIDTH="393" HEIGHT="713" BORDER="0"
+ SRC="img107.png"
+ ALT="\begin{table}{\small\begin{verbatim}// conditional expression
+Eval( if Expr_1 ...
+... , C);
+if (_is_bool(b) == false) error;
+return b;
+}\end{verbatim}}
+\end{table}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="tbl:SDL-expr2-eval"></A><A NAME="5803"></A>
+<TABLE>
+<CAPTION><STRONG>Table A.5:</STRONG>
+Evaluation rules for comparison, AddOp, MulOp, UnaryOp,
+and parenthesized expressions.</CAPTION>
+<TR><TD><IMG
+ WIDTH="425" HEIGHT="556" BORDER="0"
+ SRC="img108.png"
+ ALT="\begin{table}{\small\begin{verbatim}// comparison
+Eval( Expr_1 == Expr_2 , C) ...
+...arenthesization
+Eval( ( Expr ) , C) = Eval( Expr , C)\end{verbatim}}
+\end{table}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+<BR>
+
+<P>
+<BR><HR>
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

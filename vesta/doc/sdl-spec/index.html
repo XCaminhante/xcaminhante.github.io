@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Vesta Software Description Language</TITLE>
+<META NAME="description" CONTENT="The Vesta Software Description Language">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="http://www.vestasys.org/doc/sdl-spec/node166.html">
+<LINK REL="previous" HREF="http://www.vestasys.org/doc/sdl-spec/node123.html">
+<LINK REL="up" HREF="paper.html">
+<LINK REL="next" HREF="node126.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2022"
+  HREF="node126.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2018"
+  HREF="paper.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev_g.png">
+<A NAME="tex2html2020"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2023"
+  HREF="node126.html">Introduction</A>
+<B> Up:</B> <A NAME="tex2html2019"
+  HREF="paper.html">paper</A>
+<B> Previous:</B> (none)
+ &nbsp <B>  <A NAME="tex2html2021"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001300000000000000000"></A><A NAME="appendix:SDL-def"></A>
+<BR>
+The Vesta Software Description Language
+</H1>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html2024"
+  HREF="node126.html">Introduction</A>
+<LI><A NAME="tex2html2025"
+  HREF="node127.html">Lexical Conventions</A>
+<UL>
+<LI><A NAME="tex2html2026"
+  HREF="node128.html">Meta-notation</A>
+<LI><A NAME="tex2html2027"
+  HREF="node129.html">Terminals</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html2028"
+  HREF="node130.html">Semantics</A>
+<UL>
+<LI><A NAME="tex2html2029"
+  HREF="node131.html">Value Space</A>
+<LI><A NAME="tex2html2030"
+  HREF="node132.html">Type Declarations</A>
+<LI><A NAME="tex2html2031"
+  HREF="node133.html">Evaluation Rules</A>
+<UL>
+<LI><A NAME="tex2html2032"
+  HREF="node134.html">Expr</A>
+<LI><A NAME="tex2html2033"
+  HREF="node135.html">Literal</A>
+<LI><A NAME="tex2html2034"
+  HREF="node136.html">Id</A>
+<LI><A NAME="tex2html2035"
+  HREF="node137.html">List</A>
+<LI><A NAME="tex2html2036"
+  HREF="node138.html">Binding</A>
+<LI><A NAME="tex2html2037"
+  HREF="node139.html">Select</A>
+<LI><A NAME="tex2html2038"
+  HREF="node140.html">Block</A>
+<LI><A NAME="tex2html2039"
+  HREF="node141.html">Stmt</A>
+<LI><A NAME="tex2html2040"
+  HREF="node142.html">Assign</A>
+<LI><A NAME="tex2html2041"
+  HREF="node143.html">Iterate</A>
+<LI><A NAME="tex2html2042"
+  HREF="node144.html">FuncDef</A>
+<LI><A NAME="tex2html2043"
+  HREF="node145.html">FuncCall</A>
+<LI><A NAME="tex2html2044"
+  HREF="node146.html">Model</A>
+<LI><A NAME="tex2html2045"
+  HREF="node147.html">Files</A>
+<LI><A NAME="tex2html2046"
+  HREF="node148.html">Imports</A>
+<LI><A NAME="tex2html2047"
+  HREF="node149.html">Filename Interpretation</A>
+</UL>
+<LI><A NAME="tex2html2048"
+  HREF="node150.html">Primitives</A>
+<UL>
+<LI><A NAME="tex2html2049"
+  HREF="node151.html">Functions on Type t_bool</A>
+<LI><A NAME="tex2html2050"
+  HREF="node152.html">Functions on Type t_int</A>
+<LI><A NAME="tex2html2051"
+  HREF="node153.html">Functions on Type t_text</A>
+<LI><A NAME="tex2html2052"
+  HREF="node154.html">Functions on Type t_list</A>
+<LI><A NAME="tex2html2053"
+  HREF="node155.html">Functions on type t_binding</A>
+<LI><A NAME="tex2html2054"
+  HREF="node156.html">Special Purpose Functions</A>
+<LI><A NAME="tex2html2055"
+  HREF="node157.html">Type Manipulation Functions</A>
+<LI><A NAME="tex2html2056"
+  HREF="node158.html">Tool Invocation Function</A>
+<LI><A NAME="tex2html2057"
+  HREF="node159.html">Diagnostic Functions</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html2058"
+  HREF="node160.html">Concrete Syntax</A>
+<UL>
+<LI><A NAME="tex2html2059"
+  HREF="node161.html">Grammar</A>
+<LI><A NAME="tex2html2060"
+  HREF="node162.html">Ambiguity Resolution</A>
+<LI><A NAME="tex2html2061"
+  HREF="node163.html">Tokens</A>
+<LI><A NAME="tex2html2062"
+  HREF="node164.html">Reserved Identifiers</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

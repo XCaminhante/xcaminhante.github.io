@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Upgrading Vesta by Shipping a New Release</title>
+  </head>
+
+  <body bgcolor="#efefff">
+    <h1>Upgrading Vesta by Shipping a New Release</h1>
+
+<p>
+When a new release of Vesta becomes available, using <a
+href="../../man/html/vrepl.1.html">the
+replicator</a> to copy the sources over the Internet is almost always
+faster than downloading a binary kit.  Because of Vesta's guarantee of
+precise build repeatability, once you have the sources replicated you
+can build the new Vesta release locally and upgrade your installation
+by having <a
+href="../../man/html/vesta.1.html">the
+evaluator</a> <a
+href="../../man/html/vesta.1.html#shipping-options">ship</a>
+it into place.  This document describes how to do this.
+</p>
+
+<h2>Preparation</h2>
+
+<p>
+First of all, just in case it wasn't obvious, you must already have a
+working installation of Vesta to do this.  (If you don't already have
+Vesta installed, see <a href="../../getting-started.html">Getting
+Started with Vesta</a>.)
+</p>
+
+<p>
+The administrator user (normally named <tt>vadmin</tt>) must be the
+owner of the installation root (normally <tt>/vesta-srv</tt>) as well
+as the <tt>bin</tt> and <tt>man</tt> subdirectories.
+</p>
+
+<p>
+Because the upgrade is performed as <tt>vadmin</tt>, some care must be
+taken to keep the setuid root <tt>tool_launcher</tt> program working.
+Specifically, you should to the following as <tt>vadmin</tt>:
+</p>
+
+<ol>
+
+<li>
+<tt>cd <i>/vesta-srv</i>/bin</tt>
+</li>
+
+<li>
+<tt>mv tool_launcher tool_launcher.suid</tt>
+</li>
+
+<li>
+<tt>ln -s tool_launcher.suid tool_launcher</tt>
+</li>
+
+</ol>
+
+<p>
+You need to make sure that <tt>[Evaluator]DefaultMain</tt> is set such
+that the correct top-level model for your platform will be picked from
+the release.  (For example, if you use Vesta on i686 Linux, then you
+could set <tt>[Evaluator]DefaultMain</tt> to
+&quot;<tt>linux_i686.main.ves</tt>&quot;.)
+</p>
+
+<p>
+Lastly, you'll need a small shell script named <a
+href="vshiprel"><tt>vshiprel</tt></a> which is used for doing upgrade.
+(It's name is linked to the script, so you can just save it to disk
+from your web browser.)  Note that you will need to adjust the
+definition of <tt>iroot</tt> if you have Vesta installed at a path
+other than <tt>/vesta-srv</tt>.
+</p>
+
+<h2>Doing an Upgrade</h2>
+
+<p>
+First you need to replicate the new release to your repository.  To do
+this you must know which release number you want to upgrade to, and
+which top-level model your platform uses.  If you're upgrading to
+<tt>release/12</tt> and you use Vesta on i686 Linux, then you would run
+the replicator like this:
+</p>
+
+<blockquote>
+<tt><a
+href="../../man/html/vrepl.1.html">vrepl</a> -I -s pub.vestasys.org:21776 -e@ /vesta/vestasys.org/vesta/release/12/linux_i686.main.ves</tt>
+</blockquote>
+
+<p>
+Once the release is replicated to your repository, all you need to do
+is run <a href="vshiprel"><tt>vshiprel</tt></a> as <tt>vadmin</tt>
+with the release number as its single argument:
+</p>
+
+<blockquote>
+<pre>su vadmin
+<a href="vshiprel">vshiprel</a> 12</pre>
+</blockquote>
+
+<p>
+<a href="vshiprel"><tt>vshiprel</tt></a> will run the evaluator to
+build the release and then copy it into place.  After it completes,
+restart your <a
+href="../../man/html/repository.8.html">repository
+server</a>, <a
+href="../../man/html/VCache.1.html">cache
+server</a>, and <a
+href="../../man/html/RunToolServer.1.html"><tt>RunToolServer</tt></a>.
+</p>
+
+<p>
+If for any reason something goes wrong with the new release and you
+need to revert to the previously installed binaries, all you need to
+do is restore the ones preserved by <a
+href="vshiprel"><tt>vshiprel</tt></a> in the <tt>bin-old</tt>
+directory:
+</p>
+
+<blockquote>
+<pre>su vadmin
+cd /vesta-srv
+rm -rf bin
+mv bin-old bin</pre>
+</blockquote>
+
+<p>
+Once you decide that the new release is working and you won't need to
+revert, you can delete the <tt>bin-old</tt> directory:
+</p>
+
+<h2>Limitations</h2>
+
+<p>
+<tt>vshiprel</tt> does not handle multi-platform installations.
+Extending it to do so is left as an exercise to the reader.
+</p>
+
+    <hr>
+
+<a href="../../../index.html">Back to the Vesta home page</a>
+<br>
+<!-- Created: Sat May 18 11:29:03 EDT 2002 -->
+<!-- hhmts start -->
+Last modified: Tue Jun 29 14:58:11 EDT 2004
+<!-- hhmts end -->
+  </body>
+</html>
+ Sat May 18 11:29:03 EDT 2002 -->
+<!-- hhmts start -->
+Last modified: Tue Jun 29 14:58:11 EDT 2004
+<!-- hhmts end -->
+  </body>
+</html>

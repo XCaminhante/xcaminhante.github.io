@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Functions: _is_bool, _is_int, _is_text, _is_err, _is_list, _is_binding, _is_closure</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_is_bool"></A><TT>_is_bool(v: any): bool</TT></H4>
+
+<p>
+Returns <tt>TRUE</tt> if <tt><i>v</i></tt> is a <a
+href="../data-types.html#bool">boolean</a> value and <tt>FALSE</tt>
+otherwise.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<PRE>_is_bool(FALSE) == TRUE
+
+_is_bool([ foo = 1 ]) == FALSE
+_is_bool(&lt;1, 2&gt;) == FALSE
+_is_bool(&quot;foo&quot;) == FALSE</PRE>
+</td></tr></table>
+
+<H4>
+<A NAME="_is_int"></A><TT>_is_int(v: any): bool</TT></H4>
+
+<p>
+Returns <tt>TRUE</tt> if <tt><i>v</i></tt> is an <a
+href="../data-types.html#int">integer</a> value and <tt>FALSE</tt>
+otherwise.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<PRE>_is_int(1) == TRUE
+_is_int(0xabcde) == TRUE
+
+_is_int(TRUE) == FALSE
+_is_int(&lt;1, 2&gt;) == FALSE
+_is_int(&quot;foo&quot;) == FALSE</PRE>
+</td></tr></table>
+
+<H4>
+<A NAME="_is_text"></A><TT>_is_text(v: any): bool</TT></H4>
+
+<p>
+Returns <tt>TRUE</tt> if <tt><i>v</i></tt> is a <a
+href="../data-types.html#text">text</a> value and <tt>FALSE</tt>
+otherwise.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<PRE>_is_text(&quot;foo&quot;) == TRUE
+
+_is_text(3) == FALSE
+_is_text(TRUE) == FALSE
+_is_text([ foo = 1 ]) == FALSE</PRE>
+</td></tr></table>
+
+<H4>
+<A NAME="_is_err"></A><TT>_is_err(v: any): bool</TT></H4>
+
+<p>
+Returns <tt>TRUE</tt> if <tt><i>v</i></tt> is an <a
+href="../data-types.html#err">error</a> value and <tt>FALSE</tt>
+otherwise.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<PRE>_is_err(ERR) == TRUE
+
+_is_err(&quot;foo&quot;) == FALSE
+_is_err(3) == FALSE
+_is_err([ foo = 1 ]) == FALSE</PRE>
+</td></tr></table>
+
+<H4>
+<A NAME="_is_list"></A><TT>_is_list(v: any): bool</TT></H4>
+
+<p>
+Returns <tt>TRUE</tt> if <tt><i>v</i></tt> is a <a
+href="../data-types.html#list">list</a> value and <tt>FALSE</tt>
+otherwise.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<PRE>_is_list(&lt;1, 2&gt;) == TRUE
+_is_list(<a href="_list1-_bind1.html#_list1(any)">_list1</a>("foo")) == TRUE
+
+_is_list(&quot;foo&quot;) == FALSE
+_is_list(3) == FALSE
+_is_list([ foo = 1 ]) == FALSE</PRE>
+</td></tr></table>
+
+<H4>
+<A NAME="_is_binding"></A><TT>_is_binding(v: any): bool</TT></H4>
+
+<p>
+Returns <tt>TRUE</tt> if <tt><i>v</i></tt> is a <a
+href="../data-types.html#binding">binding</a> value and <tt>FALSE</tt>
+otherwise.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<PRE>_is_binding([ foo = 1 ]) == TRUE
+_is_binding(<a href="_list1-_bind1.html#_bind1(text,any)">_bind1</a>("bar", 2)) == TRUE
+
+_is_binding(&lt;1, 2&gt;) == FALSE
+_is_binding(&quot;foo&quot;) == FALSE
+_is_binding(3) == FALSE</PRE>
+</td></tr></table>
+
+<H4>
+<A NAME="_is_closure"></A><TT>_is_closure(v: any): bool</TT></H4>
+
+<p>
+Returns <tt>TRUE</tt> if <tt><i>v</i></tt> is a <a
+href="../data-types.html#function">function</a> value and
+<tt>FALSE</tt> otherwise.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<PRE>foo()
+{
+  //...
+};
+_is_closure(foo) == TRUE
+
+_is_closure(&lt;1, 2&gt;) == FALSE
+_is_closure(&quot;foo&quot;) == FALSE
+_is_closure(3) == FALSE</PRE>
+</td></tr></table>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

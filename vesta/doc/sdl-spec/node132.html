@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Type Declarations</TITLE>
+<META NAME="description" CONTENT="Type Declarations">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node133.html">
+<LINK REL="previous" HREF="node131.html">
+<LINK REL="up" HREF="node130.html">
+<LINK REL="next" HREF="node133.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2175"
+  HREF="node133.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2171"
+  HREF="node130.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2165"
+  HREF="node131.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2173"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2176"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Up:</B> <A NAME="tex2html2172"
+  HREF="node130.html">Semantics</A>
+<B> Previous:</B> <A NAME="tex2html2166"
+  HREF="node131.html">Value Space</A>
+ &nbsp <B>  <A NAME="tex2html2174"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION001332000000000000000">
+Type Declarations</A>
+</H2>
+
+<P>
+The language includes a rudimentary mechanism for declaring the
+expected types of values computed during evaluation.  The grammar
+defines a small sub-language of type expressions, which includes the
+ability to give names to types and to describe aggregate types (lists,
+bindings, functions) with varying degrees of detail.  Type expressions
+may be attached to function arguments and results and to local variables,
+indicating the type of the expected value for these identifiers and
+expressions during evaluation.
+
+<P>
+The Vesta evaluator currently treats type names and type
+expressions as syntactically checked comments; it performs no other
+checking. Future implementations may type-check expressions at
+run time and report an error if the value does not match the
+specified type (according to some as yet unspecified definition of
+what it means for a value to ``match'' a type specification).
+
+<P>
+The syntax fragments and semantic descriptions in subsequent
+sections omit any further reference to type expressions entirely.
+
+<P>
+<BR><HR>
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,838 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vesta - The Vesta evaluator</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vesta(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vesta</B> - Evaluate a Vesta system model
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vesta</B>
+[ <A HREF="vesta.1.html#options"><I>options</I></A> ... ]
+[ <I>modelfile</I> ]
+</BLOCKQUOTE>
+
+<H3><A NAME="contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vesta.1.html#description">Description</A>
+<LI> <A HREF="vesta.1.html#options">Options</A>
+<UL>
+<LI> <A HREF="vesta.1.html#shipping-options">Shipping Options</A>
+<LI> <A HREF="vesta.1.html#eval-options">Evaluation Options</A>
+<LI> <A HREF="vesta.1.html#debug-options">Debugging Options</A>
+<LI> <A HREF="vesta.1.html#cache-options">Caching Options</A>
+<LI> <A HREF="vesta.1.html#repos-options">Repository Options</A>
+</UL>
+<LI> <A HREF="vesta.1.html#pragmas">Recognized Pragmas</A>
+<LI> <A HREF="vesta.1.html#duplicateSuppression">Duplicate Suppression</A>
+<LI> <A HREF="vesta.1.html#configuration">Configuration Variables</A>
+<LI> <A HREF="vesta.1.html#runtool">Runtool Host Selection</A>
+<LI> <A HREF="vesta.1.html#ToolCore">Tools That Dump Core</A>
+<LI> <A HREF="vesta.1.html#EnvVars">Environment Variables</A>
+<LI> <A HREF="vesta.1.html#see_also">See Also</A>
+<LI> <A HREF="vesta.1.html#author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vesta</B> is the Vesta evaluator. It evaluates the model in
+<I>modelfile</I>. If no <I>modelfile</I> is specified, a default filename
+is taken from the <A HREF="vesta.1.html#configuration">Vesta configuration
+file</A>. If <I>modelfile</I> names a directory, the evaluator appends the
+default filename.  The <TT>.ves</TT> extension can be omitted in
+<I>modelfile</I>.<P>
+
+See the <A HREF="vesta-intro.1.html">vesta-intro</A> man page's
+<A HREF="vesta-intro.1.html#Terminology">Terminology</A> section for
+definitions of terms, and its
+<A HREF="vesta-intro.1.html#Name_Interpretation">Name Interpretation</A>
+section for an explanation of how model names given on the command
+line are looked up.
+</BLOCKQUOTE>
+
+<H3><A NAME="options">Options</A></H3>
+<BLOCKQUOTE>
+All options marked with <I>*toggleable*</I> have both a positive and a
+negative form.  The negative form is the positive form with "no-"
+prepended to it.  A few examples: -k/-no-k, -CLEAN/-no-CLEAN<P>
+
+<B><A NAME="shipping-options">Shipping Options</A></B><P>
+
+The following options can be used to ship derived files to a regular
+file system. By default, no derived files are shipped.<P>
+
+<DL>
+<DT><A NAME="-shipto">-shipto</A> <I>pathname</I><DD>
+Ship the evaluation result to the directory specified by <I>pathname</I>,
+appending a log of the items shipped to the file <I>pathname</I><TT>/.log</TT>.
+The <I>-shipto</I> flag must be specified if any of the <I>-shipfrom</I>,
+<I>-s</I>, <I>-clean</I>, and/or <I>-CLEAN</I> flags are present.<P>
+
+The specified <I>pathname</I> may be a file (rather than a directory) if
+the <I>-shipfrom</I> flag is given and specifies exactly one value of
+type text.  In this case the specified value is shipped to the given
+file, and the <TT>.log</TT> file is not written.<P>
+
+<DT><A NAME="-shipfrom">-shipfrom</A> <I>pathname</I><DD>
+Specify the component in the evaluation result to be shipped. By
+default, the complete evaluation result is shipped to the directory
+specified by the <I>-shipto</I> switch.<P>
+
+<DT><A NAME="-s">-s</A>				<I>*toggleable*</I><DD>
+Ship the evaluation result by symbolic links. By default,
+the evaluation result is shipped by copying.  Note: these symbolic links 
+point to derived files that are not protected from deletion by VestaWeed.
+Use this form of shipping with caution.<P>
+
+<DT><A NAME="-clean">-clean</A>			<I>*toggleable*</I><DD>
+Remove the old contents of the "shipto" directory (including
+subdirectories and the <TT>.log</TT> file) before shipping into it.  If the
+directory is nonempty, it must contain a <TT>.log</TT> file; this feature
+is meant to protect against inadvertently cleaning out the wrong
+directory in the event of a typo.  If this flag is not given, the
+shipped value is merged with the existing contents of the "shipto"
+directory.<P>
+
+<DT><A NAME="-CLEAN">-CLEAN</A>			<I>*toggleable*</I><DD>
+Same as <I>-clean</I>, except that the directory is always cleaned,
+regardless of whether a <TT>.log</TT> file exists in it.<P>
+
+<DT><A NAME="-hushship">-hushship</A>			<I>*toggleable*</I><DD>
+Only prints that the evaulator has started and finished shipping
+instead of printing that it's shipping each file.<P>
+
+<DT><A NAME="-log">-log</A>			<I>*toggleable*</I><DD>
+Place a .log file in every directory that's shipped that records
+the shortid shipped to each file name.  This defaults to on.
+</DL>
+<P>
+
+<B><A NAME="eval-options">Evaluation Options</A></B><P>
+
+<DL>
+<DT><A NAME="-result">-result</A>			<I>*toggleable*</I><DD>
+Print out the result of the evaluation.<P>
+
+<DT><A NAME="-maxthreads">-maxthreads</A> <I>n</I><DD>
+Set the maximum number of threads that can be run in parallel by 
+all invocations of the <TT>_par_map</TT> primitive to <I>n</I>.
+Roughly speaking, this is the number of tool
+invocations (e.g., compilations) that can be run in parallel.
+The default is set in the Vesta configuration file; see below.<P>
+
+<DT><A NAME="-k">-k</A>				<I>*toggleable*</I><DD>
+When specified, keep evaluating even when the tool fails in a
+primitive run_tool call. Any other kind of run-time error (such as
+selecting a non-existent field of a binding) is considered fatal,
+and terminates the evaluation.<P>
+
+<DT><A NAME="-parse">-parse</A>			<I>*toggleable*</I><DD>
+Parse the model only; do not evaluate the model.  Yes, the negative
+version does both parse and execute in spite of being -no-parse.<P>
+
+<DT><A NAME="-version">-version</A>			<I>*toggleable*</I><DD>
+Print the evaluator's version number.<P>
+
+<DT><A NAME="-mstats">-mstats</A>			<I>*toggleable*</I><DD>
+Print memory statistics after the evaluation (but before shipping).
+Sample output:
+<PRE>
+Memory Stats:
+  Total Memory Size        :  86M   (89735168)
+  Resident Size            :  39M   (41304064)
+  GC Heap Size             :  34M   (36044800)
+  GC Total Allocated Bytes : 2.0G (2163721448)
+  Garbage Collection Count :  244
+</PRE>
+
+"Total Memory Size" is the total virtual memory size of the evaluator
+process and "Resident Size" is the portion in physical memory as
+reported by the operating system.  The evaluator uses a library for
+dynamic memory allocations that supports garbage collection.  "GC Heap
+Size" is the portion of the processes memory which is used for dynamic
+memory needs (some of which may be free space at the time the
+statistics are printed).  "GC Total Allocated Bytes" is the total
+number of bytes allocated dynamically since the evaluator started
+(including those reclaimed by garbage collection).  "Garbage
+Collection Count" is the number of times that a garbage collection has
+been performed.  The numbers in parentheses are raw byte totals.<P>
+
+</DL>
+<P>
+
+<B><A NAME="debug-options">Debugging Options</A></B><P>
+
+The following options cause the evaluator to print various sorts of
+debugging information.<P>
+
+<DL>
+<DT><A NAME="-stack">-stack</A>			<I>*toggleable*</I><DD>
+Print the function call stack when a runtime error occurs.  This is
+useful for debugging Vesta evaluation errors.<P>
+
+<DT><A NAME="-trace">-trace</A>			<I>*toggleable*</I><DD>
+Turn on trace mode.  At the end of the evaluation, print the function
+call graph for the current evaluation, including the cache hit/miss
+status of each function call, to standard output.  (Note: the call
+graph below below any cache hits will not be included.)  This is
+useful for debugging the caching behavior of Vesta builds.<P>
+
+<DT><A NAME="-fsdeps">-fsdeps</A>			<I>*toggleable*</I><DD>
+Print file system dependencies to the standard error output. Whenever
+an external tool touches a file in the file system, the name of that
+file is printed. This is useful for debugging the case when an
+external tool fails because the environment in which it was run does
+not contain enough files.<P>
+
+<DT><A NAME="-evalcalls">-evalcalls</A>		<I>*toggleable*</I><DD>
+Print to the standard error output all requests made by the repository
+in response to file system references by an external tool. The output
+generated by this switch is a superset of that generated by the
+<I>-fsdeps</I> switch.<P>
+
+<DT><A NAME="-ps">-ps</A>				<I>*toggleable*</I><DD>
+Print the current evaluator process status right before it exits.<P>
+
+<DT><A NAME="-dependency-check">-dependency-check</A> <I>*toggleable*</I><DD>
+Compare the dependencies detected dynamically to those recorded in the
+Vesta cache.  When a function call results in a cache hit, the same
+function is re-evaluated.  The dependencies are then compared,
+printing any differences.  This option is most useful to someone
+modifying the evaluator, though it may also be useful to bridge
+writers as it can demonstrate subtle tool issues (e.g. recording
+dependencies on random temp file names).<P>
+
+<DT><A NAME="-printtimings">-printtimings</A> <I>level</I><DD>
+Reports on the wall clock time required to perform certain
+operations during the build.
+<UL>
+<LI> <I>none</I> is silent
+<LI> <I>tool</I> reports on the time taken by running of each tool
+<LI> <I>func</I> reports on the time taken for user-defined SDL functions
+<LI> <I>detail</I> reports the duration of various portions of bookkeeping performed in function calls and around tool runs.  It is not yet implemented.
+</UL>
+Each level includes all lower levels.  The default level is <I>none</I>.<P>
+
+<DT><A NAME="-timingfile">-timingfile</A> <I>filename</I><DD>
+Sends the timing report generated by -printtimings to the file <I>filename</I>.
+If this option is not specified, stdout is used.  If <I>filename</I>
+already exists, it will be overwritten.<P>
+
+<DT><A NAME="-timing-regexp">-timing-regexp</A> <I>regexp</I><DD>
+Specifies that timing information should only be recorded for calls
+that match a specified regular expression.  This option can be repeated
+to supply multiple regular expressions.  The string that is matched against
+depends on the type of call:
+<UL>
+<LI> A user-defined function is formatted as "<TT>&lt;immutable path&gt;/&lt;function name&gt;(), line &lt;line no.&gt;, col &lt;char no.&gt;</TT>".
+<LI> A model is formatted as "<TT>&lt;immutable path&gt;() (normal)</TT>"
+<LI> A tool is formatted as "<TT>&lt;thread no.&gt;/&lt;run tool hostname&gt;: &lt;command line&gt; </TT>"
+</UL>
+<P>
+
+<DT><A NAME="-timing-regexp-file">-timing-regexp-file</A><DD> <I>filename</I>
+Specifies a file containing one regular expression per line (similar
+to grep(1)'s -f option).  Each regular expression is treated as if
+specified by <I>-timing-regexp</I>.  Blank lines are ignored.<P>
+
+<DT><A NAME="-timing-args-depth">-timing-args-depth</A><DD> <I>n</I>
+In the timing output for function calls, complex nested values of arguments
+to the functions are printed to the specified depth.  Simple values are
+printed in their entirety.  If this option is not specified, it defaults to 2.<P>
+
+<DT><A NAME="-verbose-dup-msgs">-verbose-dup-msgs</A> <I>*toggleable*</I><DD>
+Increase the amount of information included in messages about the
+supression of duplicate work in parallel.  This provides more
+informaion than most users want, but may be helpful when trying to
+increase the parallelism of a build.  See
+"<A HREF="vesta.1.html#duplicateSuppression">Duplicate Suppression</A>" below for more
+information.<P>
+
+<DT><A NAME="-stop-before-tool">-stop-before-tool</A><DD>
+Stop execution and print information about where each tool is about to
+be run.  The evaluator will stop and wait for the user to press Enter.<P>
+
+<DT><A NAME="-stop-after-tool">-stop-after-tool</A><DD>
+Stop execution and print information about where each tool was just
+run.  The evaluator will stop and wait for the user to press Enter.<P>
+
+<DT><A NAME="-stop-after-tool-signal">-stop-after-tool-signal</A><DD>
+Stop execution and print information about where any tool that was
+killed by a signal was just run.  The evaluator will stop and wait
+for the user to press Enter.<P>
+
+<DT><A NAME="-stop-after-tool-error">-stop-after-tool-error</A><DD>
+Stop execution and print information about where any tool that exited
+with non-zero status was just run.  The evaluator will stop and wait
+for the user to press Enter.<P>
+
+</DL>
+<P>
+
+Using any of the last four options
+(<A HREF="vesta.1.html#-stop-before-tool">-stop-before-tool</A>,
+<A HREF="vesta.1.html#-stop-after-tool">-stop-after-tool</A>,
+<A HREF="vesta.1.html#-stop-after-tool-signal">-stop-after-tool-signal</A>,
+<A HREF="vesta.1.html#-stop-after-tool-error">-stop-after-tool-error</A>) gives the user
+the opportunity to make changes which may affect the result of a
+<TT>_run_tool</TT> call.  For this reason, any <TT>_run_tool</TT> calls
+affected by using these options (which in some cases will be all
+<TT>_run_tool</TT> calls) are not cached.  Also, anything which uses the
+result of an affected <TT>_run_tool</TT> call will not be cached.<P>
+
+<B><A NAME="cache-options">Caching Options</A></B><P>
+
+The following options control caching behavior.<P>
+
+<DL>
+
+<DT><A NAME="-pk-salt">-pk-salt</A> <I>salt</I><DD>
+Modify the keys used to store and lookup entries in the Vesta cache by
+using the supplied <I>salt</I> string.  The <I>salt</I> argument can be
+any string; it is not parsed in any way, but rather is used like a
+hash table key.  This feature allows you to simulate having a private
+cache that is shared only among those evaluations with the same
+<I>salt</I> string.  When using this feature, the evaluator will
+<B>not</B> re-use results in the cache created by evaluations with a
+different <I>salt</I> string (or that didn't use -pk-salt at all).
+("pk" is short for <I>primary key</I>, a term which is explained below
+in the <A HREF="vesta.1.html#pragmas">Recognized Pragmas</A> section.)<P>
+
+<DT><A NAME="-cache">-cache</A> <I>level</I><DD>
+Specify the caching level.  There are four different caching levels:
+<I>none</I> means not to use the Vesta cache; <I>runtool</I> means to
+cache runtool calls only; <I>model</I> means to cache runtool and
+model calls only; <I>all</I> means to cache all cacheable function
+calls.  When the caching level is <I>model</I> or <I>all</I>, precise 
+fine grained dependency analysis is enabled.  The default caching
+level is <I>all</I>.<P>
+
+<DT><A NAME="-noaddentry">-noaddentry</A>		<I>*toggleable*</I><DD>
+Prevent any new cache entry from being added to the cache. This option
+is useful when one wants to reproduce repeatedly the same behavior of
+an evaluation in the presence of a Vesta cache. Note that this option
+is different from "-cache none" because the evaluator can get hits on
+existing cache entries when this option is used. This has two negative
+versions: -no-noaddentry and -addentry.<P>
+
+<DT><A NAME="-cstats">-cstats</A>			<I>*toggleable*</I><DD>
+Print cache statistics after the evaluation.<P>
+
+<DT><A NAME="-cdebug">-cdebug</A> <I>level</I><DD>
+Print cache debugging information. The relevant options (in increasing
+order of verbosity) are: <I>None</I> (the default), <I>AddEntryOp</I>,
+<I>OtherOps</I>, and <I>All</I>. See
+<A HREF="VCache.1.html#OptionsSect"><B>VCache</B>(1)</A> for more details.
+</DL>
+<P>
+
+<B><A NAME="repos-options">Repository Options</A></B><P>
+
+The following options control how the evaluator interacts with the
+Vesta repository:<P>
+
+<DL>
+<DT><A NAME="-autorepl">-autorepl</A>		<I>*toggleable*</I><DD>
+If any imported packages are missing in the local repository, this
+option causes the evaluator to try to automatically locate a copy
+in a peer repository and replicate it.  (See
+<A HREF="vrepl.1.html">vrepl(1)</A>.)  Defaults to on.  Use
+<I>-no-autorepl</I> to disable this feature.  (When disabled, a missing
+import is always a fatal error.)
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="pragmas">Recognized Pragmas</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The evaluator recognizes three stylized comments, or <I>pragmas</I>. Two
+of them control how it caches calls of user-defined functions.  The
+third controls how aggressively it will execute user-defined functions
+in parallel.  The three pragmas are <TT>/**nocache**/</TT>, <TT>/**pk**/</TT>,
+and <TT>/**waitdup**/</TT>.  We expect that these pragmas will be required
+only in bridge models, not typical client models.<P>
+
+When a user-defined function is called, the evaluator first looks to
+see if that function has already been evaluated with sufficiently
+similar arguments. If so, it gets a hit in the cache and uses the
+function result returned by the cache. Otherwise, it evaluates the
+called function and adds an entry to the cache for the result.<P>
+
+To do a cache lookup, the evaluator provides a cache key. The cache
+key is actually composed of two parts: the run-time values on which
+the function result is thought to depend, which together comprise the
+<I>primary key</I>, and the run-time values on which the function result
+may depend, which together comprise the <I>secondary key</I>.<P>
+
+By default, calls of all user-defined functions are cached.
+If the <TT>/**nocache**/</TT> pragma appears immediately before a
+function definition, calls of that function are not cached.
+The <TT>/**nocache**/</TT> pragma can be used if the work performed by the
+function is trivial and if the number of calls made by the function is
+known or expected to be small (preferably 0 or 1).<P>
+
+By default, the primary key is a combination of the closure value
+(i.e., the function) being called and the values of all actual
+arguments that are not composite values (i.e., not of type list,
+binding, or closure). If the <TT>/**pk**/</TT> pragma appears immediately
+before the name of a function's formal parameter, the value of the
+corresponding actual parameter is also folded into the function's
+primary key, regardless of whether it is a composite value or not. The
+<TT>/**pk**/</TT> pragma can be used to include a composite value into the
+function's primary key when the function's result is known to depend
+on the <I>entire</I> composite value.<P>
+
+The <A HREF="vesta.1.html#-pk-salt">-pk-salt</A> command line option allows you to
+combine an additional arbitrary string into the primary key of every
+function call.<P>
+
+By default, when multiple threads are executing the same function
+it may be executed multiple times in parallel.  The <TT>/**waitdup**/</TT>
+pragma will cause any threads after the first one that are about to
+execute a function with the same <I>primary key</I> to wait on the hope
+that once the first function adds an entry to the cache the later
+threads will hit on that entry.  This pragma is placed similarly to
+the <TT>/**nocache**/</TT> one.  It will also control the execution of
+models if placed just before the opening brace.  For models, the
+<I>primary key</I> is the immutable path to the model file itself.  See
+"<A HREF="vesta.1.html#duplicateSuppression">Duplicate Suppression</A>" below for more
+information.
+</BLOCKQUOTE>
+
+<H3><A NAME="duplicateSuppression">Duplicate Suppression</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Aggressive use of the <TT>_par_map</TT> primitive function can lead to
+multiple evaluator threads doing the same work in parallel
+(e.g. running the same tool or evaluating the same SDL function).  If
+a previous build had completed the same work and added an entry to the
+Vesta cache both threads could get a cache hit on that entry.  The
+result is wasted effort in duplicate work.<P>
+
+To help you put resources to better use, the evaluator can pause any
+threads that try to evaluate a function call that is already being
+processed.  These threads will be woken up after the first thread has
+finished the call.  Once the first thread adds an entry to the Vesta
+cache, any threads that waited will hopefully hit on that entry.<P>
+
+Unfortunately, it's not possible to be certain that two function calls
+are identical before evaluating them.  When two function calls have
+the same <I>primary key</I>, the evaluator guesses that they may be the
+same and makes subsequent threads calling the same function wait.  To
+indicate the heuristic nature of this suppression, any thread that
+waits will print an informational message that starts with "Waiting on
+possibly identical" followed by either "model", "function", or "tool"
+depending on the type of evaluation that is waiting.<P>
+
+The <TT>_run_tool</TT> primitive function always waits when another thread
+is executing a potential duplicate.  By default, a user-defined
+function or model may be executed multiple times in parallel.  The
+<TT>/**waitdup**/</TT> pragma will cause user-defined functions and models
+to wait when another thread is executing a possible duplicate.  (See
+"<A HREF="vesta.1.html#pragmas">Recognized Pragmas</A>" above.)<P>
+
+Here are some examples of the default "Waiting on possibly identical"
+informational messages:
+<PRE>
+3/Waiting on possibly identical tool (6/... /usr/bin/g++-3.4)
+5/Waiting on possibly identical function (program)
+7/Waiting on possibly identical model
+</PRE>
+
+If a thread waited on a possible duplicate but got a subsequent cache
+miss, another informational message is printed:
+<PRE>
+5/Function missed after waiting (program).
+</PRE>
+
+This can indicate cases where waiting for possible duplicates isn't
+helping.  In some cases, the solution is to include more values in the
+<I>primary key</I> (e.g. with the <TT>/**pk**/</TT> pragma).  In others, the
+solution may be to remove the <TT>/**waitdup**/</TT> pragma.<P>
+
+If you want to identify more precisely where parallelism is being
+limited by waiting, use the
+<A HREF="vesta.1.html#-verbose-dup-msgs">-verbose-dup-msgs</A> command-line option.
+This increases the amount of information provided about the possible
+duplicate.  The above messages might then look like this:
+<PRE>
+3/Waiting on possibly identical tool (6/... /usr/bin/g++-3.4 -c -pipe -O0 -g2 Version.C)
+5/Waiting on possibly identical function (/vesta/vestasys.org/bridges/c_like/9/build.ves/program(), line 812, col 12)
+7/Waiting on possibly identical model (/vesta/example.com/foo/bar/checkout/12/34/build.ves)
+...
+5/Function missed after waiting (/vesta/vestasys.org/bridges/c_like/9/build.ves/program(), line 812, col 12).
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="configuration">Configuration Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The evaluator reads site-specific configuration information from a Vesta
+configuration file named <I>vesta.cfg</I>.<P>
+
+The following values are obtained from the [Evaluator] section of the
+Vesta configuration file:<P>
+
+<DL>
+<DT><I>DefaultMain</I><DD>
+Gives one or more default model names to evaluate if none is
+explicitly specified.  Multiple names are given separated by
+whitesapce, and are tried in order.  (For example, if set to
+"<TT>linux_alpha.main.ves linux_ia32.main.ves .main.ves</TT>", if a model
+named "<TT>linux_alpha.main.ves</TT>" exists it will be evaluated, or if
+not and a model named "<TT>linux_ia32.main.ves</TT>" exists it will be
+evaluated, otherwise if a model named "<TT>.main.ves</TT>" exists it will
+be evaluated.)  If not set, "<TT>.main.ves</TT>" is used.<P>
+
+<DT><I>Switches</I><DD>
+Specifies evaluator command line switches that will be used on every
+run. These switches are overridden by any explicit switches used on
+the evaluator command line.<P>
+
+<DT><I>MaxThreads</I><DD>
+Gives the default value for the -maxthreads option; see above.<P>
+
+<DT><I>FpContent</I><DD>
+Newly created derived files that are strictly less than <I>FpContent</I>
+bytes long are fingerprinted deterministically according to their
+contents.  Longer files are fingerprinted with arbitrary unique
+identifiers.  The cost of fingerprinting a file's contents is
+non-trivial, but doing so allows for cache hits in cases where two
+evaluations depend on files that have identical contents but were
+created in separate evaluations.  The special value -1 causes all
+files to be fingerprinted by contents, while 0 causes all files to be
+fingerprinted by unique identifier.  (See the documentation for the
+<TT>_run_tool</TT> primitive function for more information.)<P>
+
+<DT><I>server_max_threads</I><DD>
+A tuning parameter which controls the number of file access callbacks
+from the repository simultaneously served during a tool invocation.  A
+reasonable value is 4.  There's normally no need to change it. (Note
+that there is no built-in default value.)<P>
+
+<DT><I>NegligibleExternalLoadPerCPU</I><DD>
+A tuning parameter which controls how hosts are selected for
+_run_tool() jobs.  It is a scaling factor that is multiplied by the
+number of CPUs in the candidate Run Tool Host.  If the load average is
+below the result of this multiplication and the RunToolServer is
+running no other jobs, the host is immediately chosen to run the tool
+invocation.  (If not, it may still be chosen later if it's the least
+loaded candidate host.)  If not set, it defaults to 0.75.<P>
+
+<DT><I>core_dump_regexp</I><DD>
+When a tool dies with a core dump, the evaluator searches the
+filesystem used for the tool for core dumps.  (It can't know
+necessarily where they will be, as the tool could change working
+directories.)  The evaluator will print information about any files
+with names matching this regular expression written by a tool that
+dumped core.  If not set, defaults to "<TT>core(\.[0-9][0-9]*)?</TT>".<P>
+
+<DT><I>WorkerStackSize</I><DD>
+Threads created when using <TT>_par_map</TT> have their stack size
+determined by this setting. If your SDL models use deep recursion,
+you may want to increase it. If not set, defaults to 1048576 (1 MB).<P>
+
+<DT><I>print_numeric_sid</I><DD>
+When printing a text value backed by a shortid file (either as part of
+the result printed by the <A HREF="vesta.1.html#-result">-result</A> option or the
+<TT>_print</TT> primitive function), this setting enables printing the
+shortid as a hexadecimal number (in addition to the path normally
+printed).  (This is probably only interesting to people actively
+developing Vesta.)  This is a boolean configuration setting.  If equal
+(without regard to case) to "yes", "on", or "true", or can be parsed
+as an integer that is non-zero, the hexadecimal shortid will be
+printed.  If equal (without regard to case) to "no", "off", or
+"false", or can be parsed as an integer that is zero, the hexadecimal
+shortid will <I>not</I> be printed.  If not set, defaults to "false".<P>
+
+<DT><I>PickleParanoia</I><DD>
+Can be used to enable paranoid double-checking of data stored into a
+serialized (aka "pickled") evaluator value to be added to the Vesta
+cache.  Currently only two settings are recognized: 0 (disabled) and 1
+(enabled).  (It's disabled by default.)  In the future, other higher
+values might be added for greater levels of paranoid checking.  This
+should be totally unnecessary as it simply reads back data encoded
+into a bytes stream (just integers at level 1).  Unfortunately, we've
+observed a few cases where the evaluator seems to have encoded the
+wrong integer which causes problems later when another evaluator gets
+a cache hit on the bad entry.  (This could happen if you have a large
+number of clients and some have flaky hardware.)  Turning this on may
+prevent such incorrectly written entries from making it into the
+cache.<P>
+
+<DT><I>symlink_sid_root</I><DD>
+If set, the value replaces <TT>[Repository]metadata_root</TT> in the
+target of symlinks created when shipping with the <A HREF="vesta.1.html#-s">-s</A> flag.
+This could be used with an alternative method of distributing build
+results to client hosts.  Note that <TT>[Repository]sid_dir</TT> and the
+path for the shortid made up of hex digits will be appended to this
+when forming the symlink target.  For example, if
+<I>symlink_sid_root</I> is set to "<TT>/foo/bar</TT>" and
+<TT>[Repository]sid_dir</TT> is set to "<TT>sid</TT>" (as it typically is),
+the the link target for shortid 0xa1b2c3d4 would be
+"<TT>/foo/bar/sid/a1b/2c3/d4</TT>".<P>
+
+</DL>
+<P>
+
+The following values are obtained from the [CacheServer] section of the
+Vesta configuration file:<P>
+
+<DL>
+<DT><I>MetaDataRoot</I><DD>
+See <A HREF="VCache.1.html#ConfigSect"><B>VCache</B>(1)</A>.<P>
+
+<DT><I>Host</I><DD>
+See <A HREF="ChkptCache.1.html#ConfigSect"><B>ChkptCache</B>(1)</A>.
+</DL>
+<P>
+
+The following values are obtained from the [Repository] section of the
+Vesta configuration file:<P>
+
+<DL>
+<DT><I>metadata_root</I><DD>
+<DT><I>umask</I><DD>
+See <A HREF="repository.8.html#Configuration"><B>repository</B>(8)</A>.
+</DL>
+<P>
+
+The following values are obtained from the [Run_Tool] section of the
+Vesta configuration file:<P>
+
+<DL>
+
+<DT><I>SRPC_port</I><DD> The default port at which to contact the
+RunToolServer.  (See the next section.)<P>
+
+<DT><I>get_info_read_timeout</I><DD> Maximum number of seconds that the
+evaluator will wait for a response from a RunToolServer when getting
+information about its configuration (OS, architecture, etc.) and
+number of allowed and currently running tools.  This allows the
+evaluator to give up and move on to another candidate host if one is
+very slow in responding.  Defaults to 120 seconds (2 minutes).  (Note
+that this timeout only applies after a connection is established, and
+is only provided to guard against misbehaving or overloaded peers.)<P>
+
+</DL>
+
+See also the next section.
+</BLOCKQUOTE>
+
+<H3><A NAME="runtool">Runtool Host Selection</A></H3>
+<BLOCKQUOTE>
+<P>
+
+When the <TT>_run_tool</TT> primitive is invoked to run an external tool,
+the evaluator must choose a specific host machine to run the tool on.
+To do so, it first looks up the <I>platform</I> argument in a
+correspondingly named section of the Vesta configuration file,
+[<I>platform</I>].  This section describes the platform type by giving a
+list of characteristics that a host machine of this type must have,
+and it includes a list of candidate hosts to try.  The evaluator
+searches the list for a host that matches the description and is not
+too heavily loaded.  The following names must be defined in a platform
+section:<P>
+
+<DL>
+<DT><I>sysname</I><DD>
+Specifies the name of the operating system, as returned by the
+uname(2) system call in the sysname field.  The given value can be a glob(3)
+pattern (a pattern using <TT>*</TT>, <TT>?</TT>, and <TT>[]</TT>
+characters as in shell filename 
+matching).  Typical values are "OSF1" for Tru64 Unix, or "Linux" for Linux.<P>
+
+<DT><I>release</I><DD>
+The release of the operating system, as returned by the uname(2) system
+call in the release field.  This value can be a glob(3) pattern.
+Typical values are "V[45].0" to match either Tru64 Unix 4.0 or 5.0, or
+"2.4.*" to match any 2.4-series Linux kernel.<P>
+
+<DT><I>version</I><DD>
+The minor version number of the operating system, as returned by the
+uname(2) system call in the version field.  This value can be a
+glob(3) pattern.  Typically "*" is used in this field, as the OS minor
+version number is not usually significant in choosing a machine 
+to run tools on.<P>
+
+<DT><I>machine</I><DD>
+The type of processor, as returned by the
+uname(2) system call in the version field.  This value can be a
+glob(3) pattern.  Typical values are "alpha" to select an Alpha processor,
+or "i?86" to select an Intel x86 processor.<P>
+
+<DT><I>cpus</I><DD>
+The minimum number of CPUs present.  Use 1 if a uniprocessor is acceptable.<P>
+
+<DT><I>cpuMHz</I><DD>
+The minimum CPU clock speed, in megahertz.  Typically set to 0, but
+you can specify a larger number if only machines of at least a certain
+speed are acceptable.<P>
+
+<DT><I>memKB</I><DD>
+The minimum number of kilobytes of physical memory.  Typically set to
+0, but you can specify a larger number if only machines with at least a
+certain amount of memory are acceptable.<P>
+
+<DT><I>hosts</I><DD> A list of candidate hosts to try, separated by
+spaces.  Hosts are specified as either <I>hostname</I>, or
+<I>hostname</I><TT>:</TT><I>port</I>.  If the port is not specified, it
+defaults to the standard RunToolServer port, given in section
+[Run_Tool], value <I>SRPC_port</I>.  There must be a
+<A HREF="RunToolServer.1.html">RunToolServer(1)</A> at the given port on
+each host; if not, the evaluator prints a warning and drops the host
+from the list.  The evaluator also prints a warning if a host on the
+list does not match the platform description.<P>
+
+If the first hostname is the string "localhost", the local host will
+always be considered first.  If the string "localhost" appears
+elsewhere in the list, the local host will be considered but not given
+any special preference.  If the string "localhost" does not appear,
+the local host will be used only if its name appears explicitly.  If
+the same host appears twice (in particular, if it appears both as
+"localhost" and under its own name), the duplicates are eliminated.
+</DL>
+<P>
+
+By convention, the following target platform names are normally used:<P>
+
+<DL>
+
+<DT><I>DU4.0</I><DD> An Alpha machine running version 4.0x of the Digital
+Unix (aka Compaq/HP Tru64 Unix) operating system<P>
+
+<DT><I>Linux-alpha</I><DD> An Alpha machine running Linux<P>
+
+<DT><I>Linux-i386</I><DD> An Intel 386 or higher running Linux<P>
+
+<DT><I>Linux-i686</I><DD> An Intel 686 or higher running Linux<P>
+
+<DT><I>Linux-ppc</I><DD> A PowerPC running Linux<P>
+
+<DT><I>Linux-sparc</I><DD> A Sparc running Linux<P>
+
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ToolCore">Tools That Dump Core</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The evaluator provides a little extra help if a tool's exit status
+indicates that it produced a core dump.  If this happens, the
+evaluator will search the filesystem used for the tool for any core
+dumps.  (It can't know necessarily where they will be, as the tool
+could change working directories.)  For any files with names matching
+the regular expression specified with the
+<TT>[Evaluator]core_dump_regexp</TT> <A HREF="vesta.1.html#configuration">configuration
+variable</A>, the evaluator will print a message like this:
+<PRE>
+3/Possible core file: /.WD/core.1234
+3/at /vesta-srv/sid/abc/def/12
+</PRE>
+
+The path on the first line is the location where the core file was
+written during the tool execution.  (This is mostly for informational
+purposes, as the temporary filesystem for the tool invocation will be
+deleted shortly after this message is printed.)  The path after "at"
+is the location where the written core file can be accessed directly
+from the repository's storage area.
+</BLOCKQUOTE>
+
+<H3><A NAME="EnvVars">Environment Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+If set, the <TT>DEBUG_TOOL_DIR_SERVER</TT> environment variable can be
+used for debugging purposes.  It causes the evalutor to display extra
+information that can be helpful in intercepting and understanding the
+traffic between the evaluator and the repository.  There are two kinds
+of information printed when this environment variable is set:<P>
+
+<UL>
+
+<LI> Just before it begins listening for connections from the
+repository, the evaluator prints the port it is listening on and waits
+for the user to press enter:
+<PRE>
+Tool directory server listening on port 3341
+Hit enter to continue: 
+</PRE>
+
+This makes it possible for a network capture tool (e.g. <TT>tcpdump</TT>)
+to be started to capture the traffic to and from the evaluator's tool
+directory server interface.<P>
+
+<LI> When each tool invocation begins, it prints three pieces of
+information about its temporary root filesystem: the 64-bit handle
+that the repository uses to request information from the evaluator
+about the root for the tool, the LongId assigned to it by the
+repository, and the name of the directory below the volatile root.
+These are printed right after the command line of the tool and are
+prefixed with the same thread marker:
+<PRE>
+3/[tool dir server root handle = 122cad0000200002]
+3/[root LongId = 0002fca00b]
+3/[root directory name = 0002d07c]
+</PRE>
+
+This information makes it possible to correspond NFS transactions and
+tool directory server transactions with a tool invocation.<P>
+
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="see_also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vmake.1.html">vmake(1)</A>,
+<A HREF="repos-ui.1.html">repos-ui(1)</A>, 
+<A HREF="VCache.1.html">VCache(1)</A>,
+<A HREF="repository.8.html">repository(8)</A>,
+<A HREF="RunToolServer.1.html">RunToolServer(1)</A>,
+<A HREF="vesta.cfg.5.html">vesta.cfg(5)</A>,
+<A HREF="vrepl.1.html">vrepl(1)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Yuan Yu and Jim Horning
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

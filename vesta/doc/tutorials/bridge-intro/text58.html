@@ -1,0 +1,19 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 59</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text57.html">Back</a> <a href="text59.html">Continue</a> <a href="text68.html">Last page</a> <a href="bridge-intro.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Details of Handling Multiple Files</h1><p>
+<ul><li><h2>/**nocache**/</h2>
+<li><h2>grep_one(name, file)</h2>
+<ul><li>We define an inner function which will run grep once for each input file
+<li>It must take two arguments (a name and a value) since we're going to use it with _par_map over a binding
+<li>We mark this function with “/**nocache**/” to suppress caching it
+<ul><li>_run_tool is always cached, and this function doesn't do much besides call _run_tool, so there's no point in caching it
+</ul></ul></ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (X11; U; OSF1 V4.0 alpha) [Netscape]">
+   <title>Vesta SDL reference - Syntax</title>
+</head>
+<body bgcolor="#efefff">
+
+<h1>
+Vesta SDL Syntax</h1>
+In general the SDL's language syntax is deceptively C-like.&nbsp; Don't
+let it fool you though: this isn't C.
+<h3>
+Comments</h3>
+
+<p>
+Comments in Vesta's SDL can be either the traditional C style starting
+with <tt>/*</tt> and ending with <tt>*/</tt>:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>/* Single-line comment */
+
+/*
+** This is a multi-line
+** comment.
+*/</pre>
+</td></tr></table>
+
+<p>
+Or the C++ style started with <tt>//</tt> and ending with a newline:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>// These only come in the
+// single-line variety.</pre>
+</td></tr></table>
+
+<h4>
+Special Comments</h4>
+
+<p>
+There are two special comments which can be used when defining a funcrtion:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>/**nocache**/
+/**pk**/</pre>
+</td></tr></table>
+
+<p>
+These affect the way Vesta's function caching mechanism treats a
+function invocation.&nbsp; <a
+href="../man/html/vesta.1.html#pragmas">A more complete
+description</a> is given in the <a
+href="../man/html/vesta.1.html">Vesta evaluator man page</a> and
+there's also <a href="caching.html">a section in this reference guide
+on using these</a> (though it's a bit heavy and you might not want to
+read it right now).
+</p>
+
+<p>There's another special comment which affects the way <a
+href="../man/html/vupdate.1.html"><tt>vupdate</tt>(1)</a> works:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>/**noupdate**/
+/**NOUPDATE**/</pre>
+</td></tr></table>
+
+<p>
+Preceeding a <a href="models.html#import">model import</a> with this will
+prevent <tt><a href="../man/html/vupdate.1.html">vupdate</a></tt>
+from changing it.
+</p>
+
+<h3>
+<a NAME="Identifiers"></a>Identifiers</h3>
+
+<p>
+As in C/C++ there is a notion of identifiers: names which can be used as
+variables, and in the Vesta SDL as names in bindings.&nbsp; However, they
+are a little more broad than in C/C++.&nbsp; Vesta SDL identifiers can
+be made up of any sequence of leters, decimal digits, underscores, and
+periods, as long as the sequence cannot be parsed as an integer literal.&nbsp;
+For example, all of these are valid identifiers:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>foo.c
+_.
+36.foo
+123_456
+3.14159</pre>
+</td></tr></table>
+
+<p>
+On the other hand, these are illegal identifiers (because they look like
+integer literals):
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>36
+0x1234
+07531</pre>
+</td></tr></table>
+
+<a name="Reserved Words"><h3>Reserved Words</h3></a>
+
+<p>
+The following reserved words cannot be used as identifiers:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>binding
+bool
+do
+else
+ERR
+FALSE
+files
+foreach
+from
+function
+if
+in
+import
+int
+list
+return
+text
+then
+TRUE
+type
+value</pre>
+</td></tr></table>
+
+<p>
+If surrounded by double quotes, they may be used as names in <a
+href="data-types.html#binding">bindings</a>, path components in a <a
+href="models.html#files">files</a> or <a
+href="models.html#import">import</a> clause, or names in a <a
+href="expressions.html#Binding Lookup Operator">binding lookup</a>.
+</p>
+
+<h3>White Space</h3>
+
+<p>
+White space delimits tokens but is otherwise ignored.&nbsp; The only place
+it is significant is in text literals and then only the space character
+(the ASCII character represented by the decimal number 32) is allowed.
+</p>
+
+<h3>Blocks</h3>
+
+<p>
+<a href="models.html#body">Model files</a> and <a
+href="statements.html#FuncDef">function definitions</a> use blocks of
+statements.&nbsp; (A block of statements can also be <a
+href="expressions.html#Block">used as an expression</a>.)&nbsp; As in
+C, blocks are surrounded by curly braces, with individual <a
+href="statements.html">statements</a> delimeted by semicolons:
+</p>
+
+<blockquote><tt>{ <i>statement_1</i>; <i>statement_2</i>; ...; <i>statement_n</i>;
+}</tt></blockquote>
+
+<h3>
+Path Delimiters</h3>
+
+<p>
+The Vesta SDL uses paths both for specifying filenames and for specifying
+multi-level binding assignments and lookups:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre>import
+&nbsp;&nbsp;&nbsp; progs = src/progs.ves;
+
+...
+
+./C/libs/c/libc</pre>
+</td></tr></table>
+
+<p>
+Either forward or backward slashes are allowed within pathnames, but not
+both.
+</p>
+
+<hr WIDTH="100%">
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i> &nbsp;
+/ <a href="index.html">Vesta SDL Programmer's Reference</a></i>
+</body>
+</html>

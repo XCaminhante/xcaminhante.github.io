@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Functions on Type t_int</TITLE>
+<META NAME="description" CONTENT="Functions on Type t_int">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node153.html">
+<LINK REL="previous" HREF="node151.html">
+<LINK REL="up" HREF="node150.html">
+<LINK REL="next" HREF="node153.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2436"
+  HREF="node153.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2432"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2426"
+  HREF="node151.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2434"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2437"
+  HREF="node153.html">Functions on Type t_text</A>
+<B> Up:</B> <A NAME="tex2html2433"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2427"
+  HREF="node151.html">Functions on Type t_bool</A>
+ &nbsp <B>  <A NAME="tex2html2435"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001334200000000000000">
+Functions on Type t_int</A>
+</H3>
+
+<P>
+<PRE>
+t_bool
+operator==(t_int i1, t_int i2)
+</PRE>
+<BR>
+Returns <EM>true</EM> if <EM>i1</EM> and <EM>i2</EM> are equal, and
+<EM>false</EM> otherwise.
+
+<P>
+<PRE>
+t_bool
+operator!=(t_int i1, t_int i2) =
+  operator!(operator==(i1, i2))
+</PRE>
+
+<P>
+<PRE>
+t_int
+operator+(t_int i1, t_int i2)
+</PRE>
+<BR>
+Returns the integer sum <EM>i1</EM> + <EM>i2</EM> unless it lies outside the
+implementation-defined range, in which case evaluation halts with a
+runtime error.
+
+<P>
+<PRE>
+t_int
+operator-(t_int i1, t_int i2)
+</PRE>
+<BR>
+Returns the integer difference <EM>i1</EM> - <EM>i2</EM> unless it lies
+outside the implementation-defined range, in which case 
+evaluation halts with a runtime error.
+
+<P>
+<PRE>
+t_int
+operator-(t_int i) =
+  operator-(0, i)
+</PRE>
+
+<P>
+<PRE>
+t_int
+operator*(t_int i1, t_int i2)
+</PRE>
+<BR>
+Returns the integer product <EM>i1</EM> * <EM>i2</EM> unless it lies outside
+the implementation-defined range, in which case evaluation
+halts with a runtime error.
+
+<P>
+<PRE>
+t_int
+_div(t_int i1, t_int i2)
+</PRE>
+<BR>
+Returns the integer quotient <EM>i1</EM> / <EM>i2</EM> (that is, the floor
+of the real quotient) unless it lies outside the
+implementation-defined range, in which case evaluation halts with a
+runtime error.  This error is possible only if <EM>i2</EM> is zero or if
+<EM>i2</EM> is -1 and <EM>i1</EM> is the largest implementation-defined
+negative number.
+
+<P>
+<PRE>
+t_int
+_mod(t_int i1, t_int i2) =
+  operator-(i1, operator*(_div(i1,i2), i2))
+</PRE>
+
+<P>
+<PRE>
+t_bool
+operator&lt;(t_int i1, t_int i2) =
+{
+  int ii1 = i1, ii2 = i2; // convert to C++ integers
+  if (ii1 &lt; ii2) return true; else return false;
+}
+</PRE>
+
+<P>
+<PRE>
+t_bool
+operator&gt;(t_int i1, t_int i2) =
+  operator&lt;(i2, i1)
+</PRE>
+
+<P>
+<PRE>
+t_bool
+operator&lt;=(t_int i1, t_int i2) =
+{
+  int ii1 = i1, ii2 = i2; // convert to C++ integers
+  if (ii1 &lt;= ii2) return true; else return false;
+}
+</PRE>
+
+<P>
+<PRE>
+t_bool
+operator&gt;=(t_int i1, t_int i2) =
+  operator&lt;=(i2, i1)
+</PRE>
+
+<P>
+<PRE>
+t_int
+_min(t_int i1, t_int i2) =
+{ if (operator&lt;(i1, i2)) return i1; else return i2; }
+</PRE>
+
+<P>
+<PRE>
+t_int
+_max(t_int i1, t_int i2) =
+{ if (operator&gt;(i1, i2)) return i1; else return i2; }
+</PRE>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2436"
+  HREF="node153.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2432"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2426"
+  HREF="node151.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2434"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2437"
+  HREF="node153.html">Functions on Type t_text</A>
+<B> Up:</B> <A NAME="tex2html2433"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2427"
+  HREF="node151.html">Functions on Type t_bool</A>
+ &nbsp <B>  <A NAME="tex2html2435"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

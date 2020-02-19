@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Model</TITLE>
+<META NAME="description" CONTENT="Model">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node147.html">
+<LINK REL="previous" HREF="node145.html">
+<LINK REL="up" HREF="node133.html">
+<LINK REL="next" HREF="node147.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2359"
+  HREF="node147.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2355"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2349"
+  HREF="node145.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2357"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2360"
+  HREF="node147.html">Files</A>
+<B> Up:</B> <A NAME="tex2html2356"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2350"
+  HREF="node145.html">FuncCall</A>
+ &nbsp <B>  <A NAME="tex2html2358"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION0013331300000000000000"></A><A NAME="sect:SDL-model"></A>
+<BR>
+Model
+</H3>
+
+<P>
+<
+<P>
+<PRE>
+Model      ::= Files Imports Block
+</PRE>
+
+<P>
+<
+<P>
+The nonterminal Model is treated like the body of a function
+definition (i.e., like a FuncDef (Section&nbsp;<A HREF="node144.html#sect:SDL-funcdef">A.3.3.11</A>), but
+without the identifier naming the function and with an empty list of
+formal parameters). More precisely:
+
+<P>
+<PRE>
+Eval( Files Imports Block , C) =
+{
+  val C0 = Eval( Files Imports , emptybinding);
+  return Eval( LAMBDA () Block , _append(C0, C));
+}
+</PRE>
+
+<P>
+As this rule indicates, the Files and Imports constructs are
+evaluated in an empty context, and they add to the closure context in
+which the model's LAMBDA is evaluated. In practice, the context
+C will always be the initial context <EM>C-initial</EM> when this rule is
+applied (cf. Sections&nbsp;<A HREF="node133.html#sect:SDL-eval-rules">A.3.3</A> and
+<A HREF="node148.html#sect:SDL-imports">A.3.3.15</A>).
+
+
+<P>
+The Files nonterminal introduces values corresponding to the
+contents of ordinary files and directories. The Imports nonterminal
+introduces closure values corresponding to other Vesta SDL models.
+
+<P>
+The evaluation rules handle Files and Imports clauses by augmenting
+the context using the <TT>_append</TT> primitive, thereby ensuring that the names
+introduced by these clauses are all distinct, just as if the
+Files and Imports clauses of the Model were a single binding
+constructor. The Files and Imports clauses are evaluated
+independently:
+
+<P>
+<PRE>
+Eval( Files Imports , C) =
+  _append(Eval( Files , C), Eval( Imports , C))
+</PRE>
+
+<P>
+The following two sections give the rules for evaluating Files and
+Imports clauses individually. It is worth noting that the evaluation
+context C is ignored in those rules.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2359"
+  HREF="node147.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2355"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2349"
+  HREF="node145.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2357"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2360"
+  HREF="node147.html">Files</A>
+<B> Up:</B> <A NAME="tex2html2356"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2350"
+  HREF="node145.html">FuncCall</A>
+ &nbsp <B>  <A NAME="tex2html2358"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

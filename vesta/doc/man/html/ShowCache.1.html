@@ -1,0 +1,91 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>ShowCache(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>ShowCache(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+ShowCache - list the files maintained by the Vesta-2 cache server
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>ShowCache</B> [ <B>-v</B>
+</BLOCKQUOTE>
+
+<H3>Description</H3>
+<BLOCKQUOTE>
+<P>
+
+<I>ShowCache</I> displays a list of the files maintained by the Vesta-2
+cache server. This includes the cache server's log files, and the
+files containing stable cache entries.<P>
+
+By default, the files containing the stable cache entries are not
+listed, since there are likely to be so many of them. If you
+specify the <B>-v</B> switch, all of the stable cache files are listed.
+</BLOCKQUOTE>
+
+<H3>Configuration Variables</H3>
+<BLOCKQUOTE>
+<P>
+
+<I>ShowCache</I> lists files contained in a part of the filesystem
+pointed to by the current Vesta configuration file. In particular, it
+reads the following values from the <I>CacheServer</I> section of the
+configuration file:
+<PRE>
+MetaDataRoot     - root of Vesta-2 meta-data
+  MetaDataDir    - root of cache server meta-data sub-tree
+    SCacheDir    - root of stable cache entries sub-tree
+    SVarsDir     - root of stable variables sub-tree
+    WeededLogDir - directory containing log of weeded MPKFiles
+    CacheLogDir  - directory containing the cache log
+    GraphLogDir  - directory containing the graph log
+    CILogDir     - directory containing the used cache index log
+</PRE>
+
+Nesting indicates how the directory tree corresponding to these names
+is structured. If the <I>MetaDataRoot</I> value is the empty string,
+then the current directory is used.
+</BLOCKQUOTE>
+
+<H3>See Also</H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="CleanCache.1.html">CleanCache(1)</A>,
+<A HREF="CreateCacheDirs.1.html">CreateCacheDirs(1)</A>,
+<A HREF="EraseCache.1.html">EraseCache(1)</A>,
+<A HREF="PrintMPKFile.1.html">PrintMPKFile(1)</A>,
+<A HREF="VCache.1.html">VCache(1)</A>,
+<A HREF="WhichCache.1.html">WhichCache(1)</A>.
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Last modified on Thu Nov  8 12:48:54 EST 2001 by ken@xorian.net
+     modified on Thu Jun  5 15:35:25 PDT 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>
+TML>

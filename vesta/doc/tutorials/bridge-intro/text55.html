@@ -1,0 +1,36 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 56</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text54.html">Back</a> <a href="text56.html">Continue</a> <a href="text68.html">Last page</a> <a href="bridge-intro.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Handling Multiple Files</h1><p>
+<ul><li><h2>  grep(pattern: text, /**pk**/inputs: NamedFiles): text</h2>
+<li><h2>  {</h2>
+<li><h2>    // Add the root for the tool and an empty working directory</h2>
+<li><h2>    . += [ root = [.WD=[]] + ./build_root(&lt;&quot;grep&quot;, &quot;glibc&quot;&gt;) ];</h2>
+<li><h2>    // Build a command line</h2>
+<li><h2>    cmd = (&lt;&quot;grep&quot;&gt; +</h2>
+<li><h2>	   ./generic/binding_values(./grep/switches) +</h2>
+<li><h2> 	   &lt;pattern&gt;);</h2>
+<li><h2>    /**nocache**/</h2>
+<li><h2>    grep_one(name, file)</h2>
+<li><h2>    // Inner function that runs the tool for a single input file.</h2>
+<li><h2>    {</h2>
+<li><h2>      // Run the tool</h2>
+<li><h2>      r = _run_tool(./target_platform, cmd,</h2>
+<li><h2> 		    // Pass file as standard input</h2>
+<li><h2> 		    file,</h2>
+<li><h2> 		    // Capture standard output as a value</h2>
+<li><h2> 		    &quot;value&quot;);</h2>
+<li><h2>      return (if r == ERR || r/signal != 0 then ERR</h2>
+<li><h2> 	      else [$name = r/stdout]);</h2>
+<li><h2>    };</h2>
+<li><h2>    return _par_map(grep_one, inputs);</h2>
+<li><h2>  };</h2>
+</ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

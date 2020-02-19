@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Functions: _find, _findr</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_find(text,text,int)"></A><TT>_find(<I>t</I>: text, <I>p</I>:
+text, <I>start</I>: int = 0): int</TT></H4>
+
+<p>
+Finds the leftmost occurrence of <I><TT>p</TT></I> in <I><TT>t</TT></I>
+that begins at or after position <I><TT>start</TT></I>. Returns the index
+of the first byte of the occurrence, or -1 if none exists.&nbsp; If the
+value passed for <I><TT>start</TT></I> is less than 0, 0 is used instead.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_find("vestakit-0.0.tar.gz", ".") == 10
+_find("The quick brown fox jumped over the lazy dog", "e", 10) == 24
+_find("/vesta/vestasys.org", "_") == -1</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_findr(text,text,int)"></A><TT>_findr(<I>t</I>: text, <I>p</I>:
+text, <I>start</I>: int = 0): int</TT></H4>
+
+<p>
+Finds the rightmost occurrence of <I><TT>p</TT></I> in <I><TT>t</TT></I>
+that begins at or after position <I><TT>start</TT></I>. Returns the index
+of the first byte of the occurrence, or -1 if none exists.&nbsp; If the
+value passed for <I><TT>start</TT></I> is less than 0, 0 is used instead.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_findr("vestakit-0.0.tar.gz", ".") == 16
+_findr("Do you recall those days of Sahara?", "a") == 33
+_findr("The rain in Spain falls mainly on the plain.", "s", 24) == -1</PRE>
+</BLOCKQUOTE>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

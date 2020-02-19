@@ -1,0 +1,1576 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+        
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        
+  <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; Linux 2.4.2-2smp i686) [Netscape]">
+  <title>Getting Started with Vesta</title>
+</head>
+  <body text="#000000" bgcolor="#efefff" link="#0000ee" vlink="#551a8b" alink="#ff0000">
+    
+<h1>Getting Started with Vesta</h1>
+
+<table cellpadding="2" cellspacing="2" border="1">
+  <tbody>
+    <tr>
+      <td valign="top">Authors:<br>
+      </td>
+      <td valign="top">
+	    Tim Mann &lt;<font color="#3366CC">tim at tim dash mann
+	    dot org</font>&gt;,
+
+	    Ken Schalk &lt;<font color="#3366CC">ken at xorian dot
+	    net</font>&gt;<br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">Version:<br>
+      </td>
+      <td valign="top">0.1.3<br>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top">Date:<br>
+      </td>
+      <td valign="top">
+
+<!-- hhmts start -->
+Last modified: Tue Jun 26 23:37:48 EDT 2007
+<!-- hhmts end -->
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+
+  <li>
+    <a href="getting-started.html#Requirements">I. Requirements</a>
+  </li>
+
+  <li>
+    <a href="getting-started.html#Installation">II. Installation</a>
+  </li>
+
+  <li>
+    <a href="getting-started.html#RecurringInitialization">III. Recurring Initialization</a>
+  </li>
+
+  <li>
+    <a href="getting-started.html#RepositoryInitialization">IV. Repository Initialization</a>
+  </li>
+
+  <li>
+    <a href="getting-started.html#WhereNext">V. Where to go Next</a>
+  </li>
+
+  <li>
+    <a href="getting-started.html#Troubleshooting">VI. Troubleshooting</a>
+  </li>
+
+</ul>
+
+<a name="Requirements">
+<h2>I. Requirements</h2>
+
+<ol>
+
+<li>
+
+<p><b>Platform:</b> Vesta currently runs on the following platforms:</p>
+
+<ul>
+
+<li><p><i>Linux on IA-32 compatible processors</i>.  The kits (one for
+i386 and one for i686) have been built in a RedHat 7.1 environment,
+but the binaries are statically linked and should work on a variety of
+distributions.  A 2.4 kernel is a necessity, due to deficiencies in
+the 2.2 NFS client.</p></li>
+
+<li><p><i>Linux on Alpha</i>.  As with the kit for IA-32 Linux, the
+binaries were statically linked in a RedHat 7.1 environment, and a 2.4
+kernel is required.</p></li>
+
+<li><p><i>Linux on PowerPC</i>.  The kit for PowerPC Linux was built
+in an environment derived from Debian stable (woody).  A 2.4 kernel is
+required.</p></li>
+
+<li><p><i>Linux on Sparc</i>.  The kit for Sparc Linux was also built
+in an environment derived from Debian stable (woody).  A 2.4 kernel is
+required.</p></li>
+
+<li><p><i>Compaq Tru64 UNIX on Alpha</i>, versions 4.0D through 4.0G.
+(It has not been tested on 5.0 or 5.1.)</p></li>
+
+</ul>
+
+<p>These requirements apply to both servers and clients, but a mix of
+platforms between clients and servers is fully supported.  (Note:
+setting up a multi-platform Vesta installation requires additional
+setup not covered in this document.  We recommend trying it on a
+single platform until you've gained familiarity with it.)</p>
+
+<p>Vesta is designed to be portable, and we expect it to be ported to
+other platforms in the future.</p>
+
+</li>
+
+<li>
+<p><b>Server machine:</b> The Vesta kit consists of several servers, a
+collection of user programs, and documentation.  Two of the servers,
+<a href="man/html/repository.8.html">the
+repository server</a> and <a
+href="man/html/VCache.1.html">the cache
+server</a>, are shared by all users at a Vesta installation site, so
+they need to run on a suitable server machine (or two machines).  If
+you are installing the kit just to get a quick test drive, you can
+choose any workstation as the server machine.  However, the repository
+and cache servers need to run on a machine with locally attached
+disks.</p>
+</li>
+
+<a name="Disk space">
+<li>
+
+<p>
+<b>Disk space:</b> To make any use of Vesta, you need not just the
+core system, but also a set of models that describe a standard
+environment for building -- that is, a set of compilers, libraries,
+etc.  We have made such an environment available for replication over
+the Internet, as well as the complete source code for Vesta itself and
+some other software. Part of these instructions includes using
+<a href="man/html/vrepl.1.html">the Vesta replicator</a> to obtain a
+copy of this environment in your local Vesta repository server.
+Basically, what you will get is a cut-down snapshot of the Vesta
+repository that the Vesta developers use.
+</p>
+
+<p>
+You will need to allocate disk space for storing the build
+environment, source revisions, plus a cache of previously built
+derived files (object files, executables, or whatever else you build
+with Vesta).&nbsp; The more space you allocate, the less often you'll
+need to run
+<a href="man/html/VestaWeed.1.html">the weeder</a> to remove old
+builds.&nbsp; Just how much you need will depend on the size of
+derived data produced by your builds and how often you perform builds.
+</p>
+
+This storage <strong>must</strong> be local to the machine which will
+run the two Vesta servers, <strong>not</strong> served over NFS from
+another system.&nbsp; In most installations, this space is mounted as
+&quot;<tt>/vesta-srv</tt>&quot; (but you can give it any path you
+like).&nbsp; You'll need to NFS export it to any Vesta client
+machines, and have them mount it at the same path as the server
+uses.</p>
+   
+<p>For a single user installation building Vesta itself, you can get
+by with a few hundred megabytes.&nbsp; If you have Linux with a root
+partition that has a gigabyte or more free, you can &quot;<tt>mkdir
+/vesta-srv</tt>&quot; and move on.&nbsp; At the largest Vesta
+installation we know of, with over 100 active users performing builds
+each with over 1 GB of derived data, a 100 GB RAID array was used and
+<a href="man/html/VestaWeed.1.html">the
+weeder</a> was run a little less than once a week.</p>
+
+</li>
+</a>
+
+</ol>
+
+<a name="Installation">
+<h2>II. Installation</h2>
+
+<p>
+This is the first publicly available installation kit for Vesta, so
+unfortunately there are a lot of manual steps to follow.  We hope to
+automate much of this in the future.
+</p>
+
+<ol>
+
+<li>
+<p>
+<b>Download the kit for your platform.</b>
+
+Visit <a href="http://sourceforge.net/projects/vesta/">the Vesta
+project page at SourceForge</a>, and download one of the binary kits
+available there.
+
+</p>
+
+<p>
+
+<i>[New]</i>  Alternatively, you can try
+
+<a href="getting-started-installable.html">install-able RedHat/Debian packages for x86 Linux</a>.
+
+These automate all required steps outlined in this guide, so they're a
+lot easier.
+
+</p>
+</li>
+
+<li>
+<p>
+<b>Create accounts and groups.</b> There are various ways you can do
+this, but rather than explaining the choices here, we recommend using
+the following user and group names:
+</p>
+
+  <ul>
+  <li> Users:</li>
+        
+    <table border=1>
+
+    <tr>
+    <th>
+    Name
+    </th>
+    <th>
+    Default Group
+    </th>
+    <th>
+    Description
+    </th>
+    </tr>
+
+    <tr>
+    <td>
+    <tt>vadmin</tt>
+    </td>
+    <td>
+    <tt>vadmin</tt>
+    </td>
+    <td>
+
+    The Vesta administrator.&nbsp; The <tt>vadmin</tt> user will own
+    the unpacked files from the kit and will be used to run the Vesta
+    server processes.  You'll <tt>su</tt> to <tt>vadmin</tt> to do
+    administrative tasks.  The <tt>vadmin</tt> user will own the root
+    directory inside the repository, and has <tt>root</tt>-like power
+    (can <tt>chown</tt> and <tt>chmod</tt> anything) within the
+    repository.
+
+    </td>
+    </tr>
+
+    <tr>
+    <td>
+    <tt>vwizard</tt>
+    </td>
+    <td>
+    <tt>vadmin</tt>
+    </td>
+    <td>
+
+    The Vesta wizard.&nbsp; Has all the powers of <tt>vadmin</tt> plus
+    the powerful (and dangerous) ability to violate the replication
+    invariant.&nbsp; (See <a
+    href="man/html/vrepl.1.html#Vesta_Replication"> the <tt>vrepl</tt>
+    man page</a> and <a href="man/html/repository.8.html"> the
+    <tt>repository</tt> man page</a> for more information.)&nbsp;
+    You'll need to use <tt>vwizard</tt> once to create a top-level
+    directory for your site, but almost never after that.
+
+    </td>
+    </tr>
+
+    <tr>
+    <td>
+    <tt>vruntool</tt>
+    </td>
+    <td>
+    <tt>vadmin</tt>
+    </td>
+    <td>
+
+    Special user under whose permission all tools (compilers, linkers,
+    etc.) are run.&nbsp; This user is needed internally by Vesta; it
+    doesn't have any function that's visible to users.&nbsp;
+    <tt>vruntool</tt> can have login disabled, but you might want to
+    leave it enabled to make it easier to start <a
+    href="man/html/RunToolServer.1.html">the
+    <tt>RunToolServer</tt></a>.
+
+    </td>
+    </tr>
+
+    <tr>
+    <td>
+    <tt>vforeign</tt>
+    </td>
+    <td>
+    <tt>vforeign</tt>
+    </td>
+    <td>
+
+    Special user for files and directories owned by a non-local
+    user.&nbsp; Anything replicated from another site (see <a
+    href="man/html/vrepl.1.html#Vesta_Replication"> the <tt>vrepl</tt>
+    man page</a>) may belong to a user with no local user ID
+    mapping.&nbsp; Such directories appear to belong to
+    <tt>vforeign</tt> through the NFS interface to the
+    repository.&nbsp; <tt>vforeign</tt> can have login disabled.  Make
+    a note of the numeric user ID assigned to <tt>vforeign</tt>, which
+    you'll need to edit into the Vesta configuration file
+    (<tt>vesta.cfg</tt>), discussed below.
+
+    </td>
+    </tr>
+
+    </table>
+
+   <li> Groups:</li>
+        
+    <table border=1>
+
+    <tr>
+    <th>
+    Name
+    </th>
+    <th>
+    Description
+    </th>
+    </tr>
+
+    <tr>
+    <td>
+    <tt>vadmin</tt>
+    </td>
+    <td>
+
+    Group corresponding to the <tt>vadmin</tt>
+    user.  Will be the group of the root directory of the
+    repository (<tt>/vesta</tt>).
+
+    </td>
+    </tr>
+
+    <tr>
+    <td>
+    <tt>vforeign</tt>
+    </td>
+    <td>
+
+    Special group used to represent files and directories with
+    non-local groups.  (Analogous to the <tt>vforeign</tt> user.) Make
+    a note of the numeric group ID assigned to <tt>vforeign</tt>, as
+    you'll need to edit it into the Vesta configuration file (as with
+    the <tt>vforeign</tt> user ID).
+
+    </td>
+    </tr>
+
+    </table>
+     
+  </ul>
+
+  <p>
+  On RedHat Linux, you can create the above users and groups with the
+  following commands:
+  </p>
+
+<blockquote>
+<pre>su root
+useradd -c 'Vesta administrator' -m vadmin
+useradd -c 'Vesta wizard' -g vadmin -m -n vwizard
+useradd -c 'Vesta runtool user' -g vadmin -m -n vruntool
+useradd -c 'Vesta foreign user' -m vforeign</pre>
+</blockquote>
+
+  <p>
+  On Debian Linux, you can create the above users and groups with:
+  </p>
+
+<blockquote>
+<pre>su root
+groupadd vadmin
+groupadd vforeign
+useradd -c 'Vesta administrator' -g vadmin -m vadmin
+useradd -c 'Vesta wizard' -g vadmin -m vwizard
+useradd -c 'Vesta runtool user' -g vadmin -m vruntool
+useradd -c 'Vesta foreign user' -g vforeign -m vforeign</pre>
+</blockquote>
+  
+  <p>
+  If you're not sure whether you can use one of the above sets of
+  commands, consult your <tt>useradd(8)</tt> and <tt>groupadd(8)</tt>
+  man pages.  If you do use either of the above methods, you will
+  probably want to set a password for at least the <tt>vadmin</tt>
+  user:
+  </p>
+
+<blockquote>
+<pre>su root
+passwd vadmin
+<i>&lt;enter new password for vadmin&gt;</i></pre>
+</blockquote>
+
+</li>
+
+<a name="CreateVestaSrv">
+<li>
+<p>
+<b>Create installation directory.</b> You'll need a new, empty
+directory on a local disk on your server machine, with enough space
+available (see <a href="getting-started.html#Disk space">Disk Space under Requirements
+above</a>).  It should have owner and group <tt>vadmin</tt> and mode
+<tt>0775</tt>.  This directory must be mounted on all client machines
+that will be using Vesta.  Make sure all clients mount it under the
+same path, and that it's also available under this same path on the
+server, if necessary by making extra symbolic links.  The text below
+assumes you will call the directory &quot;<tt>/vesta-srv</tt>&quot;.
+</p>
+</li>
+</a>
+
+<a name="Untar kit">
+a<li>
+<p>
+<b>Untar the kit.</b>  Sample commands:
+</p>
+
+<blockquote>
+<pre>su vadmin
+umask 022
+cd /vesta-srv
+tar -zxf vestakit.linux_i686.tar.gz</pre>
+</blockquote>
+
+<p>(Of course, be sure to download and unpack the right kit for your
+platform.)</p>
+
+</li>
+</a>
+
+<a name="setuid">
+<li>
+<p>
+<b>Make links and apply setuid bits.</b>  Sample commands:
+</p>
+
+<blockquote>
+<pre>ln -s vestaeval /vesta-srv/bin/vesta
+su root
+chown vadmin /vesta-srv/bin/vestaeval
+chmod u+s /vesta-srv/bin/vestaeval
+chown root /vesta-srv/bin/tool_launcher
+chmod u+s /vesta-srv/bin/tool_launcher</pre>
+</blockquote>
+
+<p>
+(<tt>tool_launcher</tt> is a very simple program which performs a
+<tt>chroot</tt> system call, which requires <tt>root</tt> privileges,
+then drops its <tt>root</tt> privileges and <tt>exec</tt>'s another
+program within the <tt>chroot</tt>ed environment.  If you're security
+conscious and don't want to make a binary setuid <tt>root</tt> without
+looking at the source, you can put this off until after you've
+replicated the Vesta sources to your repository, which is described
+below.  Once you've done that, you can find the source for the
+<tt>tool_launcher</tt> in
+<tt>/vesta/vestasys.org/vesta/run_tool/latest/src/tool_launcher.c</tt>.
+You can also get the source for <tt>tool_launcher</tt> ahead of time
+by <a
+href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/run_tool/latest/src/tool_launcher.c">using
+the web interface to the public repository</a>.  It's even fairly
+simple to compile it from source yourself without using Vesta's
+builder, as it's just one C source file and
+<a href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/run_tool/latest/src/Launcher.h">an
+asscoaited header</a>.)
+</p>
+
+</li>
+</a>
+
+<a name="Make mount points">
+<li>
+<p>
+<b>Make mount points.</b> On each client machine that will use Vesta,
+create <tt>/vesta</tt> and <tt>/vesta-work</tt> as empty directories.
+These will be used as mount points for the repository's NFS interface.
+(The permissions of these directories don't matter, because once the
+repository is mounted their permissions will be determined by the
+repository server.)
+</p>
+
+<p>
+On some platforms (Tru64), having the mount points owned by a
+non-<tt>root</tt> user (such as <tt>vadmin</tt>) will allow the
+repository to be mounted and unmounted by that user (with the
+<a href="man/html/mountrepos.8.html"><tt>mountrepos</tt></a>
+and
+<a href="man/html/umountrepos.8.html"><tt>umountrepos</tt></a>
+commands).  On others (Linux), <tt>root</tt> privileges are always
+required to mount and unmount the repository.
+</p>
+</li>
+</a>
+
+<li>
+<a name="ChooseRealm">
+<p>
+<b>Choose a realm name for your site.</b> Your realm name is used to
+form global user names of users at your site.  Each user's global user
+name is formed by appending &quot;<tt>@<i>realm</i></tt>&quot; to
+their UNIX login name.  Global user names are used when interacting
+with other Vesta installations for replication and remote
+checkout/checkin.  Your realm name must be unique across all Vesta
+installations, so it's best to use a domain name you own or a hostname
+within it.  (If you chose the maildrop host for your system's users,
+this can have the added benefit of making Vesta global user names work
+as e-mail addresses.)
+</p>
+
+<p>
+If you do not have a registered domain name of your own, a good
+alternative is to use a working email address that you intend to keep
+permanently.  Simply change the &quot;@&quot; to an &quot;_&quot;, and
+you have a globally unique string which you can use as your realm
+name.  (If your e-mail address is
+&quot;<tt>john.smith@bigisp.net</tt>&quot;, you can use
+&quot;<tt>john.smith_bigisp.net</tt>&quot; for your realm name.)
+</p>
+
+<p>
+See
+<a href="man/html/repository.8.html#AccessControl">the
+repository man page section on access control</a> for more information
+on realm names, global user names, and how they are used.
+</p>
+</li>
+
+
+<li>
+<a name="EditVestaCfg">
+<p>
+<b>Edit <tt>vesta.cfg</tt>.</b> Vesta uses a configuration file to set
+various (normally site-wide) values such as filenames and user and
+group ids.  The configuration file is normally
+<tt>/vesta-srv/vesta.cfg</tt>.  The kit <a href="getting-started.html#Untar kit">you
+unpacked earlier</a> included a sample <tt>vesta.cfg</tt>, that you'll
+need to specialize for your installation.  The format of this file
+should be fairly clear, but see <a
+href="man/html/vesta-intro.1.html#ConfigFiles">the
+vesta-intro man page</a> if you want documentation.
+</p>
+
+<ol type=A>
+
+<li>
+
+<p>
+<b>Set your realm name.</b> Enter your chosen realm name (<a
+href="getting-started.html#ChooseRealm">see the discussion above</a>) as the value of the
+&quot;<tt>realm</tt>&quot; setting in the <tt>[Repository]</tt>
+sections of the configuration file.  <i>[Before Vesta
+<tt>release/8</tt>, it was neccessary to also set
+<tt>[UserInterface]realm</tt> to your realm.  That setting is now
+optional and in most configurations can be omitted.]</i>
+</p>
+
+</li>
+
+<li>
+<p>
+<b>Enter user/group information.</b>
+In the <tt>[Repository]</tt> section, edit the following settings:
+</p>
+
+<ul>
+
+  <li>
+    <p><tt>vforeign_uid = <i>&lt;numeric user ID of vforeign&gt;</i></tt></p>
+
+    <p>(You can find this value in the <tt>/etc/passwd</tt> file, or
+    by using the command &quot;<tt>id vforeign</tt>&quot;.)</p>
+
+  </li>
+
+  <li>
+    <p><tt>vforeign_gid = <i>&lt;numeric group ID of vforeign&gt;</i></tt></p>
+
+    <p>(Consult the <tt>/etc/group</tt> file to find this value.)</p>
+  </li>
+
+</ul>
+
+<p>
+If you're not using the suggested special user and group names, you
+may also need to edit the following settings.
+</p>
+
+<ul>
+
+  <li>
+    <p><tt>vadmin_user = vadmin</tt></p>
+
+    <p><i>[Before Vesta <tt>release/8</tt>, it was neccessary to
+    append &quot;<tt>@<i>&lt;your realm&gt;</i></tt>&quot; to the
+    <tt>_user</tt> and <tt>_group</tt> settings in the
+    <tt>[Repository]</tt> section.  You can specify a realm
+    explicitly, but if these settings have no realm they are taken as
+    being in <tt>[Repository]realm</tt>.  In most cases this exactly
+    what you want.]</i></p>
+  </li>
+
+  <li>
+    <p><tt>root_user = root</tt></p>
+  </li>
+
+  <li>
+    <p><tt>vwizard_user = vwizard</tt></p>
+  </li>
+
+  <li>
+    <p><tt>vadmin_group = ^vadmin</tt></p>
+  </li>
+
+  <li>
+    <p><tt>runtool_user = vruntool</tt></p>
+  </li>
+
+</ul>
+
+</li>
+
+<li>
+<p>
+Set the common name of the installation directory (created in <a
+href="getting-started.html#CreateVestaSrv">an earlier step</a>) into the following three
+places: <tt>[CacheServer]MetaDataRoot</tt>,
+<tt>[Weeder]CacheMDRoot</tt>, and <tt>[Repository]metadata_root</tt>.
+In the <tt>[Repository]</tt> section, be sure to terminate the name
+with a trailing slash (e.g. &quot;<tt>/vesta-srv/</tt>&quot;).
+</p>
+</li>
+
+<li>
+<p>
+Set the name of your server machine into the following places:
+<tt>[CacheServer]Host</tt>, <tt>[Weeder]CacheHost</tt>,
+<tt>[Repository]NFS_host</tt>, <tt>[Repository]ShortIdSRPC_host</tt>,
+<tt>[Repository]VestaSourceSRPC_host</tt>.
+</p>
+</li>
+
+<li>
+<p>
+Set <tt>[Repository]ShortId_sorter</tt> to point into
+<tt>/vesta-srv/bin</tt>; that is, set it to
+<tt>/vesta-srv/bin/sidsort</tt>.  Set <tt>[Run_Tool]helper</tt> to
+<tt>/vesta-srv/bin/tool_launcher</tt>.  Set
+<tt>[UserInterface]Interpreter</tt> to <tt>/vesta-srv/bin/vesta</tt>.
+</p>
+</li>
+
+<a name="DefaultPackageParent">
+<li>
+<p>Set <tt>[UserInterface]DefaultPackageParent</tt> to a new, unique
+name that you will use for creating packages.  The name must begin
+with <tt>/vesta/</tt>.  You <em>must</em> make the next component a
+<em>globally unique name</em>, for compatibility with Vesta's
+wide-area replication feature.  The established convention is to use
+an Internet domain name or host name that belongs to you.  You may use
+the same value as your realm name.  (If your realm name is
+&quot;<tt>example.com</tt>&quot;, you can use
+<tt>/vesta/example.com</tt> as the <tt>DefaultPackageParent</tt>.)
+</p>
+
+<p>
+As with your realm name, if you don't own a domain you can use your
+e-mail address with &quot;@&quot; replaced by &quot;_&quot;.  (If your
+e-mail address is &quot;<tt>john.smith@bigisp.net</tt>&quot;, you can
+set your <tt>DefaultPackageParent</tt> to
+<tt>/vesta/john.smith_bigisp.net</tt>.)
+</p>
+</li>
+</a>
+
+<li>
+<p>
+
+Set <tt>[Evaluator]DefaultMain</tt> to an appropriate value for your
+platform.  This setting controls the default model file name evaluated
+when no path is specified or a directory is specified.  (See <a
+href="man/html/vesta.1.html#description">the evaluator man page</a>.)
+The table below shows appropriate values for the different platforms.
+
+</p>
+
+<table border=1>
+<tr>
+<th>
+Platform
+</th>
+<th>
+<tt>[Evaluator]DefaultMain</tt>
+</th>
+</tr>
+
+<tr>
+<td>
+Linux i686
+</td>
+<td>
+<pre>linux_i686.main.ves linux_i386.main.ves .main.ves</pre>
+</td>
+</tr>
+
+<tr>
+<td>
+Linux i386
+</td>
+<td>
+<pre>linux_i386.main.ves .main.ves</pre>
+</td>
+</tr>
+
+<tr>
+<td>
+Linux Alpha
+</td>
+<td>
+<pre>linux_alpha.main.ves .main.ves</pre>
+</td>
+</tr>
+
+<tr>
+<td>
+Linux PowerPC
+</td>
+<td>
+<pre>linux_ppc.main.ves .main.ves</pre>
+</td>
+</tr>
+
+<tr>
+<td>
+Linux Sparc
+</td>
+<td>
+<pre>linux_sparc.main.ves .main.ves</pre>
+</td>
+</tr>
+
+<tr>
+<td>
+Tru64 Alpha
+</td>
+<td>
+<pre>tru64_alpha.main.ves .main.ves</pre>
+</td>
+</tr>
+
+</table>
+
+<p>
+(The <tt>.main.ves</tt> used to be used for top-level models when
+Vesta ran on just one platform.  With the port to Linux, we needed one
+top-level model per target platform.)
+</p>
+
+</li>
+
+
+<a name="[platform]hosts">
+<li>
+<p>
+<i>(Optional)</i>&nbsp; If you're going to have multiple client
+machines, you may want to add them to the list of hosts available to
+run tools.&nbsp; The sample configuration file distributed with Vesta
+only lists <tt>localhost</tt> as available for running tools, so
+whichever machine you're running <a href="man/html/vesta.1.html">the
+evaluator</a> on will handle all tool invocations.&nbsp; Listing more
+hosts in your configuration file will spread out the work of
+performing a build and increase parallelism.&nbsp; (Most builds can
+take advantage of the evaluator's multi-threading capabilities.)
+</p>
+
+<p>
+List the hostnames you plan to make available for tool invocations
+separated by whitespace in the value for
+<tt>[<i>platform</i>]hosts</tt>, where <tt><i>platform</i></tt> is the
+platform name you'll be using (usually one of
+&quot;<tt>Linux2.4-i686</tt>&quot;,
+&quot;<tt>Linux2.4-i386</tt>&quot;,
+&quot;<tt>Linux2.4-alpha</tt>&quot;,
+&quot;<tt>Linux2.4-ppc</tt>&quot;,
+&quot;<tt>Linux2.4-sparc</tt>&quot;, or &quot;<tt>DU4.0</tt>&quot;).
+</p>
+
+<p>
+(See <a href="man/html/vesta.1.html#runtool">the evaluator's man page
+for more information on host selection for tool invocations</a>.)
+</p>
+</li>
+</a>
+
+<li> 
+
+<p> <i>(Optional)</i>&nbsp; If you would like remote clients
+(e.g. users at peer repositories performing a remote checkout from
+your repository) to contact your repository using a different host or
+port from local clients, you may wish to set
+<tt>[Repository]master_hint</tt>.  If set, this should be a host name
+and TCP port number in the format <tt><i>host</i>:<i>port</i></tt>.
+The value of this setting goes into
+&quot;<tt>master-repository</tt>&quot; attributes which the repository
+tools later use to contact the repository with the master copy of an
+object.  You may need to use this if your repository has a different
+&quot;public address&quot; accessible by hosts outside your LAN
+(e.g. a port forwarded through by a firewall with a different
+hostname).  It can also be useful for using Vesta installed on a
+laptop, when the laptop has a fixed hostname on some &quot;home&quot;
+network.
+
+</p>
+
+</li>
+
+</ol>
+
+</li>
+
+<li>
+
+<p>
+<b>Make Vesta commands available.</b> To user Vesta,
+<tt>/vesta-srv/bin</tt> should be included in the user's shell search
+path (the <tt>PATH</tt> environment variable).  You can either do this
+in the individual shell start-up files of specific users
+(e.g. <tt>~/.bash_profile</tt>, <tt>~/.cshrc</tt>) or in one of the
+central shell start-up files (e.g. <tt>/etc/profile</tt>,
+<tt>/etc/csh.login</tt>).  (If you don't do it centrally, you should
+at least make sure <tt>vadmin</tt>, <tt>vwizard</tt>, and
+<tt>vruntool</tt> have <tt>/vesta-srv/bin</tt> on their
+<tt>PATH</tt>.)
+</p>
+
+<p>
+For users with a System V style shell (e.g. <tt>bash</tt>,
+<tt>zsh</tt>), you might add these commands to the shell start-up:
+</p>
+
+<blockquote>
+<pre>if [ ! -z "$PATH" ]; then
+    PATH="/vesta-srv/bin:${PATH}"
+else
+    PATH="/vesta-srv/bin:/bin:/usr/bin:/usr/local/bin"
+fi
+export PATH</pre>
+</blockquote>
+
+<p>
+For users with a <tt>csh</tt> style shell (e.g. <tt>csh</tt>,
+<tt>tcsh</tt>), you might add these commands to the shell start-up:
+</p>
+
+<blockquote>
+<pre>if ($?PATH) then
+    setenv PATH "/vesta-srv/bin:${PATH}"
+else
+    setenv PATH "/vesta-srv/bin:/bin:/usr/bin:/usr/local/bin"
+endif</pre>
+</blockquote>
+
+<p>
+Also, to make the Vesta man pages available, <tt>/vesta-srv/man</tt>
+can be added to the <tt>MANPATH</tt> environment variable (the man
+page search path).  For a System V style shell, you might add this to
+the shell start-up:
+</p>
+
+<blockquote>
+<pre>if [ ! -z "$MANPATH" ]; then
+    MANPATH="/vesta-srv/man:${MANPATH}"
+else
+    MANPATH="/vesta-srv/man:/usr/man://usr/share/man"
+fi
+export MANPATH</pre>
+</blockquote>
+</p>
+
+<p>
+For a <tt>csh</tt> style shell, you might add this to the shell
+start-up:
+</p>
+
+<blockquote>
+<pre>if ($?MANPATH) then
+    setenv MANPATH "/vesta-srv/man:${MANPATH}"
+else
+    setenv MANPATH "/vesta-srv/man:/usr/man://usr/share/man"
+endif</pre>
+</blockquote>
+
+<p>
+Note that on most Linux systems, an alternative to modifying or
+setting <tt>MANPATH</tt> is adding a line to the <tt>man</tt>
+configuration file (normally <tt>/etc/man.config</tt> or
+<tt>/etc/manpath.config</tt>) such as:
+</p>
+
+<blockquote>
+<pre>MANPATH_MAP /vesta-srv/bin /vesta-srv/man</pre>
+</blockquote>
+
+</li>
+
+<li>
+<p>
+<b>Create <tt>/etc/vesta.cfg</tt>.</b> On the server and any client
+machines, Make a symbolic link from <tt>/etc/vesta.cfg</tt> to
+<tt>/vesta-srv/vesta.cfg</tt>:
+</p>
+
+<blockquote>
+<pre>su root
+ln -s /vesta-srv/vesta.cfg /etc/vesta.cfg</pre>
+</blockquote>
+
+<p>
+This makes it possible for the Vesta tools to find the configuration
+file without requiring users to create a personal <tt>vesta.cfg</tt>
+in their home directory or setting the <tt>VESTACONFIG</tt>
+environment variable.
+</p>
+
+<p>
+After doing this you can test that the Vesta tools can find your
+config file by typing:
+</p>
+
+<blockquote>
+<pre><a href="man/html/vgetconfig.1.html">vgetconfig</a> -L</pre>
+</blockquote>
+
+</li>
+
+<li>
+<p>
+<b>Create the files and directories used by the repository.</b> Before
+you start up the Vesta repository, there are a few directories and
+files it uses which must be created.
+</p>
+
+<ol type=A>
+
+<li>
+
+<p>
+First are the directories in which the repository stores individual
+files (sources and derived files) and metadata about them:
+</p>
+
+<blockquote>
+<pre>su vadmin
+mkdir -p /vesta-srv/sid
+mkdir -p /vesta-srv/repos/log
+chmod 0755 /vesta-srv/sid /vesta-srv/repos /vesta-srv/repos/log</pre>
+</blockquote>
+
+</li>
+
+<li>
+<a name="CreateReposExport">
+<p>
+Next you need a repository export file.  This, which is normally
+<tt>/vesta-srv/repos/export</tt>.  This file is used to specify which
+hosts may connect to the repository.  You can allow access based on
+either a range of IP addresses or by hostname matching.  For example,
+if your realm name is &quot;<tt>example.com</tt>&quot; and you want to
+allow all the hosts within the <tt>example.com</tt> domain to access
+your repository, your export file would look like this:
+</p>
+
+<blockquote>
+<pre>*.example.com: allow unix, allow global example.com</pre>
+</blockquote>
+
+<p>
+On the other hand, if your realm name is
+&quot;<tt>john.smith_bigisp.net</tt>&quot; and your home LAN uses IP
+addresses starting with <tt>192.168.1</tt>, then you could use this as
+your export file:
+</p>
+
+<blockquote>
+<pre>192.168.1.0/24: allow unix, allow global john.smith_bigisp.net</pre>
+</blockquote>
+
+<p>
+You can also allow access from a single host or IP, like this:
+</p>
+
+<blockquote>
+<pre>server.example.com: allow unix, allow global example.com
+
+192.168.1.1: allow unix, allow global john.smith_bigisp.net</pre>
+</blockquote>
+
+<p>
+You may also want to allow the repository server host access through
+its loop-back interface:
+</p>
+
+<blockquote>
+<pre>127.0.0.1: allow unix, allow global john.smith_bigisp.net</pre>
+</blockquote>
+
+<p>
+Note: If you do allow NFS access to your repository (turned on by
+&quot;<tt>allow unix</tt>&quot;) from multiple machines, it's
+important that they all share user and group tables with the
+repository server machine (e.g. via NIS).
+</p>
+
+<p>
+See <a
+href="man/html/repository.8.html#AccessControl">
+the <tt>repository</tt> man page</a> for more information on the
+format of the export file.
+</p>
+
+</li>
+
+<li>
+<a name="CreateReposAliasGroup">
+<p>
+Lastly, you should create the alias and group files:
+</p>
+
+<blockquote>
+<pre>su vadmin
+touch /vesta-srv/repos/alias
+touch /vesta-srv/repos/group
+chmod 0755 /vesta-srv/repos/alias /vesta-srv/repos/group</pre>
+</blockquote>
+
+<p>
+These access control files can be used to grant additional privileges
+for local and remote users.&nbsp; (For example, you can make a remote
+user a member of a local group, or allow one user to act on behalf of
+another.)&nbsp; They should be present, but can be empty until you
+have a need to add something to them.&nbsp; See <a
+href="man/html/repository.8.html#AccessControl">
+the <tt>repository</tt> man page</a> for information on their format
+and function.
+</p>
+
+</li>
+
+</ol>
+
+</li>
+
+<li>
+<p>
+<b>Create the directories used by the cache server.</b> This requires
+just one command:
+</p>
+
+<blockquote>
+<pre>su vadmin
+<a href="man/html/CreateCacheDirs.1.html">CreateCacheDirs</a></pre>
+</blockquote>
+
+</li>
+
+</ol>
+
+<a name="RecurringInitialization">
+<h2>III. Recurring Initialization</h2>
+
+<p>
+Step 1 below needs to be run every time your server machine reboots.
+Step 2 needs to be run on each client machine whenever it reboots;
+this includes the server machine if you're also using it as a client.
+</p>
+
+<ol>
+
+<li>
+
+<p>
+<b>Server initialization.</b> Run <tt>/vesta-srv/bin/repository</tt>
+and <tt>/vesta-srv/bin/VCache</tt> on the server machine.  Both must
+be started as user <tt>vadmin</tt>.  Both servers print out a few
+progress and error messages at times, which should be saved to a file.
+For example:
+</p>
+
+<blockquote>
+<pre>su vadmin
+cd /vesta-srv
+./bin/repository >& repository.messages &
+./bin/VCache -debug StatusMsgs >& VCache.messages &</pre>
+</blockquote>
+
+<p>
+Both servers use logging for crash recovery.  If either one crashes,
+just run it again, and it should recover.
+</p>
+
+</li>
+
+<li>
+
+<p>
+<b>Client initialization.</b> On each client host perform the
+following steps.  (Note that the server host can also be a client, and
+that you need not set up multiple clients.)
+</p>
+
+<ol type=A>
+
+<li>
+<p>
+Mount the repository on the client machine.  Assuming you have created
+the mount points <a href="getting-started.html#Make mount points">as in II.6 above</a>,
+just run
+<a href="man/html/mountrepos.8.html"><tt>mountrepos</tt></a>.
+</p>
+
+<p>
+On Linux systems, only <tt>root</tt> can do this.  On Tru64 systems,
+the owner of the mount point directories (typically <tt>vadmin</tt>)
+can also mount and umount the repository.
+</p>
+</li>
+
+<li>
+<p>
+Check that the repository is mounted.  Type &quot;<tt>df
+/vesta</tt>&quot;.  If it shows that it's mounted from your repository
+server, it's working.  (Once you have populated your repository, which
+we'll talk about shortly, you could also &quot;<tt>ls
+/vesta</tt>&quot; and see if it's non-empty.)
+</p>
+</li>
+
+<li>
+<p>
+Start <a
+href="man/html/RunToolServer.1.html">the
+<tt>RunToolServer</tt></a> as <tt>vruntool</tt>.  The server may print
+some debug information from time to time, so you might want to
+redirect its standard output and error to a file.  For example:
+</p>
+
+<blockquote>
+<pre>su vruntool
+cd /vesta-srv
+./bin/RunToolServer >& runtool.messages &</pre>
+</blockquote>
+
+<p>
+(If you set up a list of hostnames in <tt>[<i>platform</i>]hosts</tt>
+as <a href="getting-started.html#[platform]hosts">described above</a>, you should start a
+<tt>RunToolServer</tt> on each machine you listed.)
+</p>
+
+</li>
+
+</ol>
+
+</li>
+
+</ol>
+
+<a name="RepositoryInitialization">
+<h2>IV. Repository Initialization</h2>
+
+<p>These steps are really part of installation (II), but you can't do
+them until the servers are initialized and the repository is mounted
+(III), so we've put them in this small section of their own.</p>
+
+<ol>
+
+<li>
+
+<p>
+<b>Replicate a build environment.</b> As mentioned earlier, in order
+to perform builds under Vesta you need a build environment (a set of
+compilers, libraries, etc.)  Builds performed under Vesta take place
+in an <i>encapsulated environment</i>.  Even if you already have
+compilers and libraries installed on your system, you need immutable
+copies of the same (or similar) components within your Vesta
+repository.  The easiest way to get them is to <i>replicate</i> a copy
+over the network from another repository.
+</p>
+
+<ol type=A>
+
+  <a name="replicate-from">
+  <li>
+  <p>First, tell your repository that its OK to replicate from the
+  <tt>vestasys.org</tt> public Vesta repository:</p>
+      
+  <blockquote>
+    <pre>su vadmin
+<a href="man/html/vattrib.1.html">vattrib</a> -a "#replicate-from" pub.vestasys.org:21776 /vesta</pre>
+  </blockquote>
+
+  </li>
+  </a>
+
+  <li>
+  <p>Now use the replicator to get a copy of a build environment for
+  your platform.  If you're using Linux on i686 or higher (run
+  &quot;<tt>uname -m</tt>&quot; if you're not sure), do this:</p>
+      
+  <blockquote>
+    <pre><a href="man/html/vrepl.1.html">vrepl</a> -I -s pub.vestasys.org:21776 -e@ /vesta/vestasys.org/platforms/linux/redhat/i686/std_env/6/build.ves</pre>
+  </blockquote>
+
+  <p>If you're using Linux on an older IA-32 machine (i386 or higher),
+  do this:</p>
+      
+  <blockquote>
+    <pre><a href="man/html/vrepl.1.html">vrepl</a> -I -s pub.vestasys.org:21776 -e@ /vesta/vestasys.org/platforms/linux/redhat/i386/std_env/5/build.ves</pre>
+  </blockquote>
+
+  <p>If you're using Alpha Linux, do this:</p>
+      
+  <blockquote>
+    <pre><a href="man/html/vrepl.1.html">vrepl</a> -I -s pub.vestasys.org:21776 -e@ /vesta/vestasys.org/platforms/linux/redhat/alpha/std_env/5/build.ves</pre>
+  </blockquote>
+
+  <p>
+  If you encounter problems during the replication process,
+  <a href="getting-started.html#Troubleshooting">see the troubleshooting section</a>.
+  </p>
+
+  <p>
+  (Unfortunately, we can't make a build environment for Tru64
+  available for replication, due to licensing restrictions on binary
+  redistribution.  We have some methods for constructing one on an
+  installed Tru64 system, but they haven't been cleaned up or
+  documented.  If you need a Vesta build environment for Tru64, send
+  e-mail to the <tt>vesta-users</tt> mailing list
+
+  (&lt;<font color="#3366CC">vesta dash users at lists dot sourceforge
+  dot net</font>&gt;), and we'll help you with building one.)
+  </p>
+
+  </li>
+
+</ol>
+
+</li>
+
+
+<li>
+<p>
+<b>Replicate the Vesta sources.</b> The sources for Vesta and
+associated system models which build it form a fairly sophisticated
+example of what you can do with the system.  These are also available
+for replication from the public Vesta repository.  Assuming you
+already added the <tt>#replicate-from</tt> attribute as <a
+href="getting-started.html#replicate-from">described above</a>, you can get a copy of the
+full Vesta release for i686 Linux with:
+</p>
+
+<blockquote>
+<pre><a href="man/html/vrepl.1.html">vrepl</a> -I -s pub.vestasys.org:21776 -e@ /vesta/vestasys.org/vesta/release/12/linux_i686.main.ves</pre>
+</blockquote>
+
+<p>
+Or for i386 Linux with:
+</p>
+
+<blockquote>
+<pre><a href="man/html/vrepl.1.html">vrepl</a> -I -s pub.vestasys.org:21776 -e@ /vesta/vestasys.org/vesta/release/12/linux_i386.main.ves</pre>
+</blockquote>
+
+<p>
+For Alpha Linux with:
+</p>
+
+<blockquote>
+<pre><a href="man/html/vrepl.1.html">vrepl</a> -I -s pub.vestasys.org:21776 -e@ /vesta/vestasys.org/vesta/release/12/linux_alpha.main.ves</pre>
+</blockquote>
+
+<p>
+For PowerPC Linux with:
+</p>
+
+<blockquote>
+<pre><a href="man/html/vrepl.1.html">vrepl</a> -I -s pub.vestasys.org:21776 -e@ /vesta/vestasys.org/vesta/release/12/linux_ppc.main.ves</pre>
+</blockquote>
+
+<p>
+For Sparc Linux with:
+</p>
+
+<blockquote>
+<pre><a href="man/html/vrepl.1.html">vrepl</a> -I -s pub.vestasys.org:21776 -e@ /vesta/vestasys.org/vesta/release/12/linux_sparc.main.ves</pre>
+</blockquote>
+
+</li>
+
+<a name="Replicate Examples">
+
+<li>
+<p>
+<b>Replicate the examples referenced in <a href="tutorial.html">the
+tutorial</a>.</b> There are a couple simple examples of how to use
+Vesta which you'll probably want in your repository.  You can get a
+copy of them with:
+</p>
+
+<blockquote>
+<pre><a href="man/html/vrepl.1.html">vrepl</a> -I -s pub.vestasys.org:21776 -e+ &quot;/vesta/vestasys.org/examples/*/LAST&quot;</pre>
+</blockquote>
+
+</li>
+
+</a>
+
+<a name="Create toplevel">
+
+<li>
+<p>
+<b>Make a directory tree for new packages created at your site.</b>  The root
+of this tree will be the name that you chose in
+<a href="getting-started.html#DefaultPackageParent">step II.8.F. above</a>.  You can type
+&quot;<tt><a href="man/html/vgetconfig.1.html">vgetconfig</a>
+UserInterface DefaultPackageParent</tt>&quot; to remind yourself what
+it was.  Suppose the directory name was <tt>/vesta/example.com</tt>.
+Then you'd type these commands:
+</p>
+
+<blockquote>
+<pre>su vwizard
+cd /vesta
+<a href="man/html/vmkdir.1.html">vmkdir</a> -p example.com
+chmod 777 example.com</pre>
+</blockquote>
+
+<p>
+These commands create the <tt>DefaultPackageParent</tt> directory,
+tell the Vesta tools that it's a legitimate place to put packages, and
+set its mode to 777 so that everyone can create packages in it.
+</p>
+
+<p>
+You must use the special <tt>vwizard</tt> user for this step, because
+you are creating a new directory immediately below <tt>/vesta</tt>.
+The convention of deriving the name of such directories from domain
+names or e-mail addresses is the only protection against two people
+creating the same top-level directory in two different repositories.
+
+If you fail to make these names globally unique when you first create
+them, you will cause serious problems later if you ever try to have
+your Vesta installation cooperate with anyone else's.
+
+For these reasons, only <tt>vwizard</tt> is allowed to perform
+operations which have the potential to violate the replication
+invariant.  (See <a href="man/html/vrepl.1.html#Vesta_Replication">the
+<tt>vrepl</tt> man page</a> for more information on this subject.)
+</p>
+
+<p>
+(<tt><a href="man/html/vmkdir.1.html">vmkdir</a></tt> does essentially
+the same thing as the normal <tt>mkdir</tt> command, but it uses the
+repository-specific SRPC interface rather than the NFS filesystem
+interface.  In some cases, <tt>vwizard</tt> can create a top-level
+directory with <tt>mkdir</tt>.  However, some NFS client
+implementations deny permission without asking the repository.
+
+<tt><a href="man/html/vmkdir.1.html">vmkdir</a></tt> avoids the quirks
+of different NFS client implementations, and should always work.)
+</p>
+
+<p>
+Now that you've created the top-level directory for your site, you
+will probably want to create a subdirectory which users can feel free
+to fill with experiments as they learn how to use Vesta (so as not to
+clutter up your site's package namespace).  Since you made the
+top-level directory world-writable, you can do the following as any
+user:
+</p>
+
+<blockquote>
+<pre>cd /vesta/example.com
+mkdir play
+cd play
+<a href="man/html/vattrib.1.html">vattrib</a> -s type package-parent .
+chmod 777 .</pre>
+</blockquote>
+
+<p>
+You can create more subdirectories in the same way, as many levels
+deep as you like.  You can forbid people from creating packages in the
+higher-level directories simply by <strong>not</strong> running
+&quot;<tt><a href="man/html/vattrib.1.html">vattrib</a>
+-s type package-parent</tt>&quot; on those directories.  You also can
+restrict who can create packages in a directory by using
+<tt>chown</tt>, <tt>chgrp</tt>, and <tt>chmod</tt> to set its access
+permissions.  (Remember, <tt>vadmin</tt> can <tt>chown</tt>,
+<tt>chgrp</tt>, and <tt>chmod</tt> anything inside the repository.)
+</p>
+
+</li>
+
+</a>
+
+<li>
+<p>
+<b>Make sure that users have permission to create a directory tree for
+their working copies of checked-out packages.</b>  Each user's working
+copies will be found under a subdirectory of <tt>/vesta-work</tt>.
+(For example, user <tt>jsmith</tt>'s working copies would be found
+under <tt>/vesta-work/jsmith</tt>.)  The checkout tool
+(<tt><a href="man/html/vcheckout.1.html">vcheckout</a></tt>)
+will create a user's directory if it doesn't exist, but the user must
+have permission to do so.  Therefore you should do something like
+this:
+</p>
+
+<blockquote>
+<pre>su vadmin
+chown vadmin /vesta-work
+chmod 777 /vesta-work</pre>
+</blockquote>
+
+<p>
+Alternatively, you could restrict write permission to a group whose
+members include everyone who will be using Vesta:
+</p>
+
+<blockquote>
+<pre>su vadmin
+chgrp vadmin.staff /vesta-work
+chmod 775 /vesta-work</pre>
+</blockquote>
+
+</li>
+
+
+<li>
+<p>
+<b>Create the temporary directory used by
+
+<a href="man/html/vupdate.1.html"><tt>vupdate</tt></a>.</b>
+
+This is just a temporary directory that exists within the mutable
+portion of the repository.  Like <tt>/tmp</tt>, it should be
+world-writable.  Creating it is simple:
+
+</p>
+
+<blockquote>
+<pre>su vadmin
+mkdir /vesta-work/.tmp
+chmod 777 /vesta-work/.tmp</pre>
+</blockquote>
+
+<p>
+(Actually, you can change the location of this directory with the
+configuration setting <tt>[UserInterface]TempDir</tt>, but normally
+there's no reason to do so.)
+</p>
+
+</li>
+
+</ol>
+
+<a name="WhereNext">
+<h2>V. Where to go Next</h2>
+</a>
+
+<p>
+Now you'll probably find it useful to go through <a
+href="tutorial.html">the
+tutorial</a>.&nbsp; Now that you've installed and set up Vesta, other
+users at your site can also use that document to get an introduction
+to the system.
+</p>
+
+<p>
+<a href="man/html/vesta-intro.1.html">The
+<tt>vesta-intro</tt> man page</a> is a useful guide to Vesta concepts
+and terminology.  <a
+href="command-summary.html">The command
+summary</a> is a helpful reference to the most common Vesta user
+tasks.
+</p>
+
+<p>
+For information on the Vesta System Description Language (aka Vesta
+SDL or just SDL), which is used to describe how to build derived files
+(e.g. compiling sources into objects linking the resulting objects
+into an executable), refer to <a
+href="sdl-ref/index.html">the language reference
+guide</a>.  (Or, if you find it lacking, the more precise <a
+href="sdl-spec/index.html">language
+specification</a>.)
+</p>
+
+<p>
+<!-- @@@ -->
+
+<i>[We have a small related tool for general management of server
+processes named <tt>smgr</tt> which we plan to release soon.&nbsp; It
+simplifies starting and stopping the Vesta servers, as it handles
+redirecting output, sends e-mail if a process it's managing stops
+unexpectedly, and can be used to start them at boot time.&nbsp; In
+ouir experience it's a little better than some of the other similar
+tools that are freely available.]</i>
+</p>
+
+
+<a name="Troubleshooting">
+<h2>VI. Troubleshooting</h2>
+</a>
+
+<p>
+If you have a problem not covered below, please send e-mail to the
+<tt>vesta-users</tt> mailing list (&lt;<font color="#3366CC">vesta
+dash users at lists dot sourceforge dot net</font>&gt;).
+</p>
+
+<p>
+<b>SRPC failures:</b> Vesta releases 5 and below have a limitation in
+their remote procedure call library (SRPC) which causes the source
+address of all outgoing packets to be the IP address which a machines
+hostname resolves to.  (The output of &quot;<tt>ping
+`hostname`</tt>&quot; should indicate what this IP address is.)  You
+can either upgrade to relases 6 or higher, or make sure that this is
+the correct IP address of the outbound interface.  (We realize this is
+difficult for dial-up users.)  On recent RedHat systems, the installer
+usually makes the hostname resolve to the loopback address
+(127.0.0.1), which won't work.
+</p>
+
+<a name="vrepl failures">
+<p>
+<b>Failures during replication:</b> There appears to be a problem with
+some versions of the Linux TCP implementation.  Under certain packet
+loss conditions (which are not uncommon on the Internet),
+re-transmitted packets get an incorrect TCP checksum, causing the
+public repository server to simply ignore them.  Linux clients can
+work around this bug by turning off TCP retransmission collapsing
+with:
+</p>
+
+<blockquote>
+<pre>echo 0 &gt; /proc/sys/net/ipv4/tcp_retrans_collapse</pre>
+</blockquote>
+
+<p>
+Alternatively, an upgrade to a newer 2.4 kernel should also fix the
+problem.
+</p>
+</a>
+
+<hr>  
+
+<a href="../index.html">Back to the Vesta home page</a>
+    
+</body>
+</html>

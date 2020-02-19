@@ -1,0 +1,126 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>PrintCacheLog(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>PrintCacheLog(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+PrintCacheLog - print the current Vesta-2 cache server cache log
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>PrintCacheLog</B> [ <B>-verbose</B> ]
+</BLOCKQUOTE>
+
+<H3>Description</H3>
+<BLOCKQUOTE>
+<P>
+
+The Vesta-2 cache server <A HREF="VCache.1.html">VCache(1)</A>
+keeps a stable log of new cache entries called the <I>cache log</I> that
+have yet to be written to stable cache entry files. It also keeps a
+stable log of PKFiles that have been deleted called the <I>empty PK
+log</I>. This program prints an ASCII representation of both logs to
+standard output.<P>
+
+The empty PK log is a sequence of <I>(pk, pkEpoch)</I> pairs, where
+<I>pk</I> is the primary key identifying the deleted PKFile (a
+fingerprint), and <I>pkEpoch</I> is the epoch the PKFile would have had
+if it had not been deleted. For a description of this log and why it
+is needed, see the description on
+<A HREF="VCacheImpl.7.html#CacheLog">supporting deletions in the
+CacheLog</A>. <P>
+
+The cache log is a sequence of <I>(pk, pkEpoch, entry)</I> triples,
+where <I>pk</I> is the primary key of the entry (a fingerprint),
+<I>pkEpoch</I> is the epoch in effect for its PKFile when it was
+created, and <I>entry</I> is the entry itself.<P>
+
+By default, the program writes a one-line summary of each cache log
+entry. If <B>-verbose</B> is specified, it writes a complete description
+of each one.
+</BLOCKQUOTE>
+
+<H3>Configuration Variables</H3>
+<BLOCKQUOTE>
+<P>
+
+<I>PrintCacheLog</I> locates the cache log file by reading site-specific
+configuration information from a Vesta-2 <I>configuration file</I> named
+<I>vesta.cfg</I>. It first looks for this file in the current directory;
+if none is found there, it looks in your home directory.<P>
+
+The configuration file is divided into a number of sections, denoted
+in the file by <TT>[</TT><I>SectionName</I><TT>]</TT>. The variables used by the
+<I>PrintCacheLog</I> are in the section denoted by <TT>[CacheServer]</TT>. Here
+are the variables it uses and their meanings; the types of the
+variables are shown in parentheses:<P>
+
+<DL>
+<DT><TT>MetaDataRoot</TT> (string)<DD>
+The pathname of the directory in which the Vesta system's metadata is
+stored. If this variable is undefined, the current directory is used.
+If defined, this path should end in a slash (/) character. Other
+configuration variables are interpreted relative to this path.<P>
+
+<DT><TT>MetaDataDir</TT> (string)<DD>
+The directory (relative to the MetaDataRoot) in which the cache
+server's metadata is stored. This directory should end in a slash (/)
+character.<P>
+
+<DT><TT>CacheLogDir</TT> (string)<DD>
+The directory (relative to the MetaDataRoot/MetaDataDir) in which
+the cache server stores its cache log.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3>Files</H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><TT>$MetaDataRoot/$MetatDataDir/$CacheLogDir/*.log</TT><DD>
+CacheLog files. The cache log contains new cache entries that have not
+yet been written to stable cache files.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3>See Also</H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="VCache.1.html">VCache(1)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Last modified on Thu Nov  8 12:48:54 EST 2001 by ken@xorian.net
+     modified on Fri Feb 28 10:49:41 PST 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>
+TML>

@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Function: _sub</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4>
+<A NAME="_sub(text,int,int)"></A><TT>_sub(<I>t</I>: text,
+<I>start</I>: int = 0, <I>len</I>: int = <a
+href="_length.html#_length(text)">_length</a>(t)): text</TT></H4>
+
+<p>
+Extracts from <I><TT>t</TT></I> and returns a byte sequence of length
+<I><TT>len</TT></I> beginning at byte <I><TT>start</TT></I>.&nbsp;
+Boundary cases are handled as follows:
+</p>
+
+<UL>
+<LI>
+If the value passed for <I><TT>start</TT></I> is less than 0, 0 is used
+instead.</LI>
+
+<LI>
+If the value passed for <I><TT>start</TT></I> is greater than <TT><a
+href="_length.html#_length(text)">_length</a>(<I>t</I>)</TT>, <TT><a
+href="_length.html#_length(text)">_length</a>(<I>t</I>)</TT> is used
+instead.</LI>
+
+<LI>
+If the value of <I><TT>len</TT></I> is less than 0, 0 is used instead.</LI>
+
+<LI>
+If the sum of <I><TT>start</TT></I> and <I><TT>len</TT></I> is greater
+than <TT><a
+href="_length.html#_length(text)">_length</a>(<I>t</I>)</TT>, <TT>(<a
+href="_length.html#_length(text)">_length</a>(<I>t</I>) -
+<I>start)</I></TT> is used in place of <I><TT>len</TT></I>.</LI>
+</UL>
+
+<BLOCKQUOTE>
+<PRE>_sub("foobarbaz", 3, 3) == "bar"
+_sub("y_foo.mnd", 6) == "mnd"</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_sub(list,int,int)"></A><TT>_sub(<I>l</I>: list,
+<I>start</I>: int = 0, <I>len</I>: int = <a
+href="_length.html#_length(list)">_length</a>(<I>l</I>)):
+list</TT></H4>
+
+<p>
+Returns the sub-list of <I><TT>l</TT></I> of length
+<I><TT>len</TT></I> starting at element
+<I><TT>start</TT></I>. Boundary cases are handled in the same way they
+are for <a href="_sub.html#_sub(text,int,int)">the <TT>text</TT> version of
+_sub</a>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_sub(&lt;&gt;, 2, 4) == &lt;&gt;
+_sub(&lt;"abc", 1, 2, 3,&gt;, 1) == &lt;1, 2, 3&gt;</PRE>
+</BLOCKQUOTE>
+
+<H4>
+<A NAME="_sub(binding,int,int)"></A><TT>_sub(<I>b</I>: binding,
+<I>start</I>: int = 0, <I>len</I>: int = <a
+href="_length.html#_length(binding)">_length</a>(<I>b</I>)):
+binding</TT></H4>
+
+<p>
+Returns the sub-binding of <I><TT>b</TT></I> of length
+<I><TT>len</TT></I> starting at element <I><TT>start</TT></I>.
+Boundary cases are handled in the same way they are for <a
+href="_sub.html#_sub(text,int,int)">the <TT>text</TT> version of _sub</a>.
+</p>
+
+<BLOCKQUOTE>
+<PRE>_sub([ foo = 1, bar = 2, moxy = TRUE,
+       msg = "Bad system call (core dumped)" ], 1, 2) == [ bar = 2, moxy = TRUE ]
+_sub([ foo/a = 1, bar/b = 2 ], 1) == [ bar/b = 2 ]</PRE>
+</BLOCKQUOTE>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node127.html">
+<LINK REL="previous" HREF="node125.html">
+<LINK REL="up" HREF="node125.html">
+<LINK REL="next" HREF="node127.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2074"
+  HREF="node127.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2070"
+  HREF="node125.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2064"
+  HREF="node125.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2072"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2075"
+  HREF="node127.html">Lexical Conventions</A>
+<B> Up:</B> <A NAME="tex2html2071"
+  HREF="node125.html">The Vesta Software Description</A>
+<B> Previous:</B> <A NAME="tex2html2065"
+  HREF="node125.html">The Vesta Software Description</A>
+ &nbsp <B>  <A NAME="tex2html2073"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001310000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+This appendix describes the formal syntax and semantics of the Vesta-2
+Software Description Language (SDL). We expect it will be used as a
+reference by Vesta users. Although the description is meant to be
+complete and unambiguous, it is by no means a language tutorial or
+user guide.
+
+<P>
+In Vesta, the instructions for building a software artifact are
+written as an SDL program. Evaluating the program causes the software
+system to be constructed; the program's result value typically
+contains the derived files produced by the evaluation.
+
+<P>
+The Vesta SDL is a functional language with lexical scoping. Its
+value space includes Booleans, integers, texts, lists (similar to LISP
+lists), sequences of name-value pairs called <EM>bindings</EM>,
+closures, and a unique error value.
+
+<P>
+The language is dynamically typed; that is, types are associated
+with runtime values instead of with static names and expressions.
+Even without static type checking, the language is strongly typed: an
+executing Vesta program cannot breach the language's type system. The
+expected types of parameters to language primitives are defined, and
+those types are checked when the primitives are evaluated. The
+language includes provisions for specifying the types of user-defined
+function arguments and local variables, but these type declarations
+are currently unchecked.
+
+<P>
+The language contains roughly 60 primitive functions. There is a
+<TT>_run_tool</TT> primitive for invoking external tools like compilers
+and linkers as function calls. External tools can be invoked from
+Vesta without modification.
+
+<P>
+Conceptually, every software artifact built with Vesta is built from
+scratch, thereby guaranteeing that the resulting artifact is composed
+of consistent pieces. Vesta uses extensive caching to avoid
+unnecessary rebuilding. Vesta records software dependencies
+automatically. The techniques by which the implementation caches
+function calls and determines dependencies are described in Chapters
+<! A HREF="node77.html#sect:cache-server">6<! /A> and
+<! A HREF="node82.html#sect:evaluator">7<! /A> of
+
+the research report (<i>Vesta: A System for Software Configuration
+Management</i>).
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2074"
+  HREF="node127.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2070"
+  HREF="node125.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2064"
+  HREF="node125.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2072"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2075"
+  HREF="node127.html">Lexical Conventions</A>
+<B> Up:</B> <A NAME="tex2html2071"
+  HREF="node125.html">The Vesta Software Description</A>
+<B> Previous:</B> <A NAME="tex2html2065"
+  HREF="node125.html">The Vesta Software Description</A>
+ &nbsp <B>  <A NAME="tex2html2073"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

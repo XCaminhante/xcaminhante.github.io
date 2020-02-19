@@ -1,0 +1,301 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vmodels(5) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vmodels(5)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+vmodels - a guide to writing standard Vesta-2 user models
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vmodels.5.html#IntroSect">Introduction</A>
+<LI> <A HREF="vmodels.5.html#NonLibSect">Non-Library Package Models</A>
+<LI> <A HREF="vmodels.5.html#LeafLibSect">Leaf Library Package Models</A>
+<LI> <A HREF="vmodels.5.html#PrebuiltLibSect">Prebuilt Library Package Models</A>
+<LI> <A HREF="vmodels.5.html#UmbLibSect">Umbrella Library Package Models</A>
+<LI> <A HREF="vmodels.5.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="IntroSect">Introduction</A></H3>
+<BLOCKQUOTE>
+<P>
+
+This man page is a tutorial for writing Vesta-2 user models to conform
+to the existing bridge and standard environment models. In particular,
+it documents the <TT>common/std_env/18</TT> and <TT>common/cxx/14</TT>
+packages (presumably, this guide will continue to apply to later
+versions of those packages as well).<P>
+
+To understand this guide, you will probably want to refer to the
+<A HREF="vtypes.5.html">vtypes(5)</A> man page, which describes the data
+types used in the common models. To learn about how libraries are
+structured and built in Vesta-2, see the
+<A HREF="vlibraries.5.html">vlibraries(5)</A> man page. Finally, to build a
+model with overrides, refer to the
+<A HREF="voverrides.5.html">voverrides(5)</A> man page.
+</BLOCKQUOTE>
+
+<H3><A NAME="NonLibSect">Non-Library Package Models</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The top-level model of every Vesta-2 package is named
+"<TT>build.ves</TT>". This is the model invoked by the control panel's
+"<TT>.main.ves</TT>" file.<P>
+
+The <TT>build.ves</TT> model should evaluate to a binding of type
+"<A HREF="vtypes.5.html#PkgResult"><TT>PkgResult</TT></A>". This binding maps
+names to 0-argument closures (not counting the implicit environment
+argument) of type "<A HREF="vtypes.5.html#PkgFunc"><TT>PkgFunc</TT></A>".
+These functions build libraries and executables exported by the
+package.<P>
+
+Most non-library package models build a collection of main programs
+executed by the package, and possibly a collection of test programs.
+By convention, the corresponding closures are named "<TT>progs</TT>" and
+"<TT>tests</TT>". It is often convenient to define each of these closures
+by its own model. In that case, the "<TT>build.ves</TT>" model is quite
+simple:
+<PRE>
+import
+    progs = progs.ves;
+    tests = tests.ves;
+{
+    return [ progs, tests ];
+}
+</PRE>
+
+Each of the models <TT>progs.ves</TT> and <TT>tests.ves</TT> lists the files
+needed to build the programs, constructs a binding of the library to
+link against, optionally defines some overrides for the compilation,
+and then invokes the bridge's "<TT>program</TT>" function for each
+program. Since "<TT>program</TT>" returns a singleton binding, the result
+of the model is formed by simply overlaying the results of each of the
+individual "<TT>program</TT>" calls. Here is a typical "<TT>progs.ves</TT>"
+model from the <TT>vesta/log</TT> package:
+<PRE>
+files
+    vappendlog = [ vappendlog.C ];
+    vdumplog   = [ vdumplog.C ];
+{
+    // required libraries
+    v_libs = ./Cxx/libs/vesta;
+    libs = &lt; v_libs/log, v_libs/basics &gt;;
+
+    // overrides
+    ovs = [ Cxx/switches/program = [ shared_libs = "-non_shared" ]];
+
+    return
+      ./Cxx/program("vappendlog", vappendlog, [], libs, ovs) +
+      ./Cxx/program("vdumplog",   vdumplog,   [], libs, ovs);
+}
+</PRE>
+
+In this case, both programs are built with the same libraries and
+overrides. The overrides for linking the program are passed as an
+explicit parameter to the <TT>program</TT> function. See the
+<A HREF="voverrides.5.html">voverrides(5)</A> man page for details.
+</BLOCKQUOTE>
+
+<H3><A NAME="LeafLibSect">Leaf Library Package Models</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The current standard models require that a package export at most one
+library. If a package builds multiple libraries, they should be
+wrapped up into a single umbrella, as <A HREF="vmodels.5.html#UmbLibSect">described
+below</A>. In either case, the package's <TT>build.ves</TT> model is required
+to evaluate to a binding of type
+"<A HREF="vtypes.5.html#LibPkgResult"><TT>LibPkgResult</TT></A>" that contains a
+field named "<TT>lib</TT>". Like a non-library model, a library model may
+also export utility programs and test programs. Here is a prototypical
+<TT>build.ves</TT> file for a leaf model:
+<PRE>
+import
+    lib = lib.ves;
+    progs = progs.ves;
+    tests = tests.ves;
+{
+    return [ lib, progs, tests ];
+}
+</PRE>
+
+If the package exports a leaf library, its <TT>lib</TT> closure should be
+a value of type "<A HREF="vtypes.5.html#LibFunc"><TT>LibFunc</TT></A>. In
+particular, it should return the result of calling the bridge's
+"<TT>leaf</TT>" function. Here is a typical <TT>lib.ves</TT> model, taken from
+the <TT>vesta/log</TT> package:
+<PRE>
+files
+    c_files = [Recovery.C, VestaLog.C];
+    h_files = [Recovery.H, VestaLog.H, VestaLogPrivate.H];
+{
+    return ./Cxx/leaf("libVestaLog.a", c_files, h_files);
+}
+</PRE>
+
+If the library uses some header files that should be hidden from
+clients, they can be bound to an optional fourth argument named
+"<TT>priv_h_files</TT>" of the bridge's <TT>leaf</TT> function. It is also
+possible to specify overrides for the library; see the
+<A HREF="voverrides.5.html">voverrides(5)</A> man page for details.
+</BLOCKQUOTE>
+
+<H3><A NAME="PrebuiltLibSect">Prebuilt Library Package Models</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The models for a prebuilt library (one built outside of Vesta) are
+nearly identical to the models for building a leaf library.  The only
+difference is in the <TT>lib.ves</TT> model.  Here's an example based on
+the <TT>zlib</TT> compression library:
+<PRE>
+files
+    archive = [libz.a];
+    headers = [zlib.h, zconf.h];
+{
+    return ./C/prebuilt("libz.a", headers, archive);
+}
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="UmbLibSect">Umbrella Library Package Models</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The models for building an umbrella library are a lot like the models
+for building a leaf library, but with two differences.<P>
+
+First, the library must name of all the packages that export libraries 
+included in the umbrella. The result of the <TT>build.ves</TT> model must
+be a value of type
+"<A HREF="vtypes.5.html#UmbrellaPkgResult"><TT>UmbrellaPkgResult</TT></A>" that
+binds the name "<TT>children</TT>" to the set of child packages. The child
+packages themselves are represented by a value of type
+"<A HREF="vtypes.5.html#QNamedPkgs"><TT>QNamedPkgs</TT></A>". A value of this
+type is a two-level binding of <I>qualified</I> package names; each
+qualified name is bound to the corresponding package's <TT>build.ves</TT>
+model.<P>
+
+Second, the library is constructed by a call to the bridge's
+"<TT>umbrella</TT>" function. This function requires the name of the
+resulting umbrella library and a list of the libraries in the
+umbrella. Each element of the list is a
+"<A HREF="vtypes.5.html#LibPkgResult"><TT>LibPkgResult</TT></A>", that is, the
+result of evaluating a library package. Typically, the list is formed
+by selecting library descriptions out of "<TT>./</TT><I>bridge</I><TT>/libs/</TT>.<P>
+
+As an example, here is the <TT>build.ves</TT> model for the
+<TT>vesta/vesta_umb</TT> package:
+<PRE>
+from /vesta/src.dec.com/vesta import
+  vesta_kids = [
+      run_tool/4, repos/5, cache/9, fp/1,
+      log/4, srpc/4, config/3, basics/22 ];
+{
+    // closure for dynamically building list of libraries
+    lib_models(models: NamedPkgs): LibPkgResults {
+      	res = &lt;&gt;;
+	foreach [ nm = model ] in models do
+            res += &lt; ./Cxx/libs/vesta/$nm &gt;;
+      	return res;
+    };
+
+    // closure for building umbrella library
+    lib(): NamedLibDesc {
+        return ./Cxx/umbrella("libVestaUmb.a", lib_models(vesta_kids));
+    };
+
+    // "eval_field(f)" is a closure for evaluating the "f" field
+    // of the library models named in "vesta_kids"
+    eval_field(f)(): binding {
+        res = [];
+        foreach lib in lib_models(vesta_kids) do {
+            res += if lib!$f then lib/$f() else [];
+        };
+        return res;
+    };
+
+    // return result
+    children = [ vesta = vesta_kids ];
+    return [ lib, children,
+      progs = eval_field("progs"),
+      tests = eval_field("tests") ];
+}
+</PRE>
+
+Unlike the previous examples, there are no auxiliary models in this
+package: the <TT>lib</TT>, <TT>progs</TT>, and <TT>tests</TT> fields are bound to
+locally-defined closures. This model is more complicated than the
+previous ones, so a more thorough description is in order.<P>
+
+The <TT>import</TT> clause selects the particular versions of those child
+packages that are part of the umbrella. The "<TT>vesta_kids</TT>" value is
+then used at the end of the model to form the set "<TT>children</TT>" of
+qualified package names returned in the result. Notice how the extra
+name "<TT>vesta</TT>" was inserted in the formation of the "<TT>children</TT>"
+binding to qualify the package names.<P>
+
+The model defines a local function, "<TT>lib_models(models)</TT>". Given
+the argument "<TT>models</TT>", a collection of named packages, this
+function iterates over the names and selects the corresponding
+packages out of "<TT>./Cxx/libs/vesta</TT>", forming a list of the
+resulting library package results. The actual models to which the
+names are bound are ignored in case some
+<A HREF="voverrides.5.html#TransPkgOvsSec">transient package overrides</A>
+were applied when the standard environment was constructed.<P>
+
+The result of "<TT>lib_models(vesta_kids)</TT>" is then passed as the
+second argument to the "<TT>./Cxx/umbrella</TT>" function in the "<TT>lib</TT>
+closure.<P>
+
+Finally, the umbrella model implements the "<TT>progs</TT>" and
+"<TT>tests</TT>" closures by simply invoking the corresponding functions
+of each of the child packages. It uses a
+single, parameterized closure for this purpose. The closure iterates
+over the package results in "<TT>lib_models(vesta_kids)</TT>", evaluates
+the closure named by the "<TT>f</TT>" parameter if it is defined, and
+overlays the result.
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vlibraries.5.html">vlibraries(5)</A>,
+<A HREF="voverrides.5.html">voverrides(5)</A>,
+<A HREF="vtypes.5.html">vtypes(5)</A>.
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+<PRE>
+Last modified on Sun Sep 26 19:09:57 EDT 2004 by ken@xorian.net
+     modified on Mon Mar 16 17:02:52 PST 1998 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

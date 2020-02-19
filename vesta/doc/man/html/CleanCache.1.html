@@ -1,0 +1,95 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>CleanCache(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>CleanCache(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+CleanCache - delete temporary files in the Vesta-2 stable cache
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>CleanCache</B> [ <B>-f</B> ]
+</BLOCKQUOTE>
+
+<H3>Description</H3>
+<BLOCKQUOTE>
+<P>
+
+The Vesta-2 cache server uses the VestaAtomicFile interface to write
+some of the files in the stable cache atomically. VestaAtomicFile
+works by creating the file under a temporary name. It commits a file
+by atomically renaming the temporary file to the intended filename.<P>
+
+If the cache server crashes before some VestaAtomicFiles are committed,
+their temporary files are left in the stable cache. <I>CleanCache</I>
+deletes these stranded temporary files. It first lists all of the
+temporary files in the stable cache, and then asks for confirmation
+before deleting them. If the <B>-f</B> option is supplied, deletion is
+forced without a request for confirmation.<P>
+
+<B>Warning!</B> It is quite dangerous to clean a stable cache that is in
+use by some cache server. Deleting a valid temporary file will most
+likely cause the cache server to crash. Be sure there is no cache
+server running on the stable cache in question before using this
+program.
+</BLOCKQUOTE>
+
+<H3>Configuration Variables</H3>
+<BLOCKQUOTE>
+<P>
+
+<I>CleanCache</I> deletes files contained in a part of the filesystem
+pointed to by the current Vesta configuration file. In particular, it
+reads the following values from the <I>CacheServer</I> section of the
+configuration file:
+<PRE>
+MetaDataRoot     - root of Vesta-2 meta-data
+  MetaDataDir    - root of cache server meta-data sub-tree
+    SCacheDir    - root of stable cache entries sub-tree
+    SVarsDir     - root of stable variables sub-tree
+</PRE>
+
+Nesting indicates how the directory tree corresponding to these names
+is structured. If the <I>MetaDataRoot</I> value is the empty string,
+then the current directory is used.
+</BLOCKQUOTE>
+
+<H3>See Also</H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="CreateCacheDirs.1.html">CreateCacheDirs(1)</A>,
+<A HREF="EraseCache.1.html">EraseCache(1)</A>,
+<A HREF="ShowCache.1.html">ShowCache(1)</A>,
+<A HREF="VCache.1.html">VCache(1)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Last modified on Thu Nov  8 12:48:54 EST 2001 by ken@xorian.net
+     modified on Fri Feb 28 10:49:43 PST 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>
+TML>

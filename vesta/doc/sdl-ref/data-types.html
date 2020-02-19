@@ -1,0 +1,334 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (X11; U; OSF1 V4.0 alpha) [Netscape]">
+   <meta name="Author" content="Kenneth C. Schalk">
+   <meta name="Description" content="The fundamental data types defined by the Vesta language.">
+   <title>Vesta SDL reference - Data Types</title>
+</head>
+<body bgcolor="#efefff">
+
+<h1>
+Data Types</h1>
+
+<ul>
+<li>
+<a href="data-types.html#Basic Data Types">Basic Data Types</a></li>
+
+<ul>
+<li>
+<tt><a href="data-types.html#bool">bool</a></tt></li>
+
+<li>
+<tt><a href="data-types.html#int">int</a></tt></li>
+
+<li>
+<tt><a href="data-types.html#text">text</a></tt></li>
+
+<li>
+<tt><a href="data-types.html#list">list</a></tt></li>
+
+<li>
+<tt><a href="data-types.html#binding">binding</a></tt></li>
+
+<li>
+<tt><a href="data-types.html#function">function</a></tt></li>
+
+<li>
+<tt><a href="data-types.html#err">err</a></tt></li>
+</ul>
+
+<li>
+<a href="data-types.html#Aggregate Type Expressions">Aggregate Type Expressions</a></li>
+
+<ul>
+<li>
+<a href="data-types.html#List type expressions">List type expressions</a></li>
+
+<li>
+<a href="data-types.html#Binding type expressions">Binding type expressions</a></li>
+
+<li>
+<a href="data-types.html#Function type expressions">Function type expressions</a></li>
+
+<li>
+<a href="data-types.html#A complex example">A complex example</a></li>
+</ul>
+</ul>
+
+<h3>
+<a NAME="Basic Data Types"></a>Basic Data Types</h3>
+There are seven basic data types in the Vesta System Description Language:
+<ul>
+<li>
+<tt>bool</tt></li>
+
+<li>
+<tt>int</tt></li>
+
+<li>
+<tt>text</tt></li>
+
+<li>
+<tt>list</tt></li>
+
+<li>
+<tt>binding</tt></li>
+
+<li>
+<tt>function</tt></li>
+
+<li>
+<tt>err</tt></li>
+</ul>
+Each of these are described below.
+<h4>
+<a NAME="bool"></a><tt>bool</tt></h4>
+A boolean value, either true or false.&nbsp; There are only two literals
+of type <tt>bool</tt>: <tt>TRUE</tt> and <tt>FALSE</tt>.
+<h4>
+<a NAME="int"></a><tt>int</tt></h4>
+An integer value.&nbsp; Integer literals can be written in decimal, or
+following the C conventions for octal and hexadecimal.&nbsp; All of these
+are valid integer literals:
+<blockquote>
+<pre>0
+1024
+07531 // Octal 7531, equal to 3929 decimal
+0xa0&nbsp; // Hex a0, equal to 160 decimal</pre>
+</blockquote>
+
+<h4>
+<a NAME="text"></a><tt>text</tt></h4>
+An arbitrary byte sequence.&nbsp; Can be anything from a short string,
+to an entire source file, to the binary data contained in a compiled library.
+<p>Text literals follow the C/C++ convention for double-quoted strings.&nbsp;
+Examples of valid text literals:
+<blockquote>
+<pre>""
+"Simple text."
+"Text with \"quotes\"."
+"Examples of\n\tescaped whitespace.\n"</pre>
+</blockquote>
+
+<h4>
+<a NAME="list"></a><tt>list</tt></h4>
+A sequence of zero or more arbitrary values.
+<p>List literals are enclosed in angle brackets with individual elements
+separated by commas:
+<blockquote><tt>&lt;1, "abcdefg", FALSE></tt></blockquote>
+List elements can be specified by any arbitrary expression, including lists:
+<blockquote><tt>&lt;1, &lt;"abc", "def", "ghi"> ></tt></blockquote>
+A trailing comma is allowed after the last list element:
+<blockquote><tt>&lt;1, 2, 3, 4, ></tt></blockquote>
+The empty list can be represented by angle brackets with nothing between
+them:
+<blockquote><tt>&lt;></tt></blockquote>
+
+<h4>
+<a NAME="binding"></a><tt>binding</tt></h4>
+A mapping from names to values.&nbsp; More precisely, a sequence of zero
+or more pairs, in which the first member&nbsp; of each pair is a non-empty
+value of type <tt>text</tt>, the second is any arbitrary value, and the
+first members of all the pairs are distinct.
+<p>Binding literals are enclosed in square brackets with commas separating
+individual assignments.&nbsp; As with lists, the empty binding can be represented
+with empty square brackets:
+<blockquote><tt>[]</tt></blockquote>
+The simplest way to write a binding is as though it were a sequence of
+variable assignments:
+<blockquote><tt>[ foo = 1, bar = TRUE, msg = "a string", ]</tt></blockquote>
+The values can be arbitrary expressions (including other lists, nested
+bindings, etc.).&nbsp; Note that, as with lists, a trailing comma is allowed.&nbsp;
+Beyond this form, there are a variety of shortcuts and more complicated
+forms for creating bindings.&nbsp; The simplest of these is the self-assigning
+binding:
+<blockquote><tt>[ foo, bar, msg ]</tt></blockquote>
+This is equivalent to writing:
+<blockquote><tt>[ foo = foo, bar = bar, msg = msg ]</tt></blockquote>
+If <tt>foo</tt>, <tt>bar</tt>, and <tt>msg</tt> are variables with values
+assigned to them, then this would capture the values of those variables
+in the binding.&nbsp; As with lists, it is possible to have bindings containing
+bindings:
+<blockquote><tt>[ foo = [ a = 1 ], bar = [ b = 2] ]</tt></blockquote>
+However, it can quickly become tedious to write nested bindings in this
+fashion.&nbsp; For this reason, there's a shortcut.&nbsp; The following
+binding is equivalent to the previous one:
+<blockquote><tt>[ foo/a = 1, bar/b = 2 ]</tt></blockquote>
+These nested binding "paths" can be arbitrarily deep.&nbsp; For example,
+these two bindings are equivalent:
+<blockquote><tt>[ Cxx/switches/program/shared_libs = "-non_shared" ]</tt>
+<p><tt>[ Cxx = [ switches = [ program = [ shared_libs = "-non_shared" ]
+] ] ]</tt></blockquote>
+It's possible to replace either the name in a binding assignment or one
+of the names in a binding path assignment with a variable or an arbitrary
+expression.&nbsp; If there is a variable containing a <tt>text</tt> value,
+it can be prepended with the dollar sign to use its value as a name:
+<blockquote>
+<pre>name = "foo";
+...
+[ $name = 1 ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Same as [ foo = 1]
+...
+[ bar/$name/a = "a string" ] // Same as [ bar/foo/a = "a string"]</pre>
+</blockquote>
+There are two different but equivalent forms with which arbitrary expressions
+can be used in place of names in bindings: <tt>$(<i>expression</i>)</tt>
+and <tt>%<i>expression</i>%</tt>.&nbsp; For example:
+<blockquote>
+<pre>[ $("foo" + "bar") = TRUE ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Same as [ foobar = TRUE ]
+[ %"foo" + "bar"% = FALSE ]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Same as [ foobar = FALSE ]
+[ foo/$(_sub("barbaz", 0, 3))/a = &lt;1, 2, 3> ] // Same as [ foo/bar/a = &lt;1,2,3> ]
+[ foo/%_sub("barbaz", 3, 3)%/b = &lt;4, 5, 6> ]&nbsp; // Same as [ foo/baz/b = &lt;4,5,6> ]</pre>
+</blockquote>
+
+<h4>
+<a NAME="function"></a><tt>function</tt></h4>
+A function, much like a <a href="http://www.InstantWeb.com/foldoc/foldoc.cgi?query=lambda+expression">lambda
+expression</a> (as seen in the Lisp and Scheme languages).&nbsp; (Functions
+are first-class values in Vesta and can be created at run-time.)&nbsp;
+More precisely, a function (or closure) is a triple &lt;<b>e</b>, <b>f</b>,
+<b>b</b>>
+where:
+<ul>
+<li>
+<b>e</b> is a function body (i.e., a block of Vesta SDL statements),</li>
+
+<li>
+<b>f</b> is a list of formal parameters, each of which has a name and may
+have a default value,</li>
+
+<li>
+<b>b</b> is a value of type <tt>binding</tt> (the context in which the
+function's body is evaluated, inherited from the site of its definition)</li>
+</ul>
+There is no way to specify a literal <tt>function</tt> value.&nbsp; The
+only way to define a <tt>function</tt> is to bind it to a name with a <a href="statements.html#FuncDef">function
+definition statement</a>.
+<h4>
+<a NAME="err"></a><tt>err</tt></h4>
+A value indicating that a run-time error has occurred.
+<p>There is only one literal of type <tt>err</tt>: <tt>ERR</tt>.
+
+<p> The use of <tt>ERR</tt> is considered deprecated at this point,
+and is supported only to provide backward-compatibility with older
+Vesta models.  A much better way to indicate a run-time error is with
+<a
+href="primitive-functions/_assert-_print.html#_assert(bool,any)">the
+<tt>_assert</tt> primitive function</a>.
+
+<h3>
+<a NAME="Aggregate Type Expressions"></a>Aggregate Type Expressions</h3>
+The Vesta SDL includes a small sub-language of type expressions, which
+includes the ability to describe aggregate types (lists, bindings, and
+functions) with varying degrees of detail.&nbsp; It is possible to define
+type names which refer to simple or complex types (such as a list of integers)
+with a <a href="statements.html#TypeDef">type definition statement</a>.&nbsp;
+Type expressions, including previously defined named types, may be attached
+to function arguments and results and to local variables, indicating the
+type of the expected value for these identifiers and expressions during
+evaluation.
+<p>The Vesta evaluator currently treats type expressions as syntactically
+checked comments; it performs no other checking. Future implementations
+may type-check expressions at run-time and report an error if the value
+does not match the specified type.
+<p>The simplest form of type expression is just the name of one of the
+<a href="data-types.html">basic types</a>: <tt>bool</tt>, <tt>int</tt>,
+<tt>text</tt>, <tt>list</tt>, <tt>binding</tt>,
+<tt>function</tt>.&nbsp;
+Also, you can express that something may be of any type with the keyword
+<tt>any</tt>.&nbsp; Each of the three aggregate types (<tt>list</tt>, <tt>binding</tt>,
+<tt>function</tt>) has more complex forms which allow you to specify the
+types of its componenets.
+<h4>
+<a NAME="List type expressions"></a>List type expressions</h4>
+Lists are the simplest, because the only restriction you can make is to
+state that all elements of a list must have a particular type.&nbsp; For
+example:
+<blockquote>
+<pre>list(bool)</pre>
+</blockquote>
+Would be a list of booleans.&nbsp; Incidentally, <tt>list</tt> by itself
+is equivalent to <tt>list(any)</tt>.
+<h4>
+<a NAME="Binding type expressions"></a>Binding type expressions</h4>
+Bindings have two more specific forms.&nbsp; First, you can specify that
+all elements of a binding must have values of a particular type.&nbsp;
+This:
+<blockquote>
+<pre>binding(:text)</pre>
+</blockquote>
+Specifies a binding where the value portion of each element is of type
+text.&nbsp; You can also specify that a binding must have particular names
+bound to particular types:
+<blockquote>
+<pre>binding(x:int, y:int, z:int)</pre>
+</blockquote>
+The above specifies a binding which must have three names (<tt>x</tt>,
+<tt>y</tt>, and <tt>z</tt>) all bound to integer values.
+<h4>
+<a NAME="Function type expressions"></a>Function type expressions</h4>
+A function type expression can have types specified for its arguments and
+its return value, and either or both of these can be omitted.&nbsp; For
+example:
+<blockquote>
+<pre>function :&nbsp;bool</pre>
+</blockquote>
+Indicates a function which returns a boolean with unspecified arguments.&nbsp;
+Conversely:
+<blockquote>
+<pre>function(text)</pre>
+</blockquote>
+Specifies a function which takes a single text string argument, but whose
+return type is unspecified.&nbsp; When argument types are specified, argument
+names may be as well:
+<blockquote>
+<pre>function(t: text, i: int): text</pre>
+</blockquote>
+The above describes a function taking a text argument named t and an integer
+argument named i and which returns a text string.
+<h4>
+<a NAME="A complex example"></a>A complex example</h4>
+Type expressions can be arbitrarily complex.&nbsp; For example, the following:
+<blockquote>
+<pre>function(function(text, bool): int, binding(:bool)): list(int)</pre>
+</blockquote>
+Describes a function which:
+<ul>
+<li>
+accepts two parameters:</li>
+
+<ol>
+<li>
+a function which:</li>
+
+<ul>
+<li>
+takes two arguments:</li>
+
+<ol>
+<li>
+a text string</li>
+
+<li>
+a boolean</li>
+</ol>
+
+<li>
+returns an integer</li>
+</ul>
+
+<li>
+a binding with boolean values</li>
+</ol>
+
+<li>
+returns a list of integers</li>
+</ul>
+
+<hr WIDTH="100%">
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i> &nbsp;
+/ <a href="index.html">Vesta SDL Programmer's Reference</a></i>
+</body>
+</html>

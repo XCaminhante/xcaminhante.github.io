@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 44</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text42.html">Back</a> <a href="text44.html">Continue</a> <a href="text68.html">Last page</a> <a href="bridge-intro.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Investigating The Problem</h1><p>
+<ul><li><h2>We'll start by adding -fsdeps to the vmake command line:</h2>
+<li><h2>% vmake -fsdeps</h2>
+<li><h2>[...]</h2>
+<li><h2>0/hostname: grep a</h2>
+<li><h2>FS dependency: !/./root/.WD/grep</h2>
+<li><h2>FS dependency: N/./root/bin/grep</h2>
+<li><h2>FS dependency: !/./root/lib</h2>
+<li><h2>FS dependency: !/./root/usr</h2>
+<li><h2>0/Error: invoking _run_tool: [...]</h2>
+<li><h2>This tells us that the tool is looking for some paths which don't exist:</h2>
+<ul><li>/lib
+<li>/usr
+</ul></ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (X11; U; OSF1 V4.0 alpha) [Netscape]">
+   <meta name="Description" content="Describes the different types of statements in the Vesta SDL language.">
+   <title>Vesta SDL Reference - Statements</title>
+</head>
+<body bgcolor="#efefff">
+
+<h1>
+Statements</h1>
+There are five kinds of statements in the Vesta SDL:
+<ul>
+<li>
+<a href="statements.html#Assignment">Assignment</a>: binding a variable name to a value</li>
+
+<li>
+<a href="statements.html#Iteration">Iteration</a>: looping over the contents of a list
+or binding</li>
+
+<li>
+<a href="statements.html#FuncDef">Function Definition</a>: binding a variable to a value
+of type function</li>
+
+<li>
+<a href="statements.html#TypeDef">Type Definition</a>: defining complex types</li>
+
+<li>
+<a href="statements.html#return">return/value</a>: used at the end of function/model definitions
+and block expressions.</li>
+</ul>
+
+<h3>
+<a NAME="Assignment"></a>Assignment</h3>
+
+<p>
+Assignment statements work more or less as you would expect them to:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">four = 2 + 2;</font></pre>
+</td></tr></table>
+
+<p>
+You can optionally specify a type qualifier with the variable identifier
+to specify the type which should be assigned by the statement:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">four : int = 2 + 2;</font></pre>
+</td></tr></table>
+
+<p>
+Vesta follows the C/C++ convention for <a
+href="expressions.html#Assignment%20Operators">assignment
+operators</a>:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">four : int = 2;
+four += 2;</font></pre>
+</td></tr></table>
+
+<p>
+However the only operators which can be used like this are +, ++, -,and
+*.
+</p>
+
+<p>
+Don't let the presence of assignment statements fool you into thinking
+of Vesta SDL as an imperative language, because it's really a <a
+href="functional.html">functional
+language</a>.&nbsp; Although an assignment statement appears to have a
+side-effect (changing the value of a variable), from a language design
+standpoint it's really just syntactic sugar for introducing <em>a new
+scope</em> containing <em>a new variable</em>.
+</p>
+
+<h3>
+<a NAME="Iteration"></a>Iteration</h3>
+
+<p>
+In Vesta, the only forms of iteration are iteration over the elements of
+a list and iteration over the elements of a binding.&nbsp; If iterating
+over the elements of a list, a foreach loop is begun like this:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">foreach elem in l do
+&nbsp; ...</font></pre>
+</td></tr></table>
+
+<p>
+Here, the variable "elem" gets assigned the values of the different elements
+of list "l" and the body of the foreach loop is executed, once for each
+list element.
+</p>
+
+<p>To iterate over a binding, use this syntax:</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">foreach [ name = val ] in b do
+&nbsp; ...</font></pre>
+</td></tr></table>
+
+<p>
+In each iteration of the loop, the variable "name" is assigned the <tt>text</tt>
+value of an identifier in the binding "b" and the variable "val" is assigned
+the corresponding value.
+</p>
+
+<p>The body of foreach loops can be either a single statement:</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">&nbsp; foreach elem in list do
+&nbsp;&nbsp;&nbsp; total += elem;</font></pre>
+</td></tr></table>
+
+<p>
+Or a block of statements:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">&nbsp; foreach [ name = val ] in binding do
+&nbsp; {
+&nbsp;&nbsp;&nbsp; func_count += if <a href="primitive-functions/_is_type.html#_is_closure">_is_closure</a>(val) then 1 else 0;
+&nbsp;&nbsp;&nbsp; func_map += [ name = <a href="primitive-functions/_is_type.html#_is_closure">_is_closure</a>(val) ];
+&nbsp; };</font></pre>
+</td></tr></table>
+
+<p>
+Don't be fooled by the apparent side-effects of loops into forgetting
+that Vesta SDL is a <a
+href="functional.html">functional
+language</a>.&nbsp; As with assignments outside of loops, those in
+loops introduce <em>new dynamic scopes</em>.&nbsp; Also, don't confuse
+the behavior of loop bodies, which <em>can</em> change the scope used
+after the loop, with <a href="expressions.html#Block">statement blocks
+as expressions</a> which act in a more obviously <a
+href="functional.html">functional</a>
+way (having no effect other than their return value).
+</p>
+
+<h4>
+Examples</h4>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">reverse_list(l: list): list
+{
+&nbsp; res: list = &lt;>;
+&nbsp; foreach elt in l do
+&nbsp;&nbsp;&nbsp; res = &lt;elt> + res;
+&nbsp; return res;
+};</font></pre>
+</td></tr></table>
+
+<p>
+This function iterates over a list, constructing a list of the same elements
+in the reverse order.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">count_leaves(b: binding): int
+{
+  res: int = 0;
+  foreach [ nm = val ] in b do
+    res += if <a href="primitive-functions/_is_type.html#_is_binding">_is_binding</a>(val)
+             then count_leaves(val)
+             else 1;
+  return res;
+};</font></pre>
+</td></tr></table>
+
+<p>
+This function treats the passed binding as a tree and counts the number
+of leaf nodes (nodes which are not themselves bindings).&nbsp; Note that
+this function is recursive, which is allowed.
+</p>
+
+<h3>
+<a NAME="FuncDef"></a>Function Definition</h3>
+
+<p>
+Defining a function assigns a <a href="data-types.html#function">function
+value</a> to a variable.&nbsp; When a function is defined, the number of
+arguments it accepts and the names of individual arguments are defined.&nbsp;
+For example, this:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">increment(i)
+{
+&nbsp; <a href="statements.html#return">return</a> i + 1;
+}</font></pre>
+</td></tr></table>
+
+<p>
+Creates a function which accepts a single argument named <tt>i</tt> and
+returns <tt>i</tt> plus one.&nbsp; This function is stored in a variable
+names <tt>increment</tt>.
+</p>
+
+<p>When defining a function, you may specify the types of arguments and
+the type value returned by the function.&nbsp; Argument and return types
+can be <a href="data-types.html#Basic Data Types">simple types</a>, <a href="data-types.html#Aggregate Type Expressions">type
+expressions</a>, or previously <a href="statements.html#TypeDef">defined</a> named types.&nbsp;
+For example, a more precise definition of <tt>increment</tt> would be:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">increment(i : <a href="data-types.html#int">int</a>) : <a href="data-types.html#int">int
+</a>{
+&nbsp; <a href="statements.html#return">return</a> i + 1;
+}</font></pre>
+</td></tr></table>
+
+<p>
+You can also define default values for arguments.&nbsp; For example, if
+we wanted <tt>increment</tt> to be callable with no arguments,&nbsp; then
+we could provide a default value for the argument <tt>i</tt>:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">increment(i : <a href="data-types.html#int">int</a> = 0) : <a href="data-types.html#int">int
+</a>{
+&nbsp; <a href="statements.html#return">return</a> i + 1;
+}</font></pre>
+</td></tr></table>
+
+<p>
+By assigning <tt>i</tt> a default value of 0, we make <tt>increment()</tt>
+return 1 and <tt>increment(increment())</tt> return 2.
+</p>
+
+<p>When default argument values are given, any arguments following one
+with a default value must alos have default values.&nbsp; In other words,
+this is incorrect and will result in a syntax error:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">foo(x: <a href="data-types.html#int">int</a> = 1, y: <a href="data-types.html#int">int</a>): <a href="data-types.html#int">int
+</a>{
+&nbsp; // ...
+}</font></pre>
+</td></tr></table>
+
+<p>
+Even if this didn't cause an error, the default value for <tt>x</tt> would
+never be used (since a value for <tt>y</tt> is required).&nbsp; (Many programmers
+will recognize this restriction, as the same restriction applies to optional
+parameters in languages like C++ and most dialects of Lisp.)
+</p>
+
+<p>In addition to defined arguments, every function has a final implicit
+argument named "." (normally called "dot" and sometimes called "the environment").&nbsp;
+When <a href="expressions.html#FunctionCall">a function is called</a>,
+if no value is specified for this implicit parameter, it takes the value
+of dot in the calling scope.&nbsp; By convention, the value of dot is usually
+a binding.&nbsp; For example, consider this function:
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">foo()
+{
+&nbsp;&nbsp; return ./msg;
+}</font></pre>
+</td></tr></table>
+
+<p>
+This function assumes that dot will be a binding with a value bound to
+the name <tt>msg</tt>.&nbsp; Evaluating <tt>foo([ msg = "Hello"])</tt>
+would produce the text value <tt>"Hello"</tt>.&nbsp; If the value of dot
+in the calling scope was the binding <tt>[ msg = &lt;"The fox", "jumped
+over", "the lazy dog."> ]</tt>, then evaluating <tt>foo()</tt> would pass
+dot implicitly and produce the list <tt>&lt;"The fox", "jumped over", "the
+lazy dog."></tt>.
+</p>
+
+<p>In general use, the form of a function definition is as follows:</p>
+<blockquote>
+<pre><i><a href="syntax.html#Identifiers">identitifer</a></i>([ <i><a href="syntax.html#Identifiers">identifier</a></i> [ : <i><a href="data-types.html#Aggregate Type Expressions">type-expression</a></i> ] , ... ]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ <i><a href="syntax.html#Identifiers">identifier</a></i> [ : <i><a href="data-types.html#Aggregate Type Expressions">type-expression</a></i> ] [ = <i>default-value</i> ] , ... ]) [ : <i><a href="data-types.html#Aggregate Type Expressions">type-expression</a></i> ]
+{
+&nbsp; [ <i>statement-list</i>; ]
+&nbsp; <i><a href="statements.html#return">return-statement</a></i>;
+}</pre>
+</blockquote>
+
+<p>
+There are a few other points worth mentioning about function definitions:
+</p>
+
+<ul>
+<li>
+The final statement in the body of a function must always be a <a href="statements.html#return">return
+statement</a>.&nbsp; (Because the Vesta SDL is a <a href="functional.html">functional
+language</a>, every function must return a value.)</li>
+
+<li>
+Functions do not have side-effects.&nbsp; Assignments within a
+function do not affect variables outside it.&nbsp; The only
+information that passes out of a function is its return value.
+</li>
+
+<li>
+User defined functions can be self-recursive through their original names.&nbsp;
+(The definition of a function is captured in the closure created for the
+function.)</li>
+
+<li>
+User defined functions cannot be mutually recursive without some extra
+work.&nbsp; (For function <tt>A</tt> to call function <tt>B</tt> which
+is defined after it, <tt>B</tt> must be passed as an argument to <tt>A</tt>.&nbsp;
+This is often accomplished through the special argument dot.)</li>
+
+<li>
+As with most other lists in the Vesta SDL, a trailing comma is allowed
+in argument lists.</li>
+</ul>
+
+<h4>
+Examples</h4>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">reverse_list(l: list): list
+{
+&nbsp; ...
+};</font></pre>
+</td></tr></table>
+
+<p>
+This defines a function name "<tt>reverse_list</tt>" which accepts a single
+parameter which must be a list.&nbsp; Its return value is a list.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">env_build(bridge_platform: text = "DU4.0")
+{
+&nbsp; ...
+};</font></pre>
+</td></tr></table>
+
+<p>
+The function "<tt>env_build</tt>" accepts a single parameter named "<tt>bridge_platform</tt>"
+of type text which has a default value of "DU4.0". The return type of the
+function is undefined.
+</p>
+
+<h3>
+<a NAME="TypeDef"></a>Type Definition</h3>
+
+<p>
+The Vesta SDL includes a simple mechanism for naming aggreagate types,
+similar to the C/C++ <tt>typedef</tt> mechanism.&nbsp; The basic form of
+a type definition statement is:
+</p>
+
+<blockquote>
+<pre>type <i>type-name</i> = <i><a href="data-types.html#Aggregate Type Expressions">type-expression</a></i>;</pre>
+</blockquote>
+
+<p>
+(<a href="data-types.html#Aggregate Type Expressions">The syntax of type
+expressions is described elsewhere</a>.)
+</p>
+
+<h4>
+Examples</h4>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">type IntBinding = binding(:int);</font></pre>
+</td></tr></table>
+
+<p>
+This defines a type named "IntBinding" which can have any number of names,
+but all of which must be bound to integer values.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">type MapFunc = function(function, list): list;</font></pre>
+</td></tr></table>
+
+<p>
+This defines a type named "MapFunc" which is a function which accepts two
+parameters: one which is a function and another which is a list. The function
+of type "MapFunc" produces a return value of type list. (This is the type
+of the built-in functions <tt><a href="primitive-functions/_map-_par_map.html#_map(function,list)">_map</a></tt>
+and <tt><a href="primitive-functions/_map-_par_map.html#_par_map(function,list)">_par_map</a></tt>.)
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">type TestFuncList = list(function(any):bool);</font></pre>
+</td></tr></table>
+
+<p>
+The type TestFuncList is a list of functions which accept one parameter
+of any type and return a boolean.
+</p>
+
+<p>There are many more examples of type definitions in the <a href="../man/html/vtypes.5.html">vtypes(5)
+man page</a>.
+</p>
+
+<h3>
+<a NAME="return"></a>return/value</h3>
+
+<p>
+A <tt>return</tt> statement takes the result of a particular expression
+and makes it the result of either the enclosing model, user-defined function,
+or <a href="expressions.html#Block">block expression</a>.:
+</p>
+
+<blockquote>
+<pre>return <i><a href="expressions.html">expression</a></i>;</pre>
+</blockquote>
+
+<p>
+<tt>value</tt> is a synonym for <tt>return</tt>; the two can be used interchangeably.&nbsp;
+(An unstated common convention is to use <tt>return</tt> for model and
+function results and <tt>value</tt> for <a href="expressions.html#Block">block
+expression</a> results.)
+</p>
+
+<p>The <tt>return</tt> statement works more or less as anyone familiar
+with most modern languages would expect, with one important exception:
+a <tt>return</tt> statement may only be used as the final statement in
+a block, and the final statement in a model, user-defined function, or
+<a href="expressions.html#Block">block expression</a> must always be a
+<tt>return</tt> statement.&nbsp; In other words, a return statement cannot
+be used to exit a function in the middle.
+</p>
+
+<hr WIDTH="100%">
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i> &nbsp;
+/ <a href="index.html">Vesta SDL Programmer's Reference</a></i>
+</body>
+</html>

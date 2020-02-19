@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Files</TITLE>
+<META NAME="description" CONTENT="Files">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node148.html">
+<LINK REL="previous" HREF="node146.html">
+<LINK REL="up" HREF="node133.html">
+<LINK REL="next" HREF="node148.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2371"
+  HREF="node148.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2367"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2361"
+  HREF="node146.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2369"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2372"
+  HREF="node148.html">Imports</A>
+<B> Up:</B> <A NAME="tex2html2368"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2362"
+  HREF="node146.html">Model</A>
+ &nbsp <B>  <A NAME="tex2html2370"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION0013331400000000000000"></A><A NAME="sect:SDL-files"></A>
+<BR>
+Files
+</H3>
+
+<P>
+A Files clause introduces names corresponding to files or
+directories in the Vesta repository. Generally, these files or
+directories are named by relative paths, which are interpreted
+relative to the location of the model containing the Files clause.
+Absolute paths are permitted, though they are expected to be rarely
+used.
+
+<P>
+<
+<P>
+<PRE>
+Files       ::= FileClause*
+FileClause  ::= files FileItem*;
+FileItem    ::= FileSpec | FileBinding
+FileSpec    ::= [ Arc = ] DelimPath
+FileBinding ::= Arc = `[' FileSpec*, `]'
+
+DelimPath   ::= [ Delim ] Path [ Delim ]
+Path        ::= Arc { Delim Arc }*
+Arc         ::= Id | Integer | Text
+</PRE>
+
+<P>
+Each FileItem in a Files clause takes one of two forms: a FileSpec or
+a FileBinding. Each form introduces (binds) exactly one name. In the
+FileSpec case, the name corresponds to the contents of a single file or
+directory; in the FileBinding case, the name corresponds to a binding
+consisting of perhaps many files or directories. In both cases, the
+identifier introduced into the Vesta naming context or the identifiers
+introduced into the binding can be specified explicitly or derived
+from an Arc in the Path.
+
+<P>
+For example, consider the following <TT>files</TT> clause:
+
+<P>
+<PRE>
+  files
+    scripts = bin;
+    c_files = [ utils.c, main.c ];
+</PRE>
+
+<P>
+Suppose the directory containing this model also contains a directory
+named <TT>bin</TT> and files named <TT>utils.c</TT> and
+<TT>main.c</TT>. Then this <TT>files</TT> clause introduces
+the two names <TT>scripts</TT> and <TT>c_files</TT> into the
+context. The former is bound to a binding whose structure corresponds
+to the <TT>bin</TT> directory. The latter is bound to a binding
+that maps the names <TT>utils.c</TT> and <TT>main.c</TT> to
+the contents of those files, respectively. The file contents are
+values of type t_text.
+
+<P>
+<
+<P>
+When multiple FileItem's are given in a FileClause, the
+<TT>files</TT> keyword simply distributes over each of the
+FileItem's. That is:
+
+<P>
+<PRE>
+  files FileItem_1; ...; FileItem_n;
+</PRE>
+
+<P>
+desugars to:
+
+<P>
+<PRE>
+  files FileItem_1;
+  ...;
+  files FileItem_n;
+</PRE>
+
+<P>
+When the initial Arc is omitted from a FileSpec, it is inferred
+from the path. In particular:
+
+<P>
+<PRE>
+  files [ Delim ] { Arc Delim }* Arc [ Delim ];
+</PRE>
+
+<P>
+desugars to:
+
+<P>
+<PRE>
+  files Arc = [ Delim ] { Arc Delim }* Arc [ Delim ];
+</PRE>
+
+<P>
+<
+<P>
+Multiple FileClause's are evaluated independently:
+
+<P>
+<PRE>
+Eval( FileClause_0 FileClause_1 ... FileClause_n , C) =
+{
+  val C2 = Eval( FileClause_1 ... FileClause_n , C);
+  return _append(Eval( FileClause_0 , C), C2);
+}
+</PRE>
+
+<P>
+That leaves only two cases to consider: FileSpec (in which the
+initial Arc is specified) and FileBinding.
+
+<P>
+<PRE>
+// FileSpec
+Eval( files Arc = DelimPath , C) = _bind1(id, v)
+</PRE>
+
+<P>
+where:
+
+<P>
+
+<UL>
+<LI><EM>id</EM> is the t_text representation of <EM>Arc</EM>, as defined in
+Section&nbsp;<A HREF="node138.html#sect:SDL-binding">A.3.3.5</A> above.
+
+<P>
+</LI>
+<LI>If <EM>DelimPath</EM> begins with a Delim, it is interpreted as an
+absolute path, which must nevertheless resolve to a file
+or directory in the Vesta repository. If <EM>DelimPath</EM>
+does not begin with a Delim, it refers to a file or
+directory named relative to the directory of the enclosing
+Model.
+
+<P>
+</LI>
+<LI>If the entity named by <EM>DelimPath</EM> is a file, <EM>v</EM> is a
+t_text value formed by taking the file's contents.  If <EM>DelimPath</EM>
+names a directory, <EM>v</EM> is a t_binding value constructed
+from the contents of the directory, treating the files
+(if any) in the directory as above (i.e., as t_text
+values) and the directories (if any) recursively (i.e.,
+as bindings). The members of the resulting binding are
+in an unspecified order.  If <EM>DelimPath</EM> does not
+correspond to either an extant file or a directory, the
+evaluation halts with a runtime error.
+</LI>
+</UL>
+
+<P>
+<PRE>
+// FileBinding
+Eval( files Arc = [ FileSpec_1, ..., FileSpec_n ] , C) =
+  _bind1(id, Eval( files FileSpec_1; ...; FileSpec_n , C))
+</PRE>
+
+<P>
+Again, <EM>id</EM> is the t_text representation of <EM>Arc</EM>.
+
+<P>
+The FileBinding form of the Files clause provides a convenient way to
+create a binding containing multiple FileSpecs. Without this
+construct, it would be necessary to name each file twice, once in the
+FileSpec and once in a subsequent binding constructor. Making a
+binding with FileBinding is semantically similar to constructing a
+file system directory, with the additional property that there is an
+enumeration order for the component files.
+
+<P>
+Notice that the grammar and evaluation rules given above for <EM>FileSpec</EM> and <EM>FileBinding</EM> allow a general Arc on the left-hand
+side of each equal sign, not just an Id. This was done to simplify the
+definitions and desugaring rules. However, it would be useless to
+write constructs like the following, which introduce names that cannot
+be referenced in the body of the model:
+
+<P>
+<PRE>
+files 
+    33;
+    34 = 34;
+    "hash-table.c";
+    "foo bar" = [ foo, bar ];
+</PRE>
+
+<P>
+Therefore, we introduce an additional restriction: the context
+created by a Files clause must bind only names that are legal
+identifiers; that is, names that match the syntax of the Id token.
+
+<P>
+If you need to use files whose names are not legal
+identifiers, you should either assign them legal names with the 
+equal sign syntax or embed them in a binding.  Some possibilities:
+
+<P>
+<PRE>
+// Choose a legal name
+files 
+    f33 = 33;
+    f34 = 34;
+    hash_table.c = "hash-table.c";
+    foo_bar = [ foo, bar ];
+</PRE>
+
+<P>
+<PRE>
+// Embed in a binding
+files
+    f = [ 33, 34 ];
+    src = [ "hash-table.c" ];
+</PRE>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2371"
+  HREF="node148.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2367"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2361"
+  HREF="node146.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2369"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2372"
+  HREF="node148.html">Imports</A>
+<B> Up:</B> <A NAME="tex2html2368"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2362"
+  HREF="node146.html">Model</A>
+ &nbsp <B>  <A NAME="tex2html2370"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

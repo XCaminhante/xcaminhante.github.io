@@ -1,0 +1,273 @@
+
+<HTML>
+<HEAD>
+
+<TITLE>MTex Home Page</TITLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H1>MTex Home Page</H1>
+<P>
+
+<P><FONT SIZE=-1>
+Copyright &#169; 1997, Digital Equipment Corporation. All rights reserved.
+</FONT>
+
+<H2>Contents</H2>
+
+<UL>
+<LI> <A HREF="index.html#Overview">What is mtex?</A>
+<LI> <A HREF="index.html#Install">Downloading and Installation</A>
+<LI> <A HREF="index.html#Bugs">Reporting Bugs</A>
+<LI> <A HREF="index.html#ManPages">Man Pages</A>
+<LI> <A HREF="index.html#Commands">Command Summary</A>
+<LI> <A HREF="index.html#Environments">Environment Summary</A>
+<LI> <A HREF="index.html#Examples">Examples</A>
+<LI> <A HREF="index.html#Usage">Usage at SRC</A>
+</UL>
+
+<H2><A NAME="Overview">What is mtex?</A></H2>
+
+<P> Mtex is a system for producing man pages in both HTML and nroff
+formats from a single source format. The <I>mtex</I> file format is
+loosely based on LaTeX, but it contains far fewer commands and is
+somewhat fragile.
+
+<H2><A NAME="Install">Downloading and Installation</A></H2>
+
+<P> Mtex is a collection of LIM scripts. Before you install mtex, you
+will first have to download and install the LIM processor. For more
+information about downloading an installing LIM, see the
+<!-- Original LIM Home Page: http://www.research.digital.com/SRC/lim/ -->
+<A HREF="../lim/index.html">LIM Home Page</A>.
+
+<P> To download mtex, follow these steps:
+
+<UL>
+<LI>
+Make a new directory called "mtex".
+<P>
+<LI>
+Select the following link, and tell your browser to save the
+downloaded file to your new "mtex" directory:
+<BLOCKQUOTE>
+<A HREF="mtex.tar.Z"><CODE>mtex.tar.Z</CODE></A>
+</BLOCKQUOTE>
+<P>
+<LI>
+cd into your new "mtex" directory. It should contain the single file
+"<CODE>mtex.tar.Z</CODE>". If it instead contains the file
+"<CODE>mtex.tar</CODE>", then your browser has automatically
+uncompressed the file, and you can skip the following step.
+<P>
+<LI>
+Run "<CODE>uncompress mtex.tar.Z</CODE>" on the downloaded file.
+<P>
+<LI>
+Run "<CODE>tar xvf mtex.tar</CODE>" on the resulting tar file to extract
+the mtex sources.
+<P>
+<LI>
+Run "<CODE>rm mtex.tar</CODE>" to remove the tar file.
+</UL>
+
+<P> Once you have downloaded and unpacked the mtex sources, follow
+these steps from your "mtex" directory to build mtex on your system:
+
+<UL>
+<LI>
+Run "<CODE>make</CODE>". This will create a derived directory named by
+your machine's architecture. It's name is formed by running
+"<CODE>machine</CODE>". It will also build the mtex man pages (in both
+HTML and nroff format) in the "<CODE>man/</CODE>" subdirectory.
+That's about it!
+<P>
+<LI>
+You may now want to copy the mtex scripts and man pages to centralized
+bin, man, and HTML directories. If your derived directory is denoted by
+<I>arch</I>, the files you may want to copy are:
+<P>
+<DL>
+<DT>To centralized <CODE>bin</CODE>:
+<UL>
+<LI> <CODE><I>arch</I>/mtex2html</CODE> - produces man pages in HTML format
+<LI> <CODE><I>arch</I>/mtex2man</CODE> - produces man pages in nroff format
+<LI> <CODE><I>arch</I>/mtex2tex</CODE> - produces man pages in LaTeX format
+</UL>
+<P>
+<DT>To centralized <CODE>man/man1</CODE>:
+<UL>
+<LI> <CODE>man/mtex2html.1</CODE> - mtex2html(1) man page (nroff format)
+<LI> <CODE>man/mtex2man.1</CODE> - mtex2man(1) man page (nroff format)
+<LI> <CODE>man/mtex2tex.1</CODE> - mtex2tex(1) man page (nroff format)
+</UL>
+<P>
+<DT>To centralized <CODE>man/man7</CODE>:
+<UL>
+<LI> <CODE>man/mtex.7</CODE> - mtex(7) man page (nroff format)
+</UL>
+<P>
+<DT>To centralized <CODE>man/html</CODE>:
+<UL>
+<LI> <CODE>man/mtex2html.1.html</CODE> - mtex2html(1) man page (HTML format)
+<LI> <CODE>man/mtex2man.1.html</CODE> - mtex2man(1) man page (HTML format)
+<LI> <CODE>man/mtex2tex.1.html</CODE> - mtex2tex(1) man page (HTML format)
+<LI> <CODE>man/mtex.7.html</CODE> - mtex(7) man page (HTML format)
+</UL>
+</DL>
+</UL>
+
+<H2><A NAME="Bugs">Reporting Bugs</A></H2>
+
+Mtex was written by
+<A HREF="http://www.research.digital.com/SRC/personal/heydon"
+>Allan Heydon</A>. If you have problems installing mtex or if you
+notice a bug, please send e-mail to
+<A HREF="mailto:heydon@pa.dec.com"><CODE>heydon@pa.dec.com</CODE></A> 
+describing the problem. Please include the mtex source file that
+triggers the bug if possible.
+
+<H2><A NAME="ManPages">Man Pages</A></H2>
+
+<P> For more detailed information about mtex, see the following
+man pages.
+
+<DL>
+<DT><A HREF="mtex.7.html">mtex(7)</A><DD>
+Describes the <I>mtex</I> file format.<P>
+
+<DT><A HREF="mtex2html.1.html">mtex2html(1)</A><DD>
+Converts <I>mtex</I> documents to HTML (HyperText Markup Language} format for
+viewing over the web.<P>
+
+<DT><A HREF="mtex2man.1.html">mtex2man(1)</A><DD>
+Converts <I>mtex</I> documents to man format for viewing with
+nroff(1)/troff(1) in conjunction with the man(7) macros.<P>
+
+<DT><A HREF="mtex2tex.1.html">mtex2tex(1)</A><DD>
+Converts <I>mtex</I> documents to LaTeX format for processing by latex(1).
+</DL>
+
+<H2><A NAME="Commands">Command Summary</A></H2>
+
+<P> Like LaTeX, <I>mtex</I> commands are introduced by the <TT>\</TT>
+(backslash) character, and command arguments are delimited by curly
+braces <TT>{ }</TT>. Some commands have multiple arguments, in which
+case each argument follows the command surrounded by curly braces.
+<I>Mtex</I> also uses <TT>\begin</TT> and <TT>\end</TT> commands to
+bracket <I>environments</I>. Unlike LaTeX, curly braces are used only
+to delimit command arguments, and <I>not</I> to delimit scopes. Also,
+there are no declarations, only commands; so you write
+<TT>\it{...}</TT> instead of <TT>{\it ...}</TT> to produce italics
+text.
+
+<P> Here is a summary of the <I>mtex</I> commands:
+<P>
+<DL>
+<DT><TT>\manpage{&lt;title&gt;}{&lt;name&gt;}{&lt;num&gt;}</TT><DD>
+Declare the start of the manpage with the specified title for the
+command or routine named &lt;name&gt; in section &lt;num&gt; of the
+manual.<P>
+
+<DT><TT>\section{&lt;title&gt;}</TT><DD>
+Introduce a new section of the man page.<P>
+
+<DT><TT>\bf{&lt;text&gt;}</TT>, <TT>\it{&lt;text&gt;}</TT>,
+<TT>\tt{&lt;text&gt;}</TT>
+<DD> Typeset &lt;text&gt; in a <B>bold face</B>, <I>italics</I>, or 
+<TT>typewriter</TT> font, respectively.<P>
+
+<DT><TT>\anchor{&lt;name&gt;}{&lt;text&gt;}</TT><DD>
+Make &lt;text&gt; an anchor named &lt;name&gt; in the current document.<P>
+
+<DT><TT>\link{&lt;URL&gt;}{&lt;text&gt;}</TT><DD>
+Make &lt;text&gt; a hypertext link to the named HTML &lt;URL&gt;.<P>
+
+<DT><TT>\begin{&lt;env&gt;} ... \end{&lt;env&gt;}</TT><DD>
+Delimit a new environment.<P>
+
+<DT><TT>\newline</TT><DD>
+Start a new line in the <I>flushleft</I> environment.<P>
+
+<DT><TT>\item</TT>, <TT>\item{&lt;description&gt;}</TT><DD>
+Start new items in the <I>itemize</I>, <I>enumerate</I>, and
+<I>description</I> environments.
+</DL>
+
+<H2><A NAME="Environments">Environment Summary</A></H2>
+
+<P> Here is a summary of the <I>mtex</I> environments:<P>
+
+<DL>
+<DT><TT>flushleft</TT><DD>
+An environment for displaying left-justified lines of text. New lines are
+started with the <TT>\newline</TT> command.<P>
+
+<DT><TT>verbatim</TT><DD>
+Displays unfilled text in a fixed-width font without interpretting any of the
+usual <I>mtex</I> commands and escape sequences.<P>
+
+<DT><TT>itemize</TT>, <TT>enumerate</TT>, <TT>description</TT><DD>
+The list environments. Items in the <I>itemize</I> environment are
+delimited by tick marks; those in the <I>enumerate</I> environment are
+delimited by increasing integers starting at one; and those in the
+<I>description</I> environment are delimited by pieces of text.<P>
+
+<DT><TT>html</TT>, <TT>roff</TT>, <TT>tex</TT><DD>
+The output-specific environments for processing commands for a particular
+output format.
+</DL>
+
+<H2><A NAME="Examples">Examples</A></H2>
+
+<P> As a starting point, the
+<A HREF="http://www.vestasys.org/mtex/mtex2html.1.mtex"><CODE>mtex2html.1.mtex</CODE></A>
+source file provides a good example of a simple man page.
+The <A HREF="http://www.vestasys.org/mtex/mtex.7.mtex"><CODE>mtex.7.mtex</CODE></A> source is a
+much more complicated man page; it is longer and it contains many
+examples of the language's character quotation facilities.
+
+<H2><A NAME="Usage">Usage at SRC</A></H2>
+
+<P> At the Systems Research Center, mtex has been used in the man
+pages of the following projects, among others.
+
+<UL>
+<LI> <A HREF="http://www.research.digital.com/SRC/dcpi/"
+>Digital Continuous Profiling Infrastructure (DCPI)</A>
+<LI> <A HREF="http://www.research.digital.com/SRC/esc/Esc.html"
+>Extendend Static Checking (ESC)</A>
+<LI> <A HREF="http://www.research.digital.com/SRC/juno-2/">Juno-2</A>,
+a constraint-based drawing editor
+<LI> <A HREF="http://www.research.digital.com/SRC/m3sources/html/stable/src/Stable.ig.html"
+>Modula-3 stable objects</A>
+<LI> mtex itself
+<LI> Postcard, a mail/news reader distributed with
+<A HREF="http://www.research.digital.com/SRC/modula-3/html/srcm3.html"
+>SRC Modula-3</A>
+<LI> PSpec, a set of performance-debugging tools
+<LI> <A HREF="http://www.research.digital.com/SRC/vesta/">Vesta-2</A>,
+a software configuration management system
+<LI> <A HREF="http://www.research.digital.com/SRC/virtualpaper/home.html"
+>Virtual Paper</A>, a system for reading documents on-line
+</UL>
+
+<P>
+<HR>
+<P>
+[ <A HREF="http://www.research.digital.com/SRC/software/"
+>Systems Research Center (SRC) Software Home Page</A> ]
+
+<PRE>
+Last modified on Wed Oct  1 11:48:13 PDT 1997 by heydon
+</PRE>
+
+<! Server supplied footer starts here>
+
+<p><font FACE="Verdana, arial, helvetica" SIZE="1"><a HREF="http://www.compaq.com/legal.html">Legal 
+Statement</a> <a HREF="http://www.compaq.com/privacy.html">Privacy Statement</a></font>
+
+</BODY>
+
+<SCRIPT language="Javascript">
+
+</HTML>

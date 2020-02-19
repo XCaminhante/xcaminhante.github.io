@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Grammar</TITLE>
+<META NAME="description" CONTENT="Grammar">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node162.html">
+<LINK REL="previous" HREF="node160.html">
+<LINK REL="up" HREF="node160.html">
+<LINK REL="next" HREF="node162.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2545"
+  HREF="node162.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2541"
+  HREF="node160.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2535"
+  HREF="node160.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2543"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2546"
+  HREF="node162.html">Ambiguity Resolution</A>
+<B> Up:</B> <A NAME="tex2html2542"
+  HREF="node160.html">Concrete Syntax</A>
+<B> Previous:</B> <A NAME="tex2html2536"
+  HREF="node160.html">Concrete Syntax</A>
+ &nbsp <B>  <A NAME="tex2html2544"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION001341000000000000000">
+Grammar</A>
+</H2>
+
+<P>
+<
+<P>
+<PRE>
+Model       ::= Files Imports Block
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+Files       ::= FileClause*
+FileClause  ::= files FileItem*;
+FileItem    ::= FileSpec | FileBinding
+FileSpec    ::= [ Arc = ] DelimPath
+FileBinding ::= Arc = `[' FileSpec*, `]'
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+Imports     ::= ImpClause*
+ImpClause   ::= ImpIdReq | ImpIdOpt
+ImpIdReq    ::= import ImpItemR*;
+ImpItemR    ::= ImpSpecR | ImpListR
+ImpSpecR    ::= Arc = DelimPath
+ImpListR    ::= Arc = `[' ImpSpecR*, `]'
+ImpIdOpt    ::= from DelimPath import ImpItemO*;
+ImpItemO    ::= ImpSpecO | ImpListO
+ImpSpecO    ::= [ Arc = ] Path [ Delim ]
+ImpListO    ::= Arc = `[' ImpSpecO*, `]'
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+DelimPath   ::= [ Delim ] Path [ Delim ]
+Path        ::= Arc { Delim Arc }*
+Arc         ::= Id | Integer | Text
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+Block       ::= `{' Stmt*; Result; `}'
+Stmt        ::= Assign | Iterate | FuncDef | TypeDef
+Result      ::= { value | return } Expr
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+Assign      ::= TypedId [ Op ] = Expr 
+Op          ::= AddOp | MulOp
+AddOp       ::= +  |  ++  |  -
+MulOp       ::= *
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+Iterate     ::= foreach Control in Expr do IterBody
+Control     ::= TypedId | `[' TypedId = TypedId `]'
+IterBody    ::= Stmt | `{' Stmt+; `}'
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+FuncDef     ::= Id Formals+ [ TypeQual ] Block
+Formals     ::= ( FormalArgs )
+FormalArgs  ::= TypedId*,
+              | { TypedId = Expr }*,
+              | TypedId { , TypedId }* { , TypedId = Expr }+
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+Expr        ::= if Expr then Expr else Expr | Expr1
+Expr1       ::= Expr2 {  =&gt;  Expr2 }*
+Expr2       ::= Expr3 {  ||  Expr3 }*
+Expr3       ::= Expr4 {  &amp;&amp;  Expr4 }*
+Expr4       ::= Expr5 [ { == | != | &lt; | &gt; | &lt;= | &gt;= } Expr5 ]
+Expr5       ::= Expr6 { AddOp Expr6 }*
+Expr6       ::= Expr7 { MulOp Expr7 }*
+Expr7       ::= [ UnaryOp ] Expr8
+UnaryOp     ::= -  |  !
+Expr8       ::= Primary [ TypeQual ]
+Primary     ::= ( Expr ) | Literal | Id | List
+              | Binding | Select | Block | FuncCall
+</PRE>
+
+<P>
+Binary operators with equal precedence are left-associative.
+
+<P>
+<
+<P>
+<PRE>
+Literal     ::= ERR | TRUE | FALSE | Text | Integer
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+List        ::= &lt; Expr*, &gt;
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+Binding     ::= `[' BindElem*, `]'
+BindElem    ::= SelfNameB | NameBind
+SelfNameB   ::= Id
+NameBind    ::= GenPath = Expr
+GenPath     ::= GenArc { Delim GenArc }* [ Delim ]
+GenArc      ::= Arc | $ Id | $ ( Expr ) | % Expr %
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+Select      ::= Primary Selector GenArc
+Selector    ::= Delim | !
+</PRE>
+
+<P>
+<
+<P>
+<PRE>
+FuncCall    ::= Primary Actuals
+Actuals     ::= ( Expr*, )
+</PRE>
+
+<P>
+<<PRE>
+TypeDef     ::= type Id = Type
+TypedId     ::= Id [ TypeQual ]
+TypeQual    ::= : Type
+Type        ::= any | bool | int | text
+              | list [ ( Type ) ]
+              | binding ( TypeQual )
+              | binding [ ( TypedId*, ) ]
+              | function { ( TypedForm*, ) }* [ TypeQual ]
+              | Id
+TypedForm   ::= [ Id : ] Type
+</PRE>
+
+<P>
+<BR><HR>
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

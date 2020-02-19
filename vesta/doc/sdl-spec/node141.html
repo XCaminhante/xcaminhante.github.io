@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Stmt</TITLE>
+<META NAME="description" CONTENT="Stmt">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node142.html">
+<LINK REL="previous" HREF="node140.html">
+<LINK REL="up" HREF="node133.html">
+<LINK REL="next" HREF="node142.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2299"
+  HREF="node142.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2295"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2289"
+  HREF="node140.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2297"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2300"
+  HREF="node142.html">Assign</A>
+<B> Up:</B> <A NAME="tex2html2296"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2290"
+  HREF="node140.html">Block</A>
+ &nbsp <B>  <A NAME="tex2html2298"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001333800000000000000">
+Stmt</A>
+</H3>
+
+<P>
+<
+<P>
+Evaluating a Stmt or sequence of Stmts produces a binding. Note
+that the binding resulting from the evaluation of a sequence of Stmts
+is simply the overlay (operator `+') of the bindings resulting from
+evaluating each Stmt in the sequence, and does not include the context
+<EM>C</EM>.
+
+<P>
+<PRE>
+Eval( { } , C) = emptybinding
+
+Eval( { Stmt_1; Stmt_2 ...; Stmt_n } , C) =
+{
+  val b0 = Eval( Stmt_1 , C);
+  val b1 = Eval( { Stmt_2; ...; Stmt_n }, operator+(C, b0));
+  return operator+(b0, b1);
+}
+</PRE>
+
+<P>
+These rules apply to constructs in the ``extended'' language. There
+are three possibilities for a Stmt: Assign, Iterate, and FuncDef. They
+are covered in the next three sections.
+
+<P>
+<BR><HR>
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,243 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>VCacheMonitor(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>VCacheMonitor(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+VCacheMonitor - monitor the state of the Vesta-2 function cache
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>VCacheMonitor</B>
+[ <A HREF="VCacheMonitor.1.html#UpdateOpt"><B>-update</B> <I>time</I></A> ]
+[ <A HREF="VCacheMonitor.1.html#TsOpt"><B>-ts</B> <I>time</I></A> ]
+[ <A HREF="VCacheMonitor.1.html#NOpt"><B>-n</B> <I>num</I></A> ]
+[ <A HREF="VCacheMonitor.1.html#RowsOpt"><B>-rows</B> <I>num</I></A> ]
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="VCacheMonitor.1.html#DescSect">Description</A>
+<LI> <A HREF="VCacheMonitor.1.html#SwitchesSect">Switches</A>
+<LI> <A HREF="VCacheMonitor.1.html#FieldDescSect">Fields</A>
+<LI> <A HREF="VCacheMonitor.1.html#ConfigSect">Configuration Variables</A>
+<LI> <A HREF="VCacheMonitor.1.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="DescSect">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<I>VCacheMonitor</I> is a client application for monitoring the state
+of a running Vesta-2 function cache.<P>
+
+The program starts by printing information that identifies the
+function cache, including:
+<UL>
+<LI>
+the name of the host on which the function cache is running,
+<LI>
+the port number on which the function cache is listening for connections,
+<LI>
+the root directory of the stable cache in which the function cache
+stores cache entries,
+<LI>
+the version number of the interface implemented by the function cache,
+and
+<LI>
+the date and time at which the function cache was started.
+<LI>
+the date and time at which VCacheMonitor was started
+</UL>
+<P>
+
+The program then prints status lines describing various aspects of the
+cache state. See the <A HREF="VCacheMonitor.1.html#FieldDescSect">Fields</A> section below for
+descriptions of each of the fields on a status line.<P>
+
+If <I>VCacheMonitor</I> is unable to contact the function cache it was
+monitoring, it prints an error message and continues to poll the
+function cache until a connection can be re-established. Once it is
+able to contact the cache again, it resumes monitoring where it left
+off.
+</BLOCKQUOTE>
+
+<H3><A NAME="SwitchesSect">Switches</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Prefixes of switch names are recognized. For example, "-u"
+can be used instead of "-update".<P>
+
+<DL>
+<DT><A NAME="UpdateOpt"><B>-update</B> <I>time</I></A><DD>
+By default, a new status line is printed every 10 seconds. If
+<B>-update</B> is specified, then a new line is printed every
+<I>time</I> seconds. <I>time</I> must be a non-negative integer.
+To specify an update time in units other than seconds, <I>time</I>
+can end with one of the following unit identifiers: <I>m</I> (minutes),
+<I>h</I> (hours), and <I>d</I> (days).<P>
+
+<DT><A NAME="TsOpt"><B>-ts</B> <I>time</I></A><DD>
+If <B>-ts</B> is specified, a timestamp is printed every <I>time</I>
+seconds. By default, timestamps are never printed. To specify a
+timestamp interval in units other than seconds, <I>time</I>
+can end with one of the following unit identifiers: <I>m</I> (minutes),
+<I>h</I> (hours), and <I>d</I> (days).<P>
+
+<DT><A NAME="NOpt"><B>-n</B> <I>num</I></A><DD>
+By default, VCacheMonitor prints status lines indefinitely. If <B>-n</B>
+is specified, then only <I>num</I> status lines are printed.<P>
+
+<DT><A NAME="RowsOpt"><B>-rows</B> <I>num</I></A><DD>
+By default, <I>VCacheMonitor</I> prints the column headings once at the
+start of the program. If you specify <B>-rows</B> <I>num</I>, then new
+heading columns are printed every <I>num</I> status lines.<P>
+
+<DT><A NAME="CheckOpt"><B>-check</B></A><DD>
+By default, <I>VCacheMonitor</I> prints the number of requested status
+lines and then exits with status 0.  If <B>-check</B> is specified, it
+will only attempt to print one line.  If it was able to successfully
+contact the cache and print the line it will exit with status 0.  If
+there was an error in reaching the cache or getting its status, it
+will exit with status 1.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="FieldDescSect">Fields</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Each status line contains the following fields:<P>
+
+<DL>
+<DT><TT>SIZE</TT><DD>
+The size of the function cache image (in bytes).<P>
+
+<DT><TT>RES</TT><DD>
+The size of the function cache image resident in physical memory (in bytes).<P>
+
+<DT><TT>FREE VARS</TT><DD>
+<DT><TT>LOOK UP</TT><DD>
+<DT><TT>ADD ENT</TT><DD>
+The number of calls to the function cache's <I>FreeVariables</I>,
+<I>Lookup</I>, and <I>AddEntry</I> methods since the last status line was
+printed. These values are indicative of the load on the function cache.
+Since the values of these fields are relative to the previous status
+line, no values are printed for them on the first status line.<P>
+
+<DT><TT>NUM VMPK</TT><DD>
+The number of volatile MultiPKFile objects in memory.<P>
+
+<DT><TT>NUM VPKS</TT><DD>
+The number of volatile PKFile objects in memory.<P>
+
+<DT><TT>NUM ENTS</TT><DD>
+The total number of entries in the cache (both in memory and on disk
+in the stable cache).<P>
+
+<DT><TT>NEW ENTS</TT><DD>
+The number of new cache entries in memory. These entries have not been
+written to the stable cache.<P>
+
+<DT><TT>NEW PKLS</TT><DD>
+The total size of the pickled values associated with the new entries
+of the previous field.<P>
+
+<DT><TT>OLD ENTS</TT><DD>
+The number of "old" cache entries in memory. These are all entries
+that reside in the stable cache, but have been "paged in"
+for efficiency.<P>
+
+<DT><TT>OLD PKLS</TT><DD>
+The total size of the pickled values associated with the "old" entries
+of the previous field.<P>
+
+<DT><TT>NUM HF</TT><DD>
+The number of entries in the function cache's hit filter. These are
+entries that may soon be or are currently being deleted. This value
+is non-zero only if a weed is in progress.<P>
+
+<DT><TT>NUM DEL</TT><DD>
+The number of cache entries currently being deleted. This value is
+non-zero only if a weed is in progress.<P>
+
+<DT><TT>MPK WEED</TT><DD>
+The number of MultiPKFiles that must still be processed as part of a
+weed.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ConfigSect">Configuration Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Like most Vesta-2 applications, <I>VCacheMonitor</I> reads site-specific
+configuration information from a Vesta-2 <I>configuration file</I> named
+<I>vesta.cfg</I>. It first looks for this file in the current directory;
+if none is found there, it looks in your home directory.<P>
+
+The configuration file is divided into a number of sections, denoted
+in the file by <TT>[</TT><I>SectionName</I><TT>]</TT>. The variables used by
+<I>VCacheMonitor</I> are in the section denoted by <TT>[CacheServer]</TT>.
+Here are the relevant variables and their meanings; the types of the
+variables are shown in parentheses:<P>
+
+<DL>
+<DT><TT>Host</TT> (string)<DD>
+The name of the host on which the function cache to be monitored is
+running.<P>
+
+<DT><TT>Port</TT> (integer)<DD>
+The port number on which to contact the function cache.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="VCache.1.html">VCache(1)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Created on Sat May 31 19:09:39 PDT 1997 by heydon
+Last modified on Mon Jan  5 14:20:44 EST 2004 by ken@xorian.net
+     modified on Sun Aug 22 15:06:21 PDT 1999 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

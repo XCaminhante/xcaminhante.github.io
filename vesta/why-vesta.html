@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Why You Should be Using Vesta</title>
+  </head>
+
+  <body text="#000000" bgcolor="#efefff" link="#0000ee" vlink="#551a8b" alink="#ff0000">
+    <h1>Why You Should be Using Vesta</h1>
+
+<blockquote>
+
+&quot;<tt>make</tt> was a really good project for a college student
+[to implement] 20 years ago.&quot;<br>
+<i>-- Tim Leonard, Intel Massachusetts Microprocessor Design Center</i>
+</blockquote>
+
+<p>
+
+If you're wondering why anyone would chose Vesta over other
+alternatives (e.g. CVS+<tt>make</tt>), here's a summary of some of the
+reasons that Vesta users find most compelling.
+
+</p>
+
+<ul>
+
+<li>
+<p>
+<b>Automatic dependency detection.</b> It's complete, precise,
+fine-grained, and language-independent.  Even dependencies on the
+compiler version, compiler and linker command line options, and system
+libraries are recorded.  The user never needs to even think about
+dependencies, and can't cause problems with incorrect ones.  You don't
+need help from a hack like <tt>makedepend</tt>.  Dependencies aren't
+based on time-stamps, so you don't have to worry about clock skew or
+partially-written result files.
+</p>
+</li>
+
+<li>
+<p>
+<b>User-independent builds.</b> Builds take place in an encapsulated
+environment.  The user can't make or break a build with their personal
+environment or other settings.
+</p>
+</li>
+
+<li>
+<p>
+<b>Guaranteed repeatability of builds.</b> Builds completely specify
+everything that affects their outcome, including the exact versions of
+all source files, as well as compiler versions, library versions, etc.
+This makes it possible to perform any build you've ever done in the
+past and be certain that you will get identical results.
+
+(This can be a big help with finding and fixing bugs and other QA
+issues; with Vesta you never have to worry that a bug has been masked
+rather than fixed by intervening changes, because you can always
+re-build the exact version that exhibited the problem.)
+
+</p>
+</li>
+
+<li>
+<p>
+<b>Collaboration features.</b> The Vesta
+
+<a href="doc/man/html/vrepl.1.html">replicator</a> makes it easy to
+share source versions, and even complete builds between different
+installations.  Also, the guarantee of precise repeatability is
+maintained <em>even when a build is performed at a remote site</em>
+from a replica.
+
+The
+
+<a href="doc/man/html/repos-ui.1.html">repository user-interface
+tools</a> are designed for collaboration with remote repositories: the
+checkout and tool can automatically get a local working copy of a
+remote package (assuming you have permission), and the checkin tool
+will replicate the checked in version back to the remote master
+repository.
+
+</p>
+</li>
+
+<li>
+<p>
+<b>File-system interface to the repository.</b>
+
+All versions are accessible through a file-system which users can
+access with all the normal tools they're used to.  It's simple to
+<tt>grep</tt> across versions, <tt>diff</tt> between them, and use
+Emacs' <tt>ediff</tt> and other sophisticated conflict resolution
+tools.  (More creative users can write complex scripts to take
+advantage of this.)
+
+</p>
+</li>
+
+<li>
+<p>
+<b>Shared cache of build results.</b>
+
+Thanks to automatic dependency detection and the user-independence of
+builds, there's no problem with sharing build results between users.
+
+The build work done by every developer is &quot;remembered&quot;in a
+per-site <a href="doc/man/html/VCache.1.html">Vesta cache</a>.
+
+Since the cache is shared by all developers at the same
+site, each can benefit from the work done by the others' builds.
+
+</p>
+</li>
+
+<li>
+<p>
+<b>It's high-performance.</b>
+
+The <a href="doc/man/html/vesta.1.html">Vesta builder</a> is faster
+than <tt>make</tt>.  It can run with multiple threads, and even
+execute compilers and other tools on multiple hosts simultaneously.
+(This can increase build throughput significantly, making developers
+more productive.)
+
+Checkout operations are constant-time, because the repository stores a
+complete copy of each source file.  There's no latency for copying on
+checkout or checkin, because working copies are managed by the
+repository file-system.  No storage is consumed by a checkout until
+the user saves changes to a source file, because the repository uses
+copy-on-write for working copies.
+
+(See chapter 9 of
+
+<a href="http://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/abstracts/src-rr-177.html">the research report</a>
+
+for more details on Vesta's performance.)
+
+</p>
+</li>
+
+<li>
+<p>
+<b>It's free.</b> Vesta is distributed free of charge under the terms
+of the <a href="http://www.gnu.org/licenses/lgpl.html">GNU Lesser
+General Public License</a>.
+</p>
+</li>
+
+<li>
+<p>
+
+<b>It's extensible.</b>
+
+The <a href="doc/man/html/repos-ui.1.html">command-line tools</a> make
+it easy to write scripts that perform complex operations.  Vesta's
+
+<a href="doc/man/html/vesta-intro.1.html#mutable_attributes">flexible
+attribute system</a> makes it possible to associate all manner of
+meta-information with the repository's contents.  With the C++ APIs,
+one can build high-performance extensions or write new tools to
+perform operations which the existing tools don't.  (And since Vesta
+is distributed under the
+
+<a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>,
+
+extensions are not forced to adopt the same licensing terms.)
+
+</p>
+</li>
+
+<li>
+<p>
+<b>It's mature.</b> Vesta has had over 10 years of research and
+development, and over 4 years of real-world use by a very demanding
+group.  It's well-tested, stable, scalable, and designed from the
+ground up to be fault-tolerant.  It was designed specifically to
+overcome the limitations of existing systems, and is competitive with
+several commercial offerings.
+</p>
+</li>
+
+
+</ul>
+
+    <hr>
+    <a href="index.html">Back to the Vesta home page</a><br>
+    <address>Kenneth Schalk
+      &lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</address>
+<!-- Created: Wed Mar 13 16:11:05 EST 2002 -->
+<!-- hhmts start -->
+Last modified: Mon Oct 13 11:18:09 EDT 2003
+<!-- hhmts end -->
+  </body>
+</html>

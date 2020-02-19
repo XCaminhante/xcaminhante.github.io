@@ -1,0 +1,141 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vmake - Build next version in a Vesta session</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vmake(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vmake</B> - Advance and build the newly created version
+within a Vesta checkout session
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vmake</B> [<I>arguments to</I> <A HREF="vesta.1.html"><B>vesta</B>(1)</A>]<P>
+
+In the most common usage, vmake is invoked from a checkout
+session's working directory, or from the root directory of a 
+checked-in version or session version, and no arguments are needed.
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vmake.1.html#Description">Description</A>
+<LI> <A HREF="vmake.1.html#Flags">Flags</A>
+<LI> <A HREF="vmake.1.html#Environment">Environment</A>
+<LI> <A HREF="vmake.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vmake.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vmake.1.html#See_Also">See Also</A>
+<LI> <A HREF="vmake.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The <B>vmake</B> command is a small shell script that conveniently
+builds the next version in a Vesta checkout session, or rebuilds the
+latest version if nothing has changed.<P>
+
+In more detail, <B>vmake</B> does the following:
+<UL>
+<LI> Invoke <A HREF="vadvance.1.html"><B>vadvance</B>(1)</A> to
+delete junk files and
+create a new version within the current checkout session
+if anything in the tree rooted at the working directory has changed.
+<LI> Invoke the Vesta evaluator <A HREF="vesta.1.html"><B>vesta</B>(1)</A> to
+evaluate the default model in the latest
+version within the checkout session.
+</UL>
+<P>
+
+If <B>vmake</B>'s current directory is not a Vesta working directory (or
+a subdirectory thereof), the initial steps are omitted and the
+evaluator is simply run in the current directory.
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+All flags and other arguments are passed through to the Vesta evaluator.
+</BLOCKQUOTE>
+
+<H3><A NAME="Environment">Environment</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT>$VESTAFLAGS<DD>
+The value of this variable, if any, is placed on the 
+Vesta interpreter's command line just before the arguments
+copied from <B>vmake</B>'s command line.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>Interpreter</I><DD>
+The filename of the Vesta interpreter to invoke.
+<DT><I>vestaflags</I><DD>
+Default value for $VESTAFLAGS.  Empty if not set.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vmake</B> doesn't really do much.  Perhaps
+<A HREF="vupdate.1.html"><B>vupdate</B>(1)</A> should (optionally) be invoked
+too.<P>
+
+Perhaps the name "vmake" should have been reserved for some kind of
+Makefile-compatibility tool, but as yet there is none.
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vadvance.1.html"><B>vadvance</B>(1)</A>, 
+<A HREF="vesta.1.html"><B>vesta</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

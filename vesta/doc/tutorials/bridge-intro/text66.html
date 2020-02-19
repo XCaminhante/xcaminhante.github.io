@@ -1,0 +1,20 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 67</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text65.html">Back</a> <a href="text67.html">Continue</a> <a href="text68.html">Last page</a> <a href="bridge-intro.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Top-level Model Changes</h1><p>
+<ul><li><h2>bridge_args = [ command = &quot;grep&quot;, bridge_name = &quot;grep&quot;,</h2>
+<li><h2>                root = ./build_root_delayed(&lt;&quot;grep&quot;, &quot;glibc&quot;&gt;) ];</h2>
+<ul><li>This sets up the bridge specialization arguments
+<li>./build_root_delayed is like ./build_root, but it returns a function which will build the root filesystem later
+</ul><li><h2>. ++= grep_bridge(bridge_args)</h2>
+<ul><li>This passes the arguments to the bridge model as “.”
+<ul><li>Remember: imported models have one implicit argument which is “.”
+</ul></ul></ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

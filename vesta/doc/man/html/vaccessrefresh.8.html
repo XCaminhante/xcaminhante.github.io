@@ -1,0 +1,128 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vaccessrefresh - Ask the Vesta repository to refresh its
+access control tables</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vaccessrefresh(8)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vaccessrefresh</B> - Ask the Vesta repository to refresh its access
+control tables
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vaccessrefresh</B> [<A HREF="vaccessrefresh.8.html#-R">-R <I>repos</I></A>]
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vaccessrefresh.8.html#Description">Description</A>
+<LI> <A HREF="vaccessrefresh.8.html#Flags">Flags</A>
+<LI> <A HREF="vaccessrefresh.8.html#Configuration">Configuration</A>
+<LI> <A HREF="vaccessrefresh.8.html#Limitations">Limitations</A>
+<LI> <A HREF="vaccessrefresh.8.html#See_Also">See Also</A>
+<LI> <A HREF="vaccessrefresh.8.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The <B>vaccessrefresh</B> command is an administrative utility which
+asks the repository to refresh its in-memory access control
+information.<P>
+
+A successful refresh will make the repository aware of all changes to
+its host operating system's user and group databases, as well as
+changes to the repository's export, alias, and group files.<P>
+
+<B>vaccessrefresh</B> returns status 0 for success, 1 for configuration
+errors, or 2 for network, permissions, or parsing errors.
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-R">-R <I>repos</I></A><DD>
+Make the access control refresh request to <I>repos</I> instead of the
+default local repository.  The repository is specified by host name
+and TCP port number in the format <I>host</I><TT>:</TT><I>port</I>.  The
+<TT>:</TT><I>port</I> portion may be omitted; it defaults to
+<A HREF="vaccessrefresh.8.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[Repository]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+The default TCP port number for repositories.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Only an administrator can perform this operation.  All other users
+will be denied permission.<P>
+
+Any errors in parsing the repository's access control files (export,
+alias, and group) will abort the refresh of access control
+information, leaving the repository's in-memory tables unchanged.  Any
+such errors will be reported to the client and displayed for the user.
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="repository.8.html#AccessControl"><B>repository</B>(8), "Access Control" section</A>,
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Ken Schalk
+&lt;<A HREF="mailto:ken@xorian.net"><TT>ken@xorian.net</TT></A>&gt;
+<PRE>
+Last modified on Wed Jan 22 23:00:58 EST 2003 by ken@xorian.net
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,100 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>CreateCacheDirs(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>CreateCacheDirs(1)</H2>
+
+<H3>NAME</H3>
+<BLOCKQUOTE>
+<P>
+
+CreateCacheDirs - create directories required by the Vesta-2 cache server
+</BLOCKQUOTE>
+
+<H3>SYNOPSIS</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>CreateCacheDirs</B>
+[ <B>-n</B> ]
+</BLOCKQUOTE>
+
+<H3>DESCRIPTION</H3>
+<BLOCKQUOTE>
+<P>
+
+If they don't exist, <I>CreateCacheDirs</I> creates directories
+required by the Vesta-2 cache server in the current directory. If the
+<B>-n</B> switch is used, <I>CreateCacheDirs</I> prints what it would do,
+but does not actually create any directories.<P>
+
+The cache servers's files are stored in directories according to names
+in the Vesta-2 configuration file. In particular, the following
+variables from the <I>CacheServer</I> section of the configuration file
+name directories created by <I>CreateCacheDirs</I>:
+<PRE>
+[CacheServer]
+MetaDataRoot     - root of Vesta-2 meta-data
+  MetaDataDir    - root of cache server meta-data sub-tree
+    SVarsDir     - root of stable variables sub-tree
+    SCacheDir    - root of stable cache entries sub-tree
+    WeededLogDir - directory containing log of weeded MPKFiles
+    CacheLogDir  - directory containing the cache log
+    GraphLogDir  - directory containing the graph log
+    CILogDir     - directory containing the used cache index log
+</PRE>
+
+Nesting indicates how the directory tree corresponding to these names
+is structured. If the <I>MetaDataRoot</I> value is the empty string,
+then the current directory is used.<P>
+
+The following variable from the <I>Weeder</I> section of the
+configuration file names a directory created by <I>CreateCacheDirs</I>:
+<PRE>
+[Weeder]
+  MetaDataDir    - directory containing the Weeder's metadata
+</PRE>
+
+The weeder's meta-data directory is iterpretted relative to the cache
+server's meta-data root.<P>
+
+<I>CreateCacheDirs</I> does not create a directory for
+<I>MetaDataRoot</I>, but only for those directories named underneath it.
+You should be sure that the directory named by the
+<I>MetaDataRoot</I> configuration variable already exists. It it is an
+absolute pathname (as is usually the case), then <I>CreateCacheDirs</I>
+can be run from any directory.
+</BLOCKQUOTE>
+
+<H3>SEE ALSO</H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="CleanCache.1.html">CleanCache(1)</A>,
+<A HREF="EraseCache.1.html">EraseCache(1)</A>,
+<A HREF="ShowCache.1.html">ShowCache(1)</A>,
+<A HREF="VCache.1.html">VCache(1)</A>
+</BLOCKQUOTE>
+
+<H3>AUTHOR</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Last modified on Thu Nov  8 12:48:54 EST 2001 by ken@xorian.net
+     modified on Mon Jul  7 14:13:03 PDT 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>
+TML>

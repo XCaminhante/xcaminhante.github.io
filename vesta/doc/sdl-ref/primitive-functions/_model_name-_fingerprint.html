@@ -1,0 +1,110 @@
+<HTML>
+<HEAD>
+   <META NAME="Author" CONTENT="Kenneth C. Schalk">
+   <TITLE>Vesta SDL Primitive Function: _</TITLE>
+</HEAD>
+<body bgcolor="#efefff">
+
+<H4><A NAME="_model_name"><TT>_model_name(<i>m</i>: function): text</TT></A></H4>
+
+<p>
+
+<tt><i>m</i></tt> must be a model (i.e. the value of a variable
+defined in <a href="../models.html#import">the <tt>import</tt>
+clause</a> of a model).&nbsp; The result will be one full path for
+<tt><i>m</i></tt> in the Vesta repository.
+
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">from /vesta/vestasys.org/vesta import
+  eval/4;
+{
+  n = _model_name(eval);
+
+  // n == &quot;/vesta/vestasys.org/vesta/eval/4/build.ves&quot;
+}</font></pre>
+</td></tr></table>
+
+<p>
+
+Note that if the same model exists in an identical directory with a
+different path, that path can be returned even if that is not the path
+which was used to import <tt><i>m</i></tt>.&nbsp; (This happens fairly
+often, as a checked in version is usually identical to the last
+snapshot taken with <a
+href="../../man/html/vadvance.1.html"><tt>vadvance</tt></a>.  See <a
+href="../../man/html/vcheckin.1.html#Description">the
+diagram in the <tt>vcheckin</tt> man page</a>.)
+
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">from /vesta/foobar.com/project import
+  package/12;
+{
+  n = _model_name(package);
+
+  // n == &quot;/vesta/foobar.com/project/package/12/build.ves&quot;
+  //   <i>OR</i>
+  // n == &quot;/vesta/foobar.com/project/package/checkout/12/23/build.ves&quot;
+}</font></pre>
+</td></tr></table>
+
+<p>
+<tt>_model_name</tt> is probably most useful in conjunction with <a
+href="../expressions.html#_self">the &quot;<tt>_self</tt>&quot;
+special variable</a>.
+</p>
+
+<p>
+Take care when using <tt>_model_name</tt>, as it can introduce
+dependencies into your build which will cause re-evaluation that may
+not be necessary.
+</p>
+
+<H4><A NAME="_fingerprint"><TT>_fingerprint(<i>v</i>: any): text</TT></A></H4>
+
+<p>
+Returns a text representation of <tt><i>v</i></tt>'s
+<i>fingerprint</i>.&nbsp; A fingerprint is a 128-bit value which is chosen
+such that the probability of two different values having the same
+fingerprint is very low.&nbsp; However, two identical values may have
+different fingerprints in different evaluations or when
+<tt>_fingerprint</tt> is called at different points in the evaluation.
+</p>
+
+<table border=1 width="100%" bgcolor="#FFFFFF"><tr><td align=left>
+<pre><font color="#000000">fp = _fingerprint(&quot;foobar&quot;);
+
+// fp == &quot;f0b413200100000002000000d0804844&quot;</font></pre>
+</td></tr></table>
+
+<p>
+Fingerprints are used internally by the evaluator and the cache server
+to facilitate incremental builds.&nbsp; Most of the time, there's no
+need to use them.&nbsp; However, they can be useful as version stamps
+for Vesta evaluations.&nbsp; Two identical models in identical
+directories will have the same fingerprint, even though
+<tt>_model_name</tt> may return different values for each of them.
+</p>
+
+<p>
+When source files are added to the repository, they often have their
+fingerprint assigned based on their content (essentially a
+check-sum).&nbsp; (See <a href="../../man/html/vadvance.1.html#-F">the
+<tt>vadvance</tt> man page</a>.)&nbsp; Derived files can also be
+assigned fingerprints based on their content.&nbsp; (See <a
+href="_run_tool.html#_run_tool">the documentation of the
+<tt>_run_tool</tt> function</a>, specifically its <tt>fp_content</tt>
+parameter.)
+
+</p>
+
+<HR>
+<i>Kenneth C. Schalk
+&lt;<a href="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</a>&gt;</i>
+/ <A HREF="index.html">Primitive Functions</A>
+/ <A HREF="../index.html">Vesta SDL Programmer's Reference</A></I>
+</BODY>
+</HTML>

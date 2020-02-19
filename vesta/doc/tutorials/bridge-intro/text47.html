@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 48</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text46.html">Back</a> <a href="text48.html">Continue</a> <a href="text68.html">Last page</a> <a href="bridge-intro.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Investigating The Problem</h1><p>
+<ul><li><h2>Let's see what shared libraries our imported grep needs:</h2>
+<li><h2>% cd /vesta/example.com/platforms/linux/redhat/i386/components/grep/2.4.2-5/1/root</h2>
+<li><h2>% ldd bin/grep </h2>
+<li><h2>        libc.so.6 =&gt; /lib/libc.so.6 (0x40025000)</h2>
+<li><h2>        /lib/ld-linux.so.2 =&gt; /lib/ld-linux.so.2 (0x40000000)</h2>
+<li><h2>grep must be looking for the C run-time library (libc.so)</h2>
+<ul><li>Most programs need this to run
+<li>We need to ask ./build_root to include this for us when we call it
+</ul></ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

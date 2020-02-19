@@ -1,0 +1,679 @@
+<!DOCTYPE HTML PUBLIC "html.dtd">
+<HTML>
+<!-- 
+$Id: comparison.html,v 1.13 1999/03/04 22:00:00 mann Exp $
+-->
+<HEAD>
+<TITLE>Assessment of Various SCM Systems</TITLE>
+</HEAD>
+<BODY BGCOLOR="#efefff">
+
+<H2>About This Document</H2>
+
+<p>
+
+The following comparison was written by the original Vesta developers
+some time ago.  It compares and contrasts Vesta to RCS, CVS, and Make.
+
+
+Today there are many other alternatives available.  Like Vesta, they
+each try to address some of the failings of older systems
+(e.g. RCS/CVS+Make).
+
+
+Unfortunately, the current Vesta maintainers haven't found the time to
+get familiar enough with these new options to provide an in-depth
+analysis of the pros and cons of the modern alternatives.
+
+</p>
+
+<p>
+
+The comparison below is still worth reading.  You might find also find
+
+<a href="http://better-scm.berlios.de/comparison/"> Shlomi Fish' &quot;Better SCM&quot; comparison</a>
+
+useful.  It compares several modern versioning systems, including
+Vesta.  (Unlike the comparison on this page, it <em>doesn't</em> cover
+building.)
+
+</p>
+
+<hr>
+
+<H2>Assessment of Various SCM Systems</H2>
+
+<P>This document attempts to assess the pros and cons of various
+software configuration management (SCM) systems. It is intended to be
+used by organizations evaluating whether or not Vesta is suitable to
+their needs. As with any such assessment, whether to classify an item
+as a pro for one system or a con of another is a subjective decision.
+
+<P>The core SCM domain can be roughly divided into four areas:
+<DL>
+<DT><B>Versioning</B></DT>
+<DD>Versioning is the facility for assigning version numbers to
+(collections of) source files.</DD>
+<P>
+<DT><B>Source Control</B></DT>
+<DD>Source control is the mechanism by which new versions are checked
+out and checked in.</DD>
+<P>
+<DT><B>Configuration Management</B></DT>
+<DD>A software artifact consists of multiple components, each of which
+is built from some (versions of) the sources. Configuration management
+is the mechanism for specifying which components go together to make
+the final artifact.</DD>
+<P>
+<DT><B>Building</B></DT>
+<DD>Building is the process for turning sources into derived files.</DD>
+</DL>
+For each of the SCM systems evaluated below, we indicate which of
+these four areas it addresses.
+
+<P>This document covers the following SCM systems:
+<UL>
+<LI><A HREF="comparison.html#RCS">RCS</A></LI>
+<LI><A HREF="comparison.html#CVS">CVS</A></LI>
+<LI><A HREF="comparison.html#Make">Make</A></LI>
+<LI><A HREF="comparison.html#Vesta">Vesta</A></LI>
+</UL>
+
+<HR>
+
+<H2><A NAME=RCS>RCS</A> (Revision Control System)</H2>
+
+<P>RCS handles versioning and source control. It is often used in
+conjunction with <A HREF="comparison.html#Make">Make</A>.</P>
+
+<H3>Pros</H3>
+
+<UL>
+<LI><I>simple</I></LI>
+<P>
+<LI><I>well-documented</I></LI>
+</UL>
+
+<H3>Cons</H3>
+
+<UL>
+<LI><I><A NAME="RCS-CheckoutReqd">no direct access to older
+versions</A></I></LI>
+<P>In RCS, a separate checkout step is required to access an
+older version of a file. Hence, older versions are not directly
+accessible to tools like text editors. By default, the tools
+check out all versions under the same name, so it is a bit
+awkward to examine two versions of a file at once, although a
+special RCS-aware version of diff (<I>rcsdiff</I>) is provided
+that can compare two versions without checking them out.
+</P>
+<LI><I>awkward tagging facilities</I></LI>
+<P>In RCS, the unit of check-in/-out is the file. To keep track of
+which versions of all files go together, the user can attach the same
+tag to the files. But the whole tagging facility is somewhat awkward.
+</P>
+</UL>
+
+<HR>
+
+<H2><A NAME=CVS>CVS</A> (Concurrent Version System)</H2>
+
+<P>CVS handles versioning and source control. It is often used in
+conjunction with <A HREF="comparison.html#Make">Make</A>.</P>
+
+<H3>Pros</H3>
+
+<UL>
+<LI><I>well-documented</I></LI>
+<P>
+<LI><I>unit of check-in/-out is the module, an arbitrary directory
+tree</I></LI>
+<P>Portions of a module (such as subdirectories or groups of files)
+may also be checked out, but most often, modules are checked out in
+their entirety.
+</P>
+<LI><I>division of sources into modules is less important due to
+support for concurrent updates</I></LI>
+<P>In CVS, any developer can edit any file at any time. Hence, the
+division of files into modules is less important than if only one
+developer could be editing the files in a module at once. Some CVS
+operations do cause individual files to be locked for short periods of
+time, but for the most part developers may edit files and perform CVS
+operations on them freely.
+</P>
+<LI><I>support for vendor releases</I></LI>
+<P>Vendor releases can be checked into CVS and tagged as such. The
+normal differencing tools can then be used to import the release
+(paying careful attention to the resulting &quot;merge&quot; reports!).
+</P>
+<LI><I>support for remote access</I></LI>
+<P>CVS supports the ability for updates to be performed on a source
+repository from geographically remote locations.
+</P>
+</UL>
+
+<H3>Cons</H3>
+
+<UL>
+<LI><I><A NAME="CVS-CheckoutReqd">no direct access to older
+versions</A></I></LI>
+<P>As in <A HREF="comparison.html#RCS-CheckoutReqd">RCS</A>, a separate checkout step
+is required to access older source versions.
+</P>
+<LI><I>conflict detection is simple-minded</I></LI>
+<P>Because CVS allows multiple developers to modify the same file
+concurrently, it must detect conflicting edits to the same file.
+However, the algorithm it uses is based on diff3, a line-based
+tool.
+</P>
+<LI><I>semantic conflicts may go undetected</I></LI>
+<P>If CVS does not detect a conflict, it silently merges the changes
+made by multiple developers. As a result, some true conflicts may go
+undetected.
+</P>
+<LI><I>conflicts can be difficult to resolve when they occur</I></LI>
+<P>This problem is just a fact of life when multiple developers can
+edit files at will within the same module. CVS proponents claim that
+true conflicts are rare, but they definitely do occur, and when they
+occur, the cost of both detecting and correcting them is quite high.
+</P>
+<LI><I>check-in/-out not atomic with respect to each other</I></LI>
+<P>If user <I>A</I> is checking in a module at the same time that user
+<I>B</I> is checking out that module, user <I>B</I> may get some
+older file versions and some of the newer ones that <I>A</I> is
+checking in. Moreover, CVS provides no indication to <I>B</I> that he
+has checked out an inconsistent version of the module, so <I>B</I> has
+no way of knowing to repeat the checkout operation. These points are
+described in the <A HREF="http://www.cvshome.org/docs/manual/cvs_10.html#SEC88">on-line CVS documentation</A>.
+</P>
+<LI><I>check-in/-out can be slow</I></LI>
+<P>Because check-in and check-out copy files between a user's local
+work area and the central repository, the time required for
+check-in/-out is proportional to the number of files that must be
+copied. In typical usage, only a portion of a module must be copied.
+However, there are occasions when whole modules must be copied; in
+those cases, check-in and check-out can be time-consuming operations.
+</P>
+<LI><I>tagging a module can be slow</I></LI>
+<P>When a module is tagged, say for a release, each of the files in
+the module must be updated. This can be a slow operation.
+</P>
+</UL>
+
+<HR>
+
+<H2><A NAME=Make>Make</A></H2>
+
+<P>Make handles configuration management (without explicit version
+numbers) and building. It is often used in conjunction with <A HREF="comparison.html#RCS">RCS</A> or <A HREF="comparison.html#CVS">CVS</A>.</P>
+
+<H3>Pros</H3>
+
+<UL>
+<LI><I>widely used</I></LI>
+<P>
+<LI><I>simple syntax (although somewhat cryptic)</I></LI>
+<P>
+<LI><I>easy to use</I></LI>
+<P>
+<LI><I>can be adapted to tasks other than building software</I></LI>
+<P>For example, Make can be used to &quot;build&quot; documents by invoking
+LaTeX and dvips.
+</P>
+</UL>
+
+<H3>Cons</H3>
+
+<UL>
+<LI><I><A NAME="make-scale">scales poorly</A></I></LI>
+<P>Ignoring the time spent outside of Make proper running the actual
+build tools, the time required by Make to do a build is proportional
+to the size of the software being built, not to the amount of
+incremental work that must be done.
+</P>
+<LI><I>dependencies must be specified explicitly</I></LI>
+<P>Dependencies of objects on the sources from which they were built
+must be listed in the Makefile. This is a completely manual process.
+Tools like makedepend(1) help, but makedepend suffers from several
+problems: it is slow, it works only for C/C++ sources, it does not
+detect all dependencies (e.g., dependencies on tools or other
+non-C/C++ files read during the build), and it must still be run by
+hand. Because it is slow, developers tend not to run makedepend as
+often as they should. As a result, the potential for producing an
+inconsistent build is increased.
+</P>
+<LI><I>many dependencies are inexpressible or simply too costly to
+express</I></LI>
+<P>An example of an inexpressible dependency is a dependency on the
+value of an environment variable read during the build. An example of
+a dependency that is too costly to express is a dependency on the
+Makefile itself; this dependency is usually omitted because it would
+cause all derived files to appear stale any time even an
+inconsequential edit was made to the Makefile. Because the dependency
+is omitted, developers must often delete a subset of their derived
+files to force a recompilation whenever they change the Makefile
+instructions to build those files. This process is quite error-prone.
+</P>
+<LI><I>missing/incorrect dependencies can lead to inconsistent
+builds</I></LI>
+<P>An <I>inconsistent build</I> results when one component of a software
+system was compiled against one version of a source, and another
+component was compiled against a different version of that source. The
+resulting software system may fail to operate or, even worse, it may
+run but have mysterious bugs. Because Make's dependency mechanism has
+the problems listed above, the only guaranteed way to produce a
+consistent build using Make is to do it from scratch.
+</P>
+<LI><I>Make's language is too limited</I></LI>
+<P>The downside of using a simple language is that all of Make's
+operations are quite low-level. The Make language does not include
+any facility for defining more abstract, high-level building
+operations. To make up for this deficit, people have written tools
+like smake and imake, but they are awkward to use and require an extra
+processing step.
+</P>
+<LI><I><A NAME="Make-NoVersioning">little or no integration with
+versioning tools</A></I></LI>
+<P>Some variants of Make are integrated with RCS to the extent that
+Make can be made to check out the latest version of a source file if it
+does not exist in the source directory. But version numbers are still
+completely absent from most Makefiles. Hence, configuration management
+must be done by hand: to build some arbitrary configuration, the user
+must manually check out all the right versions of the sources before
+invoking make on them.
+</P>
+<LI><I>dependency analysis based on timestamps is problematic</I></LI>
+<P>Make's test that a derived file has become stale is based on the
+last-modified times of the derived file and all of the sources
+contributing to it. This is problematic, especially when building from
+older source versions. After checking out older source versions, the
+timestamps of the sources will most likely precede that of the derived
+file, so Make will think the derived file is up-to-date! The
+developer's only recourse in that situation is to manually delete the
+derived files and perform a scratch build.
+</P>
+</UL>
+
+<HR>
+
+<H2><A NAME=Vesta>Vesta</A></H2>
+
+<P>Vesta handles versioning, source control, configuration management
+(with explicit version numbers), and building.</P>
+
+<H3>Pros</H3>
+
+<UL>
+<LI><I>repeatability</I></LI>
+<P>Any piece of software that has been built before can be built
+<I>identically</I> again.
+</P>
+<LI><I>automatic dependency detection - no more makedepend!</I></LI>
+<P>Vesta detects all dependencies automatically, including dependencies
+on build tools and the build instructions themselves. It also detects
+dependencies on the <I>non</I>-existence of files, an important
+property.
+</P>
+<LI><I>guaranteed consistency</I></LI> <P>In principle, every Vesta
+build is done from scratch. In practice, Vesta's caching technology is
+used to make all builds incremental. But because Vesta detects all
+dependencies automatically, the software artifacts produced by Vesta
+are guaranteed to be consistent.
+</P>
+<LI><I>builder is integrated with the version control system</I></LI>
+<P>In Vesta, the build instructions name particular versions of all the
+sources that contribute to the build. Hence, in contrast to <A HREF="comparison.html#Make-NoVersioning">Make</A>, Vesta does true configuration
+management. Because sources are versioned at the granularity of
+packages, and because most file references are within a package (in
+which case no version number need be specified), specifying version
+numbers in Vesta is not unduly burdensome.
+</P>
+<LI><I>better performance than Make</I></LI>
+<P>Vesta outperforms Make, especially on incremental builds. The
+larger the software you are building, the better Vesta looks in
+comparison to Make. The main reason for Vesta's advantage is that the time
+spent in the Vesta builder is proportional to the incremental amount of
+building work required, not to the size of the software being built,
+<A HREF="comparison.html#make-scale">as in Make</A>.
+</P>
+<LI><I>designed to scale to large software</I></LI>
+<P>The entire Vesta system was designed with an eye toward
+scalability, both in the size of the software to be built and in the
+number of developers it can support. The system was designed to build
+systems containing 20 million lines of code, but it still works quite
+well on even modest-sized programs.
+</P>
+<LI><I><A NAME=flexibility>flexible system modeling language</A></I></LI>
+<P>In Vesta, the build instructions take the form of a program written
+in the Vesta system modeling language, a functional programming
+language. Hence, it is easy to define new functions representing
+high-level build operations. The build description for a large,
+complex system can thus be made much simpler and more maintainable by
+splitting it into many small, parameterized, reusable modules.
+</P>
+<LI><I><A NAME="vesta-multi">good support for parallel development
+by multiple developers</A></I></LI>
+<P>In Vesta, each developer has control over when he sees new versions
+produced by other developers. This property allows each developer to work
+productively in isolation, without being hampered by untimely changes
+made by others. Vesta also makes it easy for a developer to see how his
+changes to a local component affect the build of the entire system,
+again without affecting the progress of other developers.
+</P>
+<LI><I>site-wide cache means developers benefit from each others'
+builds</I></LI>
+<P>Vesta's single site-wide cache &quot;remembers&quot; the build work done by
+every developer. Since the cache is shared by all developers at the same
+site, they can benefit from each others' builds. Moreover, the work
+done by a developer during a checkout session can be re-used during
+a complete release build after the checkout session is over -- so
+release builds are often very quick.
+</P>
+<LI><I>customized builds</I></LI>
+<P>The <A HREF="comparison.html#flexibility">flexibility</A> of the Vesta system
+modeling language allows the &quot;bridges&quot; to the construction tools to
+be highly parameterized, thereby allowing a wide variety of customized
+builds to be supported. Example customizations include overriding
+which package versions are used in a build and overriding the
+command-line switches used to build the entire program, a library, or
+even a single file.
+</P>
+<LI><I><A NAME="derived-mgmt">derived files are managed
+automatically</A></I></LI>
+<P>Derived files produced during the course of a build are managed
+automatically by Vesta. The final results of the build can easily be
+copied out of Vesta into a standard file system.
+</P>
+<LI><I>multi-target builds</I></LI>
+<P>Because Vesta <A  HREF="comparison.html#derived-mgmt">manages derived files
+automatically</A>, building for multiple target platforms is easier.
+The target platform is one of the parameters to the build
+process.
+</P>
+<LI><I>direct access to older versions</I></LI> <P>Older source
+versions can be accessed directly by all standard tools through a
+filesystem interface; no separate checkout step is required to access
+older source versions as in <A
+HREF="comparison.html#RCS-CheckoutReqd">RCS</A> and <A
+HREF="comparison.html#CVS-CheckoutReqd">CVS</A>.
+</P>
+<LI><I><A NAME=attributes>repository attributes</A></I></LI> <P>The
+repository allows arbitrary name-value pairs to be associated with
+package versions and other directories. By default, the repository
+tools tag directories with attributes such as the time and date of
+check-out/-in, the person performing the operation, the previous
+version on which the changes were based, and change log
+messages. Attributes could also be used to tag package versions with,
+for example, quality assurance labels. Attributes can be read and set
+from the command-line using the <A
+HREF="man/html/vattrib.1.html">vattrib(1)</A> program.
+</P>
+<LI><I>fast check-in/-out</I></LI>
+<P>Check-in and check-out in Vesta are nearly instantaneous,
+regardless of the number of files in the package. The Vesta repository
+is able to achieve this speed because it also manages the user's
+mutable copy of the package, using copy-on-write techniques; the
+repository physically copies a file only when it is modified.
+</P>
+
+<LI><I>sophisticated support for code sharing among multiple sites</I></LI>
+
+<P>
+Vesta includes several features that enable groups at geographically
+distributed sites to do shared development.  There is <a
+href="man/html/vrepl.1.html">a flexible tool for replicating
+sources between repositories</a>. When a user at site <i>A</i> wishes
+to check out a package whose master copy is at site <i>B</i>, <a
+href="man/html/vcheckout.1.html">the checkout tool</a>
+automatically contacts the remote repository to request permission for
+the checkout.  When the user checks in a new version, it is
+automatically replicated back to the master site by <a
+href="man/html/vcheckin.1.html">the checkin tool</a>. There is also
+<a href="man/html/vmaster.1.html">another tool for transferring
+mastership</a> of individual packages or entire hierarchies to another
+repository.
+</P>
+
+</UL>
+
+<H3>Cons</H3>
+
+<UL>
+<LI><I>not widely used</I></LI>
+
+<p>
+
+Vesta has spent the majority of its life as an internal research
+project in Digital/Compaq.  Until 2001, it was only used by its
+developers and one significant Compaq-internal customer (the Alpha
+microprocessor group).
+
+</p>
+
+<p>
+
+Though Vesta is now available as free software, it gets the most use
+at Intel (which acquired the Alpha microprocessor group in 2001).  It
+is not as widely used as some other alternatives.
+
+</p>
+
+<LI><I>no guaranteed support</I></LI>
+
+<P>Vesta is the result of a years-long research project. It is not
+sold by a commercial vendor, nor is it bundled with commercial system
+software, so its continued support cannot be guaranteed. On the other
+hand, with the release of Vesta as free software, a self-supporting
+community of users and co-developers has the chance to grow, and even
+in the worst case users have access to the Vesta source code and can
+maintain it themselves.
+</P>
+
+<LI><I>user guide needed</I></LI>
+
+<P>
+A user guide is needed to instruct users on the Vesta methodology (see
+<A HREF="comparison.html#methodology">next point</A>).&nbsp; The set
+of documentation available continues to grow, but remains a little
+limited on the introductory end of the spectrum.&nbsp; The
+documentation avilable includes:
+</p>
+
+<ul>
+
+<li>
+<a href="getting-started.html">Installation and setup instructions</a>
+</li>
+
+<li>
+<a href="tutorial.html">A tutorial</a> that leads the user through
+creating a package and building a simple program
+</li>
+
+<li>
+Complete <A HREF="../index.html#man-pages">man pages</A> for all of the Vesta
+tools, as well as <a href="command-summary.html">a summary of how to
+use common Vesta commands</a>
+</li>
+
+<li>
+Both a <a href="sdl-ref/index.html">programmer's guide</a> to the system
+modeling language and <A HREF="sdl-spec/index.html">a more precise
+specification</A> of its syntax and semantics
+</li>
+
+<li>
+<a href="http://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/abstracts/src-rr-177.html">A
+detailed research report</a> describing the entire system
+</li>
+
+</ul>
+
+<p>
+This is perhaps less of a <i>con</i> than it was when this comparison
+was first written, but Vesta could still benefit from a more
+user-oriented overview of the entire system and
+<A HREF="comparison.html#methodology">its methodology</a>.
+</P>
+
+<LI><I><A NAME=methodology>training is required to learn the Vesta
+methodology</A></I></LI>
+<P>The Vesta methodology of building against
+immutable sources using complete build descriptions is rather
+different from what people are used to, so some training will be
+required for people to learn the Vesta tools and the rudiments of
+Vesta's system modeling language. As for the language, we expect that
+only a small number of people at a site will have to learn the
+language in any detail; most developers' system description files will
+take the form of highly stylized templates, and with a little
+investment can be manipulated solely through scripts or custom
+GUIs. Hence, most Vesta users should require very little understanding
+of the language.
+</P>
+
+<LI>
+<p>
+<I>Limited platform support; porting is not striaghtforward</I>
+</p>
+
+<P>
+As of this writing, Vesta runs on the following platforms:
+</p>
+
+<ul>
+
+<li>
+<i>Linux</i> with at least a 2.4 kernel on the following CPU
+architectures:
+</li>
+
+<ul>
+
+<li><i>IA-32 compatible processors</i> (Intel, AMD, Cyrix, etc.) </li>
+
+<li><i>Alpha</i></li>
+
+<li><i>PowerPC</i> (ported and tested on a 603e)</li>
+
+<li><i>Sparc</i> (ported and tested on a 32-bit micro-Sparc)</li>
+
+</ul>
+
+<li>
+<i>Compaq Tru64 UNIX on Alpha</i>, versions 4.0D through 4.0G.
+(It has not been tested on 5.0 or 5.1.)
+</li>
+
+</ul>
+
+<p>
+We attempted to make Vesta as portable as possible, so we believe it
+will not be difficult to port Vesta to other variants of UNIX.
+However, porting is complicated by the fact that Vesta is built using
+itself.  (No <tt>make</tt> instructions for building it exist.)  For
+the ports to Alpha and IA-32 Linux, we used a boot-strapping approach
+with a Tru64 system &quot;hosting&quot; the port.  (We plan on
+documenting this porting methodology in the near future.)
+</P>
+
+</LI>
+
+<LI><I>requires a small amount of administration to do
+weeding</I></LI>
+
+<P>Although Vesta <A HREF="comparison.html#derived-mgmt">manages
+derived files automatically</A>, a program called <a
+href="man/html/VestaWeed.1.html">the <I>weeder</I></a> must be run
+occasionally to delete unwanted derived files when the disk gets full.
+The frequency with which the weeder needs to be run depends on how
+quickly the backing disk fills up. Here are two data points:
+</p>
+
+<ul>
+<li> Using a relatively small (4GB)
+disk and with three people doing active development, we found it
+necessary to run the weeder once every two weeks or so. On that size
+disk, weeding takes 10-15 minutes. </li>
+
+<li> Another site used a much larger disk (100GB) with 100-150 active
+developer.  They found it necessary to run the weeder about once a
+week, and the weeder would run for more than an hour.</li>
+
+</ul>
+
+<p>
+Weeding can be automated using <tt>cron</tt>(8), and Vesta builds can
+still be performed while weeding is in progress; thus the weeder
+really imposes little administrative burden, and it has no noticeable
+impact on the average user.
+
+</P>
+
+<LI><I>few high-level tools written for &quot;querying&quot; the source
+repository</I></LI>
+<P>We have written relatively few high-level tools for performing
+queries on the source repository, such as, for example, asking which
+files have been checked in over the last 24 hours. We expect that such
+tools would be relatively easy to write. Such tools might also exploit
+the user-defined attribute values <A HREF="comparison.html#attributes">described
+above</A>.
+</P>
+
+<LI><I>locking is at the granularity of packages</I></LI>
+<P>As opposed to <A HREF="comparison.html#RCS">RCS</A>, locking in Vesta is at the
+granularity of collections of files called <I>packages</I>. This
+approach has its advantages, but is unfamiliar to most people. When
+two developers need to change files in the same package concurrently,
+at least one must create a branch in the version number sequence. This
+can become burdensome if it needs to be done often, though it can
+usually be avoided by a careful choice (and readjustment if
+necessary) of package boundaries.
+</P>
+
+<LI><I>no way to force developers to build against the latest
+version</I></LI>
+<P>One consequence of Vesta's support for
+<A HREF="comparison.html#vesta-multi">multiple developers</A> is that there is no way
+to actually <I>force</I> all developers to build against the latest
+version of some package. In the Vesta group, we simply announce the
+availability of new package versions on a central bboard, and each
+project member then invokes the
+<A HREF="man/html/vupdate.1.html">vupdate(1)</A> tool to pick up the latest version when he is ready
+for it. Stronger means of encouraging developers to run vupdate could
+easily be added, but we believe it would negate one of Vesta's
+greatest strengths if developers could be forced to take new versions
+before they were ready to accept them.
+</P>
+
+<LI><I>poor support for &quot;incremental&quot; tools</I></LI>
+
+<P>A tool is <I>incremental</I> if it reads and overwrites a derived
+file that it produced during a previous build. For example, the Unix
+<I>ar</I> tool can be invoked with switches that cause it to
+incrementally rewrite a library archive. Incremental tools run counter
+to the entire Vesta approach: Vesta can guarantee that all builds are
+repeatable only because the instructions for building an artifact say
+how that artifact should be built from scratch. But incremental tools
+require that the inputs to a build step are based on the results of a
+previous build. Hence, Vesta does not support incremental tools very
+well.
+</p>
+
+<p>
+This is not to say that one cannot use tools in an incremental mode
+under Vesta, just that it is inconvenient and sometimes inefficient to
+do so.
+</P>
+
+</UL>
+
+<HR>
+
+<a href="../index.html">Back to the Vesta home page</a><br>
+
+<!-- hhmts start -->
+Last modified: Thu Jan 29 13:46:07 EST 2004
+<!-- hhmts end -->
+
+</BODY>
+</HTML>

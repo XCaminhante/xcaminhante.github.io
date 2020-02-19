@@ -1,0 +1,308 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>PrintMPKFile(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>PrintMPKFile(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+PrintMPKFile - print the contents of Vesta-2 MultiPKFiles
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>PrintMPKFile</B>
+[ <A HREF="PrintMPKFile.1.html#-verbose"><B>-verbose</B></A> ]
+[ <A HREF="PrintMPKFile.1.html#-html"><B>-html</B></A> [<I>directory</I>] ]
+[ <A HREF="PrintMPKFile.1.html#-url-patterns"><B>-url-patterns</B></A> <I>mpkfile-pattern</I> <I>pkfile-pattern</I> <I>cfp-group-pattern</I> <I>entry-pattern</I> ]
+<I>file</I> ...2
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="PrintMPKFile.1.html#DescSect">Description</A>
+<UL>
+<LI> <A HREF="PrintMPKFile.1.html#TextSect">Text Output</A>
+<LI> <A HREF="PrintMPKFile.1.html#HTMLSect">HTML Output</A>
+</UL>
+<LI> <A HREF="PrintMPKFile.1.html#OptionsSect">Options</A>
+<LI> <A HREF="PrintMPKFile.1.html#ConfigSect">Configuration Variables</A>
+<LI> <A HREF="PrintMPKFile.1.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="DescSect">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<I>PrintMPKFile</I> prints the contents of Vesta-2 MultiPKFile(s)
+<I>file</I>. A MultiPKFile is a file written by the Vesta-2 cache
+server; it contains persistent cache entries. If <I>file</I> is a
+relative pathname, it is interpreted relative to the cache server's
+directory of stable cache entries as specified by the Vesta
+<A HREF="PrintMPKFile.1.html#ConfigSect">configuration file</A>.<P>
+
+A MultiPKFile is a collection of PKFiles. A PKFile is a collection of
+cache entries with the same primary key. Within a PKFile, the cache
+entries are grouped by a secondary key, namely, the combined
+fingerprint of the values of the entry's common names. See
+<A HREF="MultiPKFile.5.html">MultiPKFile(5)</A> for a complete description
+of the MultiPKFile file format.
+</BLOCKQUOTE>
+
+<H3><A NAME="TextSect">Text Output</A></H3>
+<BLOCKQUOTE>
+<P>
+
+By default, a consice representation of the named MultiPKFiles are
+written. This concise representation does not include the contents of
+the cache entries themselves; only the number of cache entries with
+particular primary and secondary keys are printed. If
+<A HREF="PrintMPKFile.1.html#-verbose"><B>-verbose</B></A> is specified, then the complete
+contents of the named MultiPKFiles are printed.
+</BLOCKQUOTE>
+
+<H3><A NAME="HTMLSect">HTML Output</A></H3>
+<BLOCKQUOTE>
+<P>
+
+If <A HREF="PrintMPKFile.1.html#-html"><B>-html</B></A> is specified, a collection of HTML files
+representing the complete contents of the named MultiPKFiles are
+generated.<P>
+
+When generating HTML, the output filenames are based on uniquely
+identifying information for each component.  This makes it possible to
+generate HTML from multiple MultiPKFiles is a single directory.
+Specifically the filenames generated are as follows:<P>
+
+<DL>
+
+<DT>mpkfile_<I>XXXX</I>.html<P>
+
+<DD>The top-level HTML file for each MultiPKFile.  The name includes the
+four-digit hexadecimal <I>primary key prefix</I> which uniquely identifies this
+MultiPKFile.  Example:
+<PRE>
+mpkfile_2692.html
+</PRE>
+
+<DT>pkfile_<I>XXXXXXXXXXXXXXXX</I>_<I>XXXXXXXXXXXXXXXX</I>.html<P>
+
+<DD>An HTML file is generated for each PKFile. The name includes the
+128-bit <I>primary key</I> in hexadecimal.  Example:
+<PRE>
+pkfile_269213d607e78eff_df0df13ff2a2b0c4.html
+</PRE>
+
+<DT>pkfile_<I>XXXXXXXXXXXXXXXX</I>_<I>XXXXXXXXXXXXXXXX</I>_cfp_<I>XXXXXXXXXXXXXXXX</I>_<I>XXXXXXXXXXXXXXXX</I>.html<P>
+
+<DD>An HTML file is generated for each <I>common fingerprint group</I>. The
+name includes both the 128-bit <I>primary key</I> and the 128-bit
+<I>common fingerprint</I> in hexadecimal.  Example:
+<PRE>
+pkfile_269213d607e78eff_df0df13ff2a2b0c4_cfp_e644e8f54221bbb7_f534801e81349752.html
+</PRE>
+
+<DT>ci_<I>#</I>.html<P>
+
+<DD>An HTML file is generated for each individual cache entry.  The name
+includes the entry's <I>cache index</I> in decimal.  Example:
+<PRE>
+ci_134897.html 
+</PRE>
+
+</DL>
+<P>
+
+Each HTML file includes a set of links down to all the lower-level
+HTML files, and up to the enclosing HTML files.<P>
+
+The HTML output includes some additional information not present in
+the text output that may help in understanding the contents of the
+cache.  Specifically:<P>
+
+<UL>
+
+<LI> In each CFP group HTML file, a table is printed showing which
+secondary names are different between the current CFP group and the
+other CFP groups within the same PKFile.<P>
+
+<LI> In each CFP group HTML file, the set of uncommon secondary
+dependencies that are common between all entries in the CFP group are
+printed.<P>
+
+<LI> In cache entry files, derived files are turned into <TT>file://</TT>
+links into the repository's storage pool where applicable.<P>
+
+</UL>
+<P>
+
+Also, some information that's included in the text output but is
+primarily of interest when debugging the cache server is not included
+in the HTML output, including:<P>
+
+<UL>
+
+<LI> File offsets<P>
+
+<LI> The bit vectors representing the sets of common and uncommon
+names (<TT>commonNms</TT> and <TT>unFVs</TT>)<P>
+
+<LI> The fingerprints of the secondary dependencies recorded for each
+entry<P>
+
+<LI> The name index map (<TT>imap</TT>)<P>
+
+</UL>
+<P>
+
+The <A HREF="PrintMPKFile.1.html#-url-patterns"><B>-url-patterns</B></A> option makes it possible
+to customize the inter-page hyper-links.  This facilitates using a CGI
+gateway to PrintMPKFile.<P>
+
+Without the <A HREF="PrintMPKFile.1.html#-url-patterns"><B>-url-patterns</B></A> option, the
+inter-page links are simple relative file links.  As long as the
+generated HTML files are kept in a single directory, the links will
+work.  In other words, the default patterns are:<P>
+
+<UL>
+<LI> <TT>mpkfile_%m.html</TT>
+<LI> <TT>pkfile_%p.html</TT>
+<LI> <TT>pkfile_%p_cfp_%c.html</TT>
+<LI> <TT>ci_%i.html</TT>
+</UL>
+<P>
+
+<A HREF="PrintMPKFile.1.html#-url-patterns">The URL pattern replacements are described
+below</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="OptionsSect">Options</A></H3>
+<BLOCKQUOTE>
+<P>
+
+PrintMPKFile  recognizes the following command-line options:<P>
+
+<DL>
+
+<DT><A NAME="-verbose"><B>-verbose</B></A><P>
+
+<DD>When producing text output, causes the complete contents of the named
+MultiPKFiles to be printed.  When producing HTML output, causes the
+name of each generated HTML file to be printed.<P>
+
+<DT><A NAME="-html"><B>-html</B></A> [<I>directory</I>]<P>
+
+<DD>Generates HTML files representing the contents of the named
+MultiPKFiles, rather than text output.  The optional directory
+argument controls where the generated HTML files are written.  (The
+default is to write them in the current working directory.)<P>
+
+<DT><A NAME="-url-patterns"><B>-url-patterns</B></A> <I>mpkfile-pattern</I> <I>pkfile-pattern</I> <I>cfp-group-pattern</I> <I>entry-pattern</I><P>
+
+<DD>This option has no effect unless <A HREF="PrintMPKFile.1.html#-html"><B>-html</B></A> is also
+used.<P>
+
+With this option, the inter-page hyper-links can be customized.  This
+makes it possible to use a CGI gateway to PrintMPKFile.  The patterns
+include the following replacements:<P>
+
+<DL>
+
+<DT><B>%m</B><DD> The 4-digit hexadecimal <I>primary key prefix</I><P>
+
+<DT><B>%p</B><DD> The 128-bit <I>primary key</I> in hexadecimal, with '_'
+between the two 64-bit words<P>
+
+<DT><B>%n</B><DD> The <I>names epoch</I> as a decimal integer<P>
+
+<DT><B>%c</B><DD> The 128-bit <I>common fingerprint</I> in hexadecimal,
+with '_' between the two 64-bit words<P>
+
+<DT><B>%i</B><DD> The <I>cache index</I> in decimal<P>
+
+<DT><B>%%</B><DD> A literal '%'<P>
+
+</DL>
+<P>
+
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ConfigSect">Configuration Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Like most Vesta-2 applications, PrintMPKFile reads site-specific
+configuration information from a Vesta-2 <I>configuration file</I> named
+<I>vesta.cfg</I>. It first looks for this file in the current directory;
+if none is found there, it looks in your home directory.<P>
+
+The configuration file is divided into a number of sections, denoted
+in the file by <TT>[</TT><I>SectionName</I><TT>]</TT>. The variables used by
+PrintMPKFile are in the section denoted by <TT>[CacheServer]</TT>. Here
+are the relevant variables and their meanings; the types of the
+variables are shown in parentheses:<P>
+
+<DL>
+<DT><TT>MetaDataRoot</TT> (string)<DD>
+The pathname of the directory in which the Vesta system's metadata is
+stored. If this variable is undefined, the current directory is used.
+Other configuration variables are interpreted relative to this path.<P>
+
+<DT><TT>MetaDataDir</TT> (string)<DD>
+The directory (relative to the MetaDataRoot) in which the cache
+server's metadata is stored.<P>
+
+<DT><TT>SCacheDir</TT> (string)<DD>
+The directory (relative to the MetaDataRoot/MetaDataDir) in which the
+cache server stores cache entries.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="EraseCache.1.html">EraseCache(1)</A>,
+<A HREF="PrintCacheVal.1.html">PrintCacheVal(1)</A>,
+<A HREF="ShowCache.1.html">ShowCache(1)</A>,
+<A HREF="VCache.1.html">VCache(1)</A>,
+<A HREF="VCacheStats.1.html">VCacheStats(1)</A>,
+<A HREF="MultiPKFile.5.html">MultiPKFile(5)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+Allan Heydon
+(<TT>caheydon@yahoo.com</TT>)
+<PRE>
+Last modified on Fri Nov 14 11:05:16 EST 2003 by ken@xorian.net
+     modified on Thu May 29 15:33:32 PDT 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

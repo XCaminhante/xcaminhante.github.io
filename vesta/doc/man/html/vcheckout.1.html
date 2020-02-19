@@ -1,0 +1,740 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vcheckout - Check out a Vesta package</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vcheckout(1)</H2>
+
+<H3><A NAME="Name">Name</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vcheckout</B> - Check out a package from the Vesta repository.
+</BLOCKQUOTE>
+
+<H3><A NAME="Synopsis">Synopsis</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vcheckout</B> [<A HREF="vcheckout.1.html#-q">-q</A>] [<A HREF="vcheckout.1.html#-Q">-Q</A>] [<A HREF="vcheckout.1.html#-v">-v</A>]
+[<A HREF="vcheckout.1.html#-f">-f</A>] [<A HREF="vcheckout.1.html#-F">-F</A>]
+[<A HREF="vcheckout.1.html#-o">-o <I>old-version</I></A> | <A HREF="vcheckout.1.html#-O">-O</A>]
+[<A HREF="vcheckout.1.html#-n">-n <I>new-version</I></A> | <A HREF="vcheckout.1.html#-N">-N</A>]
+[<A HREF="vcheckout.1.html#-s">-s <I>session-dir</I></A> [<A HREF="vcheckout.1.html#-u">-u</A>] | <A HREF="vcheckout.1.html#-S">-S</A>]
+[<A HREF="vcheckout.1.html#-w">-w <I>work-dir</I></A> | <A HREF="vcheckout.1.html#-W">-W</A>]
+[<A HREF="vcheckout.1.html#-m">-m <I>message</I></A> | <A HREF="vcheckout.1.html#-M">-M</A>]
+[<A HREF="vcheckout.1.html#-h">-h <I>hints</I></A>]
+[<A HREF="vcheckout.1.html#-R">-R <I>repos</I></A>]
+[<I>package</I>]<P>
+
+In the most common usage, only the <I>package</I> argument is given.
+</BLOCKQUOTE>
+
+<H3><A NAME="Contents">Contents</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vcheckout.1.html#Description">Description</A>
+<LI> <A HREF="vcheckout.1.html#Flags">Flags</A>
+<LI> <A HREF="vcheckout.1.html#Message">Message Entry</A>
+<LI> <A HREF="vcheckout.1.html#Configuration">Configuration</A>
+<LI> <A HREF="vcheckout.1.html#Triggers">Triggers</A>
+<LI> <A HREF="vcheckout.1.html#Limitations">Limitations</A>
+<LI> <A HREF="vcheckout.1.html#Env_Vars">Environment Variables</A>
+<LI> <A HREF="vcheckout.1.html#See_Also">See Also</A>
+<LI> <A HREF="vcheckout.1.html#Author">Author</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Description">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+See the <A HREF="vesta-intro.1.html">vesta-intro</A> man page's
+<A HREF="vesta-intro.1.html#Terminology">Terminology</A> section
+for definitions of terms, and its
+<A HREF="vesta-intro.1.html#Name_Interpretation">Name Interpretation</A>
+section for an explanation of how names are looked up.<P>
+
+The <B>vcheckout</B> command checks out a package from the Vesta
+repository.  It reserves the next version number, creates a mutable
+working directory for editing the package, and creates a session
+directory to hold the immutable working versions that will be created
+during the checkout session.  It creates a new symbolic link
+<TT>latest</TT> in the session directory to point to the latest working
+version.<P>
+
+If omitted, <I>package</I> defaults to the current directory.
+If the name <I>package</I> is unqualified (does not have
+"<TT>/</TT>", "<TT>.</TT>", or "<TT>..</TT>"
+as its first arc), it is interpreted relative to the
+site's default directory of packages,
+<A HREF="vcheckout.1.html#Configuration"><I>DefaultPackageParent</I></A>.<P>
+
+<IMG SRC="vcheckout.gif" ALT="vcheckout figure"
+WIDTH=483 HEIGHT=437 BORDER=0>
+<P>
+
+In more detail, <B>vcheckout</B>:
+<UL>
+<LI> Prompts the user to enter a message about the intended change of
+the checkout.  (<A HREF="vcheckout.1.html#Message">See the "Message Entry" section
+below.</A>)
+<LI> Reserves the name <I>new-version</I> for a new public package version by
+creating a master stub by that name.
+<LI> Creates a checkout session directory named <I>session-dir</I>.  
+<LI> Binds the name <I>session-dir</I><TT>/0</TT> to the same
+immutable directory named by <I>old-version</I>.
+<LI> Creates a master stub named <I>session-dir</I><TT>/latest</TT>.
+<LI> Creates a mutable working directory named <I>work-dir</I>, 
+initializing its contents to the contents of <I>old-version</I>.  
+<LI> Sets the following attributes:
+<DL>
+<DT>On <I>new-version</I><DD>
+<TT>old-version</TT>, <TT>session-dir</TT>, <TT>work-dir</TT>, <TT>checkout-time</TT>,
+<TT>checkout-by</TT>, possibly <TT>checkout-from</TT> and <TT>checkout-to</TT>,
+and optionally <TT>message</TT>.
+<DT>On <I>old-version</I><DD>
+<TT>next-versions</TT> and <TT>next-sessions</TT>
+<DT>On <I>session-dir</I><DD>
+<TT>old-version</TT>, <TT>new-version</TT>, <TT>work-dir</TT>, <TT>checkout-time</TT>,
+<TT>checkout-by</TT>, <TT>type</TT> (= "session"), possibly <TT>checkout-from</TT>
+and <TT>checkout-to</TT>, and optionally <TT>message</TT>.
+<DT>On <I>session-dir</I><TT>/latest</TT><DD>
+<TT>symlink-to</TT> (= "$LAST").
+<DT>On <I>work-dir</I><DD>
+<TT>old-version</TT>, <TT>new-version</TT>, <TT>session-dir</TT>, <TT>session-ver-arc</TT>,
+<TT>checkout-time</TT>, and <TT>checkout-by</TT>.
+</DL>
+</UL>
+<P>
+
+Directory names used as attribute values are canonicalized to start with 
+"<TT>/</TT>", and settings are omitted where they do not apply.
+The <TT>checkout-by</TT> attribute is set to the invoking user's global name
+and the <TT>checkout-time</TT> attribute to the current date and time.<P>
+
+You must have read access to <I>old-version</I> and write access to the
+parent directories of the sources that <B>vcheckout</B> is to create.
+All the newly created sources are owned by you.
+The <I>session-dir</I> and the <I>new-version</I> stub have their
+access permissions set to <TT>0777 &amp; ~umask</TT>.
+Thus if your umask is 022, only you will have write access to them,
+so others will not be able to 
+<A HREF="vadvance.1.html"><B>vadvance</B>(1)</A> in your session or 
+<A HREF="vcheckin.1.html"><B>vcheckin</B>(1)</A> your reserved version number.
+The <I>work-dir</I> inherits its access permission from its parent directory.<P>
+
+In the presence of replication, a checkout cannot always be carried
+out entirely in the local repository.  In particular, the local
+repository may contain no replica of one of the needed objects, or it
+may contain a non-master replica where the master replica is needed.
+(See <A HREF="vrepl.1.html"><B>vrepl</B>(1)</A> 
+and <A HREF="vmaster.1.html"><B>vmaster</B>(1)</A> 
+for more information about
+replication and mastership.)  <B>vcheckout</B> handles such
+cases automatically, performing any of the following remote actions
+that prove necessary:
+<UL>
+<LI> Fill in defaults for <I>old-version</I> and <I>new-version</I>
+from the remote master copy of <I>package</I>.
+<LI> Obtain a unique name for <I>session-dir</I> from
+the remote master copy of its parent directory.
+<LI> Replicate <I>old-version</I> into the local repository.
+<LI> Create the <I>new-version</I> stub in the remote master copy of its parent
+directory, setting its <TT>checkout-from</TT> attribute to the name of the
+remote repository and its <TT>checkout-to</TT> attribute to the name of the
+local repository.  Then replicate and transfer mastership of the new stub 
+to the local repository.
+<LI> Create the <I>session-dir</I> in the remote master copy of its parent 
+directory, setting its <TT>checkout-from</TT> attribute to the name of the
+remote repository and its <TT>checkout-to</TT> attribute to the name of the
+local repository.  Then replicate and transfer mastership of the new directory
+to the local repository.
+</UL>
+<P>
+
+<B>vcheckout</B> returns status 0 for success,
+1 for parameter syntax errors, or 2 for more serious errors.  (Note
+that if any of the <A HREF="vcheckout.1.html#Triggers">trigger commands</A> fail,
+<B>vcheckout</B> returns status 2.)
+</BLOCKQUOTE>
+
+<H3><A NAME="Flags">Flags</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><A NAME="-q">-q</A><DD>
+Quiet; suppress printing out what is being done.
+<DT><A NAME="-Q">-Q</A><DD>
+Query; print out what the command would do, but don't do it.
+<DT><A NAME="-o">-o</A> <I>old-version</I><DD> 
+The old package version on which the new one is to be based.
+If <I>old-version</I> is unqualified, it is interpreted relative to <I>package</I>.
+Defaults to the highest version
+number bound in <I>package</I>
+(to something other than a stub);
+or if there are no version numbers bound, -O is assumed.
+<DT><A NAME="-O">-O</A><DD> 
+If this flag is given, the new version is not based on a previous version.
+Omits binding 
+<I>session-dir</I><TT>/0</TT>, initializes <I>work-dir</I> to empty, and omits
+setting the <TT>old-version</TT> attribute.  For purposes of defaulting other
+attributes, <TT>old-version</TT> is taken to be "0".
+<DT><A NAME="-n">-n</A> <I>new-version</I><DD>
+The new package version that will be created when the package is checked
+in.  A stub is created to reserve this name.
+If <I>new-version</I> is unqualified, it
+is interpreted relative to <I>package</I>.
+Defaults to 1 plus the highest version number bound in <I>package</I>
+(to something other than a stub); or 1 if there are no version 
+numbers bound.
+<DT><A NAME="-N">-N</A><DD>
+Omits creating a stub to reserve the new name and omits setting the
+<TT>new-version</TT> attribute.  This option is useful if you want to get
+a private copy of a package to edit and do not intend to check 
+in your changes.  (Also affects the default value for -s; see
+that option for details.)
+<DT><A NAME="-s">-s</A> <I>session-dir</I><DD>
+The session directory that will hold immutable working versions created
+during the checkout session.<P>
+
+If <I>session-dir</I> is unqualified and the -F flag is not given, it
+is interpreted relative to <I>package</I>.<P>
+
+Defaults to <I>new-version</I> with <TT>checkout/</TT> inserted before the
+last arc, unless the -N or -F flag is given.  For example, if
+<I>new-version</I> is <TT>/vesta/src.dec.com/test/5</TT>, <I>session-dir</I>
+defaults to <TT>/vesta/src.dec.com/test/checkout/5</TT>.<P>
+
+If the -N flag is given and <I>old-version</I> does not contain 
+a <TT>checkout</TT> arc, <I>session-dir</I> defaults to <I>old-version</I>
+with <TT>checkout/</TT> inserted before the last arc 
+and <TT>.</TT><I>user</I><TT>_</TT><I>realm</I><TT>.n</TT> appended, where n is a small
+integer chosen to make the name unique.  For example, if
+<I>old-version</I> is <TT>/vesta/src.dec.com/test/4</TT>, then <I>session-dir</I>
+might default to <TT>/vesta/src.dec.com/test/checkout/4.mann_pa.dec.com.2</TT>.<P>
+
+If -N is given and <I>old-version</I> already contains the arc <TT>checkout</TT>,
+then <I>session-dir</I> defaults to <I>old-version</I> with the last "<TT>/</TT>"
+replaced by a "<TT>.</TT>" and <TT>.</TT><I>user</I><TT>_</TT><I>realm</I><TT>.n</TT> 
+appended, where n is a small integer chosen to make the name unique.
+For example, if <I>old-version</I> is <TT>/vesta/src.dec.com/test/checkout/5/12</TT>,
+then <I>session-dir</I> might default
+to <TT>/vesta/src.dec.com/test/checkout/5.12.mann_pa.dec.com.1</TT>.<P>
+
+If the <A HREF="vcheckout.1.html#-F">-F flag</A> is given, these same rules are followed,
+but the repository root is replaced with the
+<A HREF="vcheckout.1.html#Configuration"><TT>[UserInterface]ForeignParent</TT></A> setting.  Any
+directories on this path which don't exist will be created.  So, for
+example:<P>
+
+<UL>
+<LI> If <I>package</I> is <TT>/vesta/example.com/pkg</TT>, <I>session-dir</I>
+is <TT>checkout/123.foo</TT>, and <TT>[UserInterface]ForeignParent</TT> is
+<TT>/vesta/example.net/foreign</TT>, then the session direcotry to be used
+would be
+<TT>/vesta/example.net/foreign/example.com/pkg/checkout/123.foo</TT>.
+<LI> If <I>old-version</I> is
+<TT>/vesta/<B><I>&lt;foreign-site&gt;</I></B>/test/4</TT>, then <I>session-dir</I>
+might default to
+<TT>/vesta/<B><I>&lt;current-site&gt;</I></B>/foreign/<B><I>&lt;foreign-site&gt;</I></B>/test/checkout/4.mann_pa.dec.com.2</TT>.
+<LI> If
+<I>old-version</I> is <TT>/vesta/<B><I>&lt;foreign-site&gt;</I></B>/test/checkout/5/12</TT>,
+then <I>session-dir</I> might default to
+<TT>/vesta/<B><I>&lt;current-site&gt;</I></B>/foreign/<B><I>&lt;foreign-site&gt;</I></B>/test/checkout/5.12.mann_pa.dec.com.1</TT>.
+</UL>
+<P>
+
+<DT><A NAME="-u">-u</A><DD>
+Appends <TT>.n</TT> to a non-default session directory specified with the
+-s flag, where n is a small integer chosen to make the name unique.
+Has no effect if the -s flag was not used.
+<DT><A NAME="-S">-S</A><DD>
+Omits creating the session directory and placing a base version in it,
+and omits setting the <TT>session-dir</TT> attribute.  If you do this, it
+will be pointless to edit files in the working directory, because there
+will be no way to advance or check in your changes.
+<DT><A NAME="-F">-F</A><DD>
+Foreign non-exclusive checkout. Useful mostly in cases when the
+master repository of the package/branch being checked out is
+inaccessible or won't grant a permission for the operation.  As with
+the <A HREF="vcheckout.1.html#-N">-N</A> flag, it omits reserving a new version and omits
+setting the <TT>new-version</TT> attribute, so user can get a private copy
+of a package to edit.  Session directories of all foreign
+non-exclusive checkouts are placed under
+<A HREF="vcheckout.1.html#Configuration"><TT>[UserInterface]ForeignParent</TT></A> directory
+according to the rules described uder the <A HREF="vcheckout.1.html#-s">-s flag</A> above.
+<DT><A NAME="-w">-w</A> <I>work-dir</I><DD>
+The mutable working directory.  If <I>work-dir</I> is unqualified, it is
+interpreted relative to
+<A HREF="vcheckout.1.html#Configuration"><I>DefaultWorkParent</I></A><TT>/</TT><I>user</I>, where
+<I>user</I> is your local user name.  Defaults to the last arc of the
+name <I>package</I> that does not begin with a decimal digit.  If the
+directory already exists, "<TT>.</TT>" and a small integer will be
+appended to make the name unique.  (Note that this means you may not
+get exactly the directory name you specify with this flag.)
+<DT><A NAME="-W">-W</A><DD>
+Omits creating the mutable working directory, and omits setting the
+<TT>work-dir</TT> attribute.
+<DT><A NAME="-m">-m</A> <I>message</I><DD>
+Specify the checkout descriptive message.  If the <I>message</I>
+argument is <TT>"-"</TT>, the user will be prompted to enter a message.
+(<A HREF="vcheckout.1.html#Message">See the "Message Entry" section below.</A>)  If
+<I>message</I> is any other text, it will be used as the checkout
+descriptive message without prompting the user.  If neither the -m
+flag nor the <A HREF="vcheckout.1.html#-M">-M flag</A> is used, the default is "<TT>-m -</TT>"
+(although this can be changed with the
+<A HREF="vcheckout.1.html#Configuration"><TT>[UserInterface]vcheckout_message</TT>
+configuration setting</A>).
+<DT><A NAME="-M">-M</A><DD>
+Omit the checkout descriptive message.
+<DT><A NAME="-h">-h</A> <I>hints</I><DD>
+If <B>vcheckout</B> fails to find the master copy of a directory it
+needs to modify (or fails to find any copy of the old version) in
+either the local repository or any of those repositories listed in
+<A HREF="vcheckout.1.html#Configuration"><I>[UserInterface]DefaultHints</I></A>, you can
+suggest additional repositories for it to look in using this option.
+The <I>hints</I> argument is a comma- or space-separated list of
+repositories, specified by host name and TCP port number in the format
+<I>host</I><TT>:</TT><I>port</I>.  The <TT>:</TT><I>port</I> portion may be omitted;
+it defaults to
+<A HREF="vcheckout.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><A NAME="-R">-R</A> <I>repos</I><DD>
+Check out into <I>repos</I> instead of the default local
+repository.  The repository is
+specified by host name and TCP port number 
+in the format <I>host</I><TT>:</TT><I>port</I>.
+The <TT>:</TT><I>port</I> portion may be omitted; it
+defaults to <A HREF="vcheckout.1.html#Configuration"><I>[Repository]VestaSourceSRPC_port</I></A>.
+<DT><A NAME="-f">-f</A><DD>
+Force; omit sanity checking.
+If the -f flag is not given,
+the parent directory of <I>new-version</I> must be of type "package"
+(that is, its <TT>type</TT> attribute must include this value), and the
+parent directory of <I>session-dir</I> must be of type "checkout".
+<DT><A NAME="-v">-v</A><DD>
+Displays extra information about <A HREF="vcheckout.1.html#Triggers">triggers</A>.  Before
+executing any trigger commands, the environment variables used to
+provide information to them are printed.  Also, each trigger setting
+is printed before the command is executed.  This can be used to help
+debug trigger problems.  When used with <A HREF="vcheckout.1.html#-Q">the query flag
+(-Q)</A>, the triggers are displayed in their sorted order without
+actually running them.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="Message">Message Entry</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vcheckout</B>'s default behavior is to prompt the user for a
+<I>checkout descriptive message</I>.  If the <TT>EDITOR</TT>
+<A HREF="vcheckout.1.html#Env_Vars">environment variable</A> is set, the external editor
+program it specifies is invoked to edit the message.  Otherwise, the
+message is read from standard input.  A prompt is printed if the
+standard input is a terminal:
+<PRE>
+Enter checkout description, terminated with ^D or . on a line by itself
+: 
+</PRE>
+
+If the standard input is not a terminal (e.g. it was redirected to a
+file or a pipe), no prompt will be printed, but the standard input
+will still be used as the checkout descriptive message.  (Note that
+when <TT>EDITOR</TT> is set, the external editor is invoked even if the
+standard input is not a terminal.)<P>
+
+When using an external editor, the initial text will be "<TT>&lt;enter
+checkout description here&gt;</TT>".  If the initial text is left unedited or
+the user enters an empty message, they will be asked for confirmation
+before completing the operation:
+<PRE>
+Empty checkout description.  Continue (y/n)? 
+</PRE>
+
+This is the only chance to abort when <TT>EDITOR</TT> is set.  (So if you
+change your mind and are using an external editor, exit the editor
+either with the message unedited or with an empty message.)<P>
+
+The <A HREF="vcheckout.1.html#-m">-m flag</A> can be used to specify the checkout
+descriptive message on the command line.  The <A HREF="vcheckout.1.html#-M">-M flag</A> can
+be used to omit the checkout descriptive message.  In either of these
+cases, no external editor will be invoked, and the standard input will
+not be read.<P>
+
+The default of prompting for a checkout descriptive message can be
+disabled with the
+<A HREF="vcheckout.1.html#Configuration"><TT>[UserInterface]vcheckout_message</TT>
+configuration setting</A>.  However, this can be overridden on the
+command line with "<TT>-m -</TT>", which will always cause <B>vcheckout</B>
+to prompt for a checkout descriptive message.
+</BLOCKQUOTE>
+
+<H3><A NAME="Configuration">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>AppendableRootName</I><DD>
+The filename under which the global root directory of
+Vesta repositories is mounted.  Ordinarily set to <TT>/vesta</TT>.
+<DT><I>MutableRootName</I><DD>
+The filename under which the local tree of mutable directories provided
+by Vesta is mounted.  Ordinarily set to <TT>/vesta-work</TT>.
+<DT><I>DefaultPackageParent</I><DD>
+The default directory to put new packages in.  Ordinarily a
+subdirectory of the appendable root, named with an Internet domain name
+belonging to the local site.
+<DT><I>DefaultWorkParent</I><DD>
+The default parent directory for mutable working directory trees belonging to
+individual users.  Ordinarily the same as the mutable root.
+<DT><I>realm</I><DD>
+Global user names are formed by appending
+<TT>@</TT><I>realm</I> to the local name.
+<DT><I>TimeFormat</I><DD>
+A format string for <B>strftime</B>(3) to produce time strings for Vesta
+attributes.  A common setting is "%a %b %e %T %Z %Y".
+<DT><I>DefaultHints</I><DD>
+A comma- or space-separated list of additional repositories to search
+for the master copy of an object and for a copy of <I>old-version</I>.
+Each repository is specified by host name and TCP port number in the
+format <I>host</I><TT>:</TT><I>port</I>.  The <TT>:</TT><I>port</I> portion may be
+omitted; it defaults to <I>[Repository]VestaSourceSRPC_port</I>.  This
+setting is optional.
+<DT><I>vcheckout_message</I><DD>
+A boolean configuration setting.  Determines whether <B>vcheckout</B>
+will prompt the user for a message describing the intention of the
+checkout.  If it is equal (without regard to case) to "yes", "on", or
+"true", or can be parsed as an integer that is non-zero,
+<B>vcheckout</B> will ask the user to enter a message (as if
+"<TT><A HREF="vcheckout.1.html#-m">-m</A> -</TT>" had been given on the command line).  If it is
+equal (without regard to case) to "no", "off", or "false", or can be
+parsed as an integer that is zero, <B>vcheckout</B> will not prompt for
+a message (as if the <A HREF="vcheckout.1.html#-M">-M</A> flag had been given).  If not set,
+defaults to "true".
+<DT><I>ForeignParent</I><DD>
+The directory under which session directories of all foreign
+non-exclusive checkouts are placed.  (See the description of the
+<A HREF="vcheckout.1.html#-F">-F flag</A> above.)  It is usually defined as
+<TT>/vesta/<B><I>&lt;current-site&gt;</I></B>/foreign/</TT>.
+</DL>
+<P>
+
+The following values are obtained from the <TT>[Repository]</TT> section of the
+Vesta configuration file.
+<DL>
+<DT><I>VestaSourceSRPC_host</I><DD>
+The host name of the default (local) repository.
+<DT><I>VestaSourceSRPC_port</I><DD>
+The default TCP port number for repositories.
+</DL>
+<P>
+
+Settings in the <TT>[vcheckout pre trigger]</TT> and <TT>[vcheckout post
+trigger]</TT> sections of the configuration file are used as commands to
+be run before and after the repository is modified.  See
+<A HREF="vcheckout.1.html#Triggers">the next section</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="Triggers">Triggers</A></H3>
+<BLOCKQUOTE>
+<P>
+
+Users can configure commands in <A HREF="vesta.cfg.5.html">the Vesta
+configuration file (vesta.cfg)</A> to be executed before and after
+<B>vcheckout</B> modifies the repository.  Each setting in the
+<TT>[vcheckout pre trigger]</TT> section specifies a command to be run
+before any action is taken, and each setting in the <TT>[vcheckout
+post trigger]</TT> section specifies a command to be run after all actions
+are complete.<P>
+
+The value of each setting specifies a command to run.  The names of
+the settings define the order in which these commands are run.  The
+setting names are sorted as strings, but comparing embedded sequences
+of digits as decimal integers.  (So, for example "foo_10_bar" will
+sort after "foo_2_bar".)  The suggested naming convention for trigger
+settings is to start with an integer, follow with a descriptive name,
+and follow that with any other text.  (This is based on the convention
+used for System V style init script links typically stored in
+<TT>/etc/rc<I><B>N</B></I>.d</TT>.)<P>
+
+Here's a simple example of how we suggest naming trigger settings, and
+how they are ordered for execution:
+<PRE>
+[vcheckout pre trigger]
+100world = echo World!
+9tada    = echo Tada:
+50hello  = echo Hello,
+</PRE>
+
+Because these all start with numbers, they will be executed in the
+order "9tada", "50hello", "100world".  The output will look like this:
+<PRE>
+% vcheckout /vesta/example.com/foo
+Tada:
+Hello,
+World!
+Reserving version /vesta/example.com/foo/3
+Creating session /vesta/example.com/foo/checkout/3
+Making working directory /vesta-work/jsmith/foo
+</PRE>
+
+Trigger commands are executed with <TT>system</TT>(3).  On most operating
+systems this means "<TT>/bin/sh -c <I>command</I></TT>", so simple in-line
+shell scripts can be used.  (Note that each is executed in its own
+shell process, so environment variables set during one trigger command
+<I>will not propagate to subsequent ones</I>.)<P>
+
+If any of the commands in the <TT>[vcheckout pre trigger]</TT> section
+exit with error (non-zero) status or are terminated by a signal
+(e.g. segmentation fault, abort), <B>vcheckout</B> will exit without
+performing the checkout.<P>
+
+The commands in the <TT>[vcheckout post trigger]</TT> section will only be
+executed if the checkout is successfully completed.  If <B>vcheckout</B>
+fails with an error, the commands in the <TT>[vcheckout post trigger]</TT>
+section <I>will not be executed</I>.<P>
+
+Note that all the trigger commands (both pre and post) are executed
+sequentially.  Once a trigger command is started, nothing else happens
+until it completes.  If any of the pre trigger commands runs forever,
+<B>vcheckout</B> will not perform the checkout.  If any of the post
+trigger commands runs forever, <B>vcheckout</B> will not complete.  (In
+other words, <I>a trigger command that hangs will cause
+<B>vcheckout</B> to hang</I>.)  If any of the pre or post trigger commands
+exit with error status or are terminated by a signal, <B>vcheckout</B>
+will exit without running any more commands from those sections.  (In
+other words, <I>a trigger command that fails will prevent further
+trigger commands from being run</I>.)<P>
+
+If the <A HREF="vcheckout.1.html#-Q">the query flag (-Q)</A> is given, the trigger commands
+will not actually be run.<P>
+
+Information about what <B>vcheckout</B> is going to do or has just done
+is provided to the trigger commands through the following environment
+variables:<P>
+
+<DL>
+
+<DT>VESTA_TOOL<DD>
+The name of the Vesta tool the trigger command has been invoked from.
+(For <B>vcheckout</B>, this will always be "vcheckout".)
+<DT>VESTA_REPOS<DD>
+The local repository (<I>host</I><TT>:</TT><I>port</I>) <B>vcheckout</B>
+communicates with (either the default from the configuration file or
+the one specified with the <A HREF="vcheckout.1.html#-R">-R flag</A>.
+<DT>VESTA_MASTER_HINTS<DD>
+Additional repositories which may have been consulted in order to find
+the master copies of the parent directories of <I>new-version</I> and
+<I>session-dir</I>.  This is the combination of the argument to the
+<A HREF="vcheckout.1.html#-h">-h flag</A> (if it was used) and the hints from the
+<A HREF="vcheckout.1.html#Configuration"><I>[UserInterface]DefaultHints</I> configuration
+setting</A> (if set in the configuration file).
+<DT>VESTA_PACKAGE<DD>
+The path to the package to be checked out.
+<DT>VESTA_OLD_VERSION<DD>
+The path to the version the checkout will be based upon (either
+automatically determined or specified with the <A HREF="vcheckout.1.html#-o">-o flag</A>).
+<DT>VESTA_OMIT_OLD_VERSION<DD>
+Set to 1 if there is no old version (if either <A HREF="vcheckout.1.html#-O">the -O flag</A>
+was given or if this is the first checkout of a new package with no
+versions), set to 0 otherwise.
+<DT>VESTA_OLD_VERSION_REMOTE<DD>
+Set to 1 if the old version was only found in a remote repository and
+will be replicated to the local repository during the checkout, set to
+0 otherwise.
+<DT>VESTA_OLD_VERSION_REPOS<DD>
+The repository (<I>host</I><TT>:</TT><I>port</I>) where a replica of the old
+version was found.  If this is different from $VESTA_REPOS,
+$VESTA_OLD_VERSION_REMOTE will be 1.  If there is no old version, this
+will be set to the empty string.
+<DT>VESTA_NEW_VERSION<DD>
+The path to the new version to be reserved by the checkout (either
+automatically determined or specified with the <A HREF="vcheckout.1.html#-n">-n flag</A>).
+<DT>VESTA_OMIT_NEW_VERSION<DD>
+Set to 1 if there is no new version (if either <A HREF="vcheckout.1.html#-N">the -N flag</A>
+or <A HREF="vcheckout.1.html#-F">the -F flag</A> was given), set to 0 otherwise.
+<DT>VESTA_NEW_VERSION_REMOTE<DD>
+Set to 1 if the parent directory of the new version (typically
+$VESTA_PACKAGE) is mastered in a remote repository, set to 0
+otherwise.  If this is set to 1, the new version will be reserved
+remotely and then be replicated to and have its mastership transferred
+to the local repository.
+<DT>VESTA_NEW_VERSION_REPOS<DD>
+The repository (<I>host</I><TT>:</TT><I>port</I>) which has mastership of the
+parent directory of the new version.  If this is different from
+$VESTA_REPOS, $VESTA_NEW_VERSION_REMOTE will be 1.  If there is
+no new version, this will be set to the empty string.
+<DT>VESTA_SESSION_DIR<DD>
+The path to the session directory to be created by the checkout (either
+automatically determined or specified with the <A HREF="vcheckout.1.html#-s">-s flag</A>).
+<DT>VESTA_OMIT_SESSION_DIR<DD>
+Set to 1 if no session directory will be created (if <A HREF="vcheckout.1.html#-S">the -S
+flag</A> was given), set to 0 otherwise.
+<DT>VESTA_SESSION_DIR_REMOTE<DD>
+Set to 1 if the parent directory of the session directory (typically
+"$VESTA_PACKAGE/checkout") is mastered in a remote repository, set to
+0 otherwise.  If this is set to 1, the session directory will be
+created remotely and then be replicated to and have its mastership
+transferred to the local repository.
+<DT>VESTA_SESSION_DIR_REPOS<DD>
+The repository (<I>host</I><TT>:</TT><I>port</I>) which has mastership of the
+parent directory of the session directory.  If this is different from
+$VESTA_REPOS, $VESTA_SESSION_DIR_REMOTE will be 1.  If there is
+no session directory, this will be set to the empty string.
+<DT>VESTA_WORK_DIR<DD>
+The full path to <I>work-dir</I> (either automatically determined or
+specified with <A HREF="vcheckout.1.html#-w">the -w flag</A>).
+<DT>VESTA_OMIT_WORK<DD>
+Set to 1 if <A HREF="vcheckout.1.html#-W">the -W flag</A> was given, set to 0
+otherwise.
+<DT>VESTA_USE_FOREIGN_TREE<DD>
+Set to 1 if <A HREF="vcheckout.1.html#-F">the -F flag</A> was given, set to 0 otherwise.
+(Note that if the session directory would be inside the directory
+specified in the
+<A HREF="vcheckout.1.html#Configuration"><TT>[UserInterface]ForeignParent</TT></A> without this
+option, such as checking out a branch created there with "vbranch -F",
+this may have no effect.)
+<DT>VESTA_MESSAGE<DD>
+The checkout message, or the empty string if there is no checkout
+message.
+<DT>VESTA_OMIT_MESSAGE<DD>
+Set to 1 if there is no checkout message (if <A HREF="vcheckout.1.html#-M">the -M flag</A>
+was given or
+<A HREF="vcheckout.1.html#Configuration"><TT>[UserInterface]vcheckout_message</TT></A> was used
+to disable checkout messages), set to 0 otherwise.
+<DT>VESTA_QUIET<DD>
+Set to 1 if <A HREF="vcheckout.1.html#-q">the quiet flag (-q) was given</A>, set to 0
+otherwise.
+<DT>VESTA_FORCE<DD>
+Set to 1 if <A HREF="vcheckout.1.html#-f">the force flag (-f) was given</A>, set to 0
+otherwise.
+</DL>
+<P>
+
+(Note that the environment variables are the same for both the pre and
+post trigger commands.)<P>
+
+Here are some examples using these environment variables:
+<PRE>
+[vcheckout pre trigger]
+// If the user tries to check out a package with a non-empty
+// "obsolete" attribut, print an error and exit
+50no_obsolete = if vattrib -q -G obsolete $VESTA_PACKAGE &gt; /dev/null; then echo "Error: $VESTA_PACKAGE is marked obsolete"; exit 1; fi
+
+[vcheckout post trigger]
+// Replicate all new version reservations to known peer repositories
+// so that they're visible with vwhohas
+50repl_reservations = [ $VESTA_OMIT_NEW_VERSION -eq 1 ] || for r in $VESTA_MASTER_HINTS; do vrepl -s $VESTA_REPOS -d $r -e+ $VESTA_NEW_VERSION; done
+</PRE>
+
+If the <A HREF="vcheckout.1.html#-v">verbose trigger flag (-v)</A> is given, these
+environment variables will be printed, and each trigger command will
+be printed before executing it.  This can be useful for debugging
+trigger problems.  If both <A HREF="vcheckout.1.html#-v">verbose trigger flag</A> and the
+<A HREF="vcheckout.1.html#-Q">the query flag (-Q)</A> are given, the triggers are displayed
+in their sorted order without actually running them.  This can be used
+to find out what trigger commands are configured without actually
+running them.
+</BLOCKQUOTE>
+
+<H3><A NAME="Limitations">Limitations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vcheckout</B> is atomic if the checkout modifies only the local
+repository.  If one or more remote repositories must be modified,
+however, the action performed at each repository is individually
+atomic, but <B>vcheckout</B> can die between the actions on different
+repositories.  To make this problem less likely to occur,
+<B>vcheckout</B> ignores <TT>SIGINT</TT> (the ^C interrupt) during the
+critical section.<P>
+
+You can clean up after such an incomplete checkout by using <B>vcheckin</B> to
+check in a new version that is identical to the previous version.
+For example, if <TT>/vesta/foo.com/pkg</TT> was incompletely checked out,
+leaving a master stub for version 33, the command would be:
+<PRE>
+vcheckin -c /vesta/foo.com/pkg/32 -n /vesta/foo.com/pkg/33 -S -W
+</PRE>
+
+This command must be directed to the repository that holds the master
+copy of the reservation stub (<TT>33</TT> in the example).
+In the case of a remote checkout, this
+might be either the source or destination repository, depending on
+how far the checkout got before it died.
+If you need to clean up an incomplete checkout 
+but the above command fails because you are local to the wrong repository, 
+add the -R <I>repos</I> flag
+to the command line, where <I>repos</I> is the remote repository
+that holds the master stub.  In this example,
+you could find the stub's master repository with the command:
+<PRE>
+vattrib -g master-repository /vesta/foo.com/pkg/33
+</PRE>
+
+When using <A HREF="vcheckout.1.html#-F">the -F flag</A>, if the foreign hierarchy does not
+yet contain the necessary directories for a foreign session for the
+package being checked out, <I>they will be created before running
+<A HREF="vcheckout.1.html#Triggers">the commands from the <TT>[vcheckout pre trigger]</TT>
+section of the config file</A></I>.  (For example, if the command line is
+"<TT>vcheckout -F /vesta/a.example.com/foo</TT>" and
+<TT>[UserInterface]ForeignParent</TT> is set to <TT>/vesta/b.example.com</TT>,
+the directory <TT>/vesta/b.example.com/a.example.com/foo/checkout</TT>
+will be created if it does not already exist.)  This violates the rule
+of not altering the repository before the <TT>[vcheckout pre trigger]</TT>
+commands are run, but is necessary to determine which repository has
+mastership of the foreign session directory parent (to set the
+$VESTA_SESSION_DIR_REPOS trigger variable), as well as other
+information passed to the trigger commands.
+</BLOCKQUOTE>
+
+<H3><A NAME="Env_Vars">Environment Variables</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<DL>
+<DT><TT>VESTACONFIG</TT><DD>
+If set, specifies the Vesta configuration file to be used. See
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A>.
+<DT><TT>EDITOR</TT><DD>
+If set, specifies the editor to use for
+<A HREF="vcheckout.1.html#Message">editing the checkout descriptive message</A>.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="See_Also">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="vesta-intro.1.html"><B>vesta-intro</B>(1)</A>,
+<A HREF="repos-ui.1.html"><B>repos-ui</B>(1)</A>,
+<A HREF="vesta.cfg.5.html"><B>vesta.cfg</B>(5)</A>
+</BLOCKQUOTE>
+
+<H3><A NAME="Author">Author</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://www.tim-mann.org/">Tim Mann</A>
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

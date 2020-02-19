@@ -1,0 +1,20 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 31</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text29.html">Back</a> <a href="text31.html">Continue</a> <a href="text68.html">Last page</a> <a href="bridge-intro.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Top-level Model Details</h1><p>
+<ul><li><h2>. ++= [ components = grep() ];</h2>
+<ul><li>This adds our grep binary to the set of OS component packages stored in ./components
+<li>After this, ./build_root will be able to build a filesystem including the grep OS component
+</ul><li><h2>. ++= grep_bridge();</h2>
+<ul><li>This adds our grep bridge to “.”
+</ul><li><h2>return self();</h2>
+<ul><li>Now that everything is set, call our example
+</ul></ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

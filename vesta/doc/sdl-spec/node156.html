@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Special Purpose Functions</TITLE>
+<META NAME="description" CONTENT="Special Purpose Functions">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node157.html">
+<LINK REL="previous" HREF="node155.html">
+<LINK REL="up" HREF="node150.html">
+<LINK REL="next" HREF="node157.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2484"
+  HREF="node157.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2480"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2474"
+  HREF="node155.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2482"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2485"
+  HREF="node157.html">Type Manipulation Functions</A>
+<B> Up:</B> <A NAME="tex2html2481"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2475"
+  HREF="node155.html">Functions on type t_binding</A>
+ &nbsp <B>  <A NAME="tex2html2483"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001334600000000000000"></A><A NAME="sect:SDL-special-funcs"></A>
+<BR>
+Special Purpose Functions
+</H3>
+
+<P>
+<PRE>
+t_closure _self
+</PRE>
+<BR>
+Unless redefined, the name <TT>_self</TT> always refers to the model in
+which it textually occurs.  In effect, every model imports itself
+under this name, prior to the first <TT>import</TT> clause that appears
+explicitly in the SDL program text.
+
+<P>
+<PRE>
+t_text
+_model_name(t_closure m)
+</PRE>
+<BR>
+The value <EM>m</EM> must be a model; that is, a closure defined by
+importing an immutable file from the Vesta repository.
+<TT>_model_name</TT> returns a text value that gives one
+name for <EM>m</EM> within the repository.
+If a model with identical contents in an identical directory is
+present at several locations in the repository, the name returned
+may be that of any of these locations, not necessarily the one that
+was actually imported in the current evaluation.
+
+<P>
+<PRE>
+t_text
+_fingerprint(t_value v)
+</PRE>
+<BR>
+The <TT>_fingerprint</TT> primitive returns a text representation of the
+given value's <EM>fingerprint</EM>, a 128-bit internal identifier for the
+value.  Fingerprints are chosen so that with very high probability,
+two different values will always have different fingerprints.  A given
+value may have different fingerprints in different evaluations or when
+computed at different points in the same evaluation, but the
+implementation tries to avoid this when practical.  
+
+<P>
+Specifically, a source with a particular absolute name in the Vesta
+repository always has the same fingerprint, while two sources
+with different names but with the same value will have the same
+fingerprint if they were fingerprinted <EM>by content</EM> when
+inserted into the repository.  See the documentation of the
+<B>vadvance</B> program for details on when sources are fingerprinted
+by name and when by content.  A derived value returned by any Vesta
+primitive other than <TT>_run_tool</TT> has a fingerprint that depends
+deterministically on the fingerprints of its arguments.  Derived
+values returned by <TT>_run_tool</TT> have either arbitrary unique
+fingerprints or deterministic content-based fingerprints; see
+Section&nbsp;<A HREF="node158.html#sect:SDL-tool-func">A.3.4.8</A> for details.
+
+<P>
+These properties make fingerprints useful as version stamps for Vesta
+evaluations, sometimes more useful than <TT>_model_name</TT>.
+If <EM>m1, m2</EM> are models with identical contents that reside in
+identical directories, then <TT>_fingerprint(m1) = _fingerprint(m2)</TT>
+will often be true even when <TT>_model_name(m1) != _model_name(m2)</TT>.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2484"
+  HREF="node157.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2480"
+  HREF="node150.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2474"
+  HREF="node155.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2482"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2485"
+  HREF="node157.html">Type Manipulation Functions</A>
+<B> Up:</B> <A NAME="tex2html2481"
+  HREF="node150.html">Primitives</A>
+<B> Previous:</B> <A NAME="tex2html2475"
+  HREF="node155.html">Functions on type t_binding</A>
+ &nbsp <B>  <A NAME="tex2html2483"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>

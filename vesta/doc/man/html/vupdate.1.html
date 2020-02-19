@@ -1,0 +1,623 @@
+<!-- This file generated automatically by mtex2html(1) -->
+<HTML>
+
+<HEAD>
+<TITLE>vupdate(1) man page</TITLE>
+</HEAD>
+
+<BODY BGCOLOR="#ffffff" VLINK="#006633">
+<H2>vupdate(1)</H2>
+
+<H3>Name</H3>
+<BLOCKQUOTE>
+<P>
+
+vupdate - update the imports of a Vesta model
+</BLOCKQUOTE>
+
+<H3>Synopsis</H3>
+<BLOCKQUOTE>
+<P>
+
+<B>vupdate</B>
+[ <A HREF="vupdate.1.html#OptionsSect"><I>options</I></A> ]
+[ <I>model</I> ]
+</BLOCKQUOTE>
+
+<H3>Contents</H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI> <A HREF="vupdate.1.html#DescriptionSect">Description</A>
+<LI> <A HREF="vupdate.1.html#OptionsSect">Options</A>
+<LI> <A HREF="vupdate.1.html#RestrictionsSect">Restrictions</A>
+<LI> <A HREF="vupdate.1.html#ContinuationsSect">Continuations</A>
+<LI> <A HREF="vupdate.1.html#ExamplesSect">Examples</A>
+<LI> <A HREF="vupdate.1.html#ConfigurationSect">Configuration</A>
+<LI> <A HREF="vupdate.1.html#BugsSect">Bugs</A>
+<LI> <A HREF="vupdate.1.html#SeeAlsoSect">See Also</A>
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="DescriptionSect">Description</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<I>vupdate</I> updates the imports of the named <I>model</I> so that all
+imports are to the latest package versions. Only those imports of
+models outside the local directory are updated. If no <I>model</I> is
+specified, it defaults to ".main.ves".<P>
+
+Ordinarily, <I>vupdate</I> replaces the existing model with the updated
+version.  If <A HREF="vupdate.1.html#NoActionOpt"><B>-no-action</B></A> is specified, if the
+updated model is identical to the existing one, or if errors occur,
+the existing model (and its parent directory) are left untouched.<P>
+
+To prevent the import of a model from being considered for
+updating, precede the model's pathname by a <TT>/**noupdate**/</TT>
+or <TT>/**NOUPDATE**/</TT> pragma.<P>
+
+When the import being updated is to a model in a checkout session, the
+import is updated to point to the latest main version within the
+package (or branch) if such a version exists, or to the latest version
+in the checkout session otherwise. This behavior can be overridden
+using to <A HREF="vupdate.1.html#ToCheckoutOpt"><B>-to-checkout</B></A> switch below.  Also
+see the <A HREF="vupdate.1.html#AdvanceCheckoutOpt"><B>-advance-checkout</B></A> switch if
+you would like checkout sessions to be advanced.<P>
+
+For more complicated version histories (e.g. divergent lines of
+development that later re-converge), <I>vupdate</I> can follow
+<A HREF="vupdate.1.html#ContinuationsSect">continuations</A> with the
+<A HREF="vupdate.1.html#-follow-continuations"><B>-follow-continuations</B></A> switch.<P>
+
+The <I>model</I> argument is resolved according to the rules for
+<TT>import</TT> clauses as specified in
+<A HREF="../../sdl-spec/index.html"><I>The Vesta-2 Software Description Language</I></A>. In particular, if
+<I>model</I> is not an absolute path, it is interpreted relative to the
+current working directory. If <I>model</I> names a directory, the string
+"<TT>/build.ves</TT>" is appended to it; otherwise, if it does not end
+in "<TT>.ves</TT>", that extension is appened to it.<P>
+
+<B>vupdate</B> returns status:<P>
+
+<UL>
+<LI> 0 for success
+<LI> 1 for command-line argument syntax errors
+<LI> 2 for various more serious errors
+<LI> 3 if any <A HREF="vadvance.1.html">vadvance(1)</A> commands invoked
+when using the <A HREF="vupdate.1.html#AdvanceCheckoutOpt"><B>-advance-checkout</B></A> flag
+fail (e.g. with a lack of permission or because of very large files in
+the working directory).
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="OptionsSect">Options</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<I>vupdate</I> accepts the following command-line options:<P>
+
+<DL>
+<DT><A NAME="NoActionOpt"><B>-no-action</B></A> or <B>-n</B><DD>
+No action. Do not rewrite <I>model</I>, but print out what imports would
+be updated. Do not advance any checkout sessions.
+A warning is printed at the end of the output indicating
+that no action was taken. This option is mutually exclusive with
+the <A HREF="vupdate.1.html#QueryOpt"><B>-query</B></A> and <A HREF="vupdate.1.html#SilentOpt"><B>-silent</B></A> options.<P>
+
+<DT><A NAME="QueryOpt"><B>-query</B></A> or <B>-q</B><DD>
+Query mode. You will be queried on each potential update. To accept
+the update, type "y" and hit &lt;ENTER&gt;. If any other input is supplied,
+the import is not updated. This option is mutually exclusive with
+the <A HREF="vupdate.1.html#NoActionOpt"><B>-no-action</B></A> 
+and <A HREF="vupdate.1.html#SilentOpt"><B>-silent</B></A> options.<P>
+
+<DT><A NAME="SilentOpt"><B>-silent</B></A> or <B>-s</B><DD>
+Silent mode. By default, the name of each model requiring changes
+and the old and new versions of all updated imports are printed. This
+option supresses that output. This option is mutually exclusive with
+the <A HREF="vupdate.1.html#NoActionOpt"><B>-no-action</B></A>, <A HREF="vupdate.1.html#QueryOpt"><B>-query</B></A>, and
+<A HREF="vupdate.1.html#VerboseOpt"><B>-verbose</B></A> options.<P>
+
+<DT><A NAME="UpdateLocalOpt"><B>-update-local</B></A> or <B>-r</B><DD>
+Update local models recursively. By default, <I>vupdate</I> revises only
+the named <I>model</I>. If <B>-update-local</B> is specified, then any local models
+imported directly or indirectly by <I>model</I> are updated
+recursively. An imported model is considered to be local if it is
+specified by a relative pathname.<P>
+
+<DT><A NAME="AdvanceCheckoutOpt"><B>-advance-checkout</B></A> or <B>-a</B><DD>
+Advance your imported checkout sessions.  If <B>-advance-checkout</B> is
+specified, then whenever the model imports from a checkout session
+that belongs to you (including new checkout imports created by the
+<A HREF="vupdate.1.html#ToCheckoutOpt"><B>-to-checkout</B></A> option), <I>vupdate</I> will invoke
+<A HREF="vadvance.1.html">vadvance(1)</A> to attempt to advance the session
+before searching for the session's highest version.<P>
+
+<DT><A NAME="UpdateCheckoutOpt"><B>-update-checkout</B></A> or <B>-c</B><DD>
+Update models in your imported checkout sessions recursively.  If
+<B>-update-checkout</B> is specified, then any models imported directly
+or indirectly from checkout sessions that belong to you are updated
+recursively (including new checkout imports created by the
+<A HREF="vupdate.1.html#ToCheckoutOpt"><B>-to-checkout</B></A> option).  The sessions are
+then advanced as with the
+<A HREF="vupdate.1.html#AdvanceCheckoutOpt"><B>-advance-checkout</B></A> option.<P>
+
+<DT><A NAME="UpdateAllOpt"><B>-update-all</B></A> or <B>-u</B><DD>
+Sets both the <A HREF="vupdate.1.html#UpdateLocalOpt"><B>-update-local</B></A> 
+and <A HREF="vupdate.1.html#UpdateCheckout"><B>-update-checkout</B></A> options.<P>
+
+<DT><A NAME="VerboseOpt"><B>-verbose</B></A> or <B>-v</B><DD>
+Verbose mode. By default, if a model would not require any changes,
+its name is not printed. If <B>-verbose</B> is specified, the names of all
+processed models are printed. This option is mutually
+exclusive with the <A HREF="vupdate.1.html#SilentOpt"><B>-silent</B></A> option.<P>
+
+<DT><A NAME="LimitOpt"><B>-limit</B> <I>name</I></A> or <B>-l</B> <I>name</I><DD>
+Limit which imports will be updated. Only imports with a full pathname
+containing <I>name</I> will be updated. If multiple <B>-limit</B> clauses
+are specified, only those pathnames containing <I>all</I> specified
+names are updated. (For example, combining <B>-limit</B>
+<I>src.dec.com</I> with <B>-limit</B> <I>repos</I> would cause only imports
+containing both <I>src.dec.com</I> and <I>repos</I> to be updated.)<P>
+
+<DT><A NAME="LimitCheckoutOpt"><B>-limit-checkout</B></A> or <B>-L</B><DD>
+Only update imports for checkout sessions.  Equivalent to
+<A HREF="vupdate.1.html#LimitOpt"><B>-limit</B></A> <I>/checkout/</I>.<P>
+
+<DT><A NAME="ToCheckoutOpt"><B>-to-checkout</B></A> or <B>-t</B><DD>
+Allow imports to be updated to point to models in new checkout
+sessions. This both allows checked in versions to be updated to
+checked out versions, and allows old checkout session references to be
+updated to refer to new checkout sessions. This option is mutually
+exclusive with the <A HREF="vupdate.1.html#AttrOpt"><B>-attr</B></A> option.<P>
+
+When combined with <A HREF="vupdate.1.html#-follow-continuations">the
+<B>-follow-continuations</B> option</A>, <I>vupdate</I> will not update into
+a new exclusive checkout until <I>after</I> following continuations.
+For example, if an import points into branch <B>A</B> which is continued
+in branch <B>B</B> <I>vupdate</I> may update into an active checkout in
+branch <B>B</B> but will not update into an active checkout in branch
+<B>A</B>.  See <A HREF="vupdate.1.html#ContinuationsSect">"Continuations"</A> below for more
+information.<P>
+
+<DT><A NAME="MineOpt"><B>-only-mine</B></A> or <B>-m</B><DD>
+Limit updating involving checkout sessions belonging to other users.
+Don't modify an import to point into a checkout session belonging to
+another user.  Don't modify an import if it currently points into a
+checkout session belonging to another user.  An import may still be
+updated within a checkout session owned by the user running
+<I>vupdate</I>.  An import may still be updated from an exclusive
+checkout session owned by the user running <I>vupdate</I> to a newer
+checked in version (even a newer version created by a different user).
+An import may be modified to point into an exclusive checkout session
+belonging to the user running <I>vupdate</I> when using the
+<A HREF="vupdate.1.html#ToCheckoutOpt"><B>-to-checkout</B></A> option.<P>
+
+When combined with <A HREF="vupdate.1.html#-follow-continuations">the
+<B>-follow-continuations</B> option</A>, <I>vupdate</I> will not follow
+continuations into or through checkout sessions belonging to other
+users.<P>
+
+<DT><A NAME="AttrOpt"><B>-attr</B> <I>attr-spec</I></A> or <B>-A</B> <I>attr-spec</I><DD>
+Selective update. By default, <I>vupdate</I> updates each import to
+the latest relevant version. If <B>-attr</B> is specified, each import
+is updated to the latest version whose attributes match
+<I>attr-spec</I>. This option is mutually exclusive with the
+<A HREF="vupdate.1.html#ToCheckoutOpt"><B>-to-checkout</B></A> option.<P>
+
+The <I>attr-spec</I> should be a string according
+to the following grammar:
+<PRE>
+attr-spec  ::= attr-name [ val-select val-list ]
+attr-name  ::= String
+val-select ::= `:' | `^'
+val-list   ::= String | String `,' val-list
+</PRE>
+
+There are three cases:<P>
+
+<OL>
+<LI>
+When <I>attr-spec</I> is simply an <I>attr-name</I>, a given package
+version matches the spec if it simply defines the attribute named
+<I>attr-name</I>.<P>
+
+<LI>
+If <I>attr-spec</I> takes the form
+<I>attr-name</I>:<I>attr-list</I>, then a given package version matches
+the spec if it binds the attribute <I>attr-name</I> to a set of
+values <I>at least one</I> of which is named in <I>attr-list</I>.<P>
+
+<LI>
+If <I>attr-spec</I> takes the form <I>attr-name</I>^<I>attr-list</I>, then a
+given package version matches the spec if it does not define the
+attribute <I>attr-name</I>, or if it binds the attribute
+<I>attr-name</I> to a set of values <I>none</I> of which is named in
+<I>attr-list</I>.
+</OL>
+<P>
+
+<DT><A NAME="ParseErrorOpt"><B>-parse-errors-stop</B></A> or <B>-e</B><DD>
+Any trouble understanding the version imported or choosing a new
+version will be treated as a fatal error, causing <I>vupdate</I> to stop
+and leaving <I>model</I> unmodified.  <I>vupdate</I> can always understand
+simple integer versions which are the norm, but can have difficulty
+with non-integer versions.  Without this option, <I>vupdate</I> will
+issue a warning about each import it can't understand and leave it
+unmodified in <I>model</I>, proceeding on to update subsequent imports.<P>
+
+<DT><A NAME="-follow-continuations"><B>-follow-continuations</B></A> or <B>-f</B><DD>
+When updating an import, if the enclosing directory (a session
+directory, a branch, or a package) has a "continued-in" attribute
+indicating that it is logically continued in a different directory,
+attempt to follow the continuation.  See
+<A HREF="vupdate.1.html#ContinuationsSect">"Continuations"</A> below.<P>
+
+Note that <A HREF="vupdate.1.html#MineOpt">the <B>-only-mine</B> option</A> will prevent
+following continuations into or through checkout sessions belonging to
+other users.<P>
+
+Note that updating into a new exclusive checkout enabled by the
+<A HREF="vupdate.1.html#ToCheckoutOpt"><B>-to-checkout</B></A> option happens <I>after</I>
+following continuations.  For example, if an import points into branch
+<B>A</B> which is continued in branch <B>B</B> <I>vupdate</I> may update
+into an active checkout in branch <B>B</B> but will not update into an
+active checkout in branch <B>A</B>.<P>
+
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="RestrictionsSect">Restrictions</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<I>vupdate</I> assumes that packages and models are structured in
+certain ways. Most of these restrictions are enforced by the
+<A HREF="repos-ui.1.html">repository tools</A>. In addition to the obvious
+requirement that the models are syntactically legal according to the
+<A HREF="ftp://ftp.digital.com/pub/DEC/SRC/technical-notes/SRC-1997-005a.html">Vesta-2 Software Description Language</A>, <I>vupdate</I> also makes the
+following assumptions:<P>
+
+<UL>
+<LI>
+A path containing an arc named "checkout" is assumed to be a
+checkout session. The path of a checkout session is assumed to contain
+two numeric arcs after the "checkout" arc.<P>
+
+<LI>
+No part of a session name other than the package version or the
+sub-version within a checkout session consists entirely of base-ten
+digits. Conversely, every package version (whether a checkout version
+or a top-level package version) is assumed to consist entirely of
+base-ten digits (with no extra leading zeros).<P>
+
+<LI>
+In an import clause of the form "<TT>from</TT> <I>path</I> <TT>import</TT> ...",
+the package version number is assumed <I>not</I> to appear in <I>path</I>.
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ContinuationsSect">Continuations</A></H3>
+<BLOCKQUOTE>
+<P>
+
+By default, <I>vupdate</I> assumes that the development of versions
+forms a strict tree as is typical when using
+<A HREF="repos-ui.1.html">the repository tools</A>.  Versions in a package
+proceed in a numerically linear fashion, taking brief side trips into
+the session directories of exclusive checkouts.  Branches and
+non-exclusive checkouts form divergences.  Once an import points into
+such a diverged line of development, <I>vupdate</I> by default won't
+move it back to the main trunk of the package versions.<P>
+
+Real development involves parallel work with lines of development
+diverging and re-converging.  It's desirable to have <I>vupdate</I>
+follow the user's mental model of the logical progression of
+development even when that progression isn't strictly linear.<P>
+
+<I>Continuations</I> are an optional feature which allows <I>vupdate</I>
+to change imports more freely.  They allow the user to inform
+<I>vupdate</I> about the logical progression of development.  When
+setting a continuation, the user is saying "<I>When you run out of
+versions <B>here</B>, update to <B>there</B></I>."  To put it another way,
+continuations change <I>vupdate</I>'s treatment of version history from
+a <I>tree</I> to a more general <I>directed acyclic graph</I>.<P>
+
+To use continuations, users must add "continued-in" attributes and run
+<I>vupdate</I> with <A HREF="vupdate.1.html#-follow-continuations">the
+<B>-follow-continuations</B> option</A>.  The "continued-in" attribute must
+be placed on an appendable directory that contains versions, such as a
+session directory, a branch, or a package.  The value of the
+"continued-in" attribute can be either a specific version or an
+appendable directory which contains versions.  If the value of the
+"continued-in" attribute is a specific version, <I>vupdate</I> will
+update an import to that version or higher in the enclosing directory.
+(If the version that the attribute points to is not present,
+<I>vupdate</I> will not follow the continuation.)  If the value of the
+"continued-in" attribute is an appendable directory which contains
+versions (e.g. a session directory or a branch), <I>vupdate</I> will
+update an import to the highest numbered version in that directory,
+even if that's version 0.<P>
+
+The "<A HREF="vupdate.1.html#ExamplesSect">Examples</A>" section below
+<A HREF="vupdate.1.html#ContinuationsExamples">includes some detailed examples of how
+continuations work in practice</A>.
+</BLOCKQUOTE>
+
+<H3><A NAME="ExamplesSect">Examples</A></H3>
+<BLOCKQUOTE>
+<P>
+
+One typical use is to test what imports would be updated using
+<A HREF="vupdate.1.html#NoActionOpt">the <B>-n</B> option</A>, like this:
+<PRE>
+$ vupdate -n -r -v
+/vesta-work/heydon/vimports/.main.ves
+     /vesta/src.dec.com/common/std_env/42/build.ves
+  -&gt; /vesta/src.dec.com/common/std_env/49/build.ves
+
+/vesta-work/heydon/vimports/build.ves
+/vesta-work/heydon/vimports/src/progs.ves
+/vesta-work/heydon/vimports/src/docs.ves
+/vesta-work/heydon/vimports/src/lib.ves
+WARNING: Nothing updated at your request!
+</PRE>
+
+The package can then be updated normally:
+<PRE>
+$ vupdate
+/vesta-work/heydon/vimports/.main.ves
+     /vesta/src.dec.com/common/std_env/42/build.ves
+  -&gt; /vesta/src.dec.com/common/std_env/49/build.ves
+</PRE>
+
+<A HREF="vupdate.1.html#QueryOpt">Query mode</A> can be used to selectively update a model's
+imports:
+<PRE>
+$ vupdate -q
+/vesta-work/heydon/release/.main.ves
+     /vesta/src.dec.com/common/cxx/checkout/14/82/build.ves
+  -&gt; /vesta/src.dec.com/common/cxx/checkout/14/83/build.ves
+  Update this import (y/n)? y
+
+     /vesta/src.dec.com/common/std_env/48/build.ves
+  -&gt; /vesta/src.dec.com/common/std_env/49/build.ves
+  Update this import (y/n)? n
+</PRE>
+
+The following example shows a case where a checkout session has
+been updated to refer to a checked-in version of the package:
+<PRE>
+$ vupdate
+/vesta-work/heydon/basics/.main.ves
+     /vesta/src.dec.com/c/libc/checkout/4/1/build.ves
+  -&gt; /vesta/src.dec.com/c/libc/7/build.ves
+</PRE>
+
+By adding the <A HREF="vupdate.1.html#ToCheckoutOpt"><B>-to-checkout</B></A> option, a checked
+in version can be updated to a current checkout session:
+<PRE>
+$ vupdate -to-checkout
+/vesta-work/schalk/std_env/.main.ves
+     /vesta/shr.dec.com/common/cxx/4/build.ves
+  -&gt; /vesta/shr.dec.com/common/cxx/checkout/5/6/build.ves
+</PRE>
+
+The following example will update imports only to package versions
+that define an "approved" attribute:
+<PRE>
+$ vupdate -attr approved
+</PRE>
+
+The following example will update imports only to package versions
+that define a "status" attribute to have a value of either
+"passed" or "released":
+<PRE>
+$ vupdate -attr status:passed,released
+</PRE>
+
+The following example will update imports only to package versions
+that do <I>not</I> define a "status" attribute whose value is "buggy":
+<PRE>
+$ vupdate -attr status^buggy
+</PRE>
+
+<A NAME="ContinuationsExamples">A few examples of how
+<A HREF="vupdate.1.html#ContinuationsSect">continuations</A> can be used in practice
+follow.</A><P>
+
+Suppose a user started a non-exclusive checkout for a change, perhaps
+because they didn't want to hold up other users who might be making
+changes to the same package.  Now they're preparing to check in their
+changes and have moved their work to a later exclusive checkout.  To
+allow <I>vupdate</I> to follow the development into the main line, they
+add a "continued-in" attribute to their non-exclusive session
+directory using <A HREF="vattrib.1.html"><I>vattrib</I></A>:
+<PRE>
+% vattrib -a continued-in /vesta/example.com/foo/pkg/checkout/15 \
+  /vesta/example.com/foo/pkg/checkout/12.jsmith_example.com.1
+</PRE>
+
+Now when anyone uses <I>vupdate</I> with
+<A HREF="vupdate.1.html#-follow-continuations">the <B>-follow-continuations</B> option</A>
+on a model with an import pointing into the old non-exclusive session,
+it will be followed into the new exclusive session:
+<PRE>
+% vupdate -follow-continuations foo.ves
+     /vesta/example.com/foo/pkg/checkout/12.jsmith_example.com.1/31/build.ves
+  -&gt; /vesta/example.com/foo/pkg/checkout/15/3/build.ves
+</PRE>
+
+If the exclusive session had since been checked in and newer versions
+had been checked in after it, <I>vupdate</I> will continue to move
+forward to those newer versions just as it would if the import had
+originally pointed into the exclusive checkout session:
+<PRE>
+% vupdate -follow-continuations foo.ves
+     /vesta/example.com/foo/pkg/checkout/12.jsmith_example.com.1/31/build.ves
+  -&gt; /vesta/example.com/foo/pkg/17/build.ves
+</PRE>
+
+Suppose instead of moving right to an exclusive checkout, the user
+chose to use a newer non-exclusive session (perhaps because they knew
+it would take some time to reconcile their changes with intervening
+main-line changes).  They could add a continuation from their first
+non-exclusive session to their second:
+<PRE>
+% vattrib -a continued-in \
+  /vesta/example.com/foo/pkg/checkout/15.jsmith_example.com.1 \
+  /vesta/example.com/foo/pkg/checkout/12.jsmith_example.com.1
+</PRE>
+
+When they later move their work into an exclusive checkout, they could
+then add a second continuation:
+<PRE>
+% vattrib -a continued-in \
+  /vesta/example.com/foo/pkg/checkout/17 \
+  /vesta/example.com/foo/pkg/checkout/15.jsmith_example.com.1
+</PRE>
+
+<I>vupdate</I> would then be able to follow the continuations from the
+first non-exclusive session through the second and into the exclusive
+checkout:
+<PRE>
+% vupdate -follow-continuations foo.ves
+     /vesta/example.com/foo/pkg/checkout/12.jsmith_example.com.1/31/build.ves
+  -&gt; /vesta/example.com/foo/pkg/checkout/17/2/build.ves
+</PRE>
+
+And even to checked in versions past the exclusive session:
+<PRE>
+% vupdate -follow-continuations foo.ves
+     /vesta/example.com/foo/pkg/checkout/12.jsmith_example.com.1/31/build.ves
+  -&gt; /vesta/example.com/foo/pkg/17/build.ves
+</PRE>
+
+If you find that continuations are a little too hard to understand,
+adding <A HREF="vupdate.1.html#VerboseOpt"><B>-verbose</B></A> will make <I>vupdate</I> print
+additional messages to help you understand continuations:
+<PRE>
+% vupdate -follow-continuations -verbose foo.ves
+/vesta-work/jsmith/bar/foo.ves
+
+  /vesta/example.com/foo/pkg/checkout/12.jsmith_example.com.1
+  ...continued in /vesta/example.com/foo/pkg/checkout/15.jsmith_example.com.1
+  ...continued in /vesta/example.com/foo/pkg/checkout/17
+
+     /vesta/example.com/foo/pkg/checkout/12.jsmith_example.com.1/31/build.ves
+  -&gt; /vesta/example.com/foo/pkg/17/build.ves
+</PRE>
+
+Suppose a user has been working on a change in a branch (instead of
+non-exclusive sessions).  They have just finished that work and
+integrated their changes into a new main-line version.  They can add a
+"continued-in" attribute to the branch indicating the version that
+incorporates the changes:
+<PRE>
+% vattrib -a continued-in \
+  /vesta/example.com/foo/pkg/17 \
+  /vesta/example.com/foo/pkg/12.bar
+</PRE>
+
+Then <I>vupdate</I> would follow the continuation from the branch to the
+specific main-line version and then on to any higher numbered
+versions:
+<PRE>
+% vupdate -follow-continuations foo.ves
+     /vesta/example.com/foo/pkg/12.bar/5/build.ves
+  -&gt; /vesta/example.com/foo/pkg/18/build.ves
+</PRE>
+
+Just as with session directories, another options is adding a
+continuation from one branch to another:
+<PRE>
+% vattrib -a continued-in \
+  /vesta/example.com/foo/pkg/17.bar \
+  /vesta/example.com/foo/pkg/12.bar
+</PRE>
+
+Allowing <I>vupdate</I> to move from one branch to another:
+<PRE>
+% vupdate -follow-continuations foo.ves
+     /vesta/example.com/foo/pkg/12.bar/5/build.ves
+  -&gt; /vesta/example.com/foo/pkg/17.bar/2/build.ves
+</PRE>
+
+Or even into the latest snapshot in an active checkout in the current
+branch (by adding the <A HREF="vupdate.1.html#ToCheckout"><B>-to-checkout</B></A> option):
+<PRE>
+% vupdate -follow-continuations -to-checkout foo.ves
+     /vesta/example.com/foo/pkg/12.bar/5/build.ves
+  -&gt; /vesta/example.com/foo/pkg/17.bar/checkout/3/7/build.ves
+</PRE>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="ConfigurationSect">Configuration</A></H3>
+<BLOCKQUOTE>
+<P>
+
+The following values are obtained from the <TT>[UserInterface]</TT> section of the
+Vesta configuration file (vesta.cfg).<P>
+
+<DL>
+<DT><I>TempDir</I><DD>
+Name of a Vesta mutable directory that can be used for temporary file 
+storage.  Ordinarily set to <TT>/vesta-work/.tmp</TT>.
+</DL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="BugsSect">Bugs</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<UL>
+<LI>
+Back-slashes are not supported as pathname delimiters.
+<LI>
+It would be nice if there were a switch
+that alerted users of imported models outside the package that 
+require updates and are not already checked out.
+</UL>
+<P>
+
+</BLOCKQUOTE>
+
+<H3><A NAME="SeeAlsoSect">See Also</A></H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="repos-ui.1.html">repos-ui(1)</A>,
+<A HREF="vimports.1.html">vimports(1)</A>,
+<A HREF="vlatest.1.html">vlatest(1)</A>,
+<A HREF="vattrib.1.html">vattrib(1)</A>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+<BLOCKQUOTE>
+<P>
+
+<A HREF="http://src-www.pa.dec.com/~heydon/home.html">Allan Heydon</A>
+(<TT>heydon@src.dec.com</TT>)
+<PRE>
+Created on Tue Jul 15 17:01:30 PDT 1997 by heydon
+</PRE>
+
+</BLOCKQUOTE>
+
+This page was generated automatically by
+<A HREF="../../../mtex/index.html">mtex software</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 48</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text46.html">Back</a> <a href="text48.html">Continue</a> <a href="text60.html">Last page</a> <a href="slides.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1>Scoping : <b>scoping1.ves</b></h1><p>
+<ul><li><h2>There are no global variables, but functions do capture their definition context:</h2>
+<ul><li><b>{</b>
+<li><b>  x = 1;</b>
+<li><b>  f(y) { return x+y; };</b>
+<li><b>  x = 2;</b>
+<li><b>  return f(3);</b>
+<li><b>}</b>
+</ul><li><h2>The function body sees the first value for <b>x</b>, so the result is 4, not 5!</h2>
+</ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

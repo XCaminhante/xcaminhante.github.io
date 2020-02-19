@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta HTTP-EQUIV=CONTENT-TYPE CONTENT="text/html; charset=utf-8">
+<title>Slide 58</title>
+</head>
+<body text=#FFFFFF bgcolor=#000080 link=#CCCCCC vlink=#808080 alink=#0000CC>
+<center>
+<a href="text0.html">First page</a> <a href="text56.html">Back</a> <a href="text58.html">Continue</a> <a href="text60.html">Last page</a> <a href="slides.html">Overview</a> <a href="siframes.html">Graphics</a></center><br>
+<h1><b>/vesta/vestasys.org/vesta/config/16/src/progs.ves</b></h1><p>
+<ul><li><h2>Next, we create an in-line source file with a version identifier:</h2>
+<ul><li><b>    vgetconfig_c ++= [ Version.C = &quot;const char *Version = \&quot;&quot; +</b>
+<li><b>        (if(.!version_string) then ./version_string</b>
+<li><b>        else ./generic/replace_text(./generic/replace_text(_model_name(_self), &quot;/vesta/vestasys.org/vesta/&quot;, &quot;&quot;), </b>
+<li><b>&quot;/src/progs.ves&quot;, &quot;&quot;))</b>
+<li><b>        + &quot;\&quot;;\n&quot; ];</b>
+</ul><li><h2>This uses <b>./version_string</b> if set</h2>
+<li><h2>If not, it generates a string from the model path</h2>
+</ul><br>
+<h3>Notes:</h3>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Binding</TITLE>
+<META NAME="description" CONTENT="Binding">
+<META NAME="keywords" CONTENT="paper">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="paper.css">
+
+<LINK REL="next" HREF="node139.html">
+<LINK REL="previous" HREF="node137.html">
+<LINK REL="up" HREF="node133.html">
+<LINK REL="next" HREF="node139.html">
+</HEAD>
+
+<body bgcolor="#efefff">
+<!--Navigation Panel-->
+<A NAME="tex2html2263"
+  HREF="node139.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2259"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2253"
+  HREF="node137.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2261"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2264"
+  HREF="node139.html">Select</A>
+<B> Up:</B> <A NAME="tex2html2260"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2254"
+  HREF="node137.html">List</A>
+ &nbsp <B>  <A NAME="tex2html2262"
+  HREF="node6.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION001333500000000000000"></A><A NAME="sect:SDL-binding"></A>
+<BR>
+Binding
+</H3>
+
+<P>
+<
+<P>
+<PRE>
+Binding    ::= `[' BindElem*, `]'
+BindElem   ::= SelfNameB | NameBind
+SelfNameB  ::= Id
+NameBind   ::= GenPath = Expr
+GenPath    ::= GenArc { Delim GenArc }* [ Delim ]
+GenArc     ::= Arc | $ Id | $ ( Expr ) | % Expr %
+Arc        ::= Id | Integer | Text
+</PRE>
+
+<P>
+<
+<P>
+The following desugarings apply to BindElem's within a Binding.
+
+<P>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">Id</TD>
+<TD ALIGN="LEFT">desugars to</TD>
+<TD ALIGN="LEFT">Id = Id</TD>
+</TR>
+<TR><TD ALIGN="LEFT">GenArc Delim = Expr</TD>
+<TD ALIGN="LEFT">desugars to</TD>
+<TD ALIGN="LEFT">GenArc = Expr</TD>
+</TR>
+<TR><TD ALIGN="LEFT">GenArc Delim GenPath = Expr</TD>
+<TD ALIGN="LEFT">desugars to</TD>
+<TD ALIGN="LEFT">GenArc = [ GenPath = Expr ]</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>$</TT> Id = Expr</TD>
+<TD ALIGN="LEFT">desugars to</TD>
+<TD ALIGN="LEFT"><TT>$</TT> ( Id ) = Expr</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><TT>%</TT> <IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img111.png"
+ ALT="$\mbox{Expr}_1$"> <TT>%</TT> = <IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img112.png"
+ ALT="$\mbox{Expr}_2$"></TD>
+<TD ALIGN="LEFT">desugars to</TD>
+<TD ALIGN="LEFT">$ ( <IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img111.png"
+ ALT="$\mbox{Expr}_1$"> ) = <IMG
+ WIDTH="44" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img112.png"
+ ALT="$\mbox{Expr}_2$"></TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+The SelfNameB syntactic sugar allows names from the current scope
+to be copied into bindings more succinctly.  For example, the binding
+value:
+
+<P>
+<PRE>
+  [ progs = progs, tests = tests, lib = lib ]
+</PRE>
+
+<P>
+can instead be written:
+
+<P>
+<PRE>
+  [ progs, tests, lib ]
+</PRE>
+
+<P>
+The GenPath syntactic sugar allows bindings consisting of a single
+path to be written more succinctly. For example, the binding value:
+
+<P>
+<PRE>
+  [ env_ovs = [ Cxx = [ switches = [ compile =
+    [ debug = "-g3", optimize = "-O" ]]]]]
+</PRE>
+
+<P>
+can instead be written:
+
+<P>
+<PRE>
+  [ env_ovs/Cxx/switches/compile = 
+    [ debug = "-g3", optimize = "-O" ]]
+</PRE>
+
+<P>
+<
+<P>
+First, the rules for constructing empty and singleton bindings:
+
+<P>
+<PRE>
+Eval( [ ]            , C) = emptybinding
+Eval( [ Arc = Expr ] , C) = _bind1(id, Eval( Expr , C))
+</PRE>
+
+<P>
+Here <EM>id</EM> is the t_text representation of <EM>Arc</EM>. The
+conversion from an Arc to a t_text is straightforward. If the Arc
+is an Id, the literal characters of the identifier become the text
+value. If the Arc is an Integer, the literal characters used to
+represent the integer in the source of the model become the text
+value. If the Arc is a Text, the result of Eval(Arc, C) is used. As
+defined in Section&nbsp;<A HREF="node155.html#sect:SDL-binding-funcs">A.3.4.5</A>, <TT>_bind1</TT>(<EM>id</EM>,
+<EM>v</EM>) evaluates to a singleton binding that associates the
+non-empty t_text <EM>id</EM> with the value <EM>v</EM>.
+
+<P>
+The <TT>$(<EM>Expr</EM>)</TT> syntax allows the name introduced
+into a binding to be computed:
+
+<P>
+<PRE>
+Eval( [ $ ( Expr_1 ) = Expr_2 ] , C) =
+  _bind1(Eval(Expr_1, C), Eval( Expr_2 , C))
+</PRE>
+
+<P>
+When the field name is computed using the <TT>$</TT> syntax, the
+expression must evaluate to a non-empty t_text (see the <TT>_bind1</TT>
+primitive in Section&nbsp;<A HREF="node155.html#sect:SDL-binding-funcs">A.3.4.5</A> below).
+
+<P>
+The following rule handles the case where multiple BindElem's are given.
+
+<P>
+<PRE>
+Eval( [ BindElem_1, ..., BindElem_n ] , C) =
+{
+  val b1 = Eval( [ BindElem_1 ] , C);
+  val b2 = Eval( [ BindElem_2, ..., BindElem_n ] , C);
+  return _append(b1, b2);
+}
+</PRE>
+
+<P>
+As defined in Section&nbsp;<A HREF="node155.html#sect:SDL-binding-funcs">A.3.4.5</A>,
+<TT>_append</TT>(<EM>b1</EM>, <EM>b2</EM>) evaluates to the concatenation of
+the bindings <EM>b1</EM> and <EM>b2</EM>; it requires that their domains are
+disjoint.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2263"
+  HREF="node139.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="icons/next.png"></A> 
+<A NAME="tex2html2259"
+  HREF="node133.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="icons/up.png"></A> 
+<A NAME="tex2html2253"
+  HREF="node137.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="icons/prev.png"></A> 
+<A NAME="tex2html2261"
+  HREF="node6.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2264"
+  HREF="node139.html">Select</A>
+<B> Up:</B> <A NAME="tex2html2260"
+  HREF="node133.html">Evaluation Rules</A>
+<B> Previous:</B> <A NAME="tex2html2254"
+  HREF="node137.html">List</A>
+ &nbsp <B>  <A NAME="tex2html2262"
+  HREF="node6.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Allan Heydon, Roy Levin, Timothy Mann, Yuan Yu
+</ADDRESS>
+</BODY>
+</HTML>
