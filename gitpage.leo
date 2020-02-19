@@ -6,18 +6,10 @@
 <preferences/>
 <find_panel_settings/>
 <vnodes>
-<v t="caminhante.20200219123813.3"><vh>xcaminhante.github.io</vh>
-<v t="caminhante.20200218172558.1"><vh>@clean style.css</vh>
-<v t="caminhante.20200218174211.1"><vh>basic</vh></v>
-<v t="caminhante.20200218174220.1"><vh>links</vh></v>
-<v t="caminhante.20200218174230.1"><vh>header</vh></v>
-<v t="caminhante.20200218174233.1"><vh>content</vh>
-<v t="caminhante.20200218175352.1"><vh>hierarchical text</vh></v>
-</v>
-<v t="caminhante.20200218174234.1"><vh>menu</vh></v>
-<v t="caminhante.20200218174317.1"><vh>code</vh></v>
-</v>
-<v t="caminhante.20200218172553.1"><vh>example.html</vh>
+<v t="caminhante.20200219124145.1"><vh>@settings</vh>
+<v t="caminhante.20200219124202.1"><vh>@outline-data tree-abbreviations</vh>
+<v t="caminhante.20200218172553.1"><vh>listpage;;</vh>
+<v t="caminhante.20200219124409.1"><vh>page</vh>
 <v t="caminhante.20200218172722.1"><vh>head</vh></v>
 <v t="caminhante.20200218172926.1"><vh>body</vh>
 <v t="caminhante.20200218172953.1"><vh>header</vh></v>
@@ -32,38 +24,77 @@
 </v>
 </v>
 </v>
+</v>
+</v>
+<v t="caminhante.20200219123813.3"><vh>xcaminhante.github.io</vh>
+<v t="caminhante.20200218172558.1"><vh>@clean style.css</vh>
+<v t="caminhante.20200218174211.1"><vh>basic</vh></v>
+<v t="caminhante.20200218174220.1"><vh>links</vh></v>
+<v t="caminhante.20200218174230.1"><vh>header</vh></v>
+<v t="caminhante.20200218174233.1"><vh>content</vh>
+<v t="caminhante.20200218175352.1"><vh>hierarchical text</vh></v>
+</v>
+<v t="caminhante.20200218174234.1"><vh>menu</vh></v>
+<v t="caminhante.20200218174317.1"><vh>code</vh></v>
+</v>
+<v t="caminhante.20200219124135.1"><vh>@clean index.html</vh>
+<v t="caminhante.20200219124631.2"><vh>page</vh>
+<v t="caminhante.20200219124631.3"><vh>head</vh></v>
+<v t="caminhante.20200219124631.4"><vh>body</vh>
+<v t="caminhante.20200219124631.5"><vh>header</vh></v>
+<v t="caminhante.20200219124631.6"><vh>menu</vh>
+<v t="caminhante.20200219124631.7"><vh>links</vh></v>
+</v>
+<v t="caminhante.20200219124631.8"><vh>content</vh>
+<v t="caminhante.20200219130100.1"><vh>title</vh></v>
+<v t="caminhante.20200219124631.10"><vh>1.</vh></v>
+</v>
+</v>
+</v>
+</v>
+<v t="caminhante.20200219125833.1"><vh>@clean vesta.html</vh>
+<v t="caminhante.20200219125849.2"><vh>page</vh>
+<v t="caminhante.20200219124631.3"></v>
+<v t="caminhante.20200219125849.4"><vh>body</vh>
+<v t="caminhante.20200219124631.5"></v>
+<v t="caminhante.20200219124631.6"></v>
+<v t="caminhante.20200219125849.8"><vh>content</vh>
+<v t="caminhante.20200219130551.1"><vh>title</vh></v>
+<v t="caminhante.20200219125953.1"><vh>1.</vh></v>
+<v t="caminhante.20200219130700.1"><vh>2.</vh></v>
+</v>
+</v>
+</v>
+</v>
+</v>
 </vnodes>
 <tnodes>
-<t tx="caminhante.20200218172553.1">@language html
-@tabwidth -2
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-@others
-&lt;/html&gt;</t>
+<t tx="caminhante.20200218172553.1"></t>
 <t tx="caminhante.20200218172558.1">@language css
 @tabwidth -2
 @others
 </t>
 <t tx="caminhante.20200218172722.1">&lt;head&gt;
   &lt;meta charset="utf8"/&gt;
-  &lt;meta name="editor" content="listsite"/&gt;
-  &lt;title&gt; ListSite Template &lt;/title&gt;
+  &lt;meta name="editor" content="Leo Editor"/&gt;
+  &lt;meta name="author" content="https://github.com/xcaminhante"/&gt;
+  &lt;title&gt; ListPage Template &lt;/title&gt;
   &lt;style type="text/css"&gt; @import "style.css"; &lt;/style&gt;
 &lt;/head&gt;</t>
 <t tx="caminhante.20200218172926.1">&lt;body&gt;
 @others
 &lt;/body&gt;</t>
-<t tx="caminhante.20200218172953.1">&lt;div id="header"&gt; &lt;a href=""&gt; ListSite Template &lt;/a&gt; &lt;/div&gt;</t>
+<t tx="caminhante.20200218172953.1">&lt;div id="header"&gt; &lt;a href=""&gt; ListPage Template &lt;/a&gt; &lt;/div&gt;</t>
 <t tx="caminhante.20200218173026.1">&lt;div id="menu"&gt;
 @others
 &lt;/div&gt;</t>
 <t tx="caminhante.20200218173049.1">&lt;div id="content"&gt;
 @others
 &lt;/div&gt;</t>
-<t tx="caminhante.20200218173225.1">&lt;a href=""&gt; Teste 1 &lt;/a&gt; &lt;br/&gt;
-&lt;a href=""&gt; Teste 2 &lt;/a&gt; &lt;br/&gt;
-&lt;a href=""&gt; Teste 3 &lt;/a&gt; &lt;br/&gt;</t>
-<t tx="caminhante.20200218173246.1">&lt;p&gt; A ListSite Template file. &lt;/p&gt;</t>
+<t tx="caminhante.20200218173225.1">&lt;a href=""&gt; Test 1 &lt;/a&gt; &lt;br/&gt;
+&lt;a href=""&gt; Test 2 &lt;/a&gt; &lt;br/&gt;
+&lt;a href=""&gt; Test 3 &lt;/a&gt; &lt;br/&gt;</t>
+<t tx="caminhante.20200218173246.1">&lt;p&gt; A ListPage Template file. &lt;/p&gt;</t>
 <t tx="caminhante.20200218174025.1">&lt;pre&gt;&lt;code&gt;import basics.e
 
 procedure a_silly_pseudocode ()
@@ -97,5 +128,63 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 &lt;h2&gt; Subtitle &lt;/h2&gt;
 </t>
 <t tx="caminhante.20200219123813.3"></t>
+<t tx="caminhante.20200219124135.1">@others
+</t>
+<t tx="caminhante.20200219124145.1"></t>
+<t tx="caminhante.20200219124202.1">listpage;;</t>
+<t tx="caminhante.20200219124409.1">@language html
+@tabwidth -2
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+@others
+&lt;/html&gt;</t>
+<t tx="caminhante.20200219124631.10">&lt;p&gt; I'll put technically interesting projects, articles and links here. &lt;/p&gt;
+&lt;p&gt; My projects aren't much interesting yet, but they'll be. &lt;/p&gt;</t>
+<t tx="caminhante.20200219124631.2">@language html
+@tabwidth -2
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+@others
+&lt;/html&gt;</t>
+<t tx="caminhante.20200219124631.3">&lt;head&gt;
+  &lt;meta charset="utf8"/&gt;
+  &lt;meta name="editor" content="Leo Editor"/&gt;
+  &lt;meta name="author" content="https://github.com/xcaminhante"/&gt;
+  &lt;title&gt; XCaminhante' files &lt;/title&gt;
+  &lt;style type="text/css"&gt; @import "style.css"; &lt;/style&gt;
+&lt;/head&gt;</t>
+<t tx="caminhante.20200219124631.4">&lt;body&gt;
+@others
+&lt;/body&gt;</t>
+<t tx="caminhante.20200219124631.5">&lt;div id="header"&gt; &lt;a href="https://xcaminhante.github.io/"&gt; XCaminhante' files &lt;/a&gt; &lt;/div&gt;</t>
+<t tx="caminhante.20200219124631.6">&lt;div id="menu"&gt;
+@others
+&lt;/div&gt;</t>
+<t tx="caminhante.20200219124631.7">&lt;a href="index.html"&gt; About &lt;/a&gt; &lt;br/&gt;
+&lt;a href="vesta.html"&gt; Vesta CMS &lt;/a&gt; &lt;br/&gt;</t>
+<t tx="caminhante.20200219124631.8">&lt;div id="content"&gt;
+@others
+&lt;/div&gt;</t>
+<t tx="caminhante.20200219125833.1">@others
+</t>
+<t tx="caminhante.20200219125849.2">@language html
+@tabwidth -2
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+@others
+&lt;/html&gt;</t>
+<t tx="caminhante.20200219125849.4">&lt;body&gt;
+@others
+&lt;/body&gt;</t>
+<t tx="caminhante.20200219125849.8">&lt;div id="content"&gt;
+@others
+&lt;/div&gt;</t>
+<t tx="caminhante.20200219125953.1">&lt;h2&gt; What is this project about &lt;/h2&gt;
+&lt;p&gt; Vesta Configuration Management System is an advanced software configuration management system. It handles source revision control and automated construction. It is the result of over 10 years of research and development at the Compaq/Digital Systems Research Center. &lt;/p&gt;
+&lt;p&gt; Vesta CMS is GNU-licensed software. This is an atempt to backup and revive the software. &lt;/p&gt;</t>
+<t tx="caminhante.20200219130100.1">&lt;h1&gt; About this site &lt;/h1&gt;</t>
+<t tx="caminhante.20200219130551.1">&lt;h1&gt; Vesta CMS &lt;/h1&gt;</t>
+<t tx="caminhante.20200219130700.1">&lt;h2&gt; &lt;a href="http://www.vestasys.org/"&gt; http://www.vestasys.org/ &lt;/a&gt; backup &lt;/h2&gt;
+&lt;p&gt; &lt;a href="vesta/index.html"&gt; Here. &lt;/a&gt; &lt;/p&gt;</t>
 </tnodes>
 </leo_file>
