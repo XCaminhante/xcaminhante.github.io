@@ -27,6 +27,7 @@
 </v>
 </v>
 <v t="caminhante.20200219123813.3"><vh>xcaminhante.github.io</vh>
+<v t="caminhante.20200219131209.1"><vh>@auto README.md</vh></v>
 <v t="caminhante.20200218172558.1"><vh>@clean style.css</vh>
 <v t="caminhante.20200218174211.1"><vh>basic</vh></v>
 <v t="caminhante.20200218174220.1"><vh>links</vh></v>
