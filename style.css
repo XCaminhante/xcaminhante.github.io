@@ -11,7 +11,9 @@ a:hover { background-color: rgb(238, 238, 238); }
 #content > p { text-indent: 0em; }
 h1 { margin: 0px 0px 15px; padding: 0px; font-size: 200%; line-height: 1em; font-weight: 900; color: rgb(204, 204, 204); }
 h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); font-size: 100%; line-height: 1em; font-weight: 600; color: rgb(0, 0, 0); }
-#menu { position: absolute; top: 70px; left: 20px; width: 10em; padding: 10px; background-color: rgb(238, 238, 238); line-height: 1.5em; }
+#menu { position: absolute; top: 70px; left: 20px; width: 10em; padding: 0px;  line-height: 1.5em; }
+.menuframe { width: 10em; padding: 10px; margin-bottom: 1.5em; background-color: rgb(238, 238, 238); line-height: 1.5em; }
+
 pre { white-space: pre-wrap; }
 code, pre { font-family: "Courier New",Courier,monospace; font-size: inherit; color: navy; padding: 0px; margin: 0px; }
 pre { border-width: 1px 1px 1px 5px; border-style: solid; border-color: rgb(221, 221, 221) rgb(221, 221, 221) rgb(221, 221, 221) rgb(240, 240, 240); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; background: rgb(248, 248, 248) none repeat scroll 0% 0%; padding: 0.5em; }

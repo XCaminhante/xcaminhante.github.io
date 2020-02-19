@@ -139,7 +139,9 @@ a:hover { background-color: rgb(238, 238, 238); }
 #content &gt; p { margin: 0px; }
 #content &gt; p { text-indent: 0em; }
 </t>
-<t tx="caminhante.20200218174234.1">#menu { position: absolute; top: 70px; left: 20px; width: 10em; padding: 10px; background-color: rgb(238, 238, 238); line-height: 1.5em; }
+<t tx="caminhante.20200218174234.1">#menu { position: absolute; top: 70px; left: 20px; width: 10em; padding: 0px;  line-height: 1.5em; }
+.menuframe { width: 10em; padding: 10px; margin-bottom: 1.5em; background-color: rgb(238, 238, 238); line-height: 1.5em; }
+
 </t>
 <t tx="caminhante.20200218174317.1">pre { white-space: pre-wrap; }
 code, pre { font-family: "Courier New",Courier,monospace; font-size: inherit; color: navy; padding: 0px; margin: 0px; }
@@ -184,9 +186,11 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 <t tx="caminhante.20200219124631.6">&lt;div id="menu"&gt;
 @others
 &lt;/div&gt;</t>
-<t tx="caminhante.20200219124631.7">&lt;a href="index.html"&gt; About &lt;/a&gt; &lt;br/&gt;
+<t tx="caminhante.20200219124631.7">&lt;div class="menuframe"&gt;
+&lt;a href="index.html"&gt; About &lt;/a&gt; &lt;br/&gt;
 &lt;a href="vesta.html"&gt; Vesta CMS &lt;/a&gt; &lt;br/&gt;
-&lt;a href="links.html"&gt; External Links &lt;/a&gt; &lt;br/&gt;</t>
+&lt;a href="links.html"&gt; External Links &lt;/a&gt; &lt;br/&gt;
+&lt;/div&gt;</t>
 <t tx="caminhante.20200219124631.8">&lt;div id="content"&gt;
 @others
 &lt;/div&gt;</t>
@@ -214,12 +218,12 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 <t tx="caminhante.20200219140857.1">&lt;div id="menu"&gt;
 @others
 &lt;/div&gt;</t>
-<t tx="caminhante.20200219140925.1">&lt;br/&gt;
-&lt;span&gt;Backups:&lt;/span&gt; &lt;br/&gt;
+<t tx="caminhante.20200219140925.1">&lt;div class="menuframe"&gt;
+&lt;span&gt; Backups: &lt;/span&gt; &lt;br/&gt;
 &lt;a href="vesta/index.html"&gt; www.vestasys.org &lt;/a&gt; &lt;br/&gt;
 &lt;a href="wiki-vesta/index.html"&gt; wiki.vestasys.org &lt;/a&gt; &lt;br/&gt;
 &lt;a href="pub-vesta/index.html"&gt; pub.vestasys.org &lt;/a&gt; &lt;br/&gt;
-</t>
+&lt;/div&gt;</t>
 <t tx="caminhante.20200219141223.1">&lt;h2&gt; &lt;a href="http://wiki.vestasys.org/"&gt; http://wiki.vestasys.org/ &lt;/a&gt; backup &lt;/h2&gt;
 &lt;p&gt; &lt;a href="wiki-vesta/index.html"&gt; Will reside here soon. &lt;/a&gt; My download was rate-throttled. &lt;/p&gt;</t>
 <t tx="caminhante.20200219141303.1">&lt;h2&gt; &lt;a href="http://pub.vestasys.org/"&gt; http://pub.vestasys.org/ &lt;/a&gt; backup &lt;/h2&gt;
