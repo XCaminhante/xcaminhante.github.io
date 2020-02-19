@@ -90,6 +90,7 @@
 </v>
 </v>
 </v>
+<v t="caminhante.20200219170322.1"><vh>@clean fzort.html</vh></v>
 </v>
 </vnodes>
 <tnodes>
@@ -256,7 +257,25 @@ p;;=&lt;p&gt; &lt;|text|&gt; &lt;/p&gt;
 <t tx="caminhante.20200219153026.1">&lt;h2&gt; Old technological treasures &lt;/h2&gt;
 &lt;p&gt; &lt;a href="https://web.archive.org/web/20000823134712/http://www.albany.net/~hello/simple.htm"&gt; Simple Forth &lt;/a&gt; &lt;/p&gt;</t>
 <t tx="caminhante.20200219153028.1">&lt;h2&gt; Miscelanea &lt;/h2&gt;
-&lt;p&gt; &lt;a href="zeppo.html"&gt; Zeppo. &lt;/a&gt; &lt;/p&gt;
+&lt;p&gt;
+&lt;a href="zeppo.html"&gt; Zeppo. &lt;/a&gt; &lt;br/&gt;
+&lt;a href="fzort.html"&gt; In memorian, fzort.org &lt;/a&gt;
+&lt;/p&gt;
 </t>
+<t tx="caminhante.20200219170322.1">@language html
+@tabwidth -2
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt; &lt;meta charset="utf8"/&gt; &lt;title&gt;orbius fzortius&lt;/title&gt;
+&lt;style&gt;
+html, body { height: 100%; margin: 0; padding: 0; }
+table { position: relative; height: 100%; width: 100%; }
+&lt;/style&gt; &lt;/head&gt;
+&lt;body bgcolor="white"&gt;
+&lt;table border="0"&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td valign="middle" align="center"&gt;
+&lt;img src="fzort.gif" alt="fluff" /&gt;
+&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</t>
 </tnodes>
 </leo_file>
