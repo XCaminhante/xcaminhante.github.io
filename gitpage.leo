@@ -61,7 +61,7 @@
 <v t="caminhante.20200219124631.5"></v>
 <v t="caminhante.20200219140857.1"><vh>menu</vh>
 <v t="caminhante.20200219124631.7"></v>
-<v t="caminhante.20200219140925.1"><vh>Vesta CMS</vh></v>
+<v t="caminhante.20200219140925.1"><vh>Vesta's related websites' backups</vh></v>
 </v>
 <v t="caminhante.20200219125849.8"><vh>content</vh>
 <v t="caminhante.20200219130551.1"><vh>title</vh></v>
@@ -141,7 +141,7 @@ a:hover { background-color: rgb(238, 238, 238); }
 </t>
 <t tx="caminhante.20200218174234.1">#menu { position: absolute; top: 70px; left: 20px; width: 10em; padding: 0px;  line-height: 1.5em; }
 .menuframe { width: 10em; padding: 10px; margin-bottom: 1.5em; background-color: rgb(238, 238, 238); line-height: 1.5em; }
-
+.menuframe &gt; span { position: absolute; width: 100%; border-bottom: solid 1px black; }
 </t>
 <t tx="caminhante.20200218174317.1">pre { white-space: pre-wrap; }
 code, pre { font-family: "Courier New",Courier,monospace; font-size: inherit; color: navy; padding: 0px; margin: 0px; }
@@ -219,7 +219,7 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 @others
 &lt;/div&gt;</t>
 <t tx="caminhante.20200219140925.1">&lt;div class="menuframe"&gt;
-&lt;span&gt; Backups: &lt;/span&gt; &lt;br/&gt;
+&lt;span&gt; Backups &lt;/span&gt; &lt;br/&gt;
 &lt;a href="vesta/index.html"&gt; www.vestasys.org &lt;/a&gt; &lt;br/&gt;
 &lt;a href="wiki-vesta/index.html"&gt; wiki.vestasys.org &lt;/a&gt; &lt;br/&gt;
 &lt;a href="pub-vesta/index.html"&gt; pub.vestasys.org &lt;/a&gt; &lt;br/&gt;
