@@ -186,6 +186,6 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 <t tx="caminhante.20200219130100.1">&lt;h1&gt; About this site &lt;/h1&gt;</t>
 <t tx="caminhante.20200219130551.1">&lt;h1&gt; Vesta CMS &lt;/h1&gt;</t>
 <t tx="caminhante.20200219130700.1">&lt;h2&gt; &lt;a href="http://www.vestasys.org/"&gt; http://www.vestasys.org/ &lt;/a&gt; backup &lt;/h2&gt;
-&lt;p&gt; &lt;a href="vesta/index.html"&gt; Here. &lt;/a&gt; &lt;/p&gt;</t>
+&lt;p&gt; &lt;a href="vesta/index.html"&gt; Here. &lt;/a&gt; It's still incomplete. &lt;/p&gt;</t>
 </tnodes>
 </leo_file>
