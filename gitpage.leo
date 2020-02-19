@@ -240,7 +240,7 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 @others
 &lt;/div&gt;</t>
 <t tx="caminhante.20200219142350.1">&lt;h1&gt; External Links &lt;/h1&gt;</t>
-<t tx="caminhante.20200219142830.1">&lt;p&gt; &lt;a href="https://dotat.at/:/?"&gt; Tony Finch's link log &lt;/a&gt; &lt;/p&gt;</t>
+<t tx="caminhante.20200219142830.1">&lt;p&gt; &lt;a target="_blank" href="https://dotat.at/:/?"&gt; Tony Finch's link log &lt;/a&gt; &lt;/p&gt;</t>
 <t tx="caminhante.20200219142855.1">link;;=&lt;a href="&lt;|url|&gt;"&gt; &lt;|text|&gt; &lt;/a&gt;
 p;;=&lt;p&gt; &lt;|text|&gt; &lt;/p&gt;
 </t>
