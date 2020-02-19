@@ -219,7 +219,7 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 @others
 &lt;/div&gt;</t>
 <t tx="caminhante.20200219140925.1">&lt;div class="menuframe"&gt;
-&lt;span&gt; Backups &lt;/span&gt; &lt;br/&gt;
+&lt;span&gt; Websites' backups &lt;/span&gt; &lt;br/&gt;
 &lt;a href="vesta/index.html"&gt; www.vestasys.org &lt;/a&gt; &lt;br/&gt;
 &lt;a href="wiki-vesta/index.html"&gt; wiki.vestasys.org &lt;/a&gt; &lt;br/&gt;
 &lt;a href="pub-vesta/index.html"&gt; pub.vestasys.org &lt;/a&gt; &lt;br/&gt;
