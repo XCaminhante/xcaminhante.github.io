@@ -44,7 +44,7 @@
 <v t="caminhante.20200219124631.4"><vh>body</vh>
 <v t="caminhante.20200219124631.5"><vh>header</vh></v>
 <v t="caminhante.20200219124631.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"><vh>links</vh></v>
+<v t="caminhante.20200219124631.7"><vh>projects</vh></v>
 </v>
 <v t="caminhante.20200219124631.8"><vh>content</vh>
 <v t="caminhante.20200219130100.1"><vh>title</vh></v>
@@ -58,11 +58,16 @@
 <v t="caminhante.20200219124631.3"></v>
 <v t="caminhante.20200219125849.4"><vh>body</vh>
 <v t="caminhante.20200219124631.5"></v>
-<v t="caminhante.20200219124631.6"></v>
+<v t="caminhante.20200219140857.1"><vh>menu</vh>
+<v t="caminhante.20200219124631.7"></v>
+<v t="caminhante.20200219140925.1"><vh>Vesta CMS</vh></v>
+</v>
 <v t="caminhante.20200219125849.8"><vh>content</vh>
 <v t="caminhante.20200219130551.1"><vh>title</vh></v>
 <v t="caminhante.20200219125953.1"><vh>1.</vh></v>
 <v t="caminhante.20200219130700.1"><vh>2.</vh></v>
+<v t="caminhante.20200219141223.1"><vh>3.</vh></v>
+<v t="caminhante.20200219141303.1"><vh>4.</vh></v>
 </v>
 </v>
 </v>
@@ -182,10 +187,23 @@ h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); f
 &lt;/div&gt;</t>
 <t tx="caminhante.20200219125953.1">&lt;h2&gt; What is this project about &lt;/h2&gt;
 &lt;p&gt; Vesta Configuration Management System is an advanced software configuration management system. It handles source revision control and automated construction. It is the result of over 10 years of research and development at the Compaq/Digital Systems Research Center. &lt;/p&gt;
-&lt;p&gt; Vesta CMS is GNU-licensed software. This is an atempt to backup and revive the software. &lt;/p&gt;</t>
+&lt;p&gt; Vesta CMS is LGPL-licensed software. This is an atempt to backup and revive the software. A copy of the websites associated will be mirrored here and the source-code mirrored on a Git repo. &lt;/p&gt;</t>
 <t tx="caminhante.20200219130100.1">&lt;h1&gt; About this site &lt;/h1&gt;</t>
 <t tx="caminhante.20200219130551.1">&lt;h1&gt; Vesta CMS &lt;/h1&gt;</t>
 <t tx="caminhante.20200219130700.1">&lt;h2&gt; &lt;a href="http://www.vestasys.org/"&gt; http://www.vestasys.org/ &lt;/a&gt; backup &lt;/h2&gt;
 &lt;p&gt; &lt;a href="vesta/index.html"&gt; Here. &lt;/a&gt; It's still incomplete. &lt;/p&gt;</t>
+<t tx="caminhante.20200219140857.1">&lt;div id="menu"&gt;
+@others
+&lt;/div&gt;</t>
+<t tx="caminhante.20200219140925.1">&lt;br/&gt;
+&lt;span&gt;Backups:&lt;/span&gt; &lt;br/&gt;
+&lt;a href="vesta/index.html"&gt; www.vestasys.org &lt;/a&gt; &lt;br/&gt;
+&lt;a href="wiki-vesta/index.html"&gt; wiki.vestasys.org &lt;/a&gt; &lt;br/&gt;
+&lt;a href="pub-vesta/index.html"&gt; pub.vestasys.org &lt;/a&gt; &lt;br/&gt;
+</t>
+<t tx="caminhante.20200219141223.1">&lt;h2&gt; &lt;a href="http://wiki.vestasys.org/"&gt; http://wiki.vestasys.org/ &lt;/a&gt; backup &lt;/h2&gt;
+&lt;p&gt; &lt;a href="wiki-vesta/index.html"&gt; Will reside here soon. &lt;/a&gt; My download was rate-throttled. &lt;/p&gt;</t>
+<t tx="caminhante.20200219141303.1">&lt;h2&gt; &lt;a href="http://pub.vestasys.org/"&gt; http://pub.vestasys.org/ &lt;/a&gt; backup &lt;/h2&gt;
+&lt;p&gt; &lt;a href="pub-vesta/index.html"&gt; Will reside here soon. &lt;/a&gt; &lt;/p&gt;</t>
 </tnodes>
 </leo_file>
