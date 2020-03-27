@@ -126,34 +126,34 @@ procedure a_silly_pseudocode ()
   // i just want you here
 end procedure
 &lt;/code&gt;&lt;/pre&gt;</t>
-<t tx="caminhante.20200218174211.1">body { margin: 0px; padding: 0px; font-family: verdana,arial,helvetica,sans-serif; color: rgb(51, 51, 51); background-color: white; }
-h1 { margin: 0px 0px 15px; padding: 0px; font-size: 200%; line-height: 1em; font-weight: 900; color: rgb(204, 204, 204); }
+<t tx="caminhante.20200218174211.1">body { margin: 0px; padding: 0px; font-family: verdana,arial,helvetica,sans-serif; color: #333333; background-color: white; }
 p { margin: 0px 0px 16px; padding: 10px; }
 </t>
-<t tx="caminhante.20200218174220.1">a { color: rgb(0, 153, 204); text-decoration: none; font-weight: 600; font-family: verdana,arial,helvetica,sans-serif; }
-a:link { color: rgb(0, 153, 204); }
-a:visited { color: rgb(0, 119, 170); }
-a:hover { background-color: rgb(238, 238, 238); }
+<t tx="caminhante.20200218174220.1">a { color: #0099cc; text-decoration: none; font-weight: 600; font-family: verdana,arial,helvetica,sans-serif; }
+a:link { color: #0099cc; }
+a:visited { color: #0077aa; }
+a:hover { background-color: #eeeeee; }
 </t>
-<t tx="caminhante.20200218174230.1">#header { margin: 20px 0px 10px; padding: 17px 0px 0px 20px; height: 1em; border-style: solid; border-color: black; border-width: 1px 0px; line-height: 0.7em; background-color: rgb(238, 238, 238); }</t>
+<t tx="caminhante.20200218174230.1">#header { margin: 20px 0px 10px; padding: 17px 0px 0px 20px; height: 1em; border-style: solid; border-color: black; border-width: 1px 0px; line-height: 0.7em; background-color: #eeeeee; }</t>
 <t tx="caminhante.20200218174233.1">#content { margin: 0px 50px 50px 13em; padding: 0.5em; max-width: 40em; background: transparent url('') no-repeat scroll right top; }
 #content &gt; p { margin: 0px; }
 #content &gt; p { text-indent: 0em; }
 </t>
 <t tx="caminhante.20200218174234.1">#menu { position: absolute; top: 70px; left: 20px; width: 10em; padding: 0px;  line-height: 1.5em; }
-.menuframe { width: 10em; padding: 10px; margin-bottom: 1.5em; background-color: rgb(238, 238, 238); line-height: 1.5em; }
+.menuframe { width: 10em; padding: 10px; margin-bottom: 1.5em; background-color: #eeeeee; line-height: 1.5em; }
 .menuframe &gt; span { position: absolute; width: 100%; border-bottom: solid 1px black; }
 </t>
 <t tx="caminhante.20200218174317.1">pre { white-space: pre-wrap; }
 code, pre { font-family: "Courier New",Courier,monospace; font-size: inherit; color: navy; padding: 0px; margin: 0px; }
-pre { border-width: 1px 1px 1px 5px; border-style: solid; border-color: rgb(221, 221, 221) rgb(221, 221, 221) rgb(221, 221, 221) rgb(240, 240, 240); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; background: rgb(248, 248, 248) none repeat scroll 0% 0%; padding: 0.5em; }
+pre { border-width: 1px 1px 1px 5px; border-style: solid; border-color: #bbbbbb #bbbbbb #bbbbbb #bbbbbb; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; border-image: none; background: #f8f8f8 none repeat scroll 0% 0%; padding: 0.5em; }
 </t>
-<t tx="caminhante.20200218175352.1">h1 { margin: 0px 0px 15px; padding: 0px; font-size: 200%; line-height: 1em; font-weight: 900; color: rgb(204, 204, 204); }
-h2 { margin: 0px 0px 10px; padding: 4px; background-color: rgb(238, 238, 238); font-size: 100%; line-height: 1em; font-weight: 600; color: rgb(0, 0, 0); }</t>
+<t tx="caminhante.20200218175352.1">h1 { margin: 0px 0px 15px; padding: 0px; font-size: 200%; line-height: 1em; font-weight: 900; color: #015787; }
+h2 { margin: 0px 0px 10px; padding: 4px; font-size: 100%; line-height: 1em; font-weight: 600; color: black; background-color: #eeeeee; }
+h3 { margin: 0px 0px 10px; padding: 4px; font-size: 100%; line-height: 1em; font-weight: 600; color: #17698c; }</t>
 <t tx="caminhante.20200218175457.1">&lt;h1&gt; Title &lt;/h1&gt;
 &lt;p&gt; This is a test &lt;/p&gt;
 &lt;h2&gt; Subtitle &lt;/h2&gt;
-</t>
+&lt;h3&gt; Sub-subtitle &lt;/h3&gt;</t>
 <t tx="caminhante.20200219123813.3"></t>
 <t tx="caminhante.20200219124135.1">@others
 </t>
