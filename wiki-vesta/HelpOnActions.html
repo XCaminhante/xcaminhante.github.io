@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnActions - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnActions" href="HelpOnActions%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnActions&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnActions%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnActions%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnActions.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnActions.html">HelpOnActions</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnActions.html">HelpOnActions</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnActions%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="Actions">Actions</h1>
+<span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line862">Actions are tools that work on a page or the whole wiki, but unlike macros they do not add <em>to</em> the page content when viewing a page, rather they work <em>on</em> that page content. They either produce some output based on page contents (navigational actions like searching) or implement functions that are not related to viewing a page (like deleting or renaming a page). <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><p class="line874">There is a set of system-defined actions, which includes page editing; you can extend the set of known actions by your own ones. <span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><p class="line874">The following actions are added to the list of user-defined extension actions at the bottom of each page (or in the &quot;More actions&quot; menu). This happens to any mixed-case extension, for other actions (all lower-case) see the list further down this page. Some of these action might not be available for your wiki site. <span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><div><table style="width: &amp;quot;100%&amp;quot"><tbody><tr style="background-color: &amp;quot;#ffffcc&amp;quot">  <td style="width: &amp;quot;25%&amp;quot"><p class="line862"> <strong>Action</strong> </td>
+  <td><p class="line862"> <strong>Description</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-15"></span><p class="line862"> <tt class="backtick">AttachFile</tt> </td>
+  <td><p class="line862"> Attach files to a page, see <a href="HelpOnActions/AttachFile.html">/AttachFile</a> for more details. NOTE: This action is not granted if you are not logged in. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-16"></span><p class="line862"> <tt class="backtick">CopyPage</tt> </td>
+  <td><p class="line862"> Copy a page, after you confirmed it. All subpages could be copied too. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-17"></span><p class="line862"> <tt class="backtick">DeletePage</tt> </td>
+  <td><p class="line862"> Delete a page, after you confirmed it; deletion means a final backup copy is created and only then the page is deleted, i.e. you can <em>revive</em> the page later on (as long as the backups are not physically deleted). All subpages could be deleted too. NOTE: This action is not granted if you are not logged in. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-18"></span><p class="line862"> <tt class="backtick">RenamePage</tt> </td>
+  <td><p class="line862"> Rename a page, after you confirmed it. All subpages could be renamed too. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-19"></span><p class="line862"> <tt class="backtick">LikePages</tt> </td>
+  <td><p class="line862"> List pages whose title starts or ends with the same <a class="interwiki" href="http://www.usemod.com/cgi-bin/mb.pl?WikiWord" title="MeatBall">WikiWord</a> as the current page title. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-20"></span><p class="line862"> <tt class="backtick">LocalSiteMap</tt> </td>
+  <td><p class="line862"> Show nearby links of the current page, i.e. list all referred-to pages, and in turn their references, to a certain limited depth. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-21"></span><p class="line862"> <tt class="backtick">SlideShow</tt> </td>
+  <td><p class="line862"> Treat a wiki page as a set of slides.  Displays a single slide at a time, along with a navigation aid; see <a href="HelpOnSlideShows.html">HelpOnSlideShows</a> for more. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-22"></span><p class="line862"> <tt class="backtick">SpellCheck</tt> </td>
+  <td><p class="line862"> Call the spell checker for the current page; see <a href="HelpOnSpellCheck.html">HelpOnSpellCheck</a> for more. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-23"></span><p class="line862"> <tt class="backtick">SubscribeUser</tt> </td>
+  <td><p class="line862"> Administrators can use it to subscribe other users to pages. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-24"></span><p class="line862"> <tt class="backtick">SyncPages</tt> </td>
+  <td><p class="line862"> Used to synchronise different wiki sites. See <a href="HelpOnSynchronisation.html">HelpOnSynchronisation</a>. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-25"></span><p class="line862"> <tt class="backtick">Load</tt> </td>
+  <td><p class="line862"> Used to load a page into the wiki or an attachment onto the current. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-26"></span><p class="line862"> <tt class="backtick">Save</tt> </td>
+  <td><p class="line862"> Used to save a page of the wiki into a text file. </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line862">The following is a list of <em>internal</em> actions that are used to implement the various icons and links at the top and bottom of pages, or supplement certain macros. <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><div><table style="width: &amp;quot;100%&amp;quot"><tbody><tr style="background-color: &amp;quot;#ffffcc&amp;quot">  <td style="width: &amp;quot;25%&amp;quot"><p class="line862"> <strong>Action</strong> </td>
+  <td><p class="line862"> <strong>Description</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-32"></span><p class="line862"> <tt class="backtick">titleindex</tt></td>
+  <td><p class="line862"> Implements the listing of all page names as text (append <tt class="backtick">?action=titleindex</tt> to your wiki address) or XML (<tt class="backtick">?action=titleindex&amp;mimetype=text/xml</tt>); the main use of this action is to enable <a class="interwiki" href="http://www.usemod.com/cgi-bin/mb.pl?MetaWiki" title="MeatBall">MetaWiki</a>. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-33"></span><p class="line862"> <tt class="backtick">fullsearch</tt></td>
+  <td><p class="line862"> This action is triggered by clicking on the &quot;Search Text&quot; button of the <tt class="backtick">FullSearch</tt> macro (<tt class="backtick">?action=fullsearch&amp;value=HelpOnActions</tt>). </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-34"></span><p class="line862"> <tt class="backtick">titlesearch</tt></td>
+  <td><p class="line862"> This action is triggered by clicking on the &quot;Search Titles&quot; button of the <tt class="backtick">TitleSearch</tt> macro (<tt class="backtick">?action=titlesearch&amp;value=HelpOnActions</tt>). </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-35"></span><p class="line862"> <tt class="backtick">inlinesearch</tt></td>
+  <td><p class="line862"> This implements the inline search for the form fields at the bottom of each page (note that this uses POST requests, so you won't normally see this action in URLs). </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-36"></span><p class="line862"> <tt class="backtick">highlight</tt></td>
+  <td><p class="line862"> Highlight the search word when you click on a link in a search result list. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-37"></span><p class="line862"> <tt class="backtick">diff</tt></td>
+  <td><p class="line862"> Display differences between page revisions. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-38"></span><p class="line862"> <tt class="backtick">info</tt></td>
+  <td><p class="line862"> Show meta-data on a page. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-39"></span><p class="line862"> <tt class="backtick">login</tt></td>
+  <td><p class="line862"> Log into the wiki. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-40"></span><p class="line862"> <tt class="backtick">newaccount</tt> </td>
+  <td><p class="line862"> Create a new user account on the wiki. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-41"></span><p class="line862"> <tt class="backtick">recall</tt></td>
+  <td><p class="line862"> Display an older revision of a page. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-42"></span><p class="line862"> <tt class="backtick">show</tt></td>
+  <td><p class="line862"> Display a page (the default action). </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-43"></span><p class="line862"> <tt class="backtick">refresh</tt></td>
+  <td><p class="line862"> Refresh the cached version of a page (currently only used on XSLT-formatted pages). </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-44"></span><p class="line862"> <tt class="backtick">print</tt></td>
+  <td><p class="line862"> Show the print-view of a page, which omits the navigational items from the display view. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-45"></span><p class="line862"> <tt class="backtick">edit</tt></td>
+  <td><p class="line862"> Edit this page. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-46"></span><p class="line862"> <tt class="backtick">savepage</tt></td>
+  <td><p class="line862"> Save this page (do not ever use this manually). </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-47"></span><p class="line862"> <tt class="backtick">subscribe</tt></td>
+  <td><p class="line862"> Subscribe to a page. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-48"></span><p class="line862"> <tt class="backtick">userform</tt></td>
+  <td><p class="line862"> Save user preferences. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-49"></span><p class="line862"> <tt class="backtick">bookmark</tt></td>
+  <td><p class="line862"> Set bookmark for <a href="RecentChanges.html">RecentChanges</a>. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-50"></span><p class="line862"> <tt class="backtick">raw</tt></td>
+  <td><p class="line862"> Send the raw wiki markup as text/plain (e.g. for backup purposes via wget); <tt class="backtick">SystemInfo?action=raw</tt> will show the markup of <a href="SystemInfo.html">SystemInfo</a>. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-51"></span><p class="line862"> <tt class="backtick">format</tt></td>
+  <td><p class="line862"> Emit specially formatted views of a page. Parameter <tt class="backtick">mimetype</tt> specifies the wanted mime-type.  You can generate <strong>DocBook</strong> markup from your pages by appending <tt class="backtick">?action=format&amp;mimetype=xml/docbook</tt> to the address (note: you need to install PyXML to use it). </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-52"></span><p class="line862"> <tt class="backtick">rss_rc</tt></td>
+  <td><p class="line862"> Generate a RSS feed of <a href="RecentChanges.html">RecentChanges</a>. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-53"></span><p class="line862"> <tt class="backtick">chart</tt></td>
+  <td><p class="line862"> Display charts. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-54"></span><p class="line862"> <tt class="backtick">export</tt></td>
+  <td><p class="line862"> Export the wiki content. NOTE: this is currently experimental. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-55"></span><p class="line862"> <tt class="backtick">content</tt></td>
+  <td><p class="line862"> For transclusion into static web pages, this action emits the pure page content, without any &lt;html&gt;, &lt;head&gt;, or &lt;body&gt; tags. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-56"></span><p class="line862"> <tt class="backtick">links</tt></td>
+  <td><p class="line862"> Generates a list of all pages and the links on them, just like <a class="interwiki" href="http://www.usemod.com/cgi-bin/mb.pl?LinkDatabase" title="MeatBall">LinkDatabase</a>. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-57"></span><p class="line862"> <tt class="backtick">sitemap</tt></td>
+  <td><p class="line862"> Generates a Google XML sitemap, see <a class="http" href="http://www.sitemaps.org/protocol.php">Sitemap protocol</a>. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-58"></span><p class="line862"> <tt class="backtick">xmlrpc</tt> and <tt class="backtick">xmlrpc2</tt> </td>
+  <td><p class="line862"> Wiki XML-RPC interface, see <a class="interwiki" href="http://www.usemod.com/cgi-bin/mb.pl?XmlRpcToWiki" title="MeatBall">XmlRpcToWiki</a>. By default this is disabled by <tt class="backtick">actions_excluded</tt>. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-59"></span><p class="line862"> <tt class="backtick">revert</tt></td>
+  <td><p class="line862"> Revert to an older version of the page. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-60"></span><p class="line862"> <tt class="backtick">showtags</tt></td>
+  <td><p class="line862"> Dumps all sync tags related to the page. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-61"></span><p class="line862"> <tt class="backtick">thread_monitor</tt></td>
+  <td><p class="line862"> Dumps the tracebacks of all current running threads. Note that you must enable the thread monitor support by putting the line <tt class="backtick">&nbsp;from&nbsp;MoinMoin.util.thread_monitor&nbsp;import&nbsp;activate_hook;&nbsp;activate_hook()</tt> at the top of  your CGI/FCGI/... python file. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-62"></span><p class="line862"> <tt class="backtick">supplementation</tt></td>
+  <td><p class="line862"> Calls a supplementation page e.g. discussion for a page. </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-63"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>NotesForCiti - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: NotesForCiti" href="NotesForCiti%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=NotesForCiti&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="NotesForCiti%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="NotesForCiti%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="NotesForCiti.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="NotesForCiti.html">NotesForCiti</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="NotesForCiti.html">NotesForCiti</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="NotesForCiti%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="NotesForCiti.html#General_Information">General Information</a></li><li>
+<a href="NotesForCiti.html#Finding_Your_Way_Around_the_Code">Finding Your Way Around the Code</a></li><li>
+<a href="NotesForCiti.html#Inside_the_Vesta_Repository">Inside the Vesta Repository</a><ol><li>
+<a href="NotesForCiti.html#LongIds_are_NFS_Filehandles">LongIds are NFS Filehandles</a></li><li>
+<a href="NotesForCiti.html#VDirChangeable_packaed_representation">VDirChangeable packaed representation</a></li><li>
+<a href="NotesForCiti.html#Some_Quirks_Related_to_NFS">Some Quirks Related to NFS</a></li></ol></li><li>
+<a href="NotesForCiti.html#Vesta.27s_.22Simple.22_RPC_System">Vesta's &quot;Simple&quot; RPC System</a></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="General_Information">General Information</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">Probably the best short overview of Vesta and the motivation for its creation is the 24-page paper <a class="http" href="http://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-168.pdf">&quot;The Vesta Approach to Software Configuration Management&quot;</a>.  If you prefer slides an alternative overview is in <a class="http" href="../vesta/doc/pubs/codecon-2004/index.html">a presentation given at CodeCon 2004</a>. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">The hard cover book from Springer-Verlag <a class="http" href="http://www.springer.com/computer/programming/book/978-0-387-00229-3">&quot;Software Configuration Management Using Vesta&quot;</a> goes into a lot more depth (if you really want a lot of detail). <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line862">We've tried to make the <a href="LearningVesta.html">LearningVesta</a> page a central resource with pointers to various other resources one can use to learn about different aspects Vesta. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line874">If you have an questions, don't hesitate to use: <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><ul><li><p class="line862">The #vesta <a href="IRC.html">IRC</a> channel on <a class="http" href="http://freenode.net/">irc.freenode.net</a>.  Usually one or both of <a href="ScottVenier.html">ScottVenier</a> and <a href="KenSchalk.html">KenSchalk</a> are listening there, especially during the day. <span class="anchor" id="line-18"></span></li><li><p class="line891"><a class="http" href="http://sourceforge.net/mail/?group_id=34164">The Vesta mailing lists at SourceForge</a> (regrettably a subscription is required to cut down on spam) <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span></li></ul><p class="line867">
+<h1 id="Finding_Your_Way_Around_the_Code">Finding Your Way Around the Code</h1>
+<span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line862">We have a <a class="http" href="http://pub.vestasys.org/doxygen/">a cross-reference of the code from Doxygen</a> that you might find useful.  A couple Caveats: <span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><ul><li>It's a little out of date.  I've still never quite learned how to use Doxygen, and the person who generated this hasn't been around recently.  I'll try to get it updated.  I don't think this will be a big problem as the NFS implementation hasn't changed much in years. <span class="anchor" id="line-25"></span></li><li>We've never gone through the code and converted comments to the Doxygen format, so this doesn't have any of the fancy helpful things you get from that. <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span></li></ul><p class="line862">There's a <a class="http" href="../vesta/doc/api-ref/vcheckout-dissection.html">dissection of an old version of the checkout tool</a> that might be helpful for getting up to speed on the Vesta APIs.  It's not directly related to the server's NFS layer and it covers a bunch of other topics (attributes, replication), but it will probably be easier to digest. <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line867">
+<h1 id="Inside_the_Vesta_Repository">Inside the Vesta Repository</h1>
+<span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line867">
+<h2 id="LongIds_are_NFS_Filehandles">LongIds are NFS Filehandles</h2>
+<span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><p class="line862">The class used to identify files and directories, both for the v2 NFS interface and the Vesta-specific RPC interface is LongId.  You can find its declaration in the file <tt>VestaSource.H</tt>.  The implementation is spread across several files, partly because some parts are different between the client and the server.  You should probably start with the client-side files: <tt>VestaSourceCommon.C</tt> and <tt>VDirSurrogateOnly.C</tt>.  After that you may want to look at the server side file: <tt>VestaSource.C</tt>. <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><ul><li><p class="line862">In the Vesta repository you can find all these in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/102/src">/vesta/vestasys.org/vesta/repos</a> <span class="anchor" id="line-36"></span></li><li>In the downloadable make kit: <span class="anchor" id="line-37"></span><ul><li><p class="line862">The client-side files are in <tt>progs/libs/libVestaReposLeaf.a</tt> <span class="anchor" id="line-38"></span></li><li><p class="line862">The server-side files are in <tt>progs/repository</tt> <span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span></li></ul></li></ul><p class="line862">A LongId is mostly an encoded sequence of integer directory indexes.  This should be obvious if you look at the code for <tt>LongId::append</tt> and <tt>LongId::getParent</tt>. <span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><p class="line862">There are some special cases when the first bytes of the LongId is zero: <span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><ul><li><p class="line862">If the first two bytes are <tt>0x00,&nbsp;0x01</tt>, the LongId refers to something under the mutable portion of the repository (where users make edits to their active checkouts) <span class="anchor" id="line-45"></span></li><li><p class="line862">If the  first two bytes are <tt>0x00,&nbsp;0x02</tt>, the LongId refers to something under the volatile portion of the repository (where temporary directories exist used during builds) <span class="anchor" id="line-46"></span></li><li><p class="line862">If the  first two bytes are <tt>0x00,&nbsp;0xff</tt>, the LongId is explicitly invalid <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span></li></ul><p class="line867">
+<h2 id="VDirChangeable_packaed_representation">VDirChangeable packaed representation</h2>
+<span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><p class="line862">The directory of everything in the repository is kept in virtual memory while the repository daemon is running (and it usually runs continuously).  This uses a tightly packed data structure that's optimized more for space than speed.  In the server source code see <tt>VDirChangeable.H</tt> and <tt>VDirChangeable.C</tt> for how this is implemented. <span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><p class="line867">
+<h2 id="Some_Quirks_Related_to_NFS">Some Quirks Related to NFS</h2>
+<span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><p class="line862">Directories in the Vesta repository can be a delta of changes over some other directory.  The working copies users modify are a set of changes over the version their checkout was based on.  (This is how constant-time checkouts are possible for arbitrarily large source sets: no copying takes place until you make changes.)  The implementation uses even directory entry indexes for the immutable portion and odd directory entry indexes for the mutable portion.  This keeps the indexes of the immutable pieces the same as mutable entries are added.  However, when an immutable file is modified and a copy-on-write happens the NFS filehandle (and LongId) needs to remain the same.  This is implemented by the <tt>sameAsBase</tt> bit in the directory entry.  If that's set, the directory entry has replaced something with the same name in the basis directory, and the code will look up its directory entry and uses its directory index. <span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><p class="line862">When a file or directory is renamed, its directory index and even the directory it is contained in can change.  However the NFS filehandle has to remain valid.  When an object is moved it leaves behind a forwarding pointer which can be followed to find where the object is now.  See the files <tt>VForward.H</tt> and <tt>VForward.C</tt> for how this is implemented.  In the <tt>VDirChangeable</tt> structure a directory entry gets its type changed to <tt>VestaSource::deleted</tt> or <tt>VestaSource::outdated</tt> and the <tt>VForward</tt> is stored in the entry where a file/directory reference would be for other directory entry types. <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><p class="line862">Each tool run during a build (e.g. compiling one source file) takes place in a separate volatile directory that exists just as long as that tool runs.  This means that each successive tool run has a different set of NFS filehandles (and LongIds).  However, a lot of the files tend to be the same from one tool run to the next when you're doing something like processing a collection of source files with the same tool.  To be able to exploit the client OS machine's filesystem cache, we need the NFS filehandles for identical files to be the same across multiple tool invocations.  To enable this the default is to use filehandles based on the input files contents rather than a sequence of directory indexes.  This requires that every file that exists at the start of a tool be read-only.  The tool can create new files or delete existing files, but it can't modify the contents of existing files. <span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><p class="line867">
+<h1 id="Vesta.27s_.22Simple.22_RPC_System">Vesta's &quot;Simple&quot; RPC System</h1>
+<span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><p class="line874">This is the library used for all the Vesta-specific RPCs for operations that can't be represented through the filesystem (e.g. taking an immutable snapshot of a mutable working directory). <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><p class="line874">The code of the library and some simple test programs can be found: <span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><ul><li><p class="line862">In the Vesta repository: <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/srpc/43/src">/vesta/vestasys.org/vesta/srpc</a> <span class="anchor" id="line-67"></span></li><li>In the downloadable make kit: <span class="anchor" id="line-68"></span><ul><li><p class="line891"><tt>progs/libs/libVestaSRPC.a</tt> <span class="anchor" id="line-69"></span></li><li><p class="line891"><tt>tests/TestServer</tt> <span class="anchor" id="line-70"></span></li><li><p class="line891"><tt>tests/TestCharsSeq</tt> <span class="anchor" id="line-71"></span></li><li><p class="line891"><tt>tests/TestBigXfer</tt> <span class="anchor" id="line-72"></span></li><li><p class="line891"><tt>tests/TestLimService</tt> <span class="anchor" id="line-73"></span></li></ul></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

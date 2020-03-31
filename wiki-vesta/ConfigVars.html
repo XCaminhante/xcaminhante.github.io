@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>ConfigVars - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: ConfigVars" href="ConfigVars%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=ConfigVars&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="ConfigVars%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="ConfigVars%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="ConfigVars.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="ConfigVars.html">ConfigVars</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="ConfigVars.html">ConfigVars</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="ConfigVars%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line867">
+<h1 id="All_Vesta.27s_Configuration_Variables">All Vesta's Configuration Variables</h1>
+<span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line862">Under construction.  The complete list is spread out on the various <a class="http" href="http://vestasys.org/#man-pages">man pages</a>. <span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line862">You can view these config vars with <a class="http" href="http://vestasys.org/doc/man/html/vgetconfig.1.html">vgetconfig</a> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h2 id="Author.27s_Choice_:_Most_Frequent">Author's Choice : Most Frequent</h2>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">The author comes here more frequently to cut-n-paste this: <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867"><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><pre><span class="anchor" id="line-1"></span>vgetconfig Repository VestaSourceSRPC_host</pre><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line874">but since we're cutting and pasting, why not have a line for those rare cases when we might be doing sophisticated debug of vesta: <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line867"><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><pre><span class="anchor" id="line-1-1"></span>echo `vgetconfig Repository VestaSourceSRPC_host`:`vgetconfig Repository VestaSourceSRPC_port`</pre><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line867">
+<h2 id="UserInterface_Section">UserInterface Section</h2>
+<span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><ul><li style="list-style-type:none"><p class="line862">The following values are obtained from the <tt>[UserInterface]</tt> section of the Vesta configuration file (<tt>vesta.cfg</tt>). <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><p class="line891"><strong>Appendable</strong><strong>Root</strong><strong>Name</strong> <span class="anchor" id="line-27"></span><ul><li style="list-style-type:none"><p class="line862">The filename under which the global root directory of Vesta repositories is mounted. Ordinarily set to <strong><tt>/vesta</tt></strong>.  <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span></li></ul><p class="line891"><strong>Foreign</strong><strong>Parent</strong> <span class="anchor" id="line-30"></span><ul><li style="list-style-type:none"><p class="line862">The the path under which <a class="http" href="http://vestasys.org/doc/man/html/vcheckout.1.html">vcheckout -F</a> will create session directories and <a class="http" href="http://vestasys.org/doc/man/html/vbranch.1.html">vbranch -F</a> will create branches.  We suggest <tt>`vgetconfig&nbsp;UserInterface&nbsp;DefaultPackageParent`/foreign</tt> <span class="anchor" id="line-31"></span></li></ul><p class="line891"><strong>Mutable</strong><strong>Root</strong><strong>Name</strong> <span class="anchor" id="line-32"></span><ul><li style="list-style-type:none"><p class="line862">The filename under which the local tree of mutable directories provided by Vesta is mounted. Ordinarily set to <strong><tt>/vesta-work</tt></strong>.  <span class="anchor" id="line-33"></span></li></ul><p class="line891"><strong>Default</strong><strong>Package</strong><strong>Parent</strong> <span class="anchor" id="line-34"></span><ul><li style="list-style-type:none"><p class="line862">The default directory to put new packages in. Ordinarily a subdirectory of the appendable root, named with an Internet domain name belonging to the local site.  Eg, <strong><tt>/vesta1/abc.acme.com/</tt></strong>. <span class="anchor" id="line-35"></span></li></ul><p class="line891"><strong>Default</strong><strong>Work</strong><strong>Parent</strong> <span class="anchor" id="line-36"></span><ul><li style="list-style-type:none">The default parent directory for mutable working directory trees belonging to individual users. Ordinarily the same as the mutable root.  <span class="anchor" id="line-37"></span></li></ul><p class="line891"><strong>realm</strong> <span class="anchor" id="line-38"></span><ul><li style="list-style-type:none"><p class="line862">Global user names are formed by appending <tt>@realm</tt> to the local name.  <span class="anchor" id="line-39"></span></li></ul></li></ul><ul><li style="list-style-type:none"><p class="line891"><strong>Time</strong><strong>Format</strong> <span class="anchor" id="line-40"></span><ul><li style="list-style-type:none"><p class="line862">A format string for <tt>strftime(3)</tt> to produce time strings for Vesta attributes. A common setting is <tt>&quot;%a&nbsp;%b&nbsp;%e&nbsp;%T&nbsp;%Z&nbsp;%Y&quot;</tt>. <span class="anchor" id="line-41"></span></li></ul><p class="line891"><strong>Fp</strong><strong>Content</strong> <span class="anchor" id="line-42"></span><ul><li style="list-style-type:none"><p class="line862">The default value for the <a class="http" href="http://vestasys.org/doc/man/html/vadvance.1.html">vadvance -F</a> flag.  <span class="anchor" id="line-43"></span></li></ul><p class="line891"><strong>vadvance_junk</strong> <span class="anchor" id="line-44"></span><ul><li style="list-style-type:none"><p class="line862">The default value for the <a class="http" href="http://vestasys.org/doc/man/html/vadvance.1.html">vadvance -j</a> flag. If not set, the default is &quot;<tt>*~&nbsp;.*~&nbsp;core</tt>&quot;.  <span class="anchor" id="line-45"></span></li></ul><p class="line891"><strong>vadvance_maxsize</strong> <span class="anchor" id="line-46"></span><ul><li style="list-style-type:none"><p class="line862">The default value for the <a class="http" href="http://vestasys.org/doc/man/html/vadvance.1.html">vadvance -z</a> flag. If not set, the default is 1048576 (1 megabyte). <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span></li></ul></li></ul><p class="line867">
+<h2 id="Evaluator">Evaluator</h2>
+<span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><ul><li style="list-style-type:none"><p class="line891"><strong>Default</strong><strong>Main</strong> <span class="anchor" id="line-57"></span><ul><li style="list-style-type:none">Gives one or more default model names to evaluate if none is explicitly specified. Multiple names are given separated by whitesapce, and are tried in order. (For example, if set to &quot;linux_alpha.main.ves linux_ia32.main.ves .main.ves&quot;, if a model named &quot;linux_alpha.main.ves&quot; exists it will be evaluated, or if not and a model named &quot;linux_ia32.main.ves&quot; exists it will be evaluated, otherwise if a model named &quot;.main.ves&quot; exists it will be evaluated.) If not set, &quot;.main.ves&quot; is used. <span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span></li></ul><p class="line891"><strong>Switches</strong> <span class="anchor" id="line-60"></span><ul><li style="list-style-type:none">Specifies evaluator command line switches that will be used on every run. These switches are overridden by any explicit switches used on the evaluator command line. <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span></li></ul><p class="line891"><strong>Max</strong><strong>Threads</strong> <span class="anchor" id="line-63"></span><ul><li style="list-style-type:none"><p class="line862">Gives the default value for the -maxthreads option; see <a class="http" href="../vesta/doc/man/html/vesta.1.html#-maxthreads">vesta(1)#-maxthreads</a> <span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span></li></ul><p class="line891"><strong>Fp</strong><strong>Content</strong> <span class="anchor" id="line-66"></span><ul><li style="list-style-type:none"><p class="line862">Newly created derived files that are strictly less than <a class="nonexistent" href="FpContent.html">FpContent</a> bytes long are fingerprinted deterministically according to their contents. Longer files are fingerprinted with arbitrary unique identifiers. The cost of fingerprinting a file's contents is non-trivial, but doing so allows for cache hits in cases where two evaluations depend on files that have identical contents but were created in separate evaluations. The special value -1 causes all files to be fingerprinted by contents, while 0 causes all files to be fingerprinted by unique identifier. (See the documentation for the _run_tool primitive function for more information.) <span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span></li></ul><p class="line891"><strong>server_max_threads</strong> <span class="anchor" id="line-69"></span><ul><li style="list-style-type:none">A tuning parameter which controls the number of file access callbacks from the repository simultaneously served during a tool invocation. A reasonable value is 4. There's normally no need to change it. (Note that there is no built-in default value.) <span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span></li></ul><p class="line891"><strong>server_max_pending</strong> <span class="anchor" id="line-72"></span><ul><li style="list-style-type:none"><p class="line862">A tuning parameter which controls the number of file access callbacks from the repository held pending while serving other requests. This can be set to a fixed integer, but if the evaluator submits more tool invocations than server_max_threads+server_max_pending, an evaluation failure is likely. If set to &quot;auto&quot;, the value used is based on the maximum number of expected requests: either [Repository]threads or the number of evaluator threads (from <a class="nonexistent" href="MaxThreads.html">MaxThreads</a> or the -maxthreads switch if used), whichever is higher, minus server_max_threads. Defaults to &quot;auto&quot;. <span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span></li></ul><p class="line891"><strong>Negligible</strong><strong>External</strong><strong>Load</strong><strong>Per</strong><strong>CPU</strong> <span class="anchor" id="line-75"></span><ul><li style="list-style-type:none"><p class="line862">A tuning parameter which controls how hosts are selected for _run_tool() jobs. It is a scaling factor that is multiplied by the number of CPUs in the candidate Run Tool Host. If the load average is below the result of this multiplication and the <a class="http" href="../vesta/doc/man/html/RunToolServer.1.html">RunToolServer</a> is running no other jobs, the host is immediately chosen to run the tool invocation. (If not, it may still be chosen later if it's the least loaded candidate host.) If not set, it defaults to 0.75.  <span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span></li></ul></li></ul><p class="line867">
+<h2 id="CacheServer">CacheServer</h2>
+<span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><ul><li style="list-style-type:none"><p class="line891"><strong>Meta</strong><strong>Data</strong><strong>Root</strong> <span class="anchor" id="line-80"></span><ul><li style="list-style-type:none"><p class="line862">See <a class="http" href="../vesta/doc/man/html/VCache.1.html#ConfigSect">VCache(1)</a>. <span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span></li></ul><p class="line891"><strong>Host</strong> <span class="anchor" id="line-83"></span><ul><li style="list-style-type:none"><p class="line862">See <a class="http" href="../vesta/doc/man/html/ChkptCache.1.html#ConfigSect">ChkptCache(1)</a>.  <span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span></li></ul></li></ul><p class="line867">
+<h2 id="Repository_Section">Repository Section</h2>
+<span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><ul><li style="list-style-type:none"><p class="line862">The following values are obtained from the <tt>[Repository]</tt> section of the Vesta configuration file. <span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><p class="line891"><strong>VestaSourceSRPC_host</strong> <span class="anchor" id="line-90"></span><ul><li style="list-style-type:none">The host name of the default (local) repository.  <span class="anchor" id="line-91"></span></li></ul><p class="line891"><strong>VestaSourceSRPC_port</strong> <span class="anchor" id="line-92"></span><ul><li style="list-style-type:none">The default TCP port number for repositories.  <span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span></li></ul><p class="line891"><strong>metadata_root</strong> <span class="anchor" id="line-95"></span><ul><li style="list-style-type:none"><p class="line891"><strong>umask</strong> <span class="anchor" id="line-96"></span><ul><li style="list-style-type:none"><p class="line862">See <a class="http" href="../vesta/doc/man/html/repository.8.html">repository(8)</a>.  <span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span></li></ul></li></ul></li></ul><p class="line867">
+<h2 id="Run_Tool">Run_Tool</h2>
+<span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><ul><li style="list-style-type:none"><p class="line891"><strong>SRPC_port</strong> <span class="anchor" id="line-101"></span><ul><li style="list-style-type:none"><p class="line862">The default port at which to contact the <a class="http" href="../vesta/doc/man/html/RunToolServer.1.html">RunToolServer</a>. (See the next section.) <span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span></li></ul><p class="line891"><strong>get_info_read_timeout</strong> <span class="anchor" id="line-104"></span><ul><li style="list-style-type:none"><p class="line862">Maximum number of seconds that the evaluator will wait for a response from a <a class="http" href="../vesta/doc/man/html/RunToolServer.1.html">RunToolServer</a> when getting information about its configuration (OS, architecture, etc.) and number of allowed and currently running tools. This allows the evaluator to give up and move on to another candidate host if one is very slow in responding. Defaults to 120 seconds (2 minutes). (Note that this timeout only applies after a connection is established, and is only provided to guard against misbehaving or overloaded peers.) <span class="anchor" id="line-105"></span></li></ul></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

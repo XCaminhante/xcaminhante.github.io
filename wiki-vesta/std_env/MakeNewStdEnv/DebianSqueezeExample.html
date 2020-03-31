@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>std_env/MakeNewStdEnv/DebianSqueezeExample - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: std_env/MakeNewStdEnv/DebianSqueezeExample" href="DebianSqueezeExample%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=std_env%252FMakeNewStdEnv%252FDebianSqueezeExample&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="DebianSqueezeExample%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="DebianSqueezeExample%3Faction=print.html">
+<link rel="Up" href="../MakeNewStdEnv.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="DebianSqueezeExample.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="std_env.html">std_env</a></li><li><a href="../MakeNewStdEnv.html">MakeNewStdEnv</a></li><li><a href="DebianSqueezeExample.html">DebianSqueezeExample</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="DebianSqueezeExample.html">DebianSqueezeExample</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="DebianSqueezeExample%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="DebianSqueezeExample.html#Introduction">Introduction</a></li><li>
+<a href="DebianSqueezeExample.html#Adding_--work-dir-pattern_to_pkg2vesta">Adding --work-dir-pattern to pkg2vesta</a></li><li>
+<a href="DebianSqueezeExample.html#Downloading_and_Importing_OS_Components">Downloading and Importing OS Components</a></li><li>
+<a href="DebianSqueezeExample.html#creating_the_New_std_envs">creating the New std_envs</a></li><li>
+<a href="DebianSqueezeExample.html#Notable_Changes">Notable Changes</a></li><li>
+<a href="DebianSqueezeExample.html#Results">Results</a></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Introduction">Introduction</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">Rather than giving the kind of detailed explanation in <span class="anchor" id="line-10"></span><a href="DebianEtchExample.html">std_env/MakeNewStdEnv/DebianEtchExample</a> and <span class="anchor" id="line-11"></span><a href="DebianLennyExample.html">std_env/MakeNewStdEnv/DebianLennyExample</a>, this page just describes a <span class="anchor" id="line-12"></span>little about automating the creation of the Debian squeeze build <span class="anchor" id="line-13"></span>environments. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line867">
+<h1 id="Adding_--work-dir-pattern_to_pkg2vesta">Adding --work-dir-pattern to pkg2vesta</h1>
+<span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line874">To facilitate automating this process I added a new feature to <span class="anchor" id="line-18"></span>pkg2vesta (see <a href="../MakeNewOsComponent.html">std_env/MakeNewOsComponent</a>) in <span class="anchor" id="line-19"></span><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/extras/pkg2vesta/15">pkg2vesta/15</a>.  (You'll see the added <tt>--wd-pattern</tt> flag used <span class="anchor" id="line-20"></span>below.) <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line867">
+<h1 id="Downloading_and_Importing_OS_Components">Downloading and Importing OS Components</h1>
+<span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><p class="line874">Next I downloaded, imported, and took immutable snapshots of the <span class="anchor" id="line-25"></span>needed packages with the following script: <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line867"><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><pre><span class="anchor" id="line-1"></span># Base URL to retrieve .deb files from.  Set to your favorite mirror,
+<span class="anchor" id="line-2"></span># or your local cache.
+<span class="anchor" id="line-3"></span>
+<span class="anchor" id="line-4"></span>base_url='http://debian.lcs.mit.edu/debian'
+<span class="anchor" id="line-5"></span>
+<span class="anchor" id="line-6"></span>for arch in amd64 i386 powerpc sparc; do
+<span class="anchor" id="line-7"></span>    echo &quot;======================================================&quot;
+<span class="anchor" id="line-8"></span>    echo &quot;-------------------- $arch (wget) --------------------&quot;
+<span class="anchor" id="line-9"></span>    echo &quot;======================================================&quot;
+<span class="anchor" id="line-10"></span>    mkdir -p $arch
+<span class="anchor" id="line-11"></span>    cd $arch
+<span class="anchor" id="line-12"></span>    wget --progress=dot:mega \
+<span class="anchor" id="line-13"></span>        $base_url/pool/main/e/eglibc/libc6_2.11.2-10_$arch.deb \
+<span class="anchor" id="line-14"></span>        $base_url/pool/main/g/gcc-4.4/libstdc++6_4.4.5-8_$arch.deb \
+<span class="anchor" id="line-15"></span>        $base_url/pool/main/g/gcc-4.4/libgcc1_4.4.5-8_$arch.deb \
+<span class="anchor" id="line-16"></span>        $base_url/pool/main/b/binutils/binutils_2.20.1-16_$arch.deb \
+<span class="anchor" id="line-17"></span>        $base_url/pool/main/z/zlib/zlib1g_1.2.3.4.dfsg-3_$arch.deb \
+<span class="anchor" id="line-18"></span>        $base_url/pool/main/g/gcc-4.4/cpp-4.4_4.4.5-8_$arch.deb \
+<span class="anchor" id="line-19"></span>        $base_url/pool/main/g/gcc-4.4/gcc-4.4_4.4.5-8_$arch.deb \
+<span class="anchor" id="line-20"></span>        $base_url/pool/main/e/eglibc/libc6-dev_2.11.2-10_$arch.deb \
+<span class="anchor" id="line-21"></span>        $base_url/pool/main/l/linux-2.6/linux-libc-dev_2.6.32-31_$arch.deb \
+<span class="anchor" id="line-22"></span>        $base_url/pool/main/g/gmp/libgmp3c2_4.3.2+dfsg-1_$arch.deb \
+<span class="anchor" id="line-23"></span>        $base_url/pool/main/m/mpfr4/libmpfr4_3.0.0-2_$arch.deb \
+<span class="anchor" id="line-24"></span>        $base_url/pool/main/g/gcc-4.4/g++-4.4_4.4.5-8_$arch.deb \
+<span class="anchor" id="line-25"></span>        $base_url/pool/main/g/gcc-4.4/libstdc++6-4.4-dev_4.4.5-8_$arch.deb \
+<span class="anchor" id="line-26"></span>        $base_url/pool/main/f/flex/flex_2.5.35-10_$arch.deb \
+<span class="anchor" id="line-27"></span>        $base_url/pool/main/m/m4/m4_1.4.14-3_$arch.deb \
+<span class="anchor" id="line-28"></span>        $base_url/pool/main/b/bison/bison_2.4.1.dfsg-3_$arch.deb \
+<span class="anchor" id="line-29"></span>        $base_url/pool/main/s/swig1.3/swig_1.3.40-3_$arch.deb \
+<span class="anchor" id="line-30"></span>        $base_url/pool/main/p/perl/perl_5.10.1-17_$arch.deb \
+<span class="anchor" id="line-31"></span>        $base_url/pool/main/p/python2.6/python2.6_2.6.6-8+b1_$arch.deb \
+<span class="anchor" id="line-32"></span>        $base_url/pool/main/p/python2.6/python2.6-dev_2.6.6-8+b1_$arch.deb \
+<span class="anchor" id="line-33"></span>        $base_url/pool/main/t/tcl8.4/tcl8.4_8.4.19-4_$arch.deb \
+<span class="anchor" id="line-34"></span>        $base_url/pool/main/t/tcl8.4/tcl8.4-dev_8.4.19-4_$arch.deb
+<span class="anchor" id="line-35"></span>    cd ..
+<span class="anchor" id="line-36"></span>done
+<span class="anchor" id="line-37"></span>
+<span class="anchor" id="line-38"></span># The distribution name, mutable root mount point, and username (used
+<span class="anchor" id="line-39"></span># in checkout working directory names)
+<span class="anchor" id="line-40"></span>dist_name='squeeze'
+<span class="anchor" id="line-41"></span>mut_root=$(vgetconfig UserInterface MutableRootName)
+<span class="anchor" id="line-42"></span>user_name=$(whoami)
+<span class="anchor" id="line-43"></span>
+<span class="anchor" id="line-44"></span># Run pkg2vesta on all the .deb files
+<span class="anchor" id="line-45"></span>
+<span class="anchor" id="line-46"></span>for arch in amd64 i386 powerpc sparc; do
+<span class="anchor" id="line-47"></span>    if [ -d $arch ]; then
+<span class="anchor" id="line-48"></span>        echo &quot;===========================================================&quot;
+<span class="anchor" id="line-49"></span>        echo &quot;-------------------- $arch (pkg2vesta) --------------------&quot;
+<span class="anchor" id="line-50"></span>        echo &quot;===========================================================&quot;
+<span class="anchor" id="line-51"></span>        cd $arch
+<span class="anchor" id="line-52"></span>        for deb_f in *.deb; do
+<span class="anchor" id="line-53"></span>            pkg2vesta.pl --wd-pattern &quot;$dist_name.%a/%p&quot; --root /vesta/vestasys.org $deb_f
+<span class="anchor" id="line-54"></span>        done
+<span class="anchor" id="line-55"></span>        cd ..
+<span class="anchor" id="line-56"></span>        # Flush buffered writes through to the repository
+<span class="anchor" id="line-57"></span>        sync
+<span class="anchor" id="line-58"></span>    fi
+<span class="anchor" id="line-59"></span>done
+<span class="anchor" id="line-60"></span>
+<span class="anchor" id="line-61"></span># vadvance all the working directories
+<span class="anchor" id="line-62"></span>
+<span class="anchor" id="line-63"></span>for arch in amd64 i386 powerpc sparc; do
+<span class="anchor" id="line-64"></span>    wd_par=&quot;$mut_root/$user_name/$dist_name.$arch&quot;
+<span class="anchor" id="line-65"></span>    if [ -d $wd_par ]; then
+<span class="anchor" id="line-66"></span>        echo &quot;==========================================================&quot;
+<span class="anchor" id="line-67"></span>        echo &quot;-------------------- $arch (vadvance) --------------------&quot;
+<span class="anchor" id="line-68"></span>        echo &quot;==========================================================&quot;
+<span class="anchor" id="line-69"></span>        cd $wd_par
+<span class="anchor" id="line-70"></span>        for wd in *; do
+<span class="anchor" id="line-71"></span>            vadvance -Z -F -1 ./$wd
+<span class="anchor" id="line-72"></span>        done
+<span class="anchor" id="line-73"></span>    fi
+<span class="anchor" id="line-74"></span>done</pre><span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><p class="line867">
+<h1 id="creating_the_New_std_envs">creating the New std_envs</h1>
+<span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span><p class="line874">Then I used another script to create and check out the new std_env <span class="anchor" id="line-109"></span>packages for Debian squeeze: <span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><p class="line867"><span class="anchor" id="line-112"></span><span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span><span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span><span class="anchor" id="line-138"></span><pre><span class="anchor" id="line-1-1"></span>odist=lenny
+<span class="anchor" id="line-2-1"></span>ndist=squeeze
+<span class="anchor" id="line-3-1"></span>mut_root=$(vgetconfig UserInterface MutableRootName)
+<span class="anchor" id="line-4-1"></span>user_name=$(whoami)
+<span class="anchor" id="line-5-1"></span>
+<span class="anchor" id="line-6-1"></span>for arch in amd64 i386 powerpc sparc; do
+<span class="anchor" id="line-7-1"></span>    # Find the package to base this on
+<span class="anchor" id="line-8-1"></span>    opkg=&quot;/vesta/vestasys.org/platforms/linux/debian/$arch/std_env.$odist&quot;
+<span class="anchor" id="line-9-1"></span>    if [ ! -d $opkg ]; then
+<span class="anchor" id="line-10-1"></span>        opkg=&quot;/vesta/beta.vestasys.org/platforms/linux/debian/$arch/std_env.$odist&quot;
+<span class="anchor" id="line-11-1"></span>    fi
+<span class="anchor" id="line-12-1"></span>
+<span class="anchor" id="line-13-1"></span>    # We'll always put the new package in beta.vestasys.org
+<span class="anchor" id="line-14-1"></span>    npkg=&quot;/vesta/beta.vestasys.org/platforms/linux/debian/$arch/std_env.$ndist&quot;
+<span class="anchor" id="line-15-1"></span>
+<span class="anchor" id="line-16-1"></span>    if [ -d $opkg ]; then
+<span class="anchor" id="line-17-1"></span>        over=$(vlatest -n $opkg)
+<span class="anchor" id="line-18-1"></span>        if [ ! -d $npkg ]; then
+<span class="anchor" id="line-19-1"></span>            vcreate -m &quot;Update for Debian $ndist&quot; -o $over $npkg
+<span class="anchor" id="line-20-1"></span>            mkdir -p &quot;$mut_root/$user_name/$ndist.$arch&quot;
+<span class="anchor" id="line-21-1"></span>            vcheckout -M -w &quot;$mut_root/$user_name/$ndist.$arch/std_env&quot; $npkg
+<span class="anchor" id="line-22-1"></span>        fi
+<span class="anchor" id="line-23-1"></span>    fi
+<span class="anchor" id="line-24-1"></span>done</pre><span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span><p class="line862">After editing the first <tt>std_env</tt> and getting it to build, I then <span class="anchor" id="line-141"></span>used patch to propagate my changes to the ones for other CPU <span class="anchor" id="line-142"></span>architectures.  While this didn't apply cleanly in all cases, <span class="anchor" id="line-143"></span>it reduced the amount of manual effort.  Here are some of the commands <span class="anchor" id="line-144"></span>I used to do this: <span class="anchor" id="line-145"></span><span class="anchor" id="line-146"></span><p class="line867"><span class="anchor" id="line-147"></span><span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><span class="anchor" id="line-150"></span><pre><span class="anchor" id="line-1-2"></span>(cd /vesta/beta.vestasys.org/platforms/linux/debian/powerpc/std_env.squeeze/checkout/1 ; diff -ruN 0 latest | sed -e 's/powerpc/sparc/g' ) | patch -p1
+<span class="anchor" id="line-2-2"></span>(cd /vesta/beta.vestasys.org/platforms/linux/debian/powerpc/std_env.squeeze/checkout/1 ; diff -ruN 0 latest | sed -e 's/powerpc/i386/g' ) | patch -p1
+<span class="anchor" id="line-3-2"></span>(cd /vesta/beta.vestasys.org/platforms/linux/debian/i386/std_env.squeeze/checkout/1 ; diff -ruN 0 latest | sed -e 's/i386/amd64/g; s/i486/x86_64/g;' ) | patch -p1</pre><span class="anchor" id="line-151"></span><span class="anchor" id="line-152"></span><p class="line874">When I was satisfied that everything was working, I proceeded to use <span class="anchor" id="line-153"></span>this command line to check in all the OS components: <span class="anchor" id="line-154"></span><span class="anchor" id="line-155"></span><p class="line867"><span class="anchor" id="line-156"></span><span class="anchor" id="line-157"></span><pre><span class="anchor" id="line-1-3"></span>for d in /vesta-work/ken/squeeze.*/*; if echo $d | grep -q 'std_env$'; then echo &quot;(skipping $d)&quot;; else vcheckin -M $d; fi</pre><span class="anchor" id="line-158"></span><span class="anchor" id="line-159"></span><p class="line867">
+<h1 id="Notable_Changes">Notable Changes</h1>
+<span class="anchor" id="line-160"></span><span class="anchor" id="line-161"></span><p class="line874">A couple things to note about the Debian squeeze std_envs: <span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><ul><li><p class="line862">binutils now requires zlib, but I elected to import the OS component in <tt>build.ves</tt> rather than <tt>c.ves</tt> since it's not specific to C <span class="anchor" id="line-164"></span></li><li>Rather than byacc, I switched to bison.  This was fairly straightforward, but required two minor changes: <span class="anchor" id="line-165"></span><ul><li><p class="line862">Making the yacc bridge able to accept default switches as a bridge parameter (see <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/yacc/2">bridges/yacc/2</a>) <span class="anchor" id="line-166"></span></li><li>Moving the m4 OS component into a separate add-on, as both flex and bison require it <span class="anchor" id="line-167"></span></li><li><p class="line862">Fixing a small syntax error in the lim yacc file (see <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/lim/3">bridges/lim/3</a>) <span class="anchor" id="line-168"></span><span class="anchor" id="line-169"></span></li></ul></li></ul><p class="line867">
+<h1 id="Results">Results</h1>
+<span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span><p class="line874">The edits made in the different std_env packages can be found here: <span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span><ul><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/platforms/linux/debian/powerpc/std_env.squeeze">/vesta/beta.vestasys.org/platforms/linux/debian/powerpc/std_env.squeeze</a> <span class="anchor" id="line-174"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/platforms/linux/debian/sparc/std_env.squeeze">/vesta/beta.vestasys.org/platforms/linux/debian/sparc/std_env.squeeze</a> <span class="anchor" id="line-175"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/platforms/linux/debian/i386/std_env.squeeze">/vesta/beta.vestasys.org/platforms/linux/debian/i386/std_env.squeeze</a> <span class="anchor" id="line-176"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/platforms/linux/debian/amd64/std_env.squeeze">/vesta/beta.vestasys.org/platforms/linux/debian/amd64/std_env.squeeze</a> <span class="anchor" id="line-177"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

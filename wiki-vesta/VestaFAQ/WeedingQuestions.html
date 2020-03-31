@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>VestaFAQ/WeedingQuestions - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: VestaFAQ/WeedingQuestions" href="WeedingQuestions%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=VestaFAQ%252FWeedingQuestions&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="WeedingQuestions%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="WeedingQuestions%3Faction=print.html">
+<link rel="Up" href="VestaFAQ.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="WeedingQuestions.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="VestaFAQ.html">VestaFAQ</a></li><li><a href="WeedingQuestions.html">WeedingQuestions</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="WeedingQuestions.html">VestaFAQ/WeedingQuestions</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="WeedingQuestions%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">Questions in this catagory: <span class="anchor" id="line-6"></span><ol type="1"><li><p class="line891"><a href="WeedingQuestions.html#filling">Why does my Vesta disk keep getting more and more full?</a> <span class="anchor" id="line-7"></span></li><li><p class="line891"><a href="WeedingQuestions.html#purge">How do I purge old builds and reclaim space?</a> <span class="anchor" id="line-8"></span></li><li><p class="line891"><a href="WeedingQuestions.html#full">Help, my disk has completely filled up! How do I recover?</a> <span class="anchor" id="line-9"></span></li><li><p class="line891"><a href="WeedingQuestions.html#pause">When does the weeder pause / stop serving client requests?</a> <span class="anchor" id="line-10"></span></li></ol><p class="line867"><hr /><p class="line874"> <span class="anchor" id="line-11"></span><dl><dt>Why does my Vesta disk keep getting more and more full?</dt><dd><p class="line891"><span class="anchor" id="filling"></span>Every time you perform a build using Vesta, the results of the build get stored in Vesta's persistent cache. Until you tell the system to delete some builds by running <a class="http" href="../vesta/doc/man/html/VestaWeed.1.html">VestaWeed(1)</a> (aka &quot;the weeder&quot;), it keeps the results of <strong>all</strong> builds. <span class="anchor" id="line-12"></span></dd><dt>How do I purge old builds and reclaim space?</dt><dd><p class="line891"><span class="anchor" id="purge"></span>Run <a class="http" href="../vesta/doc/man/html/VestaWeed.1.html">VestaWeed(1)</a>. The easiest way to use it is to simply tell it to keep all builds performed more recently than some time in the past. For example, to keep only those builds performed in the last three days, you could do: <span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><pre><span class="anchor" id="line-1"></span>VestaWeed -keep 3d /dev/null</pre><span class="anchor" id="line-16"></span></dd></dl><p class="line862">(Note that both the <a class="http" href="../vesta/doc/man/html/VCache.1.html">cache</a> and <a class="http" href="../vesta/doc/man/html/repository.8.html">repository</a> servers must be running to use the weeder, and you must run the weeder as the special vadmin user.)  <span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><dl><dt>Help, my disk has completely filled up! How do I recover?</dt><dd><p class="line891"><span class="anchor" id="full"></span> <span class="anchor" id="line-19"></span><li style="list-style-type:none"><div><table><tbody><tr>  <td colspan="2" style="text-align: center"><p class="line862">1. Shut down the <a class="http" href="../vesta/doc/man/html/VCache.1.html">cache server</a> if it's running.  </td>
+</tr>
+<tr>  <td colspan="2" style="text-align: center"><span class="anchor" id="line-20"></span><p class="line862">2. As vadmin, run <a class="http" href="../vesta/doc/man/html/EraseCache.1.html">EraseCache(1)</a>. This will completely erase your entire cache of previously done builds. It should get you enough space to proceed with the next steps.  </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-21"></span><p class="line862"> [reason / explanation ] </td>
+  <td><p class="line862"> [reason / explanation ] </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-22"></span><p class="line862">3. Start the <a class="http" href="../vesta/doc/man/html/VCache.1.html">cache server</a> back up. Also make sure that the <a class="http" href="../vesta/doc/man/html/repository.8.html">repository server</a> is running. (Both servers must be up to do step 4.)  </td>
+  <td><p class="line862">3. As vadmin, run <tt>QuickWeed&nbsp;-i&nbsp;-no-cache</tt> <a class="http" href="../vesta/doc/man/html/QuickWeed.1.html">QuickWeed(1)</a>. This is a limited alternative to the <a class="http" href="../vesta/doc/man/html/VestaWeed.1.html">normal weeder</a> that keeps all builds in the cache, but may cause the repository to reclaim space. Since you've just erased your cache in step 2, this will clear away the derived files produced by builds that were in the old cache. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-23"></span><p class="line862">4. As vadmin, run <a class="http" href="../vesta/doc/man/html/QuickWeed.1.html">QuickWeed(1)</a>. This is a limited alternative to the <a class="http" href="../vesta/doc/man/html/VestaWeed.1.html">normal weeder</a> that keeps all builds in the cache, but may cause the repository to reclaim space. Since you've just erased your cache in step 2, this will clear away the derived files produced by builds that were in the old cache.  </td>
+  <td><p class="line862">4. Start the <a class="http" href="../vesta/doc/man/html/VCache.1.html">cache server</a> back up. Also make sure that the <a class="http" href="../vesta/doc/man/html/repository.8.html">repository server</a> is running.  </td>
+</tr>
+<tr>  <td colspan="2" style="text-align: center"><span class="anchor" id="line-24"></span><p class="line862">5. Warm the cache by building popular models  </td>
+</tr>
+<tr>  <td colspan="2" style="text-align: center"><span class="anchor" id="line-25"></span><p class="line862">6. Remember to keep an eye on the disk space, and run <a class="http" href="../vesta/doc/man/html/VestaWeed.1.html">the normal weeder</a> before this happens again!  </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span></li></dd><dt>When does the weeder pause / stop serving client requests?</dt><dd><p class="line891"><span class="anchor" id="pause"></span> <span class="anchor" id="line-28"></span></dd></dl><p class="line874">Here's how to find the exact start and end times of the two periods during weeding within which the repository stops answering user requests, I've gone through the messages for a recent weeder run and the corresponding repository daemon log.  Hopefully this will help others find the exact times of those two pauses. <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line862">From the weeder log (<tt>/vesta-srv/autoweed/logs/060919-150129-weed.log</tt>): <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><ul><li style="list-style-type:none"><p class="line891"><tt>15:03:33.488&nbsp;09/19/2006&nbsp;--&nbsp;Started&nbsp;deleting&nbsp;dead&nbsp;repository&nbsp;files</tt> <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span></li></ul><p class="line874">This is when the weeder asks the repository to begin performing deletions the first pause in responses to client requests occurs right after this. <span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><p class="line862">From the repository daemon log (<tt>/var/log/vesta/repository/logfile</tt>): <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><ul><li style="list-style-type:none"><p class="line891"><strong><tt>09/19/2006&nbsp;15:03:33&nbsp;keep&nbsp;derived:&nbsp;keepDerivedTime&nbsp;1158703291,&nbsp;sid&nbsp;0x9f4c1c00</tt></strong> <span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span></li></ul><p class="line862">This is the message that indicates that the repository has gotten the request from the weeder to begin deletions.  The timestamp on this line is the time that the <strong>first pause in client requests begins</strong>. <span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><p class="line862">From the repository daemon log (<tt>/var/log/vesta/repository/logfile</tt>): <span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><ul><li style="list-style-type:none"><p class="line891"><strong><tt>09/19/2006&nbsp;15:11:41&nbsp;source&nbsp;weed&nbsp;done</tt></strong> <span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span></li></ul><p class="line862">This message shows when the repository finishes computing the set of source files to keep. The timestamp on this line is the time that the <strong>first pause in client requests ends</strong>.  After this the repository will resume responding to client requests. <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><p class="line862">From the repository daemon log (<tt>/var/log/vesta/repository/logfile</tt>): <span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><ul><li style="list-style-type:none"><p class="line891"><tt>09/19/2006&nbsp;15:13:56&nbsp;wrote&nbsp;combined&nbsp;keepSidFile&nbsp;0x942e96db</tt> <span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span></li></ul><p class="line874">This message shows when the repository has completed the sort and merge of the list of source files to keep and the list of derived files to keep.  The timestamp on this line is when the repository begins reclaiming disk space by deleting files. <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><p class="line862">From the repository daemon log (<tt>/var/log/vesta/repository/logfile</tt>): <span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><ul><li style="list-style-type:none"><p class="line891"><tt>09/19/2006&nbsp;16:00:59&nbsp;deletions&nbsp;done</tt> <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span></li></ul><p class="line874">This message shows when the repository has completed reclaiming space by deleting files. <span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><p class="line862">From the weeder log (<tt>/vesta-srv/autoweed/logs/060919-150129-weed.log</tt>): <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><ul><li style="list-style-type:none"><p class="line891"><tt>16:00:59.912&nbsp;09/19/2006&nbsp;--&nbsp;Finished&nbsp;deleting&nbsp;dead&nbsp;repository&nbsp;files</tt> <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span></li></ul><p class="line874">As you can see, the repository does not tell the weeder that it is done deleting files until long after it has resumed responding to user requets. <span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><p class="line862">From the weeder log (<tt>/vesta-srv/autoweed/logs/060919-150129-weed.log</tt>): <span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><ul><li style="list-style-type:none"><p class="line891"><tt>16:02:27.264&nbsp;09/19/2006&nbsp;--&nbsp;Started&nbsp;checkpointing&nbsp;the&nbsp;repository</tt> <span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span></li></ul><p class="line862">This is when the weeder asks the repository to write out a checkpoint of its internal state.  Writing the checkpoint is the <strong>second</strong> period during which the repository <strong>stops responding to user requests.</strong> <span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><p class="line862">From the repository daemon log (<tt>/var/log/vesta/repository/logfile</tt>): <span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><ul><li style="list-style-type:none"><p class="line891"><strong><tt>09/19/2006&nbsp;16:02:27&nbsp;starting&nbsp;checkpoint</tt></strong> <span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><p class="line891"><strong><tt>09/19/2006&nbsp;16:08:05&nbsp;checkpoint&nbsp;done</tt></strong> <span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span></li></ul><p class="line874">These two messages are the start and end of the checkpointing process.  Between the times on these two messages, the repository will be paused again, unable to respond to user requests.  After it finishes checkpointing it will immediately resume answering user requests. <span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><p class="line862">From the weeder log (<tt>/vesta-srv/autoweed/logs/060919-150129-weed.log</tt>): <span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><ul><li style="list-style-type:none"><p class="line891"><tt>16:08:05.706&nbsp;09/19/2006&nbsp;--&nbsp;Finished&nbsp;checkpointing&nbsp;the&nbsp;repository</tt> <span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span></li></ul><p class="line874">As you can see, the timestamps on the messages from the weeder about checkpointing line up very closely to the repository daemon messages which is very different from the time between the weeder messages about deleting dead repository files. <span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><p class="line874">--Ken <span class="anchor" id="line-88"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

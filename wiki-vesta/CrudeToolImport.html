@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>CrudeToolImport - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: CrudeToolImport" href="CrudeToolImport%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=CrudeToolImport&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="CrudeToolImport%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="CrudeToolImport%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="CrudeToolImport.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="CrudeToolImport.html">CrudeToolImport</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="CrudeToolImport.html">CrudeToolImport</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="CrudeToolImport%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867">
+<h1 id="Could_we_Make_Importing_a_New_Tool_Easier.3F">Could we Make Importing a New Tool Easier?</h1>
+<span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line874">Setting up a new tool to be run as part of a Vesta build is difficult. <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><ul><li><p class="line862">Setting up the encapsulated filesystem <tt>./root</tt> requires knowing all the files needed by the tool. <span class="anchor" id="line-10"></span></li><li><p class="line862">Setting up the environment variables <tt>./envVars</tt> requires knowing all the settings needed by the tool. <span class="anchor" id="line-11"></span></li><li><p class="line862">SDL the language takes some getting used to, especially the various details of <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_run_tool.html">the _run_tool primitive function</a>. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span></li></ul><p class="line874">In contrast, most people that want to import some new tool into Vesta already know how to run that tool outside of Vesta.  They may not know all the details, but they probably know how to get their system and environment into a state where the tool can be run. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">What if there were a way for the user to simply type a command at their shell prompt and have all the files it uses discovered automatically?  What if this also created a boilerplate SDL file which set up all the environment variables and invoked <tt>_run_tool</tt> with the command line the user typed? <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line867">
+<h2 id="How_Filesystem_Encapsulation_Works">How Filesystem Encapsulation Works</h2>
+<span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line862">When the evaluator runs a tool, it creates a <a class="http" href="../vesta/doc/man/html/vesta-intro.1.html#volatile_directory">volatile directory</a>.  It does this by calling the function <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/59/src/VDirSurrogate.H#L56">VDirSurrogate::createVolatileDirectory</a>.  This directory becomes the root filesystem for the tool (see the chroot(2) man page). <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line862">The evaluatoir does <strong>not</strong> transmit the contents of this filesystem to the repository immediately.  Instead, it tells the repository a host and port where it can call back to the evaluator for informaiton about the contents of the volatile directory.  (These are the &quot;<tt>host</tt>&quot; and &quot;<tt>port</tt>&quot; arguments to <tt>VDirSurrogate::createVolatileDirectory</tt>.)  The evaluator's side of this network protocol is implemented in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/69/src/ToolDirectoryServer.C">ToolDirectoryServer.C</a>, and the repository's side is implemented in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/59/src/VDirEvaluator.C">VDirEvaluator.C</a>.  (Some documentation of the protocol is in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/59/src/Evaluator_Dir_SRPC.H">Evaluator_Dir_SRPC.H</a>.) <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line874">An important fact about this is that whenever a tool tries to access a file or directory, the repository first calls back to the evaluator.  This is how the evaluator records information about which files/directories a tool run depends upon. <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line867">
+<h2 id="Discovering_Rather_Than_Recording">Discovering Rather Than Recording</h2>
+<span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line862">Currently, the only program which calls <tt>VDirSurrogate::createVolatileDirectory</tt>, the only program which implements the network protocol for providing the contents of a volatile directory to the repository is the evaluator.  But what if there was another one?  What if this alternate program did something different when receiving a call-back from the repository? <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line862">Suppose that when this program receives a call-back for a particular file, it behaves differently.  Rather than taking the file contents from a data structure like the binding in <tt>./root</tt>, it would take the file from the normal filesystem.  This would require copying it into the repository, as files in a volatile directory must be backed by a shortid.  It could also create a mutable directory containing the same root filesystem structure. <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line874">After the tool finishes, this new program could create an SDL file which: <span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><ul><li><p class="line862">Brings in the root filesystem created in a mutable directory while the tool was running and puts it in <tt>./root</tt> <span class="anchor" id="line-34"></span></li><li><p class="line862">Sets up <tt>./envVars</tt> with the environment variables which were set at the time the tool was started <span class="anchor" id="line-35"></span></li><li><p class="line862">Calls <tt>_runt_tool</tt> with the original command-line <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span></li></ul><p class="line874">This would be a very crude way of getting started with a new tool inside Vesta.  It would not be anything like a bridge.  But it would make it easier to get started.  It would be helpful to both new and experienced users. <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><ul><li><p class="line891"><strong>(<a href="JohnVk.html">JohnVk</a>):</strong> i like this, but there needs to be a way to search existing bridges first, and try them first, and if they work, just add the import and/or to <tt>std_env</tt> build list for this package.  Next, if no such bridge exists, check if the <em>file</em> already exists somewhere in vesta, and import it from there.  Then if none of those work, get it from the use's environment. <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span></li></ul><p class="line867">
+<h2 id="Prototype_Implementation">Prototype Implementation</h2>
+<span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line874">There is a branch with some initial work on an implementation: <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line867"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/126.capture_tool">vesta/eval/126.capture_tool</a> <span class="anchor" id="line-46"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

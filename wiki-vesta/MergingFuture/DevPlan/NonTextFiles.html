@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>MergingFuture/DevPlan/NonTextFiles - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: MergingFuture/DevPlan/NonTextFiles" href="NonTextFiles%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=MergingFuture%252FDevPlan%252FNonTextFiles&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="NonTextFiles%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="NonTextFiles%3Faction=print.html">
+<link rel="Up" href="../DevPlan.html">
+<link rel="Appendix" title="is_text" href="NonTextFiles%3Faction=AttachFile&amp;do=view&amp;target=is_text.html">
+<link rel="Appendix" title="text-or-binary.py" href="NonTextFiles%3Faction=AttachFile&amp;do=view&amp;target=text-or-binary.py.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="NonTextFiles.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="MergingFuture.html">MergingFuture</a></li><li><a href="../DevPlan.html">DevPlan</a></li><li><a href="NonTextFiles.html">NonTextFiles</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="NonTextFiles.html">NonTextFiles</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="NonTextFiles%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="NonTextFiles.html#Background">Background</a></li><li>
+<a href="NonTextFiles.html#Approaches_Used_.28so_far.29">Approaches Used (so far)</a></li><li>
+<a href="NonTextFiles.html#Proposal_for_Improvements_.28May_2008.29">Proposal for Improvements (May 2008)</a><ol><li>
+<a href="NonTextFiles.html#Explicit_Specification">Explicit Specification</a><ol><li>
+<a href="NonTextFiles.html#Finding_The_Attributes">Finding The Attributes</a></li></ol></li><li>
+<a href="NonTextFiles.html#Guess_From_Filename">Guess From Filename</a></li><li>
+<a href="NonTextFiles.html#User-Configured_Guess">User-Configured Guess</a></li><li>
+<a href="NonTextFiles.html#Default_Guess_Based_on_Contents">Default Guess Based on Contents</a></li><li>
+<a href="NonTextFiles.html#File_Treatment_Check">File Treatment Check</a></li></ol></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Background">Background</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">See <a href="../Food4Thought/NonTextFiles.html">MergingFuture/Food4Thought/NonTextFiles</a> for an introduction to the problem. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">The Vesta merge prototype known as <tt>vmerge</tt> (which can be found in the package <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/vesta/merging">/vesta/beta.vestasys.org/vesta/merging</a>) has been through  at least three stages in how it identifies and handles different kinds of files.  It's continuing to evolve. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867">
+<h1 id="Approaches_Used_.28so_far.29">Approaches Used (so far)</h1>
+<span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">At first, <tt>vmerge</tt> treated every file as a text file and used some kind of merge algorithm to combine parallel edits.  An obvious problem with this approach is that it can produce unusable results when applied to non-text files.  Binary files are more common in Vesta than in most other version control systems since Vesta stores the entire tool-chain used during builds.  This makes this a bigger problem for Vesta than it is for most version control systems. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line862">A set of changes contributed by <a class="nonexistent" href="../../BrannonBatson.html">BrannonBatson</a> (see <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/vesta/merging/5.batson_vmerge_2">merging/5.batson_vmerge_2</a>) incorporated in January 2008 (see <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/vesta/merging/10">merging/10</a>) included a first cut at an automatic test for non-text files.  It used the <tt>file(1)</tt> command with the -i flag to have it return a mime type.  Here's the exact Python code which implemented the test: <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line867"><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><pre><span class="anchor" id="line-1"></span>def istext(path):
+<span class="anchor" id="line-2"></span>    # use the UNIX 'file' command to determine if a file is text
+<span class="anchor" id="line-3"></span>    find_pipe = os.popen(&quot;file -ib &quot;+path, 'r')
+<span class="anchor" id="line-4"></span>    ret = find_pipe.readline()
+<span class="anchor" id="line-5"></span>    find_pipe.close()
+<span class="anchor" id="line-6"></span>    return (ret[0:4] == &quot;text&quot;)</pre><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line862">This was later identified as a problem for some users at Intel who were having text files identified as binaries.  This resulted in the text file merge algorithm not being applied, leaving the user to compare two files and incorporate changes manually.  To try and avoid this we improved the test by running <tt>file(1)</tt> twice, once with -i and once without -i.  (This uses two different sets of criteria for determining the file type.)  This was implemented in early April 2008 (see <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/vesta/merging/18">merging/18</a>).  This version included an &quot;escape hatch&quot; configuration setting which would allow users for whom this test did not work to write their own that understood all their file types and made the decision about which merge method to apply in whatever way they preferred.  The default command line used was: <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line867"><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><pre><span class="anchor" id="line-1-1"></span>file -b $FILE | grep -qi text || file -ib $FILE | grep -qi '^text/'</pre><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><p class="line874">Users can configure any alternate command, even a script or other program of arbitrary complexity, to make the determination of whether a file should be treated during merging as a text file or a binary file. <span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><p class="line867"><span class="anchor" id="Proposal-May-2008"></span> <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line867">
+<h1 id="Proposal_for_Improvements_.28May_2008.29">Proposal for Improvements (May 2008)</h1>
+<span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><p class="line862">In order to further improve the ability of <tt>vmerge</tt> to treat files in the way users expect, we propose moving to a tiered system.  The following methods of determining how a file should be treated will be tried in order: <span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><ol type="1"><li><p class="line891"><strong>Explicit specification.</strong>  Attributes on the enclosing package will be able to specify how an individual file should be treated. <span class="anchor" id="line-43"></span></li><li><p class="line891"><strong>Guess from filename.</strong>  A set of filename patterns may be provided in a configuration file with a corresponding file type for each. <span class="anchor" id="line-44"></span></li><li><p class="line891"><strong>User-configured guess.</strong>  A command may be configured by the user to guess the type of file. <span class="anchor" id="line-45"></span></li><li><p class="line891"><strong>Default guess based on contents.</strong>  An internal simple check of file contents to choose between treating a file as text or binary. <span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span></li></ol><p class="line874">Each of these will be described in more detail below. <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><p class="line862">First let's state that we'll use the strings &quot;text&quot; and &quot;binary&quot; to refer to the two primary ways of treating files during a merge.  Files of type &quot;text&quot; will be merged line-by-line using <a class="interwiki" href="http://revctrl.org/PreciseCodevilleMerge" title="Revctrl">Bram Cohen's precise Codeville merge algorithm</a> (which it has been using for some time).  Files of type &quot;binary&quot; will be treated as indivisible pieces with conflicts whenever changes are made on both sides. <span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><p class="line862">The important thing is that we want to leave open the possibility of other strings denoting other file types handled by other merge algorithms.  While we don't have a plug-in API for <tt>vmerge</tt> today, we intend to support such a thing in the future.  (The <a class="http" href="http://diffxml.sourceforge.net/">diffxml and patchxml</a> tools provide one example of how we might merge changes to other file formats.) <span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><p class="line867">
+<h2 id="Explicit_Specification">Explicit Specification</h2>
+<span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><p class="line862">To state that the file <tt>foo/bar.x</tt> should be treated as type <em><strong>Y</strong></em>, the user would need to add the value &quot;<tt>foo/bar.x</tt>&quot; to the &quot;<tt>merge-as-Y</tt>&quot; on the package.  To do this with <a class="http" href="../vesta/doc/man/html/vattrib.1.html">vattrib</a>, they would use command like: <span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><p class="line867"><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><pre><span class="anchor" id="line-1-2"></span>vattrib -a merge-as-Y foo/bar.x /vesta/example.com/dir/pkg</pre><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><p class="line862">To be more concrete, suppose file <tt>src/foo.w</tt> is a text file and <tt>bin/bar</tt> is a binary.  Those explicit specifications could be recorded with these commands: <span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><p class="line867"><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><pre><span class="anchor" id="line-1-3"></span>vattrib -a merge-as-text src/foo.w /vesta/example.com/dir/pkg
+<span class="anchor" id="line-2-1"></span>vattrib -a merge-as-binary bin/bar /vesta/example.com/dir/pkg</pre><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><p class="line874">To make this a little easier for the user, we will provide a command-line option to vmerge that will ask it to add these file type attributes for specified files.  When run in a checkout working directory or an immutable version, it will find the enclosing package and add the attributes there.  For example, the user could trype commands such as: <span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><p class="line867"><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><pre><span class="anchor" id="line-1-4"></span>vmerge --learn-text src/*.w
+<span class="anchor" id="line-2-2"></span>vmerge --learn-binary bin/*</pre><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><p class="line874">These would add attribute values for all files matching those patterns in the current directory on the package to which it belongs. <span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><p class="line867">
+<h3 id="Finding_The_Attributes">Finding The Attributes</h3>
+<span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><ol type="1"><li>The algorithm to search for attributes specifying how files should be treated will start from either a checkout working directory or an immutable version. <span class="anchor" id="line-80"></span><ul><li><p class="line862">If the starting directory has type <tt>mutableDirectory</tt>, it will go to the parent directory of the <tt>old-version</tt> attribute if it has one, or the parent directory of the <tt>new-version</tt> attribute if it has one, or the parent directory of the <tt>session-dir</tt> attribute if it has one.  If the starting <tt>mutableDirectory</tt> has none of these attributes, then we have no explicit specification attributes. <span class="anchor" id="line-81"></span></li><li><p class="line862">If the starting directory has type <tt>immutableDirectory</tt>, it will go to its parent directory. <span class="anchor" id="line-82"></span></li></ul></li><li><p class="line862">Now the algorithm should have a <em>current directory</em> of type <tt>appendableDirectory</tt>.  Loop until there is no current directory: <span class="anchor" id="line-83"></span><ol type="1"><li><p class="line862">While the current directory does not have <tt>package</tt> in its <tt>type</tt> attribute, set the current directory to its parent directory.  If we reach the root of the repository, we have no current directory and exit the loop. <span class="anchor" id="line-84"></span></li><li><p class="line862">For every known file type <strong>X</strong> (&quot;text&quot; and &quot;binary&quot; initially), get the <tt>merge-as-X</tt> attribute of the package.  Remember these associations in a data structure mapping from relative path to file type. <span class="anchor" id="line-85"></span><ul><li>When remembering a type specification for a file, ignore it if we already have a type specification for that file.  This allows explicit specifications on branches to shadow those on enclosing packages. <span class="anchor" id="line-86"></span></li><li>If a file appears in more than one such attribute on the same directory we should warn the user but just pick one type. <span class="anchor" id="line-87"></span></li></ul></li><li><p class="line862">If the current directory (a package) also has <tt>branch</tt> in its <tt>type</tt> attribute and has an <tt>old-version</tt> attribute, set the current directory to the parent directory of the <tt>old-version</tt> attribute value and continue.  (This proceeds from branches to their base packages looking for file type specifications.) <span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span></li></ol></li></ol><p class="line874">This could be implemented as one function that returns a list of directories to check for the attributes and another that builds the data structure of tile type associations based on that list of directories.  This would probably be more useful for debug purposes. <span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><p class="line874">When setting the attributes for the user, we should set them on the final current directory in the loop above (i.e. the main package, not a branch). <span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><p class="line874">Ideally we should build the data structure with file type associations once for the working directory being modified and once for the immutable version being merged in.  We don't want to perform this search once for each file. <span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><p class="line867">
+<h2 id="Guess_From_Filename">Guess From Filename</h2>
+<span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><p class="line862">We'll add a new <a class="http" href="../vesta/doc/man/html/vesta.cfg.5.html">vesta.cfg</a> section named &quot;Merging:FileTypePatterns&quot;.  The name of each setting will be a <tt>glob(7)</tt>-style shell pattern for matching filenames.  The value of each setting will be a type string (i.e. &quot;text&quot; or &quot;binary&quot;).  Here's a simple example: <span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><p class="line867"><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span><pre><span class="anchor" id="line-1-5"></span>[Merging:FileTypePatterns]
+<span class="anchor" id="line-2-3"></span>*.[cChH] = text
+<span class="anchor" id="line-3-1"></span>*.[ch]pp = text
+<span class="anchor" id="line-4-1"></span>*.[ch]xx = text
+<span class="anchor" id="line-5-1"></span>*.gz = binary
+<span class="anchor" id="line-6-1"></span>{foo,bar}*.x = binary
+<span class="anchor" id="line-7"></span>*.xml = binary
+<span class="anchor" id="line-8"></span>*.xsl = text</pre><span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><p class="line874">The patterns will not have a defined order in which they are checked against a filename.  If a filename can match multiple patterns which have different file type strings as values, the treatment of the file will be one of the type strings. <span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><p class="line862">Note that because of the <a class="http" href="../vesta/doc/man/html/vesta.cfg.5.html#Syntax">vesta.cfg file syntax</a>, the patterns cannot begin with an open square bracket and cannot contain embedded equals signs. <span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><p class="line867">
+<h2 id="User-Configured_Guess">User-Configured Guess</h2>
+<span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span><p class="line862">A new optional <a class="http" href="../vesta/doc/man/html/vesta.cfg.5.html">vesta.cfg</a> setting <tt>[Merging]guess_file_type</tt> will allow the user to specify a command which can provide a guess of the file type.  This can use any method they like, but will probably be used primarily for tests based on the file contents. <span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span><p class="line862">The command will be executed through a shell, simple in-line commands will be possible.  The path to the file whose type is to guessed will be passed in the <tt>FILE</tt> environment variable.  The command should print a file type string (i.e. &quot;text&quot; or &quot;binary&quot;) as a single line of output and exit with successful status if it has determined the type of the file.  If the command exits with error status, produces no output, or prints a string that is not a recognized file type, it will be treated as not providing a guess and <tt>vmerge</tt> will fall back on the next method of determining how the file should be treated. <span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><p class="line874">As an example, this might be a useful setting for people working with XML files generated by a program rather than edited by a human: <span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><p class="line867"><span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><pre><span class="anchor" id="line-1-6"></span>[Merging]
+<span class="anchor" id="line-2-4"></span>guess_file_type = file $FILE | grep -q XML &amp;&amp; echo binary</pre><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><p class="line862">We'll deprecate the existing configuration setting <tt>[Merging]is_text_check</tt> in favor of this more flexible alternative. <span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><p class="line867">
+<h2 id="Default_Guess_Based_on_Contents">Default Guess Based on Contents</h2>
+<span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><p class="line862">To try and avoid scrambling binary files, as a final fall-back <tt>vmerge</tt> will use its own method of determining whether a file is likely to be a text file appropriate for merging using <a class="interwiki" href="http://revctrl.org/PreciseCodevilleMerge" title="Revctrl">Bram Cohen's precise Codeville merge algorithm</a>. <span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><p class="line862">The standard commands <tt>diff(1)</tt> and <tt>grep(1)</tt> automatically determine whether a file is text or binary before printing comparison or search results by checking for any null (zero) bytes within the first several kilobytes of the file.  We may use that method, or we may use a similar method that excludes other obscure control characters that don't typically occur in text files. <span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><p class="line874">Scripts implementing two possible such tests are attached to this page: <span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span><ul><li><p class="line891"><a class="attachment" href="NonTextFiles%3Faction=AttachFile&amp;do=view&amp;target=is_text.html" title="">is_text</a> : Perl implementation by <a class="nonexistent" href="../../DaveAndrews.html">DaveAndrews</a> <span class="anchor" id="line-138"></span></li><li><p class="line891"><a class="attachment" href="NonTextFiles%3Faction=AttachFile&amp;do=view&amp;target=text-or-binary.py.html" title="">text-or-binary.py</a> : Python implementation by <a href="../../KenSchalk.html">KenSchalk</a> <span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span></li></ul><p class="line867">
+<h2 id="File_Treatment_Check">File Treatment Check</h2>
+<span class="anchor" id="line-141"></span><span class="anchor" id="line-142"></span><p class="line862">We'll add another flag to <tt>vmerge</tt> which will tell you the way it will treat a file and why it chose that method: <span class="anchor" id="line-143"></span><span class="anchor" id="line-144"></span><p class="line867"><span class="anchor" id="line-145"></span><span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><pre><span class="anchor" id="line-1-7"></span>% vmerge --check-type src/foo.w
+<span class="anchor" id="line-2-5"></span>text, explicit (in mege-as-text attribute)</pre><span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><p class="line874">It will work for multiple files: <span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span><p class="line867"><span class="anchor" id="line-152"></span><span class="anchor" id="line-153"></span><span class="anchor" id="line-154"></span><span class="anchor" id="line-155"></span><pre><span class="anchor" id="line-1-8"></span>% vmerge --check-type src/*.w
+<span class="anchor" id="line-2-6"></span>src/foo.w : text, explicit (in mege-as-text attribute)
+<span class="anchor" id="line-3-2"></span>src/bar.w : text, pattern (matches &quot;*.w&quot;)</pre><span class="anchor" id="line-156"></span><span class="anchor" id="line-157"></span><p class="line874">And without arguments it will check every file in the current directory: <span class="anchor" id="line-158"></span><span class="anchor" id="line-159"></span><p class="line867"><span class="anchor" id="line-160"></span><span class="anchor" id="line-161"></span><span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><span class="anchor" id="line-164"></span><span class="anchor" id="line-165"></span><span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span><span class="anchor" id="line-168"></span><pre><span class="anchor" id="line-1-9"></span>% vmerge --check-type
+<span class="anchor" id="line-2-7"></span>src/foo.w : text, explicit (in mege-as-text attribute)
+<span class="anchor" id="line-3-3"></span>src/bar.w : text, pattern (matches &quot;*.w&quot;)
+<span class="anchor" id="line-4-2"></span>src/build.ves : text, pattern (matches &quot;*.ves&quot;)
+<span class="anchor" id="line-5-2"></span>src/bar.xml : binary, user-supplied guess ([Merging]guess_file_type in vesta.cfg)
+<span class="anchor" id="line-6-2"></span>bin/bar : binary, explicit (in merge-as-binary attribute)
+<span class="anchor" id="line-7-1"></span>lib/libbar.so : binary, internal guess
+<span class="anchor" id="line-8-1"></span>build.ves : text, pattern (matches &quot;*.ves&quot;)</pre><span class="anchor" id="line-169"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

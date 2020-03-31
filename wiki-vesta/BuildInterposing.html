@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>BuildInterposing - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: BuildInterposing" href="BuildInterposing%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=BuildInterposing&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="BuildInterposing%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="BuildInterposing%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="BuildInterposing.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="BuildInterposing.html">BuildInterposing</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="BuildInterposing.html">BuildInterposing</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="BuildInterposing%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">Builds often involve one tool generating a file that is consumed later by another tool. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line862">In some cases, the intermediate file is source code to be compiled.  (For example, <a class="http" href="http://www.swig.org">SWIG</a>, lex, and yacc all do this.)  In those cases, users sometimes have a desire to modify the generated source before it is compiled.  The need to do this most often comes up when developing something new and wrestling with problems in the code generation process. <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">Vesta makes this more difficult than make-style build systems.  Every build must be a completely specified recipe for going from initial sources to final results.  So how could a developer who needs to modify an intermediate file do so under Vesta? <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><ul><li><p class="line862">SDL debugger could allow you to do it, but that wouldn't be repeatable.  It would need to set <tt>cacheit=false</tt> on the result of the modification. <span class="anchor" id="line-12"></span></li><li>User could supply an alternate file to replace the generated file and have SDL code optionally use it instead.  But what happens if the input to the generator changes? <span class="anchor" id="line-13"></span><ul><li><p class="line891"><strong>(JVK)</strong> i like this one.  It's the simplest, and probably gets the job done assuming this is mostly for debug tweaks.  I also think we should evalute the natural derived file, and print a message to the user with the generated sid path, to allow the user to validate their override.   <span class="anchor" id="line-14"></span></li><li>I also believe that the easiest thing is for the user to include the file they want to override in their sources.  This makes much sense in SDL bridge systems which create bindings keyed by type of file. <span class="anchor" id="line-15"></span></li><li>I would guess that accidentally including a derived file in your source set is a common mistake, so that message to the user mentioned above is important. <span class="anchor" id="line-16"></span></li></ul></li><li>User could supply a patch to modify the generated file after, but what if the generated file changes such that the patch no longer applies? <span class="anchor" id="line-17"></span></li><li>Could we apply a more sophisticated merging algorithm than patch?  RCS-style 3-way merge could work. <span class="anchor" id="line-18"></span></li><li>User could specify a callback function in SDL that modifies the generated file before the next step is performed. <span class="anchor" id="line-19"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

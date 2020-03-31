@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HowCachingWorks - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HowCachingWorks" href="HowCachingWorks%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HowCachingWorks&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HowCachingWorks%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HowCachingWorks%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HowCachingWorks.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HowCachingWorks.html">HowCachingWorks</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HowCachingWorks.html">HowCachingWorks</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HowCachingWorks%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="HowCachingWorks.html#How_Caching_Works">How Caching Works</a><ol><li>
+<a href="HowCachingWorks.html#Recording_Dependencies">Recording Dependencies</a></li><li>
+<a href="HowCachingWorks.html#Primary_Key_vs._Secondary_Dependencies">Primary Key vs. Secondary Dependencies</a></li><li>
+<a href="HowCachingWorks.html#Models_as_Cut-off_Points">Models as Cut-off Points</a></li><li>
+<a href="HowCachingWorks.html#Kinds_of_Dependencies">Kinds of Dependencies</a></li><li>
+<a href="HowCachingWorks.html#Cache_Organization">Cache Organization</a></li><li>
+<a href="HowCachingWorks.html#Cache_Lookup_Process">Cache Lookup Process</a></li><li>
+<a href="HowCachingWorks.html#Adding_a_new_cache_entry">Adding a new cache entry</a></li><li>
+<a href="HowCachingWorks.html#Cache_entry_deletion">Cache entry deletion</a></li><li>
+<a href="HowCachingWorks.html#See_Also">See Also</a></li></ol></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="How_Caching_Works">How Caching Works</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">The <a class="http" href="../vesta/doc/man/html/vesta.1.html">Vesta builder</a> stores the results of function calls in the <a class="http" href="../vesta/doc/man/html/VCache.1.html">Vesta cache server</a>.  (This includes everything from the result of running tools like compilers to complete builds.)  When a build needs to evaluate some function, it first checks to see if the result of a matching function call is stored in the cache.  If it finds a match, it re-uses the result instead of doing the work of the function call again.  This keeps Vesta builds from unnecessarily repeating work which has been done before. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">This page gives a brief overview of how this works. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867">
+<h2 id="Recording_Dependencies">Recording Dependencies</h2>
+<span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">Dependencies in Vesta are recorded dynamically as a build is performed.  This is different from systems like <tt>make</tt>, where dependencies are specified explicitly in a file of instructions for the builder. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line874">Each value in the builder's language is the result of some expression.  Evaluating an expression both computes the value and records along with it what it dependend upon.  This dependency information is carried along with the value wherever it goes, even when if it gets stored in the cache and later re-used after a cache hit.  An important thing to note is that, because they are recorded dynamically, dependencies propagate from the bottom up. <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line862">For example, when evaluating the expression &quot;<tt>_append(a,b)</tt>&quot;, the result value will be the concatenation of <tt>a</tt> and <tt>b</tt> plus a record that says &quot;this value depended on the value of the variable <tt>a</tt> and the value of the variable <tt>b</tt>&quot;. <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line874">The dependencies recorded on the return value of a function are used by the cache to check for a match.  This allows a previously produced result to be re-used whenever the variables (including source files) it actually depended upon match. <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line874">Here's a slightly more interesting example: <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line867"><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><pre><span class="anchor" id="line-1"></span>f(a:bool, b:binding) {
+<span class="anchor" id="line-2"></span>  return if a then b/x else b/y;
+<span class="anchor" id="line-3"></span>};</pre><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line874">The dependencies recorded for this function will depend on the arguments it's called with. <span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><div><table><tbody><tr>  <td><p class="line891"><strong>Call</strong></td>
+  <td><p class="line891"><strong>Result</strong></td>
+  <td><p class="line891"><strong>Dependencies</strong></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-34"></span><p class="line891"><tt>f(TRUE,&nbsp;[x=1,&nbsp;y=2])</tt></td>
+  <td><p class="line891"><tt>1</tt></td>
+  <td><p class="line862">a, b/x</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-35"></span><p class="line891"><tt>f(FALSE,&nbsp;[x=1,&nbsp;y=2])</tt></td>
+  <td><p class="line891"><tt>1</tt></td>
+  <td><p class="line862">a, b/y</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line874">If both of these function calls were stored in the cache, the evaluator could get cache hits on either of these function calls: <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><ul><li><p class="line891"><tt>f(TRUE,&nbsp;[x=1,&nbsp;y=3])</tt> <span class="anchor" id="line-40"></span></li><li><p class="line891"><tt>f(FALSE,&nbsp;[x=0,&nbsp;y=2])</tt> <span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span></li></ul><p class="line874">In both of these cases, all of the dependencies would match the values of the new function call, even though some of the arguments are different. <span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><p class="line862">When <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_run_tool.html">running a compiler or other tool</a>, Vesta monitors its filesystem operations.  This allows it to record which files a tool run actually depended upon. <span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><p class="line862">The entire filesystem seen by the tool is passed to <tt>_run_tool</tt> in the binding <tt>./root</tt>.  (This is called filesystem <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_run_tool.html#Encapsulation">encapsulation</a>.)  Depepndencies on files are recorded on names in this binding.  For compiling a simple C program, some of the dependencies might be: <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><div><table><tbody><tr>  <td><p class="line862">./root/usr/bin/gcc</td>
+  <td><p class="line862">The compiler binary</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-49"></span><p class="line862">./root/lib/i686/libc.so.6</td>
+  <td><p class="line862">A shared library used by the compiler</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-50"></span><p class="line862">./root/.WD/hello.c</td>
+  <td><p class="line862">The source file being compiled</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-51"></span><p class="line862">./root/usr/include/stdio.h</td>
+  <td><p class="line862">A header file it includes</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><p class="line867">
+<h2 id="Primary_Key_vs._Secondary_Dependencies">Primary Key vs. Secondary Dependencies</h2>
+<span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><p class="line874">Each function call has some set of values which we know it will always depends on. <span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><ul><li>Calling a user-defined function will always depend on the block of statements which define it. <span class="anchor" id="line-58"></span></li><li>Running a tool will always depend on its command line. <span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span></li></ul><p class="line862">Unlike dependencies recorded while evaluating a function, we know that the result of the function will depend on these values <em>before it's ever called</em>.  Vesta uses this fact to  make looking up entries in the cache more efficient.  It combines the values of these known dependencies into the <em><a href="PrimaryKey.html">PrimaryKey</a></em> of the function call.  Once this is known, the cache only needs to search for a dependency match among all entries with the same <a href="PrimaryKey.html">PrimaryKey</a>.  Even though the cache may contain many thousands of entries, there are far fewer with the same <a href="PrimaryKey.html">PrimaryKey</a>. However, it's possible for tens or even hundreds of entries to share the same <a href="PrimaryKey.html">PrimaryKey</a>. <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><p class="line862">The <a href="PrimaryKey.html">PrimaryKey</a> is actually a 128-bit number which is computed from the value by a process called <em>fingerprinting</em>.  This is essentially a checksum of the values.  If any of the values changes, the fingerprint will change.  Fingerprints are also used to represent the secondary dependency values, to make searching for a match more efficient. <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><p class="line862">Any recorded dependencies which are not part of the <a href="PrimaryKey.html">PrimaryKey</a> will be <em>secondary dependencies</em>.  (Sometimes these are also called <em>free variables</em>.) <span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><p class="line862">For user-defined SDL functions, the <a href="PrimaryKey.html">PrimaryKey</a> is made by combining: <span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><ul><li>The body of the function <span class="anchor" id="line-69"></span></li><li>Any arguments which are simple types: booleans, integers, and text strings <span class="anchor" id="line-70"></span></li><li><p class="line862">Any other arguments which are preceded by <tt>/**pk**/</tt> in the function definition <span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span></li></ul><p class="line874">The secondary dependencies of SDL functions include: <span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><ul><li>Arguments which are composite values: bindings, lists, and functions <span class="anchor" id="line-75"></span></li><li>Variables from the function's definition context <span class="anchor" id="line-76"></span></li><li><p class="line862">Any values used from the special final parameter <em>dot</em> (<tt>.</tt>) <span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span></li></ul><p class="line862">For <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_run_tool.html">_run_tool</a> calls, the <a href="PrimaryKey.html">PrimaryKey</a> is made by combining: <span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><ul><li>The command line <span class="anchor" id="line-81"></span></li><li>The environment variables <span class="anchor" id="line-82"></span></li><li>The standard input <span class="anchor" id="line-83"></span></li><li>The working directory when the tool is started <span class="anchor" id="line-84"></span></li><li>The machine type the tool is run on <span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span></li></ul><p class="line862">The secondary dependencies of <tt>_run_tool</tt> calls are the filesystem accesses it makes, recorded relative to <tt>./root</tt>. <span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><p class="line867">
+<h2 id="Models_as_Cut-off_Points">Models as Cut-off Points</h2>
+<span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><p class="line862">Each SDL model file is itself a function.  They're evaluated just like user-defined functions, but they're cached a little differently.  Each model gets two cache entries: an inner (or <em>normal</em>) one and an outer (or <em>special</em>) one. <span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><p class="line862">The normal cache entry has secondary dependencies recorded against the variables created in the model's <a class="http" href="../vesta/doc/sdl-ref/models.html#files">files</a> and <a class="http" href="../vesta/doc/sdl-ref/models.html#import">import</a> clauses.  This is similar to the way that a function records secondary dependencies against variables it uses from its definition context. <span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><p class="line862">The names from the <tt>files</tt> and <tt>import</tt> clauses are not like parameters, in that the caller doesn't pass them in.  They don't exist in the calling scope, so dependencies on them can't propagate up to the caller.  For that reason, the special cache entry only records secondary dependencies against <em>dot</em> (<tt>.</tt>), which is the only parameter to a model.  To ensure correctness, the special cache entry includes the entire immutable directory in which the model is stored in the <a href="PrimaryKey.html">PrimaryKey</a>.  (This necessarily includes the full text of the model itself.) <span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><p class="line862">The special model cache entry is more <em>coarse-grained</em> than the normal cache entry.  The evaluator might get a cache miss on the special cache entry because some unused file in the same directory has changed.  However, it would then get a cache hit on the correponding normal model cache entry. <span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><p class="line867">
+<h2 id="Kinds_of_Dependencies">Kinds of Dependencies</h2>
+<span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><p class="line862">The evaluator records several different kinds of dependencies that are more fine-grained that the whole value of some variable.  For example, <a class="http" href="../vesta/doc/sdl-ref/expressions.html#Binding%20Name-Existence%20Test%20Operator">testing for the presence of a name in a binding</a> only depends on whether that name is present, not what its associated value is. <span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><p class="line874">Each dependency kind is represented by a different character.  An individual dependency is written as one of these characters followed by a slash followed by the path to the value in question.  You may see these in debug output from the evaluator or in the output from cache inspection tools. <span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><div><table><tbody><tr>  <td><p class="line891"><strong>Character</strong></td>
+  <td><p class="line891"><strong>Meaning</strong></td>
+  <td><p class="line891"><strong>Example</strong></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-105"></span><p class="line862">N</td>
+  <td><p class="line862">Whole value</td>
+  <td><p class="line862">Using a variable: <tt>x</tt> =&gt; <tt>N/x</tt></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-106"></span><p class="line862">!</td>
+  <td><p class="line862">Existence of a name within a binding</td>
+  <td><p class="line862">Testing for a name in a binding: <a class="http" href="../vesta/doc/sdl-ref/expressions.html#Binding%20Name-Existence%20Test%20Operator">b!n</a> =&gt; <tt>!/b/n</tt></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-107"></span><p class="line862">T</td>
+  <td><p class="line862">Type</td>
+  <td><p class="line862">Checking the type of a value: <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_is_type.html#_is_bool">_is_bool(a)</a> =&gt; <tt>T/a</tt></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-108"></span><p class="line862">L</td>
+  <td><p class="line862">List length</td>
+  <td><p class="line862">Taking the length of a list: <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_length.html#_length(list)">_length(l)</a> =&gt; <tt>L/l</tt></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-109"></span><p class="line862">B</td>
+  <td><p class="line862">The set of names in a binding</td>
+  <td><p class="line862">Looping over the elements of a binding: <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_map-_par_map.html#_map(function,binding)">_map(f,b)</a> =&gt; <tt>B/b</tt>, ...</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-110"></span><p class="line862">E</td>
+  <td><p class="line862">Body of a function</td>
+  <td><p class="line862">Calling a function: <tt>f()</tt> =&gt; <tt>E/f</tt>, ...</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><p class="line874">When running a tool, different filesystem operations are recorded as different kinds of dependencies: <span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><div><table><tbody><tr>  <td><p class="line891"><strong>Operation</strong></td>
+  <td><p class="line891"><strong>Dependency Kind</strong></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-115"></span><p class="line862">Opening a file</td>
+  <td><p class="line862">N</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-116"></span><p class="line862">Looking for a file that doesn't exist</td>
+  <td><p class="line862">!</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-117"></span><p class="line862">Listing a directory</td>
+  <td><p class="line862">B</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-118"></span><p class="line862">Looking for a directory but not looking inside it (rare)</td>
+  <td><p class="line862">T</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><p class="line867">
+<h2 id="Cache_Organization">Cache Organization</h2>
+<span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><p class="line874">The cache is essentially a multi-level hash table. <span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><p class="line862">The first level is based on the <a href="PrimaryKey.html">PrimaryKey</a>.  The collection of all entries with the same <a href="PrimaryKey.html">PrimaryKey</a> is called a <em>PKFile</em>.  Because there can be a very large number of these (theoretically as many as 2^128), the cache groups PKFiles together on disk based on their most significant bits.  (Currently this grouping is done using the first 16 bits.)  Such a collection of PKFiles with the same prefix is called a <em>MultiPKFile</em>.  <a class="http" href="../vesta/doc/man/html/PrintMPKFile.1.html">PrintMPKFile</a> prints the contents of a MultiPKFile. <span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><p class="line862">The remaining levels take advantage of the fact that in most cases there are some secondary dependencies which are <em>common</em> to all cache entries with the same <a href="PrimaryKey.html">PrimaryKey</a>.  The cache keeps a single list of all secondary dependency paths for each <a href="PrimaryKey.html">PrimaryKey</a>.  Along with that list, it keeps a record of which dependency paths all the entries of that <a href="PrimaryKey.html">PrimaryKey</a> depend upon and which ones only some depend upon.  These are called <em>common secondary dependencies</em> and <em>uncommon secondary dependencies</em>. <span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><p class="line862">The second level is indexed by the combination of all the common secondary dependencies.  This groups the cache entries of the PKFile into <em>common fingerprint groups</em>, sometimes abbreviated to <em>CFP groups</em>. <span class="anchor" id="line-129"></span><span class="anchor" id="line-130"></span><p class="line862">The third level is indexed by the combination of the uncommon secondary dependencies for each entry.  These are combined for each entry to create an <em>uncommon fingerprint</em>. <span class="anchor" id="line-131"></span><span class="anchor" id="line-132"></span><p class="line867">
+<h2 id="Cache_Lookup_Process">Cache Lookup Process</h2>
+<span class="anchor" id="line-133"></span><span class="anchor" id="line-134"></span><p class="line874">A cache lookup proceeds in several steps. <span class="anchor" id="line-135"></span><span class="anchor" id="line-136"></span><ol type="1"><li><p class="line862">The evaluator computes the <a href="PrimaryKey.html">PrimaryKey</a> of a function call.  This includes combining any arguments marked with <tt>/**pk**/</tt> for user-defined functions, or the entire immutable directory contents for a <em>special model cache entry</em>. <span class="anchor" id="line-137"></span></li><li><p class="line862">The evaluator makes a <strong>FreeVariables</strong> call to the cache.  The cache locates the <em>PKFile</em> for the given <a href="PrimaryKey.html">PrimaryKey</a> (if any exists) and returns the complete set of all secondary dependencies in that PKFile (both <em>common</em> and <em>uncommon</em>) to the evaluator. <span class="anchor" id="line-138"></span></li><li><p class="line862">The evalutor computes the fingerprint of all the secondary dependencies returned by the FreeVariables call. <span class="anchor" id="line-139"></span></li><li><p class="line862">The evalutor makes a <strong>Lookup</strong> call to the cache, passing the set of fingerprints it computed for the secondary dependencies. <span class="anchor" id="line-140"></span></li><li><p class="line862">The cache combines the fingerprints for all the <em>common secondary dependencies</em> to form the <em>common fingerprint</em>.  It uses this to look up the right <em>common fingerprint group</em>.  If there is no matching CFP group, it returns a miss back to the evaluator. <span class="anchor" id="line-141"></span></li><li><p class="line862">The cache searches through all entries in the CFP group for a match on the <em>uncommon secondary dependencies</em>.  If a match is found, it's returned as a hit back to the evaluator.  Otherwise, a miss is returned to the evaluator. <span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span></li></ol><p class="line862">You can observe the communication between the evaluator and cache, including the arguments to and results from each FreeVariables and Lookup call, by adding &quot;<a class="http" href="../vesta/doc/man/html/vesta.1.html#-cdebug">-cdebug All</a>&quot; to the evaluator command line. <span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span><p class="line874">Some additional details on this process: <span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><ul><li><p class="line862">When there is no PKFile for the given <a href="PrimaryKey.html">PrimaryKey</a>, the FreeVariables result has isEmpty=true.  This is treated as a cache miss without proceeding to the Lookup step. <span class="anchor" id="line-148"></span></li><li><p class="line862">Part of the return value of FreeVariables is a <em>PK epoch</em> which is incremented every time the set of secondary dependencies changes (either by adding or deleting entries).  This is passed back to the cache in the Lookup call to determine if the set of secondary dependencies has changed since the FreeVariables call.  If the PK epoch passed to Lookup doesn't match the current one in the cache, there's been some change since the FreeVariables call and the cache returns FVMismatch.  This causes the evaluator to start over with the FreeVariables call. <span class="anchor" id="line-149"></span><span class="anchor" id="line-150"></span></li></ul><p class="line867">
+<h2 id="Adding_a_new_cache_entry">Adding a new cache entry</h2>
+<span class="anchor" id="line-151"></span><span class="anchor" id="line-152"></span><p class="line867"><em>Explain how cache entries get added</em> <span class="anchor" id="line-153"></span><span class="anchor" id="line-154"></span><p class="line867">
+<h2 id="Cache_entry_deletion">Cache entry deletion</h2>
+<span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span><p class="line867"><em>Explain how cache entries get deleted durig weeding</em> <span class="anchor" id="line-157"></span><span class="anchor" id="line-158"></span><p class="line867">
+<h2 id="See_Also">See Also</h2>
+<span class="anchor" id="line-159"></span><span class="anchor" id="line-160"></span><p class="line874">For lots more detail on caching, see: <span class="anchor" id="line-161"></span><span class="anchor" id="line-162"></span><ul><li><p class="line891"><a class="http" href="../vesta/doc/pubs/pldi-00-04-20.pdf">&quot;Caching Function Calls Using Precise Dependencies&quot;</a> <span class="anchor" id="line-163"></span></li><li><p class="line862">Chapters 6 and 7 of <a class="http" href="http://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-177.pdf">&quot;The Vesta Software Configuration Management System&quot;</a> <span class="anchor" id="line-164"></span><span class="anchor" id="line-165"></span></li></ul><p class="line862">The SDL programmer's reference includes <a class="http" href="../vesta/doc/sdl-ref/caching.html">some advice on controlling cache behavior</a>. <span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span><p class="line874">There are several utilities you can use to inspect the cache: <span class="anchor" id="line-168"></span><span class="anchor" id="line-169"></span><ul><li><p class="line891"><a class="http" href="../vesta/doc/man/html/VCacheStats.1.html">VCacheStats</a> will gather statistics on the contents of the cache.  These can be useful for improving SDL code to give beter build performance. <span class="anchor" id="line-170"></span></li><li><p class="line891"><a class="http" href="../vesta/doc/man/html/PrintMPKFile.1.html">PrintMPKFile</a> can be used to inspect the contents of the cache.  This can be used to see the cache entries for a given <a href="PrimaryKey.html">PrimaryKey</a> and what their secondary dependencies are. <span class="anchor" id="line-171"></span><span class="anchor" id="line-172"></span></li></ul><p class="line862">A related topic is <a href="HowWeedingWorks.html">HowWeedingWorks</a> <span class="anchor" id="line-173"></span><span class="anchor" id="line-174"></span><p class="line867"><a href="CacheUnderTheHood.html">CacheUnderTheHood</a> contains some information about how to investigate what's stored in the Vesta cache. <span class="anchor" id="line-175"></span><span class="anchor" id="line-176"></span><p class="line867"><a href="UsingVCacheStats.html">UsingVCacheStats</a> gives some information on how to use the !VCacheStats utility to gather statistics that can be used as feedback to improve the efficiency of SDL code. <span class="anchor" id="line-177"></span><span class="anchor" id="line-178"></span><p class="line867"><a href="DevelopingVesta/PkFileEvolutionExample.html">DevelopingVesta/PkFileEvolutionExample</a> shows how an on-disk PKFile changes as entries are added to it <span class="anchor" id="line-179"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

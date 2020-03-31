@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnDictionaries - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnDictionaries" href="HelpOnDictionaries%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnDictionaries&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnDictionaries%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnDictionaries%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnDictionaries.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnDictionaries.html">HelpOnDictionaries</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnDictionaries.html">HelpOnDictionaries</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnDictionaries%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line867"><span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867">
+<h1 id="Dictionaries">Dictionaries</h1>
+<span class="anchor" id="line-12"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="HelpOnDictionaries.html#Dictionaries">Dictionaries</a><ol><li>
+<a href="HelpOnDictionaries.html#Wiki_Dicts">Wiki Dicts</a><ol><li>
+<a href="HelpOnDictionaries.html#Defining_them">Defining them</a></li><li>
+<a href="HelpOnDictionaries.html#Using_them">Using them</a><ol><li>
+<a href="HelpOnDictionaries.html#Translation">Translation</a></li><li>
+<a href="HelpOnDictionaries.html#Variables">Variables</a></li></ol></li><li>
+<a href="HelpOnDictionaries.html#Protecting_them">Protecting them</a></li></ol></li><li>
+<a href="HelpOnDictionaries.html#Other_ways_to_define_dicts_.2F_access_dict_definitions">Other ways to define dicts / access dict definitions</a></li></ol></li></ol></div> <span class="anchor" id="line-13"></span>A dictionary is a simple data structure that maps a dictionary name to a set of key/value pairs. It can be used e.g. to provide additional translations. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">The dictionary name usually is something like <tt class="backtick">GermanDict</tt> (some word ending with <tt class="backtick">Dict</tt>). This default pattern can be changed (e.g. for non-english languages etc.), see page_dict_regex on <a href="HelpOnConfiguration.html">HelpOnConfiguration</a>. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line874">The dict members are key/value pairs (both unicode strings). <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line867">
+<h2 id="Wiki_Dicts">Wiki Dicts</h2>
+<span class="anchor" id="line-20"></span><p class="line867">
+<h3 id="Defining_them">Defining them</h3>
+<span class="anchor" id="line-21"></span><p class="line862">You can create a dict definition for a dict named <tt class="backtick">GermanDict</tt> by creating a page called <tt class="backtick">GermanDict</tt> with this content: <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867"><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><pre><span class="anchor" id="line-1"></span>#format wiki
+<span class="anchor" id="line-2"></span>This translates some words from English to German:
+<span class="anchor" id="line-3"></span> dog:: Hund
+<span class="anchor" id="line-4"></span> cat:: Katze
+<span class="anchor" id="line-5"></span> mouse: Maus</pre><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line874">Important: <span class="anchor" id="line-32"></span><ul><li><p class="line862">Dict members have to be on a first-level definition list (see <a href="HelpOnLists.html">HelpOnLists</a>). <span class="anchor" id="line-33"></span><ul><li><p class="line891"><img alt="/!\" height="15" src="moin_static199/vesta/img/alert.png.html" title="/!\" width="15" /> The leading space and the space after '::' are important. <span class="anchor" id="line-34"></span></li></ul></li><li>Everything else (other text, second-level items, etc.) is ignored. <span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span></li></ul><p class="line867">
+<h3 id="Using_them">Using them</h3>
+<span class="anchor" id="line-37"></span><p class="line867">
+<h4 id="Translation">Translation</h4>
+<span class="anchor" id="line-38"></span><p class="line867"><a href="MoinMoin.html">MoinMoin</a> uses <tt class="backtick">&lt;Language&gt;Dict</tt> additionally to the builtin gettext based translations. E.g. if it wants to translate <tt class="backtick">cat</tt> to German and doesn't find it in the .po file, it will try to look it up on <tt class="backtick">GermanDict</tt> (and find <tt class="backtick">Katze</tt> there, see the example above). <span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><p class="line862">For the dictionary to work, the language name in <tt class="backtick">&lt;Language&gt;Dict</tt> must match the value of the <tt class="backtick">x-language-in-english</tt> header field, without spaces, which is found in the translation catalog for each language in <tt class="backtick">MoinMoin/i18n/</tt> directory. For example, in <tt class="backtick">MoinMoin/i18n/pt-br.MoinMoin.po</tt> you will find <tt class="backtick">&quot;X-Language-in-English:&nbsp;Brazilian&nbsp;Portuguese\n&quot;</tt>. If you want to provide additional translations for that language, you create a page called <tt class="backtick">BrazilianPortugueseDict</tt>. <span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><p class="line867">
+<h4 id="Variables">Variables</h4>
+<span class="anchor" id="line-43"></span><p class="line862">See also <a href="HelpOnVariables.html">HelpOnVariables</a>. <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line867">
+<h3 id="Protecting_them">Protecting them</h3>
+<span class="anchor" id="line-46"></span><p class="line874">You can use ACLs as usual to protect your dict pages. <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><p class="line867">
+<h2 id="Other_ways_to_define_dicts_.2F_access_dict_definitions">Other ways to define dicts / access dict definitions</h2>
+<span class="anchor" id="line-49"></span><p class="line867">MoinMoin can also use dict definitions from other sources, but this needs to be configured in your wiki config. See <tt class="backtick">dicts</tt> on <a href="HelpOnConfiguration.html">HelpOnConfiguration</a>. <span class="anchor" id="line-50"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

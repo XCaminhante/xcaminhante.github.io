@@ -1,0 +1,405 @@
+<html>
+  <head>
+    <title>vestasys.org Network Architecture</title>
+  </head>
+
+  <body BGCOLOR="#efefff">
+    <h1>vestasys.org Network Architecture</h1>
+
+    <p>This document describes details of the vestasys.org network and
+    established methods which allow authorized users to connect other
+    networks to it.  The goals of the configuration described are:</p>
+
+    <ol>
+
+      <li>
+        <i>Protecting the repository that has mastership of the Vesta
+        sources.</i> Secure authentication in the repository has not
+        yet been implemented, and we have not performed any security
+        auditing of the repository's code.  For the time being, we're
+        going to err on the side of caution and rely on traditional
+        firewalling and VPN techniques to restrict access to secure
+        channels for authenticated clients.  A separate repository
+        (with mastership of nothing) will be used for allowing anyone
+        on the Internet to replicate new versions of the Vesta source
+        code.
+      </li>
+
+      <li>
+        <i>Enabling continued collaboration.</i> While we want to
+        protect the repository, it must be possible for contributors
+        to access it and perform remote checkouts to and checkins from
+        their local repositories running at other locations.
+      </li>
+
+      <li>
+        <i>Protecting contributors from each other.</i> Allowing
+        remote checkout/checkin means that the central repository must
+        be able to contact the repositories running at participating
+        sites where development takes place.  However, the access
+        should be limited to that which is necessary to facilitate
+        collaboration work on Vesta itself.  It must not provide any
+        means by which malicious users could gain unauthorized access
+        to participating sites.
+      </li>
+
+    </ol>
+
+    <h2>VPN Connections</h2>
+
+      <p>
+	The method for connecting to the central repository and other
+	services behind the vestasys.org firewall is essentially
+	what's described in <a
+	href="http://www.linuxdoc.org/HOWTO/VPN-HOWTO.html">the Linux
+	VPN HOWTO</a>: PPP over ssh.  This method was chosen for
+	several reasons:
+      </p>
+
+      <ul>
+
+	<li>
+	  <i>Linux can be used for both ends of the connection.</i>
+	  Linux is fairly ubiquitous.  We don't intend to exclude
+	  other platforms, and this method can probably be adapted to
+	  others.  If desired, Linux can simply be used for routing
+	  and mangling packets.
+	</li>
+
+	<li>
+	  <i>The neccessary software is often already installed.</i>
+	  Most distributions include the ssh client in the default
+	  install.  <tt>pppd</tt> is also commonly installed.
+	</li>
+
+	<li>
+	  <i>It's easier to set up than IPSec.</i> IPSec may be a
+	  cleaner solution overall, but the major implementation
+	  (<a href="http://www.freeswan.org/">FreeS/WAN</a>) requires building a custom kernel after patching
+	  the source.
+	</li>
+
+	<li>
+	  <i>It's more secure than PPTP.</i>
+	</li>
+
+      </ul>
+
+      <p>
+	We provide a standard script for initiating a VPN connection
+	to <tt>vestasys.org</tt>: <a
+	href="vestasys-vpn">vestasys-vpn</a>.  It has <a
+	href="vestasys-vpn.html">its own man page</a>.  Anyone wishing
+	to connect to <tt>vestasys.org</tt> should send e-mail to
+	
+	vpn&#45;admin&#64;vestasys&#46;org.
+      </p>
+
+    <h2>IP Address Space Allocation</h2>
+
+      <p>
+	The <tt>vestasys.org</tt> Intranet uses the class A private range
+	address space (10.0.0.0/8).
+      </p>
+
+      <p>
+	All interfaces on the <tt>vestasys.org</tt> physical network
+	use addresses within 10.86.0.0/24.  (86 is ASCII 'V'.)
+      </p>
+
+      <p>
+	Each contributor needing access to the central repository will
+	be allocated an 8-bit (class C size) address range.  Initially
+	these allocations will have the same first two bytes
+	(10.86.1.0/24, 10.86.2.0/24, ...).
+      </p>
+
+      <p>
+	Before anyone asks, no, we do not yet have a plan for
+	migration to IPv6.
+      </p>
+
+    <h2>Network Address Translation</h2>
+
+      <p>
+	Because <tt>vestasys.org</tt> uses a private range address
+	space (10.0.0.0/8) and we intend to allow contributors to
+	connect other networks which may use the same private range
+	address space, network address translation is a necessity.
+	The NAT duties are distributed such that each endpoint of the
+	VPN connection only needs to perform translations for the
+	hosts on its local network.
+      </p>
+
+      <p>
+	Contributor sites should address the <tt>vestasys.org</tt>
+	machines by their published IP addresses.  (We assume that
+	those addresses will not be co-opted by others on their
+	private networks.)  Packets coming to <tt>vestasys.org</tt>
+	over a VPN connection get their destinations translated from
+	the public addresses to the corresponding private range ones.
+	Packets leaving <tt>vestasys.org</tt> via a VPN connection get
+	their sources translated from the private addresses to the
+	public ones.
+      </p>
+
+      <p>
+	<tt>vestasys.org</tt> machines will address contributor sites
+	by addresses within their assigned address ranges.  (See
+	&quot;IP Address Space Allocation&quot; above.)  The
+	contributor's VPN endpoint is responsible for handling
+	appropriate source and destination NAT rules.  Any
+	repositories at the client site will need to be assigned a
+	specific IP address.  (See &quot;Repository Name
+	Resolution&quot; below.)  Other hosts can be handled with
+	many-to-one or many-to-many SNAT.  (<a
+	href="http://netfilter.samba.org/netfilter-faq-3.html#ss3.5">See
+	the Netfilter/iptables FAQ for a few words on many-to-many
+	SNAT</a>.)
+      </p>
+
+      <p>
+	Thus, each end of a VPN connection is only responsible for
+	translating the addresses of the machines on the LAN to which
+	it is directly connected.  The end at <tt>vestasys.org</tt>
+	translates between the private and public range addresses for
+	the <tt>vestasys.org</tt> hosts.  The end at a contributor
+	site translates between the local addresses of clients and
+	addresses in the contributor's assigned IP address range.
+      </p>
+
+    <h3>NAT Example</h3>
+
+      <p>
+	Suppose there is a contributor site which has a client host
+	addressed locally as 192.168.1.10.  This address is translated
+	by one-to-one SNAT at the client VPN endpoint to 10.86.1.2.
+	Below is a table showing the addresses used during a
+	communication between this client and the central repository
+	server (<tt>dev.vestasys.org</tt>) on the client network, over
+	the VPN ppp link, and on the <tt>vestasys.org</tt> network.
+      </p>
+
+      <table border=1>
+	<tr>
+	<th>Network</th>
+	<th>client address</th>
+	<th>server address</th>
+	</tr>
+
+	<tr>
+	<th>Contributor LAN</th>
+	<td>192.168.1.10</td>
+	<td>63.114.50.11</td>
+	</tr>
+
+	<tr>
+	<th>VPN ppp link</th>
+	<td>10.86.1.2</td>
+	<td>63.114.50.11</td>
+	</tr>
+
+	<tr>
+	<th><tt>vestasys.org</tt> LAN</th>
+	<td>10.86.1.2</td>
+	<td>10.86.0.2</td>
+	</tr>
+      </table>
+
+    <h2>Routing</h2>
+
+      <p>
+	Contributor sites should route packets to the central
+	repository machine (<tt>dev.vestasys.org</tt>) over their VPN
+	link.  (Other machines accessible this way may be added in the
+	future.)  Contributor sites must <b>not</b> route packets to
+	the <tt>vestasys.org</tt> firewall
+	(<tt>wall.vestasys.org</tt>) over the VPN connection, as it is
+	the endpoint for that connection and must therefore be
+	reachable by another route.
+      </p>
+
+      <p>
+	<tt>vestasys.org</tt> will route any packets for a
+	conrtibutor's IP address range over their VPN link (when it's
+	active).  (See &quot;IP Address Space Allocation&quot; above.)
+      </p>
+
+    <h2>Packet Filtering</h2>
+
+      <p>
+	The packet filtering at <tt>vestasys.org</tt> implements these
+	policies:
+      </p>
+
+      <ul>
+
+	<li>
+	  Any packets coming off of a VPN connection and destined
+	  somewhere other than the physical local LAN will be dropped.
+	  This prevents one contributor's network from connecting to
+	  that of another simultaneously connected contributor.  It
+	  also prevents packets from escaping out onto the Internet at
+	  large.
+	</li>
+
+	<li>
+	  Any packets from a VPN connection destined for an IP address
+	  other than the central repository server will be dropped.
+	</li>
+
+	<li>
+	  Certain ICMP types will be allowed.  (Secifically, types 3,
+	  0, 8, and 11, which correspond to &quot;destination
+	  unreachable&quot;, &quot;echo reply&quot;, &quot;echo
+	  request&quot;, and &quot;time exceeded&quot;.)
+	</li>
+
+	<li>
+          New connection attempts to ports other than 22
+          (<tt>ssh</tt>), 23 (<tt>telnet</tt>), and unpriviledged
+          ports (>1023) will be dropped.  Once the keep-alive fix is
+          implemented in the SRPC library (eliminating
+          backwards-pointing pinger connections on arbitrary
+          unpriviledged ports), this will be further restricted to
+          ports 22, 23, and 21776 (the repository's SRPC port).
+	</li>
+
+      </ul>
+
+      <p>
+	An individual contributor's VPN endpoint may want to add their
+	own packet filtering rules.  The suggested packet filtering
+	policies are outlined below:
+      </p>
+
+      <ul>
+
+	<li>
+	  Any packets coming off the VPN interface destined for hosts
+	  other than the set of client hosts allowed to use VPN
+	  connection should be dropped.  (Such hosts can usually be
+	  recognized by matching against an IP address range, such as
+	  192.168.1.0/24.)  Similarly, any packets heading for the VPN
+	  interface coming from hosts other than the authorized set of
+	  clients should be dropped.
+	</li>
+
+	<li>
+	  Packets coming from the VPN interface with a source address
+	  other than that of the central repository
+	  (<tt>dev.vestasys.org</tt>) may be droppped.
+	</li>
+
+	<li>
+	  Certain ICMP types should be allowed going to and coming
+	  from the VPN interface.  (Definitely type 3, which is
+	  &quot;destination unreachable&quot;, and probably also types
+	  0, 8, and 11, which are to &quot;echo reply&quot;,
+	  &quot;echo request&quot;, and &quot;time exceeded&quot;.)
+	</li>
+
+	<li>
+	  Packets in already established connections should be
+	  allowed.
+	</li>
+
+	<li>
+	  New connections from the VPN interface to the local
+	  repository machine on unpriviledged ports should be allowed.
+	  (Once the keep-alive fix is implemented in the SRPC library
+	  this can be restrictied to just the repository's SRPC port,
+	  which is usually port 21776.)  This is neccessary to allow
+	  remote checkout/checkin of source code from/to the central
+	  repoisitory, as well as mastership transfer and replication.
+	</li>
+
+      </ul>
+
+      <p>
+	We also provide <a href="contributor-filter.sh">an example
+	script for setting up contributor-site filtering rules similar
+	to those outlined above</a>.
+      </p>
+
+    <h2>Repository Name Resolution</h2>
+
+      <p>
+	Vesta repositories are referred to by their hostnames.
+	Because of this, any tool which needs to contact a repository
+	(including other repositories for purposes of replication,
+	remote checkout, and mastership transfer) must be able to
+	resolve its name.
+      </p>
+
+      <p>
+	For our purposes this is not straightforward, because the
+	hostnames of machines running participating repositories are
+	often unpublished (because they are themselves on private
+	networks behind firewalls).  It's further complicated by the
+	fact that the addresses by which the central repository should
+	contact such repositories are not the same as their addresses
+	they are known by on their own local networks.  (See
+	&quot;Network Address Translation&quot; above.)
+      </p>
+
+      <p>
+	Our current solution is simply to add entries to the
+	<tt>/etc/hosts</tt> file on the central repository machine for
+	each contributing site's repository (possibly obscuring it's
+	normal IP).  This is a bit of a kludge, but it works.
+      </p>
+
+      <p>
+	As an example, suppose there is a participating site at
+	<tt>foo.com</tt>.  The Vesta repository at <tt>foo.com</tt> is
+	<tt>bar.foo.com</tt>.  Their assigned address range is
+	10.86.13.0/24.  Their repository has its address translated to
+	10.86.13.7 on the <tt>vestasys.org</tt> network.  To
+	facilitate their participation, the central repository is
+	given a host table entry saying that <tt>bar.foo.com</tt> has
+	the address 10.86.13.7.  Then, when the central repository
+	needs to contact the repository at <tt>bar.foo.com</tt> (for
+	example, when replicating in a newly checked-in version of one
+	of the core Vesta packages), it gets the correct IP address.
+      </p>
+
+    <h2>Repository Exports and Realm Names</h2>
+
+      <p>
+	Assigning each contributing site its own IP address range
+	simplifies the matter of writing the repository exports.  Each
+	site needs just one line in the central repository's exports
+	file allowing all hosts in its network range to connect using
+	its chosen realm name.
+      </p>
+
+      <p>
+	For example, if <tt>foo.com</tt> is assigned 10.86.13.0/24,
+	their line in the repository export file on
+	<tt>dev.vestasys.org</tt> would be:
+      </p>
+
+      <blockquote>
+	<tt>10.86.13.0/24: allow global foo.com</tt>
+      </blockquote>
+
+      <p>
+	See <a
+	href="../doc/man/html/repository.8.html#AccessControl">the
+	&quot;Access Control&quot; section of the repository(8) man
+	page</a> for information on realm names and the format of the
+	repository's export file.
+      </p>
+
+    <hr>
+    <address><a href="mailto&#58;ken&#64;xorian&#46;net">Kenneth
+    Schalk</a></address> <!-- Created: Fri Sep 21 16:29:24 EDT 2001
+    -->
+<i>
+<!-- hhmts start -->
+Last modified: Mon Oct 13 11:20:30 EDT 2003
+<!-- hhmts end -->
+</i>
+  </body>
+</html>

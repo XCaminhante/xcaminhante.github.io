@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>VestaForCvsUsers - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: VestaForCvsUsers" href="VestaForCvsUsers%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=VestaForCvsUsers&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="VestaForCvsUsers%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="VestaForCvsUsers%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="VestaForCvsUsers.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="VestaForCvsUsers.html">VestaForCvsUsers</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="VestaForCvsUsers.html">VestaForCvsUsers</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="VestaForCvsUsers%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line867">
+<h2 id="Vesta_Commands_for_CVS_Users">Vesta Commands for CVS Users</h2>
+<span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line862">This page provides the closest vesta equivalent commands for common <a class="http" href="http://www.nongnu.org/cvs/">CVS</a> commands. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line862">For a comparison at the conceptual level, see <a href="VestaConceptsForCvsUsers.html">VestaConceptsForCvsUsers</a>. <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">Vesta is a version control tool (like CVS) and a build management tool (like <tt>make</tt>) all in one, so see also <a href="VestaForMakeUsers.html">VestaForMakeUsers</a>. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">(compare these similar lists around the web: <a class="http" href="http://wiki.gnuarch.org/Learning_20Arch_20commands_20for_20CVS_20users;">http://wiki.gnuarch.org/Learning_20Arch_20commands_20for_20CVS_20users;</a> <a class="http" href="http://www.bitkeeper.com/cvs2bk.html">http://www.bitkeeper.com/cvs2bk.html</a>) <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><div><table><tbody><tr>  <td><p class="line862"> <strong>CVS</strong> </td>
+  <td><p class="line862"> <strong>Vesta</strong> </td>
+  <td><p class="line862"> <strong>Comment</strong> </td>
+</tr>
+<tr>  <td colspan="1" rowspan="3" style="text-align: center"><span class="anchor" id="line-14"></span><p class="line862"> <strong><tt>setenv&nbsp;CVSROOT&nbsp;/some/dir</tt></strong> </td>
+  <td><p class="line862"> Vesta's root for the repository defaults to <strong><tt>/vesta/</tt></strong> on all systems. <strong><tt>vgetconfig&nbsp;UserInterface&nbsp;AppendableRootName</tt></strong> reports it.  </td>
+  <td><p class="line862"> the <em>root</em> is the top-level dir of the entire repository </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-15"></span><p class="line862"> <strong>namespace</strong> - Vesta also has something called a <strong>namespace</strong> which is another level of &quot;root&quot;-ing.  Each project usually defines a &quot;domain name&quot; for themeselves, eg, <strong><tt>/vesta/project.example.com/</tt></strong>.  The domain namespace can be set in the config file, usually <strong><tt>/etc/vesta.cfg</tt></strong>.  The config file can be reported via <strong><tt>vgetconfig&nbsp;-L</tt></strong>.  Both levels of root can be reported via <strong><tt>vgetconfig&nbsp;UserInterface&nbsp;DefaultPackageParent</tt></strong>  </td>
+  <td><p class="line862"> In terms of levels of hierarchy, the vesta namespace roughly corresponds to the network node upon which the CVS repository resides, altho all vesta namespaces are <em>under</em> <tt>/vesta/</tt>, since <tt>/vesta/</tt> is a global namespace for cross-site collaboration.  </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-16"></span><p class="line862"> <strong>work-area root</strong> - Vesta also defines its own root for all users' work areas; defaults to <strong><tt>/vesta-work/</tt></strong> and can be reported via <strong><tt>vgetconfig&nbsp;UserInterface&nbsp;MutableRootName</tt></strong>.  The work area for a given user is <strong><tt>/vesta-work/$USER</tt></strong>.  </td>
+  <td><p class="line862"> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-17"></span><p class="line862"> <tt>???</tt> </td>
+  <td><p class="line862"> <a class="http" href="../vesta/doc/man/html/vcreate.1.html">vcreate</a> for each package in the project </td>
+  <td><p class="line862"> create new project </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-18"></span><p class="line862"> <strong><tt>cvs&nbsp;co</tt></strong> aka <strong><tt>cvs&nbsp;checkout</tt></strong> </td>
+  <td><p class="line862"> <a class="http" href="../vesta/doc/man/html/vcheckout.1.html">vcheckout -N</a>  </td>
+  <td><p class="line862"> <strong>non-exclusive</strong> checkout.  With vesta you only check-out the packages you need to change, but each one you need must be checked-out separately </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-19"></span><p class="line862"> n/a </td>
+  <td><p class="line862"> <a class="http" href="../vesta/doc/man/html/vcheckout.1.html">vcheckout</a>  </td>
+  <td><p class="line862"> <strong>exclusive</strong> checkout.  CVS does not have exclusive checkouts.  With vesta you only check-out the packages you need to change, but each one you need must be checked-out separately.  </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-20"></span><p class="line862"> <strong><tt>cvs&nbsp;ci</tt></strong> aka <strong><tt>cvs&nbsp;checkin</tt></strong> aka <strong><tt>cvs&nbsp;commit</tt></strong> </td>
+  <td><p class="line862"> exclusive: <a class="http" href="../vesta/doc/man/html/vcheckin.1.html">vcheckin</a>; non-exclusive: <a class="http" href="../vesta/doc/man/html/vcheckout.1.html">vcheckout -o your_non_exclusive_checkout</a> then <a class="http" href="../vesta/doc/man/html/vcheckin.1.html">vcheckin</a> </td>
+  <td><p class="line862"> <a class="http" href="../vesta/doc/man/html/vcheckin.1.html">vcheckin</a> only works with <em>exclusive</em> checkouts </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-21"></span><p class="line862"> <strong><tt>cvs&nbsp;add</tt></strong> </td>
+  <td><p class="line862"> edit and save the file directly in your work area, or copy it into your work area. </td>
+  <td><p class="line862"> Add a new file to a checked-out dir.  </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-22"></span><p class="line862"> <strong><tt>cvs&nbsp;update</tt></strong> </td>
+  <td><p class="line862"> manually <a class="http" href="http://www.gnu.org/software/diffutils/manual/html_node/Invoking-diff3.html">diff3</a> then <a class="http" href="http://www.gnu.org/software/diffutils/manual/html_node/Invoking-patch.html">patch</a> (well-known gnu utilities).  You have to go find the version dirs yourself. </td>
+  <td><p class="line862"> merging others' and your changes into your work area </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-23"></span><p class="line862"> <strong><tt>cvs&nbsp;diff</tt></strong> </td>
+  <td><p class="line862"> <tt>vdiff</tt> </td>
+  <td><p class="line862"> List changes between the version you checked out, and your work area. <tt>vdiff</tt> comming soon.  <tt>vdiff&nbsp;-r</tt> by default. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-24"></span><p class="line862"> n/a </td>
+  <td><p class="line862"> <tt>vsdiff</tt> </td>
+  <td><p class="line862"> Compares current work-area with most recent snapshot.  <tt>vsdiff</tt> comming soon.  <tt>vsdiff&nbsp;-r</tt> by default.  CVS doenst have work-area snapshots.  </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-25"></span><p class="line862"> <strong><tt>cvs&nbsp;stat</tt></strong> </td>
+  <td><p class="line862"> <a class="http" href="../vesta/doc/man/html/vupdate.1.html">vupdate -n -t -a -u -m</a> </td>
+  <td><p class="line862"> reports modification status of your work dir.  <a class="http" href="../vesta/doc/man/html/vupdate.1.html">vupdate -n -t -a -u -m</a> tells what would happen if you updated to point to all your latest edits.  </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-26"></span><p class="line862"> <strong><tt>cvs&nbsp;update&nbsp;-n</tt></strong> </td>
+  <td><p class="line862"> <a class="http" href="../vesta/doc/man/html/vupdate.1.html">vupdate -n -t -a -u</a> </td>
+  <td><p class="line862"> reports modification status of your and others' changes.  <a class="http" href="../vesta/doc/man/html/vupdate.1.html">vupdate -n -t -a -u</a> tells what would happend if you updated to point to everybody's latest edits -- exclusive checkouts only  </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-27"></span><p class="line862"> <strong><tt>cvs&nbsp;remove</tt></strong> </td>
+  <td><p class="line862"> <a class="http" href="../vesta/doc/man/html/vrm.1.html">vrm</a> </td>
+  <td><p class="line862"> <a class="http" href="../vesta/doc/man/html/vrm.1.html">vrm</a> leaves behind a <em>ghost</em> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-28"></span><p class="line862"> <strong><tt>cvs&nbsp;export</tt></strong> </td>
+  <td><p class="line862"> <a class="http" href="../vesta/doc/man/html/vmake.1.html">vmake -shipto</a> </td>
+  <td><p class="line862"> </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-29"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

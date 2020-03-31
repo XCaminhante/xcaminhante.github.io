@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>std_env/MakeNewAddOn - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: std_env/MakeNewAddOn" href="MakeNewAddOn%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=std_env%252FMakeNewAddOn&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="MakeNewAddOn%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="MakeNewAddOn%3Faction=print.html">
+<link rel="Up" href="std_env.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="MakeNewAddOn.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="std_env.html">std_env</a></li><li><a href="MakeNewAddOn.html">MakeNewAddOn</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="MakeNewAddOn.html">std_env/MakeNewAddOn</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="MakeNewAddOn%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line867">
+<h1 id="How_to_Make_Your_Own_New_add-on">How to Make Your Own New add-on</h1>
+<span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867"><strong>Under Construction</strong> -- just shows examples for a library only, and only one that you build.  One that is already built outside vesta and copied in is <strong>not</strong> covered.  Nor are tools covered. <span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line867"><hr class="hr1" /><p class="line874"> <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><p class="line867">
+<h2 id="You_need_a_components_dir">You need a components dir</h2>
+<span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><p class="line874">By way of example,  <span class="anchor" id="line-13"></span><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/lex.ves">/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/lex.ves</a> imports from <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/components">/vesta/vestasys.org/platforms/linux/debian/i386/components</a> but you might import from <tt>/vesta/host.company.org/play/user/components</tt> temporarily. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">Let's call the library <tt>'boost'</tt> <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line867"><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><pre><span class="anchor" id="line-1"></span>vcreate   /vesta/host.company.org/play/user/components/boost
+<span class="anchor" id="line-2"></span>vcheckout /vesta/host.company.org/play/user/components/boost
+<span class="anchor" id="line-3"></span>cd /vesta-work/$USER/boost
+<span class="anchor" id="line-4"></span>mkdir src</pre><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><p class="line862">copy your library's files into <tt>src</tt> subdir. <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><p class="line867">
+<h2 id="Next_steps_are_to_create_a_build.ves_file_and_a_lib.ves_file">Next steps are to create a build.ves file and a lib.ves file</h2>
+<span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line867"><tt>boost/build.ves</tt> is a wrapper arond the lib (example: <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics/35/build.ves">/vesta/vestasys.org/basics/basics/35/build.ves</a> (shown here w/o the tests <tt>:)</tt>) <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line867"><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c)) {
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    var n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        var a = document.createElement('A');
+        s.className = 'LineNumber';
+        a.appendChild(document.createTextNode(nformat(n,4,'')));
+        a.href = '#' + did + '_' + n;
+        s.appendChild(a);
+        s.appendChild(document.createTextNode(' '));
+        n += nstep;
+        if (l.childNodes.length) {
+          l.insertBefore(s, l.firstChild);
+        }
+        else {
+          l.appendChild(s);
+        }
+      }
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c)) {
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="MakeNewAddOn.html#" onclick="return togglenumber(\'CA-c082d724521dd991e23b346e44e39a5b327ee6dc\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-c082d724521dd991e23b346e44e39a5b327ee6dc" lang="en"><span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c082d724521dd991e23b346e44e39a5b327ee6dc_1">   1</a> </span><span class="LineAnchor" id="CA-c082d724521dd991e23b346e44e39a5b327ee6dc_1"></span><span class="ResWord">import</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c082d724521dd991e23b346e44e39a5b327ee6dc_2">   2</a> </span><span class="LineAnchor" id="CA-c082d724521dd991e23b346e44e39a5b327ee6dc_2"></span>    <span class="ID">lib</span> <span class="SPChar">=</span> <span class="ID">lib</span><span class="ID">.ves</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c082d724521dd991e23b346e44e39a5b327ee6dc_3">   3</a> </span><span class="LineAnchor" id="CA-c082d724521dd991e23b346e44e39a5b327ee6dc_3"></span><span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c082d724521dd991e23b346e44e39a5b327ee6dc_4">   4</a> </span><span class="LineAnchor" id="CA-c082d724521dd991e23b346e44e39a5b327ee6dc_4"></span>    <span class="ResWord">return</span> <span class="SPChar">[</span> <span class="ID">lib</span> <span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c082d724521dd991e23b346e44e39a5b327ee6dc_5">   5</a> </span><span class="LineAnchor" id="CA-c082d724521dd991e23b346e44e39a5b327ee6dc_5"></span><span class="SPChar">}</span></span>
+</pre></div><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line874">(This example shows building .a file from scratch) <span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><p class="line867"><tt>boost/lib.ves</tt> does the actual compilation (example: <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics/35/src/lib.ves">/vesta/vestasys.org/basics/basics/35/src/lib.ves</a> except i have both the <tt>lib.ves</tt> and <tt>build.ves</tt> in the top level of the <tt>boost</tt> package) <span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><p class="line867"><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="MakeNewAddOn.html#" onclick="return togglenumber(\'CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f" lang="en"><span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_1">   1</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_1"></span><span class="ResWord">files</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_2">   2</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_2"></span>    <span class="ID">src</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_3">   3</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_3"></span><span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_4">   4</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_4"></span>    <span class="Comment">// you need to separate your c and h files</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_5">   5</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_5"></span>    <span class="Comment">// and your h files into ones that library users have to include,</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_6">   6</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_6"></span>    <span class="Comment">// and ones that are private to compilation here</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_7">   7</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_7"></span>    <span class="Comment">// I'm going to assume this was done in the file organization in src</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_8">   8</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_8"></span>    <span class="Comment">// you can do i manually by naming files here.</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_9">   9</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_9"></span>    <span class="ID">c_files</span> <span class="SPChar">=</span> <span class="ID">src</span><span class="SPChar">/</span><span class="ID">c</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_10">  10</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_10"></span>    <span class="ID">h_files</span> <span class="SPChar">=</span> <span class="ID">src</span><span class="SPChar">/</span><span class="ID">h</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_11">  11</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_11"></span>    <span class="ID">priv_h_files</span> <span class="SPChar">=</span> <span class="ID">src</span><span class="SPChar">/</span><span class="ID">priv_h</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_12">  12</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_12"></span>    <span class="ID">ovs</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="SPChar">]</span><span class="SPChar">;</span>  <span class="Comment">// overrides to the ./Cxx/leaf call defined by the Cxx bridge</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_13">  13</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_13"></span>    <span class="ResWord">return</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">Cxx</span><span class="SPChar">/</span><span class="ID">leaf</span><span class="SPChar">(</span><span class="ID">lib_name</span><span class="SPChar">,</span> <span class="ID">c_files</span><span class="SPChar">,</span> <span class="ID">h_files</span><span class="SPChar">,</span> <span class="ID">priv_h_files</span><span class="SPChar">,</span> <span class="ID">ovs</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_14">  14</a> </span><span class="LineAnchor" id="CA-21f186a8e9dcabb0080b2487a6228c1f8a6bfd7f_14"></span><span class="SPChar">}</span></span>
+</pre></div><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><p class="line867"><tt>./Cxx/leaf()</tt> is defined here: <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/c_like/latest/build.ves&amp;hilight=1#L860">/vesta/vestasys.org/bridges/c_like/latest/build.ves line 860</a> <span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><p class="line867">
+<h2 id="Now_you_need_an_add-on_file">Now you need an add-on file</h2>
+<span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><p class="line862">Example: <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/libbasics.ves">/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/libbasics.ves</a> <span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><p class="line862">So you may put this file in your <tt>/vesta/host.company.com/proj/build/generic_env/addons/boost</tt> or temporarily in some <tt>{{{/vesta/host.company.com/play/user2/proj_addons/boost.ves</tt>}}} <span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><p class="line867"><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="MakeNewAddOn.html#" onclick="return togglenumber(\'CA-f06d255610ff7aece630e9aa55c763b208219922\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-f06d255610ff7aece630e9aa55c763b208219922" lang="en"><span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_1">   1</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_1"></span><span class="ResWord">import</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_2">   2</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_2"></span>  <span class="Comment">// must have these libs for boost to work</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_3">   3</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_3"></span>  <span class="ID">prereqs</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">libgc</span> <span class="SPChar">=</span> <span class="ID">libgc</span><span class="ID">.ves</span> <span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_4">   4</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_4"></span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_5">   5</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_5"></span><span class="ResWord">from</span> <span class="SPChar">/</span><span class="ID">vesta</span><span class="SPChar">/</span><span class="ID">host</span><span class="ID">.company</span><span class="ID">.org</span><span class="SPChar">/</span><span class="ID">play</span><span class="SPChar">/</span><span class="ID">user</span><span class="SPChar">/</span><span class="ID">components</span> <span class="ResWord">import</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_6">   6</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_6"></span>    <span class="ID">boost</span><span class="SPChar">;</span>  <span class="Comment">// the build.ves is default</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_7">   7</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_7"></span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_8">   8</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_8"></span><span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_9">   9</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_9"></span>  <span class="ResWord">return</span> <span class="SPChar">[</span> <span class="ID">prereqs</span><span class="SPChar">,</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_10">  10</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_10"></span>           <span class="ID">libs</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">boost</span> <span class="SPChar">]</span><span class="SPChar">,</span>  <span class="Comment">// says this add-on provides libs, in particular one called boost</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_11">  11</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_11"></span>         <span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-f06d255610ff7aece630e9aa55c763b208219922_12">  12</a> </span><span class="LineAnchor" id="CA-f06d255610ff7aece630e9aa55c763b208219922_12"></span><span class="SPChar">}</span></span>
+</pre></div><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><p class="line867">
+<h2 id="Invoking_your_new_lib_add-on">Invoking your new lib add-on</h2>
+<span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><p class="line867"><tt>build_proj/build.ves</tt> or, something imported by it, wants to have code like this (like the [std_env] add-on example).   <span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><p class="line862">Temporarily you may use something imported like <tt>/vesta/host.company.org/play/user2/proj_addons/N/build.ves</tt>.  In there you'd add to a list <span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><p class="line867"><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="MakeNewAddOn.html#" onclick="return togglenumber(\'CA-c6a889deee4ce035dd4d139d730498276d528832\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-c6a889deee4ce035dd4d139d730498276d528832" lang="en"><span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c6a889deee4ce035dd4d139d730498276d528832_1">   1</a> </span><span class="LineAnchor" id="CA-c6a889deee4ce035dd4d139d730498276d528832_1"></span><span class="ResWord">import</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c6a889deee4ce035dd4d139d730498276d528832_2">   2</a> </span><span class="LineAnchor" id="CA-c6a889deee4ce035dd4d139d730498276d528832_2"></span>   <span class="ID">addons</span> <span class="SPChar">=</span> <span class="SPChar">[</span> </span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c6a889deee4ce035dd4d139d730498276d528832_3">   3</a> </span><span class="LineAnchor" id="CA-c6a889deee4ce035dd4d139d730498276d528832_3"></span>        <span class="ID">bash</span> <span class="SPChar">=</span> <span class="ID">bash</span><span class="ID">.ves</span><span class="SPChar">,</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c6a889deee4ce035dd4d139d730498276d528832_4">   4</a> </span><span class="LineAnchor" id="CA-c6a889deee4ce035dd4d139d730498276d528832_4"></span>        <span class="ID">gdbm</span> <span class="SPChar">=</span> <span class="ID">gdbm</span><span class="ID">.ves</span><span class="SPChar">,</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c6a889deee4ce035dd4d139d730498276d528832_5">   5</a> </span><span class="LineAnchor" id="CA-c6a889deee4ce035dd4d139d730498276d528832_5"></span>        <span class="Comment">// ...</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c6a889deee4ce035dd4d139d730498276d528832_6">   6</a> </span><span class="LineAnchor" id="CA-c6a889deee4ce035dd4d139d730498276d528832_6"></span>        <span class="ID">boost</span> <span class="SPChar">=</span> <span class="ID">boost</span><span class="ID">.ves</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c6a889deee4ce035dd4d139d730498276d528832_7">   7</a> </span><span class="LineAnchor" id="CA-c6a889deee4ce035dd4d139d730498276d528832_7"></span>    <span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c6a889deee4ce035dd4d139d730498276d528832_8">   8</a> </span><span class="LineAnchor" id="CA-c6a889deee4ce035dd4d139d730498276d528832_8"></span>    <span class="ResWord">return</span> <span class="SPChar">[</span> <span class="ID">contents</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">addons</span> <span class="SPChar">=</span> <span class="ID">addons</span> <span class="SPChar">]</span> <span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="MakeNewAddOn.html#CA-c6a889deee4ce035dd4d139d730498276d528832_9">   9</a> </span><span class="LineAnchor" id="CA-c6a889deee4ce035dd4d139d730498276d528832_9"></span><span class="SPChar">}</span></span>
+</pre></div><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><p class="line862">The <tt>addons</tt> returned from this fie have to eventually get built into dot, eg <tt>.&nbsp;=&nbsp;std_env()/env_build(addons,&nbsp;pkg_ovs);</tt> but your build system might already do that automatically for you. <span class="anchor" id="line-103"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

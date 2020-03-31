@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>FuturePublicationNotes/Virtualization - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: FuturePublicationNotes/Virtualization" href="Virtualization%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=FuturePublicationNotes%252FVirtualization&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="Virtualization%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="Virtualization%3Faction=print.html">
+<link rel="Up" href="../FuturePublicationNotes.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="Virtualization.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="../FuturePublicationNotes.html">FuturePublicationNotes</a></li><li><a href="Virtualization.html">Virtualization</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="Virtualization.html">Virtualization</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="Virtualization%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line867">
+<h1 id="Title">Title</h1>
+<span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line874">Virtualized Build Automation in Vesta <span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867">
+<h1 id="Abstract">Abstract</h1>
+<span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line874">Vesta is a system for version control, configuration management, and build automation.  It uses a light-weight filesystem virtualization to encapsulate each step performed during a build.  This insulates builds from external interference and facilitiates the use of multiple execution environments with different versions of compilers and other tools.  Total filesystem virtualization also makes it possible to provide guarantees about the correctness and repeatability of build results. <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">Vesta has been in use by microprocessor design teams at Compaq and Intel for 10 years.  It has been available as free software for 6 years.  In that time it has been successfully applied to a wide variety of build automation tasks.  Vesta may represent the most extensive use of virtualization for build automation.  Both practical experience with Vesta and other technologies that have emerged and matured since Vesta was developed suggest opportunities for further reasearch and improvement. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867">
+<h1 id="Outline">Outline</h1>
+<span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><ul><li>Overview of Vesta <span class="anchor" id="line-14"></span><ul><li>Motivation <span class="anchor" id="line-15"></span><ul><li>Repeatability <span class="anchor" id="line-16"></span></li><li>Auditability <span class="anchor" id="line-17"></span></li><li>User/machine/site independence <span class="anchor" id="line-18"></span></li><li>Insulating users from each other <span class="anchor" id="line-19"></span></li><li>Fine-grained dependency detection and precise re-use <span class="anchor" id="line-20"></span></li></ul></li><li>Detailed Technology Overview <span class="anchor" id="line-21"></span><ul><li>Virtual filesystem + chroot + execve <span class="anchor" id="line-22"></span><ul><li>Initial filesystem and environment tightly controlled <span class="anchor" id="line-23"></span></li></ul></li><li>callbacks on each access <span class="anchor" id="line-24"></span><ul><li>Constant-time start-up <span class="anchor" id="line-25"></span></li><li>dependency detection <span class="anchor" id="line-26"></span></li></ul></li><li>Changes captured at the end of each tool <span class="anchor" id="line-27"></span></li><li>SDL <span class="anchor" id="line-28"></span></li></ul></li><li>Build Environments <span class="anchor" id="line-29"></span><ul><li>Libraries of SDL code to simplify build tasks <span class="anchor" id="line-30"></span></li><li>Convention for OS components simplifies constructing chroots <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span></li></ul></li></ul></li><li class="gap">Related Work <span class="anchor" id="line-33"></span><ul><li><p class="line862">DSEE / <a class="nonexistent" href="../ClearCase.html">ClearCase</a> <span class="anchor" id="line-34"></span></li><li><p class="line891"><a class="http" href="http://www.electric-cloud.com/">Electric Cloud</a> <span class="anchor" id="line-35"></span><ul><li>Apparently no published papers, but there are a few patents <span class="anchor" id="line-36"></span></li></ul></li><li><p class="line891"><a class="http" href="http://grosskurth.ca/bib/2006/ammons.pdf">Grexmk: Speeding Up Scripted Builds</a> <span class="anchor" id="line-37"></span><ul><li>Uses strace for monitoring, no real virtualization <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span></li></ul></li></ul></li><li class="gap">Limitations <span class="anchor" id="line-40"></span><ul><li>Virtualization only covers the filesystem <span class="anchor" id="line-41"></span><ul><li>Network access is still possible <span class="anchor" id="line-42"></span></li><li>Tools can depend on the system clock <span class="anchor" id="line-43"></span></li><li>Though environment variables are encapsulated, no fine-grained dependency detection is performed on them.  The system assumes that every tool depends on the full contents of every environment variable.  <span class="anchor" id="line-44"></span></li></ul></li><li>The virtual filesystem is limited in some ways <span class="anchor" id="line-45"></span><ul><li>No symlinks <span class="anchor" id="line-46"></span></li><li>No file locking <span class="anchor" id="line-47"></span></li><li>No support for block special files <span class="anchor" id="line-48"></span></li><li>Special OS-provided virtual filesystems (/proc) aren't present <span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span></li></ul></li></ul></li><li class="gap">Practical experience <span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><ul><li>Constructing a chroot is still challenging.  It's not a common activity for most users.  Tools may not document what they need.  In many cases tool providers may not even know the full extent of the requirements.  Users often resort to trial and error due to insufficient information about the requirements for running a tool.  Thankfully the dependency detection system build into Vesta provides some help. <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span></li><li class="gap">For simple and widely tested tools (C/C++ compilers, lex, yacc, etc.) the lack of certain filesystem features (symlinks, file locking) isn't a problem.  For complex EDA tools, internally developed tools, and legacy tools/scripts it's occasionally a problem.  We've gotten by without these capabilities so far, so the lack of them isn't insurmountable but it occasionally requires effort to work around. <span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span></li><li class="gap">Some compilers (Java) try to access information in OS-provided virtual filesystems (/proc) <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span></li><li class="gap">Tools that require a license server are a minor problem. <span class="anchor" id="line-59"></span><ul><li>We assume their results don't depend on the license, just whether they trivially fail or run normally. <span class="anchor" id="line-60"></span></li><li>Even if the network could be virtualized, there may be contractual obligations to consider for license server issues. <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span></li></ul></li><li class="gap">Some batch tools require an X-windows display to connect to even when they never display anything.  This is probably be due to common initialization code shared between GUI and batch tools that are part of the same suite. <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span></li><li class="gap">There are external effects not related to the filesystem <span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><ul><li>Competition with other processes for limited CPU and virtual memory resources can affect tool behavior and outcome.  (Usually this isn't a problem unless the tool has bugs that cause non-deterministic results.) <span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span></li></ul></li><li class="gap">There are known workarounds for some holes in the encapsulation <span class="anchor" id="line-69"></span><ul><li>In some cases a common command can be replaced with a simple program that has a fixed behavior.  For example, the &quot;hostname&quot; command might be replaced with a program that simply prints &quot;localhost&quot;. <span class="anchor" id="line-70"></span></li><li>On some modern OSes, a shared library can replace certain library and system calls if it is pre-loaded during process start-up.  (This is usually done with the LD_PRELOAD environment variable.) <span class="anchor" id="line-71"></span><ul><li><p class="line891"><a class="http" href="http://www.code-wizards.com/projects/libfaketime/">FakeTime</a> <span class="anchor" id="line-72"></span></li><li><p class="line891"><a class="http" href="http://netjail.sourceforge.net/">netjail</a> <span class="anchor" id="line-73"></span></li></ul></li><li><p class="line862">In some cases special device nodes that might be used can be replaced with something that returns a fixed value.  For example, in a chroot <tt>/dev/random</tt> could be created with the major/minor device numbers that provide <tt>/dev/zero</tt>. <span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span></li></ul></li></ul></li><li class="gap">Future Work <span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><ul><li>More complete virtualization <span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><ul><li>Current system was developed before hardware and software support for virtualization was widely available <span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span></li><li class="gap">Holes in current virtualization could be closed <span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><ul><li>Note that we may need to leave some holes open for practical reasons such as license servers <span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span></li></ul></li><li class="gap">Limitations of current virtualization could be removed <span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span></li><li class="gap">Portability concerns <span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><ul><li>Current filesystem-only virtualization system could be retained as an alternative <span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span></li></ul></li><li class="gap">Performance concerns <span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><ul><li>Constant-time start-up <span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span></li><li class="gap">Should refer to papers about &quot;fast&quot; virtual machine/environment cloning/start-up.  Those may indicate that what's considered &quot;fast&quot; is still too slow for the design constraints of individual tools during a build. <span class="anchor" id="line-96"></span><ul><li><p class="line891"><a class="http" href="http://portal.acm.org/citation.cfm?id=1110976.1110998">Distributed File System Virtualization Techniques Supporting On-Demand Virtual Machine Environments for Grid Computing</a> <span class="anchor" id="line-97"></span><ul><li>&quot;The solution also allows a VM ... to be cloned within 160 seconds for the first clone and within 25 seconds for subsequent clones.&quot; <span class="anchor" id="line-98"></span></li></ul></li><li><p class="line891"><a class="http" href="http://portal.acm.org/citation.cfm?id=1048933.1049951">VMPlants: Providing and Managing Virtual Machine Execution Environments for Grid Computing</a> <span class="anchor" id="line-99"></span><ul><li>&quot;Results show that efficient cloning allows a VMware-based VMPlant prototype to achieve VM creation in 17 to 85 seconds.&quot; <span class="anchor" id="line-100"></span></li><li>&quot;...allow VMs to be instantiated, on average, in 25 to 48 seconds...&quot; <span class="anchor" id="line-101"></span></li></ul></li><li>OTOH, while these times are too long for compiling one C/C++ file, they might be acceptable for very long-running tools. <span class="anchor" id="line-102"></span><ul><li>Some EDA tools run for 10s of minutes. <span class="anchor" id="line-103"></span></li><li>Some tools that we've never tried to run under Vesta control can take hours or even days.  This then makes the result data very precious, which could make Vesta's caching an advantage. <span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span></li></ul></li></ul></li></ul></li><li class="gap">Still need fine-grained dependency detection <span class="anchor" id="line-106"></span><ul><li>Perhaps fine-grained dependency detection could be extended to non-filesystem information the tool uses (e.g. detecting which environment variables it accesses) <span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span></li></ul></li></ul></li><li class="gap"><p class="line862">Simplifying the building of chroots.  Use the existing virtual filesystem method to pass through requests to the normal filesystem while simultaneously monitoring and building the chroot.  (See <a href="../CrudeToolImport.html">CrudeToolImport</a>.) <span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span></li><li class="gap">Intercepting sub-processes and caching them separately <span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><ul><li>This would make it easier to break up existing complicated build scripts into many discrete steps to provide more incrementalism <span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span></li><li class="gap">We've experiemented with a make compatibility system.  Implicit assumptions tend to become built into Makefiles.  These can be difficult to deal with without executing each step in line as make normally would. <span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span></li></ul></li><li class="gap">Extending support to OSes that lack chroot <span class="anchor" id="line-117"></span><ul><li>To implement an equivalent to the current UNIX chroot method would require implementing some other method of virtualizing all filesystem accesses. <span class="anchor" id="line-118"></span></li><li>Some commercial software exists which can do this on Microsoft Windows.  There may be similar internally-developed tools at some large companies. <span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span></li></ul></li></ul></li></ul><p class="line867">
+<h1 id="References">References</h1>
+<span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><ul><li>Vesta <span class="anchor" id="line-123"></span><ul><li>Book published by Springer-Verlag <span class="anchor" id="line-124"></span></li><li>PLDI paper <span class="anchor" id="line-125"></span></li></ul></li><li>Related work <span class="anchor" id="line-126"></span><ul><li><p class="line862">DSEE / <a class="nonexistent" href="../ClearCase.html">ClearCase</a> papers <span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span></li></ul></li><li class="gap">Papers on cloning VMs for grid computing <span class="anchor" id="line-129"></span><ul><li><p class="line891"><a class="http" href="http://portal.acm.org/citation.cfm?id=1110976.1110998">Distributed File System Virtualization Techniques Supporting On-Demand Virtual Machine Environments for Grid Computing</a> <span class="anchor" id="line-130"></span><ul><li><p class="line891"><a class="http" href="http://www.springerlink.com/content/f5t537x27860h754/">Same paper, alternate web page</a> <span class="anchor" id="line-131"></span></li></ul></li><li><p class="line891"><a class="http" href="http://portal.acm.org/citation.cfm?id=1048933.1049951">VMPlants: Providing and Managing Virtual Machine Execution Environments for Grid Computing</a> <span class="anchor" id="line-132"></span></li></ul></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

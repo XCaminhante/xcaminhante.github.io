@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>MergingFuture/Food4Thought/TrickyCases - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: MergingFuture/Food4Thought/TrickyCases" href="TrickyCases%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=MergingFuture%252FFood4Thought%252FTrickyCases&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="TrickyCases%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="TrickyCases%3Faction=print.html">
+<link rel="Up" href="../Food4Thought.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="TrickyCases.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="MergingFuture.html">MergingFuture</a></li><li><a href="../Food4Thought.html">Food4Thought</a></li><li><a href="TrickyCases.html">TrickyCases</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="TrickyCases.html">TrickyCases</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="TrickyCases%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="TrickyCases.html#Criss-Cross_Merge">Criss-Cross Merge</a><ol><li>
+<a href="TrickyCases.html#Does_Criss-Cross_Merge_Matter.3F">Does Criss-Cross Merge Matter?</a></li></ol></li><li>
+<a href="TrickyCases.html#Merge_Across_Rename">Merge Across Rename</a><ol><li>
+<a href="TrickyCases.html#Persistent_File_IDs">Persistent File IDs</a></li></ol></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Criss-Cross_Merge">Criss-Cross Merge</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">One kind of merging implemented by many revision control systems is referred to as &quot;3-way merge&quot;.  This is because it requires three input files/directories: <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><ol type="1"><li>The working copy to be modified <span class="anchor" id="line-12"></span></li><li>The state with changes to be merged into the working copy <span class="anchor" id="line-13"></span></li><li>The common ancestor of the two  <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span></li></ol><p class="line862">3-way merge incorporates all changes that lead from the common ancestor (3) to the other version (2) into the working copy (1).  (Some systems have merge operators that act on two committed states, rather than on uncommitted working copies; the advantage is that local changes will not be lost.)  Any cases where the same portions of the file are changed in both new versions are flagged as conflicts for the user to resolve.  <a class="https" href="https://www.cvshome.org/">CVS</a> and <a class="http" href="http://subversion.tigris.org/">Subversion</a> both use 3-way merge, as do several other systems. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line874">3-way merge is significantly better than 2-way merge.  2-way merge means simply comparing two files and asking the user to resolve any differences between the two.  3-way merge can handle more cases automatically by detecting when parallel edits don't modify the same portions of the file. <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line862">Unfortunately, long-lived branches create conflicts which 3-way merge cannot automatically resolve.  The simplest example of how 3-way merge breaks down is the criss-cross merge, which <a class="http" href="http://bitconjurer.org/">Bram Cohen</a> explained in <a class="http" href="http://www.gelato.unsw.edu.au/archives/git/0504/2279.html">a post to the git mailing list</a>.  The basic problem is that <em>there is no single common ancestor</em> for the whole file.  Or, to put it another way, on successive merge operation <em>different parts of the file should be treated as having different common ancestors</em>. <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line862">Bram's post doesn't include the complete file contents, so let's go through a simple example of how things go wrong.  To make the text shorter, we'll use a 5 line file with parallel changes on lines 2 and 4 (rather than Bram's 10 line file with changes on lines 3 and 8).  Here's the initial version <strong>A</strong>: <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867"><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><pre><span class="anchor" id="line-1"></span>1
+<span class="anchor" id="line-2"></span>2
+<span class="anchor" id="line-3"></span>3
+<span class="anchor" id="line-4"></span>4
+<span class="anchor" id="line-5"></span>5</pre><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line862">Starting from this state, one user creates version <strong>B</strong>: <span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><p class="line867"><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><pre><span class="anchor" id="line-1-1"></span>1
+<span class="anchor" id="line-2-1"></span>2
+<span class="anchor" id="line-3-1"></span>3
+<span class="anchor" id="line-4-1"></span>4b
+<span class="anchor" id="line-5-1"></span>5</pre><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line862">And another user creates version <strong>C</strong>: <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line867"><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><pre><span class="anchor" id="line-1-2"></span>1
+<span class="anchor" id="line-2-2"></span>2c
+<span class="anchor" id="line-3-2"></span>3
+<span class="anchor" id="line-4-2"></span>4
+<span class="anchor" id="line-5-2"></span>5</pre><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><p class="line862">Both users decide that they like what the other has done and that they want to merge it into their working copy.  3-way merge handles this nicely, with <strong>A</strong> being the common ancestor.  Both users get this in their working copy: <span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><p class="line867"><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><pre><span class="anchor" id="line-1-3"></span>1
+<span class="anchor" id="line-2-3"></span>2c
+<span class="anchor" id="line-3-3"></span>3
+<span class="anchor" id="line-4-3"></span>4b
+<span class="anchor" id="line-5-3"></span>5</pre><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><p class="line862">However, this state does not become the basis for new branches for our two users.  In fact, <em>it might not ever exist in any version at all</em>, as it could just be in their working copy. <span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><p class="line862">As in <a class="http" href="http://www.gelato.unsw.edu.au/archives/git/0504/2279.html">Bram's diagram</a>, our two users proceed on their own branches after merging, each continuing to modify their own distinc portion of the file.  The first user creates version <strong>D</strong>: <span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><p class="line867"><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><pre><span class="anchor" id="line-1-4"></span>1
+<span class="anchor" id="line-2-4"></span>2c
+<span class="anchor" id="line-3-4"></span>3
+<span class="anchor" id="line-4-4"></span>4d
+<span class="anchor" id="line-5-4"></span>5</pre><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><p class="line862">And the second user creates version <strong>E</strong>: <span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><p class="line867"><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><pre><span class="anchor" id="line-1-5"></span>1
+<span class="anchor" id="line-2-5"></span>2e
+<span class="anchor" id="line-3-5"></span>3
+<span class="anchor" id="line-4-5"></span>4b
+<span class="anchor" id="line-5-5"></span>5</pre><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><p class="line862">Now our two users wish to merge again.  Unfortunately, thw only common ancestor is <strong>A</strong>.  If we do a 3-way merge using <strong>A</strong> as the common ancestor, both sides seem to have modified both lines 2 and 4.  This would result in conflicts on both lines.  With CVS-style conflict markers, it would look like this: <span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><p class="line867"><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><pre><span class="anchor" id="line-1-6"></span>1
+<span class="anchor" id="line-2-6"></span>&lt;&lt;&lt;&lt;&lt;&lt;&lt; D
+<span class="anchor" id="line-3-6"></span>2c
+<span class="anchor" id="line-4-6"></span>=======
+<span class="anchor" id="line-5-6"></span>2e
+<span class="anchor" id="line-6"></span>&gt;&gt;&gt;&gt;&gt;&gt;&gt; E
+<span class="anchor" id="line-7"></span>3
+<span class="anchor" id="line-8"></span>&lt;&lt;&lt;&lt;&lt;&lt;&lt; D
+<span class="anchor" id="line-9"></span>4d
+<span class="anchor" id="line-10"></span>=======
+<span class="anchor" id="line-11"></span>4b
+<span class="anchor" id="line-12"></span>&gt;&gt;&gt;&gt;&gt;&gt;&gt; E
+<span class="anchor" id="line-13"></span>5</pre><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><p class="line862">This is unfortunate, because it forces the user to resolve more conflicts.  In fact, these are both <em>false conflicts</em>, because the two users were editing different parts of the file.  Ideally, the user should only be presented with <em>true conflicts</em>: cases where two users changed the same section of a file in different ways in parallel to each other. <span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span><p class="line862">We could use <strong>B</strong> or <strong>C</strong> as the common ancestor, since the current version includes all the changes in each of those.  In this simple case it does eliminate one of the two conflicts.  However in general it's not possible to determine which possible common ancestor will result in fewer conflicts without evaluating the merge once for each possible common ancestor.  There's also another unfortunate problem with this approach: if the two branches change the same line in different ways, using previously merged versions as common ancestors <em>can silently drop changes which should be treated as conflicts</em>.  (More on this in a moment.) <span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><p class="line874">Of course the ideal solution would be if the two users truly re-converged and created new branches based on the merged version.  However this puts a burden of synchronization on developers, and may not even be possible depending on the situation.  (Imagine, for example, collaborating with people that have a 12-hour timezone difference from you, or users working on their laptop while disconnected from the network.) <span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><p class="line874">There is another, worse case.  Suppose that we have a common ancestor A: <span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><pre><span class="anchor" id="line-1-7"></span>this is A</pre><span class="anchor" id="line-111"></span><p class="line874">Suppose Bob now edits this one line file to make state B: <span class="anchor" id="line-112"></span><span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><pre><span class="anchor" id="line-1-8"></span>this is B</pre><span class="anchor" id="line-115"></span><p class="line874">And Carol, in parallel, makes state C: <span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span><pre><span class="anchor" id="line-1-9"></span>this is C</pre><span class="anchor" id="line-119"></span><p class="line874">Now Bob and Carol both, in parallel, merge these two states, and naturally get a conflict.  Bob, of course, thinks his changes are far superior, so his merge, D, is identical to B.  Carol, likewise, commits a merge E which is identical to C. <span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><p class="line862">Now the graph again has two heads, D and E, which have to be merged.  Obviously, since Bob and Carol disagreed on how to resolve the previous merge, the system should not pick either side; it should pass the buck to the user.  There are two least common ancestors -- B, and C.  Here's where things go wrong -- if B is used as the common ancestor, then E will silently(!) win the merge.  Contrariwise, if C is used as the common ancestor, then D will silently(!) win the merge.  In this case, one can instead use A as the common ancestor, but this approach creates its own problems -- using old ancestors will create spurious conflicts in other parts of the file, which experience with Monotone suggest are bad enough to be unacceptable to users; worse, it makes it impossible to properly handle merging of renames.  These problems are discussed on the monotone list: <a class="http" href="http://article.gmane.org/gmane.comp.version-control.monotone.devel/3256">criss-cross merge</a>, <a class="http" href="http://thread.gmane.org/gmane.comp.version-control.monotone.devel/3240">3-way merge considered harmful</a>. <span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><p class="line862">This problem is the essential basis of what is commonly called <em>history-aware merging</em>.  That is, making use of finer-grained information about the operations which created the current state of a source file.  In our first example here, a history-aware merge algorithm might: <span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><ul><li><p class="line862">Treat <em>B</em> as the common ancestor of line 4 <span class="anchor" id="line-126"></span></li><li><p class="line862">Treat <em>C</em> as the common ancestor of line 2 <span class="anchor" id="line-127"></span></li><li><p class="line862">Treat <em>A</em> as the common ancestor of lines 1, 3, and 5 <span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span></li></ul><p class="line874">This would result in no conflicts.  In the second example, it might be able to use A as the ancestor for merging that particular line, while still using closer ancestors for other lines. <span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><p class="line874">Some systems which implement history-aware merging include: <span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><ul><li><p class="line891"><a class="http" href="http://www.codeville.org/">Codeville</a> <span class="anchor" id="line-134"></span></li><li><p class="line891"><a class="http" href="http://www.bitkeeper.com/">BitKeeper</a> <span class="anchor" id="line-135"></span></li><li><p class="line891"><a class="http" href="http://www.darcs.net/">Darcs</a> <span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span></li></ul><p class="line867">
+<h2 id="Does_Criss-Cross_Merge_Matter.3F">Does Criss-Cross Merge Matter?</h2>
+<span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span><p class="line862">It's interesting to note that <a class="http" href="http://www.gnu.org/software/gnu-arch/">GNU Arch</a> (a distributed revision control system developed in the last few years, which has spawned several derivatives) does <em>not</em> include features to avoid the false conflicts described in the example above.  This is essentially outlined in the Arch tutorial's <a class="http" href="http://www.gnu.org/software/gnu-arch/tutorial/development-branches.html">description of merging between different branches, using what they call &quot;star-merge&quot;</a>, where it says (emphasis added): <span class="anchor" id="line-140"></span><span class="anchor" id="line-141"></span><ul><li style="list-style-type:none"><p class="line862">Whenever we have a such a diagram in which <strong>none of the merge lines cross</strong>, that is a simple development branch.  <span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span></li></ul><p class="line862">In spite of this, some Arch users ran into this limitation and sparked <a class="http" href="http://lists.gnu.org/archive/html/gnu-arch-users/2004-09/msg00279.html">a discussion on the gnu-arch-users mailing list</a>.  In that discussion, Tom Lord (Arch's original developer) <a class="http" href="http://lists.gnu.org/archive/html/gnu-arch-users/2004-09/msg00282.html">called this use-case &quot;a user error&quot;</a>. <span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span><p class="line874">Essentially what this means is that Arch has defined its merging capabilities such that it's reasonable to merge back and forth between branches only when criss-cross merging doesn't happen.  To me, this seems like a user-hostile position to take, as this is clearly a situation which users can run into without realizing it.  Even if the system could detect this case and prevent the user from getting themselves into trouble (which seems unlikely in cases of disconnected operation), it seems to me that it would be better to recognize that this is a valid kind of user-level operation and support it as best as possible. <span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><p class="line867">
+<h1 id="Merge_Across_Rename">Merge Across Rename</h1>
+<span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><p class="line862">Another merging complication is what happens when files and directories get renamed.  Suppose we start with a file named &quot;<tt>foo</tt>&quot; in an initial version <strong>A</strong>.  Two versions are derived from <strong>A</strong>: <span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span><ul><li><p class="line862">In <strong>B</strong> the contents of file <tt>foo</tt> are changed <span class="anchor" id="line-152"></span></li><li><p class="line862">In <strong>C</strong> file <tt>foo</tt> is renamed to &quot;<tt>bar</tt>&quot; <span class="anchor" id="line-153"></span><span class="anchor" id="line-154"></span></li></ul><p class="line862">Now suppose we want to merge the changes made in these two versions.  We'd like to incorporate the changes made in <strong>B</strong> into the file in it's new name. <span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span><p class="line862">This problem is also described in <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1195227&amp;group_id=34164&amp;atid=410430">the RFE titled &quot;Tracking renames&quot;</a>. <span class="anchor" id="line-157"></span><span class="anchor" id="line-158"></span><p class="line867">
+<h2 id="Persistent_File_IDs">Persistent File IDs</h2>
+<span class="anchor" id="line-159"></span><span class="anchor" id="line-160"></span><p class="line862">One common solution to this problem which is used in several other revision control systems (notably <a class="http" href="http://www.bitkeeper.com/">BitKeeper</a> and <a class="http" href="http://www.gnu.org/software/gnu-arch/">GNU Arch</a>) is to assign each file a <em>unique ID</em> when it is created.  This ID remains the same throught its entire history (regardless of edits to the file) and follows it when it gets renamed.  This means that it is possible to match up files in diferent revisions (in time proportional to the number of files in the versioned directory), regardless of how many rename operations have happened between those revisions.  (Without persistent file IDs, it may be necessary to traverse a significant portion of the history looking for rename operations, which may not scale well.) <span class="anchor" id="line-161"></span><span class="anchor" id="line-162"></span><p class="line862">This particular problem can be viewed as a subset of the problem of merging directory tree structure, which <a class="http" href="http://article.gmane.org/gmane.comp.version-control.monotone.devel/4422">has recently been discussed on the monotone development mailing list</a>.  (There are several other tricky and subtle problems in merging directory structure, such as the possibility of conflicting renames, or merging creating directory loops.)  <a class="http" href="http://article.gmane.org/gmane.comp.version-control.monotone.devel/4449">They seem to have come to the conclusion that persistent file IDs are a good idea</a>. <span class="anchor" id="line-163"></span><span class="anchor" id="line-164"></span><p class="line874">The current Vesta implementation does not store any identifiers which could be used for this purpose.  (A file's shortid and fingerprint change with edits.) <span class="anchor" id="line-165"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>DevelopingVesta/CodingPractices - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: DevelopingVesta/CodingPractices" href="CodingPractices%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=DevelopingVesta%252FCodingPractices&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="CodingPractices%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="CodingPractices%3Faction=print.html">
+<link rel="Up" href="DevelopingVesta.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="CodingPractices.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="DevelopingVesta.html">DevelopingVesta</a></li><li><a href="CodingPractices.html">CodingPractices</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="CodingPractices.html">CodingPractices</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="CodingPractices%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">This page is a list of C++ coding recommendations, added to on an as-needed basis by the Vesta developers. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="CodingPractices.html#Testing_Pointer_Validity">Testing Pointer Validity</a></li><li>
+<a href="CodingPractices.html#Assertions">Assertions</a><ol><li>
+<a href="CodingPractices.html#Assertions_Shouldn.27t_Have_Side-effects">Assertions Shouldn't Have Side-effects</a></li><li>
+<a href="CodingPractices.html#Don.27t_assert.28false.29">Don't assert(false)</a></li><li>
+<a href="CodingPractices.html#Keep_Separate_Assertions_Separate">Keep Separate Assertions Separate</a></li><li>
+<a href="CodingPractices.html#Don.27t_use_an_if_just_for_an_assertion">Don't use an if just for an assertion</a></li></ol></li><li>
+<a href="CodingPractices.html#References_vs._Pointers">References vs. Pointers</a></li><li>
+<a href="CodingPractices.html#Namespaces_and_namespace_pollution">Namespaces and namespace pollution</a><ol><li>
+<a href="CodingPractices.html#Don.27t_do_.22using_namespace.22">Don't do &quot;using namespace&quot;</a></li><li>
+<a href="CodingPractices.html#Don.27t_put_.22using.22_directives_in_header_files">Don't put &quot;using&quot; directives in header files</a></li><li>
+<a href="CodingPractices.html#Consider_putting_new_names_in_a_namespace">Consider putting new names in a namespace</a></li><li>
+<a href="CodingPractices.html#Use_Basics::uintN_rather_than_BitN">Use Basics::uintN rather than BitN</a></li></ol></li><li>
+<a href="CodingPractices.html#Portability">Portability</a><ol><li>
+<a href="CodingPractices.html#A64-bit_Integer_Constants">64-bit Integer Constants</a></li></ol></li><li>
+<a href="CodingPractices.html#Memory_Allocation">Memory Allocation</a><ol><li>
+<a href="CodingPractices.html#Allocation_Macros">Allocation Macros</a></li><li>
+<a href="CodingPractices.html#STL_Allocator">STL Allocator</a></li></ol></li><li>
+<a href="CodingPractices.html#Efficiently_Formatting_Text_Strings">Efficiently Formatting Text Strings</a><ol><li>
+<a href="CodingPractices.html#Use_Stack-Allocated_Storage_When_Possible">Use Stack-Allocated Storage When Possible</a></li><li>
+<a href="CodingPractices.html#Consider_Text::printf">Consider Text::printf</a></li><li>
+<a href="CodingPractices.html#Use_Basics::OBufStream.2C_not_std::ostringstream">Use Basics::OBufStream, not std::ostringstream</a></li><li>
+<a href="CodingPractices.html#Avoid_lots_of_Text::operator.2B-">Avoid lots of Text::operator+</a></li></ol></li></ol></div> <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867">
+<h1 id="Testing_Pointer_Validity">Testing Pointer Validity</h1>
+<span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">Don't do this: <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867"><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><pre><span class="anchor" id="line-1"></span>T *x;
+<span class="anchor" id="line-2"></span>...
+<span class="anchor" id="line-3"></span>assert(x);</pre><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line874">Or this: <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line867"><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><pre><span class="anchor" id="line-1-1"></span>assert(!x);</pre><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line867"><tt>assert</tt> is a function which takes an <tt>int</tt> argument.  One some platforms, pointers are larger than integers.  The above code can therefore result in a warning like &quot;converting pointer to integer of smaller size&quot;.  Instead you should do this: <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line867"><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><pre><span class="anchor" id="line-1-2"></span>assert(x != 0);</pre><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line874">Or this: <span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><p class="line867"><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><pre><span class="anchor" id="line-1-3"></span>assert(x == 0);</pre><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line874">Depending on the compiler, an if test could have the same problem, so rather than this: <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line867"><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><pre><span class="anchor" id="line-1-4"></span>T *x;
+<span class="anchor" id="line-2-1"></span>...
+<span class="anchor" id="line-3-1"></span>if(x) { ... }</pre><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line874">Do this: <span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><p class="line867"><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><pre><span class="anchor" id="line-1-5"></span>if(x != 0)  { ... }</pre><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><p class="line867">
+<h1 id="Assertions">Assertions</h1>
+<span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><p class="line862">It's good to use <tt>assert</tt>, but there are a few things you should keep in mind. <span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><p class="line867">
+<h2 id="Assertions_Shouldn.27t_Have_Side-effects">Assertions Shouldn't Have Side-effects</h2>
+<span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><p class="line862">The expressions used in an <tt>assert</tt> should not have any side-effects.  They shouldn't set variables, produce output, or otherwise do work.  For example, don't do this: <span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><p class="line867"><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><pre><span class="anchor" id="line-1-6"></span>Table&lt;K,V&gt;::Default t;
+<span class="anchor" id="line-2-2"></span>...
+<span class="anchor" id="line-3-2"></span>assert(t.Get(key, /*OUT*/ value));
+<span class="anchor" id="line-4"></span>// use value</pre><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><p class="line874">Instead, do this: <span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><p class="line867"><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><pre><span class="anchor" id="line-1-7"></span>bool inTbl = t.Get(key, /*OUT*/ value);
+<span class="anchor" id="line-2-3"></span>assert(inTbl);
+<span class="anchor" id="line-3-3"></span>...</pre><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><p class="line862">Aside from being a good rule of style, it's important to remember that assertions can be disabled at compile time (by defining <tt>NDEBUG</tt>) to create a higher-performance executable.  This means that <em>you can't count on the expression in an assertion being evaluated</em>. <span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><p class="line867">
+<h2 id="Don.27t_assert.28false.29">Don't assert(false)</h2>
+<span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><p class="line862">Instead of &quot;<tt>assert(false);</tt>&quot; use &quot;<tt>abort();</tt>&quot;.  (Be sure to print a descriptive error message first.) <span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><p class="line862">First of all, <tt>assert(false);</tt> creates more complex code than <tt>abort();</tt>.  <tt>abort();</tt> is more efficient. <span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><p class="line862">Secondly, <tt>assert(false);</tt> doesn't convey any useful information other than a source location in the error message.  It's better to print a descriptive message about the problem.  (An assertion with a real expression does convery some useful information.) <span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><p class="line862">When using <tt>abort();</tt>, you may want to include source location information in your error message with the <tt>__FILE__</tt> and <tt>__LINE__</tt> pre-processor macros. <span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><p class="line867">
+<h2 id="Keep_Separate_Assertions_Separate">Keep Separate Assertions Separate</h2>
+<span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><p class="line862">If you have multiple properties that you need to check, don't combine them in a single assertion with the <tt>&amp;&amp;</tt> operator.  Make separate assert calls for each.  If you combine them and later get an assertion failure, you won't know which property was false.  You get more precise assertion failures by keeping multiple assertions separate. <span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><p class="line874">For example, suppose you have two pointers A and B which must both be non-NULL.  If you do this: <span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><p class="line867"><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><pre><span class="anchor" id="line-1-8"></span>assert((A != 0) &amp;&amp; (B != 0));</pre><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><p class="line874">You won't know which pointer was NULL when the assertion failed.  So you'll get more precise information about what went wrong if you split this into two assertions: <span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><p class="line867"><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><pre><span class="anchor" id="line-1-9"></span>assert(A != 0);
+<span class="anchor" id="line-2-4"></span>assert(B != 0);</pre><span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span><p class="line862">Of course not all complex logical assertions can be split up this way, just simple sequences <tt>&amp;&amp;</tt>-ed together.  For example, if you have two properties P and Q, and P being true implies that Q must also be true, this might be written as an assertion like this: <span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><p class="line867"><span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><pre><span class="anchor" id="line-1-10"></span>assert(!P || Q);</pre><span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><p class="line862">This is totally different from the <tt>&amp;&amp;</tt> case and can't be reduced. <span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><p class="line867">
+<h2 id="Don.27t_use_an_if_just_for_an_assertion">Don't use an if just for an assertion</h2>
+<span class="anchor" id="line-112"></span><span class="anchor" id="line-113"></span><p class="line874">Rather than writing this: <span class="anchor" id="line-114"></span><span class="anchor" id="line-115"></span><p class="line867"><span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><pre><span class="anchor" id="line-1-11"></span>if(X) assert(Y);</pre><span class="anchor" id="line-118"></span><span class="anchor" id="line-119"></span><p class="line874">Use the implication form mentioned above: <span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><p class="line867"><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><pre><span class="anchor" id="line-1-12"></span>assert(!X || Y);</pre><span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><p class="line874">The latter better supports recompiling with assertions disabled.  The compiler should be smart enough to realize that the body of the if statement is unnecessary and remove it completely from generate code, but it's a little better to pull the test condition inside the assertion. <span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><p class="line867">
+<h1 id="References_vs._Pointers">References vs. Pointers</h1>
+<span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><p class="line874">Using a pointer means that it's possible for it to be a NULL pointer.  &quot;0&quot; is in fact always an acceptable value to initialize a pointer variable or a pointer argument to a function.  Any functions which take a pointer argument and assumes that it's non-zero should probably take a reference argument instead.  (If not, it should include an assert that the argument is non-NULL.) <span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><p class="line874">Using a reference implies that it will always refer to a valid object.  (While it's technically possible to construct a reference to a NULL pointer, it requires more effort and it's unlikely to happen accidentally.)  Function arguments which must always refer to a valid object would be better with a reference than a pointer. <span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><p class="line867">
+<h1 id="Namespaces_and_namespace_pollution">Namespaces and namespace pollution</h1>
+<span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><p class="line867">
+<h2 id="Don.27t_do_.22using_namespace.22">Don't do &quot;using namespace&quot;</h2>
+<span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span><p class="line862">C++ namespaces mean that some classes, functions, etc. have cumbersome names.  For example, in ISO C++ the output stream class is known as <tt>std::ostream</tt>.  In earlier versions of C++ it was known as simply <tt>ostream</tt>, which is easier to type. <span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span><p class="line874">Some people use this to revert to the old way: <span class="anchor" id="line-140"></span><span class="anchor" id="line-141"></span><p class="line867"><span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span><pre><span class="anchor" id="line-1-13"></span>using namespace std;</pre><span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span><p class="line874">In general this is considered bad C++ coding practice, as it imports the entire std namespace into the top-level namespace.  Instead, just bring in selected things which you need.  For example: <span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><p class="line867"><span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span><span class="anchor" id="line-152"></span><span class="anchor" id="line-153"></span><pre><span class="anchor" id="line-1-14"></span>using std::ostream;
+<span class="anchor" id="line-2-5"></span>using std::endl;
+<span class="anchor" id="line-3-4"></span>using std::hex;
+<span class="anchor" id="line-4-1"></span>using std::setw;
+<span class="anchor" id="line-5"></span>using std::setfill;</pre><span class="anchor" id="line-154"></span><span class="anchor" id="line-155"></span><p class="line874">This avoids the significant namespace pollution that a whole-namespace import will cause. <span class="anchor" id="line-156"></span><span class="anchor" id="line-157"></span><p class="line867">
+<h2 id="Don.27t_put_.22using.22_directives_in_header_files">Don't put &quot;using&quot; directives in header files</h2>
+<span class="anchor" id="line-158"></span><span class="anchor" id="line-159"></span><p class="line862">The <tt>using</tt> directive should be put in definition (<tt>.C</tt>) files but not header (<tt>.H</tt>) files.  Putting them in header files causes anyone including the header file to get the same names imported into their namespace. <span class="anchor" id="line-160"></span><span class="anchor" id="line-161"></span><p class="line874">Instead, each definition file should just import those portions of other namepsaces which they need.  That way imported names are not imposed upon every file including a header. <span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><p class="line862">This does mean that header files need to use longer names (e.g. <tt>std::ostream</tt>). <span class="anchor" id="line-164"></span><span class="anchor" id="line-165"></span><p class="line867">
+<h2 id="Consider_putting_new_names_in_a_namespace">Consider putting new names in a namespace</h2>
+<span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span><p class="line874">When defining a new type, function, or other global name, in library code, consider putting it in a namespace.  This helps avoid possible name collisions with names from any other library the code may later be combined with. <span class="anchor" id="line-168"></span><span class="anchor" id="line-169"></span><p class="line867">
+<h2 id="Use_Basics::uintN_rather_than_BitN">Use Basics::uintN rather than BitN</h2>
+<span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span><p class="line874">There are several typedefs for unsigned integers at the global level which were used in the original Vesta code for bit-fields and unsigned integers: <span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span><div><table><tbody><tr>  <td><p class="line891"><tt>Bit8</tt></td>
+  <td><p class="line862">an 8-bit unsigned integer</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-174"></span><p class="line891"><tt>Bit16</tt></td>
+  <td><p class="line862">a 16-bit unsigned integer</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-175"></span><p class="line891"><tt>Bit32</tt></td>
+  <td><p class="line862">a 32-bit unsigned integer</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-176"></span><p class="line891"><tt>Bit64</tt></td>
+  <td><p class="line862">a 64-bit unsigned integer</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-177"></span><span class="anchor" id="line-178"></span><p class="line862">There are equivalent types in the <tt>Basics::</tt> namespace. <span class="anchor" id="line-179"></span><span class="anchor" id="line-180"></span><div><table><tbody><tr>  <td><p class="line891"><tt>Basics::uint8</tt></td>
+  <td><p class="line862">an 8-bit unsigned integer</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-181"></span><p class="line891"><tt>Basics::uint16</tt></td>
+  <td><p class="line862">a 16-bit unsigned integer</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-182"></span><p class="line891"><tt>Basics::uint32</tt></td>
+  <td><p class="line862">a 32-bit unsigned integer</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-183"></span><p class="line891"><tt>Basics::uint64</tt></td>
+  <td><p class="line862">a 64-bit unsigned integer</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-184"></span><span class="anchor" id="line-185"></span><p class="line874">In general the latter should be preferred. <span class="anchor" id="line-186"></span><span class="anchor" id="line-187"></span><p class="line862">We retain the <tt>Bit</tt> names rather than modify all the code which uses them.  It would be nice to phase them out eventually in favor of the names which are in the <tt>Basics::</tt> namespace.  Doing so would reduce the number of names at the global level.  Also, &quot;uint&quot; is generally clearer to someone reading the code that &quot;Bit&quot;. <span class="anchor" id="line-188"></span><span class="anchor" id="line-189"></span><p class="line867">
+<h1 id="Portability">Portability</h1>
+<span class="anchor" id="line-190"></span><span class="anchor" id="line-191"></span><p class="line867">
+<h2 id="A64-bit_Integer_Constants">64-bit Integer Constants</h2>
+<span class="anchor" id="line-192"></span><span class="anchor" id="line-193"></span><p class="line874">Rather than this: <span class="anchor" id="line-194"></span><span class="anchor" id="line-195"></span><p class="line867"><span class="anchor" id="line-196"></span><span class="anchor" id="line-197"></span><pre><span class="anchor" id="line-1-15"></span>const Basics::uint64 x = 0x0123456789abcdef;</pre><span class="anchor" id="line-198"></span><span class="anchor" id="line-199"></span><p class="line862">You should use the <tt>CONST_INT_64</tt> macro from <tt>Basics.H</tt> to make sure that your constant will work correctly with all compilers on all platforms: <span class="anchor" id="line-200"></span><span class="anchor" id="line-201"></span><p class="line867"><span class="anchor" id="line-202"></span><span class="anchor" id="line-203"></span><pre><span class="anchor" id="line-1-16"></span>const Basics::uint64 x = CONST_INT_64(0x0123456789abcdef);</pre><span class="anchor" id="line-204"></span><span class="anchor" id="line-205"></span><p class="line867"><em>(This might even have to change in the future to a different form to support more compilation environments.)</em> <span class="anchor" id="line-206"></span><span class="anchor" id="line-207"></span><p class="line874">If possible avoid writing out such constants in a long form.  For example, rather than this: <span class="anchor" id="line-208"></span><span class="anchor" id="line-209"></span><p class="line867"><span class="anchor" id="line-210"></span><span class="anchor" id="line-211"></span><pre><span class="anchor" id="line-1-17"></span>const Basics::uint64 x = CONST_INT_64(0xffffffffffffffff);</pre><span class="anchor" id="line-212"></span><span class="anchor" id="line-213"></span><p class="line874">This would be a better choice: <span class="anchor" id="line-214"></span><span class="anchor" id="line-215"></span><p class="line867"><span class="anchor" id="line-216"></span><span class="anchor" id="line-217"></span><pre><span class="anchor" id="line-1-18"></span>const Basics::uint64 x = (~((Basics::uint64)0));</pre><span class="anchor" id="line-218"></span><span class="anchor" id="line-219"></span><p class="line867">
+<h1 id="Memory_Allocation">Memory Allocation</h1>
+<span class="anchor" id="line-220"></span><span class="anchor" id="line-221"></span><p class="line867">
+<h2 id="Allocation_Macros">Allocation Macros</h2>
+<span class="anchor" id="line-222"></span><span class="anchor" id="line-223"></span><p class="line862">There are several memory allocation macros defined in <tt>Basics.H</tt> which can be used anywhere and <strong>must</strong> be used in any code ever linked into an application using the garbage collector.  It's simplest to just use them everywhere. <span class="anchor" id="line-224"></span><span class="anchor" id="line-225"></span><p class="line874">The main reason these are important is to make it possible to instrument memory allocations and gather information about the origin of each block.  This can be important when debugging certain kinds of problems. <span class="anchor" id="line-226"></span><span class="anchor" id="line-227"></span><p class="line874">There are three basic macros: <span class="anchor" id="line-228"></span><span class="anchor" id="line-229"></span><div><table><tbody><tr>  <td><p class="line891"><tt>NEW(T)</tt></td>
+  <td><p class="line862">Use instead of <tt>new&nbsp;T</tt></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-230"></span><p class="line891"><tt>NEW_CONSTR(T,&nbsp;(constructor_arg1,&nbsp;...))</tt></td>
+  <td><p class="line862">Use instead of <tt>new&nbsp;T(constructor_arg1,&nbsp;...)</tt></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-231"></span><p class="line891"><tt>NEW_ARRAY(T,&nbsp;size)</tt></td>
+  <td><p class="line862">Use instead of <tt>new&nbsp;T[size]</tt></td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-232"></span><span class="anchor" id="line-233"></span><p class="line874">And three &quot;pointer-free&quot; variants which mean that the caller promises that the allocated blocks contain no pointers to other heap blocks (which is important for garbage collection): <span class="anchor" id="line-234"></span><span class="anchor" id="line-235"></span><div><table><tbody><tr>  <td><p class="line891"><tt>NEW_PTRFREE(T)</tt></td>
+  <td><p class="line862">Same as <tt>NEW(T)</tt></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-236"></span><p class="line891"><tt>NEW_PTRFREE_CONSTR(T,&nbsp;(constructor_arg1,&nbsp;...))</tt></td>
+  <td><p class="line862">Same as <tt>NEW_CONSTR(T,&nbsp;(constructor_arg1,&nbsp;...))</tt></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-237"></span><p class="line891"><tt>NEW_PTRFREE_ARRAY(T,&nbsp;size)</tt></td>
+  <td><p class="line862">Same as <tt>NEW_ARRAY(T,&nbsp;size)</tt></td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-238"></span><span class="anchor" id="line-239"></span><p class="line867">
+<h2 id="STL_Allocator">STL Allocator</h2>
+<span class="anchor" id="line-240"></span><span class="anchor" id="line-241"></span><p class="line862">When using the Standard Template Library classes (e.g. <tt>std::list</tt>, <tt>std::map</tt>) to store pointers in containers (e.g. <tt>std::vector&lt;Foo&nbsp;*&gt;</tt>), any code which is ever linked into an application using the garbage collector <strong>must</strong> use the custom allocator <tt>Basics::Allocator</tt> from the basics library.  This class is defined in: <span class="anchor" id="line-242"></span><span class="anchor" id="line-243"></span><ul><li style="list-style-type:none"><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics/36/src/BasicsAllocator.H">src/BasicsAllocator.H in /vesta/vestasys.org/basics/basics</a> <span class="anchor" id="line-244"></span><span class="anchor" id="line-245"></span></li></ul><p class="line874">Instead of using this: <span class="anchor" id="line-246"></span><span class="anchor" id="line-247"></span><p class="line867"><span class="anchor" id="line-248"></span><span class="anchor" id="line-249"></span><span class="anchor" id="line-250"></span><span class="anchor" id="line-251"></span><pre><span class="anchor" id="line-1-19"></span>#include &lt;list&gt;
+<span class="anchor" id="line-2-6"></span>...
+<span class="anchor" id="line-3-5"></span>std::list&lt;Foo *&gt;</pre><span class="anchor" id="line-252"></span><span class="anchor" id="line-253"></span><p class="line874">You must do this: <span class="anchor" id="line-254"></span><span class="anchor" id="line-255"></span><p class="line867"><span class="anchor" id="line-256"></span><span class="anchor" id="line-257"></span><span class="anchor" id="line-258"></span><span class="anchor" id="line-259"></span><span class="anchor" id="line-260"></span><pre><span class="anchor" id="line-1-20"></span>#include &lt;list&gt;
+<span class="anchor" id="line-2-7"></span>#include &lt;BasicsAllocator.H&gt;
+<span class="anchor" id="line-3-6"></span>...
+<span class="anchor" id="line-4-2"></span>std::list&lt;Foo *, Basics::Allocator&lt;Foo *&gt; &gt;</pre><span class="anchor" id="line-261"></span><span class="anchor" id="line-262"></span><p class="line874">This allocator must be used to force the blocks which make up the container to be in the garbage collector's heap.  If you don't do this, the pointers stored in the STL containers may be in the normal heap, which may cause the garbage collector to be unable to find the references to them.  This may cause the garbage collector to reclaim those blocks as garbage when they are still in use, leading to a crash or other problems that are very difficult to debug. <span class="anchor" id="line-263"></span><span class="anchor" id="line-264"></span><p class="line867">
+<h1 id="Efficiently_Formatting_Text_Strings">Efficiently Formatting Text Strings</h1>
+<span class="anchor" id="line-265"></span><span class="anchor" id="line-266"></span><p class="line867">
+<h2 id="Use_Stack-Allocated_Storage_When_Possible">Use Stack-Allocated Storage When Possible</h2>
+<span class="anchor" id="line-267"></span><span class="anchor" id="line-268"></span><p class="line874">Heap allocations are expensive, particularly in multi-threaded programs.  This is especially a concern in long-running programs such as servers and even the Vesta evaluator.  If you can use a stack-allocated buffer for formatting a text string, it will avoid lock contention and other performance issues associated with heap allocations.  There are at least two ways you can do this: <span class="anchor" id="line-269"></span><span class="anchor" id="line-270"></span><ul><li><p class="line862">Use <tt>snprintf</tt>.  This requires that you know the maximum size of the string in advance, which isn't possible in all cases. <span class="anchor" id="line-271"></span><ul><li><p class="line891"><tt>snprintf</tt> is similar to <tt>sprintf</tt>, but is a little safer because it will never over-run the end of the buffer. <span class="anchor" id="line-272"></span></li></ul></li><li><p class="line862">Use <tt>Basics::OBufStream</tt> with a stack-allocated buffer.  This allows you to start with a stack-allocated buffer that may be large enough in the common case.  By default, <tt>Basics::OBufStream</tt> will re-allocate a new buffer from the heap if the current buffer is too small. <span class="anchor" id="line-273"></span><span class="anchor" id="line-274"></span></li></ul><p class="line867">
+<h2 id="Consider_Text::printf">Consider Text::printf</h2>
+<span class="anchor" id="line-275"></span><span class="anchor" id="line-276"></span><p class="line862">The function <tt>Text::printf</tt> added in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics/38">basics/38</a> allows you to format a string as the family of <tt>printf</tt> functions would but places the result in a <tt>Text</tt> instance.  It determines the size of the resulting string automatically and avoids multiple heap allocations which become likely if a text string is built up gradually through multiple operations.  If you can't use a stack-allocated buffer, <tt>Text::printf</tt> may be a good alternative. <span class="anchor" id="line-277"></span><span class="anchor" id="line-278"></span><p class="line867">
+<h2 id="Use_Basics::OBufStream.2C_not_std::ostringstream">Use Basics::OBufStream, not std::ostringstream</h2>
+<span class="anchor" id="line-279"></span><span class="anchor" id="line-280"></span><p class="line862">We specifically stopped using the class <tt>std::ostringstream</tt> from the standard C++ library because of its poor performance, at least in some implementation.  We discovered that every time a write was performed to an <tt>ostringstream</tt> it would allocate a new heap block with enough space for the current contents plus the new bytes and copy in the existing contents plus the new bytes.  This means there's one heap allocation per write to the stream. <span class="anchor" id="line-281"></span><span class="anchor" id="line-282"></span><p class="line862">The <tt>Basics::OBufStream</tt> works more like the now deprecated <tt>ostrstream</tt> class from older versions of the C++ standard library.  It allocates a buffer with more space than is needed currently.  When that space is exhausted it will allocate a larger buffer.  This means that many writes to the stream may occur before the next heap block allocation. <span class="anchor" id="line-283"></span><span class="anchor" id="line-284"></span><p class="line862">Also,  <tt>OBufStream</tt> allows the user to supply an initial buffer on the stack.  This can be even more efficient in the common case by using no heap block allocations.  We use this method in the repository server code when formatting transaction log entries.  <span class="anchor" id="line-285"></span><span class="anchor" id="line-286"></span><p class="line867">
+<h2 id="Avoid_lots_of_Text::operator.2B-">Avoid lots of Text::operator+</h2>
+<span class="anchor" id="line-287"></span><span class="anchor" id="line-288"></span><p class="line862">The <tt>Text</tt> class provides + and += operators that allow one to append text values.  While useful, this unfortunately has similar heap allocation characteristics to the <tt>ostringstream</tt> class: each + operation to append two <tt>Text</tt> values together will allocate a new heap block.  So if you have something like this: <span class="anchor" id="line-289"></span><span class="anchor" id="line-290"></span><p class="line867"><span class="anchor" id="line-291"></span><span class="anchor" id="line-292"></span><span class="anchor" id="line-293"></span><span class="anchor" id="line-294"></span><pre><span class="anchor" id="line-1-21"></span>Text a, b;
+<span class="anchor" id="line-2-8"></span>// ...
+<span class="anchor" id="line-3-7"></span>Text message = &quot;Description part 1: &quot; + a + &quot;, more description: &quot; + b;</pre><span class="anchor" id="line-295"></span><span class="anchor" id="line-296"></span><p class="line874">That will perform at least three different heap block allocations, each with an associated string copy. <span class="anchor" id="line-297"></span><span class="anchor" id="line-298"></span><p class="line862">Consider using either a <tt>Basics::OBufStream</tt> or <tt>Text::printf</tt> instead. <span class="anchor" id="line-299"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

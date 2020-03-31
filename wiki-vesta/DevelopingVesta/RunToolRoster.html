@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>DevelopingVesta/RunToolRoster - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: DevelopingVesta/RunToolRoster" href="RunToolRoster%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=DevelopingVesta%252FRunToolRoster&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="RunToolRoster%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="RunToolRoster%3Faction=print.html">
+<link rel="Up" href="DevelopingVesta.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="RunToolRoster.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="DevelopingVesta.html">DevelopingVesta</a></li><li><a href="RunToolRoster.html">RunToolRoster</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="RunToolRoster.html">RunToolRoster</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="RunToolRoster%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="RunToolRoster.html#Introduction">Introduction</a></li><li>
+<a href="RunToolRoster.html#Roster_Server_Network_Protocol">Roster Server Network Protocol</a><ol><li>
+<a href="RunToolRoster.html#Procedures_for_the_RunToolServer">Procedures for the RunToolServer</a></li><li>
+<a href="RunToolRoster.html#Procedures_for_the_Evaluator">Procedures for the Evaluator</a></li><li>
+<a href="RunToolRoster.html#Procedures_for_Administrative_Utilities">Procedures for Administrative Utilities</a></li></ol></li><li>
+<a href="RunToolRoster.html#RunToolServer_implementation_details">RunToolServer implementation details</a></li><li>
+<a href="RunToolRoster.html#Evaluator_implementation_details">Evaluator implementation details</a></li><li>
+<a href="RunToolRoster.html#Roster_server_implementation">Roster server implementation</a></li><li>
+<a href="RunToolRoster.html#Related_Issues">Related Issues</a><ol><li>
+<a href="RunToolRoster.html#More_ways_to_partition_the_pool_of_RunTool_machines">More ways to partition the pool of RunTool machines</a></li><li>
+<a href="RunToolRoster.html#SRPC_Port_Choice">SRPC Port Choice</a></li></ol></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Introduction">Introduction</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">See the RFE <a class="http" href="http://sourceforge.net/tracker/?func=detail&amp;aid=1689501&amp;group_id=34164&amp;atid=410430">Automatic RunToolServer roster</a> at SourceForge. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867">
+<h1 id="Roster_Server_Network_Protocol">Roster Server Network Protocol</h1>
+<span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867">
+<h2 id="Procedures_for_the_RunToolServer">Procedures for the RunToolServer</h2>
+<span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><ol type="1"><li><p class="line891">RunToolServer startup / heartbeat <span class="anchor" id="line-16"></span><ul><li>arguments: <span class="anchor" id="line-17"></span><ul><li>host information <span class="anchor" id="line-18"></span></li><li>port number <span class="anchor" id="line-19"></span></li></ul></li></ul></li><li><p class="line891">RunToolServer shutdown <span class="anchor" id="line-20"></span><ul><li>arguments: <span class="anchor" id="line-21"></span><ul><li>port number <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span></li></ul></li></ul></li></ol><p class="line867">
+<h2 id="Procedures_for_the_Evaluator">Procedures for the Evaluator</h2>
+<span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><ol type="1"><li>Get host list <span class="anchor" id="line-26"></span><ul><li>arguments: <span class="anchor" id="line-27"></span><ul><li>platform selection criteria <span class="anchor" id="line-28"></span></li></ul></li><li>results: <span class="anchor" id="line-29"></span><ul><li>list of host/port pairs <span class="anchor" id="line-30"></span></li></ul></li></ul></li><li>Report bad host <span class="anchor" id="line-31"></span><ul><li>arguments: <span class="anchor" id="line-32"></span><ul><li>host/port pair <span class="anchor" id="line-33"></span></li><li>reason (text string, error message) <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span></li></ul></li></ul></li></ol><p class="line867">
+<h2 id="Procedures_for_Administrative_Utilities">Procedures for Administrative Utilities</h2>
+<span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><ol type="1"><li>Administrator add to black-list <span class="anchor" id="line-38"></span><ul><li>arguments: <span class="anchor" id="line-39"></span><ul><li>host/port pair <span class="anchor" id="line-40"></span></li><li>comment <span class="anchor" id="line-41"></span></li></ul></li></ul></li><li>remove from black-list <span class="anchor" id="line-42"></span><ul><li>arguments: <span class="anchor" id="line-43"></span><ul><li>host/port pair <span class="anchor" id="line-44"></span></li></ul></li></ul></li><li>get black-list <span class="anchor" id="line-45"></span><ul><li>results: <span class="anchor" id="line-46"></span><ul><li>list of <span class="anchor" id="line-47"></span><ul><li>host/port pair <span class="anchor" id="line-48"></span></li><li>comment <span class="anchor" id="line-49"></span></li><li>timestamp <span class="anchor" id="line-50"></span></li></ul></li></ul></li></ul></li><li>get full host list <span class="anchor" id="line-51"></span><ul><li>arguments: <span class="anchor" id="line-52"></span><ul><li>bool: send host info <span class="anchor" id="line-53"></span></li></ul></li><li>results: <span class="anchor" id="line-54"></span><ul><li>list of <span class="anchor" id="line-55"></span><ul><li>host/port pair <span class="anchor" id="line-56"></span></li><li>host information (if requested) <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span></li></ul></li></ul></li></ul></li></ol><p class="line867">
+<h1 id="RunToolServer_implementation_details">RunToolServer implementation details</h1>
+<span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><p class="line874">Sending a heartbeat requires a background thread and a global bool <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><ul><li>set global bool to true on any tool invocation <span class="anchor" id="line-63"></span></li><li>heartbeat thread sets global bool to false before going to sleep <span class="anchor" id="line-64"></span></li><li>if global bool is false when heartbeat thread wakes up, send heartbeat to roster server <span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span></li></ul><p class="line874">Randomize the heartbeat sleep duration by some amount (10% of the <span class="anchor" id="line-67"></span>configured about, 50% of the configured amount).  This should avoid <span class="anchor" id="line-68"></span>many heartbeats reaching the roster server at the same time. <span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><p class="line874">There will be some configuration file setting specifying the host/port <span class="anchor" id="line-71"></span>of the roster server.  If no roster server is configured, the <span class="anchor" id="line-72"></span>RunToolServer won't send the startup, heartbeat, or shutdown RPCs.  It <span class="anchor" id="line-73"></span>won't need to start the background heartbeat thread. <span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><p class="line874">To send the shutdown RPC properly, we need some way to tell a <span class="anchor" id="line-76"></span>RunToolServer to exit cleanly (after waiting for any running tools to <span class="anchor" id="line-77"></span>finish).  While waiting for tools to finish, the RunToolServer would <span class="anchor" id="line-78"></span>have to refuse any new incoming tool requests. <span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><p class="line867">
+<h1 id="Evaluator_implementation_details">Evaluator implementation details</h1>
+<span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><p class="line874">If no roster server is configured, just use the hosts lists like we do <span class="anchor" id="line-83"></span>currently. <span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><p class="line874">If there is a roster server configured: <span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><ul><li>Call it to get the hosts list when we first need to run a tool on a particular platform <span class="anchor" id="line-88"></span></li><li><p class="line862">Call it to report a bad RunToolServer if we get certain errors (connection refused, connection timed out, connection reset by peer) <span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span></li></ul><p class="line867">
+<h1 id="Roster_server_implementation">Roster server implementation</h1>
+<span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><p class="line867"><tt>Table&lt;host_port,&nbsp;host_info&gt;&nbsp;all_hosts;</tt> <span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><p class="line867"><tt>Table&lt;host_port,&nbsp;black_list_info&gt;&nbsp;black_list;</tt> <span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><ul><li>black_list_info <span class="anchor" id="line-97"></span><ul><li>comment <span class="anchor" id="line-98"></span></li><li>timestamp <span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span></li></ul></li></ul><p class="line867"><tt>Table&lt;platform_criteria,&nbsp;platform_hosts&gt;&nbsp;requested_platforms;</tt> <span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><ul><li>platform_criteria: matching criteria <span class="anchor" id="line-103"></span></li><li>platform_hosts: host/port pairs that match the platform <span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span></li></ul><p class="line862">Update requested_platforms on any RunToolServer startup/heartbeat <span class="anchor" id="line-106"></span>call.  This way the roster server can answer the &quot;host list&quot; call <span class="anchor" id="line-107"></span>without having to match every host against the criteria each time. <span class="anchor" id="line-108"></span>Since evaluators tend to ask for platforms that have been asked for <span class="anchor" id="line-109"></span>before, this should be efficient. <span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><p class="line874">Need config file settings for where to store the host list and black <span class="anchor" id="line-112"></span>list on disk. <span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><p class="line874">Have a background thread for writing the black list and host list to <span class="anchor" id="line-115"></span>disk. <span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><ul><li>Go to sleep for some small amount of time (e.g. 1 minute). <span class="anchor" id="line-118"></span></li><li>Has the host list/black list changed since the last time we wrote it to disk?  If not, do nothing. <span class="anchor" id="line-119"></span></li><li>Has the host list/black list changed since the last time we woke up (e.g. 1 minute ago)?  If not, write it out to disk now (i.e. wait for it to stop changing for one sleep period). <span class="anchor" id="line-120"></span></li><li>Has it been a &quot;long&quot; time (e.g. 10 minutes) since the first change after the last time we wrote it to disk?  If so, write it to disk now (i.e. don't put off writitng it to disk forever just because it keeps changing.) <span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span></li></ul><p class="line867">
+<h1 id="Related_Issues">Related Issues</h1>
+<span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><p class="line867">
+<h2 id="More_ways_to_partition_the_pool_of_RunTool_machines">More ways to partition the pool of RunTool machines</h2>
+<span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><p class="line862">To partition a large pool of RunToolServers, we may want to add a <span class="anchor" id="line-127"></span>&quot;comment&quot; field and the ability to match a platform on it <span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><p class="line867"><a href="../ScottVenier.html">ScottVenier</a> suggests adding arbitrarily many name/value pairs to match on: <span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><ul><li>Project the machine belongs to <span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span></li><li class="gap">Batch vs. interactive (i.e. don't send big jobs to machines used interactively) <span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span></li></ul><p class="line867"><a class="nonexistent" href="../DaveAndrews.html">DaveAndrews</a> suggests partitioning based on time of day (i.e. don't use workstations during the day, but OK to use them at night) <span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span><p class="line867">
+<h2 id="SRPC_Port_Choice">SRPC Port Choice</h2>
+<span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span><p class="line874">The roster server could eliminate the need for having the <span class="anchor" id="line-140"></span>RunToolServer on a known port.  Let the OS assign a port, and have the <span class="anchor" id="line-141"></span>RunToolServer tell the roster the port when it registers. <span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span><p class="line874">This could make things tricky for some administrative tasks. <span class="anchor" id="line-144"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

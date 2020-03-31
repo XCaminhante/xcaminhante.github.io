@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>std_env/OsComponentSpec - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: std_env/OsComponentSpec" href="OsComponentSpec%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=std_env%252FOsComponentSpec&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="OsComponentSpec%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="OsComponentSpec%3Faction=print.html">
+<link rel="Up" href="std_env.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="OsComponentSpec.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="std_env.html">std_env</a></li><li><a href="OsComponentSpec.html">OsComponentSpec</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="OsComponentSpec.html">std_env/OsComponentSpec</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="OsComponentSpec%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="OsComponentSpec.html#OS_Component_Model">OS Component Model</a></li><li>
+<a href="OsComponentSpec.html#OS_Component_Record">OS Component Record</a><ol><li>
+<a href="OsComponentSpec.html#root">root</a></li><li>
+<a href="OsComponentSpec.html#env">env</a></li><li>
+<a href="OsComponentSpec.html#Other_names">Other names</a></li></ol></li><li>
+<a href="OsComponentSpec.html#Component_Usage">Component Usage</a></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="OS_Component_Model">OS Component Model</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">Each OS component must have a model which when evaluated returns a binding to be included in <tt>./components</tt>.  Normally this model is named <tt>build.ves</tt>, but this is not strictly required. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">The return value of the model is a binding with one or more names each of which is a <em>component record</em>.  This is either a singleton binding or a binding with several names all with the same value (i.e. <em>aliases</em> which can be used to refer to the same component).  (There is no explicit check to prevent an OS component model from returning several different component records, but there is some code which assumes that the name of the first element of the OS component model result is sufficient to include all files from the component it defines.) <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line874">Examples of OS component models for the GNU libc package: <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><div><table><tbody><tr>  <td><p class="line862">Debian sarge Linux for i386</td>
+  <td><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/components/libc6/2.3.2.ds1-22/1/build.ves">/vesta/vestasys.org/platforms/linux/debian/i386/components/libc6/2.3.2.ds1-22/1/build.ves</a></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-16"></span><p class="line891">RedHat Linux 7 for i386</td>
+  <td><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/redhat/i386/components/glibc/2.2.5-39/build.ves">/vesta/vestasys.org/platforms/linux/redhat/i386/components/glibc/2.2.5-39/build.ves</a></td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><p class="line867">
+<h1 id="OS_Component_Record">OS Component Record</h1>
+<span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><p class="line862">The results of multiple OS component models get combined together and stored in <tt>./components</tt>.  Each value in the binding <tt>./components</tt> is a <em>component record</em>. <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line862">A component record is a binding.  The only required name is &quot;<tt>root</tt>&quot;.  If the name &quot;<tt>env</tt>&quot; is present, it will be used in some cases. <span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><p class="line867">
+<h2 id="root">root</h2>
+<span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><p class="line862">The value of the name &quot;<tt>root</tt>&quot; in the component record must be a function which will return the partial filesystem for the component when called.  (Often this name refers to a model, typically named <tt>root.ves</tt>.) <span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line862">The value of the first argument passed to the <tt>root</tt> will be <tt>./components</tt>.  Typically the <tt>root</tt> has no explicit arguments, so this will become tha value of &quot;<tt>.</tt>&quot; within the root function.  (That is, the component record for component &quot;<tt>foo</tt>&quot; will be at <tt>./foo</tt> rather than <tt>./components/foo</tt>.)  This makes it possible for one component to refer to files from another component.  This can be used to simulate symbolic links which point across component boundaries.  (For an example of how this works, see how <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/components/libc6-dev/2.3.2.ds1-22/1/root.ves">the Debian libc6-dev component's root.ves</a> calls <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/components/libc6/2.3.2.ds1-22/1/root.ves">the Debian libc6 component's root.ves</a> to extract some files to be included at different paths.) <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line867">
+<h2 id="env">env</h2>
+<span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><p class="line862">If the name &quot;<tt>env</tt>&quot; is present in the component record, it can be either a binding of envrivonment variables or a function which returns a binding of environment variables.  This allows a component to specify environment variables which should be set when it is used, in addition to the files which should be present when it is used. <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><p class="line862">If &quot;<tt>env</tt>&quot; is a function, its first argument will be the current set of environment variables (typically taken from <tt>./envVars</tt>, possibly with the environment variables provided by other components already merged into it).  This makes it possible to modify existing environment variables rather than simply replacing them (e.g. adding another directory to the <tt>PATH</tt> environment variable). <span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><p class="line862">Note that this feature is not used by components imported from normal OS components (e.g. <tt>.rpm</tt> or <tt>.deb</tt> packages).  It was added to support hand-constructed components for software which needs particular environment variables set to paths for where in the filesystem they are installed.  The environment variables and their settings may change from one version to another, so this allows the environment variables to be associated with the specific version of the software component. <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line867">
+<h2 id="Other_names">Other names</h2>
+<span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><p class="line862">No other names in component record are currently used by the general purpose <tt>std_env</tt> functions, but there are some others which commonly occur: <span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><div><table><tbody><tr>  <td><p class="line891"><strong>Name in component record</strong></td>
+  <td><p class="line891"><strong>Meaning</strong></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-43"></span><p class="line862">name</td>
+  <td><p class="line862">Name of the component</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-44"></span><p class="line862">version</td>
+  <td><p class="line862">Version of the component</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-45"></span><p class="line862">arch</td>
+  <td><p class="line862">CPU architecture of the component</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-46"></span><p class="line862">kind</td>
+  <td><p class="line862">The type of imported OS component (e.g. &quot;deb&quot; for Debian package)</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-47"></span><p class="line862">rpms</td>
+  <td><p class="line862">A list of RPMs imported to form this component</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-48"></span><p class="line862">pkgs</td>
+  <td><p class="line862">A list of packages imported to form this component</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-49"></span><p class="line862">all_names</td>
+  <td><p class="line862">A list of names by which this component is known</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-50"></span><p class="line862">info</td>
+  <td><p class="line862">The RPM information (<tt>rpm&nbsp;-qi</tt>) for this component</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-51"></span><p class="line862">requires</td>
+  <td><p class="line862">The RPM requirements (<tt>rpm&nbsp;-q&nbsp;--requires</tt>) for this component</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-52"></span><p class="line862">provides</td>
+  <td><p class="line862">What the RPM for this component provides(<tt>rpm&nbsp;-q&nbsp;--provides</tt>)</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-53"></span><p class="line862">component_info</td>
+  <td><p class="line862">A binding of collected information on the imported packages</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><p class="line867">
+<h1 id="Component_Usage">Component Usage</h1>
+<span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><p class="line862">To see exactly how components are used, see the definition of the following functions in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/env_build">bridges/env_build</a>: <span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><ul><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/env_build/0/build.ves#L106">./build_root</a> <span class="anchor" id="line-60"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/env_build/0/build.ves#L131">./build_envVars</a> <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span></li></ul><p class="line862">These functions show exactly how the values of <tt>root</tt> and <tt>env</tt> in a component record are used. <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><p class="line862">The arguments to <tt>./build_root()</tt> is a list of strings which <tt>./build_root()</tt> expects to find in <tt>./components</tt> <span class="anchor" id="line-65"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

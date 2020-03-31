@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnMacros/Include - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnMacros/Include" href="Include%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnMacros%252FInclude&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="Include%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="Include%3Faction=print.html">
+<link rel="Up" href="HelpOnMacros.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="Include.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnMacros.html">HelpOnMacros</a></li><li><a href="Include.html">Include</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="Include.html">HelpOnMacros/Include</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="Include%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Include">Include</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">This macro includes the formatted content of the given local wiki page(s), following <span class="anchor" id="line-10"></span>recursive includes if encountered. If the recursion generates any cycles, this is detected and prevented! <span class="anchor" id="line-11"></span>
+<h2 id="Usage">Usage</h2>
+<span class="anchor" id="line-12"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><pre><span class="anchor" id="line-1"></span>&lt;&lt;Include(pagename, heading, level, from=&quot;regex&quot;, to=&quot;regex&quot;, sort=ascending|descending, items=n, skipitems=n, titlesonly, editlink)&gt;&gt;</pre><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span></li><dt>pagename</dt><dd><p class="line862">Name of the page to include, if it starts with a caret &quot;<tt class="backtick">^</tt>&quot;, a regex of pages to include. <span class="anchor" id="line-17"></span></dd><dt>heading</dt><dd> Text for the generated heading which will link to the included page (optional). <span class="anchor" id="line-18"></span></dd><dt>level</dt><dd>   Level (1..5) of the generated heading (optional). <span class="anchor" id="line-19"></span></dd><dt>from</dt><dd>    Partial include start marker (optional). <span class="anchor" id="line-20"></span></dd><dt>to</dt><dd>      Partial include end marker (optional). <span class="anchor" id="line-21"></span></dd><dt>sort</dt><dd>    Sorting order when pagename is a regex, i.e. starts with a caret (optional). <span class="anchor" id="line-22"></span></dd><dt>items</dt><dd>   Maximum number of pages to include.    <span class="anchor" id="line-23"></span></dd><dt>skipitems</dt><dd>Number of initial pages to skip over (optional). <span class="anchor" id="line-24"></span></dd><dt>titlesonly</dt><dd>Only include a link to the page, not page content (optional). <span class="anchor" id="line-25"></span></dd><dt>editlink</dt><dd>add a footer with links to the included page, both normal and edit (optional). <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span></dd></ul><p class="line862">All parameters except pagename are optional, but you have to follow the given order! If you want to omit &quot;<tt class="backtick">heading</tt>&quot;, you have to leave the second parameter empty. <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line867"><tt class="backtick">from</tt> and <tt class="backtick">to</tt> recognise the pattern in comments as well. So watch out for comments that stop the include unexpectedly. <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line867">
+<h2 id="Examples">Examples</h2>
+<span class="anchor" id="line-32"></span><ul><li><p class="line862">Include the text of page <tt class="backtick">FooBar</tt> in the current paragraph: <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><pre><span class="anchor" id="line-1-1"></span>&lt;&lt;Include(FooBar)&gt;&gt;</pre><span class="anchor" id="line-36"></span></li><li>Add a linked H1 of 'Foo Bar' followed by the text: <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><pre><span class="anchor" id="line-1-2"></span>&lt;&lt;Include(FooBar,&quot;Foo Bar&quot; )&gt;&gt;</pre><span class="anchor" id="line-40"></span></li><li>Add a H2 of 'Foo Bar': <span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><pre><span class="anchor" id="line-1-3"></span>&lt;&lt;Include(FooBar, , 2)&gt;&gt;</pre><span class="anchor" id="line-44"></span></li><li>Add a H2 of 'All about Foo Bar': <span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><pre><span class="anchor" id="line-1-4"></span>&lt;&lt;Include(FooBar, 'All about Foo Bar', 2)&gt;&gt;</pre><span class="anchor" id="line-48"></span></li><li>Only include content after first horizontal rule: <span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><pre><span class="anchor" id="line-1-5"></span>&lt;&lt;Include(FooBar, , from=&quot;^----$&quot;)&gt;&gt;</pre><span class="anchor" id="line-52"></span></li><li>Only include content until first horizontal rule: <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><pre><span class="anchor" id="line-1-6"></span>&lt;&lt;Include(FooBar, , to=&quot;^----$&quot;)&gt;&gt;</pre><span class="anchor" id="line-56"></span></li><li>Sort the page list in descending order: <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><pre><span class="anchor" id="line-1-7"></span>&lt;&lt;Include(^FooBar/.*, , sort=descending)&gt;&gt;</pre><span class="anchor" id="line-60"></span></li><li>Include a maximum of three pages: <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><pre><span class="anchor" id="line-1-8"></span>&lt;&lt;Include(^FooBar/.*, , items=3)&gt;&gt;</pre><span class="anchor" id="line-64"></span></li><li>Show at most a week of a blog: <span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><pre><span class="anchor" id="line-1-9"></span>&lt;&lt;Include(^BlogBase/.*,, to=&quot;^----$&quot;, sort=descending, items=7)&gt;&gt;</pre><span class="anchor" id="line-68"></span></li><li>Show the previous week with titles only: <span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><pre><span class="anchor" id="line-1-10"></span>&lt;&lt;Include(^BlogBase/.*,, to=&quot;^----$&quot;, sort=descending, items=7, skipitems=7, titlesonly)&gt;&gt;</pre><span class="anchor" id="line-72"></span></li><li><p class="line862">You can use these with <a href="MonthCalendar.html">../MonthCalendar</a> for blogging: <span class="anchor" id="line-73"></span><ul><li>Show 3 items out of a month calendar: <span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><pre><span class="anchor" id="line-1-11"></span>&lt;&lt;Include(^FirstnameLastname/20..-..-..,,to=&quot;^----&quot;,sort=descending,items=3)&gt;&gt;</pre><span class="anchor" id="line-77"></span></li><li>Show next 4 items only with titles: <span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><pre><span class="anchor" id="line-1-12"></span>&lt;&lt;Include(^FirstnameLastname/20..-..-..,,to=&quot;^----&quot;,sort=descending,items=4,skipitems=3,titlesonly)&gt;&gt;</pre><span class="anchor" id="line-81"></span></li></ul></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

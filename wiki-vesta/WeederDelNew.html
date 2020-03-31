@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>WeederDelNew - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: WeederDelNew" href="WeederDelNew%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=WeederDelNew&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="WeederDelNew%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="WeederDelNew%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="WeederDelNew.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="WeederDelNew.html">WeederDelNew</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="WeederDelNew.html">WeederDelNew</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="WeederDelNew%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line867">
+<h1 id="New_Weeder_Instruction_to_delete_new_root">New Weeder Instruction to delete new root</h1>
+<span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">Beginnings of a patch. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/weeder/12/src/Weeder.C#L539">Weeder.c(v12)</a> has this code, currently <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867"><span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><pre><span class="anchor" id="line-1"></span>                  bool inTbl = this-&gt;instrRoots-&gt;Get(pkgBuild, /*OUT*/ dummy);
+<span class="anchor" id="line-2"></span>                  bool fresh = (root-&gt;ts &gt;= this-&gt;keepTime);
+<span class="anchor" id="line-3"></span>                  bool keptRoot = (inTbl || fresh);</pre><span class="anchor" id="line-14"></span><p class="line874">That could change something like this: <span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><pre><span class="anchor" id="line-1-1"></span>                  bool inTbl = this-&gt;instrRoots-&gt;Get(pkgBuild, /*OUT*/ dummy);
+<span class="anchor" id="line-2-1"></span>                  bool delNew = this-&gt;instrRoots-&gt;GetDelNew(pkgBuild, /*OUT*/ dummy);
+<span class="anchor" id="line-3-1"></span>                  bool fresh = (root-&gt;ts &gt;= this-&gt;keepTime);
+<span class="anchor" id="line-4"></span>                  bool keptRoot = (inTbl || (fresh &amp;&amp; !delNew));</pre><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line867"><tt>GetDelNew</tt> would index the part of instrRoots that specfies the <strong><tt>'x'</tt></strong> char as the instruction of what to do.  <strong><tt>'x'</tt></strong> means delete, even if new. <span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><p class="line867"><hr /><p class="line874"> <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><p class="line867"><em>(<a href="KenSchalk.html">KenSchalk</a>)</em> A couple thoughts: <span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><ul><li><p class="line891"><tt>Weeder::instrRoots</tt> is defined in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/weeder/12/src/RootTbl.H">RootTbl.H</a> and is a sub-class of the <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/generics/15/src/Table.H">Table template class</a> (a generic hash table) from <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/generics">the basics/generics library</a>.  The &quot;<tt>Get</tt>&quot; member function comes from the base hash table class.  It probably makes more sense to add a second such hash table, rather than adding a &quot;<tt>GetDelNew</tt>&quot; member function. <span class="anchor" id="line-29"></span></li><li><p class="line862">The tricky part will be figuring out how the <strong><tt>'+'</tt></strong>, <strong><tt>'-'</tt></strong>, and <strong><tt>'x'</tt></strong> directives interact to populate the &quot;to be kept&quot; and &quot;delete even if new&quot; tables. <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span></li></ul><p class="line862">Also, this should really be <a class="https" href="https://sourceforge.net/tracker/?group_id=34164&amp;atid=410430">an RFE in the tracker</a> rather than a wiki page. <span class="anchor" id="line-32"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

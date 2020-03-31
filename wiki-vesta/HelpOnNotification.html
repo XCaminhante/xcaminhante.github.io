@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnNotification - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnNotification" href="HelpOnNotification%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnNotification&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnNotification%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnNotification%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnNotification.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnNotification.html">HelpOnNotification</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnNotification.html">HelpOnNotification</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnNotification%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="The_Notification_System">The Notification System</h1>
+<span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="HelpOnNotification.html#The_Notification_System">The Notification System</a><ol><li>
+<a href="HelpOnNotification.html#Features">Features</a></li><li>
+<a href="HelpOnNotification.html#Notification_options">Notification options</a></li><li>
+<a href="HelpOnNotification.html#Known_main_issues_with_the_Jabber_bot">Known main issues with the Jabber bot</a><ol><li>
+<a href="HelpOnNotification.html#You_need_pyxmpp_1.0.1_.281.0.0_won.27t_work.29">You need pyxmpp 1.0.1 (1.0.0 won't work)</a></li><li>
+<a href="HelpOnNotification.html#Traffic_limits">Traffic limits</a></li><li>
+<a href="HelpOnNotification.html#Internationalization">Internationalization</a></li></ol></li><li>
+<a href="HelpOnNotification.html#Setting_up_a_Jabber_bot">Setting up a Jabber bot</a></li></ol></li></ol></div> <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867"><a href="MoinMoin.html">MoinMoin</a> 1.7 includes a new notification system. Supplemental to the <a href="HelpOnConfiguration/EmailSupport.html">basic email based notification</a> you can use a separate process running a Jabber/XMPP notification bot. See <a class="http" href="http://www.jabber.org/">http://www.jabber.org/</a> and <a class="http" href="http://www.xmpp.org/">http://www.xmpp.org/</a> for more information on this protocol. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">The bot can be used to send notifications about various events occuring in your Wiki, or to work with the Wiki interactively. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line874">As it's a separate process, it doesn't block waiting for all notifications to be sent, so this solution should be suitable for large sites that have many users subscribed to particular changes. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line867">
+<h2 id="Features">Features</h2>
+<span class="anchor" id="line-16"></span><ul><li>Notification sent when pages are changed in various ways (content change, page rename, deletion, page copy), users being created (visible to super user only!), attachments being added and users subscribing to pages... <span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span></li><li class="gap">Users can choose which events they're interested in being notified about. This applied both to (old) email and jabber notifications. <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span></li><li class="gap">The interactive Jabber bot allows to perform various simple operations on a Wiki from within your IM client (possibly in response to received notification). This includes getting raw and html-formatted page contents, querying detailed page information (last author, revision, date of the last change...), getting a list of pages, performing searches and reverts. <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span></li><li class="gap">The bot uses Data Forms (XEP-004) and Out of Band Data (XEP-066) extensions if they're supported by the client to further extend available communication options. <span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span></li></ul><p class="line867">
+<h2 id="Notification_options">Notification options</h2>
+<span class="anchor" id="line-25"></span><p class="line862">When the <tt>notification_bot_uri</tt> option is present in your wiki's config, new options become available in your user preferences. <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line874">Make sure to set your JID in your user preferences. <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line874">A multi-selection list allows you to select which events you want to be notified about, and two new check-boxes let you specify if notifications should be sent via email, jabber or both. <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line867">
+<h2 id="Known_main_issues_with_the_Jabber_bot">Known main issues with the Jabber bot</h2>
+<span class="anchor" id="line-32"></span><p class="line867">
+<h3 id="You_need_pyxmpp_1.0.1_.281.0.0_won.27t_work.29">You need pyxmpp 1.0.1 (1.0.0 won't work)</h3>
+<span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><p class="line862">Get a recent release (&gt;= 1.0.1) from the <a class="http" href="http://pyxmpp.jajcus.net/">pyxmpp homepage</a> and unpack it. <span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><p class="line862">Add the resulting <tt class="backtick">pyxmpp</tt> directory to your PYTHONPATH or perform a &quot;full installation&quot; as described <a class="http" href="http://pyxmpp.jajcus.net/">here</a>: <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><pre><span class="anchor" id="line-1"></span>           To build the package just invoke:
+<span class="anchor" id="line-2"></span>           python setup.py build
+<span class="anchor" id="line-3"></span>
+<span class="anchor" id="line-4"></span>           To install it:
+<span class="anchor" id="line-5"></span>           python setup.py install</pre><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line874">If you had some older version of PyXMPP it is better to uninstall it first (delete pyxmpp subdirectory of your site-packages directory) before installing the new version or things might not work correctly. <span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><pre><span class="anchor" id="line-1-1"></span>           You may also try:
+<span class="anchor" id="line-2-1"></span>           make
+<span class="anchor" id="line-3-1"></span>
+<span class="anchor" id="line-4-1"></span>           and:
+<span class="anchor" id="line-5-1"></span>           make install</pre><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><p class="line867">
+<h3 id="Traffic_limits">Traffic limits</h3>
+<span class="anchor" id="line-55"></span><p class="line874">Jabber servers usually have rather tight data rate limits, so if your site generates a lot of traffic, the notification bot may become unstable and/or unusable. If such a condition occurs, you should consider running your own Jabber/XMPP server with relaxed limits. <span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><p class="line867">
+<h3 id="Internationalization">Internationalization</h3>
+<span class="anchor" id="line-58"></span><p class="line874">For the i18n to work, your wiki must be accessible when the notification bot is being started. <span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><p class="line867">
+<h2 id="Setting_up_a_Jabber_bot">Setting up a Jabber bot</h2>
+<span class="anchor" id="line-61"></span><p class="line874">These are step-by-step instructions you have to perform in order to get the Jabber notification bot up and running: <span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><ol type="1"><li><p class="line862">Install <a class="http" href="http://pyxmpp.jajcus.net/">pyxmpp</a> &gt;= 1.0.1. <span class="anchor" id="line-64"></span></li><li><p class="line862">The Jabber bot lives in a <tt>jabberbot/</tt> directory in <a href="MoinMoin.html">MoinMoin</a>'s distribution archive. Copy it to a suitable place. Make sure that <tt>PYTHONPATH</tt> environment variable contains the directory that contains the jabberbot package. <span class="anchor" id="line-65"></span></li><li>Create an account for the bot to use using any Jabber/XMPP client. Currently it can't register the account by itself. <span class="anchor" id="line-66"></span></li><li><p class="line862">Edit the bot's configuration file, <tt>config.py</tt>, and set its account details <strong>and a secret used to communicate with the wiki</strong>. <span class="anchor" id="line-67"></span></li><li><p class="line862">Edit your wikiconfig and add <tt>notification_bot_uri</tt> and <tt>secrets&nbsp;or&nbsp;secrets[&quot;jabberbot&quot;]</tt> options to it. You will find an example in file <tt>wiki/config/more_samples/jabber_wikiconfig_snippet</tt>, distributed along with <a href="MoinMoin.html">MoinMoin</a>. Make sure to set the secret to exactly the same string as you used in the bot's configuration! <span class="anchor" id="line-68"></span></li><li>Launch / restart your wiki. <span class="anchor" id="line-69"></span></li><li><p class="line862">Launch the bot: <tt>python&nbsp;main.py</tt> <span class="anchor" id="line-70"></span></li></ol><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

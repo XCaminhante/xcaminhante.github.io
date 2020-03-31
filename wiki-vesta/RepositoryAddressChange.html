@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>RepositoryAddressChange - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: RepositoryAddressChange" href="RepositoryAddressChange%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=RepositoryAddressChange&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="RepositoryAddressChange%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="RepositoryAddressChange%3Faction=print.html">
+<link rel="Appendix" title="fixup-master-repos.pl" href="RepositoryAddressChange%3Faction=AttachFile&amp;do=view&amp;target=fixup-master-repos.pl.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="RepositoryAddressChange.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="RepositoryAddressChange.html">RepositoryAddressChange</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="RepositoryAddressChange.html">RepositoryAddressChange</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="RepositoryAddressChange%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867">
+<h1 id="Repository_Addresses">Repository Addresses</h1>
+<span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line862">Each repository has an <em>address</em> which other repositories use to contact it.  These addresses are made up of a <em>host</em> and a <em>port</em> and are written &quot;<em>host</em>:<em>port</em>&quot;.  They're used with <a class="http" href="../vesta/doc/man/html/vrepl.1.html#-s">vrepl's -s flag</a> and the -R flag used with many of <a class="http" href="../vesta/doc/man/html/repos-ui.1.html">the repository tools</a>. <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">These addresses are automatically recorded by the repository in the <tt>master-repository</tt> attributes which are used by peer repositories to locate the repository with the master copy of an object.  They're also used in the <tt>#replicate-from</tt>, <tt>#replicate-from-noac</tt>, <tt>#mastership-from</tt>, and <tt>#mastership-to</tt> attributes which control which peer repositories your repository can interact with.  (See <a href="RemoteCheckoutSetup.html">RemoteCheckoutSetup</a>.) <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867">
+<h1 id="Address_Changes">Address Changes</h1>
+<span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line874">In some cases your repository may need to change its address. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><ul><li>Perhaps your company gets acquired or just changes its domain name. <span class="anchor" id="line-16"></span></li><li>Perhaps you need to retire an old server and don't have enough control over your DNS infrastructure to preserve the old hostname. <span class="anchor" id="line-17"></span></li><li>Maybe you've decided to switch from using the actual hostname of the server to a DNS CNAME (a hostname alias) to make it easier to move to a new server in the future. <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span></li></ul><p class="line874">If this happens, you'll need to update the attributes which contain repository addresses. <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line867">
+<h1 id="fixup-master-repos.pl">fixup-master-repos.pl</h1>
+<span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867"><a class="attachment" href="RepositoryAddressChange%3Faction=AttachFile&amp;do=view&amp;target=fixup-master-repos.pl.html" title="">fixup-master-repos.pl</a> is a script which can correct the <tt>master-repository</tt> attributes for you.  There are two ways to use it: <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><ol type="1"><li><p class="line862">&quot;<tt>fixup-master-repos.pl</tt>&quot; by itself will find all the objects mastered in the local repository and correct their <tt>master-repository</tt> attributes.  This is how you should use it on the repository which is having its address changed. <span class="anchor" id="line-26"></span></li><li><p class="line862">&quot;<tt>fixup-master-repos.pl&nbsp;-o&nbsp;oldhost[:oldport]&nbsp;-n&nbsp;newhost[:newport]</tt>&quot; will find any <tt>master-repository</tt> attributes which contain the address &quot;<tt>oldhost[:oldport]</tt>&quot; and replace it with &quot;<tt>newhost[:newport]</tt>&quot;.  This is how you should use it on peer repositories which contain replicas of objects mastered in the repository having its address changed. <span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span></li></ol><p class="line862">There are a few things which this script <strong>does not do</strong> which perhaps it should: <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><ul><li><p class="line862">Propagate the updated <tt>master-repository</tt> attributes to peer repositories.  The purpose of those attributes are to allow non-master replicas to locate the master replica, so updating them solely in the local repository doesn't help the peers at all. <span class="anchor" id="line-31"></span></li><li><p class="line862">Update the <tt>#replicate-from</tt>, <tt>#replicate-from-noac</tt>, <tt>#mastership-from</tt>, and <tt>#mastership-to</tt> attributes with the new repository address.  (This could probably only work with the -o/-n options, as without those the script doesn't know the old address to replace.)  Maybe this should be optional, or ask for confirmation, as automatically modifying access controls could be a security risk. <span class="anchor" id="line-32"></span></li><li><p class="line862">Update the <tt>checkout-from</tt> and <tt>checkout-to</tt> attributes on the version reservation stubs of active checkouts.  <tt>checkout-from</tt> <a class="http" href="../vesta/doc/man/html/vcheckin.1.html#-d">is used by vcheckin to replicate new versions back to the remote master repository</a>.  <tt>checkout-to</tt> is used in informational messages generated by some tools. <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

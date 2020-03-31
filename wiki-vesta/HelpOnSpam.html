@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnSpam - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnSpam" href="HelpOnSpam%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnSpam&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnSpam%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnSpam%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnSpam.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnSpam.html">HelpOnSpam</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnSpam.html">HelpOnSpam</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnSpam%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="Managing_Spam">Managing Spam</h1>
+<span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="HelpOnSpam.html#Managing_Spam">Managing Spam</a><ol><li>
+<a href="HelpOnSpam.html#Blocking_Spam">Blocking Spam</a><ol><li>
+<a href="HelpOnSpam.html#TextChas">TextChas</a><ol><li>
+<a href="HelpOnSpam.html#What_is_a_TextCHA.3F">What is a TextCHA?</a></li><li>
+<a href="HelpOnSpam.html#TextCha_Configuration">TextCha Configuration</a></li></ol></li><li>
+<a href="HelpOnSpam.html#BadContent_.2F_LocalBadContent">BadContent / LocalBadContent</a></li><li>
+<a href="HelpOnSpam.html#Abuse_Logging">Abuse Logging</a><ol><li>
+<a href="HelpOnSpam.html#Abuse_Firewalling">Abuse Firewalling</a><ol><li>
+<a href="HelpOnSpam.html#Configuring_mod_xt_recent">Configuring mod xt_recent</a></li><li>
+<a href="HelpOnSpam.html#Blocking_Wiki_Spammers">Blocking Wiki Spammers</a></li><li>
+<a href="HelpOnSpam.html#Identifying_Wiki_Spammers">Identifying Wiki Spammers</a></li></ol></li></ol></li></ol></li><li>
+<a href="HelpOnSpam.html#Removing_Spam">Removing Spam</a></li></ol></li></ol></div> <span class="anchor" id="line-8"></span>Wikispam is getting more and more annoying. Wiki pages get high ratings in search engines because of the strong linking between the pages (and each other via <a href="InterWiki.html">InterWiki</a> links). This makes them a valuable target to increase the ranking of other pages. <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><p class="line874">But you can use a strong wiki community and also some technical means to avoid or remove spam on your wiki. <span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><p class="line867">
+<h2 id="Blocking_Spam">Blocking Spam</h2>
+<span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><p class="line867"><a href="MoinMoin.html">MoinMoin</a> contains some technical features which block spam. <span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><p class="line867">
+<h3 id="TextChas">TextChas</h3>
+<span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><p class="line867">
+<h4 id="What_is_a_TextCHA.3F">What is a TextCHA?</h4>
+<span class="anchor" id="line-19"></span><p class="line862">It is a pure text alternative to <em>CAPTCHAs</em>. MoinMoin uses it to prevent wiki spamming and it has proven to be very effective. <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line874">Features: <span class="anchor" id="line-22"></span><ul><li>for page save, ask a random question <span class="anchor" id="line-23"></span></li><li>match the given answer against a regular expression <span class="anchor" id="line-24"></span></li><li>q and a can be configured in the wiki config <span class="anchor" id="line-25"></span></li><li>multi language support: a user gets a textcha in his language or in language_default or in English (depending on availability of questions/answers for the language) <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span></li></ul><p class="line874">Tips for answering: <span class="anchor" id="line-28"></span><ul><li>you need to answer the textcha for e.g.: <span class="anchor" id="line-29"></span><ul><li>page save <span class="anchor" id="line-30"></span></li><li>attachment upload <span class="anchor" id="line-31"></span></li><li>user profile creation <span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span></li></ul></li><li class="gap">you do not need to answer the textcha for e.g.: <span class="anchor" id="line-34"></span><ul><li>page preview (if you do, it will remember what you entered, though) <span class="anchor" id="line-35"></span></li><li>user profile changes <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span></li></ul></li><li class="gap">it is usually a simple/short answer <span class="anchor" id="line-38"></span></li><li>it compares case-insensitive <span class="anchor" id="line-39"></span></li><li>sometimes you can find the right answer by reading some important pages of the wiki <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span></li></ul><p class="line867">
+<h4 id="TextCha_Configuration">TextCha Configuration</h4>
+<span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line874">Tips for configuration: <span class="anchor" id="line-44"></span><ul><li>have 1 word / 1 number answers <span class="anchor" id="line-45"></span></li><li>ask questions that normal users of your site are likely to be able to answer <span class="anchor" id="line-46"></span></li><li>do not ask too hard questions <span class="anchor" id="line-47"></span></li><li>do not ask &quot;computable&quot; questions, like &quot;1+1&quot; or &quot;2*3&quot; <span class="anchor" id="line-48"></span></li><li>do not ask too common questions <span class="anchor" id="line-49"></span></li><li>do not share your questions with other sites / copy questions from other sites (or spammers might try to adapt to this)  <span class="anchor" id="line-50"></span></li><li><p class="line862">you should at least give textchas for 'en' (or for your language_default, if that is not 'en') as this will be used as fallback if MoinMoin does not find a textcha in the user's language <span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span></li></ul><p class="line874">In your wiki config, do something like this: <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><pre><span class="anchor" id="line-1"></span>    textchas_disabled_group = u&quot;TrustedEditorGroup&quot; # members of this don't get textchas
+<span class="anchor" id="line-2"></span>    textchas = {
+<span class="anchor" id="line-3"></span>        'en': { # silly english example textchas (do not use them!)
+<span class="anchor" id="line-4"></span>            u&quot;Enter the first 9 digits of Pi.&quot;: ur&quot;3\.14159265&quot;,
+<span class="anchor" id="line-5"></span>            u&quot;What is the opposite of 'day'?&quot;: ur&quot;(night|nite)&quot;,
+<span class="anchor" id="line-6"></span>            # ...
+<span class="anchor" id="line-7"></span>        },
+<span class="anchor" id="line-8"></span>        'de': { # some german textchas
+<span class="anchor" id="line-9"></span>            u&quot;Gib die ersten 9 Stellen von Pi ein.&quot;: ur&quot;3\.14159265&quot;,
+<span class="anchor" id="line-10"></span>            u&quot;Was ist das Gegenteil von 'Tag'?&quot;: ur&quot;nacht&quot;,
+<span class="anchor" id="line-11"></span>            # ...
+<span class="anchor" id="line-12"></span>        },
+<span class="anchor" id="line-13"></span>        # you can add more languages if you like
+<span class="anchor" id="line-14"></span>    }</pre><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><p class="line862">Note that <a class="nonexistent" href="TrustedEditorGroup.html">TrustedEditorGroup</a> from above example can have groups as members. <span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><p class="line867">
+<h3 id="BadContent_.2F_LocalBadContent">BadContent / LocalBadContent</h3>
+<span class="anchor" id="line-74"></span><p class="line862">You can ban certain content within contributions by listing regular expressions on the your '<a href="BadContent.html">BadContent</a>' page. <span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><p class="line874">If a user tries to save a page and its content matches any of these regular expressions, then saving that page will be denied (until the offending content is removed from the editor). <span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><p class="line862">You can also enable an automatic update of <a href="BadContent.html">BadContent</a> via your wikiconfig. This is enabled by this line: <span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><pre><span class="anchor" id="line-1-1"></span>    from MoinMoin.security.antispam import SecurityPolicy</pre><span class="anchor" id="line-82"></span><p class="line862">see <a href="HelpOnConfiguration/SecurityPolicy.html">HelpOnConfiguration/SecurityPolicy</a> <span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><p class="line867">
+<h3 id="Abuse_Logging">Abuse Logging</h3>
+<span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><p class="line874">Moin 1.9.8 added abuse logging.  Events that often indicate the presence of a wiki spammer are logged.  Tools like fail2ban, swatch, logsurfer, or a custom script can be used to process the logs, identify the IP numbers from which spam is coming, and instruct the system firewall to block the spammers.  Linux iptables and its &quot;recent&quot; module is often used on the firewall side. <span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><p class="line867">
+<h4 id="Abuse_Firewalling">Abuse Firewalling</h4>
+<span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><p class="line874">The firewalling approach outlined here uses Linux iptables and it's xt_recent module to keep track of and block the IP numbers of discovered spammers.  Swatch is used to monitor the abuse logs to identify spammers. <span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><p class="line874">Note that the example presented here is only a guide.  The details will vary depending on your requirements and your present firewall configuration.  They may also vary depending on your OS version or other factors.  Careful testing is required. <span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><p class="line867"><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><div class="warning"><span class="anchor" id="line-1-1"></span><p class="line874">Improper firewall configuration can lock you out of your system.   To recover physical access to the system console may be required. </div><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><p class="line874">As presented here, wikispam will be blocked only after system reboot. <span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><p class="line874">The general outline of the example is as follows:  The wiki logs user actions.  The swatch program monitors the logs and decides which actions taking place over what time period indicate the presence of a spammer.  When swatch finds a spammer it extracts the spammer's IP number from the log and puts it on a &quot;block&quot; list used by iptables' xt_recent module.  Iptables uses xt_recent to block the spammer for a given period of time.  After the time limit has passed the spammer's IP number is removed from the block list by iptables.  The OS must configure xt_recent to allow for a large number of blocked IPs. <span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><p class="line867">
+<h5 id="Configuring_mod_xt_recent">Configuring mod xt_recent</h5>
+<span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><p class="line874">The xt_recent module only tracks 100 IP numbers by default.  This is probably much too few.  Configure the module to track a <span class="anchor" id="line-105"></span>larger number of IP numbers. <span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><p class="line862">On Red-Hat derived systems this is done by adding the following to <tt>/etc/sysconfig/modules/iptables.modules</tt>: <span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><p class="line867"><span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><span class="anchor" id="line-113"></span><pre><span class="anchor" id="line-1-2"></span># ! / b i n / s h   &lt;-- This needs to have the spaces removed
+<span class="anchor" id="line-2-1"></span># This file is /etc/sysconfig/modules/iptables.modules
+<span class="anchor" id="line-3-1"></span>modprobe xt_recent ip_list_tot=1009</pre><span class="anchor" id="line-114"></span><span class="anchor" id="line-115"></span><p class="line862">The above file should be made executable, <tt>chmod&nbsp;a+x&nbsp;/etc/sysconfig/modules/iptables.modules</tt> <span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><p class="line862">On Debian derived systems create the file <tt>/etc/modprobe.d/xt_recent.conf</tt>: <span class="anchor" id="line-118"></span><span class="anchor" id="line-119"></span><p class="line867"><span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><pre><span class="anchor" id="line-1-3"></span># This file is /etc/modprobe.d/xt_recent.conf
+<span class="anchor" id="line-2-2"></span>options xt_recent ip_list_tot=1009</pre><span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><p class="line874">Without knowing the details, the choice of a prime number for ip_list_tot will always be good, since the module hashes the IP numbers. <span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><p class="line867">
+<h5 id="Blocking_Wiki_Spammers">Blocking Wiki Spammers</h5>
+<span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><p class="line874">The following iptables rules blocks discovered spammers for 100 days. <span class="anchor" id="line-129"></span>They are blocked from port 80, the http port, and so denied use <span class="anchor" id="line-130"></span>of the webserver. <span class="anchor" id="line-131"></span><span class="anchor" id="line-132"></span><p class="line867"><span class="anchor" id="line-133"></span><span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span><span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span><span class="anchor" id="line-141"></span><span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span><span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span><span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><span class="anchor" id="line-150"></span><pre><span class="anchor" id="line-1-4"></span># Make chains to support spam blocking
+<span class="anchor" id="line-2-3"></span># (Newer kernels will have --reap and rules can be reworked to omit the spamfound chain.)
+<span class="anchor" id="line-3-2"></span>iptables -N wikispam
+<span class="anchor" id="line-4-1"></span>iptables -N spamfound
+<span class="anchor" id="line-5-1"></span>
+<span class="anchor" id="line-6-1"></span># Drop if on the spam list within the last 100 days
+<span class="anchor" id="line-7-1"></span>iptables -A wikispam -m recent \
+<span class="anchor" id="line-8-1"></span>         --name wikispam --rcheck --seconds 8640000 -g spamfound
+<span class="anchor" id="line-9-1"></span>
+<span class="anchor" id="line-10-1"></span># Remove abuser from spam list after 100 days
+<span class="anchor" id="line-11-1"></span>iptables -A wikispam -m recent --name wikispam --remove -j RETURN
+<span class="anchor" id="line-12-1"></span>
+<span class="anchor" id="line-13-1"></span># Found spam, drop packet
+<span class="anchor" id="line-14-1"></span>iptables -A spamfound -j DROP
+<span class="anchor" id="line-15"></span>
+<span class="anchor" id="line-16"></span># Use the wikispam chain to check all http traffic
+<span class="anchor" id="line-17"></span>iptables -A INPUT -p tcp --dport 80 -j wikispam</pre><span class="anchor" id="line-151"></span><span class="anchor" id="line-152"></span><p class="line874">These rules should be inserted at the appropriate <span class="anchor" id="line-153"></span>point into the existing firewall rules. <span class="anchor" id="line-154"></span><span class="anchor" id="line-155"></span><p class="line874">Note that this example includes no provision for saving the list of <span class="anchor" id="line-156"></span>discovered spammers (in <tt>/proc/net/xt_recent/wikispam</tt>) <span class="anchor" id="line-157"></span>and restoring the list on reboot.  Rebooting the system <span class="anchor" id="line-158"></span>empties the list of discovered spammers. <span class="anchor" id="line-159"></span><span class="anchor" id="line-160"></span><p class="line867">
+<h5 id="Identifying_Wiki_Spammers">Identifying Wiki Spammers</h5>
+<span class="anchor" id="line-161"></span><span class="anchor" id="line-162"></span><p class="line862">The following <tt>/etc/swatch.conf</tt> file identifies as spammers those who are denied edit permission from wiki pages with more than 100 characters in their page name, at least 3 times within 1 day. <span class="anchor" id="line-163"></span><span class="anchor" id="line-164"></span><p class="line867"><span class="anchor" id="line-165"></span><span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span><span class="anchor" id="line-168"></span><span class="anchor" id="line-169"></span><span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span><span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span><pre><span class="anchor" id="line-1-5"></span># This file is /etc/swatch.conf
+<span class="anchor" id="line-2-4"></span>
+<span class="anchor" id="line-3-3"></span># 3 failed attempts to edit a page of more than 100 characters within 1 day
+<span class="anchor" id="line-4-2"></span>watchfor / WARNING MoinMoin\.util\.abuse:37 : edit\/no permissions: status failure: [^:]*: ip ([.0123456789]*): page .{100,}/
+<span class="anchor" id="line-5-2"></span>  threshold track_by=$1, type=both, count=3, seconds=86400
+<span class="anchor" id="line-6-2"></span>     # exec 'logger -t swatch-wikispam -p local0.info &quot;denied $1: 3 edits of a page having a name of 100 chars or more, within 1 day&quot;'
+<span class="anchor" id="line-7-2"></span>     exec 'echo +$1 &gt;/proc/net/xt_recent/wikispam'
+<span class="anchor" id="line-8-2"></span>     continue</pre><span class="anchor" id="line-174"></span><span class="anchor" id="line-175"></span><p class="line874">Note that the above assumes no special abuse logging configuration. <span class="anchor" id="line-176"></span><span class="anchor" id="line-177"></span><p class="line862">Finally, swatch must be started.  The following lines can be added to <tt>/etc/rc.local</tt>: <span class="anchor" id="line-178"></span><span class="anchor" id="line-179"></span><p class="line867"><span class="anchor" id="line-180"></span><span class="anchor" id="line-181"></span><span class="anchor" id="line-182"></span><span class="anchor" id="line-183"></span><pre><span class="anchor" id="line-1-6"></span># Start the swatch daemon
+<span class="anchor" id="line-2-5"></span># (Adjust to watch your webserver's error log file.)
+<span class="anchor" id="line-3-4"></span>swatch --daemon --tail-args '-F -n0' -c /etc/swatch.conf -t /var/log/httpd/error_log</pre><span class="anchor" id="line-184"></span><span class="anchor" id="line-185"></span><span class="anchor" id="line-186"></span><p class="line867">
+<h2 id="Removing_Spam">Removing Spam</h2>
+<span class="anchor" id="line-187"></span><span class="anchor" id="line-188"></span><p class="line862">If you are a <a href="HelpOnSuperUser.html">SuperUser</a>, you can use the &quot;Remove Spam&quot; action to mass-revert changes of some spammer (or some other <em>bad guy</em>). <span class="anchor" id="line-189"></span><span class="anchor" id="line-190"></span><ol type="1"><li>Select &quot;Remove Spam&quot; from the available actions. <span class="anchor" id="line-191"></span></li><li>Select the user (usually part of the IP) <span class="anchor" id="line-192"></span></li><li>Select &quot;Revert All&quot; <span class="anchor" id="line-193"></span></li><li>You will see how moin tries to revert his edits. This does not work in every case, so you may have to clean up some of his edits manually. <span class="anchor" id="line-194"></span></li></ol><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

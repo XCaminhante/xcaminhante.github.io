@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>MvfindpkgsPl - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: MvfindpkgsPl" href="MvfindpkgsPl%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=MvfindpkgsPl&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="MvfindpkgsPl%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="MvfindpkgsPl%3Faction=print.html">
+<link rel="Appendix" title="mvfindpkgs.pl" href="MvfindpkgsPl%3Faction=AttachFile&amp;do=view&amp;target=mvfindpkgs.pl.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="MvfindpkgsPl.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="MvfindpkgsPl.html">MvfindpkgsPl</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="MvfindpkgsPl.html">MvfindpkgsPl</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="MvfindpkgsPl%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line867">
+<h2 id="mvfindpkgs.pl">mvfindpkgs.pl</h2>
+<span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line862">This script is useful to find all the packages in your work area assuming those packages are nested w/in hierarchy.  If all your packages are just <tt>/vesta-work/$USER/pkgname</tt> then this is probably not useful to you. <span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">You can dl it here: <span class="anchor" id="line-6"></span><script>
+function checkAll(bx, targets_name) {
+  var cbs = document.getElementsByTagName('input');
+  for(var i=0; i < cbs.length; i++) {
+    if(cbs[i].type == 'checkbox' && cbs[i].name == targets_name) {
+      cbs[i].checked = bx.checked;
+    }
+  }
+}
+</script>
+<form method="POST">
+<input type="hidden" name="action" value="AttachFile">
+<input type="hidden" name="do" value="multifile">
+<ul><li>[<a href="MvfindpkgsPl%3Faction=AttachFile&amp;do=get&amp;target=mvfindpkgs.pl">get</a>&nbsp;| <a href="MvfindpkgsPl%3Faction=AttachFile&amp;do=view&amp;target=mvfindpkgs.pl.html">view</a>]<input type="checkbox" name="fn" value="mvfindpkgs.pl"> (2005-08-24 21:22:35, 1.3 KB) [[attachment:mvfindpkgs.pl]]</li></ul><input type="checkbox" onclick="checkAll(this, 'fn')">&nbsp;All files&nbsp;|&nbsp;Selected Files:
+<input type="radio" name="multifile" value="rm">delete</input>
+<input type="radio" name="multifile" value="mv">move to page</input>
+<input type="radio" name="multifile" value="cp">copy to page</input>
+<input type="text" name="multi_dest_pagename" value="MvfindpkgsPl">
+<input type="submit" value="Do it.">
+</form> <span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line867"><span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><pre><span class="anchor" id="line-1"></span>sub prt {
+<span class="anchor" id="line-2"></span>    print &quot;mvfindpkgs.pl: &quot;, @_, &quot;          (\$0=$0)&quot;;
+<span class="anchor" id="line-3"></span>}
+<span class="anchor" id="line-4"></span>
+<span class="anchor" id="line-5"></span>$w = $ARGV[0] || do{$tmp= `vgetconfig UserInterface DefaultWorkParent`;chop $tmp; $tmp . &quot;/&quot; . $ENV{USER}};
+<span class="anchor" id="line-6"></span>$w =~ m{/$} or $w .= &quot;/&quot;;
+<span class="anchor" id="line-7"></span>
+<span class="anchor" id="line-8"></span>prt &quot;work dir: $w                         &quot;;
+<span class="anchor" id="line-9"></span>
+<span class="anchor" id="line-10"></span># depth-first traversal of arg dir
+<span class="anchor" id="line-11"></span>sub process_dir {
+<span class="anchor" id="line-12"></span>    my $dir = shift;
+<span class="anchor" id="line-13"></span>
+<span class="anchor" id="line-14"></span>    my @dirs = `ls -p $dir/|grep /\$`;
+<span class="anchor" id="line-15"></span>
+<span class="anchor" id="line-16"></span>    #prt scalar @dirs, &quot; dirs in $dir&quot;;
+<span class="anchor" id="line-17"></span>    
+<span class="anchor" id="line-18"></span>    foreach (@dirs) {
+<span class="anchor" id="line-19"></span>
+<span class="anchor" id="line-20"></span>        chomp;
+<span class="anchor" id="line-21"></span>
+<span class="anchor" id="line-22"></span>        my $is_co        = 0;
+<span class="anchor" id="line-23"></span>        my $is_scribble  = 0;
+<span class="anchor" id="line-24"></span>        my $is_plain_dir = 0;
+<span class="anchor" id="line-25"></span>
+<span class="anchor" id="line-26"></span>
+<span class="anchor" id="line-27"></span>        chomp (my $canonical_dir   = `csh -fc 'cd $dir$_;pwd'`);
+<span class="anchor" id="line-28"></span>        chomp (my $w_snapshots_dir = `vattrib -g session-dir $canonical_dir`);
+<span class="anchor" id="line-29"></span>        chomp (my $w_snapshots_ver = `vattrib -g session-ver-arc $canonical_dir`);
+<span class="anchor" id="line-30"></span>        chomp (my $next_ver_num    = `vattrib -g new-version $canonical_dir`);
+<span class="anchor" id="line-31"></span>
+<span class="anchor" id="line-32"></span>        if ($w_snapshots_dir eq &quot;&quot;) {
+<span class="anchor" id="line-33"></span>            $is_plain_dir = 1;
+<span class="anchor" id="line-34"></span>            process_dir (&quot;$dir$_&quot;);
+<span class="anchor" id="line-35"></span>        } elsif ($next_ver_num eq &quot;&quot;) {
+<span class="anchor" id="line-36"></span>            $is_scribble = 1;
+<span class="anchor" id="line-37"></span>        } else {
+<span class="anchor" id="line-38"></span>            $is_co = 1;
+<span class="anchor" id="line-39"></span>        }
+<span class="anchor" id="line-40"></span>
+<span class="anchor" id="line-41"></span>        $is_co       and prt &quot;checkout: $dir$_            ($w_snapshots_dir/$w_snapshots_ver)&quot;;
+<span class="anchor" id="line-42"></span>        $is_scribble and prt &quot;scribble: $dir$_            ($w_snapshots_dir/$w_snapshots_ver)&quot;;
+<span class="anchor" id="line-43"></span>                
+<span class="anchor" id="line-44"></span>    }
+<span class="anchor" id="line-45"></span>}
+<span class="anchor" id="line-46"></span>
+<span class="anchor" id="line-47"></span>process_dir($w);</pre><span class="anchor" id="line-59"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>CacheUnderTheHood/FindEntryOnDisk - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: CacheUnderTheHood/FindEntryOnDisk" href="FindEntryOnDisk%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=CacheUnderTheHood%252FFindEntryOnDisk&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="FindEntryOnDisk%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="FindEntryOnDisk%3Faction=print.html">
+<link rel="Up" href="../CacheUnderTheHood.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="FindEntryOnDisk.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="../CacheUnderTheHood.html">CacheUnderTheHood</a></li><li><a href="FindEntryOnDisk.html">FindEntryOnDisk</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="FindEntryOnDisk.html">FindEntryOnDisk</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="FindEntryOnDisk%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line862">To find a cache entry on disk, you need to know its <a href="../PrimaryKey.html">PrimaryKey</a> and its <a href="../CacheIndex.html">CacheIndex</a>.  If you only have the <a href="../CacheIndex.html">CacheIndex</a>, you can use the <a href="../GraphLog.html">GraphLog</a> to find the <a href="../PrimaryKey.html">PrimaryKey</a> (see <a href="PrimaryKeyFromCacheIndex.html">CacheUnderTheHood/PrimaryKeyFromCacheIndex</a>). <span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line862">The collection of all entries with the same primary key is called a <em>PKFile</em>.  A cache entry on disk is found in its PKFile. <span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line862">Because there can be a very large number of PKFiles (up to 2^128 as primary keys are 128-bit numbers), the cache groups PKFiles together on disk rather than creating one file per PKFile.   Currently this grouping is done using the first 16 bits of the primary key.  Such a collection of PKFiles with the same prefix is called a <em>MultiPKFile</em>. <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><p class="line862">Suppose we're looking for <a href="../CacheIndex.html">CacheIndex</a> 1234 that has the <a href="../PrimaryKey.html">PrimaryKey</a>: <span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><ul><li style="list-style-type:none">17973c765efe206e 982e987fd2796a69 <span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span></li></ul><p class="line862">We need to first 16 bits (first 4 hex digits) from the <a href="../PrimaryKey.html">PrimaryKey</a>: <span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><ul><li style="list-style-type:none">1797 <span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span></li></ul><p class="line862">This is called a <em>primary key prefix</em> or <em>PK prefix</em>.  It uniquely identifies a MultiPKFile. <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><p class="line862">Next we need to know where the cache server stores its data.  To find out we can use <a class="http" href="../vesta/doc/man/html/WhichCache.1.html">WhichCache</a>: <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line867"><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><pre><span class="anchor" id="line-1"></span>% WhichCache
+<span class="anchor" id="line-2"></span>Cache information:
+<span class="anchor" id="line-3"></span>  Hostname:    vesta.example.com
+<span class="anchor" id="line-4"></span>  Port number  21773
+<span class="anchor" id="line-5"></span>  Stable root: /var/lib/vesta/cache</pre><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line862">Inside the &quot;Stable root&quot; there is a directory named &quot;sCache&quot; in which the MultiPKFiles are stored.  (Actually, you can change the name of this directory with <tt>[CacheServer]SCacheDir</tt> in vesta.cfg, but nodoy ever does.) <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><p class="line862">Inside the &quot;sCache&quot; directory, there is a directory named &quot;gran-16&quot;.  (The name comes from the fact that MultiPKFiles use a <em>granularity</em> of <em>16</em> bits to group the PKFiles.) <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><p class="line874">Inside the &quot;sCache/gran-16&quot; directory there are directories with the first 8 bits of each PK prefix.  Inside those directories are files named with the second 8 bits of the PK prefix.  So with our example PK prefix of 1797, the MultiPKFile would be: <span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><ul><li style="list-style-type:none">/var/lib/vesta/cache/sCache/gran-16/17/97 <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span></li></ul><p class="line862">The <a class="http" href="../vesta/doc/man/html/PrintMPKFile.1.html">PrintMPKFile</a> utility prints the contents of a MultiPKFile: <span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><p class="line867"><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><pre><span class="anchor" id="line-1-1"></span>% PrintMPKFile /var/lib/vesta/cache/sCache/gran-16/17/97
+<span class="anchor" id="line-2-1"></span>// ##########################################################################
+<span class="anchor" id="line-3-1"></span>// &lt;MultiPKFile&gt; (/var/lib/vesta/cache/sCache/gran-16/17/97)
+<span class="anchor" id="line-4-1"></span>// ##########################################################################
+<span class="anchor" id="line-5-1"></span>
+<span class="anchor" id="line-6"></span>num = 1
+<span class="anchor" id="line-7"></span>pk = 17973c765efe206e 982e987fd2796a69, offset = 38
+<span class="anchor" id="line-8"></span>
+<span class="anchor" id="line-9"></span>// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+<span class="anchor" id="line-10"></span>// &lt;PKFile&gt; (offset 38)
+<span class="anchor" id="line-11"></span>// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+<span class="anchor" id="line-12"></span>
+<span class="anchor" id="line-13"></span>pk  = 17973c765efe206e 982e987fd2796a69
+<span class="anchor" id="line-14"></span>num = 2
+<span class="anchor" id="line-15"></span>cfp = 629a34e80c8ec9d9 6155f94e77c3face, offset = 24001
+<span class="anchor" id="line-16"></span>cfp = 30d322d7b22b9943 8b0f15e4dd209280, offset = 133205
+<span class="anchor" id="line-17"></span>
+<span class="anchor" id="line-18"></span>// &lt;PKEntries&gt; (offset 24001)
+<span class="anchor" id="line-19"></span>numEntries = 1
+<span class="anchor" id="line-20"></span>
+<span class="anchor" id="line-21"></span>// &lt;PKEntries&gt; (offset 133205)
+<span class="anchor" id="line-22"></span>numEntries = 1</pre><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><p class="line874">You can get a lot more information by giving PrintMPKFile the &quot;-verbose&quot; command-line flag. <span class="anchor" id="line-66"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>ThinkingAboutBigPackages - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: ThinkingAboutBigPackages" href="ThinkingAboutBigPackages%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=ThinkingAboutBigPackages&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="ThinkingAboutBigPackages%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="ThinkingAboutBigPackages%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="ThinkingAboutBigPackages.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="ThinkingAboutBigPackages.html">ThinkingAboutBigPackages</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="ThinkingAboutBigPackages.html">ThinkingAboutBigPackages</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="ThinkingAboutBigPackages%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line874">Vesta supports arbitrarily large packages, but traditionally packages are sized such that typically only one person is actively changing a package at a time. So, for projects which have lots of simultaneous developers this manifests as lots of small packages. Projects which haver fewer simultaneous developers (like the Vesta source itself), packages have tended to be larger granularity. <span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line874">The reason that Vesta has this usage model is at least partially due to the fact that Vesta has had some limitations which encourage one to use smaller packages. For example, until recently Vesta had no built-in utilities to aid users in merging--Ken's vmerge2.py script is an example of a utility that can close the merging gap. Below (in section 2) I discuss a couple more utilities that I am working on to aid in support for big packages. <span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line862">Another reason that Vesta traditionally uses smaller packages is that it better fits the build-time configuration mindset that is one of Vesta's key characteristics. One can simply select the versions of packages in an SDL model to get the configuration that he or she wants (so long as all the mixing &amp; matching is a package granularity). The larger the package, the more likely a user will need to go &quot;out-of-band&quot; by manually copying files in order to mix and match versions of files. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Why_big_packages.3F">Why big packages?</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">The obvious reason to use big packages is that it is more user-friendly for the tastes of some people, at least for the common case of linear development. A user types a single command to get a copy of the entire development tree, edits whatever files they want to edit, and then types a single command to merge the result into the next version of the development tree. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">A less obvious reason (but ultimately more important) is that any refactoring (removing/moving/changing directory structure) is *much* easier within a package than between packages in Vesta. This isn't necessarily a knock on Vesta--but for some users refactoring is such a critical function that it needs a graceful solution. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line862">If there were anything worth addressing in a hypothetical Vesta-3, I'd say that it is the tension between wanting small packages (to allow graceful mixing &amp; matching of source files) and wanting big packages (to better support refactoring). That's just one man's opinion, though. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">Finally, another really good reason to support big packages is that it directly emphasizes one of Vesta's strengths, its copy on write virtual filesystem. Users of CVS or Perforce (among others) are used to having to wait for long periods of time to sync their client view to the top of tree because their revision control systems rely on physically copying the bits in order to give their users a mutable version of the repository. For some reason these users aren't too impressed by Vesta's navigable immutable filesystem (probably because it requires cd'ing back and forth between that and the mutable version)--but they are really impressed by its ability to fetch a mutable user 'view' of the repository instantly. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line867">
+<h1 id="How_do_we_support_big_packages.3F">How do we support big packages?</h1>
+<span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line874">These are the features that I think Vesta needs to better support this model. I'm hoping to get some feedback from the experts here on these plans as I go about implementing them: <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><ul><li><p class="line862">vmerge : I think Ken's vmerge2.py script is mostly what we need here. One problem is that (for very large packages), the overhead of the UNIX 'cp' command is too high (it's used in cases where we need to freshen a file or directory without merging). Based on some IRC chat with Ken, my plan here is to (a) SWIGify the insertFile &amp; insertImmutableDirectory calls from <a href="VestaSource.html">VestaSource</a>, (b) change the 'cp' part of vmerge2.py to use a quicker insertFile/insertImmutableDirectory to link in an existing source file. <span class="anchor" id="line-22"></span><ul><li><p class="line862">(<a href="KenSchalk.html">KenSchalk</a>) Note that there are a couple major limitations to be aware of with the current implementation of Vesta and vmerge2.py: <span class="anchor" id="line-23"></span><ul><li><p class="line862">Merging across rename operations is not supported.  (In other words, if Alice edits file <strong>foo</strong> and Bob renames file <strong>foo</strong> to <strong>bar</strong> and they merger their changes, Alice's changes <em>will not</em> be merged into the file <strong>bar</strong>.)  Fixing this requires recording additional information when renames are performed and is a substantial change to the way versions are stored.  For more on this see <a href="MergingFuture/Food4Thought/RenameTracking.html">MergingFuture/Food4Thought/RenameTracking</a>. <span class="anchor" id="line-24"></span></li><li><p class="line862">Vesta records history as a tree rather than a <a class="http" href="http://en.wikipedia.org/wiki/Directed_acyclic_graph">DAG</a>.  In other words, it records the version each new version is based on but it doesn't record merge operations.  This means that there is limited information to help a merging algorithm determine what has happened in the past.  This can reduce the effectiveness of a merge algorithm in complex histories.  vmerge2.py has a useful property called <a class="interwiki" href="http://revctrl.org/Convergence" title="Revctrl">Convergence</a> which helps handle previous merges, but problems can still come up such as needing to manually resolve a conflict previously resolved in an earlier merge. <span class="anchor" id="line-25"></span></li></ul></li><li><p class="line862">(<a href="KenSchalk.html">KenSchalk</a>) For a lot more on merging, see <a href="MergingFuture.html">MergingFuture</a> <span class="anchor" id="line-26"></span></li></ul></li><li>vdiff : I think we need a diff utility that also is more efficient at comparing very large directory trees. I think the diff-tree.py utility (ScottV?) under /vesta/beta.vestasys.org/vesta/extras/swig/13/examples/python will be sufficient. I'm planning on just cleaning this up a bit with (a) smarts about guessing that you want to diff against the newest [checked-in] version of the current package if not otherwise specified, and (b) the ability to run UNIX 'diff' between any files it determines are different. <span class="anchor" id="line-27"></span><ul><li><p class="line862">(<a href="KenSchalk.html">KenSchalk</a>) See the RFE <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1076351&amp;group_id=34164&amp;atid=410430">vdiff command</a> <span class="anchor" id="line-28"></span><ul><li><p class="line862">(<a class="nonexistent" href="BrannonBatson.html">BrannonBatson</a>) Thanks, that has some good info. The critical feature of diff-tree.py is that it doesn't recurse into identical directories (like vmerge2.py) by essentially comparing fingerprints. <span class="anchor" id="line-29"></span></li></ul></li><li><p class="line862">(<a href="KenSchalk.html">KenSchalk</a>) See also <a href="DiffIssues.html">DiffIssues</a> <span class="anchor" id="line-30"></span></li></ul></li><li>vsubmit : One problem is that the big package development model cannot tolerate any human-scale time lag between a vcheckout and a vcheckin. Instead, I'm thinking we'll have a vsubmit utility that: <span class="anchor" id="line-31"></span><ol type="a"><li>do a vdiff against the original version of this package to determine what has changed <span class="anchor" id="line-32"></span></li><li>see if any of those files are different in the newest checked-in version (if so then exit with a msg that the user needs to merge) <span class="anchor" id="line-33"></span><ul><li><p class="line862">(<a href="KenSchalk.html">KenSchalk</a>) I would argue that the user should be forced to merge if there have been any changes since the version which their checkout was based upon.  While it's tempting to think that if parallel changes are made to different files that it's safe to combine them, they can have semantic conflicts in the way that they're used.  (Imagine one change that removes an unused declaration from <strong>foo.h</strong> and a parallel change that adds the first use of the declaration in <strong>foo.c</strong>.)  If users are forced to create the combined change first there's at least a better chance they will review and test them before checking in to the main-line version. <span class="anchor" id="line-34"></span><ul><li><p class="line862">(<a class="nonexistent" href="BrannonBatson.html">BrannonBatson</a>) I see what you're getting at, but I disagree. There's always potential for people to change different files in a way that creates a bug. Suppose the define was in global.h in a different package altogether--we'd still have a bug. Forcing this pre-checkin reconciliation at package granularity seems pretty arbitrary to me because you get different levels of protection (and reconciliation hassle) depending on your packaging granularity. In my experience, it's nice to have the low-level revision control tools enforce reconciliation (i.e., running a merge command) at the file granularity. There can always be some meta-mechanism (enforced by tools or methodology) to help catch inter-file conflicts. <span class="anchor" id="line-35"></span><ul><li><p class="line862">(<a href="KenSchalk.html">KenSchalk</a>) Well I do tend to be an advocate of reading the diff before every checkin <strong>after</strong> checking that it builds and runs and always keeping the latest main-line version functional.  Maybe that's too dogmatic for some tastes, so it could be a matter of policy.  If you're willing to accept the possibility of parallel changes to different files with semantic conflicts getting checked in to the package main line, you could go further use the merge algorithm inside vmerge2.py to check whether parallel edits to the same file merge cleanly (i.e. result in zero conflicts) and automatically check in the merged version in that case. <span class="anchor" id="line-36"></span></li></ul></li></ul></li></ul></li><li><p class="line862">vcheckout &lt;big_pkg&gt; <span class="anchor" id="line-37"></span></li><li>repeat step b to cover the race case, if there was a conflict then vcheckin -c 0 to revert the checkout and exit with the message about needing to merge. <span class="anchor" id="line-38"></span><ul><li><p class="line862">(<a href="KenSchalk.html">KenSchalk</a>) I'd suggest avoiding the race case altogether.  Rather than using vcheckout's default behavior of reserving the next version in line, it might be better to use vcheckout's -n flag to explicitly request the next version after the one that the change is based upon.  Suppose you have a change in a non-exclusive checkout version <tt>foo/checkout/12.jsmith_example.com.3/4</tt>.  This would be based on <tt>foo/12</tt>, so when checking out you could pass &quot;-n 13&quot;.  If the checkout succeeds, no intervening changes have been made so it's safe to promote the edits into a new main-line version.  If the checkout fails because another user got <tt>foo/13</tt> first, the user could be offered to merge their changes into a new non-exclusive checkout based on the latest version. <span class="anchor" id="line-39"></span><ul><li><p class="line862">(<a class="nonexistent" href="BrannonBatson.html">BrannonBatson</a>) That's an interesting idea, and worth further consideration. My initial reaction, though, is that with the entire development tree in single big package then it would frequently be the case that a checkin fails just because some completely unrelated files were modified. <span class="anchor" id="line-40"></span></li></ul></li></ul></li><li><p class="line862">copy the changed files (from step a) into the new &lt;big_pkg&gt; working directory, vadvance &amp; vcheckin <span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span></li></ol></li></ul><p class="line874">TBD. <span class="anchor" id="line-43"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

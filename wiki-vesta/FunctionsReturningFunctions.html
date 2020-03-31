@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>FunctionsReturningFunctions - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: FunctionsReturningFunctions" href="FunctionsReturningFunctions%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=FunctionsReturningFunctions&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="FunctionsReturningFunctions%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="FunctionsReturningFunctions%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="FunctionsReturningFunctions.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="FunctionsReturningFunctions.html">FunctionsReturningFunctions</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="FunctionsReturningFunctions.html">FunctionsRe...ngFunctions</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="FunctionsReturningFunctions%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line867">
+<h2 id="Functions_that_return_Functions_-_Closures">Functions that return Functions - Closures</h2>
+<span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line862">There's a good example here: <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/env_build/1/build.ves&amp;hilight=1">http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/env_build/1/build.ves&amp;hilight=1</a> line 169   : <span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line867"><span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><pre><span class="anchor" id="line-1"></span>/**nocache**/
+<span class="anchor" id="line-2"></span>build_X_delayed(f)(l:list(text))() { return ./$f(l); };
+<span class="anchor" id="line-3"></span>
+<span class="anchor" id="line-4"></span>build_root_delayed = build_X_delayed(&quot;build_root&quot;);
+<span class="anchor" id="line-5"></span>build_addon_root_delayed = build_X_delayed(&quot;build_addon_root&quot;);
+<span class="anchor" id="line-6"></span>build_envVars_delayed = build_X_delayed(&quot;build_envVars&quot;);
+<span class="anchor" id="line-7"></span>build_root_and_envVars_delayed = build_X_delayed(&quot;build_root_and_envVars&quot;);</pre><p class="line874"> <span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><p class="line862">the double paren thing lets you call the func with just the first param, and it returns a <em>another function</em> with the first param set to that.  You can now call this second function with the remaining param(s). <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><p class="line862">So, in the above example, now one could call <tt>build_root_delayed</tt> : <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line867"><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><pre><span class="anchor" id="line-1-1"></span>./root = build_root_delayed(&lt;...&gt;);</pre><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><p class="line867"><tt>build_X_delayed</tt> will now be called with the <tt>f</tt> param bound to <tt>&quot;build_root&quot;</tt>. <span class="anchor" id="line-27"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

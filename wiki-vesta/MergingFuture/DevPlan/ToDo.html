@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>MergingFuture/DevPlan/ToDo - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: MergingFuture/DevPlan/ToDo" href="ToDo%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=MergingFuture%252FDevPlan%252FToDo&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="ToDo%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="ToDo%3Faction=print.html">
+<link rel="Up" href="../DevPlan.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="ToDo.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="MergingFuture.html">MergingFuture</a></li><li><a href="../DevPlan.html">DevPlan</a></li><li><a href="ToDo.html">ToDo</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="ToDo.html">ToDo</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="ToDo%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="ToDo.html#Incorporate_Simple_3-way_Merge_in_Main-line_Vesta_Release">Incorporate Simple 3-way Merge in Main-line Vesta Release</a></li><li>
+<a href="ToDo.html#Fix_Bugs_and_Add_Features_Related_to_Merging">Fix Bugs and Add Features Related to Merging</a></li><li>
+<a href="ToDo.html#Improve_Basic_3-way_Merge_Capability">Improve Basic 3-way Merge Capability</a></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Incorporate_Simple_3-way_Merge_in_Main-line_Vesta_Release">Incorporate Simple 3-way Merge in Main-line Vesta Release</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">We already have <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/vesta/merging">a usable 3-way merge tool</a>.  It's build on top of the 3-way merge command-line tool that's packaged with RCS.  While it's far from perfect, it gives Vesta merging capability similar with CVS or Subversion. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">The trouble is, this merge tool is a Perl script written using <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/vesta/extras/swig">the SWIG interface to the Vesta APIs</a>.  In order to make it useful for the general public, we need to do one of two things: <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><ol type="1"><li>Package the SWIG interfaces for installation like the rest of Vesta (in .rpm/.deb form) and gnerally figure out how to make them work in more environments with more different versions of the scripting languages they target. <span class="anchor" id="line-14"></span></li><li>Re-write the vmerge tool in C++. <span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span></li></ol><p class="line862">Option #1 is defintiely better, as it will have other benefits (like making it possible to write other scripts using the SWIG interfaces, such as an improved <a class="http" href="http://www.scooter.cx/vestaweb/">vestaweb</a>.  However, it might be a bit more complicated.  It might be best to facilitate building the SWIG itnerface outside of Vesta (rather than making many more std_envs for different versions of different Linux distributions and other operating systems).  This might mean package the Vesta libraries and their headers for use outside Vesta.  This could also tie in with <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1085473&amp;group_id=34164&amp;atid=410430">using autoconf to build Vesta outside Vesta</a>. <span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><p class="line862">On the other hand, making a Perl script part of the Vesta core adds a dependence on an external piece of software.  Re-writing vmerge in C++ might make it simpler to support more operating systems.  Of course to really make it portable we shouldn't be calling out to the <tt>merge(1)</tt> command that comes with RCS to do the work.  (I have several times heard other revision control authors mention eliminating dependencies on external programs as common as <tt>diff(1)</tt>.) <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><p class="line867">
+<h1 id="Fix_Bugs_and_Add_Features_Related_to_Merging">Fix Bugs and Add Features Related to Merging</h1>
+<span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line874">There's a lot of little issues related to merging which we need to deal with: <span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><ul><li><p class="line862">We plan to base several merging related capabilites on <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=824562&amp;group_id=34164&amp;atid=410430">triggers</a>, which need to be completed. <span class="anchor" id="line-25"></span></li><li><p class="line891"><a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1206666&amp;group_id=34164&amp;atid=410427">vcheckin gets old-version wrong in some cases</a>.  This causes confusion about the ancestry of versions, which is informaiton needed for merging.  The current vmerge script has a partial work-around for this problem, but we should really fix it. <span class="anchor" id="line-26"></span></li><li><p class="line862">We'd like the repository to <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1195227&amp;group_id=34164&amp;atid=410430">record renames</a>.  This is needed to support merging across a rename operation, which is one of the tricky merging cases.  (Note that our plan is to use triggers for part of this.) <span class="anchor" id="line-27"></span></li><li><p class="line862">Merging needs to traverse the ancestry of versions being merged.  We may need to add a method for the replicator to follow the <tt>old-version</tt> attributes to determine what to replicate.  Or maybe we should have a utility program which generates replicator instructions with a method like this. <span class="anchor" id="line-28"></span></li><li><p class="line862">We want a <tt>vundo</tt>/<tt>vrewind</tt> command to back up the state of a working directory to the point before a merge operation was performed.  (This is described in <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1076366&amp;group_id=34164&amp;atid=410430">the merging RFE</a>.) <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span></li></ul><p class="line867"><em>@@@ Add more stuff here</em> <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><p class="line867">
+<h1 id="Improve_Basic_3-way_Merge_Capability">Improve Basic 3-way Merge Capability</h1>
+<span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><p class="line874">There are several things which we could do with 3-way merge that the current one doesn't: <span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><ul><li><p class="line862">Once we have <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=824562&amp;group_id=34164&amp;atid=410430">triggers</a>, we can implemented the recording of past merges performed as described in <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1076366&amp;group_id=34164&amp;atid=410430">the merging RFE</a>. <span class="anchor" id="line-37"></span></li><li>With records of past merges, we can avoid merging the same thing twice, by treating past merges as common ancestors. <span class="anchor" id="line-38"></span></li><li><p class="line862">Once <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1195227&amp;group_id=34164&amp;atid=410430">the repository records renames</a>, we can add merging across renames. <span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span></li></ul><p class="line867"><em>@@@ Add more stuff here</em> <span class="anchor" id="line-41"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

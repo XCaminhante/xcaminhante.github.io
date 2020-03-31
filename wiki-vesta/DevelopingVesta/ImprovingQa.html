@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>DevelopingVesta/ImprovingQa - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: DevelopingVesta/ImprovingQa" href="ImprovingQa%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=DevelopingVesta%252FImprovingQa&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="ImprovingQa%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="ImprovingQa%3Faction=print.html">
+<link rel="Up" href="DevelopingVesta.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="ImprovingQa.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="DevelopingVesta.html">DevelopingVesta</a></li><li><a href="ImprovingQa.html">ImprovingQa</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="ImprovingQa.html">ImprovingQa</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="ImprovingQa%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="ImprovingQa.html#Improve_Unit_Tests">Improve Unit Tests</a></li><li>
+<a href="ImprovingQa.html#Automate_Running_Unit_Tests">Automate Running Unit Tests</a></li><li>
+<a href="ImprovingQa.html#Improve_Integration_Testing">Improve Integration Testing</a></li><li>
+<a href="ImprovingQa.html#Make_Integration_Testing_Setup_Easier">Make Integration Testing Setup Easier</a></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line874">This page describes several things we should do to improve the testing and quality assurance of Vesta. <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867">
+<h1 id="Improve_Unit_Tests">Improve Unit Tests</h1>
+<span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">Many of the packages that make up Vesta include programs under the <span class="anchor" id="line-12"></span>&quot;tests&quot; sub-binding in their result.  The exact nature of these <span class="anchor" id="line-13"></span>programs varies: <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><ul><li><p class="line862">Some are self-testing exercisers that test some part of the system, can be run with no arguments or user input, check their own results, and indicate success or failure with their exit status.  (<tt>TestIntSeq</tt> and <tt>TestFPStream</tt> are two such examples.)  These could easily be used to automatically run tests, but currently there is no automation to run them. <span class="anchor" id="line-16"></span></li><li><p class="line862">Others are test programs require direct user involvement, either providing inputs to direct the tests (e.g. <tt>TestFdStreams</tt> requires one or more input data files) or checking results for correctness (e.g. <tt>TestText</tt> prints the results of a variety of operations but doesn't check them for correctness, and <tt>TestUniqueId</tt> simply prints a number of fingerprints which should be unique).  In some cases, both input and checking of results is required (e.g. <tt>TestParseImports</tt> takes models as inputs and prints the result of parsing their imports).  These test programs should be improved to be able to operate with no help from the user (like the first kind of test).  It would be fine to allow for the possibility of user input, but it should be optional rather than required. <span class="anchor" id="line-17"></span></li><li><p class="line862">Finally there are programs which would be better described as debug utilities.  (The <tt>TestVDirSurrogate</tt> and <tt>TestShortId</tt> programs are two such examples.)  These should probably be re-classified as made part of a &quot;debug&quot; result binding. <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span></li></ul><p class="line874">If all the test programs are improved to require no user input, check their own results, and indicate success or failure with their exit status then we can automate running them.  If we separate the debug utilities from the self-checking tests, this will make it easier to automate running them. <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line867">
+<h1 id="Automate_Running_Unit_Tests">Automate Running Unit Tests</h1>
+<span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line874">If we make the improvements suggested above, then every program in the &quot;tests&quot; sub-binding of a package build result should be a self-checking test program which can be run with no input.  We can then write a very simple script to run these test programs.  Perhaps something like: <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line867"><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><pre><span class="anchor" id="line-1"></span>testdir=/tmp/tests.$$
+<span class="anchor" id="line-2"></span>
+<span class="anchor" id="line-3"></span>mkdir $testdir
+<span class="anchor" id="line-4"></span>
+<span class="anchor" id="line-5"></span>vmake -shipfrom tests -shipto $testdir
+<span class="anchor" id="line-6"></span>
+<span class="anchor" id="line-7"></span>for t in $testdir/*; do
+<span class="anchor" id="line-8"></span>  $t || exit 1
+<span class="anchor" id="line-9"></span>done
+<span class="anchor" id="line-10"></span>
+<span class="anchor" id="line-11"></span>rm -rf $testdir</pre><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line874">To ensure that these tests get run when making changes, this kind of automation should ideally become a pre-vcheckin trigger.  Of course not all packages will have such tests, so we'll need some way to determine whether this should be done before checkin.  One way we could do this would be to pick a specific file name for such a shell script to test a package and run it before checkin if it exists. <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line867">
+<h1 id="Improve_Integration_Testing">Improve Integration Testing</h1>
+<span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line862">Our main method for testing the whole Vesta system is <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/extras/testing/latest/test-vesta.pl&amp;hilight=1">the test-vesta.pl script</a>.  While it does a reasonably good job of testing some aspects of the system (building, weeding, cache server fault tolerance), it has some significant limitations which should be addressed: <span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><ul><li>It is mostly a single-threaded test.  While some work is done in the background, the main process runs a loop of evaluations and weeding.  It does not perform multiple evaluations in parallel. <span class="anchor" id="line-48"></span></li><li>It is currently a single machine test.  If it were to access the servers simultaneously from multiple client hosts is could do a better job of exercising the servers and (if enough client hosts are used) testing conditions of high activity. <span class="anchor" id="line-49"></span></li><li>It only tests a single repository and does not exercise important kinds of cross-repository interaction.  The repository under test is used as a replication destination, but not as a replication source.  Mastership transfer and remote checkout/checkin are not tested. <span class="anchor" id="line-50"></span></li><li>Types of operations which occur during real-world use are not exercised: <span class="anchor" id="line-51"></span><ul><li>Failed or canceled evaluations (e.g. simulating a user pressing control-C) <span class="anchor" id="line-52"></span></li><li>The typical checkout-edit-build-edit-build-checkin process (i.e. a series of changes, each recorded in a snapshot and built) <span class="anchor" id="line-53"></span></li><li>Updating model imports with vupdate <span class="anchor" id="line-54"></span></li></ul></li><li>A bunch of other more obscure cases aren't tested (e.g. restarting and completing a failed partial weed). <span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span></li></ul><p class="line874">There have been at least two other Vesta testing systems which have been developed.  Under Compaq during the initial evaluation of Vesta before the Alpha development group began using it, a multi-client stress test was developed.  A different multi-client testing system is currently in use at Intel.  Unfortunately, in their current form both of these may contain: <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><ul><li>Potentially sensitive information that can't be publicly released, and <span class="anchor" id="line-59"></span></li><li>Company/site/OS/installation-specific idiosyncrasies which make them unsuitable for use for general-purpose testing in a heterogeneous environment. <span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span></li></ul><p class="line874">However, they should both be reviewed for portions which could be incorporated into test-vesta.pl. <span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><p class="line867">
+<h1 id="Make_Integration_Testing_Setup_Easier">Make Integration Testing Setup Easier</h1>
+<span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><p class="line874">Though we probably can't make it entirely automated (especially for testing that uses multiple hosts), we should try to make the setup required to run test-vesta.pl easier.  Ideally any developer who wishes to work on Vesta should be able to download the script and use it to test their changes on a host or set of hosts running any combination of OSes and CPU architectures that Vesta supports. <span class="anchor" id="line-66"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

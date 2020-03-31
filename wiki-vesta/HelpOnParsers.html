@@ -1,0 +1,2455 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnParsers - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnParsers" href="HelpOnParsers%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnParsers&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnParsers%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnParsers%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnParsers.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnParsers.html">HelpOnParsers</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnParsers.html">HelpOnParsers</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnParsers%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="Parsers">Parsers</h1>
+<span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="HelpOnParsers.html#Parsers">Parsers</a><ol><li>
+<a href="HelpOnParsers.html#How_Parsers_are_applied">How Parsers are applied</a><ol><li>
+<a href="HelpOnParsers.html#Example:_Processing_instruction">Example: Processing instruction</a></li><li>
+<a href="HelpOnParsers.html#Example:_Parser_section">Example: Parser section</a></li><li>
+<a href="HelpOnParsers.html#Parser_sections_and_nesting">Parser sections and nesting</a></li></ol></li><li>
+<a href="HelpOnParsers.html#Parsers_for_writing_text_content">Parsers for writing text content</a></li><li>
+<a href="HelpOnParsers.html#csv_parser">csv parser</a></li><li>
+<a href="HelpOnParsers.html#diff.2C_cplusplus.2C_python.2C_java.2C_pascal.2C_irc.2Firssi_parsers">diff, cplusplus, python, java, pascal, irc/irssi parsers</a></li><li>
+<a href="HelpOnParsers.html#highlight_parser">highlight parser</a><ol><li>
+<a href="HelpOnParsers.html#Arguments">Arguments</a></li><li>
+<a href="HelpOnParsers.html#Available_highlight_lexers">Available highlight lexers</a></li></ol></li></ol></li></ol></div> <span class="anchor" id="line-8"></span>Besides the default MoinMoin wiki markup, different <strong>parsers</strong> allow the user to enter content into a page or a page section which is interpreted differently. <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><p class="line862">Additionally to the built-in parsers, you can find more of them on <a class="interwiki" href="http://moinmo.in/ParserMarket" title="MoinMoin">ParserMarket</a>. <span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><p class="line867">
+<h2 id="How_Parsers_are_applied">How Parsers are applied</h2>
+<span class="anchor" id="line-17"></span><p class="line874">A parser reads some portion of text, analyzes it and creates some specially formatted output from it. <span class="anchor" id="line-18"></span>You can choose the parser to use using 2 different techniques: <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><ol type="1"><li><p class="line891"><strong>A #format processing instruction</strong>  <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line862">A <tt class="backtick">#format</tt> processing instruction can be used to tell MoinMoin which parser to use <em>for the whole page content</em>. By default this is the <em>wiki</em> parser (for moin wiki markup). For details see: <a href="HelpOnProcessingInstructions.html#format">The #format Processing Instruction</a> <span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span></li><li class="gap"><p class="line862">A <strong>Parser section</strong> - see <a href="HelpOnFormatting.html">HelpOnFormatting</a>  <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span>With the use of a parser section, a parser can be applied to only a part of a page. You specify which parser to call by using a shebang-like construct in the first line. A shebang is a concept known from Unix command line scripts, where they serve the exact same purpose: the first line tells the shell what program to start to process the remaining lines of the script. <span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span></li></ol><p class="line867">
+<h3 id="Example:_Processing_instruction">Example: Processing instruction</h3>
+<span class="anchor" id="line-29"></span><p class="line874">This is the complete page contents: <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><pre><span class="anchor" id="line-1"></span>#format creole
+<span class="anchor" id="line-2"></span>... **bold** ...</pre><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><p class="line867">
+<h3 id="Example:_Parser_section">Example: Parser section</h3>
+<span class="anchor" id="line-36"></span><p class="line874">This is a part of a wiki page: <span class="anchor" id="line-37"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><pre><span class="anchor" id="line-1-1"></span>{{{#!csv ,
+<span class="anchor" id="line-2-1"></span>a,b,c
+<span class="anchor" id="line-3"></span>d,e,f
+<span class="anchor" id="line-4"></span>}}}</pre><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span></li></ul><p class="line874">It renders as: <span class="anchor" id="line-45"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><form action="HelpOnParsers.html" method="GET" name="dbw.form"><div><div><table id="dbw.table"><tbody><tr>  <td class="hcolumn0"><strong>a</strong></td>
+  <td class="hcolumn1"><strong>b</strong></td>
+  <td class="hcolumn2"><strong>c</strong></td>
+</tr>
+<tr>  <td abbr="d" class="column0">d</td>
+  <td abbr="e" class="column1">e</td>
+  <td abbr="f" class="column2">f</td>
+</tr>
+</tbody></table></div></div></form><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span></li></ul><p class="line867">
+<h3 id="Parser_sections_and_nesting">Parser sections and nesting</h3>
+<span class="anchor" id="line-51"></span><p class="line862">Please note that there are 2 ways to solve <em>nesting problems</em> related to <tt class="backtick">}}}</tt>: <span class="anchor" id="line-52"></span><ul><li>Use more than 3 curly braces for beginning / ending of the parser section (what you use must not be contained in the section you are enclosing). E.g.: <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><pre><span class="anchor" id="line-1-2"></span>{{{{
+<span class="anchor" id="line-2-2"></span>{{{
+<span class="anchor" id="line-3-1"></span>...
+<span class="anchor" id="line-4-1"></span>}}}
+<span class="anchor" id="line-5"></span>}}}}</pre><span class="anchor" id="line-60"></span></li><li>Use 3 curly braces + some unique string: <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><pre><span class="anchor" id="line-1-3"></span>{{{asdfghj
+<span class="anchor" id="line-2-3"></span>{{{
+<span class="anchor" id="line-3-2"></span>...
+<span class="anchor" id="line-4-2"></span>}}}
+<span class="anchor" id="line-5-1"></span>asdfghj}}}</pre><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span></li></ul><p class="line862">For more information on the possible markup, see <a href="HelpOnEditing.html">HelpOnEditing</a>.  <span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><p class="line867">
+<h2 id="Parsers_for_writing_text_content">Parsers for writing text content</h2>
+<span class="anchor" id="line-73"></span><p class="line874">Some of the parsers are intended for writing normal page text (like e.g. a document): <span class="anchor" id="line-74"></span><ul><li><p class="line862">wiki – the standard moin wiki parser, see <a href="HelpOnMoinWikiSyntax.html">HelpOnMoinWikiSyntax</a> <span class="anchor" id="line-75"></span></li><li><p class="line862">creole – the creole wiki markup parser, see <a href="HelpOnCreoleSyntax.html">HelpOnCreoleSyntax</a> <span class="anchor" id="line-76"></span></li><li><p class="line862">ReST (reStructuredText) – see <a href="HelpOnParsers/ReStructuredText.html">/ReStructuredText</a> <span class="anchor" id="line-77"></span></li><li><p class="line862">XML/XSLT/DocBook – see <a href="HelpOnXmlPages.html">HelpOnXmlPages</a> <span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span></li></ul><p class="line867"><span class="anchor" id="csvparser"></span> <span class="anchor" id="line-81"></span>
+<h2 id="csv_parser">csv parser</h2>
+<span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><p class="line862">The CSV parser works on so-called <em>comma separated values</em>, though the comma is now usually and by default a semicolon.  <span class="anchor" id="line-84"></span>The first line is considered to contain column titles that are rendered in <strong>bold</strong>, so when you don't want table headers, leave the first line empty. <span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><p class="line874">The shebang can contain the following arguments: <span class="anchor" id="line-87"></span><ul><li><p class="line891"><tt class="backtick">delimiter</tt> or <tt class="backtick">separator</tt>: <tt class="backtick">delimiter=,</tt> will set the delimiter to a comma <span class="anchor" id="line-88"></span></li><li><p class="line891"><tt class="backtick">quotechar</tt>: <tt class="backtick">quotechar=&quot;</tt> will allow quoting values with a double-quote <span class="anchor" id="line-89"></span></li><li><p class="line891"><tt class="backtick">show</tt>: comma-separated list of columns to show only <span class="anchor" id="line-90"></span></li><li><p class="line891"><tt class="backtick">hide</tt>: comma-separated list of columns to hide <span class="anchor" id="line-91"></span></li><li><p class="line891"><tt class="backtick">autofilter</tt>: comma-separated list of columns to add auto-filters on <span class="anchor" id="line-92"></span></li><li><p class="line891"><tt class="backtick">name</tt>: name of the dataset <span class="anchor" id="line-93"></span></li><li><p class="line891"><tt class="backtick">link</tt>: comma-separated list of columns consisting of <tt class="backtick">http://example.com/link&nbsp;description&nbsp;text</tt> rather than just text <span class="anchor" id="line-94"></span></li><li><p class="line891"><tt class="backtick">static_cols</tt>, <tt class="backtick">static_vals</tt>: columns (and respective values) added to each record <span class="anchor" id="line-95"></span></li><li><p class="line891"><tt class="backtick">-N</tt> (where N is a number): hide column N (useful when column names are omitted) <span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span></li></ul><p class="line874">The parser also supports the old, deprecated syntax for the shebang. <span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><p class="line862">Example (please see the <a class="action" href="HelpOnParsers%3Faction=raw.html">raw</a> text of this page for the markup used):  <span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><p class="line867"><span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><form action="HelpOnParsers.html" method="GET" name="dbw.form"><div><div><table id="dbw.table-1"><tbody><tr>  <td class="hcolumn0"><strong>MoinMoin Version</strong></td>
+  <td class="hcolumn1"><strong>Date</strong></td>
+</tr>
+<tr>  <td abbr="0.9" class="column0">0.9</td>
+  <td abbr="2001-05-07" class="column1">2001-05-07</td>
+</tr>
+<tr>  <td abbr="0.8" class="column0">0.8</td>
+  <td abbr="2001-01-23" class="column1">2001-01-23</td>
+</tr>
+<tr>  <td abbr="0.7" class="column0">0.7</td>
+  <td abbr="2000-12-06" class="column1">2000-12-06</td>
+</tr>
+<tr>  <td abbr="0.6" class="column0">0.6</td>
+  <td abbr="2000-12-04" class="column1">2000-12-04</td>
+</tr>
+<tr>  <td abbr="0.5" class="column0">0.5</td>
+  <td abbr="2000-11-17" class="column1">2000-11-17</td>
+</tr>
+<tr>  <td abbr="0.4" class="column0">0.4</td>
+  <td abbr="2000-11-01" class="column1">2000-11-01</td>
+</tr>
+<tr>  <td abbr="0.3" class="column0">0.3</td>
+  <td abbr="2000-10-25" class="column1">2000-10-25</td>
+</tr>
+<tr>  <td abbr="0.2" class="column0">0.2</td>
+  <td abbr="2000-08-26" class="column1">2000-08-26</td>
+</tr>
+<tr>  <td abbr="0.1" class="column0">0.1</td>
+  <td abbr="2000-07-29" class="column1">2000-07-29</td>
+</tr>
+</tbody></table></div></div></form><span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><p class="line874">Another example, utilizes link option to have links in some column: <span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span><span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><pre><span class="anchor" id="line-1-4"></span>{{{#!csv delimiter=, link=Server quotechar=&quot;
+<span class="anchor" id="line-2-4"></span>Type,Server
+<span class="anchor" id="line-3-3"></span>wiki,http://moinmo.in MoinMoin
+<span class="anchor" id="line-4-3"></span>translation,http://master19.moinmo.in master19
+<span class="anchor" id="line-5-2"></span>}}}</pre><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><p class="line874">It renders as: <span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><form action="HelpOnParsers.html" method="GET" name="dbw.form"><div><div><table id="dbw.table-2"><tbody><tr>  <td class="hcolumn0"><strong>Type</strong></td>
+  <td class="hcolumn1"><strong>Server</strong></td>
+</tr>
+<tr>  <td abbr="wiki" class="column0">wiki</td>
+  <td abbr="MoinMoin" class="column1"><a href="http://moinmo.in">MoinMoin</a></td>
+</tr>
+<tr>  <td abbr="translation" class="column0">translation</td>
+  <td abbr="master19" class="column1"><a href="http://master19.moinmo.in">master19</a></td>
+</tr>
+</tbody></table></div></div></form><span class="anchor" id="line-129"></span><span class="anchor" id="line-130"></span><p class="line867">
+<h2 id="diff.2C_cplusplus.2C_python.2C_java.2C_pascal.2C_irc.2Firssi_parsers">diff, cplusplus, python, java, pascal, irc/irssi parsers</h2>
+<span class="anchor" id="line-131"></span><span class="anchor" id="line-132"></span><p class="line862">These parsers were provided with MoinMoin versions &lt; 1.9 using a moin-specific parsing / syntax highlighting implementation. <span class="anchor" id="line-133"></span>Since MoinMoin 1.9 these parsers are just shortcuts, calling the highlight parser (see below). <span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><p class="line867"><span class="anchor" id="The_highlight_parser"></span> <span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span><span class="anchor" id="line-138"></span><p class="line867">
+<h2 id="highlight_parser">highlight parser</h2>
+<span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span><p class="line867">MoinMoin comes with a special parser called <tt class="backtick">highlight</tt> that uses <a class="http" href="http://pygments.org/">Pygments</a> internally. <span class="anchor" id="line-141"></span><span class="anchor" id="line-142"></span><p class="line862">You can use it to highlight many sorts of programming source code, configuration files and other sorts of text files used on computers (just use the corresponding <em>Lexer name</em> from the table below). <span class="anchor" id="line-143"></span><span class="anchor" id="line-144"></span><p class="line874">Usage: <span class="anchor" id="line-145"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><span class="anchor" id="line-150"></span><pre><span class="anchor" id="line-1-5"></span>{{{#!highlight python
+<span class="anchor" id="line-2-5"></span>class FooBar:
+<span class="anchor" id="line-3-4"></span>   &quot;&quot;&quot; doc string &quot;&quot;&quot;
+<span class="anchor" id="line-4-4"></span>}}}</pre><span class="anchor" id="line-151"></span><span class="anchor" id="line-152"></span></li></ul><p class="line874">renders as: <span class="anchor" id="line-153"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-154"></span><span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span><span class="anchor" id="line-1-1"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c)) {
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    var n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        var a = document.createElement('A');
+        s.className = 'LineNumber';
+        a.appendChild(document.createTextNode(nformat(n,4,'')));
+        a.href = '#' + did + '_' + n;
+        s.appendChild(a);
+        s.appendChild(document.createTextNode(' '));
+        n += nstep;
+        if (l.childNodes.length) {
+          l.insertBefore(s, l.firstChild);
+        }
+        else {
+          l.appendChild(s);
+        }
+      }
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c)) {
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="HelpOnParsers.html#" onclick="return togglenumber(\'CA-9b92d59a8d18d63bff9fcdb48c2ba66697170435\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-9b92d59a8d18d63bff9fcdb48c2ba66697170435" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnParsers.html#CA-9b92d59a8d18d63bff9fcdb48c2ba66697170435_1">   1</a> </span><span class="LineAnchor" id="CA-9b92d59a8d18d63bff9fcdb48c2ba66697170435_1"></span><span class="anchor" id="line-1-2"></span><span class="ResWord">class</span> <span class="ID">FooBar</span>:</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnParsers.html#CA-9b92d59a8d18d63bff9fcdb48c2ba66697170435_2">   2</a> </span><span class="LineAnchor" id="CA-9b92d59a8d18d63bff9fcdb48c2ba66697170435_2"></span><span class="anchor" id="line-2-1"></span>   <span class="String">&quot;&quot;&quot; doc string &quot;&quot;&quot;</span></span>
+</pre></div></div><span class="anchor" id="line-157"></span><span class="anchor" id="line-158"></span></li></ul><p class="line867"><img alt="(!)" height="15" src="moin_static199/vesta/img/idea.png" title="(!)" width="15" /> Of course you can also use it for a complete page as a processing instruction, e.g.: <tt class="backtick">#format&nbsp;highlight&nbsp;python</tt> <span class="anchor" id="line-159"></span><span class="anchor" id="line-160"></span><p class="line867">
+<h3 id="Arguments">Arguments</h3>
+<span class="anchor" id="line-161"></span><p class="line874">The highlight parser accepts arguments for line numbering: <span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><ul><li><p class="line891"><tt>numbers=</tt> might be <tt>on</tt>, <tt>off</tt>, or <tt>disable</tt> and defaults to <tt>on</tt>. <tt>on</tt> or <tt>off</tt> means that line numbers are switchable via <a class="nonexistent" href="JavaScript.html">JavaScript</a> (html formatter). <tt>disabled</tt> means that line numbers are disabled completely. <span class="anchor" id="line-164"></span></li><li><p class="line891"><tt>start=</tt> must be a non negative number and defaults to 1, <span class="anchor" id="line-165"></span></li><li><p class="line891"><tt>step=</tt> must be a non negative number and defaults to 1. <span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span></li></ul><p class="line874">Usage: <span class="anchor" id="line-168"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-169"></span><span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span><span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span><pre><span class="anchor" id="line-1-6"></span>{{{#!highlight python numbers=disable
+<span class="anchor" id="line-2-6"></span>class FooBar:
+<span class="anchor" id="line-3-5"></span>   &quot;&quot;&quot; doc string &quot;&quot;&quot;
+<span class="anchor" id="line-4-5"></span>}}}</pre><span class="anchor" id="line-174"></span><span class="anchor" id="line-175"></span></li></ul><p class="line874">renders as: <span class="anchor" id="line-176"></span><span class="anchor" id="line-177"></span><span class="anchor" id="line-178"></span><span class="anchor" id="line-179"></span><span class="anchor" id="line-1-3"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en"><pre dir="ltr" id="CA-9b92d59a8d18d63bff9fcdb48c2ba66697170435-1" lang="en"><span class="line"><span class="anchor" id="line-1-4"></span><span class="ResWord">class</span> <span class="ID">FooBar</span>:</span>
+<span class="line"><span class="anchor" id="line-2-2"></span>   <span class="String">&quot;&quot;&quot; doc string &quot;&quot;&quot;</span></span>
+</pre></div></div><span class="anchor" id="line-180"></span><span class="anchor" id="line-181"></span><p class="line867">
+<h3 id="Available_highlight_lexers">Available highlight lexers</h3>
+<span class="anchor" id="line-182"></span><span class="anchor" id="line-183"></span><p class="line862">Use value in &quot;Lexer names&quot; column as argument for the highlight parser: <span class="anchor" id="line-184"></span><span class="anchor" id="line-185"></span><p class="line867"><div><table><tbody><tr style="background-color: #ffffcc">  <td><strong>Lexer description</strong></td>
+  <td><strong>Lexer names</strong></td>
+  <td><strong>File patterns</strong></td>
+  <td><strong>Mimetypes</strong></td>
+</tr>
+<tr>  <td>ABAP</td>
+  <td><tt>abap</tt></td>
+  <td><tt>*.abap</tt>, <tt>*.ABAP</tt></td>
+  <td><tt>text/x-abap</tt></td>
+</tr>
+<tr>  <td>ABNF</td>
+  <td><tt>abnf</tt></td>
+  <td><tt>*.abnf</tt></td>
+  <td><tt>text/x-abnf</tt></td>
+</tr>
+<tr>  <td>ActionScript</td>
+  <td><tt>as</tt>, <tt>actionscript</tt></td>
+  <td><tt>*.as</tt></td>
+  <td><tt>application/x-actionscript</tt>, <tt>text/x-actionscript</tt>, <tt>text/actionscript</tt></td>
+</tr>
+<tr>  <td>ActionScript 3</td>
+  <td><tt>as3</tt>, <tt>actionscript3</tt></td>
+  <td><tt>*.as</tt></td>
+  <td><tt>application/x-actionscript3</tt>, <tt>text/x-actionscript3</tt>, <tt>text/actionscript3</tt></td>
+</tr>
+<tr>  <td>Ada</td>
+  <td><tt>ada</tt>, <tt>ada95</tt>, <tt>ada2005</tt></td>
+  <td><tt>*.adb</tt>, <tt>*.ads</tt>, <tt>*.ada</tt></td>
+  <td><tt>text/x-ada</tt></td>
+</tr>
+<tr>  <td>ADL</td>
+  <td><tt>adl</tt></td>
+  <td><tt>*.adl</tt>, <tt>*.adls</tt>, <tt>*.adlf</tt>, <tt>*.adlx</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Agda</td>
+  <td><tt>agda</tt></td>
+  <td><tt>*.agda</tt></td>
+  <td><tt>text/x-agda</tt></td>
+</tr>
+<tr>  <td>Aheui</td>
+  <td><tt>aheui</tt></td>
+  <td><tt>*.aheui</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Alloy</td>
+  <td><tt>alloy</tt></td>
+  <td><tt>*.als</tt></td>
+  <td><tt>text/x-alloy</tt></td>
+</tr>
+<tr>  <td>AmbientTalk</td>
+  <td><tt>at</tt>, <tt>ambienttalk</tt>, <tt>ambienttalk/2</tt></td>
+  <td><tt>*.at</tt></td>
+  <td><tt>text/x-ambienttalk</tt></td>
+</tr>
+<tr>  <td>Ampl</td>
+  <td><tt>ampl</tt></td>
+  <td><tt>*.run</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Angular2</td>
+  <td><tt>ng2</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ANTLR</td>
+  <td><tt>antlr</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ANTLR With ActionScript Target</td>
+  <td><tt>antlr-as</tt>, <tt>antlr-actionscript</tt></td>
+  <td><tt>*.G</tt>, <tt>*.g</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ANTLR With C# Target</td>
+  <td><tt>antlr-csharp</tt>, <tt>antlr-c#</tt></td>
+  <td><tt>*.G</tt>, <tt>*.g</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ANTLR With CPP Target</td>
+  <td><tt>antlr-cpp</tt></td>
+  <td><tt>*.G</tt>, <tt>*.g</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ANTLR With Java Target</td>
+  <td><tt>antlr-java</tt></td>
+  <td><tt>*.G</tt>, <tt>*.g</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ANTLR With ObjectiveC Target</td>
+  <td><tt>antlr-objc</tt></td>
+  <td><tt>*.G</tt>, <tt>*.g</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ANTLR With Perl Target</td>
+  <td><tt>antlr-perl</tt></td>
+  <td><tt>*.G</tt>, <tt>*.g</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ANTLR With Python Target</td>
+  <td><tt>antlr-python</tt></td>
+  <td><tt>*.G</tt>, <tt>*.g</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ANTLR With Ruby Target</td>
+  <td><tt>antlr-ruby</tt>, <tt>antlr-rb</tt></td>
+  <td><tt>*.G</tt>, <tt>*.g</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ApacheConf</td>
+  <td><tt>apacheconf</tt>, <tt>aconf</tt>, <tt>apache</tt></td>
+  <td><tt>.htaccess</tt>, <tt>apache.conf</tt>, <tt>apache2.conf</tt></td>
+  <td><tt>text/x-apacheconf</tt></td>
+</tr>
+<tr>  <td>APL</td>
+  <td><tt>apl</tt></td>
+  <td><tt>*.apl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>AppleScript</td>
+  <td><tt>applescript</tt></td>
+  <td><tt>*.applescript</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Arduino</td>
+  <td><tt>arduino</tt></td>
+  <td><tt>*.ino</tt></td>
+  <td><tt>text/x-arduino</tt></td>
+</tr>
+<tr>  <td>AspectJ</td>
+  <td><tt>aspectj</tt></td>
+  <td><tt>*.aj</tt></td>
+  <td><tt>text/x-aspectj</tt></td>
+</tr>
+<tr>  <td>aspx-cs</td>
+  <td><tt>aspx-cs</tt></td>
+  <td><tt>*.aspx</tt>, <tt>*.asax</tt>, <tt>*.ascx</tt>, <tt>*.ashx</tt>, <tt>*.asmx</tt>, <tt>*.axd</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>aspx-vb</td>
+  <td><tt>aspx-vb</tt></td>
+  <td><tt>*.aspx</tt>, <tt>*.asax</tt>, <tt>*.ascx</tt>, <tt>*.ashx</tt>, <tt>*.asmx</tt>, <tt>*.axd</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Asymptote</td>
+  <td><tt>asy</tt>, <tt>asymptote</tt></td>
+  <td><tt>*.asy</tt></td>
+  <td><tt>text/x-asymptote</tt></td>
+</tr>
+<tr>  <td>autohotkey</td>
+  <td><tt>ahk</tt>, <tt>autohotkey</tt></td>
+  <td><tt>*.ahk</tt>, <tt>*.ahkl</tt></td>
+  <td><tt>text/x-autohotkey</tt></td>
+</tr>
+<tr>  <td>AutoIt</td>
+  <td><tt>autoit</tt></td>
+  <td><tt>*.au3</tt></td>
+  <td><tt>text/x-autoit</tt></td>
+</tr>
+<tr>  <td>Awk</td>
+  <td><tt>awk</tt>, <tt>gawk</tt>, <tt>mawk</tt>, <tt>nawk</tt></td>
+  <td><tt>*.awk</tt></td>
+  <td><tt>application/x-awk</tt></td>
+</tr>
+<tr>  <td>Base Makefile</td>
+  <td><tt>basemake</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Bash</td>
+  <td><tt>bash</tt>, <tt>sh</tt>, <tt>ksh</tt>, <tt>zsh</tt>, <tt>shell</tt></td>
+  <td><tt>*.sh</tt>, <tt>*.ksh</tt>, <tt>*.bash</tt>, <tt>*.ebuild</tt>, <tt>*.eclass</tt>, <tt>*.exheres-0</tt>, <tt>*.exlib</tt>, <tt>*.zsh</tt>, <tt>.bashrc</tt>, <tt>bashrc</tt>, <tt>.bash_*</tt>, <tt>bash_*</tt>, <tt>zshrc</tt>, <tt>.zshrc</tt>, <tt>PKGBUILD</tt></td>
+  <td><tt>application/x-sh</tt>, <tt>application/x-shellscript</tt></td>
+</tr>
+<tr>  <td>Bash Session</td>
+  <td><tt>console</tt>, <tt>shell-session</tt></td>
+  <td><tt>*.sh-session</tt>, <tt>*.shell-session</tt></td>
+  <td><tt>application/x-shell-session</tt>, <tt>application/x-sh-session</tt></td>
+</tr>
+<tr>  <td>Batchfile</td>
+  <td><tt>bat</tt>, <tt>batch</tt>, <tt>dosbatch</tt>, <tt>winbatch</tt></td>
+  <td><tt>*.bat</tt>, <tt>*.cmd</tt></td>
+  <td><tt>application/x-dos-batch</tt></td>
+</tr>
+<tr>  <td>BBCode</td>
+  <td><tt>bbcode</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-bbcode</tt></td>
+</tr>
+<tr>  <td>BC</td>
+  <td><tt>bc</tt></td>
+  <td><tt>*.bc</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Befunge</td>
+  <td><tt>befunge</tt></td>
+  <td><tt>*.befunge</tt></td>
+  <td><tt>application/x-befunge</tt></td>
+</tr>
+<tr>  <td>BibTeX</td>
+  <td><tt>bib</tt>, <tt>bibtex</tt></td>
+  <td><tt>*.bib</tt></td>
+  <td><tt>text/x-bibtex</tt></td>
+</tr>
+<tr>  <td>BlitzBasic</td>
+  <td><tt>blitzbasic</tt>, <tt>b3d</tt>, <tt>bplus</tt></td>
+  <td><tt>*.bb</tt>, <tt>*.decls</tt></td>
+  <td><tt>text/x-bb</tt></td>
+</tr>
+<tr>  <td>BlitzMax</td>
+  <td><tt>blitzmax</tt>, <tt>bmax</tt></td>
+  <td><tt>*.bmx</tt></td>
+  <td><tt>text/x-bmx</tt></td>
+</tr>
+<tr>  <td>BNF</td>
+  <td><tt>bnf</tt></td>
+  <td><tt>*.bnf</tt></td>
+  <td><tt>text/x-bnf</tt></td>
+</tr>
+<tr>  <td>Boo</td>
+  <td><tt>boo</tt></td>
+  <td><tt>*.boo</tt></td>
+  <td><tt>text/x-boo</tt></td>
+</tr>
+<tr>  <td>Boogie</td>
+  <td><tt>boogie</tt></td>
+  <td><tt>*.bpl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Brainfuck</td>
+  <td><tt>brainfuck</tt>, <tt>bf</tt></td>
+  <td><tt>*.bf</tt>, <tt>*.b</tt></td>
+  <td><tt>application/x-brainfuck</tt></td>
+</tr>
+<tr>  <td>Bro</td>
+  <td><tt>bro</tt></td>
+  <td><tt>*.bro</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>BST</td>
+  <td><tt>bst</tt>, <tt>bst-pybtex</tt></td>
+  <td><tt>*.bst</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>BUGS</td>
+  <td><tt>bugs</tt>, <tt>winbugs</tt>, <tt>openbugs</tt></td>
+  <td><tt>*.bug</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>C</td>
+  <td><tt>c</tt></td>
+  <td><tt>*.c</tt>, <tt>*.h</tt>, <tt>*.idc</tt></td>
+  <td><tt>text/x-chdr</tt>, <tt>text/x-csrc</tt></td>
+</tr>
+<tr>  <td>C#</td>
+  <td><tt>csharp</tt>, <tt>c#</tt></td>
+  <td><tt>*.cs</tt></td>
+  <td><tt>text/x-csharp</tt></td>
+</tr>
+<tr>  <td>C++</td>
+  <td><tt>cpp</tt>, <tt>c++</tt></td>
+  <td><tt>*.cpp</tt>, <tt>*.hpp</tt>, <tt>*.c++</tt>, <tt>*.h++</tt>, <tt>*.cc</tt>, <tt>*.hh</tt>, <tt>*.cxx</tt>, <tt>*.hxx</tt>, <tt>*.C</tt>, <tt>*.H</tt>, <tt>*.cp</tt>, <tt>*.CPP</tt></td>
+  <td><tt>text/x-c++hdr</tt>, <tt>text/x-c++src</tt></td>
+</tr>
+<tr>  <td>c-objdump</td>
+  <td><tt>c-objdump</tt></td>
+  <td><tt>*.c-objdump</tt></td>
+  <td><tt>text/x-c-objdump</tt></td>
+</tr>
+<tr>  <td>ca65 assembler</td>
+  <td><tt>ca65</tt></td>
+  <td><tt>*.s</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>cADL</td>
+  <td><tt>cadl</tt></td>
+  <td><tt>*.cadl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>CAmkES</td>
+  <td><tt>camkes</tt>, <tt>idl4</tt></td>
+  <td><tt>*.camkes</tt>, <tt>*.idl4</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Cap'n Proto</td>
+  <td><tt>capnp</tt></td>
+  <td><tt>*.capnp</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>CapDL</td>
+  <td><tt>capdl</tt></td>
+  <td><tt>*.cdl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>CBM BASIC V2</td>
+  <td><tt>cbmbas</tt></td>
+  <td><tt>*.bas</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Ceylon</td>
+  <td><tt>ceylon</tt></td>
+  <td><tt>*.ceylon</tt></td>
+  <td><tt>text/x-ceylon</tt></td>
+</tr>
+<tr>  <td>CFEngine3</td>
+  <td><tt>cfengine3</tt>, <tt>cf3</tt></td>
+  <td><tt>*.cf</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>cfstatement</td>
+  <td><tt>cfs</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ChaiScript</td>
+  <td><tt>chai</tt>, <tt>chaiscript</tt></td>
+  <td><tt>*.chai</tt></td>
+  <td><tt>text/x-chaiscript</tt>, <tt>application/x-chaiscript</tt></td>
+</tr>
+<tr>  <td>Chapel</td>
+  <td><tt>chapel</tt>, <tt>chpl</tt></td>
+  <td><tt>*.chpl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Cheetah</td>
+  <td><tt>cheetah</tt>, <tt>spitfire</tt></td>
+  <td><tt>*.tmpl</tt>, <tt>*.spt</tt></td>
+  <td><tt>application/x-cheetah</tt>, <tt>application/x-spitfire</tt></td>
+</tr>
+<tr>  <td>Cirru</td>
+  <td><tt>cirru</tt></td>
+  <td><tt>*.cirru</tt></td>
+  <td><tt>text/x-cirru</tt></td>
+</tr>
+<tr>  <td>Clay</td>
+  <td><tt>clay</tt></td>
+  <td><tt>*.clay</tt></td>
+  <td><tt>text/x-clay</tt></td>
+</tr>
+<tr>  <td>Clean</td>
+  <td><tt>clean</tt></td>
+  <td><tt>*.icl</tt>, <tt>*.dcl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Clojure</td>
+  <td><tt>clojure</tt>, <tt>clj</tt></td>
+  <td><tt>*.clj</tt></td>
+  <td><tt>text/x-clojure</tt>, <tt>application/x-clojure</tt></td>
+</tr>
+<tr>  <td>ClojureScript</td>
+  <td><tt>clojurescript</tt>, <tt>cljs</tt></td>
+  <td><tt>*.cljs</tt></td>
+  <td><tt>text/x-clojurescript</tt>, <tt>application/x-clojurescript</tt></td>
+</tr>
+<tr>  <td>CMake</td>
+  <td><tt>cmake</tt></td>
+  <td><tt>*.cmake</tt>, <tt>CMakeLists.txt</tt></td>
+  <td><tt>text/x-cmake</tt></td>
+</tr>
+<tr>  <td>COBOL</td>
+  <td><tt>cobol</tt></td>
+  <td><tt>*.cob</tt>, <tt>*.COB</tt>, <tt>*.cpy</tt>, <tt>*.CPY</tt></td>
+  <td><tt>text/x-cobol</tt></td>
+</tr>
+<tr>  <td>COBOLFree</td>
+  <td><tt>cobolfree</tt></td>
+  <td><tt>*.cbl</tt>, <tt>*.CBL</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>CoffeeScript</td>
+  <td><tt>coffee-script</tt>, <tt>coffeescript</tt>, <tt>coffee</tt></td>
+  <td><tt>*.coffee</tt></td>
+  <td><tt>text/coffeescript</tt></td>
+</tr>
+<tr>  <td>Coldfusion CFC</td>
+  <td><tt>cfc</tt></td>
+  <td><tt>*.cfc</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Coldfusion HTML</td>
+  <td><tt>cfm</tt></td>
+  <td><tt>*.cfm</tt>, <tt>*.cfml</tt></td>
+  <td><tt>application/x-coldfusion</tt></td>
+</tr>
+<tr>  <td>Common Lisp</td>
+  <td><tt>common-lisp</tt>, <tt>cl</tt>, <tt>lisp</tt></td>
+  <td><tt>*.cl</tt>, <tt>*.lisp</tt></td>
+  <td><tt>text/x-common-lisp</tt></td>
+</tr>
+<tr>  <td>Component Pascal</td>
+  <td><tt>componentpascal</tt>, <tt>cp</tt></td>
+  <td><tt>*.cp</tt>, <tt>*.cps</tt></td>
+  <td><tt>text/x-component-pascal</tt></td>
+</tr>
+<tr>  <td>Coq</td>
+  <td><tt>coq</tt></td>
+  <td><tt>*.v</tt></td>
+  <td><tt>text/x-coq</tt></td>
+</tr>
+<tr>  <td>cpp-objdump</td>
+  <td><tt>cpp-objdump</tt>, <tt>c++-objdumb</tt>, <tt>cxx-objdump</tt></td>
+  <td><tt>*.cpp-objdump</tt>, <tt>*.c++-objdump</tt>, <tt>*.cxx-objdump</tt></td>
+  <td><tt>text/x-cpp-objdump</tt></td>
+</tr>
+<tr>  <td>CPSA</td>
+  <td><tt>cpsa</tt></td>
+  <td><tt>*.cpsa</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Crmsh</td>
+  <td><tt>crmsh</tt>, <tt>pcmk</tt></td>
+  <td><tt>*.crmsh</tt>, <tt>*.pcmk</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Croc</td>
+  <td><tt>croc</tt></td>
+  <td><tt>*.croc</tt></td>
+  <td><tt>text/x-crocsrc</tt></td>
+</tr>
+<tr>  <td>Cryptol</td>
+  <td><tt>cryptol</tt>, <tt>cry</tt></td>
+  <td><tt>*.cry</tt></td>
+  <td><tt>text/x-cryptol</tt></td>
+</tr>
+<tr>  <td>Crystal</td>
+  <td><tt>cr</tt>, <tt>crystal</tt></td>
+  <td><tt>*.cr</tt></td>
+  <td><tt>text/x-crystal</tt></td>
+</tr>
+<tr>  <td>Csound Document</td>
+  <td><tt>csound-document</tt>, <tt>csound-csd</tt></td>
+  <td><tt>*.csd</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Csound Orchestra</td>
+  <td><tt>csound</tt>, <tt>csound-orc</tt></td>
+  <td><tt>*.orc</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Csound Score</td>
+  <td><tt>csound-score</tt>, <tt>csound-sco</tt></td>
+  <td><tt>*.sco</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>CSS</td>
+  <td><tt>css</tt></td>
+  <td><tt>*.css</tt></td>
+  <td><tt>text/css</tt></td>
+</tr>
+<tr>  <td>CSS+Django/Jinja</td>
+  <td><tt>css+django</tt>, <tt>css+jinja</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/css+django</tt>, <tt>text/css+jinja</tt></td>
+</tr>
+<tr>  <td>CSS+Genshi Text</td>
+  <td><tt>css+genshitext</tt>, <tt>css+genshi</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/css+genshi</tt></td>
+</tr>
+<tr>  <td>CSS+Lasso</td>
+  <td><tt>css+lasso</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/css+lasso</tt></td>
+</tr>
+<tr>  <td>CSS+Mako</td>
+  <td><tt>css+mako</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/css+mako</tt></td>
+</tr>
+<tr>  <td>CSS+mozpreproc</td>
+  <td><tt>css+mozpreproc</tt></td>
+  <td><tt>*.css.in</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>CSS+Myghty</td>
+  <td><tt>css+myghty</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/css+myghty</tt></td>
+</tr>
+<tr>  <td>CSS+PHP</td>
+  <td><tt>css+php</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/css+php</tt></td>
+</tr>
+<tr>  <td>CSS+Ruby</td>
+  <td><tt>css+erb</tt>, <tt>css+ruby</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/css+ruby</tt></td>
+</tr>
+<tr>  <td>CSS+Smarty</td>
+  <td><tt>css+smarty</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/css+smarty</tt></td>
+</tr>
+<tr>  <td>CUDA</td>
+  <td><tt>cuda</tt>, <tt>cu</tt></td>
+  <td><tt>*.cu</tt>, <tt>*.cuh</tt></td>
+  <td><tt>text/x-cuda</tt></td>
+</tr>
+<tr>  <td>Cypher</td>
+  <td><tt>cypher</tt></td>
+  <td><tt>*.cyp</tt>, <tt>*.cypher</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Cython</td>
+  <td><tt>cython</tt>, <tt>pyx</tt>, <tt>pyrex</tt></td>
+  <td><tt>*.pyx</tt>, <tt>*.pxd</tt>, <tt>*.pxi</tt></td>
+  <td><tt>text/x-cython</tt>, <tt>application/x-cython</tt></td>
+</tr>
+<tr>  <td>D</td>
+  <td><tt>d</tt></td>
+  <td><tt>*.d</tt>, <tt>*.di</tt></td>
+  <td><tt>text/x-dsrc</tt></td>
+</tr>
+<tr>  <td>d-objdump</td>
+  <td><tt>d-objdump</tt></td>
+  <td><tt>*.d-objdump</tt></td>
+  <td><tt>text/x-d-objdump</tt></td>
+</tr>
+<tr>  <td>Darcs Patch</td>
+  <td><tt>dpatch</tt></td>
+  <td><tt>*.dpatch</tt>, <tt>*.darcspatch</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Dart</td>
+  <td><tt>dart</tt></td>
+  <td><tt>*.dart</tt></td>
+  <td><tt>text/x-dart</tt></td>
+</tr>
+<tr>  <td>Debian Control file</td>
+  <td><tt>control</tt>, <tt>debcontrol</tt></td>
+  <td><tt>control</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Debian Sourcelist</td>
+  <td><tt>sourceslist</tt>, <tt>sources.list</tt>, <tt>debsources</tt></td>
+  <td><tt>sources.list</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Delphi</td>
+  <td><tt>delphi</tt>, <tt>pas</tt>, <tt>pascal</tt>, <tt>objectpascal</tt></td>
+  <td><tt>*.pas</tt>, <tt>*.dpr</tt></td>
+  <td><tt>text/x-pascal</tt></td>
+</tr>
+<tr>  <td>dg</td>
+  <td><tt>dg</tt></td>
+  <td><tt>*.dg</tt></td>
+  <td><tt>text/x-dg</tt></td>
+</tr>
+<tr>  <td>Diff</td>
+  <td><tt>diff</tt>, <tt>udiff</tt></td>
+  <td><tt>*.diff</tt>, <tt>*.patch</tt></td>
+  <td><tt>text/x-diff</tt>, <tt>text/x-patch</tt></td>
+</tr>
+<tr>  <td>Django/Jinja</td>
+  <td><tt>django</tt>, <tt>jinja</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-django-templating</tt>, <tt>application/x-jinja</tt></td>
+</tr>
+<tr>  <td>Docker</td>
+  <td><tt>docker</tt>, <tt>dockerfile</tt></td>
+  <td><tt>Dockerfile</tt>, <tt>*.docker</tt></td>
+  <td><tt>text/x-dockerfile-config</tt></td>
+</tr>
+<tr>  <td>DTD</td>
+  <td><tt>dtd</tt></td>
+  <td><tt>*.dtd</tt></td>
+  <td><tt>application/xml-dtd</tt></td>
+</tr>
+<tr>  <td>Duel</td>
+  <td><tt>duel</tt>, <tt>jbst</tt>, <tt>jsonml+bst</tt></td>
+  <td><tt>*.duel</tt>, <tt>*.jbst</tt></td>
+  <td><tt>text/x-duel</tt>, <tt>text/x-jbst</tt></td>
+</tr>
+<tr>  <td>Dylan</td>
+  <td><tt>dylan</tt></td>
+  <td><tt>*.dylan</tt>, <tt>*.dyl</tt>, <tt>*.intr</tt></td>
+  <td><tt>text/x-dylan</tt></td>
+</tr>
+<tr>  <td>Dylan session</td>
+  <td><tt>dylan-console</tt>, <tt>dylan-repl</tt></td>
+  <td><tt>*.dylan-console</tt></td>
+  <td><tt>text/x-dylan-console</tt></td>
+</tr>
+<tr>  <td>DylanLID</td>
+  <td><tt>dylan-lid</tt>, <tt>lid</tt></td>
+  <td><tt>*.lid</tt>, <tt>*.hdp</tt></td>
+  <td><tt>text/x-dylan-lid</tt></td>
+</tr>
+<tr>  <td>Earl Grey</td>
+  <td><tt>earl-grey</tt>, <tt>earlgrey</tt>, <tt>eg</tt></td>
+  <td><tt>*.eg</tt></td>
+  <td><tt>text/x-earl-grey</tt></td>
+</tr>
+<tr>  <td>Easytrieve</td>
+  <td><tt>easytrieve</tt></td>
+  <td><tt>*.ezt</tt>, <tt>*.mac</tt></td>
+  <td><tt>text/x-easytrieve</tt></td>
+</tr>
+<tr>  <td>EBNF</td>
+  <td><tt>ebnf</tt></td>
+  <td><tt>*.ebnf</tt></td>
+  <td><tt>text/x-ebnf</tt></td>
+</tr>
+<tr>  <td>eC</td>
+  <td><tt>ec</tt></td>
+  <td><tt>*.ec</tt>, <tt>*.eh</tt></td>
+  <td><tt>text/x-echdr</tt>, <tt>text/x-ecsrc</tt></td>
+</tr>
+<tr>  <td>ECL</td>
+  <td><tt>ecl</tt></td>
+  <td><tt>*.ecl</tt></td>
+  <td><tt>application/x-ecl</tt></td>
+</tr>
+<tr>  <td>Eiffel</td>
+  <td><tt>eiffel</tt></td>
+  <td><tt>*.e</tt></td>
+  <td><tt>text/x-eiffel</tt></td>
+</tr>
+<tr>  <td>Elixir</td>
+  <td><tt>elixir</tt>, <tt>ex</tt>, <tt>exs</tt></td>
+  <td><tt>*.ex</tt>, <tt>*.exs</tt></td>
+  <td><tt>text/x-elixir</tt></td>
+</tr>
+<tr>  <td>Elixir iex session</td>
+  <td><tt>iex</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-elixir-shellsession</tt></td>
+</tr>
+<tr>  <td>Elm</td>
+  <td><tt>elm</tt></td>
+  <td><tt>*.elm</tt></td>
+  <td><tt>text/x-elm</tt></td>
+</tr>
+<tr>  <td>EmacsLisp</td>
+  <td><tt>emacs</tt>, <tt>elisp</tt>, <tt>emacs-lisp</tt></td>
+  <td><tt>*.el</tt></td>
+  <td><tt>text/x-elisp</tt>, <tt>application/x-elisp</tt></td>
+</tr>
+<tr>  <td>Embedded Ragel</td>
+  <td><tt>ragel-em</tt></td>
+  <td><tt>*.rl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ERB</td>
+  <td><tt>erb</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-ruby-templating</tt></td>
+</tr>
+<tr>  <td>Erlang</td>
+  <td><tt>erlang</tt></td>
+  <td><tt>*.erl</tt>, <tt>*.hrl</tt>, <tt>*.es</tt>, <tt>*.escript</tt></td>
+  <td><tt>text/x-erlang</tt></td>
+</tr>
+<tr>  <td>Erlang erl session</td>
+  <td><tt>erl</tt></td>
+  <td><tt>*.erl-sh</tt></td>
+  <td><tt>text/x-erl-shellsession</tt></td>
+</tr>
+<tr>  <td>Evoque</td>
+  <td><tt>evoque</tt></td>
+  <td><tt>*.evoque</tt></td>
+  <td><tt>application/x-evoque</tt></td>
+</tr>
+<tr>  <td>Ezhil</td>
+  <td><tt>ezhil</tt></td>
+  <td><tt>*.n</tt></td>
+  <td><tt>text/x-ezhil</tt></td>
+</tr>
+<tr>  <td>Factor</td>
+  <td><tt>factor</tt></td>
+  <td><tt>*.factor</tt></td>
+  <td><tt>text/x-factor</tt></td>
+</tr>
+<tr>  <td>Fancy</td>
+  <td><tt>fancy</tt>, <tt>fy</tt></td>
+  <td><tt>*.fy</tt>, <tt>*.fancypack</tt></td>
+  <td><tt>text/x-fancysrc</tt></td>
+</tr>
+<tr>  <td>Fantom</td>
+  <td><tt>fan</tt></td>
+  <td><tt>*.fan</tt></td>
+  <td><tt>application/x-fantom</tt></td>
+</tr>
+<tr>  <td>Felix</td>
+  <td><tt>felix</tt>, <tt>flx</tt></td>
+  <td><tt>*.flx</tt>, <tt>*.flxh</tt></td>
+  <td><tt>text/x-felix</tt></td>
+</tr>
+<tr>  <td>Fish</td>
+  <td><tt>fish</tt>, <tt>fishshell</tt></td>
+  <td><tt>*.fish</tt>, <tt>*.load</tt></td>
+  <td><tt>application/x-fish</tt></td>
+</tr>
+<tr>  <td>Flatline</td>
+  <td><tt>flatline</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-flatline</tt></td>
+</tr>
+<tr>  <td>Forth</td>
+  <td><tt>forth</tt></td>
+  <td><tt>*.frt</tt>, <tt>*.fs</tt></td>
+  <td><tt>application/x-forth</tt></td>
+</tr>
+<tr>  <td>Fortran</td>
+  <td><tt>fortran</tt></td>
+  <td><tt>*.f03</tt>, <tt>*.f90</tt>, <tt>*.F03</tt>, <tt>*.F90</tt></td>
+  <td><tt>text/x-fortran</tt></td>
+</tr>
+<tr>  <td>FortranFixed</td>
+  <td><tt>fortranfixed</tt></td>
+  <td><tt>*.f</tt>, <tt>*.F</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>FoxPro</td>
+  <td><tt>foxpro</tt>, <tt>vfp</tt>, <tt>clipper</tt>, <tt>xbase</tt></td>
+  <td><tt>*.PRG</tt>, <tt>*.prg</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>FSharp</td>
+  <td><tt>fsharp</tt></td>
+  <td><tt>*.fs</tt>, <tt>*.fsi</tt></td>
+  <td><tt>text/x-fsharp</tt></td>
+</tr>
+<tr>  <td>GAP</td>
+  <td><tt>gap</tt></td>
+  <td><tt>*.g</tt>, <tt>*.gd</tt>, <tt>*.gi</tt>, <tt>*.gap</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>GAS</td>
+  <td><tt>gas</tt>, <tt>asm</tt></td>
+  <td><tt>*.s</tt>, <tt>*.S</tt></td>
+  <td><tt>text/x-gas</tt></td>
+</tr>
+<tr>  <td>Genshi</td>
+  <td><tt>genshi</tt>, <tt>kid</tt>, <tt>xml+genshi</tt>, <tt>xml+kid</tt></td>
+  <td><tt>*.kid</tt></td>
+  <td><tt>application/x-genshi</tt>, <tt>application/x-kid</tt></td>
+</tr>
+<tr>  <td>Genshi Text</td>
+  <td><tt>genshitext</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-genshi-text</tt>, <tt>text/x-genshi</tt></td>
+</tr>
+<tr>  <td>Gettext Catalog</td>
+  <td><tt>pot</tt>, <tt>po</tt></td>
+  <td><tt>*.pot</tt>, <tt>*.po</tt></td>
+  <td><tt>application/x-gettext</tt>, <tt>text/x-gettext</tt>, <tt>text/gettext</tt></td>
+</tr>
+<tr>  <td>Gherkin</td>
+  <td><tt>cucumber</tt>, <tt>gherkin</tt></td>
+  <td><tt>*.feature</tt></td>
+  <td><tt>text/x-gherkin</tt></td>
+</tr>
+<tr>  <td>GLSL</td>
+  <td><tt>glsl</tt></td>
+  <td><tt>*.vert</tt>, <tt>*.frag</tt>, <tt>*.geo</tt></td>
+  <td><tt>text/x-glslsrc</tt></td>
+</tr>
+<tr>  <td>Gnuplot</td>
+  <td><tt>gnuplot</tt></td>
+  <td><tt>*.plot</tt>, <tt>*.plt</tt></td>
+  <td><tt>text/x-gnuplot</tt></td>
+</tr>
+<tr>  <td>Go</td>
+  <td><tt>go</tt></td>
+  <td><tt>*.go</tt></td>
+  <td><tt>text/x-gosrc</tt></td>
+</tr>
+<tr>  <td>Golo</td>
+  <td><tt>golo</tt></td>
+  <td><tt>*.golo</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>GoodData-CL</td>
+  <td><tt>gooddata-cl</tt></td>
+  <td><tt>*.gdc</tt></td>
+  <td><tt>text/x-gooddata-cl</tt></td>
+</tr>
+<tr>  <td>Gosu</td>
+  <td><tt>gosu</tt></td>
+  <td><tt>*.gs</tt>, <tt>*.gsx</tt>, <tt>*.gsp</tt>, <tt>*.vark</tt></td>
+  <td><tt>text/x-gosu</tt></td>
+</tr>
+<tr>  <td>Gosu Template</td>
+  <td><tt>gst</tt></td>
+  <td><tt>*.gst</tt></td>
+  <td><tt>text/x-gosu-template</tt></td>
+</tr>
+<tr>  <td>Groff</td>
+  <td><tt>groff</tt>, <tt>nroff</tt>, <tt>man</tt></td>
+  <td><tt>*.[1234567]</tt>, <tt>*.man</tt></td>
+  <td><tt>application/x-troff</tt>, <tt>text/troff</tt></td>
+</tr>
+<tr>  <td>Groovy</td>
+  <td><tt>groovy</tt></td>
+  <td><tt>*.groovy</tt>, <tt>*.gradle</tt></td>
+  <td><tt>text/x-groovy</tt></td>
+</tr>
+<tr>  <td>Haml</td>
+  <td><tt>haml</tt></td>
+  <td><tt>*.haml</tt></td>
+  <td><tt>text/x-haml</tt></td>
+</tr>
+<tr>  <td>Handlebars</td>
+  <td><tt>handlebars</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Haskell</td>
+  <td><tt>haskell</tt>, <tt>hs</tt></td>
+  <td><tt>*.hs</tt></td>
+  <td><tt>text/x-haskell</tt></td>
+</tr>
+<tr>  <td>Haxe</td>
+  <td><tt>hx</tt>, <tt>haxe</tt>, <tt>hxsl</tt></td>
+  <td><tt>*.hx</tt>, <tt>*.hxsl</tt></td>
+  <td><tt>text/haxe</tt>, <tt>text/x-haxe</tt>, <tt>text/x-hx</tt></td>
+</tr>
+<tr>  <td>Hexdump</td>
+  <td><tt>hexdump</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>HSAIL</td>
+  <td><tt>hsail</tt>, <tt>hsa</tt></td>
+  <td><tt>*.hsail</tt></td>
+  <td><tt>text/x-hsail</tt></td>
+</tr>
+<tr>  <td>HTML</td>
+  <td><tt>html</tt></td>
+  <td><tt>*.html</tt>, <tt>*.htm</tt>, <tt>*.xhtml</tt>, <tt>*.xslt</tt></td>
+  <td><tt>text/html</tt>, <tt>application/xhtml+xml</tt></td>
+</tr>
+<tr>  <td>HTML + Angular2</td>
+  <td><tt>html+ng2</tt></td>
+  <td><tt>*.ng2</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>HTML+Cheetah</td>
+  <td><tt>html+cheetah</tt>, <tt>html+spitfire</tt>, <tt>htmlcheetah</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/html+cheetah</tt>, <tt>text/html+spitfire</tt></td>
+</tr>
+<tr>  <td>HTML+Django/Jinja</td>
+  <td><tt>html+django</tt>, <tt>html+jinja</tt>, <tt>htmldjango</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/html+django</tt>, <tt>text/html+jinja</tt></td>
+</tr>
+<tr>  <td>HTML+Evoque</td>
+  <td><tt>html+evoque</tt></td>
+  <td><tt>*.html</tt></td>
+  <td><tt>text/html+evoque</tt></td>
+</tr>
+<tr>  <td>HTML+Genshi</td>
+  <td><tt>html+genshi</tt>, <tt>html+kid</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/html+genshi</tt></td>
+</tr>
+<tr>  <td>HTML+Handlebars</td>
+  <td><tt>html+handlebars</tt></td>
+  <td><tt>*.handlebars</tt>, <tt>*.hbs</tt></td>
+  <td><tt>text/html+handlebars</tt>, <tt>text/x-handlebars-template</tt></td>
+</tr>
+<tr>  <td>HTML+Lasso</td>
+  <td><tt>html+lasso</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/html+lasso</tt>, <tt>application/x-httpd-lasso</tt>, <tt>application/x-httpd-lasso[89]</tt></td>
+</tr>
+<tr>  <td>HTML+Mako</td>
+  <td><tt>html+mako</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/html+mako</tt></td>
+</tr>
+<tr>  <td>HTML+Myghty</td>
+  <td><tt>html+myghty</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/html+myghty</tt></td>
+</tr>
+<tr>  <td>HTML+PHP</td>
+  <td><tt>html+php</tt></td>
+  <td><tt>*.phtml</tt></td>
+  <td><tt>application/x-php</tt>, <tt>application/x-httpd-php</tt>, <tt>application/x-httpd-php3</tt>, <tt>application/x-httpd-php4</tt>, <tt>application/x-httpd-php5</tt></td>
+</tr>
+<tr>  <td>HTML+Smarty</td>
+  <td><tt>html+smarty</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/html+smarty</tt></td>
+</tr>
+<tr>  <td>HTML+Twig</td>
+  <td><tt>html+twig</tt></td>
+  <td><tt>*.twig</tt></td>
+  <td><tt>text/html+twig</tt></td>
+</tr>
+<tr>  <td>HTML+Velocity</td>
+  <td><tt>html+velocity</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/html+velocity</tt></td>
+</tr>
+<tr>  <td>HTTP</td>
+  <td><tt>http</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Hxml</td>
+  <td><tt>haxeml</tt>, <tt>hxml</tt></td>
+  <td><tt>*.hxml</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Hy</td>
+  <td><tt>hylang</tt></td>
+  <td><tt>*.hy</tt></td>
+  <td><tt>text/x-hy</tt>, <tt>application/x-hy</tt></td>
+</tr>
+<tr>  <td>Hybris</td>
+  <td><tt>hybris</tt>, <tt>hy</tt></td>
+  <td><tt>*.hy</tt>, <tt>*.hyb</tt></td>
+  <td><tt>text/x-hybris</tt>, <tt>application/x-hybris</tt></td>
+</tr>
+<tr>  <td>IDL</td>
+  <td><tt>idl</tt></td>
+  <td><tt>*.pro</tt></td>
+  <td><tt>text/idl</tt></td>
+</tr>
+<tr>  <td>Idris</td>
+  <td><tt>idris</tt>, <tt>idr</tt></td>
+  <td><tt>*.idr</tt></td>
+  <td><tt>text/x-idris</tt></td>
+</tr>
+<tr>  <td>Igor</td>
+  <td><tt>igor</tt>, <tt>igorpro</tt></td>
+  <td><tt>*.ipf</tt></td>
+  <td><tt>text/ipf</tt></td>
+</tr>
+<tr>  <td>Inform 6</td>
+  <td><tt>inform6</tt>, <tt>i6</tt></td>
+  <td><tt>*.inf</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Inform 6 template</td>
+  <td><tt>i6t</tt></td>
+  <td><tt>*.i6t</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Inform 7</td>
+  <td><tt>inform7</tt>, <tt>i7</tt></td>
+  <td><tt>*.ni</tt>, <tt>*.i7x</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>INI</td>
+  <td><tt>ini</tt>, <tt>cfg</tt>, <tt>dosini</tt></td>
+  <td><tt>*.ini</tt>, <tt>*.cfg</tt>, <tt>*.inf</tt></td>
+  <td><tt>text/x-ini</tt>, <tt>text/inf</tt></td>
+</tr>
+<tr>  <td>Io</td>
+  <td><tt>io</tt></td>
+  <td><tt>*.io</tt></td>
+  <td><tt>text/x-iosrc</tt></td>
+</tr>
+<tr>  <td>Ioke</td>
+  <td><tt>ioke</tt>, <tt>ik</tt></td>
+  <td><tt>*.ik</tt></td>
+  <td><tt>text/x-iokesrc</tt></td>
+</tr>
+<tr>  <td>IRC logs</td>
+  <td><tt>irc</tt></td>
+  <td><tt>*.weechatlog</tt></td>
+  <td><tt>text/x-irclog</tt></td>
+</tr>
+<tr>  <td>Isabelle</td>
+  <td><tt>isabelle</tt></td>
+  <td><tt>*.thy</tt></td>
+  <td><tt>text/x-isabelle</tt></td>
+</tr>
+<tr>  <td>J</td>
+  <td><tt>j</tt></td>
+  <td><tt>*.ijs</tt></td>
+  <td><tt>text/x-j</tt></td>
+</tr>
+<tr>  <td>JAGS</td>
+  <td><tt>jags</tt></td>
+  <td><tt>*.jag</tt>, <tt>*.bug</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Jasmin</td>
+  <td><tt>jasmin</tt>, <tt>jasminxt</tt></td>
+  <td><tt>*.j</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Java</td>
+  <td><tt>java</tt></td>
+  <td><tt>*.java</tt></td>
+  <td><tt>text/x-java</tt></td>
+</tr>
+<tr>  <td>Java Server Page</td>
+  <td><tt>jsp</tt></td>
+  <td><tt>*.jsp</tt></td>
+  <td><tt>application/x-jsp</tt></td>
+</tr>
+<tr>  <td>JavaScript</td>
+  <td><tt>js</tt>, <tt>javascript</tt></td>
+  <td><tt>*.js</tt>, <tt>*.jsm</tt></td>
+  <td><tt>application/javascript</tt>, <tt>application/x-javascript</tt>, <tt>text/x-javascript</tt>, <tt>text/javascript</tt></td>
+</tr>
+<tr>  <td>JavaScript+Cheetah</td>
+  <td><tt>js+cheetah</tt>, <tt>javascript+cheetah</tt>, <tt>js+spitfire</tt>, <tt>javascript+spitfire</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-javascript+cheetah</tt>, <tt>text/x-javascript+cheetah</tt>, <tt>text/javascript+cheetah</tt>, <tt>application/x-javascript+spitfire</tt>, <tt>text/x-javascript+spitfire</tt>, <tt>text/javascript+spitfire</tt></td>
+</tr>
+<tr>  <td>JavaScript+Django/Jinja</td>
+  <td><tt>js+django</tt>, <tt>javascript+django</tt>, <tt>js+jinja</tt>, <tt>javascript+jinja</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-javascript+django</tt>, <tt>application/x-javascript+jinja</tt>, <tt>text/x-javascript+django</tt>, <tt>text/x-javascript+jinja</tt>, <tt>text/javascript+django</tt>, <tt>text/javascript+jinja</tt></td>
+</tr>
+<tr>  <td>JavaScript+Genshi Text</td>
+  <td><tt>js+genshitext</tt>, <tt>js+genshi</tt>, <tt>javascript+genshitext</tt>, <tt>javascript+genshi</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-javascript+genshi</tt>, <tt>text/x-javascript+genshi</tt>, <tt>text/javascript+genshi</tt></td>
+</tr>
+<tr>  <td>JavaScript+Lasso</td>
+  <td><tt>js+lasso</tt>, <tt>javascript+lasso</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-javascript+lasso</tt>, <tt>text/x-javascript+lasso</tt>, <tt>text/javascript+lasso</tt></td>
+</tr>
+<tr>  <td>JavaScript+Mako</td>
+  <td><tt>js+mako</tt>, <tt>javascript+mako</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-javascript+mako</tt>, <tt>text/x-javascript+mako</tt>, <tt>text/javascript+mako</tt></td>
+</tr>
+<tr>  <td>Javascript+mozpreproc</td>
+  <td><tt>javascript+mozpreproc</tt></td>
+  <td><tt>*.js.in</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>JavaScript+Myghty</td>
+  <td><tt>js+myghty</tt>, <tt>javascript+myghty</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-javascript+myghty</tt>, <tt>text/x-javascript+myghty</tt>, <tt>text/javascript+mygthy</tt></td>
+</tr>
+<tr>  <td>JavaScript+PHP</td>
+  <td><tt>js+php</tt>, <tt>javascript+php</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-javascript+php</tt>, <tt>text/x-javascript+php</tt>, <tt>text/javascript+php</tt></td>
+</tr>
+<tr>  <td>JavaScript+Ruby</td>
+  <td><tt>js+erb</tt>, <tt>javascript+erb</tt>, <tt>js+ruby</tt>, <tt>javascript+ruby</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-javascript+ruby</tt>, <tt>text/x-javascript+ruby</tt>, <tt>text/javascript+ruby</tt></td>
+</tr>
+<tr>  <td>JavaScript+Smarty</td>
+  <td><tt>js+smarty</tt>, <tt>javascript+smarty</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-javascript+smarty</tt>, <tt>text/x-javascript+smarty</tt>, <tt>text/javascript+smarty</tt></td>
+</tr>
+<tr>  <td>JCL</td>
+  <td><tt>jcl</tt></td>
+  <td><tt>*.jcl</tt></td>
+  <td><tt>text/x-jcl</tt></td>
+</tr>
+<tr>  <td>JSGF</td>
+  <td><tt>jsgf</tt></td>
+  <td><tt>*.jsgf</tt></td>
+  <td><tt>application/jsgf</tt>, <tt>application/x-jsgf</tt>, <tt>text/jsgf</tt></td>
+</tr>
+<tr>  <td>JSON</td>
+  <td><tt>json</tt></td>
+  <td><tt>*.json</tt></td>
+  <td><tt>application/json</tt></td>
+</tr>
+<tr>  <td>JSON-LD</td>
+  <td><tt>jsonld</tt>, <tt>json-ld</tt></td>
+  <td><tt>*.jsonld</tt></td>
+  <td><tt>application/ld+json</tt></td>
+</tr>
+<tr>  <td>JSONBareObject</td>
+  <td><tt>json-object</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/json-object</tt></td>
+</tr>
+<tr>  <td>Julia</td>
+  <td><tt>julia</tt>, <tt>jl</tt></td>
+  <td><tt>*.jl</tt></td>
+  <td><tt>text/x-julia</tt>, <tt>application/x-julia</tt></td>
+</tr>
+<tr>  <td>Julia console</td>
+  <td><tt>jlcon</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Juttle</td>
+  <td><tt>juttle</tt>, <tt>juttle</tt></td>
+  <td><tt>*.juttle</tt></td>
+  <td><tt>application/juttle</tt>, <tt>application/x-juttle</tt>, <tt>text/x-juttle</tt>, <tt>text/juttle</tt></td>
+</tr>
+<tr>  <td>Kal</td>
+  <td><tt>kal</tt></td>
+  <td><tt>*.kal</tt></td>
+  <td><tt>text/kal</tt>, <tt>application/kal</tt></td>
+</tr>
+<tr>  <td>Kconfig</td>
+  <td><tt>kconfig</tt>, <tt>menuconfig</tt>, <tt>linux-config</tt>, <tt>kernel-config</tt></td>
+  <td><tt>Kconfig</tt>, <tt>*Config.in*</tt>, <tt>external.in*</tt>, <tt>standard-modules.in</tt></td>
+  <td><tt>text/x-kconfig</tt></td>
+</tr>
+<tr>  <td>Koka</td>
+  <td><tt>koka</tt></td>
+  <td><tt>*.kk</tt>, <tt>*.kki</tt></td>
+  <td><tt>text/x-koka</tt></td>
+</tr>
+<tr>  <td>Kotlin</td>
+  <td><tt>kotlin</tt></td>
+  <td><tt>*.kt</tt></td>
+  <td><tt>text/x-kotlin</tt></td>
+</tr>
+<tr>  <td>Lasso</td>
+  <td><tt>lasso</tt>, <tt>lassoscript</tt></td>
+  <td><tt>*.lasso</tt>, <tt>*.lasso[89]</tt></td>
+  <td><tt>text/x-lasso</tt></td>
+</tr>
+<tr>  <td>Lean</td>
+  <td><tt>lean</tt></td>
+  <td><tt>*.lean</tt></td>
+  <td><tt>text/x-lean</tt></td>
+</tr>
+<tr>  <td>LessCss</td>
+  <td><tt>less</tt></td>
+  <td><tt>*.less</tt></td>
+  <td><tt>text/x-less-css</tt></td>
+</tr>
+<tr>  <td>Lighttpd configuration file</td>
+  <td><tt>lighty</tt>, <tt>lighttpd</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-lighttpd-conf</tt></td>
+</tr>
+<tr>  <td>Limbo</td>
+  <td><tt>limbo</tt></td>
+  <td><tt>*.b</tt></td>
+  <td><tt>text/limbo</tt></td>
+</tr>
+<tr>  <td>liquid</td>
+  <td><tt>liquid</tt></td>
+  <td><tt>*.liquid</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Literate Agda</td>
+  <td><tt>lagda</tt>, <tt>literate-agda</tt></td>
+  <td><tt>*.lagda</tt></td>
+  <td><tt>text/x-literate-agda</tt></td>
+</tr>
+<tr>  <td>Literate Cryptol</td>
+  <td><tt>lcry</tt>, <tt>literate-cryptol</tt>, <tt>lcryptol</tt></td>
+  <td><tt>*.lcry</tt></td>
+  <td><tt>text/x-literate-cryptol</tt></td>
+</tr>
+<tr>  <td>Literate Haskell</td>
+  <td><tt>lhs</tt>, <tt>literate-haskell</tt>, <tt>lhaskell</tt></td>
+  <td><tt>*.lhs</tt></td>
+  <td><tt>text/x-literate-haskell</tt></td>
+</tr>
+<tr>  <td>Literate Idris</td>
+  <td><tt>lidr</tt>, <tt>literate-idris</tt>, <tt>lidris</tt></td>
+  <td><tt>*.lidr</tt></td>
+  <td><tt>text/x-literate-idris</tt></td>
+</tr>
+<tr>  <td>LiveScript</td>
+  <td><tt>live-script</tt>, <tt>livescript</tt></td>
+  <td><tt>*.ls</tt></td>
+  <td><tt>text/livescript</tt></td>
+</tr>
+<tr>  <td>LLVM</td>
+  <td><tt>llvm</tt></td>
+  <td><tt>*.ll</tt></td>
+  <td><tt>text/x-llvm</tt></td>
+</tr>
+<tr>  <td>Logos</td>
+  <td><tt>logos</tt></td>
+  <td><tt>*.x</tt>, <tt>*.xi</tt>, <tt>*.xm</tt>, <tt>*.xmi</tt></td>
+  <td><tt>text/x-logos</tt></td>
+</tr>
+<tr>  <td>Logtalk</td>
+  <td><tt>logtalk</tt></td>
+  <td><tt>*.lgt</tt>, <tt>*.logtalk</tt></td>
+  <td><tt>text/x-logtalk</tt></td>
+</tr>
+<tr>  <td>LSL</td>
+  <td><tt>lsl</tt></td>
+  <td><tt>*.lsl</tt></td>
+  <td><tt>text/x-lsl</tt></td>
+</tr>
+<tr>  <td>Lua</td>
+  <td><tt>lua</tt></td>
+  <td><tt>*.lua</tt>, <tt>*.wlua</tt></td>
+  <td><tt>text/x-lua</tt>, <tt>application/x-lua</tt></td>
+</tr>
+<tr>  <td>Makefile</td>
+  <td><tt>make</tt>, <tt>makefile</tt>, <tt>mf</tt>, <tt>bsdmake</tt></td>
+  <td><tt>*.mak</tt>, <tt>*.mk</tt>, <tt>Makefile</tt>, <tt>makefile</tt>, <tt>Makefile.*</tt>, <tt>GNUmakefile</tt></td>
+  <td><tt>text/x-makefile</tt></td>
+</tr>
+<tr>  <td>Mako</td>
+  <td><tt>mako</tt></td>
+  <td><tt>*.mao</tt></td>
+  <td><tt>application/x-mako</tt></td>
+</tr>
+<tr>  <td>MAQL</td>
+  <td><tt>maql</tt></td>
+  <td><tt>*.maql</tt></td>
+  <td><tt>text/x-gooddata-maql</tt>, <tt>application/x-gooddata-maql</tt></td>
+</tr>
+<tr>  <td>markdown</td>
+  <td><tt>md</tt></td>
+  <td><tt>*.md</tt></td>
+  <td><tt>text/x-markdown</tt></td>
+</tr>
+<tr>  <td>Mask</td>
+  <td><tt>mask</tt></td>
+  <td><tt>*.mask</tt></td>
+  <td><tt>text/x-mask</tt></td>
+</tr>
+<tr>  <td>Mason</td>
+  <td><tt>mason</tt></td>
+  <td><tt>*.m</tt>, <tt>*.mhtml</tt>, <tt>*.mc</tt>, <tt>*.mi</tt>, <tt>autohandler</tt>, <tt>dhandler</tt></td>
+  <td><tt>application/x-mason</tt></td>
+</tr>
+<tr>  <td>Mathematica</td>
+  <td><tt>mathematica</tt>, <tt>mma</tt>, <tt>nb</tt></td>
+  <td><tt>*.nb</tt>, <tt>*.cdf</tt>, <tt>*.nbp</tt>, <tt>*.ma</tt></td>
+  <td><tt>application/mathematica</tt>, <tt>application/vnd.wolfram.mathematica</tt>, <tt>application/vnd.wolfram.mathematica.package</tt>, <tt>application/vnd.wolfram.cdf</tt></td>
+</tr>
+<tr>  <td>Matlab</td>
+  <td><tt>matlab</tt></td>
+  <td><tt>*.m</tt></td>
+  <td><tt>text/matlab</tt></td>
+</tr>
+<tr>  <td>Matlab session</td>
+  <td><tt>matlabsession</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>MiniD</td>
+  <td><tt>minid</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-minidsrc</tt></td>
+</tr>
+<tr>  <td>Modelica</td>
+  <td><tt>modelica</tt></td>
+  <td><tt>*.mo</tt></td>
+  <td><tt>text/x-modelica</tt></td>
+</tr>
+<tr>  <td>Modula-2</td>
+  <td><tt>modula2</tt>, <tt>m2</tt></td>
+  <td><tt>*.def</tt>, <tt>*.mod</tt></td>
+  <td><tt>text/x-modula2</tt></td>
+</tr>
+<tr>  <td>MoinMoin/Trac Wiki markup</td>
+  <td><tt>trac-wiki</tt>, <tt>moin</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-trac-wiki</tt></td>
+</tr>
+<tr>  <td>Monkey</td>
+  <td><tt>monkey</tt></td>
+  <td><tt>*.monkey</tt></td>
+  <td><tt>text/x-monkey</tt></td>
+</tr>
+<tr>  <td>Monte</td>
+  <td><tt>monte</tt></td>
+  <td><tt>*.mt</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>MOOCode</td>
+  <td><tt>moocode</tt>, <tt>moo</tt></td>
+  <td><tt>*.moo</tt></td>
+  <td><tt>text/x-moocode</tt></td>
+</tr>
+<tr>  <td>MoonScript</td>
+  <td><tt>moon</tt>, <tt>moonscript</tt></td>
+  <td><tt>*.moon</tt></td>
+  <td><tt>text/x-moonscript</tt>, <tt>application/x-moonscript</tt></td>
+</tr>
+<tr>  <td>mozhashpreproc</td>
+  <td><tt>mozhashpreproc</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>mozpercentpreproc</td>
+  <td><tt>mozpercentpreproc</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>MQL</td>
+  <td><tt>mql</tt>, <tt>mq4</tt>, <tt>mq5</tt>, <tt>mql4</tt>, <tt>mql5</tt></td>
+  <td><tt>*.mq4</tt>, <tt>*.mq5</tt>, <tt>*.mqh</tt></td>
+  <td><tt>text/x-mql</tt></td>
+</tr>
+<tr>  <td>Mscgen</td>
+  <td><tt>mscgen</tt>, <tt>msc</tt></td>
+  <td><tt>*.msc</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>MSDOS Session</td>
+  <td><tt>doscon</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>MuPAD</td>
+  <td><tt>mupad</tt></td>
+  <td><tt>*.mu</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>MXML</td>
+  <td><tt>mxml</tt></td>
+  <td><tt>*.mxml</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Myghty</td>
+  <td><tt>myghty</tt></td>
+  <td><tt>*.myt</tt>, <tt>autodelegate</tt></td>
+  <td><tt>application/x-myghty</tt></td>
+</tr>
+<tr>  <td>MySQL</td>
+  <td><tt>mysql</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-mysql</tt></td>
+</tr>
+<tr>  <td>NASM</td>
+  <td><tt>nasm</tt></td>
+  <td><tt>*.asm</tt>, <tt>*.ASM</tt></td>
+  <td><tt>text/x-nasm</tt></td>
+</tr>
+<tr>  <td>NCL</td>
+  <td><tt>ncl</tt></td>
+  <td><tt>*.ncl</tt></td>
+  <td><tt>text/ncl</tt></td>
+</tr>
+<tr>  <td>Nemerle</td>
+  <td><tt>nemerle</tt></td>
+  <td><tt>*.n</tt></td>
+  <td><tt>text/x-nemerle</tt></td>
+</tr>
+<tr>  <td>nesC</td>
+  <td><tt>nesc</tt></td>
+  <td><tt>*.nc</tt></td>
+  <td><tt>text/x-nescsrc</tt></td>
+</tr>
+<tr>  <td>NewLisp</td>
+  <td><tt>newlisp</tt></td>
+  <td><tt>*.lsp</tt>, <tt>*.nl</tt>, <tt>*.kif</tt></td>
+  <td><tt>text/x-newlisp</tt>, <tt>application/x-newlisp</tt></td>
+</tr>
+<tr>  <td>Newspeak</td>
+  <td><tt>newspeak</tt></td>
+  <td><tt>*.ns2</tt></td>
+  <td><tt>text/x-newspeak</tt></td>
+</tr>
+<tr>  <td>Nginx configuration file</td>
+  <td><tt>nginx</tt></td>
+  <td><tt>nginx.conf</tt></td>
+  <td><tt>text/x-nginx-conf</tt></td>
+</tr>
+<tr>  <td>Nimrod</td>
+  <td><tt>nim</tt>, <tt>nimrod</tt></td>
+  <td><tt>*.nim</tt>, <tt>*.nimrod</tt></td>
+  <td><tt>text/x-nim</tt></td>
+</tr>
+<tr>  <td>Nit</td>
+  <td><tt>nit</tt></td>
+  <td><tt>*.nit</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Nix</td>
+  <td><tt>nixos</tt>, <tt>nix</tt></td>
+  <td><tt>*.nix</tt></td>
+  <td><tt>text/x-nix</tt></td>
+</tr>
+<tr>  <td>NSIS</td>
+  <td><tt>nsis</tt>, <tt>nsi</tt>, <tt>nsh</tt></td>
+  <td><tt>*.nsi</tt>, <tt>*.nsh</tt></td>
+  <td><tt>text/x-nsis</tt></td>
+</tr>
+<tr>  <td>NumPy</td>
+  <td><tt>numpy</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>NuSMV</td>
+  <td><tt>nusmv</tt></td>
+  <td><tt>*.smv</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>objdump</td>
+  <td><tt>objdump</tt></td>
+  <td><tt>*.objdump</tt></td>
+  <td><tt>text/x-objdump</tt></td>
+</tr>
+<tr>  <td>objdump-nasm</td>
+  <td><tt>objdump-nasm</tt></td>
+  <td><tt>*.objdump-intel</tt></td>
+  <td><tt>text/x-nasm-objdump</tt></td>
+</tr>
+<tr>  <td>Objective-C</td>
+  <td><tt>objective-c</tt>, <tt>objectivec</tt>, <tt>obj-c</tt>, <tt>objc</tt></td>
+  <td><tt>*.m</tt>, <tt>*.h</tt></td>
+  <td><tt>text/x-objective-c</tt></td>
+</tr>
+<tr>  <td>Objective-C++</td>
+  <td><tt>objective-c++</tt>, <tt>objectivec++</tt>, <tt>obj-c++</tt>, <tt>objc++</tt></td>
+  <td><tt>*.mm</tt>, <tt>*.hh</tt></td>
+  <td><tt>text/x-objective-c++</tt></td>
+</tr>
+<tr>  <td>Objective-J</td>
+  <td><tt>objective-j</tt>, <tt>objectivej</tt>, <tt>obj-j</tt>, <tt>objj</tt></td>
+  <td><tt>*.j</tt></td>
+  <td><tt>text/x-objective-j</tt></td>
+</tr>
+<tr>  <td>OCaml</td>
+  <td><tt>ocaml</tt></td>
+  <td><tt>*.ml</tt>, <tt>*.mli</tt>, <tt>*.mll</tt>, <tt>*.mly</tt></td>
+  <td><tt>text/x-ocaml</tt></td>
+</tr>
+<tr>  <td>Octave</td>
+  <td><tt>octave</tt></td>
+  <td><tt>*.m</tt></td>
+  <td><tt>text/octave</tt></td>
+</tr>
+<tr>  <td>ODIN</td>
+  <td><tt>odin</tt></td>
+  <td><tt>*.odin</tt></td>
+  <td><tt>text/odin</tt></td>
+</tr>
+<tr>  <td>Ooc</td>
+  <td><tt>ooc</tt></td>
+  <td><tt>*.ooc</tt></td>
+  <td><tt>text/x-ooc</tt></td>
+</tr>
+<tr>  <td>Opa</td>
+  <td><tt>opa</tt></td>
+  <td><tt>*.opa</tt></td>
+  <td><tt>text/x-opa</tt></td>
+</tr>
+<tr>  <td>OpenEdge ABL</td>
+  <td><tt>openedge</tt>, <tt>abl</tt>, <tt>progress</tt></td>
+  <td><tt>*.p</tt>, <tt>*.cls</tt></td>
+  <td><tt>text/x-openedge</tt>, <tt>application/x-openedge</tt></td>
+</tr>
+<tr>  <td>PacmanConf</td>
+  <td><tt>pacmanconf</tt></td>
+  <td><tt>pacman.conf</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Pan</td>
+  <td><tt>pan</tt></td>
+  <td><tt>*.pan</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ParaSail</td>
+  <td><tt>parasail</tt></td>
+  <td><tt>*.psi</tt>, <tt>*.psl</tt></td>
+  <td><tt>text/x-parasail</tt></td>
+</tr>
+<tr>  <td>Pawn</td>
+  <td><tt>pawn</tt></td>
+  <td><tt>*.p</tt>, <tt>*.pwn</tt>, <tt>*.inc</tt></td>
+  <td><tt>text/x-pawn</tt></td>
+</tr>
+<tr>  <td>Perl</td>
+  <td><tt>perl</tt>, <tt>pl</tt></td>
+  <td><tt>*.pl</tt>, <tt>*.pm</tt>, <tt>*.t</tt></td>
+  <td><tt>text/x-perl</tt>, <tt>application/x-perl</tt></td>
+</tr>
+<tr>  <td>Perl6</td>
+  <td><tt>perl6</tt>, <tt>pl6</tt></td>
+  <td><tt>*.pl</tt>, <tt>*.pm</tt>, <tt>*.nqp</tt>, <tt>*.p6</tt>, <tt>*.6pl</tt>, <tt>*.p6l</tt>, <tt>*.pl6</tt>, <tt>*.6pm</tt>, <tt>*.p6m</tt>, <tt>*.pm6</tt>, <tt>*.t</tt></td>
+  <td><tt>text/x-perl6</tt>, <tt>application/x-perl6</tt></td>
+</tr>
+<tr>  <td>PHP</td>
+  <td><tt>php</tt>, <tt>php3</tt>, <tt>php4</tt>, <tt>php5</tt></td>
+  <td><tt>*.php</tt>, <tt>*.php[345]</tt>, <tt>*.inc</tt></td>
+  <td><tt>text/x-php</tt></td>
+</tr>
+<tr>  <td>Pig</td>
+  <td><tt>pig</tt></td>
+  <td><tt>*.pig</tt></td>
+  <td><tt>text/x-pig</tt></td>
+</tr>
+<tr>  <td>Pike</td>
+  <td><tt>pike</tt></td>
+  <td><tt>*.pike</tt>, <tt>*.pmod</tt></td>
+  <td><tt>text/x-pike</tt></td>
+</tr>
+<tr>  <td>PkgConfig</td>
+  <td><tt>pkgconfig</tt></td>
+  <td><tt>*.pc</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>PL/pgSQL</td>
+  <td><tt>plpgsql</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-plpgsql</tt></td>
+</tr>
+<tr>  <td>PostgreSQL console (psql)</td>
+  <td><tt>psql</tt>, <tt>postgresql-console</tt>, <tt>postgres-console</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-postgresql-psql</tt></td>
+</tr>
+<tr>  <td>PostgreSQL SQL dialect</td>
+  <td><tt>postgresql</tt>, <tt>postgres</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-postgresql</tt></td>
+</tr>
+<tr>  <td>PostScript</td>
+  <td><tt>postscript</tt>, <tt>postscr</tt></td>
+  <td><tt>*.ps</tt>, <tt>*.eps</tt></td>
+  <td><tt>application/postscript</tt></td>
+</tr>
+<tr>  <td>POVRay</td>
+  <td><tt>pov</tt></td>
+  <td><tt>*.pov</tt>, <tt>*.inc</tt></td>
+  <td><tt>text/x-povray</tt></td>
+</tr>
+<tr>  <td>PowerShell</td>
+  <td><tt>powershell</tt>, <tt>posh</tt>, <tt>ps1</tt>, <tt>psm1</tt></td>
+  <td><tt>*.ps1</tt>, <tt>*.psm1</tt></td>
+  <td><tt>text/x-powershell</tt></td>
+</tr>
+<tr>  <td>PowerShell Session</td>
+  <td><tt>ps1con</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Praat</td>
+  <td><tt>praat</tt></td>
+  <td><tt>*.praat</tt>, <tt>*.proc</tt>, <tt>*.psc</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Prolog</td>
+  <td><tt>prolog</tt></td>
+  <td><tt>*.ecl</tt>, <tt>*.prolog</tt>, <tt>*.pro</tt>, <tt>*.pl</tt></td>
+  <td><tt>text/x-prolog</tt></td>
+</tr>
+<tr>  <td>Properties</td>
+  <td><tt>properties</tt>, <tt>jproperties</tt></td>
+  <td><tt>*.properties</tt></td>
+  <td><tt>text/x-java-properties</tt></td>
+</tr>
+<tr>  <td>Protocol Buffer</td>
+  <td><tt>protobuf</tt>, <tt>proto</tt></td>
+  <td><tt>*.proto</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Pug</td>
+  <td><tt>pug</tt>, <tt>jade</tt></td>
+  <td><tt>*.pug</tt>, <tt>*.jade</tt></td>
+  <td><tt>text/x-pug</tt>, <tt>text/x-jade</tt></td>
+</tr>
+<tr>  <td>Puppet</td>
+  <td><tt>puppet</tt></td>
+  <td><tt>*.pp</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>PyPy Log</td>
+  <td><tt>pypylog</tt>, <tt>pypy</tt></td>
+  <td><tt>*.pypylog</tt></td>
+  <td><tt>application/x-pypylog</tt></td>
+</tr>
+<tr>  <td>Python</td>
+  <td><tt>python</tt>, <tt>py</tt>, <tt>sage</tt></td>
+  <td><tt>*.py</tt>, <tt>*.pyw</tt>, <tt>*.sc</tt>, <tt>SConstruct</tt>, <tt>SConscript</tt>, <tt>*.tac</tt>, <tt>*.sage</tt></td>
+  <td><tt>text/x-python</tt>, <tt>application/x-python</tt></td>
+</tr>
+<tr>  <td>Python 3</td>
+  <td><tt>python3</tt>, <tt>py3</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-python3</tt>, <tt>application/x-python3</tt></td>
+</tr>
+<tr>  <td>Python 3.0 Traceback</td>
+  <td><tt>py3tb</tt></td>
+  <td><tt>*.py3tb</tt></td>
+  <td><tt>text/x-python3-traceback</tt></td>
+</tr>
+<tr>  <td>Python console session</td>
+  <td><tt>pycon</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-python-doctest</tt></td>
+</tr>
+<tr>  <td>Python Traceback</td>
+  <td><tt>pytb</tt></td>
+  <td><tt>*.pytb</tt></td>
+  <td><tt>text/x-python-traceback</tt></td>
+</tr>
+<tr>  <td>QBasic</td>
+  <td><tt>qbasic</tt>, <tt>basic</tt></td>
+  <td><tt>*.BAS</tt>, <tt>*.bas</tt></td>
+  <td><tt>text/basic</tt></td>
+</tr>
+<tr>  <td>QML</td>
+  <td><tt>qml</tt>, <tt>qbs</tt></td>
+  <td><tt>*.qml</tt>, <tt>*.qbs</tt></td>
+  <td><tt>application/x-qml</tt>, <tt>application/x-qt.qbs+qml</tt></td>
+</tr>
+<tr>  <td>QVTO</td>
+  <td><tt>qvto</tt>, <tt>qvt</tt></td>
+  <td><tt>*.qvto</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Racket</td>
+  <td><tt>racket</tt>, <tt>rkt</tt></td>
+  <td><tt>*.rkt</tt>, <tt>*.rktd</tt>, <tt>*.rktl</tt></td>
+  <td><tt>text/x-racket</tt>, <tt>application/x-racket</tt></td>
+</tr>
+<tr>  <td>Ragel</td>
+  <td><tt>ragel</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Ragel in C Host</td>
+  <td><tt>ragel-c</tt></td>
+  <td><tt>*.rl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Ragel in CPP Host</td>
+  <td><tt>ragel-cpp</tt></td>
+  <td><tt>*.rl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Ragel in D Host</td>
+  <td><tt>ragel-d</tt></td>
+  <td><tt>*.rl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Ragel in Java Host</td>
+  <td><tt>ragel-java</tt></td>
+  <td><tt>*.rl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Ragel in Objective C Host</td>
+  <td><tt>ragel-objc</tt></td>
+  <td><tt>*.rl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Ragel in Ruby Host</td>
+  <td><tt>ragel-ruby</tt>, <tt>ragel-rb</tt></td>
+  <td><tt>*.rl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Raw token data</td>
+  <td><tt>raw</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-pygments-tokens</tt></td>
+</tr>
+<tr>  <td>RConsole</td>
+  <td><tt>rconsole</tt>, <tt>rout</tt></td>
+  <td><tt>*.Rout</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Rd</td>
+  <td><tt>rd</tt></td>
+  <td><tt>*.Rd</tt></td>
+  <td><tt>text/x-r-doc</tt></td>
+</tr>
+<tr>  <td>REBOL</td>
+  <td><tt>rebol</tt></td>
+  <td><tt>*.r</tt>, <tt>*.r3</tt>, <tt>*.reb</tt></td>
+  <td><tt>text/x-rebol</tt></td>
+</tr>
+<tr>  <td>Red</td>
+  <td><tt>red</tt>, <tt>red/system</tt></td>
+  <td><tt>*.red</tt>, <tt>*.reds</tt></td>
+  <td><tt>text/x-red</tt>, <tt>text/x-red-system</tt></td>
+</tr>
+<tr>  <td>Redcode</td>
+  <td><tt>redcode</tt></td>
+  <td><tt>*.cw</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>reg</td>
+  <td><tt>registry</tt></td>
+  <td><tt>*.reg</tt></td>
+  <td><tt>text/x-windows-registry</tt></td>
+</tr>
+<tr>  <td>Relax-NG Compact</td>
+  <td><tt>rnc</tt>, <tt>rng-compact</tt></td>
+  <td><tt>*.rnc</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>ResourceBundle</td>
+  <td><tt>resource</tt>, <tt>resourcebundle</tt></td>
+  <td><tt>*.txt</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>reStructuredText</td>
+  <td><tt>rst</tt>, <tt>rest</tt>, <tt>restructuredtext</tt></td>
+  <td><tt>*.rst</tt>, <tt>*.rest</tt></td>
+  <td><tt>text/x-rst</tt>, <tt>text/prs.fallenstein.rst</tt></td>
+</tr>
+<tr>  <td>Rexx</td>
+  <td><tt>rexx</tt>, <tt>arexx</tt></td>
+  <td><tt>*.rexx</tt>, <tt>*.rex</tt>, <tt>*.rx</tt>, <tt>*.arexx</tt></td>
+  <td><tt>text/x-rexx</tt></td>
+</tr>
+<tr>  <td>RHTML</td>
+  <td><tt>rhtml</tt>, <tt>html+erb</tt>, <tt>html+ruby</tt></td>
+  <td><tt>*.rhtml</tt></td>
+  <td><tt>text/html+ruby</tt></td>
+</tr>
+<tr>  <td>Roboconf Graph</td>
+  <td><tt>roboconf-graph</tt></td>
+  <td><tt>*.graph</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Roboconf Instances</td>
+  <td><tt>roboconf-instances</tt></td>
+  <td><tt>*.instances</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>RobotFramework</td>
+  <td><tt>robotframework</tt></td>
+  <td><tt>*.txt</tt>, <tt>*.robot</tt></td>
+  <td><tt>text/x-robotframework</tt></td>
+</tr>
+<tr>  <td>RPMSpec</td>
+  <td><tt>spec</tt></td>
+  <td><tt>*.spec</tt></td>
+  <td><tt>text/x-rpm-spec</tt></td>
+</tr>
+<tr>  <td>RQL</td>
+  <td><tt>rql</tt></td>
+  <td><tt>*.rql</tt></td>
+  <td><tt>text/x-rql</tt></td>
+</tr>
+<tr>  <td>RSL</td>
+  <td><tt>rsl</tt></td>
+  <td><tt>*.rsl</tt></td>
+  <td><tt>text/rsl</tt></td>
+</tr>
+<tr>  <td>Ruby</td>
+  <td><tt>rb</tt>, <tt>ruby</tt>, <tt>duby</tt></td>
+  <td><tt>*.rb</tt>, <tt>*.rbw</tt>, <tt>Rakefile</tt>, <tt>*.rake</tt>, <tt>*.gemspec</tt>, <tt>*.rbx</tt>, <tt>*.duby</tt>, <tt>Gemfile</tt></td>
+  <td><tt>text/x-ruby</tt>, <tt>application/x-ruby</tt></td>
+</tr>
+<tr>  <td>Ruby irb session</td>
+  <td><tt>rbcon</tt>, <tt>irb</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-ruby-shellsession</tt></td>
+</tr>
+<tr>  <td>Rust</td>
+  <td><tt>rust</tt></td>
+  <td><tt>*.rs</tt>, <tt>*.rs.in</tt></td>
+  <td><tt>text/rust</tt></td>
+</tr>
+<tr>  <td>S</td>
+  <td><tt>splus</tt>, <tt>s</tt>, <tt>r</tt></td>
+  <td><tt>*.S</tt>, <tt>*.R</tt>, <tt>.Rhistory</tt>, <tt>.Rprofile</tt>, <tt>.Renviron</tt></td>
+  <td><tt>text/S-plus</tt>, <tt>text/S</tt>, <tt>text/x-r-source</tt>, <tt>text/x-r</tt>, <tt>text/x-R</tt>, <tt>text/x-r-history</tt>, <tt>text/x-r-profile</tt></td>
+</tr>
+<tr>  <td>SAS</td>
+  <td><tt>sas</tt></td>
+  <td><tt>*.SAS</tt>, <tt>*.sas</tt></td>
+  <td><tt>text/x-sas</tt>, <tt>text/sas</tt>, <tt>application/x-sas</tt></td>
+</tr>
+<tr>  <td>Sass</td>
+  <td><tt>sass</tt></td>
+  <td><tt>*.sass</tt></td>
+  <td><tt>text/x-sass</tt></td>
+</tr>
+<tr>  <td>Scala</td>
+  <td><tt>scala</tt></td>
+  <td><tt>*.scala</tt></td>
+  <td><tt>text/x-scala</tt></td>
+</tr>
+<tr>  <td>Scalate Server Page</td>
+  <td><tt>ssp</tt></td>
+  <td><tt>*.ssp</tt></td>
+  <td><tt>application/x-ssp</tt></td>
+</tr>
+<tr>  <td>Scaml</td>
+  <td><tt>scaml</tt></td>
+  <td><tt>*.scaml</tt></td>
+  <td><tt>text/x-scaml</tt></td>
+</tr>
+<tr>  <td>Scheme</td>
+  <td><tt>scheme</tt>, <tt>scm</tt></td>
+  <td><tt>*.scm</tt>, <tt>*.ss</tt></td>
+  <td><tt>text/x-scheme</tt>, <tt>application/x-scheme</tt></td>
+</tr>
+<tr>  <td>Scilab</td>
+  <td><tt>scilab</tt></td>
+  <td><tt>*.sci</tt>, <tt>*.sce</tt>, <tt>*.tst</tt></td>
+  <td><tt>text/scilab</tt></td>
+</tr>
+<tr>  <td>SCSS</td>
+  <td><tt>scss</tt></td>
+  <td><tt>*.scss</tt></td>
+  <td><tt>text/x-scss</tt></td>
+</tr>
+<tr>  <td>Shen</td>
+  <td><tt>shen</tt></td>
+  <td><tt>*.shen</tt></td>
+  <td><tt>text/x-shen</tt>, <tt>application/x-shen</tt></td>
+</tr>
+<tr>  <td>Silver</td>
+  <td><tt>silver</tt></td>
+  <td><tt>*.sil</tt>, <tt>*.vpr</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Slim</td>
+  <td><tt>slim</tt></td>
+  <td><tt>*.slim</tt></td>
+  <td><tt>text/x-slim</tt></td>
+</tr>
+<tr>  <td>Smali</td>
+  <td><tt>smali</tt></td>
+  <td><tt>*.smali</tt></td>
+  <td><tt>text/smali</tt></td>
+</tr>
+<tr>  <td>Smalltalk</td>
+  <td><tt>smalltalk</tt>, <tt>squeak</tt>, <tt>st</tt></td>
+  <td><tt>*.st</tt></td>
+  <td><tt>text/x-smalltalk</tt></td>
+</tr>
+<tr>  <td>Smarty</td>
+  <td><tt>smarty</tt></td>
+  <td><tt>*.tpl</tt></td>
+  <td><tt>application/x-smarty</tt></td>
+</tr>
+<tr>  <td>Snobol</td>
+  <td><tt>snobol</tt></td>
+  <td><tt>*.snobol</tt></td>
+  <td><tt>text/x-snobol</tt></td>
+</tr>
+<tr>  <td>Snowball</td>
+  <td><tt>snowball</tt></td>
+  <td><tt>*.sbl</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>SourcePawn</td>
+  <td><tt>sp</tt></td>
+  <td><tt>*.sp</tt></td>
+  <td><tt>text/x-sourcepawn</tt></td>
+</tr>
+<tr>  <td>SPARQL</td>
+  <td><tt>sparql</tt></td>
+  <td><tt>*.rq</tt>, <tt>*.sparql</tt></td>
+  <td><tt>application/sparql-query</tt></td>
+</tr>
+<tr>  <td>SQL</td>
+  <td><tt>sql</tt></td>
+  <td><tt>*.sql</tt></td>
+  <td><tt>text/x-sql</tt></td>
+</tr>
+<tr>  <td>sqlite3con</td>
+  <td><tt>sqlite3</tt></td>
+  <td><tt>*.sqlite3-console</tt></td>
+  <td><tt>text/x-sqlite3-console</tt></td>
+</tr>
+<tr>  <td>SquidConf</td>
+  <td><tt>squidconf</tt>, <tt>squid.conf</tt>, <tt>squid</tt></td>
+  <td><tt>squid.conf</tt></td>
+  <td><tt>text/x-squidconf</tt></td>
+</tr>
+<tr>  <td>Stan</td>
+  <td><tt>stan</tt></td>
+  <td><tt>*.stan</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Standard ML</td>
+  <td><tt>sml</tt></td>
+  <td><tt>*.sml</tt>, <tt>*.sig</tt>, <tt>*.fun</tt></td>
+  <td><tt>text/x-standardml</tt>, <tt>application/x-standardml</tt></td>
+</tr>
+<tr>  <td>Stata</td>
+  <td><tt>stata</tt>, <tt>do</tt></td>
+  <td><tt>*.do</tt>, <tt>*.ado</tt></td>
+  <td><tt>text/x-stata</tt>, <tt>text/stata</tt>, <tt>application/x-stata</tt></td>
+</tr>
+<tr>  <td>SuperCollider</td>
+  <td><tt>sc</tt>, <tt>supercollider</tt></td>
+  <td><tt>*.sc</tt>, <tt>*.scd</tt></td>
+  <td><tt>application/supercollider</tt>, <tt>text/supercollider</tt></td>
+</tr>
+<tr>  <td>Swift</td>
+  <td><tt>swift</tt></td>
+  <td><tt>*.swift</tt></td>
+  <td><tt>text/x-swift</tt></td>
+</tr>
+<tr>  <td>SWIG</td>
+  <td><tt>swig</tt></td>
+  <td><tt>*.swg</tt>, <tt>*.i</tt></td>
+  <td><tt>text/swig</tt></td>
+</tr>
+<tr>  <td>systemverilog</td>
+  <td><tt>systemverilog</tt>, <tt>sv</tt></td>
+  <td><tt>*.sv</tt>, <tt>*.svh</tt></td>
+  <td><tt>text/x-systemverilog</tt></td>
+</tr>
+<tr>  <td>TADS 3</td>
+  <td><tt>tads3</tt></td>
+  <td><tt>*.t</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>TAP</td>
+  <td><tt>tap</tt></td>
+  <td><tt>*.tap</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>TASM</td>
+  <td><tt>tasm</tt></td>
+  <td><tt>*.asm</tt>, <tt>*.ASM</tt>, <tt>*.tasm</tt></td>
+  <td><tt>text/x-tasm</tt></td>
+</tr>
+<tr>  <td>Tcl</td>
+  <td><tt>tcl</tt></td>
+  <td><tt>*.tcl</tt>, <tt>*.rvt</tt></td>
+  <td><tt>text/x-tcl</tt>, <tt>text/x-script.tcl</tt>, <tt>application/x-tcl</tt></td>
+</tr>
+<tr>  <td>Tcsh</td>
+  <td><tt>tcsh</tt>, <tt>csh</tt></td>
+  <td><tt>*.tcsh</tt>, <tt>*.csh</tt></td>
+  <td><tt>application/x-csh</tt></td>
+</tr>
+<tr>  <td>Tcsh Session</td>
+  <td><tt>tcshcon</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Tea</td>
+  <td><tt>tea</tt></td>
+  <td><tt>*.tea</tt></td>
+  <td><tt>text/x-tea</tt></td>
+</tr>
+<tr>  <td>Termcap</td>
+  <td><tt>termcap</tt></td>
+  <td><tt>termcap</tt>, <tt>termcap.src</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Terminfo</td>
+  <td><tt>terminfo</tt></td>
+  <td><tt>terminfo</tt>, <tt>terminfo.src</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Terraform</td>
+  <td><tt>terraform</tt>, <tt>tf</tt></td>
+  <td><tt>*.tf</tt></td>
+  <td><tt>application/x-tf</tt>, <tt>application/x-terraform</tt></td>
+</tr>
+<tr>  <td>TeX</td>
+  <td><tt>tex</tt>, <tt>latex</tt></td>
+  <td><tt>*.tex</tt>, <tt>*.aux</tt>, <tt>*.toc</tt></td>
+  <td><tt>text/x-tex</tt>, <tt>text/x-latex</tt></td>
+</tr>
+<tr>  <td>Text only</td>
+  <td><tt>text</tt></td>
+  <td><tt>*.txt</tt></td>
+  <td><tt>text/plain</tt></td>
+</tr>
+<tr>  <td>Thrift</td>
+  <td><tt>thrift</tt></td>
+  <td><tt>*.thrift</tt></td>
+  <td><tt>application/x-thrift</tt></td>
+</tr>
+<tr>  <td>Todotxt</td>
+  <td><tt>todotxt</tt></td>
+  <td><tt>todo.txt</tt>, <tt>*.todotxt</tt></td>
+  <td><tt>text/x-todo</tt></td>
+</tr>
+<tr>  <td>TrafficScript</td>
+  <td><tt>rts</tt>, <tt>trafficscript</tt></td>
+  <td><tt>*.rts</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Transact-SQL</td>
+  <td><tt>tsql</tt>, <tt>t-sql</tt></td>
+  <td><tt>*.sql</tt></td>
+  <td><tt>text/x-tsql</tt></td>
+</tr>
+<tr>  <td>Treetop</td>
+  <td><tt>treetop</tt></td>
+  <td><tt>*.treetop</tt>, <tt>*.tt</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Turtle</td>
+  <td><tt>turtle</tt></td>
+  <td><tt>*.ttl</tt></td>
+  <td><tt>text/turtle</tt>, <tt>application/x-turtle</tt></td>
+</tr>
+<tr>  <td>Twig</td>
+  <td><tt>twig</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/x-twig</tt></td>
+</tr>
+<tr>  <td>TypeScript</td>
+  <td><tt>ts</tt>, <tt>typescript</tt></td>
+  <td><tt>*.ts</tt></td>
+  <td><tt>text/x-typescript</tt></td>
+</tr>
+<tr>  <td>TypoScript</td>
+  <td><tt>typoscript</tt></td>
+  <td><tt>*.ts</tt>, <tt>*.txt</tt></td>
+  <td><tt>text/x-typoscript</tt></td>
+</tr>
+<tr>  <td>TypoScriptCssData</td>
+  <td><tt>typoscriptcssdata</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>TypoScriptHtmlData</td>
+  <td><tt>typoscripthtmldata</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>UrbiScript</td>
+  <td><tt>urbiscript</tt></td>
+  <td><tt>*.u</tt></td>
+  <td><tt>application/x-urbiscript</tt></td>
+</tr>
+<tr>  <td>Vala</td>
+  <td><tt>vala</tt>, <tt>vapi</tt></td>
+  <td><tt>*.vala</tt>, <tt>*.vapi</tt></td>
+  <td><tt>text/x-vala</tt></td>
+</tr>
+<tr>  <td>VB.net</td>
+  <td><tt>vb.net</tt>, <tt>vbnet</tt></td>
+  <td><tt>*.vb</tt>, <tt>*.bas</tt></td>
+  <td><tt>text/x-vbnet</tt>, <tt>text/x-vba</tt></td>
+</tr>
+<tr>  <td>VCL</td>
+  <td><tt>vcl</tt></td>
+  <td><tt>*.vcl</tt></td>
+  <td><tt>text/x-vclsrc</tt></td>
+</tr>
+<tr>  <td>VCLSnippets</td>
+  <td><tt>vclsnippets</tt>, <tt>vclsnippet</tt></td>
+  <td><tt></tt></td>
+  <td><tt>text/x-vclsnippet</tt></td>
+</tr>
+<tr>  <td>VCTreeStatus</td>
+  <td><tt>vctreestatus</tt></td>
+  <td><tt></tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Velocity</td>
+  <td><tt>velocity</tt></td>
+  <td><tt>*.vm</tt>, <tt>*.fhtml</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>verilog</td>
+  <td><tt>verilog</tt>, <tt>v</tt></td>
+  <td><tt>*.v</tt></td>
+  <td><tt>text/x-verilog</tt></td>
+</tr>
+<tr>  <td>VGL</td>
+  <td><tt>vgl</tt></td>
+  <td><tt>*.rpf</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>vhdl</td>
+  <td><tt>vhdl</tt></td>
+  <td><tt>*.vhdl</tt>, <tt>*.vhd</tt></td>
+  <td><tt>text/x-vhdl</tt></td>
+</tr>
+<tr>  <td>VimL</td>
+  <td><tt>vim</tt></td>
+  <td><tt>*.vim</tt>, <tt>.vimrc</tt>, <tt>.exrc</tt>, <tt>.gvimrc</tt>, <tt>_vimrc</tt>, <tt>_exrc</tt>, <tt>_gvimrc</tt>, <tt>vimrc</tt>, <tt>gvimrc</tt></td>
+  <td><tt>text/x-vim</tt></td>
+</tr>
+<tr>  <td>WDiff</td>
+  <td><tt>wdiff</tt></td>
+  <td><tt>*.wdiff</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>Whiley</td>
+  <td><tt>whiley</tt></td>
+  <td><tt>*.whiley</tt></td>
+  <td><tt>text/x-whiley</tt></td>
+</tr>
+<tr>  <td>X10</td>
+  <td><tt>x10</tt>, <tt>xten</tt></td>
+  <td><tt>*.x10</tt></td>
+  <td><tt>text/x-x10</tt></td>
+</tr>
+<tr>  <td>XML</td>
+  <td><tt>xml</tt></td>
+  <td><tt>*.xml</tt>, <tt>*.xsl</tt>, <tt>*.rss</tt>, <tt>*.xslt</tt>, <tt>*.xsd</tt>, <tt>*.wsdl</tt>, <tt>*.wsf</tt></td>
+  <td><tt>text/xml</tt>, <tt>application/xml</tt>, <tt>image/svg+xml</tt>, <tt>application/rss+xml</tt>, <tt>application/atom+xml</tt></td>
+</tr>
+<tr>  <td>XML+Cheetah</td>
+  <td><tt>xml+cheetah</tt>, <tt>xml+spitfire</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/xml+cheetah</tt>, <tt>application/xml+spitfire</tt></td>
+</tr>
+<tr>  <td>XML+Django/Jinja</td>
+  <td><tt>xml+django</tt>, <tt>xml+jinja</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/xml+django</tt>, <tt>application/xml+jinja</tt></td>
+</tr>
+<tr>  <td>XML+Evoque</td>
+  <td><tt>xml+evoque</tt></td>
+  <td><tt>*.xml</tt></td>
+  <td><tt>application/xml+evoque</tt></td>
+</tr>
+<tr>  <td>XML+Lasso</td>
+  <td><tt>xml+lasso</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/xml+lasso</tt></td>
+</tr>
+<tr>  <td>XML+Mako</td>
+  <td><tt>xml+mako</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/xml+mako</tt></td>
+</tr>
+<tr>  <td>XML+Myghty</td>
+  <td><tt>xml+myghty</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/xml+myghty</tt></td>
+</tr>
+<tr>  <td>XML+PHP</td>
+  <td><tt>xml+php</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/xml+php</tt></td>
+</tr>
+<tr>  <td>XML+Ruby</td>
+  <td><tt>xml+erb</tt>, <tt>xml+ruby</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/xml+ruby</tt></td>
+</tr>
+<tr>  <td>XML+Smarty</td>
+  <td><tt>xml+smarty</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/xml+smarty</tt></td>
+</tr>
+<tr>  <td>XML+Velocity</td>
+  <td><tt>xml+velocity</tt></td>
+  <td><tt></tt></td>
+  <td><tt>application/xml+velocity</tt></td>
+</tr>
+<tr>  <td>XQuery</td>
+  <td><tt>xquery</tt>, <tt>xqy</tt>, <tt>xq</tt>, <tt>xql</tt>, <tt>xqm</tt></td>
+  <td><tt>*.xqy</tt>, <tt>*.xquery</tt>, <tt>*.xq</tt>, <tt>*.xql</tt>, <tt>*.xqm</tt></td>
+  <td><tt>text/xquery</tt>, <tt>application/xquery</tt></td>
+</tr>
+<tr>  <td>XSLT</td>
+  <td><tt>xslt</tt></td>
+  <td><tt>*.xsl</tt>, <tt>*.xslt</tt>, <tt>*.xpl</tt></td>
+  <td><tt>application/xsl+xml</tt>, <tt>application/xslt+xml</tt></td>
+</tr>
+<tr>  <td>Xtend</td>
+  <td><tt>xtend</tt></td>
+  <td><tt>*.xtend</tt></td>
+  <td><tt>text/x-xtend</tt></td>
+</tr>
+<tr>  <td>xtlang</td>
+  <td><tt>extempore</tt></td>
+  <td><tt>*.xtm</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>XUL+mozpreproc</td>
+  <td><tt>xul+mozpreproc</tt></td>
+  <td><tt>*.xul.in</tt></td>
+  <td><tt></tt></td>
+</tr>
+<tr>  <td>YAML</td>
+  <td><tt>yaml</tt></td>
+  <td><tt>*.yaml</tt>, <tt>*.yml</tt></td>
+  <td><tt>text/x-yaml</tt></td>
+</tr>
+<tr>  <td>YAML+Jinja</td>
+  <td><tt>yaml+jinja</tt>, <tt>salt</tt>, <tt>sls</tt></td>
+  <td><tt>*.sls</tt></td>
+  <td><tt>text/x-yaml+jinja</tt>, <tt>text/x-sls</tt></td>
+</tr>
+<tr>  <td>Zephir</td>
+  <td><tt>zephir</tt></td>
+  <td><tt>*.zep</tt></td>
+  <td><tt></tt></td>
+</tr>
+</tbody></table></div> <span class="anchor" id="line-186"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

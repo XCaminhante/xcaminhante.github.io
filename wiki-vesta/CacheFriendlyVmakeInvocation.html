@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>CacheFriendlyVmakeInvocation - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: CacheFriendlyVmakeInvocation" href="CacheFriendlyVmakeInvocation%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=CacheFriendlyVmakeInvocation&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="CacheFriendlyVmakeInvocation%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="CacheFriendlyVmakeInvocation%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="CacheFriendlyVmakeInvocation.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="CacheFriendlyVmakeInvocation.html">CacheFriendlyVmakeInvocation</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="CacheFriendlyVmakeInvocation.html">CacheFriend...eInvocation</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="CacheFriendlyVmakeInvocation%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line874">When invoking vmake, it builds all the files and outputs them. <span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line874">Great. Except...that makes it overwrite last-modified-times on files that haven't been modified - which is a real problem in any situation where the things being make'd are content in any kind of distribution server (files, http, etc). <span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">At the simplest level, it would be nice if vmake had a flag to only overwrite files if they were different from the ones already there. This small change would instantly make making into a cache-friendly action. This has knock-on effects from the small-but-universal (you can ftp your built files to a remote host using &quot;mput -r *&quot; and recursively put the entire directory, safe in the knowledge that only what's changed will be transferred) to the huge-but-uncommon/rare (you can vmake content directly into deployment/delivery directories, safe in the knowledge that it won't blow all the unchanged files out of all the caches on the planet). <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867"><hr /><p class="line874"> <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">We've <a class="http" href="http://www.scooter.cx/~mozbot/%23vesta-20050429-070000.xml">talked on IRC</a> about several options: <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867">
+<h2 id="Have_the_evaluator_preserve_the_mtime_of_the_shipped_file.">Have the evaluator preserve the mtime of the shipped file.</h2>
+<span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line874">In other words: <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><ul><li>If it's a source file being shipped, the mtime of the shipped file would be the last time a user edited it. <span class="anchor" id="line-16"></span></li><li>If it's a derived file being shipped, the mtime of the shipped file would be when the tool finished writing it. <span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span></li></ul><p class="line874">This would be pretty easy to implement and seems to mostly solve the problem.  The main hole is that if something gets weeded out of the cache and then you re-build and re-ship, it will update those derived files (since their mtime will be different). <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><p class="line867">
+<h2 id="Compare_files_before_shipping">Compare files before shipping</h2>
+<span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line874">Whenever shipping a file, compare the contents of the file to be shipped with the one already at the destination.  Don't copy the new file unless it's different from the old one.  This would slow down shipping significantly, but would completely solve the problem posed. <span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><p class="line874">Of course one could write a script which did this for you. Ship the result to another directory (even as links), then do the comparison and selective copying to the real destination.  This makes me think that this functionality doesn't really need to go into the evaluator. <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><p class="line867">
+<h2 id="Parse_the_old_.log_file">Parse the old .log file</h2>
+<span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line874">When shipping, the evaluator writes a file named &quot;.log&quot; which tells what build the file came from.  It also includes the time the shipping was performed and the shortid that was copied. <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line874">This could be used to see if the same shortid is being shipped and whether the file at the destination has been modified  since the last ship.  However this has a number of problems: <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><ul><li>The same shortid doesn't always contain the same thing.  Weedeing can delete shortids and a new source or derived could be assigned the same shortid. <span class="anchor" id="line-33"></span></li><li>mtime is a really bad way to determine if something has changed. <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span></li></ul><p class="line874">Basically this idea seems really bad to me (without some significant modification, possibly turning it into option 2 above).  It would be terribly broken to ask the evaluator to ship the result of a build and get something other than the result of that build. <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line867"><hr /><p class="line874"> <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line867"><a href="AdamMartin.html">AdamMartin</a> asked: <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><ul><li style="list-style-type:none">A source file in one function, whose result is then shipped from another function - does this become a derived file as far as the outer function is concerned? <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span></li></ul><p class="line874">In some sense it's both a source and a derived.  However it will have the same shortid and its mtime won't be changed merely by being returned from a function. <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line874">It's a source in that it's still referenced from the source portion of the repository (/vesta).  It's a derived in that it's protected by a cache entry. <span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><p class="line874">Hypothetically, you could delete the source version which protects the shortid but still have a cache entry protecting it.  This would change its status to just being a derived. <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><p class="line867"><hr /><p class="line874"> <span class="anchor" id="line-50"></span><a href="CategoryWishList.html">CategoryWishList</a> <span class="anchor" id="line-51"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

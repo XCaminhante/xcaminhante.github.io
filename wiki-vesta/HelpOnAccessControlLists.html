@@ -1,0 +1,209 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnAccessControlLists - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnAccessControlLists" href="HelpOnAccessControlLists%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnAccessControlLists&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnAccessControlLists%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnAccessControlLists%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnAccessControlLists.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnAccessControlLists.html">HelpOnAccessControlLists</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnAccessControlLists.html">HelpOnAccessControlLists</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnAccessControlLists%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line867">
+<h1 id="Access_Control_Lists">Access Control Lists</h1>
+<span class="anchor" id="line-9"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="HelpOnAccessControlLists.html#Access_Control_Lists">Access Control Lists</a><ol><li>
+<a href="HelpOnAccessControlLists.html#Understanding_Permissions_.26_Groups">Understanding Permissions &amp; Groups</a><ol><li>
+<a href="HelpOnAccessControlLists.html#Basic_Permissions">Basic Permissions</a></li><li>
+<a href="HelpOnAccessControlLists.html#Basic_Groups">Basic Groups</a></li></ol></li><li>
+<a href="HelpOnAccessControlLists.html#Syntax_.26_Usage">Syntax &amp; Usage</a></li><li>
+<a href="HelpOnAccessControlLists.html#Site-wide_Configuration">Site-wide Configuration</a></li><li>
+<a href="HelpOnAccessControlLists.html#ACL_processing">ACL processing</a><ol><li>
+<a href="HelpOnAccessControlLists.html#Order_of_processing_ACL_entries">Order of processing ACL entries</a></li><li>
+<a href="HelpOnAccessControlLists.html#ACL_prefix_modifiers">ACL prefix modifiers</a></li></ol></li><li>
+<a href="HelpOnAccessControlLists.html#Inheriting_from_.27Default.27">Inheriting from 'Default'</a></li><li>
+<a href="HelpOnAccessControlLists.html#Hierarchical_ACL_processing">Hierarchical ACL processing</a></li><li>
+<a href="HelpOnAccessControlLists.html#Usage_Examples">Usage Examples</a><ol><li>
+<a href="HelpOnAccessControlLists.html#Public_community_Wiki_on_the_Internet">Public community Wiki on the Internet</a></li><li>
+<a href="HelpOnAccessControlLists.html#Wiki_as_a_simple_CMS">Wiki as a simple CMS</a></li><li>
+<a href="HelpOnAccessControlLists.html#Wiki_on_Intranet">Wiki on Intranet</a></li><li>
+<a href="HelpOnAccessControlLists.html#Wiki_as_a_public_company_page">Wiki as a public company page</a></li><li>
+<a href="HelpOnAccessControlLists.html#Comments_on_read-only_page">Comments on read-only page</a></li></ol></li><li>
+<a href="HelpOnAccessControlLists.html#See_Also">See Also</a></li></ol></li></ol></div> <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">Access Control Lists (ACL's) allow you to control the permissions of a user or a group of users (which you define, see <a href="HelpOnGroups.html">HelpOnGroups</a>).  You can define permissions for the entire wiki, or for selected pages of the wiki. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line874">Using ACL's, you can easily configure the wiki so that anonymous users can only read, but not edit pages. You can create pages that the general audience can't read until you're ready to publish. You can set permissions so that only certain users are able to edit. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">To use ACLs, you need either access to the wikiconfig.py (for setting global ACLs), or the <em>admin</em> right on the specific page where you want to set (or change) ACLs. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line867">
+<h2 id="Understanding_Permissions_.26_Groups">Understanding Permissions &amp; Groups</h2>
+<span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line867">
+<h3 id="Basic_Permissions">Basic Permissions</h3>
+<span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line874">Available rights you can use in an ACL entry: <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><ul><li><p class="line891"><em>read</em> - users will be able to read a page, and download its attachments. <span class="anchor" id="line-24"></span></li><li><p class="line891"><em>write</em> - users will be able to edit (write) a page, and upload attachments. <span class="anchor" id="line-25"></span></li><li><p class="line891"><em>delete</em> -  users will be able to delete a page and it's attachments. <span class="anchor" id="line-26"></span></li><li><p class="line891"><em>revert</em> - users will be able to 'revert' a page back to an older revision. <span class="anchor" id="line-27"></span></li><li><p class="line891"><em>admin</em> - users will be able to change the &quot;#acl&quot; line on a page, as well as grant and/or revoke &quot;admin&quot; privileges from others. <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span></li></ul><p class="line862">There is no separate <em>rename</em> right. Renaming a page requires that a given user has the <em>read</em>, <em>write</em> and <em>delete</em> rights. <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line862">Anonymous users (i.e not logged in) are not able to <em>delete</em> or <em>rename</em> pages (even if specifically granted to the <tt class="backtick">All</tt> group). <span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><p class="line874">Attachments are protected by the ACLs of the page they are attached to. <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><p class="line862">You need to already have <tt class="backtick">admin</tt> rights to be able to add or modify an ACL line to a page.  If you are the wiki administrator, you will want to make sure you grant yourself <em>admin</em> rights for the entire wiki  (see <a href="HelpOnAccessControlLists.html#Configuration">site-wide configuration</a> below). <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line862">Allowable permissions can be limited with the <tt class="backtick">acl_rights_valid</tt> setting in your wikiconfig.py file.  For example, include all permissions but <em>delete</em> to prevent any page from ever being deleted.  (see <a href="HelpOnAccessControlLists.html#Configuration">site-wide configuration</a> below). <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><p class="line867">
+<h3 id="Basic_Groups">Basic Groups</h3>
+<span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><p class="line874">Permissions can be assigned to individuals, groups (which you define), or special groups (system groups that have special meaning).  They are:  <span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><ul><li><p class="line891"><em>User</em> - where <em>User</em> matches a specific username and triggers only if it matches exactly (including case-sensitivity). <span class="anchor" id="line-45"></span></li><li><p class="line891"><em>SomeGroup</em> - where <em>SomeGroup</em> matches a specific group name, which you define (see <a href="HelpOnGroups.html">HelpOnGroups</a>). <span class="anchor" id="line-46"></span></li><li><p class="line891"><em>Trusted</em> - a special group containing all authenticated users of a trusted authentication method. <span class="anchor" id="line-47"></span></li><li><p class="line891"><em>Known</em> - a special group containing all logged in users. <span class="anchor" id="line-48"></span></li><li><p class="line891"><em>All</em> - a special group that means &quot;everyone&quot; (both logged in (i.e. <em>Known</em>) <span class="u"><em>and</em></span> anonymous users). <span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span></li></ul><p class="line867">
+<h2 id="Syntax_.26_Usage">Syntax &amp; Usage</h2>
+<span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><p class="line874">Using ACLs in moin is as easy as including a control line on the page you want to control.  The ACL command should be the top-most line on your wiki page, and syntax is as follows: <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><pre><span class="anchor" id="line-1"></span>#acl [+-]User[,SomeGroup,...]:[right[,right,...]] [[+-]OtherUser:...] [[+-]Trusted:...] [[+-]Known:...] [[+-]All:...] [Default]</pre><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><p class="line862">Where <em>User</em>, <em>SomeGroup</em>, and <em>right</em> (the permission as read, write, delete, revert, admin) are defined in the section above.  <span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><p class="line867"><em>Default</em> is a special entry which inserts at the given place the entries from <tt class="backtick">acl_rights_default</tt>. This is covered in more detail in the <a href="HelpOnAccessControlLists.html#Default">#Default</a> section below. <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><p class="line862">Do not put whitespace between the name and the rights. For example,  <tt class="backtick">All:&nbsp;write,read</tt> is <span class="u">not</span> a valid ACL string. <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><p class="line874">A simple example would be:  <span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><pre><span class="anchor" id="line-1-1"></span>#acl JohnDoe:read,write,delete,revert,admin EditorGroup:read,write,revert All:read</pre><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><p class="line862">In this example, this will allow <tt class="backtick">JohnDoe</tt> to read and write, as well as perform any other action on that page, while anyone part of the EditorGroup will be able to read, write, and revert this page. All other users can only read it. (Keep in mind that the configuration settings in your wikiconfig.py can override some page-specific ACLs). Also see &quot;Usage Examples&quot; below. <span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><p class="line867"><span class="anchor" id="Configuration"></span> <span class="anchor" id="line-74"></span>
+<h2 id="Site-wide_Configuration">Site-wide Configuration</h2>
+<span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><p class="line862">These configuration items are used to set up ACLs on the entire wiki site, and are set in your wikiconfig.py file (see also <a href="HelpOnConfiguration.html">HelpOnConfiguration</a>). <span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><p class="line867"><img alt="(!)" height="15" src="moin_static199/vesta/img/idea.png" title="(!)" width="15" /> Lengthy default values in the table below are shown as &quot;<strong>...</strong>&quot;.  Move your mouse pointer over the dots to display the default value in a tooltip.  <span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><p class="line867"><div><table><tbody><tr style="background-color: #ffffcc">  <td><strong>Variable name</strong></td>
+  <td><strong>Default</strong></td>
+  <td><strong>Description</strong></td>
+</tr>
+<tr>  <td>acl_hierarchic</td>
+  <td><tt class="backtick">False</tt></td>
+  <td>True to use hierarchical ACLs</td>
+</tr>
+<tr>  <td>acl_rights_after</td>
+  <td><tt class="backtick">u''</tt></td>
+  <td>ACL that is processed after the on-page/default ACL</td>
+</tr>
+<tr>  <td>acl_rights_before</td>
+  <td><tt class="backtick">u''</tt></td>
+  <td>ACL that is processed before the on-page/default ACL</td>
+</tr>
+<tr>  <td>acl_rights_default</td>
+  <td><tt class="backtick"><span title="u'Trusted:read,write,delete,revert Known:read,write,delete,revert All:read,write'">...</span></tt></td>
+  <td>ACL used if no ACL is specified on the page</td>
+</tr>
+<tr>  <td>acl_rights_valid</td>
+  <td><tt class="backtick"><span title="['read', 'write', 'delete', 'revert', 'admin']">...</span></tt></td>
+  <td>Valid tokens for right sides of ACL entries.</td>
+</tr>
+</tbody></table></div> <span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><p class="line862">So you know now what it <em>does</em>, but what does it <em>mean</em>? <span class="anchor" id="line-84"></span><ul><li><p class="line891"><em>before</em> means <strong>forcing stuff</strong> (this is because of first match algorithm).  Use this for your site-wide page admins or page editors. <span class="anchor" id="line-85"></span></li><li><p class="line891"><em>default</em> means <strong>what is done if no ACLs are specified on the page</strong>. It is equivalent to writing exactly these ACLs onto a page. These are also the rights that are merged if <strong>Default</strong> is written among the ACLs in the page. <span class="anchor" id="line-86"></span></li><li><p class="line891"><em>after</em> means <strong>not forgetting stuff</strong> accidentally (like maybe giving read rights to all) <span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span></li></ul><p class="line874">It helps if you think of them as before, during, and after processing of page-based ACLs. <span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><p class="line862">The <tt class="backtick">u&quot;&quot;</tt> notation used for the configuration strings means unicode and <em>must be there</em>. <span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><p class="line867">
+<h2 id="ACL_processing">ACL processing</h2>
+<span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><p class="line862">This section applies to single wiki pages containing ACLs but may also apply to the whole wiki if the ACL is included in the wiki config (see <a href="HelpOnConfiguration.html">HelpOnConfiguration</a>). <span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><p class="line867">
+<h3 id="Order_of_processing_ACL_entries">Order of processing ACL entries</h3>
+<span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><p class="line862">When a user is trying to access an ACL-protected resource, the ACL entries will be processed in the order they are found. The <strong>first ACL entry matching the user</strong> will determine whether the user has access to that resource or not and processing will stop. Due to this <em>first match</em> algorithm, you should arrange your ACL entries in the following order: 1) single usernames,  2) special groups,  3) more general groups,  4) <tt class="backtick">Known</tt> and finally 5) <tt class="backtick">All</tt>. <span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span><p class="line862">For example, the following ACL means that <tt class="backtick">SomeUser</tt> will be given the right to read and write the resources protected by that ACL, while any other user who is a member of <tt class="backtick">SomeGroup</tt>  may also be given admin rights and every other user is only able to read the resource. <span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><pre><span class="anchor" id="line-1-2"></span>#acl SomeUser:read,write SomeGroup:read,write,admin All:read</pre><span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span><p class="line867">
+<h3 id="ACL_prefix_modifiers">ACL prefix modifiers</h3>
+<span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><p class="line874">To make the system more flexible, there are also two ACL modifiers: the prefixes '+' and '-'. When used, processing will stop only when the requested permission for a specific user matches the user and permission(s) in the ACL entry, but will continue if you are looking for another permission(or another user). When the '+' modifier is used the permission will be given, when the '-' modifier is used the permission will be denied (for the stopping case). <span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><p class="line862">For example, assuming that <tt class="backtick">SomeUser</tt> is a member of <tt class="backtick">SomeGroup</tt>, the above ACL could also be written as: <span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><span class="anchor" id="line-115"></span><pre><span class="anchor" id="line-1-3"></span>#acl -SomeUser:admin SomeGroup:read,write,admin All:read</pre><span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><p class="line862">This example is special only for <tt class="backtick">SomeUser</tt>, because when the admin permission is queried for <tt class="backtick">SomeUser</tt>, it will be denied and processing will stop. In all other cases (different user or different permission requested), processing will continue. <span class="anchor" id="line-118"></span><span class="anchor" id="line-119"></span><p class="line867"><span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><pre><span class="anchor" id="line-1-4"></span>#acl +All:read -SomeUser:admin SomeGroup:read,write,admin</pre><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><p class="line867"><tt class="backtick">+All:read</tt> means that when any user is requesting read permission, it will be given and processing will stop. In all other cases, processing will continue. If the admin permission is queried for <tt class="backtick">SomeUser</tt>, it will be denied and processing will stop. In all other cases (different user or different permission requested), processing will continue. Finally, if a member of <tt class="backtick">SomeGroup</tt> is requesting a permission; it will be given if specified there, and denied if not. All other users have no other permission (unless they are given site-wide in the wiki config). <span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><p class="line874">Note that you probably do not want to use the second and third examples in page ACLs whereas they can be very useful for wiki configuration ACLs. <span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><p class="line867"><span class="anchor" id="Default"></span> <span class="anchor" id="line-129"></span>
+<h2 id="Inheriting_from_.27Default.27">Inheriting from 'Default'</h2>
+<span class="anchor" id="line-130"></span><p class="line874">Sometimes it might be useful to give rights to someone without affecting the default rights too much. For example, let's suppose you have the following entries in your configuration: <span class="anchor" id="line-131"></span><span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><span class="anchor" id="line-134"></span><pre><span class="anchor" id="line-1-5"></span>acl_rights_default = u&quot;TrustedGroup:read,write,delete,revert All:read&quot;
+<span class="anchor" id="line-2"></span>acl_rights_before  = u&quot;AdminGroup:admin,read,write,delete,revert +TrustedGroup:admin&quot;</pre><span class="anchor" id="line-135"></span><span class="anchor" id="line-136"></span><p class="line862">Now, you have some page where you want to give the &quot;write&quot; permission for <tt class="backtick">SomeUser</tt>, but also want to keep the default behavior for All and <tt class="backtick">TrustedGroup</tt>. You can easily do that using the <em>Default</em> entry: <span class="anchor" id="line-137"></span><span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span><pre><span class="anchor" id="line-1-6"></span>#acl SomeUser:read,write Default</pre><span class="anchor" id="line-140"></span><span class="anchor" id="line-141"></span><p class="line862">This will insert the entries from <tt class="backtick">acl_rights_default</tt> in the exact place where the Default word is placed. In other words, the entry above, with the given configuration, is equivalent to the following entry: <span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span><span class="anchor" id="line-144"></span><pre><span class="anchor" id="line-1-7"></span>#acl SomeUser:read,write TrustedGroup:read,write,delete,revert All:read</pre><span class="anchor" id="line-145"></span><span class="anchor" id="line-146"></span><p class="line874">Lets look at the first example in this section: <span class="anchor" id="line-147"></span><span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><pre><span class="anchor" id="line-1-8"></span>acl_rights_before  = u&quot;AdminGroup:admin,read,write,delete,revert +TrustedGroup:admin&quot;</pre><span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span><p class="line874">ACLs are processed in the order of &quot;before&quot; then &quot;page/default&quot; then &quot;after&quot;, and from left to right. <span class="anchor" id="line-152"></span><span class="anchor" id="line-153"></span><p class="line862">So it begins at the left of &quot;before&quot; with <tt class="backtick">AdminGroup:...</tt> - this matches if <span class="anchor" id="line-154"></span>you are a member of admin group. If it matches, you get those rights (arwdr) and ACL processing STOPS. <span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span><p class="line862">If it does not match, ACL processing continues with <tt class="backtick">+TrustedGroup:admin</tt> <span class="anchor" id="line-157"></span>- this matches if you are a member of <tt class="backtick">TrustedGroup</tt>. <span class="anchor" id="line-158"></span><span class="anchor" id="line-159"></span><p class="line874">If it matches, you get the rights (a) and - now the difference because of the modifier <span class="anchor" id="line-160"></span>- ACL processing CONTINUES! So if there is another match for that <span class="anchor" id="line-161"></span>group or your user or <tt class="backtick">Known:</tt> or <tt class="backtick">All:</tt> you will get those rights, too. <span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><p class="line874">If it does not match, ACL processing continues - with the page ACLs (if <span class="anchor" id="line-164"></span>there are any) or with default ACLs (if there are no pages ACLs) and <span class="anchor" id="line-165"></span>finally with the &quot;after&quot; ACLs. <span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span><p class="line874">While they represent the same thing, inheriting from the defaults has the advantage of automatically following any further change introduced in the defaults. <span class="anchor" id="line-168"></span><span class="anchor" id="line-169"></span><span class="anchor" id="line-170"></span><p class="line867"><span class="anchor" id="hierarchical"></span> <span class="anchor" id="line-171"></span>
+<h2 id="Hierarchical_ACL_processing">Hierarchical ACL processing</h2>
+<span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span><p class="line862">If you have enabled <tt class="backtick">acl_hierarchic</tt> (see <a href="HelpOnAccessControlLists.html#Configuration">above</a>), then the pages are understood as a hierarchy and permissions set on higher-level pages may influence the user's permissions. <span class="anchor" id="line-174"></span><span class="anchor" id="line-175"></span><p class="line862">If the current page doesn't contain an <tt>#acl</tt> statement, then the parent page's ACL is used instead (or <em>its</em> parent, and so on until there are no parent pages). <span class="anchor" id="line-176"></span><span class="anchor" id="line-177"></span><p class="line874">Consider the following examples for a page named A/B/C/D, that contrasts the how processing occurs with and without the feature enabled: <span class="anchor" id="line-178"></span><div><table><tbody><tr style="background-color: &amp;quot;#ffffcc&amp;quot">  <td><p class="line862"> <strong>acl_hierarchic</strong></td>
+  <td><p class="line862"> <strong>Processing Sequence</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-179"></span><p class="line862"> False              </td>
+  <td><p class="line862">acl_rights_before, A/B/C/D, [acl_rights_default], acl_rights_after</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-180"></span><p class="line862"> True               </td>
+  <td><p class="line862">acl_rights_before, A/B/C/D <em>or</em> A/B/C <em>or</em> A/B <em>or</em> A <em>or</em> [acl_rights_default], acl_rights_after</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-181"></span><p class="line862">As for the default rights, they still work as before, but instead of being included when the current page contains no ACL, it is only used if <em>none</em> of the pages in the hierarchy contain any ACL. <span class="anchor" id="line-182"></span><span class="anchor" id="line-183"></span><p class="line867"><img alt="{i}" height="16" src="moin_static199/vesta/img/icon-info.png.html" title="{i}" width="16" /> <em>Please note</em>-- ACL_hierarchic behavior in moinmoin versions prior to 1.8.4 behaved differently: the parent page's ACL are not appended anymore to the sub-page's ACL.  All ACLs for a sub-page have to be explicitly listed in that page now. <span class="anchor" id="line-184"></span><span class="anchor" id="line-185"></span><span class="anchor" id="line-186"></span><span class="anchor" id="line-187"></span><p class="line867">
+<h2 id="Usage_Examples">Usage Examples</h2>
+<span class="anchor" id="line-188"></span><span class="anchor" id="line-189"></span><p class="line867">
+<h3 id="Public_community_Wiki_on_the_Internet">Public community Wiki on the Internet</h3>
+<span class="anchor" id="line-190"></span><p class="line874">The most important point here is to use ACLs only in cases where really needed. Wikis depend on openness of information and free editing. They use soft security to clean up bad stuff. So there is no general need for ACLs. If you use them too much, you might destroy the way wiki works. <span class="anchor" id="line-191"></span><span class="anchor" id="line-192"></span><p class="line874">This is why either ACLs should not be used at all (default) or, if used, the wikiconfig.py should look similar to that: <span class="anchor" id="line-193"></span><span class="anchor" id="line-194"></span><span class="anchor" id="line-195"></span><pre><span class="anchor" id="line-1-9"></span>acl_rights_before = u'WikiEditorName:read,write,admin,delete,revert +AdminGroup:admin BadGuy:'</pre><span class="anchor" id="line-196"></span><span class="anchor" id="line-197"></span><p class="line862">The default <tt>acl_rights_default</tt> option should be ok for you: <span class="anchor" id="line-198"></span><span class="anchor" id="line-199"></span><span class="anchor" id="line-200"></span><pre><span class="anchor" id="line-1-10"></span>acl_rights_default = u'Known:read,write,delete,revert All:read,write'</pre><span class="anchor" id="line-201"></span><span class="anchor" id="line-202"></span><p class="line862">A good advice is to have only a few and very trusted admins in <tt class="backtick">AdminGroup</tt> (they should be very aware of how a wiki works or they would maybe accidently destroy the way the wiki works: by its openness, not by being closed and locked!). <span class="anchor" id="line-203"></span><span class="anchor" id="line-204"></span><p class="line862">If using <tt class="backtick">AdminGroup</tt>, you should make a page called <tt class="backtick">AdminGroup</tt> and use it to define some people who get admin rights. <span class="anchor" id="line-205"></span><span class="anchor" id="line-206"></span><p class="line862">Specifing <tt class="backtick">BadGuy</tt> like shown above basically locks him out - he can't read or edit anything with that account. That makes only sense if done temporarily, otherwise you also could just delete that account. Of course, this <tt class="backtick">BadGuy</tt> can also work anonymously, so this is no real protection (this is where soft security will apply). <span class="anchor" id="line-207"></span><span class="anchor" id="line-208"></span><p class="line867">
+<h3 id="Wiki_as_a_simple_CMS">Wiki as a simple CMS</h3>
+<span class="anchor" id="line-209"></span><p class="line874">If you want to use a wiki to easily create web content, but if you don't want edits by the public (but only by some webmasters), you maybe want to use that in your wikiconfig.py: <span class="anchor" id="line-210"></span><span class="anchor" id="line-211"></span><span class="anchor" id="line-212"></span><span class="anchor" id="line-213"></span><pre><span class="anchor" id="line-1-11"></span>acl_rights_default = u'All:read'
+<span class="anchor" id="line-2-1"></span>acl_rights_before  = u'WebMaster,OtherWebMaster:read,write,admin,delete,revert'</pre><span class="anchor" id="line-214"></span><span class="anchor" id="line-215"></span><p class="line874">So everyone can read, but only the Webmasters can do anything else. As long as they  are still working on a new page, they can put <span class="anchor" id="line-216"></span><span class="anchor" id="line-217"></span><span class="anchor" id="line-218"></span><pre><span class="anchor" id="line-1-12"></span>#acl All:</pre><span class="anchor" id="line-219"></span><p class="line862">on it, so nobody else will be able to see the unfinished page. When finished, don't forget to remove that line, so that <tt class="backtick">acl_rights_default</tt> will be used. <span class="anchor" id="line-220"></span><span class="anchor" id="line-221"></span><p class="line862">Some page(s) could also allow public comments (like one being called <tt class="backtick">PublicComments</tt>), so you give more rights on that page: <span class="anchor" id="line-222"></span><span class="anchor" id="line-223"></span><span class="anchor" id="line-224"></span><pre><span class="anchor" id="line-1-13"></span>#acl All:read,write</pre><span class="anchor" id="line-225"></span><span class="anchor" id="line-226"></span><p class="line867">
+<h3 id="Wiki_on_Intranet">Wiki on Intranet</h3>
+<span class="anchor" id="line-227"></span><p class="line874">If you want to use a wiki on your intranet and you trust your users (will not do hostile stuff like locking others out or hijacking pages) to use the admin functionality in a sensible way, you maybe want to use: <span class="anchor" id="line-228"></span><span class="anchor" id="line-229"></span><span class="anchor" id="line-230"></span><span class="anchor" id="line-231"></span><pre><span class="anchor" id="line-1-14"></span>acl_rights_default = u'Known:admin,read,write,delete,revert All:read,write'
+<span class="anchor" id="line-2-2"></span>acl_rights_before  = u'WikiAdmin,BigBoss:read,write,admin,delete,revert'</pre><span class="anchor" id="line-232"></span><span class="anchor" id="line-233"></span><p class="line862">So everyone can read, write and change ACL rights, <tt class="backtick">WikiAdmin</tt> and <tt class="backtick">BigBoss</tt> are enforced to be able to do anything, known users get admin rights by acl_rights_default (so they get it as long as no other ACL is in force for a page). <span class="anchor" id="line-234"></span><span class="anchor" id="line-235"></span><p class="line874">Consequences: <span class="anchor" id="line-236"></span><ul><li>on a new page, the page creator can put any ACLs he wants <span class="anchor" id="line-237"></span></li><li>on existing pages, not having ACLs yet, any known user can set up any ACLs he wants <span class="anchor" id="line-238"></span></li><li><p class="line862">all people (except <tt class="backtick">WikiAdmin</tt> and <tt class="backtick">BigBoss</tt>) can be locked out by anybody (&quot;known&quot;) else on pages without ACLs <span class="anchor" id="line-239"></span><span class="anchor" id="line-240"></span></li></ul><p class="line867">
+<h3 id="Wiki_as_a_public_company_page">Wiki as a public company page</h3>
+<span class="anchor" id="line-241"></span><p class="line874">If you want to use a wiki as the company page, and don't want every user being able to change the company page content, you may want to <span class="anchor" id="line-242"></span>use something like this: <span class="anchor" id="line-243"></span><span class="anchor" id="line-244"></span><span class="anchor" id="line-245"></span><span class="anchor" id="line-246"></span><pre><span class="anchor" id="line-1-15"></span>acl_rights_default = u&quot;TrustedGroup:admin,read,write,delete,revert All:read&quot;
+<span class="anchor" id="line-2-3"></span>acl_rights_before  = u&quot;AdminGroup:admin,read,write,delete,revert +TrustedGroup:admin&quot;</pre><span class="anchor" id="line-247"></span><span class="anchor" id="line-248"></span><p class="line874">This means that: <span class="anchor" id="line-249"></span><ul><li>by default known and anonymous users are only allowed to read pages <span class="anchor" id="line-250"></span></li><li><p class="line862">on a new page, users in <tt class="backtick">TrustedGroup</tt> can put any ACLs they want <span class="anchor" id="line-251"></span></li><li><p class="line862">on existing pages, not having ACLs yet, any user in <tt class="backtick">TrustedGroup</tt> user can set up any ACLs he wants <span class="anchor" id="line-252"></span></li><li><p class="line862">all people, except people in <tt class="backtick">AdminGroup</tt>, can be locked out by other admins or trusted users <span class="anchor" id="line-253"></span></li><li><p class="line862">people in <tt class="backtick">TrustedGroup</tt> get to use their admin rights on any page they're able to write, even if there are specific ACLs <span class="anchor" id="line-254"></span><span class="anchor" id="line-255"></span></li></ul><p class="line867">
+<h3 id="Comments_on_read-only_page">Comments on read-only page</h3>
+<span class="anchor" id="line-256"></span><p class="line874">You can easily add a comments section to a read-only page by using a writable subpage, and allowing users to write on it. For example, you <span class="anchor" id="line-257"></span>can define <tt class="backtick">SomePage</tt> like this: <span class="anchor" id="line-258"></span><span class="anchor" id="line-259"></span><span class="anchor" id="line-260"></span><span class="anchor" id="line-261"></span><span class="anchor" id="line-262"></span><span class="anchor" id="line-263"></span><span class="anchor" id="line-264"></span><span class="anchor" id="line-265"></span><span class="anchor" id="line-266"></span><pre><span class="anchor" id="line-1-16"></span>#acl SomeUser:read,write All:read
+<span class="anchor" id="line-2-4"></span>'''Some read-only content'''
+<span class="anchor" id="line-3"></span>
+<span class="anchor" id="line-4"></span>...
+<span class="anchor" id="line-5"></span>
+<span class="anchor" id="line-6"></span>''' User comments '''
+<span class="anchor" id="line-7"></span>&lt;&lt;Include(SomePage/Comments)&gt;&gt;</pre><span class="anchor" id="line-267"></span><span class="anchor" id="line-268"></span><p class="line862">And <tt class="backtick">SomePage/Comments</tt> like this: <span class="anchor" id="line-269"></span><span class="anchor" id="line-270"></span><span class="anchor" id="line-271"></span><span class="anchor" id="line-272"></span><pre><span class="anchor" id="line-1-17"></span>#acl All:read,write
+<span class="anchor" id="line-2-5"></span>Add your comments about SomePage here.</pre><span class="anchor" id="line-273"></span><span class="anchor" id="line-274"></span><p class="line867">
+<h2 id="See_Also">See Also</h2>
+<span class="anchor" id="line-275"></span><ul><li><p class="line891"><a href="HelpOnAutoAdmin.html">HelpOnAutoAdmin</a>: The Auto<tt class="backtick"></tt>Admin feature allows users to be granted admin rights over a subset of the wiki <span class="anchor" id="line-276"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

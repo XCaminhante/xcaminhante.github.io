@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>MergingFuture/Food4Thought/RenameTracking - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: MergingFuture/Food4Thought/RenameTracking" href="RenameTracking%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=MergingFuture%252FFood4Thought%252FRenameTracking&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="RenameTracking%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="RenameTracking%3Faction=print.html">
+<link rel="Up" href="../Food4Thought.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="RenameTracking.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="MergingFuture.html">MergingFuture</a></li><li><a href="../Food4Thought.html">Food4Thought</a></li><li><a href="RenameTracking.html">RenameTracking</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="RenameTracking.html">RenameTracking</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="RenameTracking%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="RenameTracking.html#What_is_Rename.2FIdentity_Tracking.3F">What is Rename/Identity Tracking?</a></li><li>
+<a href="RenameTracking.html#Why_Rename.2FIdentity_Tracking_is_Important">Why Rename/Identity Tracking is Important</a></li><li>
+<a href="RenameTracking.html#Possible_Implementations">Possible Implementations</a><ol><li>
+<a href="RenameTracking.html#Interaction_with_History_Replication">Interaction with History Replication</a></li><li>
+<a href="RenameTracking.html#monotone">monotone</a></li></ol></li><li>
+<a href="RenameTracking.html#Rename.2FIdentity_Tracking_in_Vesta">Rename/Identity Tracking in Vesta</a></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="What_is_Rename.2FIdentity_Tracking.3F">What is Rename/Identity Tracking?</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">Suppose there are two users working in parallel on the same project.  Alice makes some edits to file <strong>A</strong>.  Bob also makes changes to file <strong>A</strong>, but also renames file <strong>A</strong> to <strong>B</strong>.  Now they would like to merge the changes they made in parallel.  Ideally, the merge tool would know to combine the edits both users made in the file which is now named <strong>B</strong>.  However, unless the system knows that Bob's <strong>B</strong> and Alice's <strong>A</strong> are really the same file, it's unlikely that an automatic merge tool could do this. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">This is of course a fairly simple example, and much more complex ones are also possible.  On a long-lived branch a file could be renamed multiple time.  Entire directories could be renamed. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line874">Most people call the feature of remembering rename operations &quot;rename tracking&quot;.  It could also be called &quot;identity tracking&quot; as the system is remembering the identity of a file/directory regardless of how many times its name and location have changed. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line867">
+<h1 id="Why_Rename.2FIdentity_Tracking_is_Important">Why Rename/Identity Tracking is Important</h1>
+<span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line874">There are two main situations which keeping track of file/directory identity across rename operations allows a merge algorithm to support: <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><ul><li><p class="line862">Merging file content changes made in parallel with rename operations.  (For example, editing file <tt>A</tt> in parallel with renaming <tt>A</tt> to <tt>B</tt>.) <span class="anchor" id="line-20"></span></li><li><p class="line862">Merging directory content changes made in parallel with rename operations.  (For example, creating or deleting <tt>A/B</tt> in parallel with renaming directory <tt>A</tt> to <tt>C</tt>.) <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span></li></ul><p class="line874">Some people argue that these don't come up very often and aren't worth supporting.  In some mature projects that may be the case.  However, younger projects tend to undergo a larger amount of flux and re-factoring which requires renaming. <span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><p class="line862">In a Vesta context, such restructuring might currently turn into package re-arrangements (migrating files between different packages, combining packages, splitting packages, etc.).  (See also <a href="PackageSuturing.html">MergingFuture/Food4Thought/PackageSuturing</a> for some thoughts on how file identity and merging could be used across that sort of restructuring.) <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><p class="line874">Another important issue to consider is that in some cases file naming has semantic meaning in the target language.  Java, Perl, and Python all have this property (and they are certainly not the only ones).  When working with such languages, there are certain source-level changes which require file renaming. <span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line867">
+<h1 id="Possible_Implementations">Possible Implementations</h1>
+<span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line874">There are at least two ways to store records of file identity: <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><ol type="1"><li>Record rename operations in each version's set of changes over the previous version. <span class="anchor" id="line-33"></span></li><li>Assign each file/directory a unique identifier when it is first created which stays with it across rename operations. <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span></li></ol><p class="line874">These are essentially equivalent in terms of the information stored because you can derive one from the other.  If each version explicitly records rename operations, unique identities can be assigned by walking the revision graph.  If each file/directory has a unique identifier, two versions can be compared to find which renames occurred to transform one into the other. <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line874">However, there are compelling reasons to choose each and it may be best to implement both. <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line874">When performing a merge operation, having unique identities recorded avoids the need to compute identities by walking the revision graph.  Computing identities this way could be a costly operation, depending on how much history must be traversed. <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line874">Two users at two separate, disconnected repositories could create a file with the same name at the same time.  Arguably they should be treated as two different files.  One option would to assign identities in a way that attempts to ensure they are globally unique.  An identity could be something like a fingerprint or other hash of several things which would make the probability of collision vanishingly small, but that would make the identity a significant amount of data to carry around. <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line874">Another option is to have the stored identities be local to the repository (similar to shortids).  However this means that when communicating with more than one repository (e.g. during replication), the stored file/directory identities cannot be used.  Instead one would want to communicate in terms of recorded rename operations. <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line874">Maybe we could combine these two approaches for storing identities.  We could have a globally unique identity that's some long piece of information like a fingerprint.  To avoid storing this in every directory entry, we could have a global data structure that maps global identities to local identities (sequentially-assigned integers).  Each directory entry could then store the small local identity.  When replicating from peer repositories, we would map the source repository's local identity to a global identity and then map that global identity to a local identity (possibly assigning a new local identity) in the destination repository. <span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><p class="line867">
+<h2 id="Interaction_with_History_Replication">Interaction with History Replication</h2>
+<span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><p class="line862">The choice of how to store file/directory identity and communicate it between servers when replicating has a strong relationship with history records are copied between repositories.  (See <a href="HistoryManagement.html">MergingFuture/Food4Thought/HistoryManagement</a>.) <span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><p class="line874">If identities are tracked primarily by explicitly recording renames between versions, then you must replicate the history of a version in order to determine the correct identities of the files/directories it contains at the destination.  The chain or edit/rename/create operations are the only things tying together the identity of the files/directories, so if you don't have that you can't match up files/directories which are logically the same. <span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><p class="line874">If identities are instead globally unique, then it's possible to match up file/directory identities across a fractured history. <span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><p class="line867">
+<h2 id="monotone">monotone</h2>
+<span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><p class="line867"><a href="../../ToolComparison/Monotone.html">ToolComparison/Monotone</a> records renames in both of the ways described above. <span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><p class="line874">The record monotone calls a &quot;revision&quot; is used to store and communicate a version's changes over previous versions.  Each monotone revision record includes rename operations over the previous versions. <span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><p class="line874">There's a separate format called a &quot;roster&quot; which is used internally to store versions but not to communicate between repositories.  It includes file/directory identifiers as integers.  These are sequentially assigned in each repository. <span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><p class="line874">This dichotomy exists for the reasons outlined above: local operations can quickly match up file identity across versions to be merged, and yet the identifiers are local to each repository guaranteeing uniqueness without using a large amount of storage. <span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><p class="line874">monotone does not have any concept of a global file/directory identity.  The only identitfers they have are the repository-local ones. <span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><p class="line874">Monotone seems to have a particularly well disciplined approach to handling file/directory identity and directory structure merge operations. <span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><p class="line867">
+<h1 id="Rename.2FIdentity_Tracking_in_Vesta">Rename/Identity Tracking in Vesta</h1>
+<span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><p class="line874">When a rename is performed in a working copy, the Vesta repository currently records it as a deletion of the old object and a creation of a new one.  In other words, Vesta lacks rename/identity tracking. <span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><p class="line862">Probably the easiest way for us to implement this would be to record file/directory identities with each directory entry in each immutable version.  To record rename operations would require introducing a new data structure which represents the entire version rather than an individual directory (as rename operations can move across directories with a package).  Another benefit of simply attaching an identifier to each file/directory is that moving a file or directory into another package would have its identity follow it.  (See also <a href="PackageSuturing.html">MergingFuture/Food4Thought/PackageSuturing</a>.) <span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><p class="line862">There are some complications with implementing this.  It would be ideal to simply record all rename operations from the filesystem interface as rename operations.  However, some editing mechanisms (notably Emacs) will rename the file being edited and create a new file with the original name (e.g. with Emacs renaming &quot;<tt>foo</tt>&quot; to &quot;<tt>foo~</tt>&quot; as a backup and then creating a new &quot;<tt>foo</tt>&quot;).  In cases like this, we would prefer not to act as though the original was deleted and a new file was created with the same name. <span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><p class="line862">The approach taken by virtually every other version control system is to have the user explicitly tell the version control system &quot;I'm renaming <strong>A</strong> to <strong>B</strong>&quot; with a special rename command which records additional information for the version control system.  It would be nice if we could avoid that, but it's not clear that there's a method which will correctly distinguish between a rename performed by the user and one performed on their behalf by a tool like an editor. <span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><p class="line862">We might be able to get a 90% solution by simply leaving new files without an identity until they are first placed in an immutable snapshot.  Then at that point we can look for cases where a file/directory with no identity has the same name as one in the old version and no other object being placed in the snapshot has that identity.  In cases like that, we could assign the new file the same identity as the identically named file in the old version.  However it seems that this method could still make mistakes.  Suppose the user renames <strong>A</strong> to <strong>B</strong>, then edits <strong>B</strong> with an editor that does a rename/create to replace the file, then creates a new <strong>A</strong> that should be a different file. <span class="anchor" id="line-80"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

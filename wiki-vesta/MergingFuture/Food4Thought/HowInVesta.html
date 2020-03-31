@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>MergingFuture/Food4Thought/HowInVesta - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: MergingFuture/Food4Thought/HowInVesta" href="HowInVesta%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=MergingFuture%252FFood4Thought%252FHowInVesta&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HowInVesta%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HowInVesta%3Faction=print.html">
+<link rel="Up" href="../Food4Thought.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HowInVesta.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="MergingFuture.html">MergingFuture</a></li><li><a href="../Food4Thought.html">Food4Thought</a></li><li><a href="HowInVesta.html">HowInVesta</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HowInVesta.html">HowInVesta</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HowInVesta%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867">
+<h1 id="How_To_Implement_Advanced_Merging_For_Vesta">How To Implement Advanced Merging For Vesta</h1>
+<span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line874">The Vesta repository is and appendable namespace of immutable objects.  Without fundamental modifications to the repository, this would suggest that whatever metadata we need store to support history-aware merging would be stored as immutable objects in the repository. <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">For example, suppose that we decided to use a representation based on patches/changesets.  For a version <strong>N</strong>, we might store the representation of the changes over the version it was based upon (presumably <strong>N-1</strong>) in a path like <tt>changesets/N</tt> within the same directory (a packages, session, or branch).  The obvious benefit of doing this is that this additional data would get all the properties of normal sources: <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><ul><li>Immutable storage <span class="anchor" id="line-12"></span></li><li>Immortal names <span class="anchor" id="line-13"></span></li><li>Replication to peer repositories <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span></li></ul><p class="line874">Unfortunately, immutability is somewhat at odds with some of the different methods used by other systems: <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><ul><li><p class="line891"><a class="http" href="http://www.darcs.net/">Darcs</a> uses the rules set out in its <a class="http" href="http://www.darcs.net/manual/node8.html">theory of patches</a> to perform <em>patch commutation</em>.  This means taking an existing change and modifying it for application in a new context.  Essentially this is creating a new, distinct change. <span class="anchor" id="line-18"></span></li><li><p class="line862">The <em>weave</em> data structure, which is used by SCCS and <a class="http" href="http://www.bitkeeper.com/">BitKeeper</a> must be updated with each new revision. <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span></li></ul><p class="line874">Some other methods are more compatible with the Vesta repository's method of an appendable store of immutable objects: <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><ul><li>CVS and RCS both store history in files that are logically appendable logs of deltas (changes from one revision to another), though the files are not physically organized that way. <span class="anchor" id="line-23"></span></li><li><p class="line862">I believe <a class="http" href="http://www.gnu.org/software/gnu-arch/">GNU Arch</a> and some derivatives may also use an appendable store for changesets, but I haven't investigated closely <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span></li></ul><p class="line874">Potential issues with storing deltas/changesets or some other representation of fine-grained file history as sources in the repository in this way include: <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><ul><li>Data bloat: most formats repeat a subset of the data stored in the source files in addition to more data.  This could more than double the amount of storage space used for source files. <span class="anchor" id="line-28"></span></li><li>Shortid consumption: All files in the Vesta repository are identified by a 32-bit number called a shortid.  Storing more data in separate files with each change  will increase in the rate at which shortids are consumed.  (Maybe this shouldn't really be a concern, as some of the largest repositories which have been running for many years have under 2 million shortids, which is 2-3 orders of magnitude in reamining headroom.) <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span></li></ul><p class="line867">
+<h2 id="Should_the_Repository_be_Modified_to_Support_Merging.3F">Should the Repository be Modified to Support Merging?</h2>
+<span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><p class="line874">It would of course be possible to change underlying storage format of the repository.  Some changes may turn out be necessary to deal with a number of tricky merging issues: <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><ul><li>Determining the ancestry graph which relates different versions is currently done with the old-version attributes, but those can't really be trusted as they're mutable.  Internally, the repository does know which immutable directory each one is based on.  A new representation which exposes that in a more accessible manner to client code could be very helpful. <span class="anchor" id="line-35"></span></li><li>One of the better solutions to tracking renames to allowing merging across renames is to assign each file a unique ID which follows it when it gets renamed.  Implementing that would definitely require modifications to the repository. <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span></li></ul><p class="line874">The problem with building support for a specific text file history representation and/or merge algorithm into the repository is that such representations usually work very poorly with other file formats.  For this reason, some revision ctonrol systems (notably CVS) have special annotations which users add to binary files to tell the system to treat them differently.  Files in Vesta have always been treated very simply (as a sequence of bytes, just like any other filesystem).  It would seem like a step backwards to burden the Vesta user with additional work to differentiate binary files from text files. <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line862">Also, perhaps some users will have need of a merge algorithm that works in significantly different ways (for example, <a class="http" href="http://diffxml.sourceforge.net/">using special algorithms on XML files</a>).  It would be best if we left open the possibility of using different merging techniques for different kinds of files. <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line874">While we may need to improve the repository in some ways to support better merging, I believe that we the Vesta repository continue to treat files as raw sequences of bytes.  We may want to add some form of space-saving techniques to the repository, but it seems to me that involving the internals of the repository in a history-aware merging algorithm is a mistake.  That should instead be done by a repository client application. <span class="anchor" id="line-42"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

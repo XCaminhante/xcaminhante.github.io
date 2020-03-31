@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>VestaWeb/PluginAPI - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: VestaWeb/PluginAPI" href="PluginAPI%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=VestaWeb%252FPluginAPI&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="PluginAPI%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="PluginAPI%3Faction=print.html">
+<link rel="Up" href="VestaWeb.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="PluginAPI.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="VestaWeb.html">VestaWeb</a></li><li><a href="PluginAPI.html">PluginAPI</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="PluginAPI.html">VestaWeb/PluginAPI</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="PluginAPI%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line874">This page documents the API for the Vestaweb Plugin System.  All plugins are file based Mason Components.  They are called in alphabetical order among their type.  To add a plugin, just drop the file in the directory given as the Location. <span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="PluginAPI.html#Directory_Reading">Directory Reading</a><ol><li>
+<a href="PluginAPI.html#Directory_Entry">Directory Entry</a></li><li>
+<a href="PluginAPI.html#Directory_Contents">Directory Contents</a></li></ol></li><li>
+<a href="PluginAPI.html#Directory_View">Directory View</a></li></ol></div> <span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867">
+<h1 id="Directory_Reading">Directory Reading</h1>
+<span class="anchor" id="line-6"></span><p class="line874">There are two plugins involved in reading directories.  The first is called for each directory entry, the second is called for the entire directory after all of the entry plugins have finished. <span class="anchor" id="line-7"></span>
+<h2 id="Directory_Entry">Directory Entry</h2>
+<span class="anchor" id="line-8"></span><ul><li><p class="line862">Location: <tt>plugins/dir_entry/</tt> <span class="anchor" id="line-9"></span></li><li>Arguments: <span class="anchor" id="line-10"></span><ul><li><p class="line891"><tt>$vs</tt> - the Vesta::<a href="../VestaSource.html">VestaSource</a> for this entry. <span class="anchor" id="line-11"></span></li><li><p class="line891"><tt>$name</tt> - name of this entry. <span class="anchor" id="line-12"></span></li></ul></li><li>Returns: <span class="anchor" id="line-13"></span><ul><li><p class="line862">a false value to supress (hide) this entry.  Hiding a version from the <tt>/package</tt> view will also hide all branches and scribbles based on that version.  A plugin can use <tt>$r-&gt;request_comp</tt> to determine if it is being used by <tt>/dir</tt> or <tt>/package</tt>. <span class="anchor" id="line-14"></span></li><li><p class="line862">a reference to a hash in the following format (use <tt>{}&nbsp;</tt>).  A plugin wishing to make no changes should just return <tt>{}&nbsp;</tt>: <span class="anchor" id="line-15"></span><ul><li><p class="line862">optionally <tt>{disp_name}&nbsp;</tt> - a name to display instead of the actual file name <span class="anchor" id="line-16"></span></li><li><p class="line862">optionally <tt>{style}&nbsp;</tt> - a CSS style string to effect how the name is displayed.  This string should end in <tt>;</tt> as the strings returned by multiple plugins will be concatinated together.  This final string will be the value of the <tt>style</tt> attribute in a <tt>&lt;span&gt;</tt> tag. <span class="anchor" id="line-17"></span></li></ul></li></ul></li><li>Examples: <span class="anchor" id="line-18"></span><ul><li><p class="line891"><a class="http" href="http://wopr.scooter.cx/vestaweb/file/vesta/scooter.cx/play/vestaweb/checkout/4/5/vestaweb/plugins/dir_entry/green_vesta?hilight">Turn all items with 'vesta' in their name green</a>. <span class="anchor" id="line-19"></span></li><li><p class="line891"><a class="http" href="http://wopr.scooter.cx/vestaweb/file/vesta/scooter.cx/play/vestaweb/checkout/4/5/vestaweb/plugins/dir_entry/hide_obsolete?hilight">Hide all items with an 'obsolete' attribute that has a true value</a>. <span class="anchor" id="line-20"></span></li></ul></li></ul><p class="line867">
+<h2 id="Directory_Contents">Directory Contents</h2>
+<span class="anchor" id="line-21"></span><ul><li><p class="line862">Location: <tt>plugins/read_dir/</tt> <span class="anchor" id="line-22"></span></li><li>Arguments: <span class="anchor" id="line-23"></span><ul><li><p class="line891"><tt>@contents</tt> - an array of directory entry objects with the following fields (in order of usefulness): <span class="anchor" id="line-24"></span><ul><li><p class="line891"><tt>{name}&nbsp;</tt>- the real name of the entry. <span class="anchor" id="line-25"></span></li><li><p class="line891"><tt>{disp_name}&nbsp;</tt>- if defined, the &quot;display name&quot; set by the directory entry plugins. <span class="anchor" id="line-26"></span></li><li><p class="line891"><tt>{style}&nbsp;</tt>- if defined, the style string set by directory entry plugins. <span class="anchor" id="line-27"></span></li><li><p class="line891"><tt>{type}&nbsp;</tt>- one of the types defined in Vesta::<a href="../VestaSource.html">VestaSource</a>::typeTag <span class="anchor" id="line-28"></span></li><li><p class="line891"><tt>{typeString}&nbsp;</tt>- the full name of the type <span class="anchor" id="line-29"></span></li><li><p class="line891"><tt>{master}&nbsp;</tt>- the mastership status <span class="anchor" id="line-30"></span></li><li><p class="line891"><tt>{fileSid}&nbsp;</tt>- the shortID of the file, if it is a file. <span class="anchor" id="line-31"></span></li></ul></li><li><p class="line891"><tt>$vs</tt> - the Vesta::<a href="../VestaSource.html">VestaSource</a> of the directory itself. <span class="anchor" id="line-32"></span></li></ul></li><li><p class="line862">Returns: an array in the same format as the <tt>@contents</tt> argument.  The items will be displayed on the <tt>/dir</tt> page in the order of <tt>@contents</tt> after all the plugins run. <span class="anchor" id="line-33"></span></li><li>Examples: <span class="anchor" id="line-34"></span><ul><li><p class="line891"><a class="http" href="http://wopr.scooter.cx/vestaweb/file/vesta/scooter.cx/play/vestaweb/checkout/4/5/vestaweb/plugins/read_dir/alpha_sort?hilight">Sort the contents of a directory into alphabetical order</a>.  Note: This one explicitly doesn't bother sorting the contents of a package because the <tt>/package</tt> page will re-sort into version order anyway.  Though, it should check <tt>$r-&gt;request_comp</tt> instead since a user could view a package as a directory. <span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span></li></ul></li></ul><p class="line867">
+<h1 id="Directory_View">Directory View</h1>
+<span class="anchor" id="line-37"></span><p class="line874">These plugins can be used to add additional information to the end of each line in the directory view. <span class="anchor" id="line-38"></span><ul><li><p class="line862">Location: <tt>plugins/dir_view</tt> <span class="anchor" id="line-39"></span></li><li>Arguments: <span class="anchor" id="line-40"></span><ul><li><p class="line891"><tt>$name</tt> - name of the item <span class="anchor" id="line-41"></span></li><li><p class="line891"><tt>$vs</tt> - the Vesta::<a href="../VestaSource.html">VestaSource</a> of the item <span class="anchor" id="line-42"></span></li></ul></li><li>Returns: nothing.  Any return value will be ignored.  These plugins make their impact by outputting directly to the page. <span class="anchor" id="line-43"></span></li><li>Examples: <span class="anchor" id="line-44"></span><ul><li><p class="line891"><a class="http" href="http://wopr.scooter.cx/vestaweb/file/vesta/scooter.cx/play/vestaweb/checkout/4/5/vestaweb/plugins/dir_view/attrib_button?hilight">Print an attrib button on the end of each line</a> <span class="anchor" id="line-45"></span></li><li>Blame by line could be implemented with this mechanism. <span class="anchor" id="line-46"></span></li></ul></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

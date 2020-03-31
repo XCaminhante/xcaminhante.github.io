@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>ShortId - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: ShortId" href="ShortId%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=ShortId&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="ShortId%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="ShortId%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="ShortId.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="ShortId.html">ShortId</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="ShortId.html">ShortId</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="ShortId%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line867">
+<h1 id="What_is_a_ShortId.3F">What is a ShortId?</h1>
+<span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line862">A <em>short id</em> is a 32-bit numebr that represents a particular file stored by the Vesta repository. <span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line862">Each ShortId maps to a particular file on disk.  To find it, you first need to find the directory that contains all the repository's stored files.  You can print it from the shell with a simple command: <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><p class="line867"><span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><pre><span class="anchor" id="line-1"></span>% echo `vgetconfig Repository metadata_root``vgetconfig Repository sid_dir`
+<span class="anchor" id="line-2"></span>/var/lib/vesta/sid/</pre><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">Below that directory are directories named by the first three hex digits of each ShortId (up to 4096 directories), below which are directories named by the second three hex digits of each ShortId (up to 4096 directories), below which are files named by the final two hex digits of each ShortId (up to 256 files).  So if you have the ShortId <tt>0x1a2b3c4d</tt> and your ShortId sotrage directory is as shown as above, it would be found in the file <tt>/var/lib/vesta/sid/1a2/b3c/4d</tt>. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line862">Sometimes a ShortId will be printed simply in hex.  At other times it will be printed as a full path.  For example, the evaluator would print a text value stored in ShortId <tt>0x1a2b3c4d</tt> as: <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line867"><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><pre><span class="anchor" id="line-1-1"></span>&lt;file: /var/lib/vesta/sid/1a2/b3c/4d&gt;</pre><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867">
+<h1 id="Finding_the_ShortId_of_an_Immutable_Source_File">Finding the ShortId of an Immutable Source File</h1>
+<span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line862">The ShortId of immutable files under <tt>/vesta</tt> is its inode through the repository's NFS interface.  This means you can get the ShortId of an immutable file under <tt>/vesta</tt> with &quot;<tt>ls&nbsp;-i</tt>&quot;: <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line867"><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><pre><span class="anchor" id="line-1-2"></span>% ls -i /vesta/vestasys.org/vesta/eval/112/src/progs.ves 
+<span class="anchor" id="line-2-1"></span>2807348501 /vesta/vestasys.org/vesta/eval/112/src/progs.ves</pre><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><p class="line862">Of course that's in decimal, and normally you need a ShortId it in hex: <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><p class="line867"><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><pre><span class="anchor" id="line-1-3"></span>% printf &quot;%x\n&quot;  2807348501
+<span class="anchor" id="line-2-2"></span>a754bd15</pre><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line874">If you want to get it in one command line: <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line867"><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><pre><span class="anchor" id="line-1-4"></span>% printf &quot;%x\n&quot; `ls -i /vesta/vestasys.org/vesta/eval/112/src/progs.ves | cut -d ' ' -f 1`
+<span class="anchor" id="line-2-3"></span>a754bd15</pre><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><p class="line862">(Note that this only works under <tt>/vesta</tt> and <strong>does not work</strong> under <tt>/vesta-work</tt>.) <span class="anchor" id="line-47"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

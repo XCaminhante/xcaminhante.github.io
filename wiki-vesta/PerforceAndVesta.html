@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>PerforceAndVesta - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: PerforceAndVesta" href="PerforceAndVesta%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=PerforceAndVesta&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="PerforceAndVesta%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="PerforceAndVesta%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="PerforceAndVesta.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="PerforceAndVesta.html">PerforceAndVesta</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="PerforceAndVesta.html">PerforceAndVesta</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="PerforceAndVesta%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line874">Vesta is intended to be used as your revision control and build system, and (everything else held equal) that's the best way to use it. However, sometimes it's advantageous to use a different program (CVS/Perforce/etc.) for revision control while using Vesta as the builder. I encountered this requirement because we had to support a Visual Studio build from the same sources as our Linux build (and there's no direct Vesta support for Windows) and I wanted a way to maintain a Vesta build without requiring an upfront &quot;let's switch everything to Vesta&quot; argument. <span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line874">I implemented this strategy using Perforce for revision control, but the concepts should be portable to similar CVS-like systems. <span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867">
+<h2 id="Perforce_Basics">Perforce Basics</h2>
+<span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line874">Perforce is a pretty standard versioning system. You create a 'view', which is a definition of how to map directories and files from the repository into your working directory. You then sync this view, which copies the latest versions of these files from the repository into your working dir. The versioning is file granular, but there's also a notion of changesets, which is like a version number for the entire repository (i.e., whenever a new version of any file is created, the changeset number increments). <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">You are supposed to issue a specific command to edit a file, doing so allows the system to alert you if someone is also in the act of editing the file and adds the file to your 'pending changelist'. There are also commands to add/delete files which have similar functions. You issue a 'submit' command to promote all the files on your pending changelist <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">Perforce has history aware merging and a fancy gui for resolving merge conflicts and performing other tasks (reverting to old versions, creating new clients, etc.). <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867">
+<h2 id="The_Basic_Idea">The Basic Idea</h2>
+<span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line874">The general idea is that you make an empty Vesta package, do a non-exclusive checkout of it, and then create a Perforce view which sits on top of the empty working directory. You then create your Vesta build files (.ves files), adding them using the Perforce commands and checking them into the Perforce repository. At vmake time, the entire working dir will be snapshotted into the Vesta repository and from then on it's just a normal Vesta build. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line874">You never run vcheckin on this working dir. Top of tree always lives in Perforce and Vesta just captures your intermediate builds. <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line867">
+<h2 id="Creating_a_shadow_package">Creating a shadow package</h2>
+<span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line874">This scheme has a few major problems for any non-trivially sized source tree. The first is that doing a Perforce sync of a large tree into Vesta's file system takes a long time (it takes a long time on any file system, but longer on top of Vesta), and vadvancing a large amount of new data is slow. <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line874">The second is that if there's a lot of users all creating identical views in their own working dirs, then to Vesta that will look like a lot of unique directory trees. The files themselves are usually fingerprinted (so Vesta recognizes their redundancy), but not the directories. For large source trees and lots of users, this can threaten Vesta's limit of total unique directories. <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line874">And finally, at vadvance time Vesta does some amount of work for each file which has changed since vcheckout, which under this naive scheme leads to an annoying delay on each vmake. <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line874">The solution to all these problems is simple but works remarkably well. Instead of using an empty Vesta package to sync a Perforce client to, we make a Vesta package that we keep reasonably up-to-date (within a half-hour or so) with the Perforce repository . To create a new client working dir, we do a nonexclusive checkout of this package, create a Perforce client on top of it, tell Perforce that it matches a given Perforce changeset #, and then just do an incremental sync up to top-of-tree. <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line874">This approach makes creating a new client view pretty fast (must faster than using Perforce by itself), and largely eliminates the other problems as long as the user creates a new client every week or so (instead of sync'ing an old client). <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line874">I accomplish this with two scripts: <span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><p class="line867">
+<h3 id="update-top">update-top</h3>
+<span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><p class="line862">This script will update the Vesta package such that its latest version mirrors the Perforce repository. The Vesta package uses version numbers which match the Perforce changeset numbers. So basically we just vcheckout -N the current version, create a Perforce client on top of it. The we run a special 'p4 sync -k ...@&lt;changeset_num&gt;' Perforce command. This does a sync, but skips actually copying the files, so all it does is tell the Perforce server that you now have a working dir which matches a given changeset. This is a very fast operation since now files are copied. <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line862">Once we do that, then we do a regular 'p4 sync' to update the client to the latest changeset, and then we do a vcheckout -n &lt;new_changeset_num&gt; followed by a vcheckin to complete the operation. My actual script (which I'll attach to this page at some point) does some other stuff to make sure the operation happens atomically so that multiple instances of it can be run at the same time. <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line874">Generally the script runs as a cron job every 30 minutes. It takes about 20-30s if there's a new changeset that needs to be mirrored. <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line867">
+<h3 id="make-client">make-client</h3>
+<span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line862">This script is similar to update-top in that it does a non-exclusive checkout of the Vesta mirror package, creates a Perforce client on top of it, does the 'p4 sync -k ...@&lt;changeset_num&gt;' trick, and then a 'p4 sync' to update to the top of tree. At this point, though, it just leaves the working dir there for the user to modify, sync, etc., just as he or she would with a normal Perforce client. <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line867">
+<h2 id="All_files_left_writable">All files left writable</h2>
+<span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><p class="line874">By default, Perforce leaves all files in your client view read-only--this reminds you that you need to 'p4 edit' the file before modifying it. However, Vesta just insists on leaving all files writable on a vcheckout. <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><p class="line874">I suggest using the 'allwrite' P4 client option, so that the two are compatible. However, this creates an annoying problem that there's nothing to warn you if you edit a file without doing a 'p4 edit'. <span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><p class="line874">The solution to this problem is a little script called chk-client. It is run as a vadvance pre-trigger, and its job is to (a) run update-top, and (b) vdiff the working dir against the latest version of the mirror package, and (c) filter all those differences by the list of opened files provided by the 'p4 opened' command. The net result is that it reports to the user any file in his or her working dir which is different from the top-of-tree version AND which hasn't been explicitly added/edited/deleted. <span class="anchor" id="line-52"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

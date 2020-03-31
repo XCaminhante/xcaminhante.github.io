@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>DevelopingVesta - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: DevelopingVesta" href="DevelopingVesta%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=DevelopingVesta&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="DevelopingVesta%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="DevelopingVesta%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="DevelopingVesta.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="DevelopingVesta.html">DevelopingVesta</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="DevelopingVesta.html">DevelopingVesta</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="DevelopingVesta%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">This page is a collection of resources for people working on improving Vesta. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="DevelopingVesta.html#Background_Information">Background Information</a></li><li>
+<a href="DevelopingVesta.html#In-depth_Technical_Information">In-depth Technical Information</a></li><li>
+<a href="DevelopingVesta.html#Administrivia">Administrivia</a></li></ol></div> <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867">
+<h1 id="Background_Information">Background Information</h1>
+<span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><ul><li><p class="line891"><a href="LearningVesta.html">LearningVesta</a> is a great place to start. <span class="anchor" id="line-12"></span></li><li><p class="line891"><a class="http" href="../vesta/#publications">The list of publications on the front page</a> has a number of papers on Vesta's design an implementation <span class="anchor" id="line-13"></span><ul><li><p class="line891"><a class="http" href="http://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/abstracts/src-rr-177.html">&quot;The Vesta Software Configuration Management System&quot;</a> is a book-length research report by the original Vesta authors.  It explains many implementation details and is worth reading for anyone who wants to work on Vesta. <span class="anchor" id="line-14"></span></li></ul></li><li><p class="line891"><a href="HowCachingWorks.html">HowCachingWorks</a> briefly explains some of the details of how the evaluator and cache work together <span class="anchor" id="line-15"></span><ul><li><p class="line862">There's a more detailed explanation in the paper <a class="http" href="../vesta/doc/pubs/pldi-00-04-20.pdf">&quot;Caching Function Calls Using Precise Dependencies&quot;</a> <span class="anchor" id="line-16"></span></li></ul></li><li><p class="line891"><a href="HowWeedingWorks.html">HowWeedingWorks</a> gives an overview of the weeding process (arguably the most complicated part of the Vesta system) <span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span></li></ul><p class="line867">
+<h1 id="In-depth_Technical_Information">In-depth Technical Information</h1>
+<span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><ul><li><p class="line891"><a class="http" href="../vesta/doc/api-ref/vcheckout-dissection.html">The vcheckout dissection</a> goes through the implementation of <a class="http" href="../vesta/doc/man/html/vcheckout.1.html">vcheckout</a> in detail using it to illustrate various aspects of the Vesta APIs <span class="anchor" id="line-21"></span></li><li><p class="line891"><a href="DevelopingVesta/CodeTourNotes.html">/CodeTourNotes</a> is another review of (some parts of) the Vesta code <span class="anchor" id="line-22"></span></li><li><p class="line862">There's a <a class="http" href="http://pub.vestasys.org/doxygen/">code reference</a> (generated with <a class="http" href="http://www.doxygen.org/">Doxygen</a>).  (It would be a lot more useful if we updated comments in the code to use the Doxygen tags.) <span class="anchor" id="line-23"></span></li><li><p class="line891"><a class="http" href="../vesta/doc/porting-guide/index.html">The porting guide</a> explains the boot-strapping method we've used in the past to port Vesta to new platforms <span class="anchor" id="line-24"></span></li><li><p class="line891"><a href="DevelopingVesta/GcHeapSize.html">/GcHeapSize</a> Outlines possible code changes to keep the heap size of prgrams using garbage collection under control <span class="anchor" id="line-25"></span></li><li><p class="line891"><a href="DevelopingVesta/DeltaForSdl.html">/DeltaForSdl</a> Explains how <a class="http" href="http://delta.tigris.org/">delta</a> can be used to minimize the reproducer for an evaluator bug <span class="anchor" id="line-26"></span></li><li><p class="line891"><a href="DevelopingVesta/CodingPractices.html">/CodingPractices</a> lists various recommendations (mainly from <a href="KenSchalk.html">KenSchalk</a>) on how maintaining the excellence of the code <span class="anchor" id="line-27"></span></li><li><p class="line891"><a href="DevelopingVesta/PkFileEvolutionExample.html">/PkFileEvolutionExample</a> illustrates how the data structures in a PKFile change as entries are added <span class="anchor" id="line-28"></span></li><li><p class="line891"><a href="DevelopingVesta/GdbSequences.html">/GdbSequences</a> has a collection of user-defined gdb commands which you might find useful when working with Vesta applications <span class="anchor" id="line-29"></span></li><li><p class="line891"><a href="DevelopingVesta/ReposPerfAnalysis.html">/ReposPerfAnalysis</a> explains tools available for analyzing the performance of the repository to look for bottlenecks and opportunities to improve performance <span class="anchor" id="line-30"></span></li><li><p class="line891"><a href="DevelopingVesta/ImprovingQa.html">/ImprovingQa</a> describes some things we should do to improve our testing of changes to Vesta <span class="anchor" id="line-31"></span></li><li><p class="line891"><a href="DevelopingVesta/EasyTasks.html">/EasyTasks</a> lists some easy improvements and bug-fixes.  Why don't you make one today? <span class="anchor" id="line-32"></span></li><li><p class="line891"><a href="DevelopingVesta/SymlinkSupport.html">/SymlinkSupport</a> has notes on changes needed to support symlinks more pervasively (for tools, in versions) <span class="anchor" id="line-33"></span></li><li><p class="line862">ReposUIPackageClass contains a proposed, and mostly implemented, API for representing and manipulating repository objects like packages, session directories, and working directories.  This would offer a higher-level interface as an alternative to the low-level <a href="VestaSource.html">VestaSource</a> interface. <span class="anchor" id="line-34"></span></li><li><p class="line891"><a href="DiffIssues.html">DiffIssues</a> talks about issues with implementing a general-purpose diff for Vesta. <span class="anchor" id="line-35"></span></li><li><p class="line891"><a href="DevelopingVesta/RunToolRoster.html">/RunToolRoster</a> has implementation notes for a new way for evaluators to find RunToolServers <span class="anchor" id="line-36"></span></li><li><p class="line891"><a href="DevelopingVesta/NoCacheRunTool.html">/NoCacheRunTool</a> has some notes for how one might make <tt>/**nocache**/</tt> work for the <tt>_run_tool</tt> primitive function <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span></li></ul><p class="line867">
+<h1 id="Administrivia">Administrivia</h1>
+<span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><ul><li><p class="line862">If you want to check in under <tt>/vesta/vestasys.org</tt> you'll need access to <tt>dev.vestasys.org</tt> (the repository with mastership of that hierarchy).  (You'll need help from the project administrators for either of these.)  You have two options: <span class="anchor" id="line-41"></span><ul><li><p class="line891"><a class="http" href="../vesta/network/index.html">The vestasys.org VPN</a> can be used to create a secure tunnel which will allow your repository and its client hosts to access <tt>dev.vestasys.org</tt> as a peer repository.  This allows you to perform remote checkouts from and checkins back to <tt>dev.vestasys.org</tt>. <span class="anchor" id="line-42"></span></li><li><p class="line862">If there's some reason why the VPN is not an option for you (e.g. a network security policy you don't have control over), we can give you an account on <tt>dev.vestasys.org</tt> which you can log into using ssh.  (See <a href="DevUserInfo.html">DevUserInfo</a> including <a href="SshPortForwardingExample.html">SshPortForwardingExample</a>.) <span class="anchor" id="line-43"></span></li></ul></li><li><p class="line891"><a href="ReleasePlans.html">ReleasePlans</a> is where we keep plans of what will go into upcoming Vesta releases <span class="anchor" id="line-44"></span></li><li><p class="line891"><a href="DevelopingVesta/ReleasePhases.html">/ReleasePhases</a> describes how we intend to schedule our work towards each release <span class="anchor" id="line-45"></span></li><li><p class="line891"><a href="DevelopingVesta/BranchStatus.html">/BranchStatus</a> explains how we keep track of the different branches containing active development work <span class="anchor" id="line-46"></span></li><li><p class="line891"><a href="DevelopingVesta/ChangeEmailTrigger.html">/ChangeEmailTrigger</a> Suggested trigger setup to send e-mail when you make changes to the Vesta code <span class="anchor" id="line-47"></span></li><li><p class="line891"><a href="DevelopingVesta/CodeReviewTools.html">/CodeReviewTools</a> Some notes about different code review tools we might use with Vesta <span class="anchor" id="line-48"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

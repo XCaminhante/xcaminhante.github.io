@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>std_env/AddonProposal - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: std_env/AddonProposal" href="AddonProposal%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=std_env%252FAddonProposal&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="AddonProposal%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="AddonProposal%3Faction=print.html">
+<link rel="Up" href="std_env.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="AddonProposal.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="std_env.html">std_env</a></li><li><a href="AddonProposal.html">AddonProposal</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="AddonProposal.html">std_env/AddonProposal</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="AddonProposal%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line867"><em>(This is the page that used to be at std_env and described the addon re-design.)</em> <span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line862">std_env is the package that provides all the &quot;standard&quot; portions of a system environment for tools to run in.  Historically, &quot;standard&quot; has been defined as &quot;needed to build vesta.&quot;  I'd like to make std_env more general.  After some discussions with <a href="../KenSchalk.html">KenSchalk</a> about this, here's my suggestion. <span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line874">Currently, running std_env()/env_build() gets you everything that's in std_env.  If you need to add additional components, you need to know the exact name of the OS package that provides them, and this name can differ from os to os (for example, &quot;libc6&quot; on debian vs. &quot;glibc&quot; on redhat). <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><p class="line874">I'd like to strip std_env down to just return the basic run time libraries, and then have a series of &quot;add-ons&quot; - additional models that live in the same package as std_env and can be imported by other models and added directly into std_env on demand.  The add-ons would be everything from tools (gcc, lex, yacc, perl, etc.) to libraries (vesta_umb, libbzip2, etc).  These add-on models would have to support some sort of overrides at least as flexible as std_env()/env_build() currently does.  The add-on models would know the proper name for the import for the component they provide into that particular std_env.  They should probably also exist, but print an error message, for std_env platforms that don't support that component. <span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><p class="line867"><hr /><p class="line874"> <span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><p class="line874">Supporting overrides for the individual components means some method for passing parameters to them.  That could be done the same way we do it for std_env (have the model return a function which is then called with arguments): <span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><p class="line867"><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c)) {
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    var n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        var a = document.createElement('A');
+        s.className = 'LineNumber';
+        a.appendChild(document.createTextNode(nformat(n,4,'')));
+        a.href = '#' + did + '_' + n;
+        s.appendChild(a);
+        s.appendChild(document.createTextNode(' '));
+        n += nstep;
+        if (l.childNodes.length) {
+          l.insertBefore(s, l.firstChild);
+        }
+        else {
+          l.appendChild(s);
+        }
+      }
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c)) {
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="AddonProposal.html#" onclick="return togglenumber(\'CA-a2923308c50cdf31610d0d48b65d115bfb104198\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-a2923308c50cdf31610d0d48b65d115bfb104198" lang="en"><span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-a2923308c50cdf31610d0d48b65d115bfb104198_1">   1</a> </span><span class="LineAnchor" id="CA-a2923308c50cdf31610d0d48b65d115bfb104198_1"></span><span class="ID">perl_ovs</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">.</span><span class="ID">.</span><span class="ID">.</span> <span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-a2923308c50cdf31610d0d48b65d115bfb104198_2">   2</a> </span><span class="LineAnchor" id="CA-a2923308c50cdf31610d0d48b65d115bfb104198_2"></span><span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="ID">perl</span><span class="SPChar">(</span><span class="SPChar">)</span><span class="SPChar">/</span><span class="ID">env_build</span><span class="SPChar">(</span><span class="ID">perl_ovs</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+</pre></div><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line874">Or we could have the caller place something in dot before calling the model: <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867"><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="AddonProposal.html#" onclick="return togglenumber(\'CA-f3e08e5e5154502b941431cf96ce044418f2e9d7\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-f3e08e5e5154502b941431cf96ce044418f2e9d7" lang="en"><span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-f3e08e5e5154502b941431cf96ce044418f2e9d7_1">   1</a> </span><span class="LineAnchor" id="CA-f3e08e5e5154502b941431cf96ce044418f2e9d7_1"></span><span class="ID">perl_ovs</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">.</span><span class="ID">.</span><span class="ID">.</span> <span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-f3e08e5e5154502b941431cf96ce044418f2e9d7_2">   2</a> </span><span class="LineAnchor" id="CA-f3e08e5e5154502b941431cf96ce044418f2e9d7_2"></span><span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="ID">perl</span><span class="SPChar">(</span><span class="ID">.</span> <span class="SPChar">+</span> <span class="SPChar">[</span> <span class="ID">perl_ovs</span> <span class="SPChar">]</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+</pre></div><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line874">We might not even need to pass the current value of dot into the add-on model.  Bridges that need to compile tools from source should delay such compilation until the tool needs to be invoked.  (The lim bridge used to compile at env_build time, but I changed that a long time ago.) <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line867"><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="AddonProposal.html#" onclick="return togglenumber(\'CA-a44628af0c32c19fe3b3c898b9e3b2e1f65a3b88\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-a44628af0c32c19fe3b3c898b9e3b2e1f65a3b88" lang="en"><span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-a44628af0c32c19fe3b3c898b9e3b2e1f65a3b88_1">   1</a> </span><span class="LineAnchor" id="CA-a44628af0c32c19fe3b3c898b9e3b2e1f65a3b88_1"></span><span class="ID">perl_ovs</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">.</span><span class="ID">.</span><span class="ID">.</span> <span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-a44628af0c32c19fe3b3c898b9e3b2e1f65a3b88_2">   2</a> </span><span class="LineAnchor" id="CA-a44628af0c32c19fe3b3c898b9e3b2e1f65a3b88_2"></span><span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="ID">perl</span><span class="SPChar">(</span><span class="ID">perl_ovs</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+</pre></div><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><p class="line874">Perhaps one reason to pass the current dot in is to allow the add-in to detect if any of the other add-ons it needs are present already.  For example, any tool or library built from source under Vesta needs the appropriate compilation tools/bridges in dot.  Should the caller be required to know which things to add in first? <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line867"><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="AddonProposal.html#" onclick="return togglenumber(\'CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10" lang="en"><span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_1">   1</a> </span><span class="LineAnchor" id="CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_1"></span><span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="ID">c_addon</span><span class="SPChar">(</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_2">   2</a> </span><span class="LineAnchor" id="CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_2"></span><span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="ID">cxx_addon</span><span class="SPChar">(</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_3">   3</a> </span><span class="LineAnchor" id="CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_3"></span><span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="ID">gclib_addon</span><span class="SPChar">(</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_4">   4</a> </span><span class="LineAnchor" id="CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_4"></span><span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="ID">basicslibs_addon</span><span class="SPChar">(</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_5">   5</a> </span><span class="LineAnchor" id="CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_5"></span><span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="ID">zlib_addon</span><span class="SPChar">(</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_6">   6</a> </span><span class="LineAnchor" id="CA-b5fe42f1715f905c691cb1dbd168ca9f78aece10_6"></span><span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="ID">vestalibs_addon</span><span class="SPChar">(</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+</pre></div><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><p class="line874">Or just call the add-in model and have it pull in the others? <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><p class="line867"><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="AddonProposal.html#" onclick="return togglenumber(\'CA-a7e69b569c8ceeaff064b51656d7a2bb812b65d1\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-a7e69b569c8ceeaff064b51656d7a2bb812b65d1" lang="en"><span class="line"><span class="LineNumber"><a href="AddonProposal.html#CA-a7e69b569c8ceeaff064b51656d7a2bb812b65d1_1">   1</a> </span><span class="LineAnchor" id="CA-a7e69b569c8ceeaff064b51656d7a2bb812b65d1_1"></span><span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="ID">vestalibs_addon</span><span class="SPChar">(</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+</pre></div><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><p class="line874">The latter seems like a big simplification for user models.  However, then we probably have to pass overrides down into any dependent add-on model. <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><p class="line862">-- <a href="../KenSchalk.html">KenSchalk</a> <span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><p class="line867"><hr /><p class="line874"> <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><p class="line867"><a href="../ScottVenier.html">ScottVenier</a> has done an initial implementation of this idea: <span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><p class="line867"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/platforms/linux/redhat/i386/std_env/1">/vesta/beta.vestasys.org/platforms/linux/redhat/i386/std_env/1</a> <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><p class="line874">He's also made a Vesta release using this (though it's not quite right, as currently every progrm is being linked with the garbage collector): <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><p class="line867"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/vesta/release/2">/vesta/beta.vestasys.org/vesta/release/2</a> <span class="anchor" id="line-65"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

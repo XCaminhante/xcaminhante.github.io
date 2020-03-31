@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>DevelopingVesta/CodeReviewTools - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: DevelopingVesta/CodeReviewTools" href="CodeReviewTools%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=DevelopingVesta%252FCodeReviewTools&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="CodeReviewTools%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="CodeReviewTools%3Faction=print.html">
+<link rel="Up" href="DevelopingVesta.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="CodeReviewTools.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="DevelopingVesta.html">DevelopingVesta</a></li><li><a href="CodeReviewTools.html">CodeReviewTools</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="CodeReviewTools.html">CodeReviewTools</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="CodeReviewTools%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line874">It might be a good idea to formalize our process for reviewing code changes.  Right now it's done primarily unstructured e-mails.  Using an on-line tool will help us facilitate working with more developers. <span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><ul><li><p class="line891"><a class="http" href="http://codestriker.sourceforge.net/">Codestriker</a> is one free possibility that we could start adapting today. <span class="anchor" id="line-4"></span></li><li><p class="line891"><a class="http" href="http://www.review-board.org/">Review Board</a> looks very promising but hasn't made its first official release yet.  The code is only available from <a class="http" href="http://code.google.com/p/reviewboard/source">their Subversion repository</a>. <span class="anchor" id="line-5"></span><ul><li><p class="line862">Review board (or rather the <a class="http" href="http://www.djangoproject.com/">Django</a> framework it is built on) seems to require Apache 2 and mod_python 3 (see <a class="http" href="http://www.djangobook.com/en/beta/chapter21/">&quot;Deploying Django&quot;</a>).  To run it on pub.vestasys.org we would need to upgrade.  (<a class="interwiki" href="http://moinmo.in/MoinMoinPackages/DebianLinux" title="MoinMoin">MoinMoinPackages/DebianLinux</a> suggest that this wiki should work fine with Apache 2, but we should make sure to understand the implications of it and test it on this wiki before upgrading.)  It can apparently also be run in a standalone mode where it is its own web server.  This doesn't perform as well as using Apache and mod_python, but might be good enough for our curent needs. <span class="anchor" id="line-6"></span></li></ul></li><li><p class="line891"><a class="http" href="http://www.niallkennedy.com/blog/archives/2006/11/google-mondrian.html">Google Mondiran</a> might be interesting, but it's not clear whether it's going to be freely available <span class="anchor" id="line-7"></span></li><li><p class="line891"><a class="http" href="http://jcodereview.sourceforge.net/">JCR</a> looks like another free option <span class="anchor" id="line-8"></span></li></ul><p class="line874">Of course with any of these tools we would need to do some work to interface them with the Vesta repository. <span class="anchor" id="line-9"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

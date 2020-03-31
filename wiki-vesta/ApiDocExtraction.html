@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>ApiDocExtraction - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: ApiDocExtraction" href="ApiDocExtraction?diffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=ApiDocExtraction&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="ApiDocExtraction?action=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="ApiDocExtraction?action=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="ApiDocExtraction.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="ApiDocExtraction.html">ApiDocExtraction</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="ApiDocExtraction.html">ApiDocExtraction</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="ApiDocExtraction?action=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867">
+<h1 id="API_Documentation_Extraction">API Documentation Extraction</h1>
+<span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line874">This page is about making documentation of the Vesta APIs available in a usable on-line format. <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867">
+<h2 id="The_Documentation_Gap">The Documentation Gap</h2>
+<span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">Vesta has a sizable set of libraries with API that are available in 5 programming languages.  There's not nearly enough documentation to help people make sense of how to use these interfaces. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line862">The core code is written in C++ and is dvidied into 13 distinct libraries.  (There are 3 sub-libraries that are a part of <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics/basics_umb">basics_umb</a> and 10 that are a part of <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vesta_umb">vesta_umb</a>.)  We've <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/vesta/extras/swig">added interfaces to a subset of these libraries</a> using <a class="http" href="http://www.swig.org/">SWIG</a> to make them call-able from 4 more languages (Perl, Python, Tcl, and Java).  Those interfaces have some subtle differences to make them map more naturally onto the different languages.  (For example, some parts of the C++ API use call-back functions to process a set of items, and in the wrapped APIs instead return some list of data structures.) <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line874">Unfortunately, there's not much documentation of all this.  The C++ header files do include some useful comments, but making use of them requires finding the right source file and then reading through the C++.  This is a non-trivial exercise for programmers who wish to work in one of the other languages.  Also, the subtle changes made in the wrappers are undocumented except for in the SWIG input files.  So, in order for someone to make use of the wrapped APIs in these other languages, they would have to read both the C++ header files which define the core API and then read the SWIG input file.  This is obviously too much effort to expect. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line867">
+<h2 id="What_Users_Need">What Users Need</h2>
+<span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><ul><li>Documentation of all the elemnts of the C++ API: <span class="anchor" id="line-20"></span><ul><li>Functions <span class="anchor" id="line-21"></span></li><li>Classes and other types <span class="anchor" id="line-22"></span><ul><li>Member variables and member functions <span class="anchor" id="line-23"></span></li><li>Template parameters for polymorphic types <span class="anchor" id="line-24"></span></li></ul></li><li>Namespaces <span class="anchor" id="line-25"></span></li></ul></li><li>Indexes of the above element <span class="anchor" id="line-26"></span><ul><li>By individual library <span class="anchor" id="line-27"></span></li><li>Topical <span class="anchor" id="line-28"></span></li><li>Alphabetical <span class="anchor" id="line-29"></span></li></ul></li><li>Links back to the C++ source code for each element <span class="anchor" id="line-30"></span></li><li>Description of each alternate language interface <span class="anchor" id="line-31"></span><ul><li>Which elemnts of the C++ API are available <span class="anchor" id="line-32"></span></li><li>Differences in the interface <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span></li></ul></li></ul><p class="line867">
+<h2 id="Processing_and_Intermediate_Formats">Processing and Intermediate Formats</h2>
+<span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><p class="line862">For the core APIs, it seems best to extract documentation from the code itself (i.e. a <a class="http" href="http://en.wikipedia.org/wiki/Literate_programming">literate programming</a> approach).  To get the most out of this will require the addition of structured comments to the source code, though some tools should allow us to generate at least some minimal indexing and documentation with the code as it is today. <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line874">Documenting the SWIG interfaces will probably require creating our own documentation annotation and extraction system.  (SWIG 1.1 had a documentation generation system.  We're using SWIG 1.3 which currently lacks a cohesive documentation system, though it has some limited support for generating documentation for certain languages.)  Hopefully the limited scope will keep it from being too much of a burden. <span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><p class="line874">We believe that the right solution will involve XML as an intermediate format.  This should enable both flexible presentation through XSL and some advanced cross-indexing and searching capabilites (such as searching for every function which takes a particular type as an argument). <span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><p class="line862">It seems that <a class="http" href="http://www.stack.nl/~dimitri/doxygen/starting.html#xml_out">doxygen can output XML</a> which may prove quite useful for the C++ APIs.  SWIG (which we already use) also has an <a class="http" href="http://www.swig.org/Doc1.3/SWIG.html#SWIG_nn2">XML output capability</a>, but it is totally undocumented as of Dec 6, 2005. <span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><p class="line867">
+<h2 id="What_Exisits_Today">What Exisits Today</h2>
+<span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><p class="line862">The only guide which provides any help today in understanding the Vesta APIs is the <a class="http" href="../vesta/doc/api-ref/vcheckout-dissection.html">vcheckout dissection</a>. <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><p class="line867">
+<h2 id="Next_Steps">Next Steps</h2>
+<span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><ul><li><p class="line862">Experiment with <a class="http" href="http://www.stack.nl/~dimitri/doxygen/">Doxygen</a>, evaluate its XML output format <span class="anchor" id="line-51"></span></li><li>Experiment with SWIG's XML output format also. <span class="anchor" id="line-52"></span><ul><li><p class="line891"><strong>DONE</strong> The information from SWIG's <a class="http" href="http://www.scooter.cx/~scott/vesta_swig.xml">xml output</a> is not useful for documentation. <span class="anchor" id="line-53"></span></li></ul></li><li>Develop a spec for embedding documentation in SWIG input files and extracting it <span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span></li></ul><p class="line867">
+<h2 id="Related_Topics">Related Topics</h2>
+<span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><p class="line874">There are at least two other kinds of documentation which is would be nice to incorporate into the code and keep up to date automatically: <span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><ul><li><p class="line862">The configuration variables used by the different Vesta tools (see <a href="ConfigVars.html">ConfigVars</a>) <span class="anchor" id="line-60"></span></li><li><p class="line862">The repository attributesused by the different Vesta tools (see <a href="VestaAttributes/Index.html">VestaAttributes/Index</a>) <span class="anchor" id="line-61"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

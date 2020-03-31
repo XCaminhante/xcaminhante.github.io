@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>VestaConceptsForCvsUsers - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: VestaConceptsForCvsUsers" href="VestaConceptsForCvsUsers%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=VestaConceptsForCvsUsers&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="VestaConceptsForCvsUsers%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="VestaConceptsForCvsUsers%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="VestaConceptsForCvsUsers.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="VestaConceptsForCvsUsers.html">VestaConceptsForCvsUsers</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="VestaConceptsForCvsUsers.html">VestaConceptsForCvsUsers</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="VestaConceptsForCvsUsers%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="fr" dir="ltr">
+<div dir="ltr" id="content" lang="fr"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line867">
+<h1 id="Vesta_Concepts_for_CVS_Users">Vesta Concepts for CVS Users</h1>
+<span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line862">This page compares the underlying versioning concepts of Vesta and <a class="http" href="http://www.nongnu.org/cvs/">CVS</a>. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line862">For a comparison of commands see <a href="VestaForCvsUsers.html">VestaForCvsUsers</a> <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867">
+<h2 id="Vesta_Versions_on_a_Package_basis">Vesta Versions on a Package basis</h2>
+<span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><div><table><tbody><tr>  <td><p class="line862"> <strong>CVS</strong> </td>
+  <td><p class="line862"> <strong>Vesta</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-12"></span><p class="line862"> CVS allows checkin and checkout of directories, but each file gets its own version. </td>
+  <td><p class="line862"> Vesta does versioning on packages. You can put a single file in a package or several files, or subdirectories, or your entire tool. Everything in that package gets the same version number. </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><p class="line867">
+<h2 id="Vesta.27s_Virtual_World">Vesta's Virtual World</h2>
+<span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><div><table><tbody><tr>  <td><p class="line862"> <strong>CVS</strong> </td>
+  <td><p class="line862"> <strong>Vesta</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-17"></span><p class="line862"> CVS works in the regular unix filesystem, which means it behaves like 99% of all unix programs. The CVS repository consists of unix files which contain special encodings to specify versions (ie, RCS ,v files). CVS work areas are regular unix files and dirs. </td>
+  <td><p class="line862"> Vesta does its job by creating a virtual world for you work in. It's not the regular unix file system. <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt> All of these: <tt>&nbsp;&nbsp;</tt> 1) Checked-in version control files and dirs, <tt>&nbsp;&nbsp;</tt> 2) your checked-out work area, <tt>&nbsp;&nbsp;</tt>  3) all building (compilation, linking, etc), <tt>&nbsp;&nbsp;&nbsp;</tt> all happen in a virual unix world. <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt> Read more: <a class="nonexistent" href="MtvVestaVirtual.html">MtvVestaVirtual</a>. </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line867">
+<h2 id="How_versions_are_stored">How versions are stored</h2>
+<span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><div><table><tbody><tr>  <td><p class="line862"> <strong>CVS</strong> </td>
+  <td><p class="line862"> <strong>Vesta</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-22"></span><p class="line862"> CVS stores all versions of a file in a single encoded version file. Only changed lines are stored. The file has to be processed to extract out any particular version, including the latest. </td>
+  <td><p class="line862"> Vesta stores each new version of a file as a separate file. In this way, it is much like backup files or emacs version files (or VMS :). Even if only one line of a file changed, 2 copies of that file are stored. <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt> As a special case, if zero lines changed (ie old and new version are identical), then behind-the-scenes vesta stores it only once, even tho it appears listed for 2 different version numbers. </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><p class="line867">
+<h2 id="Vesta.27s_Version_Numbers_Explained">Vesta's Version Numbers Explained</h2>
+<span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><div><table><tbody><tr>  <td><p class="line862"> <strong>CVS</strong> </td>
+  <td><p class="line862"> <strong>Vesta</strong> </td>
+  <td><p class="line862"> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-27"></span><p class="line862"> CVS has version numbers encoded in its version files. These numbers can be extracted and viewed by several cvs commands. CVS work areas have no versioning, unless you create a branch and check your work files in there. </td>
+  <td><p class="line862"> Vesta keeps versions in numerical subdirectories of a package. The entire subdir name consists of digits -- the version number. As such, vesta stores complete copies of changed files, not an encoding of the changes.  Vesta also has automatic versioning on your work area. Each time you build, a snapshot is automatically taken. <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt> Read more: <a class="nonexistent" href="MtvVestaVerNum.html">MtvVestaVerNum</a>  </td>
+  <td><p class="line862"> (<a class="http" href="http://www.bitkeeper.com">BitKeeper</a> allows you to make local clones of the entire repository, and then check-in to that clone, and then later, do a global &quot;turn in&quot; (w/ merging) to the master copy.) </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line867">
+<h2 id="Exclusive_v._Non-exclusive_Check-outs">Exclusive v. Non-exclusive Check-outs</h2>
+<span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line874">Exclusive check-outs means no other user can check-out that file, dir or package until you check it in. <span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><p class="line874">Non-Exclusive check-outs means many users can check-out the same file, dir or package, and updating will merge changes together. <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><div><table><tbody><tr>  <td><p class="line862"> <strong>CVS</strong> </td>
+  <td><p class="line862"> <strong>Vesta</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-36"></span><p class="line862"> CVS has non-exclusive check-outs only  </td>
+  <td><p class="line862"> Vesta has both, but is streamlined for exclusive check-outs.  </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line867">
+<h2 id="Automatic_Work-Area_Snapshot">Automatic Work-Area Snapshot</h2>
+<span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><div><table><tbody><tr>  <td><p class="line862"> <strong>CVS</strong> </td>
+  <td><p class="line862"> <strong>Vesta</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-41"></span><p class="line862"> CVS work areas are just unix dirs.  You may manually check into a branch to store versions of your work area, but that is not common.  </td>
+  <td><p class="line862"> Everytime you build in vesta, an automatic snapshot is taken of your work area.  Snapshots are first-class citizens of the repository, and can be referred to just like checked-in versions.  In particular, the full repeatibility guarantees extend to snapshots.  <tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt> Because of this situation, when sharing your code with other people, you always give them the latest snapshot in the repository, rather than pointing them to your work area.  </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line867">
+<h2 id="Immortal_storage">Immortal storage</h2>
+<span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><div><table><tbody><tr>  <td><p class="line862"> <strong>CVS</strong> </td>
+  <td><p class="line862"> <strong>Vesta</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-46"></span><p class="line862"> CVS keeps everything in the repository.  </td>
+  <td><p class="line862"> Everything that gets into the vesta respository stays there forever.  This is ununsual for unix users, who are used to deleting mistakes.  Vesta users get over this discomfort eventually because the value of guaranteed reproducibility that immortal storage provides.  Typos are unfortunate, and discussed in <a href="ReorganizingRepos.html">ReorganizingRepos</a>.  </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><p class="line867">
+<h2 id="Everything_Explicity_Versioned">Everything Explicity Versioned</h2>
+<span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><div><table><tbody><tr>  <td><p class="line862"> <strong>CVS</strong> </td>
+  <td><p class="line862"> <strong>Vesta</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-53"></span><p class="line862"> CVS versions just what you give it.  </td>
+  <td><p class="line862"> In vesta, everything is explicitly versioned: sources, tools, sets of env variables, parameters.  To explain, let me make an analogy.  A typical command a user might type is <tt>&nbsp;emacs&nbsp;mfile.txt&nbsp;</tt>.  In vesta, that would have to be <tt>&nbsp;emacs.v3.2.4&nbsp;mfile.txt.v1.4.6</tt>.  It's more work, and a mindset you have to get used to, but once you do it becomes natural, and the benefits are guaranteed repeatibility.  </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><p class="line867">
+<h2 id="A3_Types_of_Directories">3 Types of Directories</h2>
+<span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><div><table><tbody><tr>  <td><p class="line862"> <strong>CVS</strong> </td>
+  <td><p class="line862"> <strong>Vesta</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-58"></span><p class="line862"> CVS has directories w/in its repositories, but not any new concepts.  </td>
+  <td><p class="line862"> Vesta has 3 types of directories.   Concisder a path <tt>/vesta/project.example.com/prog/mod/pkg/3/srcs/file.cxx</tt>.  They are all immortal -- once you create them, you can never remove them (but see <a class="http" href="http://vestasys.org/doc/man/html/vrm.1.html">vrm</a>).  I'm not counting <tt>/vesta/project.example.com/</tt> which is the vesta root and namespace of the project.  <tt>prog/mod</tt> are vesta hierarchy dirs.  They are un-versioned.  <tt>pkg/</tt> is a <em>package</em>.  this is the only versionable object in vesta.  Versions are stored as numerical dirs underneath <tt>pkg/</tt>.  The numerical dir <tt>3</tt> is a specific version of <tt>pkg/</tt>.  <tt>srcs/</tt> is a regular directory versioned w/in the package named <tt>pkg</tt>. </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><p class="line867">
+<h2 id="New_file_first_in_Repository">New file first in Repository</h2>
+<span class="anchor" id="line-61"></span><div><table><tbody><tr>  <td><p class="line862"> <strong>CVS</strong> </td>
+  <td><p class="line862"> <strong>Vesta</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-62"></span><p class="line862"> In CVS to add a new file, you first create the file, then <tt>cvs&nbsp;add</tt> it to the repository.  </td>
+  <td><p class="line862"> In Vesta first you <tt>vcreate</tt> a new package in the repository, then <tt>vcheckout</tt> it, then populate it with files  </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-63"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

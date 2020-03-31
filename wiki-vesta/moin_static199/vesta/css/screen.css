@@ -1,0 +1,19 @@
+@import url("../../../wiki/rightsidebar/css/screen.css");
+
+html {
+	background-color: #efefff;
+}
+
+#pagelocation {
+	font-size: 1.5em;
+	vertical-align: center;
+	padding: 10px 10px 10px 10px;
+	margin: 10px 10px 10px 10px;
+}
+
+#locationline {
+	clear: none;
+	vertical-align: center;
+	padding: 10px 10px 10px 10px;
+	margin: 10px 10px 10px 10px;
+}

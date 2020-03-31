@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>ToolTroubleshooting - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: ToolTroubleshooting" href="ToolTroubleshooting%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=ToolTroubleshooting&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="ToolTroubleshooting%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="ToolTroubleshooting%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="ToolTroubleshooting.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="ToolTroubleshooting.html">ToolTroubleshooting</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="ToolTroubleshooting.html">ToolTroubleshooting</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="ToolTroubleshooting%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">Vesta uses complete filesystem and environment encapsulation based on the chroot system call.  Each time you set up a new tool (or even a new version of a tool) to run under Vesta control, you need to construct a complete filesystem with everything it needs to run.  Sometimes this requires a process of tral-and-error to discover all the files used by a tool.  This page gives describes a number of techniques you can use to do this. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="ToolTroubleshooting.html#Background">Background</a><ol><li>
+<a href="ToolTroubleshooting.html#Constructing_a_Filesystem_from_OS_Compoenents">Constructing a Filesystem from OS Compoenents</a></li></ol></li><li>
+<a href="ToolTroubleshooting.html#Evaluator:_-fsdeps">Evaluator: -fsdeps</a></li><li>
+<a href="ToolTroubleshooting.html#Evaluator:_-evalcalls">Evaluator: -evalcalls</a></li><li>
+<a href="ToolTroubleshooting.html#Evaluator:_-stop-before.2Fafter-tool">Evaluator: -stop-before/after-tool</a></li><li>
+<a href="ToolTroubleshooting.html#Determining_Needed_Shared_Libraries">Determining Needed Shared Libraries</a></li><li>
+<a href="ToolTroubleshooting.html#Monitoring_System_Calls">Monitoring System Calls</a></li><li>
+<a href="ToolTroubleshooting.html#Environment_Variables">Environment Variables</a></li></ol></div> <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867">
+<h1 id="Background">Background</h1>
+<span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">When the Vesta builder runs a tool, it is restricted to an isolated subset of the filesystem.  This subset is defined by the value <tt>./root</tt> at the point when <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_run_tool.html">_run_tool</a> is called. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line862">Vesta's tool launching process uses the chroot(2) and execve(2) system calls to restrict the filesystem accesses to a directory under Vesta's control and completely define the environment for each tool.  Your system may have man pages which describe these in detail (though that's probably more information than you need).  If you're not familiar with the concept of chroot, <a class="http" href="http://en.wikipedia.org/wiki/Chroot">wikipedia's description</a> may also be helpful. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line874">Tools that you run under Vesta will usually need a number of things other than the tool itself included in the filesystem: <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><ul><li>A &quot;loader&quot; program that's provided as part of the operating system and is responsible for boot-strapping a new process including loading the executable code into memory, loading any shared libraries and resolving symbol references to them, and other pieces of process initialization. <span class="anchor" id="line-18"></span></li><li>Shared libraries that provide some functionality not directly linked into the program. <span class="anchor" id="line-19"></span><ul><li><p class="line862">Typically the C run-time library (usually named something like &quot;<tt>libc.so</tt>&quot;) is required by most programs. <span class="anchor" id="line-20"></span></li><li><p class="line862">The C++ run-time library (usually named something like &quot;<tt>libstdc++.so</tt>&quot;) is usually needed by programs written in C++. <span class="anchor" id="line-21"></span></li><li>There are many other shared libraries which different programs use as well.  (See the section about &quot;Determining Needed Shared Libraries&quot; below.) <span class="anchor" id="line-22"></span></li></ul></li><li>Interpreters (for programs written in languages such as Perl or Python) or run-time environments (such as a program that implements the Java virtual machine). <span class="anchor" id="line-23"></span><ul><li>Usually these come with a collection of ancillary files that they need to operate correctly <span class="anchor" id="line-24"></span></li></ul></li><li><p class="line862">System configuration files from <tt>/etc</tt> <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span></li></ul><p class="line867">
+<h2 id="Constructing_a_Filesystem_from_OS_Compoenents">Constructing a Filesystem from OS Compoenents</h2>
+<span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line862">Most modern operating systems have a system for dividing the installed files into different named <strong>components</strong>.  Each such component represents a subset of the files and directories that make up the operating system.  Many Linux systems use either <a class="http" href="http://www.rpm.org/">the RedHat package manager</a> or <a class="http" href="http://packages.debian.org/stable/base/dpkg">the Debian package manager</a>, but these are just two examples. <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line862">To make it easier to construct the filesystem needed to run a tool, we import entire OS components into Vesta and allow the user to simply give a list of OS component names which need to be in the filesystem.  For example, on a Debian system in order to construct a filesystem needed to run the lexical analyzer generator <a class="http" href="http://flex.sourceforge.net/">flex</a>, we would ask for: <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><ol type="1"><li>The OS component for flex itself <span class="anchor" id="line-33"></span></li><li>The OS component for the m4 macro pre-processor (which recent versions of flex use) <span class="anchor" id="line-34"></span></li><li>The OS component for the C run-time library <span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span></li></ol><p class="line874">This can be done with a single function call: <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line867"><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c)) {
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    var n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        var a = document.createElement('A');
+        s.className = 'LineNumber';
+        a.appendChild(document.createTextNode(nformat(n,4,'')));
+        a.href = '#' + did + '_' + n;
+        s.appendChild(a);
+        s.appendChild(document.createTextNode(' '));
+        n += nstep;
+        if (l.childNodes.length) {
+          l.insertBefore(s, l.firstChild);
+        }
+        else {
+          l.appendChild(s);
+        }
+      }
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c)) {
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="ToolTroubleshooting.html#" onclick="return togglenumber(\'CA-810c399bd2f60adb413b4d9cdd1a4002cae9f408\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-810c399bd2f60adb413b4d9cdd1a4002cae9f408" lang="en"><span class="line"><span class="LineNumber"><a href="ToolTroubleshooting.html#CA-810c399bd2f60adb413b4d9cdd1a4002cae9f408_1">   1</a> </span><span class="LineAnchor" id="CA-810c399bd2f60adb413b4d9cdd1a4002cae9f408_1"></span><span class="ID">.</span><span class="SPChar">/</span><span class="ID">build_root</span><span class="SPChar">(</span><span class="SPChar">&lt;</span><span class="String">&quot;flex&quot;</span><span class="SPChar">,</span> <span class="String">&quot;m4&quot;</span><span class="SPChar">,</span> <span class="String">&quot;libc6&quot;</span><span class="SPChar">&gt;</span><span class="SPChar">)</span></span>
+</pre></div><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><p class="line862">This is of course just one approach implemented on top of Vesta in the Vesta SDL language, but we do think it's a useful one.  For more on this see <a href="std_env.html">std_env</a> which describes the standard build environment. <span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><p class="line867">
+<h1 id="Evaluator:_-fsdeps">Evaluator: -fsdeps</h1>
+<span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><p class="line862">One of <a class="http" href="../vesta/doc/man/html/vesta.1.html#debug-options">the Vesta evaluator's debug flags</a> is &quot;-fsdeps&quot;.  This will print out one line for each dependency recorded by a filesystem access as a tool runs.  Here's an example from <a class="http" href="../vesta/doc/tutorials/bridge-intro.pdf">the introduction to writing bridges</a>: <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><p class="line867"><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><pre><span class="anchor" id="line-1"></span>% vmake -fsdeps
+<span class="anchor" id="line-2"></span>[...]
+<span class="anchor" id="line-3"></span>0/hostname: grep a
+<span class="anchor" id="line-4"></span>0/FS dependency: !/./root/.WD/grep
+<span class="anchor" id="line-5"></span>0/FS dependency: N/./root/bin/grep
+<span class="anchor" id="line-6"></span>0/FS dependency: !/./root/lib
+<span class="anchor" id="line-7"></span>0/FS dependency: !/./root/usr
+<span class="anchor" id="line-8"></span>0/Error: invoking _run_tool: [...]</pre><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><p class="line862">The first character of each <strong>dependency path</strong> indicates what kind of operation the tool was performing: <span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><ul><li><p class="line891"><em>!</em> means that the tool searched for a file or directory that wasn't present. <span class="anchor" id="line-62"></span></li><li><p class="line891"><em>N</em> means that the tool used a file. <span class="anchor" id="line-63"></span><ul><li>Normally this means that the file was opened and read, but it may mean that it was examined with stat(2). <span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span></li></ul></li></ul><p class="line862">In this case we can see that the tool looked for <tt>/.WD/grep</tt> and found that it didn't exist and then moved on to look for <tt>/bin/grep</tt> and used that file.  It then looked for <tt>/lib</tt> which didn't exist and <tt>/usr</tt> which didn't exist, and then failed.  (This example is specifically meant to illustrate what happens when you leave out certain key filesystem components like the loader and the C run-timw library.) <span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><p class="line862">For more on dependencies and how they are recorded  when tools run, see <a href="HowCachingWorks.html">HowCachingWorks</a> and <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_run_tool.html#tool_dep_control">the description of how _run_tool's dependency recording can be controlled</a>. <span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><p class="line867">
+<h1 id="Evaluator:_-evalcalls">Evaluator: -evalcalls</h1>
+<span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><p class="line862">Another <a class="http" href="../vesta/doc/man/html/vesta.1.html#debug-options">Vesta evaluator debug flag</a> is &quot;-evalcalls&quot;.  This prints out one message for every call-back to the evaluator requesting information about some part of the encapsulated filesystem.  This usually doesn't provide any additional useful information beyond &quot;-fsdeps&quot; and is mostly interesting to developers working on modifying Vesta.  However it's worth knowing about and may be useful in some obscure cases. <span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><p class="line867">
+<h1 id="Evaluator:_-stop-before.2Fafter-tool">Evaluator: -stop-before/after-tool</h1>
+<span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><p class="line867"><strong>@@@ Not written yet @@@</strong> <span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><p class="line867">
+<h1 id="Determining_Needed_Shared_Libraries">Determining Needed Shared Libraries</h1>
+<span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><p class="line874">As mentioend above, tools usually need some shared libraries to run.  There's usually a command you can run to get a list of the shared libraries needed by an executable, though it varies depending on the operating system: <span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><ul><li>Linux: <span class="anchor" id="line-82"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><pre><span class="anchor" id="line-1-1"></span>% ldd /usr/bin/gcc
+<span class="anchor" id="line-2-1"></span>        libc.so.6 =&gt; /lib/i686/libc.so.6 (0x40028000)
+<span class="anchor" id="line-3-1"></span>        /lib/ld-linux.so.2 =&gt; /lib/ld-linux.so.2 (0x40000000)</pre><span class="anchor" id="line-87"></span></li></ul></li><li>MacOS X/Darwin: <span class="anchor" id="line-88"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><pre><span class="anchor" id="line-1-2"></span>% otool -L /usr/bin/gcc
+<span class="anchor" id="line-2-2"></span>/usr/bin/gcc:
+<span class="anchor" id="line-3-2"></span>        /usr/lib/libiconv.2.dylib (compatibility version 5.0.0, current version 5.0.0)
+<span class="anchor" id="line-4-1"></span>        /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 71.0.0)</pre><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span></li></ul></li></ul><p class="line867">
+<h1 id="Monitoring_System_Calls">Monitoring System Calls</h1>
+<span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><p class="line874">Sometimes it's helpful to monitor the system calls made by a tool.  There's usually some utility you can use to do this, though you'll need to import it into Vesta and include it in your tool's filesystem.  The exact command depends on the operating system: <span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><ul><li>Linux: strace <span class="anchor" id="line-100"></span></li><li>Solaris: truss <span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span></li></ul><p class="line867">
+<h1 id="Environment_Variables">Environment Variables</h1>
+<span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><p class="line874">Some tools use environment variables during their processing.  If they're not set correctly,  the tool may not operate correctly.  Unfortunately, there's no way to observe which envrionment variables a tool uses.  (getenv is a library call, not a system call, so strace cannot monitor it.)  If the tool's documentation doesn't tell you, you may need to resort to examining the tool's internal functioning. <span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><p class="line874">For compiled binaries, environment variable names usually appear in the output of strings(1) run on the binary (though many other strings will obviously be included as well).  As environment variable names typically follow the convention of using uppercase, underscores, and digits, you can usually find them with a simple filter: <span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span><p class="line867"><span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span><span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><span class="anchor" id="line-132"></span><pre><span class="anchor" id="line-1-3"></span>% strings /usr/bin/gcc | grep '^[A-Z_0-9]*$'
+<span class="anchor" id="line-2-3"></span>[...]
+<span class="anchor" id="line-3-3"></span>PATH
+<span class="anchor" id="line-4-2"></span>GCC_EXEC_PREFIX
+<span class="anchor" id="line-5-1"></span>COMPILER_PATH
+<span class="anchor" id="line-6-1"></span>LIBRARY_PATH
+<span class="anchor" id="line-7-1"></span>LPATH
+<span class="anchor" id="line-8-1"></span>BINUTILS
+<span class="anchor" id="line-9"></span>_ROOT
+<span class="anchor" id="line-10"></span>POSIX
+<span class="anchor" id="line-11"></span>LC_COLLATE
+<span class="anchor" id="line-12"></span>LC_CTYPE
+<span class="anchor" id="line-13"></span>LC_MONETARY
+<span class="anchor" id="line-14"></span>LC_NUMERIC
+<span class="anchor" id="line-15"></span>LC_TIME
+<span class="anchor" id="line-16"></span>LC_MESSAGES
+<span class="anchor" id="line-17"></span>LC_ALL
+<span class="anchor" id="line-18"></span>LC_XXX
+<span class="anchor" id="line-19"></span>LANGUAGE
+<span class="anchor" id="line-20"></span>LANG
+<span class="anchor" id="line-21"></span>TMPDIR
+<span class="anchor" id="line-22"></span>TEMP
+<span class="anchor" id="line-23"></span>[...]</pre><p class="line874"> <span class="anchor" id="line-133"></span><span class="anchor" id="line-134"></span><p class="line874">For scripts, you can usually come up with a simple pattern which will find environment variable references: <span class="anchor" id="line-135"></span><span class="anchor" id="line-136"></span><ul><li><p class="line891"><tt>/bin/sh</tt> shell scripts: <span class="anchor" id="line-137"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span><span class="anchor" id="line-141"></span><pre><span class="anchor" id="line-1-4"></span>% grep '\$[A-Z_0-9]' foo.sh
+<span class="anchor" id="line-2-4"></span>[...] $USER [...]
+<span class="anchor" id="line-3-4"></span>[...] $PATH [...]</pre><span class="anchor" id="line-142"></span></li></ul></li><li>Perl: <span class="anchor" id="line-143"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span><span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><pre><span class="anchor" id="line-1-5"></span>% grep 'ENV{.*}' foo.pl
+<span class="anchor" id="line-2-5"></span>[...] $ENV{PATH} [...]
+<span class="anchor" id="line-3-5"></span>[...] $ENV{'EDITOR'} [...] </pre><span class="anchor" id="line-148"></span></li></ul></li><li>Python: <span class="anchor" id="line-149"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span><span class="anchor" id="line-152"></span><pre><span class="anchor" id="line-1-6"></span>% grep 'os\.getenv(.*)' foo.py
+<span class="anchor" id="line-2-6"></span>[...] os.getenv(&quot;HOME&quot;) [...]</pre><span class="anchor" id="line-153"></span></li></ul></li><li>Tcl: <span class="anchor" id="line-154"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span><span class="anchor" id="line-157"></span><pre><span class="anchor" id="line-1-7"></span>% grep 'env(.*)' foo.tcl
+<span class="anchor" id="line-2-7"></span>[...] $env(TMPDIR) [...]</pre><span class="anchor" id="line-158"></span></li></ul></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>DevelopingVesta/DeltaForSdl - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: DevelopingVesta/DeltaForSdl" href="DeltaForSdl%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=DevelopingVesta%252FDeltaForSdl&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="DeltaForSdl%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="DeltaForSdl%3Faction=print.html">
+<link rel="Up" href="DevelopingVesta.html">
+<link rel="Appendix" title="delta-2005.09.13.tar.gz" href="DeltaForSdl%3Faction=AttachFile&amp;do=view&amp;target=delta-2005.09.13.tar.gz.html">
+<link rel="Appendix" title="delta-vesta-sdl.patch" href="DeltaForSdl%3Faction=AttachFile&amp;do=view&amp;target=delta-vesta-sdl.patch.html">
+<link rel="Appendix" title="example-test.pl" href="DeltaForSdl%3Faction=AttachFile&amp;do=view&amp;target=example-test.pl.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="DeltaForSdl.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="DevelopingVesta.html">DevelopingVesta</a></li><li><a href="DeltaForSdl.html">DeltaForSdl</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="DeltaForSdl.html">DeltaForSdl</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="DeltaForSdl%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="DeltaForSdl.html#delta">delta</a><ol><li>
+<a href="DeltaForSdl.html#Modifications_for_SDL">Modifications for SDL</a><ol><li>
+<a href="DeltaForSdl.html#topformlat_and_bindings">topformlat and bindings</a></li><li>
+<a href="DeltaForSdl.html#multidelta_and_cpp">multidelta and cpp</a></li></ol></li><li>
+<a href="DeltaForSdl.html#Start_with_-level.3D1">Start with -level=1</a></li></ol></li><li>
+<a href="DeltaForSdl.html#Test_Script">Test Script</a></li><li>
+<a href="DeltaForSdl.html#Example_Command_Lines">Example Command Lines</a></li><li>
+<a href="DeltaForSdl.html#Delete_the_Session_Directory_when_Done">Delete the Session Directory when Done</a></li><li>
+<a href="DeltaForSdl.html#Sample_Results">Sample Results</a></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="delta">delta</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867"><a class="http" href="http://delta.tigris.org/">delta</a> in an implementation of an algorithm for automatically minimizing the input which causes a failure.  As distributed, it works well for finding bugs in programs which consume C/C++ code (such as finding bugs in a compiler like gcc). <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">With some fairly simple modifications, it can be used to minimize SDL code which exhibits a bug in the Vesta evaluator. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867"><em>(This page doesn't really describe delta or how it works.  Refer to <a class="http" href="http://delta.tigris.org/">its home page</a> for more information about it.)</em> <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line867">
+<h2 id="Modifications_for_SDL">Modifications for SDL</h2>
+<span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line874">There are two key midifications I made to delta to get it working well for SDL, described below. <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line862">A patch for these two changes is attached to this page: <a class="attachment" href="DeltaForSdl%3Faction=AttachFile&amp;do=view&amp;target=delta-vesta-sdl.patch.html" title="">delta-vesta-sdl.patch</a> <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line862">Also attached here is the version of delat which the patch is relative to (in case if becomes unavailable elsewhere): <a class="attachment" href="DeltaForSdl%3Faction=AttachFile&amp;do=view&amp;target=delta-2005.09.13.tar.gz.html" title="">delta-2005.09.13.tar.gz</a> <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867">
+<h3 id="topformlat_and_bindings">topformlat and bindings</h3>
+<span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line862">delta includes a filter called <strong>topformflat</strong> which suppress any newlines past a particular nesting depth.  This groups large blocks of the file into single lines, making it easier for the algorithm to discard unecessary pieces with large granularity. <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line862">For C/C++ the nesting is just curly braces (&quot;{&quot; and &quot;}&quot;).  For SDL, it makes sense to also include the nesting of binding literals, which use suare brakcets (&quot;<tt>[</tt>&quot; and &quot;<tt>]</tt>&quot;).  This requires a small modification to the lex file which defines the filter. <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line867">
+<h3 id="multidelta_and_cpp">multidelta and cpp</h3>
+<span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line862">The <strong>multidelta</strong> script passes the input through the C pre-processor before passing it to topformflat.  For SDL this is a problem as it will remove the <a class="http" href="../vesta/doc/man/html/vesta.1.html#pragmas">pragmas</a> which affect caching.  These can be crucial to reproducing a subtle bug, so I simply removed the use of the C pre-processor. <span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><p class="line874">It would be a good idea to replace this with a different filter which stripped out all non-pragma comments.  However, it's not really necessary as the delta algorithm will wind up dropping the unecessary comment lines (albeit reather inefficiently). <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><p class="line867">
+<h2 id="Start_with_-level.3D1">Start with -level=1</h2>
+<span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line862">When running multidelta on a file of Vesta SDL, start with &quot;<tt>-level=1</tt>&quot; rather than &quot;<tt>-level=0</tt>&quot;.  SDL files always have an outer set of curly braces for the model body, so using &quot;<tt>-level=0</tt>&quot; would collapse the entire body to a single line, which wouldn't be any use. <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line867">
+<h1 id="Test_Script">Test Script</h1>
+<span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line874">In order for delta to determine whether a given candidate input exhibits a failure, it must be given a script which tests for the presence of the desired result (usually a specific error message or otherwise detectable problem). <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line874">Caching effects can be an issue with reproducing evaluator bugs.  Some will only occur against an empty cache.  For this reason you may want your testing script to run its own cache server and start with an empty cache at the beginning of each test. <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line862">Here's an example testing script which was used in minimizing the reproducer for <a class="https" href="https://sourceforge.net/tracker/?func=detail&amp;atid=410427&amp;aid=1450779&amp;group_id=34164">a bug</a> which was fixed in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/77">eval/77</a>: <a class="attachment" href="DeltaForSdl%3Faction=AttachFile&amp;do=view&amp;target=example-test.pl.html" title="">example-test.pl</a> <span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><p class="line874">Of course this example may not be appropriate in your case, for any one of several reasons: <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><ul><li>You may not want to start from an empty cache on each run, especially if the error only occurs after a large amount of work which can be cached. <span class="anchor" id="line-50"></span></li><li>The SDL files to minimize could be split across several packages, so you might need to have the test script: <span class="anchor" id="line-51"></span><ul><li><p class="line862">Run <a class="http" href="../vesta/doc/man/html/vupdate.1.html">vupdate</a> with the right options <span class="anchor" id="line-52"></span></li><li><p class="line891"><tt>cd</tt> to a particular working directory before invoking <a class="http" href="../vesta/doc/man/html/vmake.1.html">vmake</a> <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span></li></ul></li></ul><p class="line867">
+<h1 id="Example_Command_Lines">Example Command Lines</h1>
+<span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><p class="line862">Suppose you have a reproducer made up of two SDL files named &quot;<tt>foo.ves</tt>&quot; and &quot;<tt>bar.ves</tt>&quot; with one importing the other.  Suppose your test script is called &quot;<tt>test.pl</tt>&quot;.  Here's how you might run multidelta on these file: <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><p class="line867"><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><pre><span class="anchor" id="line-1"></span>multidelta -level=1 ./test.pl foo.ves
+<span class="anchor" id="line-2"></span>multidelta -level=2 ./test.pl foo.ves
+<span class="anchor" id="line-3"></span>multidelta -level=3 ./test.pl foo.ves
+<span class="anchor" id="line-4"></span>
+<span class="anchor" id="line-5"></span>...possibly more levels...
+<span class="anchor" id="line-6"></span>
+<span class="anchor" id="line-7"></span>multidelta -level=1 ./test.pl bar.ves
+<span class="anchor" id="line-8"></span>multidelta -level=2 ./test.pl bar.ves
+<span class="anchor" id="line-9"></span>multidelta -level=3 ./test.pl bar.ves
+<span class="anchor" id="line-10"></span>
+<span class="anchor" id="line-11"></span>...possibly more levels...</pre><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><p class="line874">After this, you might then want to start over with another few multidelta runs, as the work done on one file might enable further minimization of the other. <span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><p class="line874">You might also want to go through and do some cleanup by hand, possibly deleting more dead code, using the test script to make sure it's still exhibiting the failure.  This can sometimes make reductions which delta cannot perform on its own and even enable further multidelta runs to make additional minimization progress. <span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><p class="line867">
+<h1 id="Delete_the_Session_Directory_when_Done">Delete the Session Directory when Done</h1>
+<span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><p class="line862">When using delta with a Vesta build, it will generate a large number of individual snapshots as it tries various experiments.  Most of these will be syntactically incorrect or otherwise uninteresting.  (In fact, probably the only interesting one is the final minimized one.)  You chould be prepared to ghost (i.e. with <a class="http" href="../vesta/doc/man/html/vrm.1.html">vrm</a>) the session directory in which all the delta experiments are saved as snapshots. <span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><p class="line867">
+<h1 id="Sample_Results">Sample Results</h1>
+<span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><p class="line874">One reproducer minimized with delta can be found in the evaluator package: <span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><p class="line867"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/79/src/tests/fixed_bugs/pickled_path_bug">/vesta/vestasys.org/vesta/eval/79/src/tests/fixed_bugs/pickled_path_bug</a> <span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><p class="line874">This started out as an import tree of 8 models with 1319 lines total (717 lines in the 3 local ones).  delta did most of the work of minimizing it, including eliminating all of the imports to get it down to just those three files.  Some hand editing was done in-between steps as well as at the end.  (Hand editing in the middle can help delta make further progress.)  Excluding comments, the result is 59 lines of SDL. <span class="anchor" id="line-87"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

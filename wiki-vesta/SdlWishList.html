@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>SdlWishList - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: SdlWishList" href="SdlWishList%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=SdlWishList&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="SdlWishList%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="SdlWishList%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="SdlWishList.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="SdlWishList.html">SdlWishList</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="SdlWishList.html">SdlWishList</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="SdlWishList%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">This page lists some desirable features we might want to add to Vesta SDL (the language that Vesta builds are written in). <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="SdlWishList.html#Primitive_Functions">Primitive Functions</a><ol><li>
+<a href="SdlWishList.html#Text_to_Int">Text to Int</a></li><li>
+<a href="SdlWishList.html#Int_to_Text">Int to Text</a></li><li>
+<a href="SdlWishList.html#Printf">Printf</a></li><li>
+<a href="SdlWishList.html#Split_Text">Split Text</a></li><li>
+<a href="SdlWishList.html#Join_Text">Join Text</a></li></ol></li><li>
+<a href="SdlWishList.html#Pragmas">Pragmas</a><ol><li>
+<a href="SdlWishList.html#nocache_for_models">nocache for models</a></li><li>
+<a href="SdlWishList.html#pkextra">pkextra</a></li></ol></li><li>
+<a href="SdlWishList.html#Function_Calls">Function Calls</a><ol><li>
+<a href="SdlWishList.html#Specifying_function_args_by_name">Specifying function args by name</a></li><li>
+<a href="SdlWishList.html#Skip_function_arguments_with_defaults">Skip function arguments with defaults</a></li></ol></li><li>
+<a href="SdlWishList.html#Wildcard_Files_Clause">Wildcard Files Clause</a></li><li>
+<a href="SdlWishList.html#Overlay_Assignment_in_Files.2FImport_Clause">Overlay Assignment in Files/Import Clause</a></li><li>
+<a href="SdlWishList.html#Multi-line_text_strings">Multi-line text strings</a></li></ol></div> <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867">
+<h1 id="Primitive_Functions">Primitive Functions</h1>
+<span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867">
+<h2 id="Text_to_Int">Text to Int</h2>
+<span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line874">This can be written in SDL but it's cumbersome and performs poorly. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">We might want options for parsing the text as decimal, hexadecimal, octal, or potentially some other base.  <tt>strtoul(3)</tt> could be used as a model. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line867">
+<h2 id="Int_to_Text">Int to Text</h2>
+<span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line874">This can be written in SDL but it's cumbersome and performs poorly. <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line874">We might want options for whether to format it in decimal, hexadecimal, octal, or potentially some other base. <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867">
+<h2 id="Printf">Printf</h2>
+<span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line874">It would be nice to have a version of printf usable from SDL.  We have to be sure that the same parameters give the exact same result string regardless of which platform the evaluator is running on.  This will probably require implementing our own printf code rather than using a function from the C run-time library, as it seems unlikely that the results are completely identical across all OSes and OS versions. <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line867">
+<h2 id="Split_Text">Split Text</h2>
+<span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line874">Split a text string into a list of text strings on ocurrences of another text string.  This can be written in SDL but it performs poorly and can recurse deeply and run into stack space limitations. <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line867">
+<h2 id="Join_Text">Join Text</h2>
+<span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><p class="line874">Join a list of text strings with some text string placed between each pair of strings.  This can be written in SDL but it performs poorly and can recurse deeply and run into stack space limitations. <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><p class="line867">
+<h1 id="Pragmas">Pragmas</h1>
+<span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line867">
+<h2 id="nocache_for_models">nocache for models</h2>
+<span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line862">Currently the <tt>/**nocache**/</tt> pragma doesn't work on models.  It would be nice if it did. <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line867">
+<h2 id="pkextra">pkextra</h2>
+<span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line862">See <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1080690&amp;group_id=34164&amp;atid=410430">RFE titled &quot;New pragma for moving secondary dependencies into PK&quot;</a>. <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line867">
+<h1 id="Function_Calls">Function Calls</h1>
+<span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><p class="line867">
+<h2 id="Specifying_function_args_by_name">Specifying function args by name</h2>
+<span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><p class="line874">It would be nice to be able to specify arguments to SDL functions by name: <span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><p class="line867"><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><pre><span class="anchor" id="line-1"></span>c = foo(a=3, b=2);</pre><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><p class="line867">
+<h2 id="Skip_function_arguments_with_defaults">Skip function arguments with defaults</h2>
+<span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><p class="line862">See <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1542911&amp;group_id=34164&amp;atid=410430">RFE titled &quot;Skip argument with default value in function call&quot;</a>. <span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><p class="line867">
+<h1 id="Wildcard_Files_Clause">Wildcard Files Clause</h1>
+<span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><p class="line874">Some people would like to be able to write something like this in SDL: <span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><p class="line867"><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><pre><span class="anchor" id="line-1-1"></span>files
+<span class="anchor" id="line-2"></span>  c_files = [ *.c ];
+<span class="anchor" id="line-3"></span>  h_files = [ *.h ];</pre><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><p class="line874">And have the shell-style glob patterns &quot;*.c&quot; and &quot;*.h&quot; expanded to all the filenames in the immutable directory matching those patterns. <span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><p class="line874">The syntax might need to be different. <span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><p class="line862">See <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1407832&amp;group_id=34164&amp;atid=410430">RFE titled &quot;wildcards in files clause of models&quot;</a>. <span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><p class="line867">
+<h1 id="Overlay_Assignment_in_Files.2FImport_Clause">Overlay Assignment in Files/Import Clause</h1>
+<span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><p class="line874">Sometimes people are forced to write things like this: <span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><p class="line867"><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><pre><span class="anchor" id="line-1-2"></span>from /vesta/foo.example.com/foo import
+<span class="anchor" id="line-2-1"></span>  stuff_1 = [ pkgA/3, PkgB/7 ];
+<span class="anchor" id="line-3-1"></span>from /vesta/bar.example.com/bar import
+<span class="anchor" id="line-4"></span>  stuff_2 = [ pkgC/5, PkgD/12 ];
+<span class="anchor" id="line-5"></span>{
+<span class="anchor" id="line-6"></span>  stuff = stuff_1 + stuff_2;
+<span class="anchor" id="line-7"></span>  // ...
+<span class="anchor" id="line-8"></span>}</pre><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><p class="line874">It would be nice to instead be able to write: <span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><p class="line867"><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><pre><span class="anchor" id="line-1-3"></span>from /vesta/foo.example.com/foo import
+<span class="anchor" id="line-2-2"></span>  stuff = [ pkgA/3, PkgB/7 ];
+<span class="anchor" id="line-3-2"></span>from /vesta/bar.example.com/bar import
+<span class="anchor" id="line-4-1"></span>  stuff += [ pkgC/5, PkgD/12 ];
+<span class="anchor" id="line-5-1"></span>{
+<span class="anchor" id="line-6-1"></span>  // ...
+<span class="anchor" id="line-7-1"></span>}</pre><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><p class="line867">
+<h1 id="Multi-line_text_strings">Multi-line text strings</h1>
+<span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><p class="line874">It's currently kinda awkward to specify multi-line strings in SDL because it <span class="anchor" id="line-105"></span>requires something like this: <span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><span class="anchor" id="line-113"></span><pre><span class="anchor" id="line-1-4"></span>hello.c = 
+<span class="anchor" id="line-2-3"></span>&quot;#include &lt;stdio.h&gt;\n&quot; +
+<span class="anchor" id="line-3-3"></span>&quot;int main( void )\n&quot; +
+<span class="anchor" id="line-4-2"></span>&quot;{\n&quot; +
+<span class="anchor" id="line-5-2"></span>&quot;  printf(&quot;Hello World!\n&quot;);\n&quot; +
+<span class="anchor" id="line-6-2"></span>&quot;}\n&quot;;</pre><span class="anchor" id="line-114"></span><span class="anchor" id="line-115"></span><p class="line862">With python-style multi-line strings, it would be easier &amp; prettier to build quick-little in-line programs (written in C/perl/python/etc.), and thus there'd be less pressure to add native language features to SDL: <span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><p class="line867"><span class="anchor" id="line-118"></span><span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><pre><span class="anchor" id="line-1-5"></span>hello.c = &quot;&quot;&quot;
+<span class="anchor" id="line-2-4"></span>#include &lt;stdio.h&gt;
+<span class="anchor" id="line-3-4"></span>int main (void)
+<span class="anchor" id="line-4-3"></span>{
+<span class="anchor" id="line-5-3"></span>  printf(&quot;Hello World!\n&quot;);
+<span class="anchor" id="line-6-3"></span>}
+<span class="anchor" id="line-7-2"></span>&quot;&quot;&quot;</pre><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><p class="line867"><em>(<a href="KenSchalk.html">KenSchalk</a>)</em> Is there a particular reason why such multi-line strings couldn't be put into a file in the same directory as the model and then used through a <tt>files</tt> clause?  That would seem to have several benefits over writing a multi-line string in-line in the SDL code.  I'm not clear on what the counter-argument is for the use case you mention here.  (I can see how it might be useful for some shorter multi-line strings that get appended or pre-pended to other files.) <span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><p class="line867"><em>(<a class="nonexistent" href="BrannonBatson.html">BrannonBatson</a>)</em> The usage models I had in my head were reasonably short (5-20 lines) sed/awk/perl scripts (used for text processing tasks) and things like blocks of html boilerplate--where SDL is used to populate a table in the middle of a largely static html document (perhaps with a few other small SDL generated text fields). In both cases, the user wants to interleave multi-line text gracefully in with other SDL code without the overhead of a bunch of small little text files (you have to create them, name them intuitively, find somewhere for them to sit, import them). And it aids readability &amp; maintainability of the code if pieces of it aren't hidden through a level of indirection. <span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><p class="line867"><hr /><p class="line874"> <span class="anchor" id="line-132"></span><a href="CategoryWishList.html">CategoryWishList</a> <span class="anchor" id="line-133"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

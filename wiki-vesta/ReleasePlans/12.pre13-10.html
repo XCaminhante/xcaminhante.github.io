@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>ReleasePlans/12.pre13-10 - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: ReleasePlans/12.pre13-10" href="12.pre13-10%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=ReleasePlans%252F12.pre13-10&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="12.pre13-10%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="12.pre13-10%3Faction=print.html">
+<link rel="Up" href="ReleasePlans.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="12.pre13-10.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="ReleasePlans.html">ReleasePlans</a></li><li><a href="12.pre13-10.html">12.pre13-10</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="12.pre13-10.html">ReleasePlans/12.pre13-10</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="12.pre13-10%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line867">
+<h1 id="Done">Done</h1>
+<span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><ul><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/82">repos/82</a> - Fix crash bug observed below AccessControl::admit when one ExportKey had a non-NULL arg and the other had a NULL arg. <span class="anchor" id="line-4"></span></li><li>The evaluator no longer writes directly into the shortid pool.  This eliminates one reason why the evaluator has been setuid vadmin.  See: <span class="anchor" id="line-5"></span><ul><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/93">eval/93</a> <span class="anchor" id="line-6"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/84">repos/84</a> <span class="anchor" id="line-7"></span></li></ul></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/85">repos/85</a>: Some minor improvements based on recent performance analysis. <span class="anchor" id="line-8"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/cache/60">cache/60</a>: V!<a class="nonexistent" href="../CacheStats.html">CacheStats</a> ignores certain errors which can occur if it's run while the cache daemon is running <span class="anchor" id="line-9"></span></li><li><p class="line862">Rather than generating simple makefiles, <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1085473&amp;group_id=34164&amp;atid=410430">the source kit now uses autoconf</a>.  Related changes: <span class="anchor" id="line-10"></span><ul><li>autoconf-style tests in SDL when building under Vesta <span class="anchor" id="line-11"></span></li><li>Portability fixes for Solaris, FreeBSD, and MacOS X <span class="anchor" id="line-12"></span></li></ul></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/config/20">config/20</a>: vgeconfig has new features for displaying: <span class="anchor" id="line-13"></span><ul><li>The config file include hierarchy <span class="anchor" id="line-14"></span></li><li>The file and line where a setting assignment was made <span class="anchor" id="line-15"></span></li></ul></li><li><p class="line862">Improvements to LimService <span class="anchor" id="line-16"></span><ul><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/srpc/36">srpc/36</a>: <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1539224&amp;group_id=34164&amp;atid=410427">No longer use an unbounded number of threads</a> <span class="anchor" id="line-17"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/srpc/37">srpc/37</a>: <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1689225&amp;group_id=34164&amp;atid=410430">Round-robin through client hosts first and connections second</a> to prevent a greedy client from starving out other clients <span class="anchor" id="line-18"></span></li></ul></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/86">repos/86</a>: Prevent the repository's internal memory allocator from going over its hard size limit <span class="anchor" id="line-19"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/88">repos/88</a>: Fixed a bug in the attribute history storage algorithm that could incorrectly drop some attribute changes <span class="anchor" id="line-20"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/89">repos/89</a>: <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1685716&amp;group_id=34164&amp;atid=410430">Improvements to the rpeository daemon's internal memory handling</a> that have significantly imrpvoed performance in heavily loaded and long-running repositories. <span class="anchor" id="line-21"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos_ui/49">repos_ui/49</a> and <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos_ui/50">repos_ui/50</a>: Improve vadvance to ask the server to do work in smaller pieces in the common case, reducing the length of time that locks are held by the server and thereby improving perceived user latency.  See the bug <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1223834&amp;group_id=34164&amp;atid=410427">vadvance can make the repository block for long periods</a>. <span class="anchor" id="line-22"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/cache/62">cache/62</a>: Add some new inspection utility programs <span class="anchor" id="line-23"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/cache/63">cache/63</a> and <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/cache/64">cache/64</a>: Fix bugs with the FlushCache utility <span class="anchor" id="line-24"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/weeder/15">weeder/15</a>: Fix a bug caused by <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1691512&amp;group_id=34164&amp;atid=410427">ghosting in parallel with weeding</a> <span class="anchor" id="line-25"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/94">eval/94</a>: Fix bug <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1690173&amp;group_id=34164&amp;atid=410427">Incorrect re-initialization of evaluator</a> <span class="anchor" id="line-26"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/96">eval/96</a>: Add new <tt>/**waitdup**/</tt> pragma which allows a function to suppress multipel parallel evaluations of what may be the same call.  Also make <tt>/**nocache**/</tt> work on models. <span class="anchor" id="line-27"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/98">eval/98</a>: Fix the bug <a class="https" href="https://sourceforge.net/tracker/?func=detail&amp;atid=410427&amp;aid=773042&amp;group_id=34164">AddEntry failed: No Lease</a> <span class="anchor" id="line-28"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/99">eval/99</a>: Fix <a class="http" href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1299173&amp;group_id=34164&amp;atid=410427">bugs that could cause -stop-before/after-tool to later trigger an assertion failure</a> <span class="anchor" id="line-29"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/102">eval/102</a>: Add a simple wall-clock time profiling mechanism.  See the RFE <a class="https" href="https://sourceforge.net/tracker/index.php?func=detail&amp;aid=1160153&amp;group_id=34164&amp;atid=410430">Profile SDL</a>. <span class="anchor" id="line-30"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

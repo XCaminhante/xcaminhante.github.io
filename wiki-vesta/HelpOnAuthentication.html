@@ -1,0 +1,424 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnAuthentication - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnAuthentication" href="HelpOnAuthentication%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnAuthentication&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnAuthentication%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnAuthentication%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnAuthentication.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnAuthentication.html">HelpOnAuthentication</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnAuthentication.html">HelpOnAuthentication</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnAuthentication%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="How_Authentication_works_with_MoinMoin">How Authentication works with MoinMoin</h1>
+<span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="HelpOnAuthentication.html#How_Authentication_works_with_MoinMoin">How Authentication works with MoinMoin</a><ol><li>
+<a href="HelpOnAuthentication.html#Shipped_plugins">Shipped plugins</a><ol><li>
+<a href="HelpOnAuthentication.html#MoinAuth_.28default.29">MoinAuth (default)</a></li><li>
+<a href="HelpOnAuthentication.html#Given_authentication">Given authentication</a><ol><li>
+<a href="HelpOnAuthentication.html#given_by_REMOTE_USER_environment_variable">given by REMOTE_USER environment variable</a></li><li>
+<a href="HelpOnAuthentication.html#given_by_other_environment_variable">given by other environment variable</a></li><li>
+<a href="HelpOnAuthentication.html#decoding_of_the_user_name">decoding of the user name</a></li><li>
+<a href="HelpOnAuthentication.html#transformation_of_the_user_name">transformation of the user name</a></li><li>
+<a href="HelpOnAuthentication.html#fixed_user_given_by_configuration">fixed user given by configuration</a></li></ol></li><li>
+<a href="HelpOnAuthentication.html#SSL_client_certification_authentication">SSL client certification authentication</a></li><li>
+<a href="HelpOnAuthentication.html#PHP_session">PHP session</a></li><li>
+<a href="HelpOnAuthentication.html#OpenID_.28with_BotBouncer.29">OpenID (with BotBouncer)</a><ol><li>
+<a href="HelpOnAuthentication.html#Advanced_OpenID_RP_configuration">Advanced OpenID RP configuration</a></li></ol></li><li>
+<a href="HelpOnAuthentication.html#LDAP_based_user_authentication">LDAP based user authentication</a><ol><li>
+<a href="HelpOnAuthentication.html#LDAP_auth_installation_.2F_configuration">LDAP auth installation / configuration</a></li><li>
+<a href="HelpOnAuthentication.html#LDAP_auth_Problems.3F">LDAP auth Problems?</a></li></ol></li><li>
+<a href="HelpOnAuthentication.html#XMLRPC_auth">XMLRPC auth</a></li></ol></li><li>
+<a href="HelpOnAuthentication.html#Combining_multiple_authenticators">Combining multiple authenticators</a></li><li>
+<a href="HelpOnAuthentication.html#Writing_your_own_authenticator">Writing your own authenticator</a></li></ol></li></ol></div> <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867">MoinMoin supports configurable, modular authenticators to support all sorts of builtin and 3rd party authentication methods. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">You use the <tt class="backtick">auth</tt> configuration value to set up a list of authenticators that are processed in exactly that order. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line862">When an external user database is used, you do not want to recreate all users in moin manually. For this case the authenticator objects which support user profile creation/updating have a parameter <tt class="backtick">autocreate</tt>. If you set it to True a new user profile will be created/updated automatically when a (new) user has passed authentication. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line874">Presently the following authenticators are supported: <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><div><table><tbody><tr style="background-color: &amp;quot;#ffffcc&amp;quot">  <td><p class="line862"> <strong>Server setup</strong> </td>
+  <td><p class="line862"> <strong>Authentication</strong> </td>
+  <td><p class="line862"> <strong>Authenticator class in moin</strong> </td>
+</tr>
+<tr>  <td colspan="1" rowspan="8" style="text-align: left"><span class="anchor" id="line-18"></span><p class="line862"> All </td>
+  <td><p class="line862"> by moin via username/password </td>
+  <td><p class="line862"> <tt class="backtick">MoinMoin.auth.MoinAuth</tt> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-19"></span><p class="line862"> by PHP session </td>
+  <td><p class="line862"> <tt class="backtick">MoinMoin.auth.php_session.PHPSessionAuth</tt> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-20"></span><p class="line862"> by moin via external cookie </td>
+  <td><p class="line862"> see <tt class="backtick">contrib/auth_externalcookie/</tt> and <a href="HelpOnAuthentication/ExternalCookie.html">HelpOnAuthentication/ExternalCookie</a></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-21"></span><p class="line862"> by <a class="http" href="http://openid.net/">OpenID</a> </td>
+  <td><p class="line862"> <tt class="backtick">MoinMoin.auth.openidrp.OpenIDAuth</tt> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-22"></span><p class="line862"> OpenID verification by <a class="http" href="http://botbouncer.com/">http://botbouncer.com/</a> </td>
+  <td><p class="line862"> <tt class="backtick">MoinMoin.auth.botbouncer.BotBouncer</tt> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-23"></span><p class="line862"> by moin via LDAP </td>
+  <td><p class="line862"> <tt class="backtick">MoinMoin.auth.ldap_login.LDAPAuth</tt> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-24"></span><p class="line862"> by moin via a remote moin wiki </td>
+  <td><p class="line862"> <tt class="backtick">MoinMoin.auth.interwiki</tt> - still experimental </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-25"></span><p class="line862"> by moin configuration, fixed username </td>
+  <td><p class="line862"> <tt class="backtick">MoinMoin.auth.GivenAuth</tt> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-26"></span><p class="line862"> any Web Server setting REMOTE_USER </td>
+  <td><p class="line862"> e.g. for HTTP Basic, HTTP Digest, SSPI (aka NTLM) or LDAP auth </td>
+  <td><p class="line862"> <tt class="backtick">MoinMoin.auth.GivenAuth</tt> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-27"></span><p class="line862"> Apache+SSL </td>
+  <td><p class="line862"> by Apache via SSL client certificate </td>
+  <td><p class="line862"> <tt class="backtick">MoinMoin.auth.sslclientcert.SSLClientCertAuth</tt> </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line874">Other pseudo-authenticators - These are not strictly authenticators, as they don't authenticate users, but use auth information for other purposes: <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><ul><li style="list-style-type:none"><div><table><tbody><tr>  <td><p class="line862"> <tt class="backtick">MoinMoin.auth.log.AuthLog</tt> </td>
+  <td><p class="line862"> will just log login/logout/request, nothing else </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-32"></span><p class="line862"> <tt class="backtick">MoinMoin.auth.smb_mount.SMBMount</tt> </td>
+  <td><p class="line862"> mount some smb share using user/password from login, umount on logout </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span></li></ul><p class="line867">
+<h2 id="Shipped_plugins">Shipped plugins</h2>
+<span class="anchor" id="line-36"></span><p class="line867">
+<h3 id="MoinAuth_.28default.29">MoinAuth (default)</h3>
+<span class="anchor" id="line-37"></span><p class="line874">This is the default auth list moin uses (so if you just want that, you don't need to configure it). <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line867"><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-1-1"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c)) {
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    var n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        var a = document.createElement('A');
+        s.className = 'LineNumber';
+        a.appendChild(document.createTextNode(nformat(n,4,'')));
+        a.href = '#' + did + '_' + n;
+        s.appendChild(a);
+        s.appendChild(document.createTextNode(' '));
+        n += nstep;
+        if (l.childNodes.length) {
+          l.insertBefore(s, l.firstChild);
+        }
+        else {
+          l.appendChild(s);
+        }
+      }
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c)) {
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-0a820b00925072279dadb1eeca13ebd5caaa4ac8\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-0a820b00925072279dadb1eeca13ebd5caaa4ac8" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-0a820b00925072279dadb1eeca13ebd5caaa4ac8_1">   1</a> </span><span class="LineAnchor" id="CA-0a820b00925072279dadb1eeca13ebd5caaa4ac8_1"></span><span class="anchor" id="line-1-2"></span>    <span class="ResWord">from</span> <span class="ID">MoinMoin.auth</span> <span class="ResWord">import</span> <span class="ID">MoinAuth</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-0a820b00925072279dadb1eeca13ebd5caaa4ac8_2">   2</a> </span><span class="LineAnchor" id="CA-0a820b00925072279dadb1eeca13ebd5caaa4ac8_2"></span><span class="anchor" id="line-2-1"></span>    <span class="ID">auth</span> = [<span class="ID">MoinAuth</span>()]</span>
+</pre></div></div><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><p class="line867">
+<h3 id="Given_authentication">Given authentication</h3>
+<span class="anchor" id="line-45"></span><p class="line867">
+<h4 id="given_by_REMOTE_USER_environment_variable">given by REMOTE_USER environment variable</h4>
+<span class="anchor" id="line-46"></span><p class="line874">Webservers (like e.g. Apache) often support all sorts of authentication plugins (e.g. HTTP basic auth). If the webserver is configured for authentication, it handles authentication before moin gets called. When visiting a resource requiring authentication, you get queried for username/password by a dialog box of your browser. When you submit, 2 things can happen: <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><ul><li><p class="line862">username/password is incorrect, usually it will just ask again (if you cancel, it will deny access with a <a class="http" href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">401 not authorized</a> error) <span class="anchor" id="line-49"></span></li><li>username/password is correct, the webserver passes the authorized username to Moin (via REMOTE_USER). <span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span></li></ul><p class="line862">Moin's GivenAuth authenticator will, by default, just try to log in the user with the username it recieved from REMOTE_USER. <span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><p class="line862">To activate usage of REMOTE_USER for authentication you have to add following lines to <tt class="backtick">wikiconfig.py</tt>: <span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-1-3"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-85f9bafc5bc9c26b605495370adc283902e3396f\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-85f9bafc5bc9c26b605495370adc283902e3396f" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-85f9bafc5bc9c26b605495370adc283902e3396f_1">   1</a> </span><span class="LineAnchor" id="CA-85f9bafc5bc9c26b605495370adc283902e3396f_1"></span><span class="anchor" id="line-1-4"></span>    <span class="ResWord">from</span> <span class="ID">MoinMoin.auth</span> <span class="ResWord">import</span> <span class="ID">GivenAuth</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-85f9bafc5bc9c26b605495370adc283902e3396f_2">   2</a> </span><span class="LineAnchor" id="CA-85f9bafc5bc9c26b605495370adc283902e3396f_2"></span><span class="anchor" id="line-2-2"></span>    <span class="ID">auth</span> = [<span class="ID">GivenAuth</span>(<span class="ID">autocreate</span>=<span class="ResWord">True</span>)]</span>
+</pre></div></div><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><p class="line867">
+<h4 id="given_by_other_environment_variable">given by other environment variable</h4>
+<span class="anchor" id="line-60"></span><p class="line874">Instead of reading the username from REMOTE_USER, moin can also read it from some other environment variable: <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-1-5"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-c88abf7a9d803abe7fc1a46d0155f987b02c24bb\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-c88abf7a9d803abe7fc1a46d0155f987b02c24bb" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-c88abf7a9d803abe7fc1a46d0155f987b02c24bb_1">   1</a> </span><span class="LineAnchor" id="CA-c88abf7a9d803abe7fc1a46d0155f987b02c24bb_1"></span><span class="anchor" id="line-1-6"></span>    <span class="ResWord">from</span> <span class="ID">MoinMoin.auth</span> <span class="ResWord">import</span> <span class="ID">GivenAuth</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-c88abf7a9d803abe7fc1a46d0155f987b02c24bb_2">   2</a> </span><span class="LineAnchor" id="CA-c88abf7a9d803abe7fc1a46d0155f987b02c24bb_2"></span><span class="anchor" id="line-2-3"></span>    <span class="ID">auth</span> = [<span class="ID">GivenAuth</span>(<span class="ID">env_var</span>=<span class="String">'</span><span class="String">WHATEVER</span><span class="String">'</span>, <span class="ID">autocreate</span>=<span class="ResWord">True</span>)]</span>
+</pre></div></div><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><p class="line867">
+<h4 id="decoding_of_the_user_name">decoding of the user name</h4>
+<span class="anchor" id="line-67"></span><p class="line874">REMOTE_USER (or whatever you specify as env_var) is a encoded string and needs to be decoded to unicode. If you don't specify the coding, moin will try 'utf-8' and 'latin-1' (in that order). For non-ASCII characters, this might lead to incorrect results if another coding was used by the web server. <span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><p class="line874">If it fails, you can specify the coding manually: <span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-1-7"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-ba1f2a732806e10c179325be612cf1cc48dc0de1\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-ba1f2a732806e10c179325be612cf1cc48dc0de1" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-ba1f2a732806e10c179325be612cf1cc48dc0de1_1">   1</a> </span><span class="LineAnchor" id="CA-ba1f2a732806e10c179325be612cf1cc48dc0de1_1"></span><span class="anchor" id="line-1-8"></span>    <span class="ID">auth</span> = [<span class="ID">GivenAuth</span>(<span class="ID">env_var</span>=<span class="String">'</span><span class="String">WHATEVER</span><span class="String">'</span>, <span class="ID">autocreate</span>=<span class="ResWord">True</span>, <span class="ID">coding</span>=<span class="String">'</span><span class="String">cp850</span><span class="String">'</span>)]</span>
+</pre></div></div><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><p class="line867">
+<h4 id="transformation_of_the_user_name">transformation of the user name</h4>
+<span class="anchor" id="line-75"></span><p class="line874">Sometimes the user name we receive in REMOTE_USER needs some transformation, so it can sanely be used in the wiki. <span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><p class="line867">GivenAuth has some flags to support some standard transformations, enable whatever you like (give True - the default is all False, meaning disabled transformation): <span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><div><table><tbody><tr style="background-color: &amp;quot;#ffffcc&amp;quot">  <td><p class="line862"> <strong>Flag</strong>       </td>
+  <td><p class="line862"> <strong>Input</strong>       </td>
+  <td><p class="line862"> <strong>Output</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-80"></span><p class="line862"> strip_maildomain </td>
+  <td><p class="line862"> <tt class="backtick">joe@example.org</tt> </td>
+  <td><p class="line862"> <tt class="backtick">joe</tt>        </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-81"></span><p class="line862"> strip_windomain  </td>
+  <td><p class="line862"> <tt class="backtick">DOMAIN\joe</tt>      </td>
+  <td><p class="line862"> <tt class="backtick">joe</tt>        </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-82"></span><p class="line862"> titlecase        </td>
+  <td><p class="line862"> <tt class="backtick">joe&nbsp;doe</tt>         </td>
+  <td><p class="line862"> <tt class="backtick">Joe&nbsp;Doe</tt>    </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-83"></span><p class="line862"> remove_blanks    </td>
+  <td><p class="line862"> <tt class="backtick">Joe&nbsp;Doe</tt>         </td>
+  <td><p class="line862"> <tt class="backtick">JoeDoe</tt>     </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><p class="line867"><img alt="(!)" height="15" src="moin_static199/vesta/img/idea.png" title="(!)" width="15" /> The transformations (if enabled) will happen in the order shown. <span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><p class="line874">For example, for some windows domain environments, this might make sense: <span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-1-9"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-2d317ef00ea1720f7691be4cf9ece4b9dbb99989\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-2d317ef00ea1720f7691be4cf9ece4b9dbb99989" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-2d317ef00ea1720f7691be4cf9ece4b9dbb99989_1">   1</a> </span><span class="LineAnchor" id="CA-2d317ef00ea1720f7691be4cf9ece4b9dbb99989_1"></span><span class="anchor" id="line-1-10"></span>    <span class="ID">auth</span> = [<span class="ID">GivenAuth</span>(<span class="ID">autocreate</span>=<span class="ResWord">True</span>, <span class="ID">strip_windomain</span>=<span class="ResWord">True</span>, <span class="ID">titlecase</span>=<span class="ResWord">True</span>, <span class="ID">remove_blanks</span>=<span class="ResWord">True</span>)]</span>
+</pre></div></div><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><p class="line867">
+<h4 id="fixed_user_given_by_configuration">fixed user given by configuration</h4>
+<span class="anchor" id="line-93"></span><p class="line874">You can also hardcode a username into your configuration: <span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><span class="anchor" id="line-1-11"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-a96d55a211a96f555ec704014de967f8040f5960\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-a96d55a211a96f555ec704014de967f8040f5960" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-a96d55a211a96f555ec704014de967f8040f5960_1">   1</a> </span><span class="LineAnchor" id="CA-a96d55a211a96f555ec704014de967f8040f5960_1"></span><span class="anchor" id="line-1-12"></span>    <span class="ResWord">from</span> <span class="ID">MoinMoin.auth</span> <span class="ResWord">import</span> <span class="ID">GivenAuth</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-a96d55a211a96f555ec704014de967f8040f5960_2">   2</a> </span><span class="LineAnchor" id="CA-a96d55a211a96f555ec704014de967f8040f5960_2"></span><span class="anchor" id="line-2-4"></span>    <span class="ID">auth</span> = [<span class="ID">GivenAuth</span>(<span class="ID">user_name</span>=<span class="String">u</span><span class="String">'</span><span class="String">Joe Doe</span><span class="String">'</span>, <span class="ID">autocreate</span>=<span class="ResWord">True</span>)]</span>
+</pre></div></div><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><p class="line874">Everyone and everything accessing the wiki will now be logged in as user Joe Doe automatically. <span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><p class="line867">
+<h3 id="SSL_client_certification_authentication">SSL client certification authentication</h3>
+<span class="anchor" id="line-103"></span><p class="line862">To activate authentication via SSL client certificates you have to add following lines to <tt class="backtick">wikiconfig.py</tt>: <span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><span class="anchor" id="line-1-13"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-56f6b85bb7a607d498eac490059141002e7ce05c\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-56f6b85bb7a607d498eac490059141002e7ce05c" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-56f6b85bb7a607d498eac490059141002e7ce05c_1">   1</a> </span><span class="LineAnchor" id="CA-56f6b85bb7a607d498eac490059141002e7ce05c_1"></span><span class="anchor" id="line-1-14"></span>    <span class="ResWord">from</span> <span class="ID">MoinMoin.auth.sslclientcert</span> <span class="ResWord">import</span> <span class="ID">SSLClientCertAuth</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-56f6b85bb7a607d498eac490059141002e7ce05c_2">   2</a> </span><span class="LineAnchor" id="CA-56f6b85bb7a607d498eac490059141002e7ce05c_2"></span><span class="anchor" id="line-2-5"></span>    <span class="ID">auth</span> = [<span class="ID">SSLClientCertAuth</span>()]</span>
+</pre></div></div><span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><p class="line874">SSL client certification authentication must be used with a web server like Apache that handles the SSL bits and just presents a few environment variables to Moin. <span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><p class="line874">The SSLClientCertAuth authenticator has a few parameters that you pass to the constructor (example below): <span class="anchor" id="line-112"></span><div><table><tbody><tr style="background-color: &amp;quot;#ffffcc&amp;quot">  <td><p class="line862"> <strong>Parameter</strong> </td>
+  <td><p class="line862"> <strong>Default</strong> </td>
+  <td><p class="line862"> <strong>Meaning</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-113"></span><p class="line862"> <tt class="backtick">authorities</tt> </td>
+  <td><p class="line862"> None </td>
+  <td><p class="line862"> a list of authorities that are accepted, or None to accept all </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-114"></span><p class="line862"> <tt class="backtick">email_key</tt> </td>
+  <td><p class="line862"> True </td>
+  <td><p class="line862"> indicates whether the email in the certificate should be used to find the Moin user </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-115"></span><p class="line862"> <tt class="backtick">name_key</tt> </td>
+  <td><p class="line862"> True </td>
+  <td><p class="line862"> indiciates whether the name in the certificate should be used to find the Moin user </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-116"></span><p class="line862"> <tt class="backtick">use_email</tt> </td>
+  <td><p class="line862"> False </td>
+  <td><p class="line862"> if set to True, the account email cannot be changed and is forced to the one given in the certificate </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-117"></span><p class="line862"> <tt class="backtick">use_name</tt> </td>
+  <td><p class="line862"> False </td>
+  <td><p class="line862"> if set to True, the account name cannot be changed and is forced to the one given in the certificate </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-118"></span><p class="line862"> <tt class="backtick">autocreate</tt> </td>
+  <td><p class="line862"> False </td>
+  <td><p class="line862"> if set to True, automatically create moin user profiles </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><p class="line874">For example, to accept only certificates that Apache has verified and that are signed by a certain authority, use: <span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><span class="anchor" id="line-1-15"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-ae961605df5bfb5f942f258116e669963ae07fac\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-ae961605df5bfb5f942f258116e669963ae07fac" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-ae961605df5bfb5f942f258116e669963ae07fac_1">   1</a> </span><span class="LineAnchor" id="CA-ae961605df5bfb5f942f258116e669963ae07fac_1"></span><span class="anchor" id="line-1-16"></span>    <span class="ResWord">from</span> <span class="ID">MoinMoin.auth.sslclientcert</span> <span class="ResWord">import</span> <span class="ID">SSLClientCertAuth</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-ae961605df5bfb5f942f258116e669963ae07fac_2">   2</a> </span><span class="LineAnchor" id="CA-ae961605df5bfb5f942f258116e669963ae07fac_2"></span><span class="anchor" id="line-2-6"></span>    <span class="ID">auth</span> = [<span class="ID">SSLClientCertAuth</span>(<span class="ID">authorities</span>=[<span class="String">'</span><span class="String">my.authority.tld</span><span class="String">'</span>])]</span>
+</pre></div></div><p class="line874"> or similar.<span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><p class="line867">
+<h3 id="PHP_session">PHP session</h3>
+<span class="anchor" id="line-127"></span><p class="line874">To activate Single-Sign-On integration with PHP applications, use this module. It reads PHP session files and therefore directly integrates with existing PHP authentication systems. <span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><p class="line874">To use this module, use the following lines of code in your configuration: <span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><span class="anchor" id="line-1-17"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-6398c0b3043312d6124fab28f50c4bce6989d6e9\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-6398c0b3043312d6124fab28f50c4bce6989d6e9" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-6398c0b3043312d6124fab28f50c4bce6989d6e9_1">   1</a> </span><span class="LineAnchor" id="CA-6398c0b3043312d6124fab28f50c4bce6989d6e9_1"></span><span class="anchor" id="line-1-18"></span>    <span class="ResWord">from</span> <span class="ID">MoinMoin.auth.php_session</span> <span class="ResWord">import</span> <span class="ID">PHPSessionAuth</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-6398c0b3043312d6124fab28f50c4bce6989d6e9_2">   2</a> </span><span class="LineAnchor" id="CA-6398c0b3043312d6124fab28f50c4bce6989d6e9_2"></span><span class="anchor" id="line-2-7"></span>    <span class="ID">auth</span> = [<span class="ID">PHPSessionAuth</span>()]</span>
+</pre></div></div><span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><p class="line862">PHPSessionAuth has the following parameters: <span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span><span class="anchor" id="line-1-19"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-070081c1973c551c32c8abcb7b7d0137fc0227b5\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-070081c1973c551c32c8abcb7b7d0137fc0227b5" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-070081c1973c551c32c8abcb7b7d0137fc0227b5_1">   1</a> </span><span class="LineAnchor" id="CA-070081c1973c551c32c8abcb7b7d0137fc0227b5_1"></span><span class="anchor" id="line-1-20"></span>    <span class="ID">PHPSessionAuth</span>(<span class="ID">apps</span>=[<span class="String">'</span><span class="String">egw</span><span class="String">'</span>], <span class="ID">s_path</span>=<span class="String">&quot;</span><span class="String">/tmp</span><span class="String">&quot;</span>, <span class="ID">s_prefix</span>=<span class="String">&quot;</span><span class="String">sess_</span><span class="String">&quot;</span>)</span>
+</pre></div></div><span class="anchor" id="line-138"></span><ul><li><p class="line891"><tt class="backtick">apps</tt> is a list of enabled applications <span class="anchor" id="line-139"></span></li><li><p class="line891"><tt class="backtick">s_path</tt> is the path of the PHP session files <span class="anchor" id="line-140"></span></li><li><p class="line891"><tt class="backtick">s_prefix</tt> is the prefix of the PHP session files <span class="anchor" id="line-141"></span><span class="anchor" id="line-142"></span></li></ul><p class="line874">The only supported PHP application is eGroupware 1.2 currently. But it should be fairly easy to add a few lines of code that extract the necessary information from the PHP session, if you do that, please open a feature request with a patch. <span class="anchor" id="line-143"></span><span class="anchor" id="line-144"></span><p class="line867">
+<h3 id="OpenID_.28with_BotBouncer.29">OpenID (with BotBouncer)</h3>
+<span class="anchor" id="line-145"></span><p class="line862">The OpenID authentication plugin allows users to sign in using their OpenID and connect that OpenID to a new or existing Moin account. To allow users to sign in with OpenID, add the plugin to the auth list, or to require OpenID with <a class="http" href="http://botbouncer.com/">http://botbouncer.com/</a> verification use: <span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><span class="anchor" id="line-150"></span><span class="anchor" id="line-1-21"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-7dcac390cd4f1d7377a1a4f50be06197dd5c02de\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-7dcac390cd4f1d7377a1a4f50be06197dd5c02de" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-7dcac390cd4f1d7377a1a4f50be06197dd5c02de_1">   1</a> </span><span class="LineAnchor" id="CA-7dcac390cd4f1d7377a1a4f50be06197dd5c02de_1"></span><span class="anchor" id="line-1-22"></span>    <span class="ResWord">from</span> <span class="ID">MoinMoin.auth.openidrp</span> <span class="ResWord">import</span> <span class="ID">OpenIDAuth</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-7dcac390cd4f1d7377a1a4f50be06197dd5c02de_2">   2</a> </span><span class="LineAnchor" id="CA-7dcac390cd4f1d7377a1a4f50be06197dd5c02de_2"></span><span class="anchor" id="line-2-8"></span>    <span class="ResWord">from</span> <span class="ID">MoinMoin.auth.botbouncer</span> <span class="ResWord">import</span> <span class="ID">BotBouncer</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-7dcac390cd4f1d7377a1a4f50be06197dd5c02de_3">   3</a> </span><span class="LineAnchor" id="CA-7dcac390cd4f1d7377a1a4f50be06197dd5c02de_3"></span><span class="anchor" id="line-3-1"></span>    <span class="ID">auth</span> = [<span class="ID">OpenIDAuth</span>(), <span class="ID">BotBouncer</span>(<span class="String">&quot;</span><span class="String">your-botbouncer-API-key</span><span class="String">&quot;</span>)]</span>
+</pre></div></div><span class="anchor" id="line-151"></span><span class="anchor" id="line-152"></span><p class="line862">OpenID authentication requires anonymous sessions, set the first part of the <tt class="backtick">cookie_lifetime</tt> tuple to anything bigger than zero (like <tt class="backtick">cookie_lifetime&nbsp;=&nbsp;(2,12)</tt>). See <a href="HelpOnConfiguration.html">HelpOnConfiguration</a> for more details on the value. For OpenID, very little time should be sufficient. <span class="anchor" id="line-153"></span><span class="anchor" id="line-154"></span><p class="line867">
+<h4 id="Advanced_OpenID_RP_configuration">Advanced OpenID RP configuration</h4>
+<span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span><p class="line874">The OpenID RP code can also be configured for two use cases: <span class="anchor" id="line-157"></span><ol type="1"><li>You can force a specific provider to be used, there are two ways to achieve this: <span class="anchor" id="line-158"></span><ul><li><p class="line862">Simply configure the <tt class="backtick">OpenIDAuth</tt> authenticator like this: <span class="anchor" id="line-159"></span><span class="anchor" id="line-160"></span><pre><span class="anchor" id="line-1"></span>auth = [OpenIDAuth(forced_service='http://myopenid.com/'), ]</pre><span class="anchor" id="line-161"></span></li><li><p class="line862">Create an <tt class="backtick">OpenIDServiceEndpoint</tt> object and use that for the <tt class="backtick">forced_service</tt> parameter: <span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><span class="anchor" id="line-164"></span><span class="anchor" id="line-165"></span><span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span><span class="anchor" id="line-168"></span><pre><span class="anchor" id="line-1-1"></span>fs = OpenIDServiceEndpoint()
+<span class="anchor" id="line-2"></span>fs.type_uris = OPENID_2_0_TYPE
+<span class="anchor" id="line-3"></span>fs.server_url = 'http://localhost:8000/openidserver'
+<span class="anchor" id="line-4"></span>fs.claimed_id = 'http://specs.openid.net/auth/2.0/identifier_select'
+<span class="anchor" id="line-5"></span>
+<span class="anchor" id="line-6"></span>auth = [OpenIDAuth(forced_service=fs), ]</pre><span class="anchor" id="line-169"></span></li></ul>In the latter case, no discovery needs to be done. <span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span></li><li class="gap"><p class="line862">You can specify functions to be called in various steps of the OpenID authentication process to, for example, implement Attribute Exchange. For now, this is not documented here, you'll have to look at the file <tt class="backtick">MoinMoin/auth/openidrp.py</tt>. <span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span></li></ol><p class="line867">
+<h3 id="LDAP_based_user_authentication">LDAP based user authentication</h3>
+<span class="anchor" id="line-174"></span><span class="anchor" id="line-175"></span><p class="line874">The LDAP authenticator of Moin enables single-sign-on (SSO) - assuming you already have a LDAP directory with your users, passwords, email adresses. On Linux this could be some OpenLDAP server, on a Windows server (usually the domain controller) this is called &quot;Active Directory&quot; (short: AD). <span class="anchor" id="line-176"></span><span class="anchor" id="line-177"></span><p class="line874">It works like this: <span class="anchor" id="line-178"></span><ul><li>User enters his name and password via moin's login action and clicks on the login button. <span class="anchor" id="line-179"></span></li><li>On login, ldap_login.LDAPAuth checks username/password against LDAP. <span class="anchor" id="line-180"></span><ul><li><p class="line862">If username/password is ok for LDAP, it creates or updates a user profile with values from ldap (name, alias, email) and creates a user object in the MoinMoin process, then it hands over to the next authenticator... <span class="anchor" id="line-181"></span></li><li>If username/password is not ok for LDAP, it vetoes and aborts the login (no other authenticators checked). <span class="anchor" id="line-182"></span></li><li><p class="line862">So, for example, if you are using <tt class="backtick">'uid=%(username)s,ou=people,dc=foo,dc=com',</tt> as the <tt class="backtick">bind_dn</tt> and, you are also using some other authenticators ( like the default <a href="HelpOnAuthentication.html#MoinAuth_.28default.29">MoinAuth</a> ) , then the users added through the alternative authententicator won't be able to authenticate. If however you use a single bind DN as <tt class="backtick">bind_dn&nbsp;=&nbsp;'cn=moinadmin,dc=foo,dc=com'</tt>, then your alternative authentication methods will be queried as well, and users added through that authenticator will be able to login.  <span class="anchor" id="line-183"></span></li></ul></li><li>If the login was successful, moin establishes a session for that user. <span class="anchor" id="line-184"></span><span class="anchor" id="line-185"></span></li></ul><p class="line867">
+<h4 id="LDAP_auth_installation_.2F_configuration">LDAP auth installation / configuration</h4>
+<span class="anchor" id="line-186"></span><p class="line862">You need to install <a class="http" href="http://www.python-ldap.org">python-ldap</a> module (and everything it depends on, see its documentation). <span class="anchor" id="line-187"></span><span class="anchor" id="line-188"></span><p class="line862">You need an LDAP or AD server. <img alt=":)" height="15" src="moin_static199/vesta/img/smile.png" title=":)" width="15" /> <span class="anchor" id="line-189"></span><span class="anchor" id="line-190"></span><p class="line862">See <tt class="backtick">wiki/config/more_samples/ldap_wikiconfig_snippet.py</tt> in your moin dist archive for a snippet you can use in your wiki config. <span class="anchor" id="line-191"></span><span class="anchor" id="line-192"></span><p class="line867"><img alt="(!)" height="15" src="moin_static199/vesta/img/idea.png" title="(!)" width="15" /> Please also read the <tt class="backtick">README</tt> file in that directory. <span class="anchor" id="line-193"></span><span class="anchor" id="line-194"></span><p class="line867">
+<h4 id="LDAP_auth_Problems.3F">LDAP auth Problems?</h4>
+<span class="anchor" id="line-195"></span><p class="line867">MoinMoin support does not know your LDAP server setup, so please follow these steps before asking for help: <span class="anchor" id="line-196"></span><ul><li><p class="line862">Configure DEBUG logging for <tt class="backtick">MoinMoin.auth.ldap_login</tt> and look into the log output. <span class="anchor" id="line-197"></span></li><li>Verify your settings and your user/password by using an ldap tool to query your LDAP server. <span class="anchor" id="line-198"></span><ul><li><p class="line891"><img alt="/!\" height="15" src="moin_static199/vesta/img/alert.png.html" title="/!\" width="15" /> If you're not successful in talking to your LDAP server with such a tool, you don't need to try with MoinMoin. <span class="anchor" id="line-199"></span></li></ul></li><li>Ask the administrator of your LDAP/AD server for help / for correct settings. <span class="anchor" id="line-200"></span></li><li><p class="line862">Maybe look into <tt class="backtick">MoinMoin/auth/ldap_login.py</tt>, if you can debug or fix your problem there. <span class="anchor" id="line-201"></span><span class="anchor" id="line-202"></span></li></ul><p class="line867"><img alt="/!\" height="15" src="moin_static199/vesta/img/alert.png.html" title="/!\" width="15" /> Only ask MoinMoin support if you successfully used ldapsearch (or some similar tool) and you double checked your wiki config and it does still not work with moin. <span class="anchor" id="line-203"></span><span class="anchor" id="line-204"></span><p class="line867">
+<h3 id="XMLRPC_auth">XMLRPC auth</h3>
+<span class="anchor" id="line-205"></span><span class="anchor" id="line-206"></span><p class="line867"><span class="anchor" id="line-207"></span><span class="anchor" id="line-208"></span><span class="anchor" id="line-209"></span><span class="anchor" id="line-210"></span><span class="anchor" id="line-211"></span><span class="anchor" id="line-212"></span><span class="anchor" id="line-213"></span><span class="anchor" id="line-214"></span><span class="anchor" id="line-215"></span><span class="anchor" id="line-216"></span><span class="anchor" id="line-217"></span><span class="anchor" id="line-218"></span><span class="anchor" id="line-219"></span><span class="anchor" id="line-220"></span><span class="anchor" id="line-221"></span><span class="anchor" id="line-1-23"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-1af623c92cef2af9d73c6573b6864d46420d67cf\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_1">   1</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_1"></span><span class="anchor" id="line-1-24"></span><span class="ResWord">import</span> <span class="ID">xmlrpclib</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_2">   2</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_2"></span><span class="anchor" id="line-2-9"></span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_3">   3</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_3"></span><span class="anchor" id="line-3-2"></span><span class="ID">name</span> = <span class="String">&quot;</span><span class="String">TestUser</span><span class="String">&quot;</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_4">   4</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_4"></span><span class="anchor" id="line-4-1"></span><span class="ID">password</span> = <span class="String">&quot;</span><span class="String">secret</span><span class="String">&quot;</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_5">   5</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_5"></span><span class="anchor" id="line-5-1"></span><span class="ID">wikiurl</span> = <span class="String">&quot;</span><span class="String">http://localhost:8080/</span><span class="String">&quot;</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_6">   6</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_6"></span><span class="anchor" id="line-6-1"></span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_7">   7</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_7"></span><span class="anchor" id="line-7-1"></span><span class="ID">homewiki</span> = <span class="ID">xmlrpclib</span>.<span class="ID">ServerProxy</span>(<span class="ID">wikiurl</span> + <span class="String">&quot;</span><span class="String">?action=xmlrpc2</span><span class="String">&quot;</span>, <span class="ID">allow_none</span>=<span class="ResWord">True</span>)</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_8">   8</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_8"></span><span class="anchor" id="line-8-1"></span><span class="ID">auth_token</span> = <span class="ID">homewiki</span>.<span class="ID">getAuthToken</span>(<span class="ID">name</span>, <span class="ID">password</span>)</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_9">   9</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_9"></span><span class="anchor" id="line-9-1"></span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_10">  10</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_10"></span><span class="anchor" id="line-10-1"></span><span class="ID">mc</span> = <span class="ID">xmlrpclib</span>.<span class="ID">MultiCall</span>(<span class="ID">homewiki</span>)</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_11">  11</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_11"></span><span class="anchor" id="line-11-1"></span><span class="ID">mc</span>.<span class="ID">applyAuthToken</span>(<span class="ID">auth_token</span>)</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_12">  12</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_12"></span><span class="anchor" id="line-12-1"></span><span class="Comment"># you can add more xmlrpc method calls to the multicall here,</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_13">  13</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_13"></span><span class="anchor" id="line-13-1"></span><span class="Comment"># they will run authenticated as user &lt;name&gt;.</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-1af623c92cef2af9d73c6573b6864d46420d67cf_14">  14</a> </span><span class="LineAnchor" id="CA-1af623c92cef2af9d73c6573b6864d46420d67cf_14"></span><span class="anchor" id="line-14-1"></span><span class="ID">result</span> = <span class="ID">mc</span>()</span>
+</pre></div></div><span class="anchor" id="line-222"></span><span class="anchor" id="line-223"></span><p class="line867">
+<h2 id="Combining_multiple_authenticators">Combining multiple authenticators</h2>
+<span class="anchor" id="line-224"></span><p class="line862">For combining e.g. SSL client certificate and username/password authentication, your <tt class="backtick">wikiconfig.py</tt> might contain: <span class="anchor" id="line-225"></span><span class="anchor" id="line-226"></span><span class="anchor" id="line-227"></span><span class="anchor" id="line-228"></span><span class="anchor" id="line-229"></span><span class="anchor" id="line-1-25"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnAuthentication.html#" onclick="return togglenumber(\'CA-634f410a924ee0a5f659423b8c9a4b436bd960ab\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-634f410a924ee0a5f659423b8c9a4b436bd960ab" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-634f410a924ee0a5f659423b8c9a4b436bd960ab_1">   1</a> </span><span class="LineAnchor" id="CA-634f410a924ee0a5f659423b8c9a4b436bd960ab_1"></span><span class="anchor" id="line-1-26"></span>    <span class="ResWord">from</span> <span class="ID">MoinMoin.auth</span> <span class="ResWord">import</span> <span class="ID">MoinAuth</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-634f410a924ee0a5f659423b8c9a4b436bd960ab_2">   2</a> </span><span class="LineAnchor" id="CA-634f410a924ee0a5f659423b8c9a4b436bd960ab_2"></span><span class="anchor" id="line-2-10"></span>    <span class="ResWord">from</span> <span class="ID">MoinMoin.auth.sslclientcert</span> <span class="ResWord">import</span> <span class="ID">SSLClientCertAuth</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnAuthentication.html#CA-634f410a924ee0a5f659423b8c9a4b436bd960ab_3">   3</a> </span><span class="LineAnchor" id="CA-634f410a924ee0a5f659423b8c9a4b436bd960ab_3"></span><span class="anchor" id="line-3-3"></span>    <span class="ID">auth</span> = [<span class="ID">SSLClientCertAuth</span>(), <span class="ID">MoinAuth</span>()]</span>
+</pre></div></div><span class="anchor" id="line-230"></span><span class="anchor" id="line-231"></span><p class="line874">In that case, any client certificates that the user provides will be used to log him on, but if they do not provide one they still have the option of logging on with their username/password. <span class="anchor" id="line-232"></span><span class="anchor" id="line-233"></span><p class="line867">
+<h2 id="Writing_your_own_authenticator">Writing your own authenticator</h2>
+<span class="anchor" id="line-234"></span><p class="line862">See the commented config file fragment <tt class="backtick">contrib/auth_externalcookie/</tt> and <tt class="backtick">MoinMoin/auth/*.py</tt> in your moin distribution archive for examples of how to do authentication. Also, the docstring in <tt class="backtick">MoinMoin/auth/__init__.py</tt> contains an explanation of what can be done and how it is achieved. <span class="anchor" id="line-235"></span><span class="anchor" id="line-236"></span><p class="line874">Authenticators can <span class="anchor" id="line-237"></span><ul><li>use the regular login form as their user interface for entering name and password <span class="anchor" id="line-238"></span></li><li>use the regular logout action for logging out <span class="anchor" id="line-239"></span></li><li>prohibit logging out (like SSL client certificate authentication that checks for every request) <span class="anchor" id="line-240"></span></li><li>search existing user profiles for a &quot;matching&quot; user (the match needs not be the name, it can also be the email address or something you put into aliasname) <span class="anchor" id="line-241"></span></li><li>create a user object and let it remember what attributes were determined by authenticator (and thus should not be offered on user preferences) <span class="anchor" id="line-242"></span></li><li>update values in user's profile from externally provided data <span class="anchor" id="line-243"></span></li><li>autocreate user profiles <span class="anchor" id="line-244"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

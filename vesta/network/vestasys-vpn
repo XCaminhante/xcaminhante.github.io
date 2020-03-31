@@ -1,0 +1,2612 @@
+#!/usr/bin/perl -wT
+
+# ----------------------------------------------------------------------
+# vestasys-vpn
+
+# A script for cvonfiguring a system to connect to the vestasys.org
+# network and act as a gateway for other local systems.  Uses a
+# ppp-over-ssh method for secure, authenticated connections.  Uses
+# iptables to add rules for NAT.
+
+# Author: Kenneth C. Schalk
+# Created: October, 2001
+# ----------------------------------------------------------------------
+
+# ----------------------------------------------------------------------
+# chkconfig info, for systems that support it (RedHat).  See the
+# chkconfig(8) man page.
+# ----------------------------------------------------------------------
+
+# chkconfig: 345 90 10
+# description: starts and stops a ppp-over-ssh tunnel
+
+# ----------------------------------------------------------------------
+# LSB init comment.  See:
+# http://www.linuxbase.org/spec/gLSB/gLSB/initscrcomconv.html
+# ----------------------------------------------------------------------
+
+### BEGIN INIT INFO
+# Provides: vestasys-vpn
+# Required-Start: network
+# Required-Stop: network
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Description: vestasys.org ppp-over-ssh VPN
+### END INIT INFO
+
+# ----------------------------------------------------------------------
+# Embedded POD documentation
+# ----------------------------------------------------------------------
+
+=head1 NAME
+
+vestasys-vpn - Configure, start, or stop a VPN connection to the
+vestasys.org network.
+
+=head1 SYNOPSIS
+
+vestasys-vpn setup|start|stop|status|restart|help
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<setup>
+
+Walks through all the configuration parameters needed to make the
+connection, asking the user about each.  Must be run at least once
+before making the first connection and can be used subsequently to
+make changes to the configuration.
+
+=item B<start>
+
+Initiates the connection.
+
+=item B<stop>
+
+Shuts down an open connection.
+
+=item B<status>
+
+Reports on whether the connection is up.
+
+=item B<restart>
+
+The same as stop followed by start.
+
+=item B<help>
+
+Displays the full documentation for this script.
+
+=back
+
+=head1 SYSTEM REQUIREMENTS
+
+At this time, this script has only been tested on Linux systems (both
+IA-32 and Alpha) running 2.4 kernels.  pppd (2.4 and up), the ssh
+client (OpenSSH 2.5.2p2 or newer), and the iptables tools must be
+installed.  The kernel must have support for ppp and iptables,
+including NAT.  RedHat 7.1 meets these requirements out of the box.
+The Debian "testing" distribution with a 2.4 kernel added can meet
+them.
+
+Lastly, since this script uses native iptables rules, it is
+incompatible with the backwards-compatibility ipchains support in the
+2.4 kernel.  RedHat 7.1 uses this by default, and it must be disabled
+(usually by disabling the /etc/init.d/ipchains script with "chkconfig
+--level 0123456 ipchains off").  You can check whether your system is
+using the ipchains compatibility code with "lsmod | grep ipchains".
+
+=head1 GETTING SET UP
+
+Before running the setup process, be sure to contact the administrator
+of the remote server and get some key pieces of information.  The
+setup dialog will ask you for both of these:
+
+=over 4
+
+=item B<VPN username>
+
+An account on the remote machine will be created for you that is used
+exclusively for making a VPN connection.  (In fact, it will be set
+with pppd as its shell, so it cannot be used for anything else.)
+
+=item B<IP address range>
+
+You will be given a range of IP addresses which you can use for the
+translated addresses of your local machines (see "Network Address
+Translation" below).
+
+=back
+
+Also, you must know enough about your local network setup to be able
+to decide which hosts will need specific IP associations for NAT.
+Specifically, if you have any local servers that need to be accessible
+from the remote network (such as a local Vesta repository), you must
+assign those hosts specific translated addresses.  (See "Network
+Address Translation" below.)
+
+After running the setup process, you must send your ssh authentication
+key to the VPN administrator so that your connection can be
+authenticated.  (Until you do this, you will be unable to connect.)
+
+This script is designed to be usable in the rc/init framework.  On a
+RedHat system, you can simply place it in /etc/rc.d/init.d and execute
+"chkconfig --add vestasys-vpn" to add the necessary symlinks in the
+runlevel sub-directories.
+
+=head1 NETWORK ADDRESS TRANSLATION
+
+IP addresses on the local network are not necessarily usable on the
+remote network.  Therefore, outgoing connections and selected incoming
+connections will have their addresses translated.
+
+Any hosts on the local network which will provide specific services to
+the remote one (such as a local Vesta repository or other server)
+should be assigned a specific IP addresses out of your assigned IP
+address range.  These will get both source and destination NAT rules.
+
+Unassigned addresses in your range will be used for a catch-all
+multiple-target SNAT rule.  This will cause outgoing connections over
+the VPN link to have their source address translated to an IP selected
+from the otherwise unused ones.
+
+[The next paragraph gives some details on the NAT rules added by this
+script.  Most people can skip it.]
+
+The address translation rules are placed in user-defined chains in the
+"nat" table named E<lt>serverE<gt>-pre and E<lt>serverE<gt>-post
+(e.g. wall.vestasys.org-pre and wall.vestasys.org-post).  The source
+NAT rules are placed in the E<lt>serverE<gt>-post chain, and all
+connections going out over the VPN link are sent to it from the
+POSTROUTING chain.  The destination NAT rules for local hosts assigned
+specific translated addresses are placed in the E<lt>serverE<gt>-pre
+chain, and all connections coming in from the VPN link are sent to it
+from the PREROUTING chain.
+
+=head1 ROUTING AND FORWARDING
+
+Since the point of this script is to create a connection between two
+networks, it allows the user to specify a list of hosts and networks
+to be routed over the VPN connection.  Once the link becomes active
+and the NAT packet mangling rules have been added, the routes are set
+up.
+
+Also, this script assumes that the machine running it will act as a
+gateway for other machines.  For that reason, packet forwarding is
+enabled once the link is active.
+
+In order to make this useful for other machines, the user must modify
+other routing tables to direct packets to the machine making the VPN
+connection that should be forwarded over it.  This script provides no
+help with that.
+
+=head1 PACKET FILTERING
+
+At this time, this script does not add any rules to filter packets
+going to or coming from the VPN connection.  However, the user is free
+to add such rules.
+
+=head1 CONFIGURATION
+
+Almost all of the information gathered and created during the B<setup>
+step is stored in a central configuration file.  This is usually in
+/etc/vestasys-org-vpn.conf.  The location of the configuration file
+may be overridden by setting the environment variable
+VESTASYS_ORG_VPN_CONFIG before running this script.
+
+The config file can contain:
+
+=over 4
+
+=item *
+
+blank lines,
+
+=item *
+
+comments starting with # and extending to the end of the line,
+
+=item *
+
+simple variable settings of the form "E<lt>I<variable>E<gt> =
+E<lt>I<value>E<gt>",
+
+=item *
+
+route specifications of the form "route E<lt>I<host or net>E<gt>",
+
+=item *
+
+NAT associations of the form "nat E<lt>I<local address>E<gt>
+E<lt>I<remote address>E<gt>",
+
+=back
+
+In general, if you need to change something in the configuration, you
+can just rerun the B<setup> step.
+
+=head1 ENVIRONMENT
+
+The only environment variable used by this script is
+VESTASYS_ORG_VPN_CONFIG which can be used to point to an alternate
+config file location.
+
+=head1 FILES
+
+=over 4
+
+=item /etc/vestasys-org-vpn.conf
+
+The configuration file used by default.  Can be overridden by setting
+the VESTASYS_ORG_VPN_CONFIG environment variable.
+
+=item /etc/ppp/peers/E<lt>I<server name>E<gt>
+
+The ppp peer file written by the B<setup> step.  This contains
+directives telling pppd important things including "use ssh to
+connect" and "don't add a default route".
+
+A different directory from /etc/ppp can be set in the B<setup> step,
+but it must be the parent of the peers directory that your pppd uses.
+
+=item B<$HOME>/.ssh/known_hosts2
+
+The list of remote host authentication keys for the user running the
+script (which should be root).  This script will check for the correct
+host key for the remote server and add it if it is not already
+present.
+
+=item B<$HOME>/.ssh/id_dsa.E<lt>I<server name>E<gt>
+
+The key used to authenticate your connection to the remote network.
+This is usually generated during the B<setup> procedure.  This is the
+default location, but a different one can be set during B<setup>.
+
+=item /var/run/ppp-E<lt>I<server name>E<gt>.pid
+
+An information file written by pppd.  We ask for it specifically with
+the "linkname" pppd option in the peer file.  It contains both the
+process ID of the running pppd and the interface name (e.g. ppp0).
+
+=item /proc/sys/net/ipv4/ip_forward
+
+The pseudo-file that controls IP forwarding on Linux systems.  Used to
+enable IP forwarding after initiating the connection.
+
+=back
+
+=head1 LIMITATIONS
+
+If you have a global ppp options file (usually /etc/ppp/options), it
+may contain options which will interfere with this script.  This
+script is not smart enough to examine the contents of such a file to
+determine if the options there will cause problems for the VPN
+connection.  However, it will warn you during the B<setup> step if you
+have a non-empty global options file.
+
+If the machine running this script has other NAT rules in its
+PREROUTING and POSTROUTING chains, the rules this script adds may not
+function properly.  (However, we believe that the rules added by this
+script will not interfere with existing NAT rules.)  You can check for
+existing rules before starting a connection with this script with the
+command "iptables --list --table nat --numeric".
+
+This script does not currently add any rules to filter packets coming
+from or going to the VPN link.
+
+=head1 BUGS
+
+The B<setup> procedure could probably be a bit less chatty and just
+assume that if it finds things like pppd and ssh in the standard
+places that it can use them without asking the user for confirmation
+of this.
+
+=head1 SEE ALSO
+
+L<pppd(8)>, L<ssh(1)>, L<iptables(8)>, L<route(8)>
+
+=for html <p><a href="http://www.linuxdoc.org/HOWTO/VPN-HOWTO.html">The Linux VPN HOWTO</a> (which describes the method this script is based on)</p>
+
+=for html <p><a href="http://netfilter.samba.org/unreliable-guides/NAT-HOWTO/index.html">The Netfilter NAT HOWTO</a> (which gives some background on packet mangling with iptables)</p>
+
+=begin text
+
+The Linux VPN HOWTO (which describes the method this script is based on):
+
+http://www.linuxdoc.org/HOWTO/VPN-HOWTO.html
+
+The Netfilter NAT HOWTO (which gives some background on packet
+mangling with iptables):
+
+http://netfilter.samba.org/unreliable-guides/NAT-HOWTO/index.html
+
+=end text
+
+=begin man
+
+The Linux VPN HOWTO (which describes the method this script is based on):
+
+http://www.linuxdoc.org/HOWTO/VPN-HOWTO.html
+
+The Netfilter NAT HOWTO (which gives some background on packet
+mangling with iptables):
+
+http://netfilter.samba.org/unreliable-guides/NAT-HOWTO/index.html
+
+=end man
+
+=head1 AUTHOR
+
+Kenneth C. Schalk E<lt>ken@xorian.netE<gt>
+
+=cut
+
+# ----------------------------------------------------------------------
+# Load modules we need.
+# ----------------------------------------------------------------------
+
+# Provide human-readable mnemonics for Perl builtin vars
+use English;
+
+# Use text wrapping
+use Text::Wrap;
+
+# Get some handy functions for manipulating IP addresses.
+use Socket;
+
+# Make it possible to invoke some commands like functions.
+use Shell qw { uname };
+
+# Make getting at password database entries easier
+use User::pwent;
+
+# Provide usage information from POD.
+use Pod::Usage;
+
+# Give us the proper way to make STDOUT auto-flushing
+use IO::Handle;
+
+# ----------------------------------------------------------------------
+# Function declarations
+# ----------------------------------------------------------------------
+
+sub unsafe($);
+sub safe_file($);
+sub query_user($;$);
+sub query_user_yesno($;$);
+
+# ----------------------------------------------------------------------
+# Before doing anything else, clean up the path since this script runs
+# as root (and therefore with taint checks).
+# ----------------------------------------------------------------------
+
+$ENV{PATH} = "/bin:/usr/bin:/sbin:/usr/sbin";
+delete @ENV{'IFS', 'CDPATH', 'ENV', 'BASH_ENV'};
+
+# ----------------------------------------------------------------------
+# Configuration variables.  If you're planning on using this script
+# with a new server, edit these.
+# ----------------------------------------------------------------------
+
+# E-mail address users should direct questions and administrative
+# requests to.
+
+$Admin_Email = q{vpn-admin@vestasys.org};
+
+# The remote server which should be used by default.
+
+$Default_Server = "wall.vestasys.org";
+
+# The default list of hosts/nets to be routed over the connection.
+
+$Default_Routes = ["dev.vestasys.org"];
+
+# Host keys for the default server (and maybe others).
+
+%Host_Keys = ("wall.vestasys.org" => "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEA7O73xsFW1eE5/m+YwFS4ewKVHaDlwQzmgSGrGzCxRL2Segrvy7W9Yj2KXPjxTj5/Adrq9ZoFfFyw98VJctXKsxT29ZEiFwtg24NVS2JFWwEjQkty+Fy+YzfSr5oFhORHnBYowOFzgTBy424aknfiUq1fZPFR6+51J/EIHEtsXn0=");
+
+# ----------------------------------------------------------------------
+# Globals
+# ----------------------------------------------------------------------
+
+my $Config_File = $ENV{"VESTASYS_ORG_VPN_CONFIG"};
+if(defined $Config_File && unsafe($Config_File))
+  {
+    my $msg = "Sorry, but the config file you asked me to use ('".
+      $Config_File."') looks a bit wierd,  Please set ".
+      "VESTASYS_ORG_VPN_CONFIG to something reasonable (a path made up ".
+      "of alphanumerics, slashes, dots, dashes, and underscores).";
+    die wrap("", "", $msg);
+  }
+$Config_File = "/etc/vestasys-org-vpn.conf" unless defined $Config_File;
+
+# ----------------------------------------------------------------------
+# Function definitionss
+# ----------------------------------------------------------------------
+
+# unsafe(<string>)
+
+# Return true if there are any potentially unsafe characters
+# (i.e. shell metacharacters) in the argument.
+
+sub unsafe($)
+  {
+    my $str = shift;
+    return $str =~ /[^-\/\.\s\w]/;
+  }
+
+# safe_file($)
+
+# Return the argument if it looks like a normal filename with no
+# potential shell metacharacters, or undef if it looks questionable.
+
+sub safe_file($)
+  {
+    my $str = shift;
+    if($str =~ /^([-\/\.\w]+)$/)
+      {
+	return $1;
+      }
+    else
+      {
+	return undef;
+      }
+  }
+
+# netmask_from_bits(<significant bits>)
+
+# Return a netmask in dotted-quad format for the given number of mask
+# bits.  Used for constructing route(8) command lines.
+
+sub netmask_from_bits($)
+  {
+    my $bits = shift;
+
+    # Construct a string of the specified number of 1s.  Use pack to
+    # create a binary netmask from that, taking advantage of the fact
+    # that pack will ignore extra bits and pad with 0s to the correct
+    # length.  Convert this to an ASCII dotted quad with inet_ntoa
+    # (from the Socket package).
+
+    # Note that this obfuscated little construct works regardless of
+    # endianness, as IP addresses are stored in network byte order
+    # (MSB first).
+    return inet_ntoa(pack("B32", "1"x$bits));
+  }
+
+# addr_matches_net(<hostname or IP>, <network>)
+
+# Tests whether a given address falls within a network.  Expects the
+# address to be given as a hostname ("foor.bar.com") or dotted-quad in
+# string representation ("1.2.3.4").  Expects the network to be given
+# as a dotted-quad with netmask bits ("1.2.3.4/16").
+
+sub addr_matches_net($$)
+  {
+    my $addr = shift;
+    my $net = shift;
+
+    # Convert the address to a four-byte IP (possibly resolving it as
+    # a hostname).
+    my $addr_bytes = inet_aton($addr);
+
+    # If we succeeded in converting the address to bytes and the
+    # network is properly formatted...
+    if((defined $addr_bytes) &&
+       ($net =~ /^(\d+\.\d+\.\d+\.\d+)\/(\d+)/))
+      {
+	# Save the two pieces.
+	my $net_addr = $1;
+	my $mask_bits = $2;
+
+	# Convert the network to its four-byte representation
+	my $net_bytes = inet_aton($net_addr);
+	if(defined $net_bytes)
+	  {
+	    # Generate a four-byte netmask
+	    my $mask = pack("B32", "1"x$mask_bits);
+
+	    # If the bits specified by the mask match between the net
+	    # and the address, return a true value.
+	    if(($addr_bytes & $mask) eq ($net_bytes & $mask))
+	      {
+		return 1;
+	      }
+	    else
+	      {
+		return 0;
+	      }
+	  }
+      }
+
+    # If anything goes wrong (the address or the net aren't properly
+    # formatted), return undef.
+    return undef;
+  }
+
+# range_of_net(<network>)
+
+# Compute the high and low addresses within a network, not including
+# the broadcast address (all unmasked bits set) or the network address
+# (all unmaksed bits cleared).  Returns a pair of addresses in
+# four-byte packed reoresentation.  Expects the network to be given as
+# a dotted-quad with netmask bits ("1.2.3.4/16").
+
+sub range_of_net($)
+  {
+    my $net = shift;
+
+    # Parse the net (if we can)
+    if($net =~ /^(\d+\.\d+\.\d+\.\d+)\/(\d+)/)
+      {
+	# Save the two pieces.
+	my $net_addr = $1;
+	my $mask_bits = $2;
+
+	# Convert the network to its four-byte representation
+	my $net_bytes = inet_aton($net_addr);
+	if(defined $net_bytes)
+	  {
+	    # Generate a four-byte netmask
+	    my $mask = pack("B32", "1"x$mask_bits);
+
+	    # Apply the mask to the network, just in case it had any
+	    # bits set that aren't in the mask.
+	    $net_bytes &= $mask;
+
+	    # The low end of our range will be the network with the
+	    # vary last bit set.
+	    my $low_addr = $net_bytes | pack("B32", ("0"x31)."1");
+
+	    # The high end will be the network with all non-masked
+	    # bits set but the last one (as all bits set would make a
+	    # broadcast address).
+	    my $high_addr = $net_bytes |  (pack("B32", ("1"x31)."0") &
+					   ~$mask);
+
+	    return ($low_addr, $high_addr);
+	  }
+      }
+
+    # The network must have been bad if we made it here.
+    return undef;
+  }
+
+# query_user <prompt> [<default>]
+
+# Ask the user <prompt> and return the answer, <default> if cr
+
+sub query_user($;$)
+ {
+   my $prompt = shift;
+   my $default = shift;
+
+   print "$prompt";
+   print " [$default]" if defined $default;
+   print ": ";
+   my $answer = <STDIN>;
+   chomp $answer;
+   $answer = $default if $answer eq "" and defined $default;
+   return $answer;
+ }
+
+# query_user_yesno <prompt> [<default>]
+
+# Ask the user <prompt> and return true for yes, false for no.  If the
+# user enters a nothing, return <default> or true if <default> is not
+# provided.
+
+sub query_user_yesno($;$)
+ {
+   my $prompt = shift;
+
+   my $default = shift;
+   if(!defined $default)
+     {
+       $default = 1;
+     }
+
+   while(1)
+     {
+       print "$prompt";
+       if($default)
+	 {
+	   print " [Y/n]:";
+	 }
+       else
+	 {
+	   print " [y/N]:";
+	 }
+       my $choice = <STDIN>;
+       chomp $choice;
+       return $default if $choice eq "";
+       return 1 if $choice =~ /^[Yy]/;
+       return 0 if $choice =~ /^[Nn]/;
+       print "\nI don't understand '$choice', please enter 'y' or 'n'.\n";
+     }
+}
+
+# query_executable(<prompt> [, <default>])
+
+# Ask the user to provide a path to an executable.  Repeat the
+# question if they provide something that doesn't exist or isn't
+# executable.
+
+sub query_executable($;$)
+  {
+    my $prompt = shift;
+    my $default = shift;
+    my $result;
+
+    while(1)
+      {
+	$result = safe_file(query_user($prompt, $default));
+	if(!defined $result)
+	  {
+	    my $msg = "Please enter a path without any special characters.  ".
+	      "(Alphanumerics, underscores, dash, dots, and slashes are OK.)";
+	    print(wrap("", "", $msg), "\n");
+	    next;
+	  }
+	last if (-f $result && -x $result);
+	print("Sorry, what you entered ('", $result,
+              "') doesn't seem to be an executable file\n");
+      }
+
+    return $result;
+  }
+
+
+# query_directory(<prompt> [, <default>])
+
+# Ask the user to provide a path to a directory.  Repeat the question
+# if they provide something that doesn't exist or isn't executable.
+
+sub query_directory($;$)
+  {
+    my $prompt = shift;
+    my $default = shift;
+    my $result;
+
+    while(1)
+      {
+	$result = safe_file(query_user($prompt, $default));
+	if(!defined $result)
+	  {
+	    my $msg = "Please enter a path without any special characters.  ".
+	      "(Alphanumerics, underscores, dash, dots, and slashes are OK.)";
+	    print(wrap("", "", $msg), "\n");
+	    next;
+	  }
+	last if (-d $result);
+	print("Sorry, what you entered ('", $result,
+              "') doesn't seem to be a directory\n");
+      }
+
+    return $result;
+  }
+
+# query_directory(<prompt>, <item0>, <item1>, ... <itemN>)
+
+# Ask the user to select from a numbered list.  Repeats the question
+# until they make a valid selection.  Returns the selection as a
+# zero-based index into the items passed.
+
+sub query_user_list($@)
+  {
+    my $prompt = shift;
+    my @choices = @_;
+
+    # Print out a list of choices
+    for(my $i = 0; $i <= $#choices; $i++)
+      {
+	print(($i+1).". ", $choices[$i], "\n");
+      }
+
+    # Loop until the the user enters a number in the right range.
+    while(1)
+      {
+	print("\n");
+
+	my $answer = query_user($prompt);
+
+	if(($answer =~ /^\d+$/) &&
+	   ($answer > 0) && ($answer <= scalar(@choices)))
+	  {
+	    return $answer - 1;
+	  }
+
+	print("Please enter a number between 1 and ", scalar(@choices), "\n");
+      }
+
+  }
+
+sub edit_routes($@)
+  {
+    my $server = shift;
+    my @routes = @_;
+
+    # Loop until the user says they're done.
+    while(1)
+      {
+	# Ask the user what they want to do.
+	my $choice = query_user_list("What would you like to do?",
+				     "Add a route", "Remove a route",
+				     "Done making changes");
+
+	# If they said they're done, exit the loop.
+	last if($choice == 2);
+
+	# They said they want to add a route
+	if($choice == 0)
+	  {
+	    $msg = "Enter a new host or network to be routed over the ".
+	      "connection.  ".
+	      "Hosts can be entered as numeric IP addresses or ".
+	      "hostnames.  ".
+	      "Networks must be entered as dotted quads followed by a ".
+	      "slash and the number of bits in the netmask (10.86.1.0/24).";
+	    print("\n", wrap("", "", $msg), "\n\n");
+	    while(1)
+	      {
+		my $new_route = query_user("Enter new route");
+		if($new_route eq "")
+		  {
+		    print "No route added.\n";
+		    last;
+		  }
+		elsif(($new_route =~ /^(\d+)\.(\d+)\.(\d+)\.(\d+)\/(\d+)/) &&
+		      ($1 < 255) && ($2 < 255) && ($3 < 255) && ($4 < 255) &&
+		      ($5 < 32))
+		  {
+		    # Check that the server doesn't match this net.
+		    if(addr_matches_net($server, $new_route))
+		      {
+			$msg = "Sorry, you can't route to the server ".
+			  "through the connection.";
+			print("\n", wrap("", "", $msg), "\n\n");
+		      }
+		    else
+		      {
+			push @routes, $new_route;
+			last;
+		      }
+		  }
+		elsif(my $new_route_ip = inet_aton($new_route))
+		  {
+		    # Check that the server doesn't match this IP/host.
+		    if(($new_route eq $server) ||
+		       ($new_route_ip eq inet_aton($server)))
+		      {
+			$msg = "Sorry, you can't route to the server ".
+			  "through the connection.";
+			print("\n", wrap("", "", $msg), "\n\n");
+		      }
+		    else
+		      {
+			push @routes, $new_route;
+			last;
+		      }
+		  }
+		else
+		  {
+		    $msg = "Sorry, but that isn't a properly formatted ".
+		      "network and doesn't resolve as a hostname.";
+		    print("\n", wrap("", "", $msg), "\n\n");
+		  }
+	      }
+	  }
+	else
+	  {
+	    # Ask the user which route they want to remove.
+	    my $remove_choice =
+	      query_user_list("Select the route to remove",
+			      @routes, "None of the above");
+	    if($remove_choice > $#routes)
+	      {
+		print "No route removed.\n";
+	      }
+	    else
+	      {
+		splice @routes, $remove_choice, 1;
+	      }
+	  }
+
+	# Before going back around to ask the user what they want to
+	# do next, print out the new set of routes.
+
+	print("\nCurrent hosts/nets routed over the connection:\n\n\t",
+	      join("\n\t", @routes), "\n\n");
+      }
+
+    return \@routes;
+  }
+
+sub edit_nats($\%)
+  {
+    my $ip_range = shift;
+    my $nat_map = shift;
+
+    # Compute a few IPs that we use in the text on the recommended
+    # range of IPs to choose from.
+
+    my ($ppp_client_ip_packed, $ppp_server_ip_packed) =
+      range_of_net($ip_range);
+    my $ppp_client_ip = inet_ntoa($ppp_client_ip_packed);
+    my $ppp_server_ip = inet_ntoa($ppp_server_ip_packed);
+    my $bcast_ip = inet_ntoa($ppp_server_ip_packed |
+			     pack("B32", ("0"x31)."1"));
+    my $low_ip = inet_ntoa(pack("N", (unpack("N", $ppp_client_ip_packed)
+				      + 1)));
+    my $high_ip = inet_ntoa(pack("N", (unpack("N", $ppp_server_ip_packed)
+				      - 1)));
+
+    while(1)
+      {
+	# Ask the user what they want to do.
+	my $choice;
+	if(scalar(keys %{$nat_map}) > 0)
+	  {
+	    $choice = query_user_list("What would you like to do?",
+				      "Add a NAT association",
+				      "Remove a NAT association",
+				      "Done making changes");
+
+	    # If they said they're done, exit the loop.
+	    last if($choice == 2);
+	  }
+	else
+	  {
+	    $choice = query_user_list("What would you like to do?",
+				      "Add a NAT association",
+				      "Done making changes");
+
+	    # If they said they're done, exit the loop.
+	    last if($choice == 1);
+	  }
+
+	# They said they wanted to add a NAT association.
+	if($choice == 0)
+	  {
+	    $msg = "Enter the local hostname or IP address which ".
+	      "will be translated to a specific address on the remote ".
+	      "network.";
+	    print("\n", wrap("", "", $msg), "\n\n");
+	    my $new_nat_src;
+	    while(1)
+	      {
+		$new_nat_src = query_user("Enter new local host/IP");
+		if($new_nat_src eq "")
+		  {
+		    print "No NAT association added.\n";
+		    $new_nat_src = undef;
+		    last;
+		  }
+		elsif(inet_aton($new_nat_src))
+		  {
+		    last;
+		  }
+		else
+		  {
+		    $msg = "Sorry, but that doesn't look like an IP address".
+		      "and doesn't resolve as a hostname.";
+		    print("\n", wrap("", "", $msg), "\n\n");
+		  }
+	      }
+
+	    # If the user actually entered something for the local
+	    # address...
+	    if(defined $new_nat_src)
+	      {
+		$msg = "Enter the remote IP address to be used for ".
+		  $new_nat_src.".  ".
+		  "The address you enter here must be within you ".
+		  "assigned IP address range (".$ip_range.").  ".
+		  "It's recommended that you choose an address between ".
+		  $low_ip." and ".$high_ip.".  ".
+		  $ppp_client_ip." and ".$ppp_server_ip." will probably ".
+		  "be used for the two endpoints of the ppp connection, ".
+		  "and ".$bcast_ip." could be taken as a broadcast address.";
+		print("\n", wrap("", "", $msg), "\n\n");
+
+		while(1)
+		  {
+		    my $new_nat_dst = query_user("Enter new remote IP");
+		    if($new_nat_dst eq "")
+		      {
+			print "No NAT association added.\n";
+			last;
+		      }
+		    elsif(addr_matches_net($new_nat_dst, $ip_range))
+		      {
+			$nat_map->{$new_nat_src} = $new_nat_dst;
+			print "Added $new_nat_src -> $new_nat_dst\n";
+			last;
+		      }
+		    elsif(!inet_aton($new_nat_dst))
+		      {
+			$msg = "Sorry, but that doesn't look like an ".
+			  "IP address and doesn't resolve as a hostname.";
+			print("\n", wrap("", "", $msg), "\n\n");
+		      }
+		    else
+		      {
+			$msg = "Sorry, but that doesn't match your ".
+			  "assigne IP address range (".$ip_range.").";
+			print("\n", wrap("", "", $msg), "\n\n");
+		      }
+		  }
+	      }
+	  }
+	# They said they wanted to remove a NAT association.
+	elsif($choice == 1)
+	  {
+	    # This gets a bit complicated.  We're going to ask the
+	    # user to pick from a numbered list.  We need to construct
+	    # a string representation of each entry in the NAT map,
+	    # and we also need to keep track of how the NAT entries
+	    # correspond to elements in the list.
+	    my @nat_list;
+	    my @nat_list_keys;
+	    while(my($nat_src, $nat_dst) = each %{$nat_map})
+	      {
+		push @nat_list, ($nat_src." -> ".$nat_dst);
+		push @nat_list_keys, $nat_src;
+	      }
+
+	    # Now ask the user which one they want to remove.
+	    my $remove_choice =
+	      query_user_list("Select the route to remove",
+			      @nat_list, "None of the above");
+	    if($remove_choice > $#nat_list)
+	      {
+		print "No NAT association removed.\n";
+	      }
+	    else
+	      {
+		# Figure out which key they meant and remove it.
+		my $nat_key = $nat_list_keys[$remove_choice];
+		delete $nat_map->{$nat_key};
+	      }
+	  }
+
+	# Before going back around to ask the user what they want to
+	# do next, print out the new set of NAT associations.
+
+	if(scalar(keys %{$nat_map}) > 0)
+	  {
+	    print("Current assigned network address translations:\n\n");
+	    while(my($nat_src, $nat_dst) = each %{$nat_map})
+	      {
+		print("\t", $nat_src, " -> ", $nat_dst, "\n");
+	      }
+	    print("\n");
+	  }
+	else
+	  {
+	    print("No network address translations assigned.\n\n");
+	  }
+      }
+
+    return $nat_map;
+  }
+
+# store_host_key(<server>)
+
+# Check whether the correct host key for the server is already present
+# in the user's known hosts file.  If not, add it.
+
+sub store_host_key($)
+  {
+    my $server = shift;
+
+    my $user_info = getpwuid($UID);
+    if(exists($Host_Keys{$server}))
+      {
+	# Figure out where the user's host keys should go
+	my $host_key_file = safe_file($user_info->dir."/.ssh/known_hosts2");
+
+	# Check to see if it's already there.
+	my $found_key = 0;
+	if(-r $host_key_file)
+	  {
+	    # Open the host key file for read
+	    open HKEYS, "<$host_key_file";
+	    while(<HKEYS>)
+	      {
+		chomp;
+
+		# Parse the host list out of the line
+		if(/^([-\.\w]+(,[-\.\w]+)*)\s+/)
+		  {
+		    # See if our host is in there
+		    my $host_match =
+		      grep { $_ eq $server}
+			split /,/, $1;
+
+		    # And extract the key
+		    my $key = $POSTMATCH;
+
+		    # If our host is in there and the key matches,
+		    # it's there.
+		    if($host_match &&
+		       ($key eq $Host_Keys{$server}))
+		      {
+			$found_key = 1;
+			last;
+		      }
+		  }
+	      }
+	    close HKEYS;
+	  }
+
+	if($found_key)
+	  {
+	    print "\nThe correct host key seems to be there already.\n";
+	  }
+	else
+	  {
+	    $msg = "This script can install the correct host key for the ".
+	      "remote server (".$server.") in your known hosts list (".
+	      $host_key_file.").  ".
+	      "You need the host key to allow the connection to be made, ".
+	      "so you should probably just say yes here.";
+	    print("\n", wrap("", "", $msg), "\n\n");
+
+	    if(query_user_yesno("Install server host key?"))
+	      {
+		# If the .ssh directory doesn't exist, create it.
+		if(!-e ($user_info->dir."/.ssh"))
+		  {
+		    mkdir(($user_info->dir."/.ssh"), 0700);
+		  }
+
+		# @@@ Should handle the case where the known hosts
+		# file is missing the new-line on the final existing
+		# entry.
+
+		# Open the host key file for append and add the host key.
+		if(open HKEYS, ">>$host_key_file")
+		  {
+		    print HKEYS $server, " ", $Host_Keys{$server}, "\n";
+		    close HKEYS;
+
+		    print "Host key for $server added.\n";
+		  }
+		else
+		  {
+		    $msg = "Unable to open your known hosts list (".
+		      $host_key_file.") for writing.  ".
+		      "You'll need to manually run ssh to connect to ".
+		      "the server (".$server.") and answer 'yes' when ".
+		      "it asks 'Are you sure you want to continue ".
+		      "connecting'.  ".
+		      "This should cause the host key to be added.";
+		    print("\n", wrap("", "", $msg), "\n\n");
+
+		    query_user("Press return to continue");
+		  }
+		
+	      }
+	  }
+      }
+    else
+      {
+	$msg = "I don't have a host key for the server (".$server.
+	  "), so I can't add it to your known hosts list.  ".
+	  "If the host key is not in your known hosts list, the connection ".
+	  "will fail.  ".
+	  "You should probably contact the server administrator and get the ".
+	  "host key and add it yourself.";
+	print("\n", wrap("", "", $msg), "\n\n");
+
+	query_user("Press return to continue");
+      }
+  }
+
+# default_key_file(<server>)
+
+# Figure out the default key file name based on the server name and
+# the user's home directory.
+
+sub default_key_file($)
+  {
+    my $server = shift;
+
+    my $user_info = getpwuid($UID);
+
+    my $keyfile = $user_info->dir."/.ssh/id_dsa.".$server;
+
+    return safe_file($keyfile);
+  }
+
+# make_key_pair(<keyfile>)
+
+# Let the user specify the key file location, and check whether a
+# keyfile already exists.  If one doesn't, generate one.
+
+sub make_key_pair($)
+  {
+    my $keyfile = shift;
+
+    $msg = "You need an authentication key pair for this connection.  ".
+      "This is used to prove to the server that you're authorized to ".
+      "connect.  ".
+      "This key is stored in a file.  ".
+      "Unless you want to put it somewhere else, or you already have a ".
+      "key pair, you can accept the default.";
+    print("\n", wrap("", "", $msg), "\n\n");
+    $keyfile = query_user("Location of key file", $keyfile);
+
+    if(-e $keyfile)
+      {
+	print "Looks like you already have a key pair, no need to generate one.\n";
+	return $keyfile;
+      }
+
+    print "Generating key pair (this may take a few seconds)...\n";
+    my @keygen_cmd = ("ssh-keygen", "-q", "-t", "dsa", "-N", "",
+		      "-f", $keyfile);
+    my $result = system(@keygen_cmd);
+    if(($result != 0) || !(-r $keyfile))
+      {
+	$msg = "There seems to have been some problem generating the key ".
+	  "pair.  ".
+	  "You can do it youself with the following command:";
+	print("\n", wrap("", "", $msg), "\n\n");
+	print("\t", join(" ", @keygen_cmd), "\n\n");
+	query_user("Press return to continue");
+      }
+    else
+      {
+	print "Keys generated successfully.\n";
+      }
+
+    return $keyfile;
+  }
+
+# write_ppp_peer_file(<config hash ref>)
+
+# Write the ppp peer file.
+
+sub write_ppp_peer_file($)
+  {
+    # Our argument is a complete configuration (as we need many parts
+    # of it for the peer file.
+
+    my $config = shift;
+
+    # Generate the name of the peer file, and names for backup and new
+    # versions.
+    my $peer_file = $config->{'ppp_dir'}."/peers/".$config->{'server'};
+    my $old_peer_file = $peer_file.".old";
+    my $new_peer_file = $peer_file.".new";
+
+    # Variables controlling what to do if there is an existing peer
+    # file.
+    my $replace = 0;
+    my $diff = 0;
+
+    my $msg;
+
+    if(-e $peer_file)
+      {
+	$msg = "It looks like the ppp peer file (".$peer_file.") already ".
+	  "exists.  ".
+	  "If this script generated it previously and you've made ".
+	  "customizations to it since then, you may not want to overwrite ".
+	  "it now.  ".
+	  "If you choose to overwrite it, the existing version will be ".
+	  "renamed (to ".$old_peer_file.").  ".
+	  "If you choose not to overwrite it, the new version will be saved ".
+	  "in ".$new_peer_file." and the differences will be displayed for ".
+	  "you.";
+
+	print("\n", wrap("", "", $msg), "\n\n");
+	if(query_user_yesno("Overwrite existing peer file?"))
+	  {
+	    $replace = 1;
+	  }
+	else
+	  {
+	    $diff = 1;
+	  }
+      }
+
+    if($replace)
+      {
+	rename $peer_file, $old_peer_file;
+      }
+    my $to_write = $peer_file;
+    if($diff)
+      {
+	$to_write = $new_peer_file;
+      }
+
+    # If the peers directory doesn't exist, try to create it.
+    if(!-d ($config->{'ppp_dir'}."/peers") &&
+       !mkdir(($config->{'ppp_dir'}."/peers"), 0755))
+      {
+	$msg = "Error: Peers director (".$config->{'ppp_dir'}.
+	  "/peers) doesn't exist and couldn't be created: $!";
+	print("\n", wrap("", "", $msg), "\n\n");
+
+	query_user("Press return to continue");
+	return;
+      }
+
+    if(open PEER, ">$to_write")
+      {
+	print "Writing $to_write...\n";
+
+	print PEER "# Run ssh to connect\n";
+	print PEER ("pty \"", $config->{'ssh'},
+		    " -t -e none -o 'Batchmode yes' -i ",
+		    $config->{'key_file'}, " -l ", $config->{'user'},
+		    " ", $config->{'server'}, "\"\n\n");
+
+	print PEER "# Allow up to 30 seconds to connect\n";
+	print PEER "connect-delay 30000\n\n";
+
+	print PEER "# Name this connection after the remote server\n";
+	print PEER ("linkname ", $config->{'server'}, "\n\n");
+
+	print PEER "# Don't require ppp authentication (ssh is all we need)\n";
+	print PEER "noauth\n\n";
+
+	print PEER "# Don't add a default route\n";
+	print PEER "nodefaultroute\n\n";
+
+	print PEER "# No flow control\n";
+	print PEER ("nocrtscts\n", "local\n\n");
+
+	print PEER "# Accept the IP addresses assigned by the server\n";
+	print PEER ("noipdefault\n",
+		    "ipcp-accept-local\n",
+		    "ipcp-accept-remote\n\n");
+
+	close PEER;
+
+	# If we're supposed to show differences between the existing and
+	# new versions, invoke diff.
+
+	if ($diff)
+	  {
+	    print "\nDifferences between existing and new peer files:\n\n";
+	    my $result = system("diff", $peer_file, $new_peer_file);
+
+	    if(($result >> 8) == 0)
+	      {
+		print "No differences, removing $new_peer_file.\n";
+		unlink $new_peer_file;
+	      }
+	    else
+	      {
+		print "\nRemember, the existing peer file was left in tact.\n\n";
+	      }
+
+	    query_user("Press return to continue");
+	  }
+      }
+    else
+      {
+	$msg = "Error: Couldn't open $to_write for writing: $!.  ";
+	if($replace || $replace)
+	  {
+	    $msg .= "This has left you with an incomplete setup.";
+	  }
+	print("\n", wrap("", "", $msg), "\n\n");
+
+	query_user("Press return to continue");
+      }
+  }
+
+# read_pidfile(<path>)
+
+# Assume that the passed file contains a process ID.  Extract it.
+
+sub read_pidfile($)
+  {
+    my $pid_file = shift;
+
+    if(!-e $pid_file)
+      {
+	return undef;
+      }
+
+    # Open the file if we can.
+    if(open PIDFILE, "<$pid_file")
+      {
+	# Read the file and get the pid from it.
+	my $pid = undef;
+	while(<PIDFILE>)
+	  {
+	    chomp;
+	    if(/^(\d+)$/ && ($_ > 0))
+	      {
+		$pid = $1;
+		last;
+	      }
+	  }
+	close PIDFILE;
+
+	return $pid;
+      }
+
+    return undef;
+  }
+
+# link_process(<server name>)
+
+# Determine the pppd process of the link to a server.  Assumes that
+# this will be found in the file named /var/run/ppp-<server>.pid (due
+# to the use of the ppp option "linkname" in the ppp peer file).  If
+# that file exists and the process it specifies is still running,
+# returns it's process ID.
+
+sub link_process($)
+  {
+    my $server = shift;
+
+    # Since the peer file should contain the "linkname" parameter, we
+    # can find the file that records the process ID based on the
+    # server name.
+    my $pid_file = "/var/run/ppp-".$server.".pid";
+
+    # Extract the process ID from the file.
+    my $pid = read_pidfile($pid_file);
+    if($pid)
+      {
+	# This file could be a stale pointer left behind from before
+	# the last boot.  So we check whether there is such a process
+	# running with the "kill -0" trick.
+	if (kill 0, $pid)
+	  {
+	    return $pid;
+	  }
+      }
+
+    # If we get here, either the pid file doesn't exist or is
+    # unreadbable or the process doesn't exist.
+    return undef;
+  }
+
+# link_iface(<server name>)
+
+# Determine the interface name of the link to a server.  Counts on the
+# file written by pppd for our link to contain the interface name.
+
+sub link_iface($)
+  {
+    my $server = shift;
+
+    # Since the peer file should contain the "linkname" parameter, we
+    # can find the file that records the process ID based on the
+    # server name.
+    my $pid_file = "/var/run/ppp-".$server.".pid";
+
+    # Open the file if we can.
+    if(open PIDFILE, "<$pid_file")
+      {
+	# The file created by the linkname directive contains not just
+	# the pid, but also the interface name.  We'll look for a line
+	# with an interface name on it, and if we find one, return it.
+
+	my $iface = undef;
+	while(<PIDFILE>)
+	  {
+	    chomp;
+	    if(/^(ppp\d+)$/)
+	      {
+		$iface = $1;
+		last;
+	      }
+	  }
+	close PIDFILE;
+
+	return $iface;
+      }
+
+    return undef;
+  }
+
+# ip_of_iface(<interface name>)
+
+# Determine the IP address of a network interface by examining the
+# output of the ifconfig command.  Also ensures that the interface is
+# up currently.
+
+sub ip_of_iface($$)
+  {
+    my $ifconfig = shift;
+    my $iface = shift;
+
+    # Get information about this interface, ignoring errors.
+    my $ifconfig_out = `$ifconfig $iface 2>/dev/null`;
+
+    # If it's up and we can find the address...
+    if(($ifconfig_out =~ /\bUP\b/) &&
+       ($ifconfig_out =~ /\binet\s+addr:(\d+\.\d+\.\d+\.\d+)/))
+      {
+	my $addr = $1;
+	my $peer_addr;
+
+	# If we can find the peer address, capture it
+	if($ifconfig_out =~ /\bP-t-P:(\d+\.\d+\.\d+\.\d+)/)
+	  {
+	    $peer_addr = $1;
+	  }
+
+	# Return our IP and, if we could find it, the IP of the peer.
+	return ($addr, $peer_addr);
+      }
+
+    # If it's not up or we can't find its address, return undef.
+    return undef;
+  }
+
+# init_config
+
+# Return an initial guess at the configuration.  Not all configuration
+# variables are set, as we can't guess some of them.
+
+sub init_config()
+  {
+    my %config;
+
+    # Look for programs which usually live in one of the sbin's
+
+    foreach my $dir ("/usr/sbin", "/sbin", "/usr/local/sbin")
+      {
+	foreach my $prog ("pppd", "route", "ifconfig",
+			  "iptables", "iptables-save")
+	  {
+	    my $path = $dir."/".$prog;
+	    if(-x $path)
+	      {
+		$config{$prog} = $path;
+	      }
+	  }
+      }
+
+    # Look for programs which usually live in one of the bin's
+
+    foreach my $dir ("/usr/bin", "/bin", "/usr/local/bin")
+      {
+	foreach my $prog ("ssh")
+	  {
+	    my $path = $dir."/".$prog;
+	    if(-x $path)
+	      {
+		$config{$prog} = $path;
+	      }
+	  }
+      }
+
+    # Assume ppp stores configuration data in /etc/ppp
+
+    $config{'ppp_dir'} = "/etc/ppp";
+
+    # Assume the default server
+
+    $config{'server'} = $Default_Server;
+
+    # Assume the default set of hosts/nets to be routed over the
+    # connection.
+
+    $config{"route_list"} = $Default_Routes;
+
+    return \%config;
+  }
+
+# read_config(<config file> [, <initial config>])
+
+# Read in a configuraiton from a file, and return it (as a reference
+# to a hash).  Returns undef if the filename looks funny.
+
+sub read_config($;$)
+  {
+    my $config_file = safe_file(shift);
+
+    if(!defined $config_file)
+      {
+	print STDERR "Warning: Config file '", $config_file, "' looks unsafe to me, I'm NOT reading it\n";
+	return undef;
+      }
+
+    my $base_config = shift;
+
+    my %config;
+    if(defined $base_config)
+      {
+	%config = %$base_config;
+      }
+    my %nat_map;
+    my @routes;
+
+    # Open the config file and read all its lines into an array.
+    if(!open CONFIG, "<$config_file")
+      {
+	print STDERR ("Warning: Couldn't open config file '", $config_file,
+		      "': $!\n");
+	return \%config;
+      }
+    my @config_lines = <CONFIG>;
+    close CONFIG;
+
+    # Process each config line.
+    foreach my $config_line (@config_lines)
+      {
+	# Remove the trailing newline
+	chomp $config_line;
+
+	# Remove comments
+	$config_line =~ s/#.*$//;
+
+	# Skip blank lines
+	next if $config_line =~ /^\s*$/;
+
+	# If this is a NAT association, record it.
+	if($config_line =~ /^nat\s+([-.\w]+)\s+([-.\w]+)\s*$/)
+	  {
+	    $nat_map{$1} = $2;
+	  }
+	if($config_line =~ /^route\s+([-\/.\w]+)\s*$/)
+	  {
+	    push @routes, $1;
+	  }
+	# If this is a variable setting, record it.
+	elsif($config_line =~ /^([-\w]+)\s*=\s*([-.\/\w]+)\s*$/)
+	  {
+	    my $var = $1;
+	    my $val = $2;
+
+	    if(($var eq "nat_map") || ($var eq "route_list"))
+	      {
+		print STDERR "Warning: Config variable name '$var' is resevred, ignoring setting\n";
+	      }
+	    else
+	      {
+		$config{$1} = $2;
+	      }
+	  }
+      }
+
+    if(scalar(keys %nat_map))
+      {
+	$config{"nat_map"} = \%nat_map;
+      }
+    elsif(!exists($config{"nat_map"}))
+      {
+	$config{"nat_map"} = {};
+      }
+
+    if(scalar(@routes))
+      {
+	$config{"route_list"} = \@routes;
+      }
+    elsif(!exists($config{"route_list"}))
+      {
+	$config{"route_list"} = [];
+      }
+
+    # @@@ We should sanitize config values (as if they required taint
+    # checks)
+
+    return \%config;
+  }
+
+# write_config(<config file>, <config data>)
+
+# Write a configuration out to a file
+
+sub write_config($$)
+  {
+    my $config_file = safe_file(shift);
+
+    if(!defined $config_file)
+      {
+	print STDERR "Warning: Config file '", $config_file, "' looks unsafe to me, I'm NOT writing it\n";
+	return undef;
+      }
+    else
+      {
+	print STDERR "Writing $config_file...\n";
+      }
+
+    my $config = shift;
+
+    open CONFIG, ">$config_file" ||
+      die "Con't open $config_file for writing: $!\n";
+
+    print CONFIG "# Simple variables\n\n";
+
+    foreach my $var (sort keys %$config)
+      {
+	next if(($var eq "nat_map") || ($var eq "route_list"));
+
+	print CONFIG $var, " = ", $config->{$var}, "\n";
+      }
+
+    print CONFIG "\n# NAT associations\n\n";
+
+    foreach my $src (sort keys %{$config->{"nat_map"}})
+      {
+	my $dst = $config->{"nat_map"}->{$src};
+	print CONFIG "nat ", $src, " ", $dst, "\n";
+      }
+
+    print CONFIG "\n# Hosts/nets to route through the connection\n\n";
+
+    foreach my $target (sort @{$config->{"route_list"}})
+      {
+	print CONFIG "route ", $target, "\n";
+      }
+
+    close CONFIG;
+
+    return 1;
+  }
+
+# check_config(<configuration hash ref>)
+
+# Check for any missing or incorrect configuration settings.  Die if
+# there are any.
+
+sub check_config($)
+  {
+    my $config = shift;
+
+    if(!exists($config->{'pppd'}) || !-x $config->{'pppd'})
+      {
+	$msg =  "Missing or incorrect value for pppd executable path.  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+    if(!exists($config->{'ssh'}) || !-x $config->{'ssh'})
+      {
+	$msg =  "Missing or incorrect value for ssh executable path.  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+    if(!exists($config->{'route'}) || !-x $config->{'route'})
+      {
+	$msg =  "Missing or incorrect value for route executable path.  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+    if(!exists($config->{'ifconfig'}) || !-x $config->{'ifconfig'})
+      {
+	$msg =  "Missing or incorrect value for ifconfig executable path.  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+    if(!exists($config->{'iptables'}) || !-x $config->{'iptables'})
+      {
+	$msg =  "Missing or incorrect value for iptables executable path.  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+    if(!exists($config->{'iptables-save'}) || !-x $config->{'iptables-save'})
+      {
+	$msg =  "Missing or incorrect value for iptables-save executable ".
+	  "path.  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+    if(!exists($config->{'server'}) || !inet_aton($config->{'server'}))
+      {
+	$msg =  "Missing or incorrect value for remote server host.  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+    if(!exists($config->{'ppp_dir'}) || !-d $config->{'ppp_dir'})
+      {
+	$msg =  "Missing or incorrect value for ppp configuration ".
+	  "directory.  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+    my $peer_file = $config->{'ppp_dir'}."/peers/".$config->{'server'};
+    if(!-f $peer_file)
+      {
+	$msg =  "Missing ppp peer file (".$peer_file.").  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+    if(!exists($config->{'key_file'}) || !-f $config->{'key_file'})
+      {
+	$msg =  "Missing or incorrect value for ssh authentication key ".
+	  "file.  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+    if(!exists($config->{'user'}))
+      {
+	$msg =  "Missing value for remote username.  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+    if(!exists($config->{'ip_range'}))
+      {
+	$msg =  "Missing value for assigned IP range.  ".
+	  "Run '$PROGRAM_NAME setup' to fix this.";
+	die wrap("", "", $msg);
+      }
+  }
+
+# do_setup
+
+# Ask the user a series of questions to configure everything needed to
+# configure their system for making a VPN connection to vestasys.org.
+
+sub do_setup()
+  {
+    # Start with an initial guess at configuration settings.  Then, if
+    # we have a config file, read it.  (We do it this way in case some
+    # settings we could guess happen to be missing from the config
+    # file.)
+    my $config;
+    $config = init_config();
+    if(-r $Config_File)
+      {
+	$config = read_config($Config_File, $config);
+      }
+
+    my $msg;
+
+    # Sanity check #1: Is this a Linux machine?
+    if(uname() !~ /^Linux$/)
+      {
+	print "uname = {", uname(), "}\n";
+	$msg = "This script has not been tested on non-Linux operating systems.  ".
+	  "It might work, but you'd better be prepared to ".
+	  "a) hack on this script, ".
+	  "b) read the pppd and ssh man pages thoroughly, and ".
+	  "c) debug problems you run into on your own.";
+	print("\n", wrap("", "", $msg), "\n\n");
+	exit(1) unless query_user_yesno("Really continue?", 0);
+      }
+    else
+      {
+	# Sanity check #2: Is this a 2.4 kernel?
+	my $os_release = uname("-r");
+	if($os_release =~ /^2\.[0123]/ || $os_release =~ /^[01]\./)
+	  {
+	    $msg = "This script has only been tested 2.4 kernel Linux systems.  ".
+	      "Your kernel seems to be older than that.  ".
+	      "You might be able to get connected, but this script will be unable to set up NAT rules for you, ".
+	      "which means you won't be able to make connections properly.";
+	    print("\n", wrap("", "", $msg), "\n\n");
+	    exit(1) unless query_user_yesno("Really continue?", 0);
+	  }
+	elsif($os_release =~ /^2\.[5-9]/ || $os_release =~ /^[0-9]{2,}/)
+	  {
+	    $msg = "This script has only been tested 2.4 kernel Linux systems.  ".
+	      "Your kernel seems to be newer than that.  ".
+	      "If this kernel's packet mangling uses the iptables(8) command, it might not matter.";
+	    print("\n", wrap("", "", $msg), "\n\n");
+	    exit(1) unless query_user_yesno("Continue?");
+  	  }
+      }
+
+    # Sanity check #3: Are we running with root priviledges?
+    if($EUID != 0)
+      {
+	$msg = "This script should normally be run by root only.  ".
+	  "The setup procedure needs to be able to write to priviledged ".
+	  "files and directories.  ".
+	  "Connecting and disconnecting perform priviledge operations ".
+	  "usually accessible only by root.";
+
+	print("\n", wrap("", "", $msg), "\n\n");
+	exit(1) unless query_user_yesno("Continue as non-root user?");
+      }
+
+    # Ask the user about the different executables we need.
+
+    $msg = "You need to have pppd installed.  ".
+      "If you have it already, then you can probably just accept the default.  ".
+      "If it's not installed, you should probably hit control-C now and install it.  ".
+      "This script has been tested with pppd 2.4.0.  ".
+      "If you version is older, you may need to upgrade.";
+    print("\n", wrap("", "", $msg), "\n\n");
+    my $default_pppd = undef;
+    if(exists($config->{'pppd'}) && -x $config->{'pppd'})
+      {
+	$default_pppd = $config->{'pppd'};
+      }
+    $config->{'pppd'} = query_executable("pppd executable", $default_pppd);
+
+    $msg = "You need to have an ssh client installed.  ".
+      "If you have one already, then you can probably just accept the default.  ".
+      "If you don't have one installed, you should probably hit control-C now.  ".
+      "This script has been tested with OpenSSH 2.5.2p2.  ".
+      "If you version is older, you may need to upgrade.";
+    print("\n", wrap("", "", $msg), "\n\n");
+    my $default_ssh = undef;
+    if(exists($config->{'ssh'}) && -x $config->{'ssh'})
+      {
+        $default_ssh = $config->{'ssh'};
+      }
+    $config->{'ssh'} = query_executable("ssh executable", $default_ssh);
+
+    $msg = "This script uses the route(8) command.  ".
+      "If your system has a network connection at all, ".
+      "it's almost certainly installed, ".
+      "so you can probably just accept the default.";
+    print("\n", wrap("", "", $msg), "\n\n");
+    my $default_route = undef;
+    if(exists($config->{'route'}) && -x $config->{'route'})
+      {
+	$default_route = $config->{'route'};
+      }
+    $config->{'route'} = query_executable("route executable", $default_route);
+
+    $msg = "This script uses the ifconfig(8) command.  ".
+      "If your system has a network connection at all, ".
+      "it's almost certainly installed, ".
+      "so you can probably just accept the default.";
+    print("\n", wrap("", "", $msg), "\n\n");
+    my $default_ifconfig = undef;
+    if(exists($config->{'ifconfig'}) && -x $config->{'ifconfig'})
+      {
+	$default_ifconfig = $config->{'ifconfig'};
+      }
+    $config->{'ifconfig'} = query_executable("ifconfig executable",
+					     $default_ifconfig);
+
+    $msg = "This script uses the iptables(8) command to set up NAT rules for your tunnel.  ".
+      "This requires a 2.4 Linux kernel.  ".
+      "Also, you must NOT use the backward-compatibility ipchains(8) interface ".
+      "(as both can't be used together).";
+    print("\n", wrap("", "", $msg), "\n\n");
+    my $default_iptables = undef;
+    if(exists($config->{'iptables'}) && -x $config->{'iptables'})
+      {
+	$default_iptables = $config->{'iptables'};
+      }
+    $config->{'iptables'} = query_executable("iptables executable", $default_iptables);
+
+    $msg = "This script uses the iptables-save(8) command to examine ".
+      "existing packet filtering/mangling rules.  ".
+      "If you have iptables you should have iptables-save too, ".
+      "so you can probably accept the default.";
+    print("\n", wrap("", "", $msg), "\n\n");
+    my $default_iptables_save = undef;
+    if(exists($config->{'iptables-save'}) && -x $config->{'iptables-save'})
+      {
+	$default_iptables_save = $config->{'iptables-save'};
+      }
+    $config->{'iptables-save'} = query_executable("iptables-save executable",
+						  $default_iptables_save);
+
+    # Ask the user where the ppp directory is
+
+    $msg = "This script needs to know where the ppp directory is.  ".
+      "Unless your distribution puts this somewhere unusual or you're ".
+      "using a custom-compiled pppd, you should accept the default.  ";
+    print("\n", wrap("", "", $msg), "\n\n");
+    my $default_ppp_dir = undef;
+    if(exists($config->{'ppp_dir'}) && -d $config->{'ppp_dir'})
+      {
+	$default_ppp_dir = $config->{'ppp_dir'};
+      }
+    $config->{'ppp_dir'} = query_directory("ppp directory", $default_ppp_dir);
+
+    # Ask the user to specify the remote server.
+
+    $msg = "This script needs to know the name (or IP address) of the ".
+      "server you'll be connecting to.  ".
+      "You can usually accept the default. ";
+    print("\n", wrap("", "", $msg), "\n\n");
+
+    while(1)
+      {
+	$config->{'server'} = query_user("Remote server", $config->{'server'});
+	last if(my $hostent = inet_aton($config->{'server'}));
+	print("Sorry, but I can't seem to resolve the host '",
+	      $config->{'server'}, "'\n");
+      }
+
+    # Ask the user to specify the user at the remote server.
+
+    $msg = "You chould have been assigned a username which your conneciton will authenticate as. ".
+      "If you haven't been given one yet, you should hit control-C now and send e-mail to ".$Admin_Email.".";
+    print("\n", wrap("", "", $msg), "\n\n");
+
+    $config->{'user'} = query_user("Remote username", $config->{'user'});
+
+    # Ask the user what IP address range they've been allocated
+
+    $msg = "Along with your remote username, you should have been assigned ".
+      "an IP address range which you are allowed to use on the vestasys.org ".
+      "private network.  ".
+      "You should enter that here in the form a dotted quad within the ".
+      "class A private range (10.x.y.z), followed by a slash, ".
+      "followed by the number of bits in the netmask ".
+      "(i.e. 10.86.1.0/24).  ".
+      "If you haven't been given an IP range yet, you should hit control-C ".
+      "now and send e-mail to ".$Admin_Email.".";
+    print("\n", wrap("", "", $msg), "\n\n");
+
+    while(1)
+      {
+	$config->{'ip_range'} = query_user("IP range", $config->{'ip_range'});
+	if(($config->{'ip_range'} =~
+	   /^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\/([0-9]{1,2})$/) &&
+	   ($1 == 10) && ($2 < 255) && ($3 < 255) && ($4 < 255) && ($5 <= 32))
+	  {
+	    last;
+	  }
+	$msg = "Sorry, but what you entered doesn't look right.  ".
+	  "Double check that you entered exactly what you were assigned.  ".
+	  "The first number  should be 10, the next three should be below 255, ".
+	  "and the number of bits in the netmask should be below 32.";
+	print("\n", wrap("", "", $msg), "\n\n");
+      }
+
+    # Ask the user what hosts/nets should be routed through the
+    # connection
+
+    $msg = "Packets for certain hosts and/or networks will be routed ".
+      "over the conneciton this script initiates.  ".
+      "You can alter this set of hosts/nets, but usually there's no need to.  ".
+      "If you do make any changes, be sure not to re-route packets ".
+      "to the server itself (".$config->{'server'}."), or your connection ".
+      "won't work correctly.";
+    print("\n", wrap("", "", $msg), "\n\n");
+
+    print("Current hosts/nets routed over the connection:\n\n\t",
+	  join("\n\t", @{$config->{"route_list"}}), "\n\n");
+
+    if(query_user_yesno("Make changes to routing?", 0))
+      {
+	# Actually let the user make changes.
+	print "\n";
+	$config->{"route_list"} = edit_routes($config->{"server"},
+					      @{$config->{"route_list"}});
+      }
+
+    # Ask the user for NAT assocaittions
+
+    $msg = "Packets from machines on your network must have their ".
+      "addresses translated before reaching the remote network.  ".
+      "Any machines on your local network which need to be contacted from ".
+      "the remote network (such as your local Vesta repository or other ".
+      "servers) will need to be assigned a specific address within your ".
+      "assigned IP address range (".$config->{'ip_range'}.").  ".
+      "Any machine simply acting just as a client to services on the ".
+      "remote network doesn't need such an association.";
+    print("\n", wrap("", "", $msg), "\n\n");
+
+    if(scalar(keys %{$config->{"nat_map"}}) > 0)
+      {
+	print("Current assigned network address translations:\n\n");
+	while(my($nat_src, $nat_dst) = each %{$config->{"nat_map"}})
+	  {
+	    print("\t", $nat_src, " -> ", $nat_dst, "\n");
+	  }
+	print("\n");
+      }
+    else
+      {
+	print("No network address translations assigned.\n\n");
+      }
+
+    if(query_user_yesno("Make changes to address translations?", 0))
+      {
+	$config->{"nat_map"} = edit_nats($config->{'ip_range'},
+					 %{$config->{"nat_map"}});
+      }
+
+    # Check that the user doesn't have any options settings in
+    # /etc/ppp/options.  If they do, warn them that they might be
+    # trouble.
+    my $global_ppp_options = $config->{'ppp_dir'}."/options";
+    if(-e $global_ppp_options && ! -z $global_ppp_options)
+      {
+	$msg = "You have a global ppp options file (".$global_ppp_options.
+	  ") that is not empty.  ".
+	  "This script is not smart enough to examine it's contents and ".
+	  "determine if the options there will cause problems for the ".
+	  "VPN connection.  ".
+	  "In general, it's probably a better idea to put all options in ".
+	  "a peer file (in ".$config->{'ppp_dir'}."/peers).  ".
+	  "See the pppd(8) man page and the description of the 'call' ".
+	  "option for more information.";
+	print("\n", wrap("", "", $msg), "\n\n");
+
+	query_user("Press return to continue");
+      }
+
+    # Store the host key in root's known hosts file
+
+    store_host_key($config->{'server'});
+
+    # Offer to generate a key pair
+
+    if(!exists($config->{'key_file'}))
+       {
+	 $config->{'key_file'} = default_key_file($config->{'server'});
+       }
+    $config->{'key_file'} = make_key_pair($config->{'key_file'});
+
+    # Write the config file
+
+    write_config($Config_File, $config);
+
+    # Set up a ppp peer file
+
+    write_ppp_peer_file($config);
+
+    # Remind the user to e-mail the public key to the admin
+    $msg = "If you haven't done so before, you need to e-mail the ".
+      "public key for your connection (stored in ".$config->{'key_file'}.
+      ".pub) to the administrator (".$Admin_Email.").";
+    print("\n", wrap("", "", $msg), "\n\n");
+    query_user("Press return to continue");
+  }
+
+# do_start
+
+# Start up the connection.
+
+sub do_start()
+  {
+    # Sanity check: Are we running with root priviledges?
+    if($EUID != 0)
+      {
+	die "$PROGRAM_NAME: only root may initiate a connection.";
+      }
+
+    # ----------------------------------------
+    # Read configuration (or die trying).
+    # ----------------------------------------
+    my $config;
+    my $msg;
+    if(-r $Config_File)
+      {
+	$config = read_config($Config_File);
+      }
+    elsif(!-e $Config_File)
+      {
+	$msg =  "Config file $Config_File doesn't seem to exist.  ".
+	  "Run '$PROGRAM_NAME setup' to create it.";
+	die wrap("", "", $msg);
+      }
+    else
+      {
+	die "Can't read $Config_File\n";
+      }
+
+    # ----------------------------------------
+    # Make sure we're not missing any configuration settings and check
+    # a few other things.
+    # ----------------------------------------
+
+    check_config($config);
+
+    # ----------------------------------------
+    # Make sure the connection isn't already active.
+    # ----------------------------------------
+
+    my $pid = link_process($config->{'server'});
+    if($pid)
+      {
+	$msg = "The link seems to be up already (process ID ".$pid.
+	  ").  ".
+	  "If you want to shut it down and start it back up again, run '".
+	  $PROGRAM_NAME." restart'.";
+	die wrap("", "", $msg);
+      }
+
+    # ----------------------------------------
+    # Start pppd
+    # ----------------------------------------
+
+    STDOUT->autoflush(1);
+    print "Starting pppd and ssh ....";
+
+    @pppd_cmd = ($config->{'pppd'}, "call", $config->{'server'});
+    my $pppd_result = system(@pppd_cmd);
+    if($pppd_result == -1)
+      {
+	die "Couldn't start pppd: $!";
+      }
+    elsif(($pppd_result >> 8) != 0)
+      {
+	$msg = "pppd exited with failure: ".($pppd_result >> 8);
+	die $msg;
+      }
+
+    # ----------------------------------------
+    # Wait for the ppp interface to appear
+    # ----------------------------------------
+
+    my $ppp_iface;
+    my $ppp_ip;
+    my $ppp_peer_ip;
+    for(my $timeout=60; $timeout >= 0; $timeout--)
+      {
+	if(!defined $ppp_iface)
+	  {
+	    $ppp_iface = link_iface($config->{'server'});
+	  }
+	elsif(!link_process($config->{'server'}))
+	  {
+	    die "Connection failed (ppp started, then died).\n";
+	  }
+
+	if($ppp_iface && !defined $ppp_ip)
+	  {
+	    ($ppp_ip, $ppp_peer_ip) = ip_of_iface($config->{'ifconfig'},
+						  $ppp_iface);
+	  }
+
+	# If the ppp link seems to be up, stop waiting.
+	last if(defined $ppp_ip);
+
+	sleep 1;
+	print ".";
+      }
+
+    if(!defined $ppp_ip)
+      {
+	die "Timed out waiting for connection to start.\n";
+      }
+
+    # ----------------------------------------
+    # Setup NAT rules
+    # ----------------------------------------
+
+    print "\nAdding NAT rules .... ";
+
+    # See if the NAT chains for this server exist already.  If the
+    # do, flush them (clearing all rules).  If they don't create them.
+
+    my $pre_chain_name = $config->{'server'}."-pre";
+    my $post_chain_name = $config->{'server'}."-post";
+
+    my @iptables_save_out =
+      `$config->{'iptables-save'} --table nat 2>/dev/null`;
+    if(grep /^:$pre_chain_name\s+/, @iptables_save_out)
+      {
+	unless(system($config->{'iptables'}, "-t", "nat",
+		      "-F", $pre_chain_name) == 0)
+	  {
+	    $msg = "Warning: Failed to flush existing NAT chain ".
+	      $pre_chain_name;
+	    print STDERR (wrap("", "", $msg), "\n");
+	  }
+      }
+    else
+      {
+	unless(system($config->{'iptables'}, "-t", "nat",
+		      "-N", $pre_chain_name) == 0)
+	  {
+	    $msg = "Error: Couldn't create NAT chain ".
+	      $pre_chain_name;
+	    die wrap("", "", $msg);
+	  }
+      }
+    if(grep /^:$post_chain_name\s+/, @iptables_save_out)
+      {
+	unless(system($config->{'iptables'}, "-t", "nat",
+		      "-F", $post_chain_name) == 0)
+	  {
+	    $msg = "Warning: Failed to flush existing NAT chain ".
+	      $post_chain_name;
+	    print STDERR (wrap("", "", $msg), "\n");
+	  }
+      }
+    else
+      {
+	unless(system($config->{'iptables'}, "-t", "nat",
+		      "-N", $post_chain_name) == 0)
+	  {
+	    $msg = "Error: Couldn't create NAT chain ".
+	      $post_chain_name;
+	    die wrap("", "", $msg);
+	  }
+      }
+
+    # Add rules for the SNAT/DNAT associations (hosts for which we
+    # allow connections coming back).
+
+    while(my($nat_local, $nat_remote) = each %{$config->{"nat_map"}})
+      {
+	unless(system($config->{'iptables'}, "-t", "nat",
+		      "-A", $post_chain_name,
+		      "--source", $nat_local, "-j", "SNAT",
+		      "--to-source", $nat_remote) == 0)
+	  {
+	    $msg = "Warning: Failed to add source NAT rule for ".
+	      $nat_local." => ".$nat_remote;
+	    print STDERR (wrap("", "", $msg), "\n");
+	  }
+	unless(system($config->{'iptables'}, "-t", "nat",
+		      "-A", $pre_chain_name,
+		      "--destination", $nat_remote, "-j", "DNAT",
+		      "--to-destination", $nat_local) == 0)
+	  {
+	    $msg = "Warning: Failed to add destination NAT rule for ".
+	      $nat_local." => ".$nat_remote;
+	    print STDERR (wrap("", "", $msg), "\n");
+	  }
+      }
+
+    # Compute the range of unused addresses and add a catch-all
+    # multi-target SNAT for them.
+
+    my ($unused_low, $unused_high) = range_of_net($config->{'ip_range'});
+    foreach my $used_addr (values %{$config->{"nat_map"}},
+			   $ppp_ip, $ppp_peer_ip)
+      {
+	my $used_addr_packed = inet_aton($used_addr);
+
+	# If this address is within the range, we need to shrink it to
+	# exclude this address.
+	if(($used_addr_packed ge $unused_low) &&
+	   ($used_addr_packed le $unused_high))
+	  {
+	    # Is it closer to the high end or the low end?
+	    my $used_addr_num = unpack("N", $used_addr_packed);
+	    my $high_dist = unpack("N", $unused_high) - $used_addr_num;
+	    my $low_dist = $used_addr_num -  unpack("N", $unused_low);
+
+	    # Narrow the range to exclude the 
+	    if($high_dist < $low_dist)
+	      {
+		$unused_high = pack("N", ($used_addr_num - 1));
+	      }
+	    else
+	      {
+		$unused_low = pack("N", ($used_addr_num + 1));
+	      }
+	  }
+      }
+
+    if($unused_low lt $unused_high)
+      {
+	my $range = inet_ntoa($unused_low)."-".inet_ntoa($unused_high);
+	unless(system($config->{'iptables'}, "-t", "nat",
+		      "-A", $post_chain_name,
+		      "-j", "SNAT", "--to-source", $range) == 0)
+	  {
+	    $msg = "Warning: Failed to add generic source NAT rule ".
+	      "(range: ".$range.")";
+	    print STDERR (wrap("", "", $msg), "\n");
+	  }
+      }
+    elsif($unused_low eq $unused_high)
+      {
+	my $single = inet_ntoa($unused_low);
+	unless(system($config->{'iptables'}, "-t", "nat",
+		      "-A", $post_chain_name,
+		      "-j", "SNAT",
+		      "--to-source", $single) == 0)
+	  {
+	    $msg = "Warning: Failed to add generic source NAT rule ".
+	      "(single unused: ".$single.")";
+	    print STDERR (wrap("", "", $msg), "\n");
+	  }
+      }
+    else
+      {
+	$msg = "Warning: failed to find an unused range of IPs, ".
+	  "no generic SNAT rule added!";
+	print STDERR (wrap("", "", $msg), "\n");
+      }
+
+    # Remove any existing rules sending packets to our chains.  Add
+    # rules to send packets to/from our interface through them.
+
+    foreach my $old_rule (@iptables_save_out)
+       {
+	 if($old_rule =~ /^-A\s+(.*\s+-j\s+$pre_chain_name)/ ||
+	    $old_rule =~ /^-A\s+(.*\s+-j\s+$post_chain_name)/)
+	   {
+	     # Change this command from "add" to "delete" and execute
+	     # it
+	     unless(system($config->{'iptables'}, "-t", "nat", "-D",
+			   split(' ', $1)) == 0)
+	       {
+		 $msg = "Warning: failed to remove an old rule (".
+		   $old_rule.")";
+		 print STDERR (wrap("", "", $msg), "\n");
+	       }
+	   }
+       }
+    unless(system($config->{'iptables'}, "-t", "nat",
+		  "-A", "PREROUTING",
+		  "-i", $ppp_iface,
+		  "-j", $pre_chain_name) == 0)
+      {
+	$msg = "Error: Couldn't add PREROUTING rule for interface ".
+	  $ppp_iface;
+	die wrap("", "", $msg);
+	
+      }
+    unless(system($config->{'iptables'}, "-t", "nat",
+		  "-I", "POSTROUTING",
+		  "-o", $ppp_iface,
+		  "-j", $post_chain_name) == 0)
+      {
+	$msg = "Error: Couldn't add POSTROUTING rule for interface ".
+	  $ppp_iface;
+	die wrap("", "", $msg);
+      }
+
+    # ----------------------------------------
+    # Add routes
+    # ----------------------------------------
+
+    print "\nAdding routes .... ";
+
+    foreach my $route (@{$config->{"route_list"}})
+      {
+	# If it looks like a network and netmask...
+	if($route =~ /^(\d+\.\d+\.\d+\.\d+)\/(\d+)/)
+	  {
+	    my $net = $1;
+	    my $mask_bits = $2;
+	    my $mask = netmask_from_bits($mask_bits);
+
+	    my @route_cmd = ($config->{"route"}, "add", "-net", $net,
+			     "netmask", $mask, "dev", $ppp_iface);
+
+	    unless(system(@route_cmd) == 0)
+	      {
+		print STDERR ("Warning: Failed to add route '$route'\n");
+	      }
+	  }
+	# ...or if we can parse it as an IP or resolve it as a
+	# hostname...
+	elsif(inet_aton($route))
+	  {
+	    my @route_cmd = ($config->{"route"}, "add", "-host", $route,
+			     "dev", $ppp_iface);
+
+	    unless(system(@route_cmd) == 0)
+	      {
+		print STDERR ("Warning: Failed to add route '$route'\n");
+	      }
+	  }
+	# ... otherwise, skip it.
+	else
+	  {
+	    $msg = "Warning: Skipping route '$route' ".
+	      "(it doesn't look like a net+mask, isn't a proper IP address, ".
+	      "and doesn't resolve as a hostname)";
+	    print STDERR (wrap("", "", $msg), "\n");
+	  }
+      }
+
+    # ----------------------------------------
+    # Turn on IP forwardning
+    # ----------------------------------------
+
+    print "\nTurning on packet forwarding .... ";
+
+    if(open FWD_SYSCTL, ">/proc/sys/net/ipv4/ip_forward")
+      {
+	print FWD_SYSCTL "1\n";
+	close FWD_SYSCTL;
+      }
+    else
+      {
+	die "Error: Couldn't open /proc/sys/net/ipv4/ip_forward to turn on packet forwarding: $!\n";
+      }
+
+    print "\nDone.\n";
+  }
+
+# do_stop
+
+# Stop the connection.
+
+sub do_stop()
+  {
+    # Sanity check: Are we running with root priviledges?
+    if($EUID != 0)
+      {
+	die "$PROGRAM_NAME: only root may terminate a connection.";
+      }
+
+    # ----------------------------------------
+    # Read configuration (or die trying).
+    # ----------------------------------------
+    my $config;
+    my $msg;
+    if(-r $Config_File)
+      {
+	$config = read_config($Config_File);
+      }
+    elsif(!-e $Config_File)
+      {
+	$msg =  "Config file $Config_File doesn't seem to exist.  ".
+	  "Run '$PROGRAM_NAME setup' to create it.";
+	die wrap("", "", $msg);
+      }
+    else
+      {
+	die "Can't read $Config_File\n";
+      }
+
+    # ----------------------------------------
+    # Make sure we're not missing any configuration settings and check
+    # a few other things.
+    # ----------------------------------------
+
+    check_config($config);
+
+    # ----------------------------------------
+    # Find the right ppp interface process and check whether it's
+    # still running.  If it is, kill it.
+    # ----------------------------------------
+
+    my $pid = link_process($config->{'server'});
+    if($pid)
+      {
+	STDOUT->autoflush(1);
+	print "Killing pppd (process ID $pid) ...";
+
+	if(kill("INT", $pid))
+	  {
+	    # -------------------------------------------------------
+	    # Find and remove any rules sending packets to our chains.
+	    # (We don't bother cleaning up the chains themselves, as
+	    # once they're unreferenced they'll do no harm.)
+	    # -------------------------------------------------------
+
+	    print "\nRemoving NAT rules ...";
+
+	    my @iptables_save_out =
+	      `$config->{'iptables-save'} --table nat 2>/dev/null`;
+
+	    my $pre_chain_name = $config->{'server'}."-pre";
+	    my $post_chain_name = $config->{'server'}."-post";
+
+	    foreach my $old_rule (@iptables_save_out)
+	      {
+		if($old_rule =~ /^-A\s+(.*\s+-j\s+$pre_chain_name)/ ||
+		   $old_rule =~ /^-A\s+(.*\s+-j\s+$post_chain_name)/)
+		  {
+		    # Change this command from "add" to "delete" and
+		    # execute it
+		    unless(system($config->{'iptables'}, "-t", "nat", "-D",
+			      split(' ', $1)) == 0)
+		      {
+			$msg = "Warning: failed to remove an old rule (".
+			  $old_rule.")";
+			print STDERR (wrap("", "", $msg), "\n");
+		      }
+		  }
+	      }
+
+	    # -------------------------------------------------------
+	    # Wait for pppd to completely shut down.  Since we may be
+	    # restarting, it's important that we not proceed until
+	    # pppd has exited.
+	    # -------------------------------------------------------
+	    for(my $timeout=60;
+		($timeout >= 0) &&
+		($pid = link_process($config->{'server'}));
+		$timeout--)
+	      {
+		sleep(1);
+	      }
+	    if(!$pid)
+	      {
+		print "\npppd exited.\n";
+	      }
+	    else
+	      {
+		print "\nTimed out waiting for pppd to exit.\n";
+	      }
+	  }
+	else
+	  {
+	    print "\nKilling pppd (process ID $pid) failed!\n";
+	  }
+      }
+  }
+
+# do_status
+
+# Check the status of the connection.
+
+sub do_status()
+  {
+    # ----------------------------------------
+    # Read configuration (or die trying).
+    # ----------------------------------------
+    my $config;
+    my $msg;
+    if(-r $Config_File)
+      {
+	$config = read_config($Config_File);
+      }
+    elsif(!-e $Config_File)
+      {
+	$msg =  "Config file $Config_File doesn't seem to exist.  ".
+	  "Run '$PROGRAM_NAME setup' to create it.";
+	die wrap("", "", $msg);
+      }
+    else
+      {
+	die "Can't read $Config_File\n";
+      }
+
+    # ----------------------------------------
+    # Make sure we're not missing any configuration settings and check
+    # a few other things.
+    # ----------------------------------------
+
+    check_config($config);
+
+    # ----------------------------------------
+    # Find the right ppp interface process and check whether it's
+    # still running.
+    # ----------------------------------------
+
+    my $pid = link_process($config->{'server'});
+    if($pid)
+      {
+	my $iface = link_iface($config->{'server'});
+	print "Link up: pppd process ID $pid, interface $iface\n";
+      }
+    else
+      {
+	print "Link down\n";
+      }
+  }
+
+# do_restart
+
+# If the connection is up, shut it down.  Regardless of whether it was
+# down to begin with, start it back up.
+
+sub do_restart()
+  {
+    do_stop;
+    do_start;
+  }
+
+if($#ARGV == 0)
+  {
+    if($ARGV[0] eq "setup")
+      {
+	do_setup;
+      }
+    elsif($ARGV[0] eq "start")
+      {
+	do_start;
+      }
+    elsif($ARGV[0] eq "stop")
+      {
+	do_stop;
+      }
+    elsif($ARGV[0] eq "status")
+      {
+	do_status;
+      }
+    elsif($ARGV[0] eq "restart")
+      {
+	do_restart;
+      }
+    elsif($ARGV[0] eq "help")
+      {
+	pod2usage(-verbose => 2);
+      }
+    else
+      {
+	pod2usage(1);
+      }
+  }
+else
+  {
+    pod2usage(1);
+  }

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>RepeatabilityLimits - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: RepeatabilityLimits" href="RepeatabilityLimits%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=RepeatabilityLimits&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="RepeatabilityLimits%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="RepeatabilityLimits%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="RepeatabilityLimits.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="RepeatabilityLimits.html">RepeatabilityLimits</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="RepeatabilityLimits.html">RepeatabilityLimits</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="RepeatabilityLimits%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line874">One of Vesta's key features is its guarantee of precise repeatability: any build you perform can be repeated exactly in the future.  However, there are limits to this guarantee.  While Vesta encapsulates all that most build procedures depend upon, it doesn't run your builds in a virtual machine.  (That would make Vesta much less portable and have a significant performance cost.) <span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="What_is_Guaranteed">What is Guaranteed</h1>
+<span class="anchor" id="line-7"></span><p class="line862">The source versions used by a build are immutable and all references to different sources point to specific versions which cannot change over time.  This is preserved by the fact that <a class="http" href="../vesta/doc/man/html/vesta.1.html">the builder</a> will only evaluate models in immutable directories, and <a class="http" href="../vesta/doc/sdl-ref/models.html#import">the import clause</a> only allows references to specific immutable versions.  So the source files used by a specific version of a build cannot be changed once that version is created. <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">The source files completely specify the filesystem contents and environment variables used during each build step.  The SDL model code runs tools with <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_run_tool.html">the _run_tool primitive function</a> which gets its filesystem from the value in <tt>./root</tt> and environment variables from <tt>./envVars</tt>.  These can only come from immutable source files, including other immutable SDL model files, and the results produced by previous tools. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">As long as tools are deterministic with respect to their inputs and only make use of file and directory contents and environment variables as inputs, then your builds should be completely repeatable. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867">
+<h1 id="How_To_Break_Repeatability">How To Break Repeatability</h1>
+<span class="anchor" id="line-14"></span><p class="line874">There are a several things which tools can do which will not be precisely repeatable: <span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><ul><li><p class="line891"><strong>Read data from the network.</strong>  Imagine running wget or scp as a tool.  Obviously, this would depend on data not in the source set Vesta doesn't have any way to prevent a tool from opening network connections. <span class="anchor" id="line-17"></span><ul><li>One potentially unavoidable use of the network is reading license information over the network from a license server.  (Some proprietary tools require the use of a license server to ensure that no more than a certain number of instances of a licensed tool are run simultaneously.) <span class="anchor" id="line-18"></span></li></ul></li><li><p class="line891"><strong>Using values which change over time.</strong>  There are various pieces of information which a program can obtain from the operating system which change over time: <span class="anchor" id="line-19"></span><ul><li><p class="line891"><strong>The system clock.</strong>  A tool could write the current date/time in its output file.  It could also use the current time as a seed for a pseudo-random number generator. <span class="anchor" id="line-20"></span></li><li><p class="line891"><strong>The process ID.</strong>  Similar to reading the current time, using the process ID would produce different resutls on different executions. <span class="anchor" id="line-21"></span></li><li><p class="line891"><strong>The user ID.</strong>  While all tools will be run as the special <tt>vruntool</tt> user, the user ID of that user may be different from one installation to another.  If you want your build to produce the same results at remote sites, don't make any use of the user ID. <span class="anchor" id="line-22"></span></li></ul></li><li><p class="line891"><strong>Using system-provided random sources.</strong> Some operating systems provide a source of random data which is better than most pseudo-random number generators (such as <tt>/dev/random</tt> and <tt>/dev/urandom</tt> on Linux). <span class="anchor" id="line-23"></span></li><li><p class="line891"><strong>Using the timestamps of derived files.</strong> While the timestamps on source files will remain constant once created, files generated by previous tool executions can have different timestamps during different evaluations of the same build.  (Suppose the weeder deletes some old build from the cache and it then gets re-evaluated.  Also, performin a build at a remote site will re-build the derived files, since replication only copies sources.) <span class="anchor" id="line-24"></span></li><li><p class="line891"><strong>Using information about the execution host.</strong> There are several pieces of information which may be available on the current host which tools are executed on, which can change when tools are distributed to different hosts of performed from replicas at other sites: <span class="anchor" id="line-25"></span><ul><li><p class="line891"><strong>The hostname and host's IP address.</strong> <span class="anchor" id="line-26"></span></li><li><p class="line891"><strong>The specific CPU model.</strong>  Usually we expect the ability to run current programs on future CPU products (i.e. backwards compatibility).  However, CPUs do change and add features over time which may be detectable by programs. <span class="anchor" id="line-27"></span></li><li><p class="line891"><strong>Hardware serial number or identifying information.</strong> For example, some versions of Intel CPUs have an individual ID number which can be retrieved by a program. <span class="anchor" id="line-28"></span></li><li><p class="line891"><strong>The specific OS kernel version.</strong>  Eg, from the output of <tt>uname</tt> <span class="anchor" id="line-29"></span></li></ul></li><li><p class="line891"><strong>False pass tool status</strong> If a tool fails, but reports a successful exit status anyway, then Vesta will cache its results.  If the error was from a transient system error (e.g. the <a class="nonexistent" href="RunToolServer.html">RunToolServer</a> host running out of virtual memory, the repository server running out of file descriptors, etc.), then the next invocation of the tool would not fail in the same way.   A well-behaved tool should not exit with successful status when it has really failed, but a buggy tool can cause this sort of situation. <span class="anchor" id="line-30"></span><ul><li><p class="line862">Vesta may cache a good version and a bad version of the same tool run; some builds might cache hit the good version and some the bad. <em>(<a href="KenSchalk.html">KenSchalk</a>: Actually, no, it doesn't randomly choose one on each cache lookup.  If there are two possible hits for the same invocation, one of them will always be used and the other will never be used.  This easiest way to create this situation is if two evaluations simultaneously execute the same tool and add two new entries in parallel.  It's also possible that an earlier evaluation might add the <strong>good</strong> entry and a later evaluation which encounters a transient failure with a buggy tool adds the <strong>bad</strong> entry which subsequently masks the good entry in future lookups.  While it's an interesting bit of trivia, do we really need to discuss it here?)</em> <span class="anchor" id="line-31"></span><ul><li><p class="line862">(JVK: well, then are we saying that the <em>only</em> way this can be non-repeatable is that <em>some</em> of the <em>first N</em> evaluations of this model -- <em>in parallel</em> -- can pass, and one or more of them can fail, and that after that, they <em>all</em> predictably fail (or predictably pass)?  It would be worth saying that forever more all cache lookups of the evaluation are repeatable (on this server), and only the first N in parallel might have inconsistent results.  That limits/bounds the non-repeatability.  Future users/projects considering vesta  i believe will like to know the bounds of the issue.) <span class="anchor" id="line-32"></span></li><li><p class="line862">(JVK: while in most cases this issue might actually be bounded to the first N evaluations, which might seem like a small scope at first, it also seems worth while to note that not all evaluations are created equally.  Ie if an evaluation happens to be one involved in validating the release of changes to the entire project, and it experiences this issue, it will make it seem like &quot;a bad release&quot; was let thru.  (while a single user's evaluation would have more localized consequences.)  It will also look like people can't repeat the results of the released build.  In this case, we are experiencing negative results from 2 outcomes of the <em>false pass</em>) <span class="anchor" id="line-33"></span><ul><li>the false pass exit status has allowed a bad result to be cached in vesta <span class="anchor" id="line-34"></span></li><li><p class="line862">the false pass exit status has propagated thru to the final result of the build, and the build has been judged a success (an issue in <em>using</em> vesta, not <em>in</em> vesta itself) <span class="anchor" id="line-35"></span></li></ul></li><li><p class="line862">(JVK: we could move this text to a <a class="nonexistent" href="RepeatabilityLimitsFalseExitDetails.html">details...</a> section) <span class="anchor" id="line-36"></span></li></ul></li><li><p class="line862">Another repository with the exact same build that did not have the transient system error will pass (or fail in a different way) instead of fail. <em>(<a href="KenSchalk.html">KenSchalk</a>: This seems bullet point seems redundant to me.  Isn't this the definition of violating repeatability?)</em> <span class="anchor" id="line-37"></span><ul><li>(jvk: i would say yes, because it describes how the user will experience this non-repeatability) <span class="anchor" id="line-38"></span></li></ul></li></ul></li></ul><p class="line867">
+<h1 id="Tricks_for_Problematic_Tools">Tricks for Problematic Tools</h1>
+<span class="anchor" id="line-39"></span><p class="line874">You may have a tool in your build process which does something which isn't repeatable.  There are some ways to deal with this: <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><ul><li><p class="line862">If you have a tool that uses the current time in producing its output, you may be able to intercept calls to get the system time.  One way to do this is with <a class="http" href="http://www.code-wizards.com/projects/libfaketime/">the FakeTime Preload Library</a>. <span class="anchor" id="line-42"></span><ul><li>Note that one could use the same method to intercept other system calls and insulate the tool form other things such as the hostname, process ID, etc. <span class="anchor" id="line-43"></span></li></ul></li><li><p class="line862">If you have a tool that uses a character special device that provides random numbers from the operating system, you may be able to replace it.  For example, on Linux you could supply <tt>/dev/random</tt> and <tt>/dev/urandom</tt> to a tool but make them work like <tt>/dev/zero</tt> with: <span class="anchor" id="line-44"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><pre><span class="anchor" id="line-1"></span>. ++= [ root/dev = [ random = 0x0105, urandom = 0x0105 ] ];</pre><span class="anchor" id="line-47"></span></li></ul></li><li><p class="line862">If you have a tool that tries to access the network but doesn't really need to, you may be able to artificially restrict its network access with a trick like <a class="http" href="http://netjail.sourceforge.net/">netjail</a>. <span class="anchor" id="line-48"></span></li><li><p class="line862">If you have a need for <tt class="backtick">hostname</tt> to return a static value, for example &quot;localhost&quot;, then you can create an file with <strong>executable </strong>mode bits which just echos &quot;localhost&quot;. For example this file is called &quot;fakehostname&quot;: <span class="anchor" id="line-49"></span></li><li><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><pre><span class="anchor" id="line-1-1"></span>/bin/echo localhost</pre><span class="anchor" id="line-54"></span></li><li>Add it to your model as such <span class="anchor" id="line-55"></span></li><li style="list-style-type:none"><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><pre><span class="anchor" id="line-1-2"></span>files
+<span class="anchor" id="line-2"></span>  fakehostname;
+<span class="anchor" id="line-3"></span>{
+<span class="anchor" id="line-4"></span>  ...
+<span class="anchor" id="line-5"></span>  root ++= [ bin/hostname = fakehostname ];</pre><span class="anchor" id="line-62"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

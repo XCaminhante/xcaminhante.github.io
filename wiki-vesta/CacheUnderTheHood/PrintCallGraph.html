@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>CacheUnderTheHood/PrintCallGraph - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: CacheUnderTheHood/PrintCallGraph" href="PrintCallGraph%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=CacheUnderTheHood%252FPrintCallGraph&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="PrintCallGraph%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="PrintCallGraph%3Faction=print.html">
+<link rel="Up" href="../CacheUnderTheHood.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="PrintCallGraph.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="../CacheUnderTheHood.html">CacheUnderTheHood</a></li><li><a href="PrintCallGraph.html">PrintCallGraph</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="PrintCallGraph.html">PrintCallGraph</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="PrintCallGraph%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line867">
+<h1 id="Introduction">Introduction</h1>
+<span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line874">Understanding the call graph of a build or a function call within a <span class="anchor" id="line-7"></span>build can be a bit difficult.  Even if you have a <a href="../CacheIndex.html">CacheIndex</a> and <span class="anchor" id="line-8"></span><a href="../PrimaryKey.html">PrimaryKey</a> to start with, finding the call graph relationships between <span class="anchor" id="line-9"></span>different entries requires searching through the <a href="../GraphLog.html">GraphLog</a>.  While this <span class="anchor" id="line-10"></span>can be done with the output of  <span class="anchor" id="line-11"></span><a class="http" href="../vesta/doc/man/html/PrintGraphLog.1.html">PrintGraphLog</a>, <span class="anchor" id="line-12"></span>it's time-consuming and difficult to understand because the graph log <span class="anchor" id="line-13"></span>contains no human-readable information about what a cache entry <span class="anchor" id="line-14"></span>represents. <span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><p class="line867">PrintCallGraph is a new utility that makes searching through the call <span class="anchor" id="line-17"></span>graph stored in the cache easier.  (It's not yet in official but can <span class="anchor" id="line-18"></span>be found in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/cache/64.PrintCallGraph">the branch cache/64.PrintCallGraph</a>.) <span class="anchor" id="line-19"></span>There are three ways it allows you to search the graph log: <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><ul><li>By top-level model.  If the build has been completed it will print its entire call tree.  If the build was stopped before it completed (even if it failed with a problem like a compilation error), partial call trees for the portions in the cache will be printed. <span class="anchor" id="line-22"></span></li><li>By cache index.  It will print the entire call tree below a cache index. <span class="anchor" id="line-23"></span></li><li>By derived file shortid.  It will find any cache entries which protect the specified derived file and print partial call trees for those entries. <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span></li></ul><p class="line862">Unfortunately, PrintCallGraph can use a lot of memory.  It needs to essentially read the entire graph log into memory (unlike PrintGraphLog which simply prints each entry after reading it).  For that reason it provides a feature to tell you how much memory it used.  Just add &quot;<tt>--mem</tt>&quot; to the command line. <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line867">
+<h1 id="Examples">Examples</h1>
+<span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line874">Searching by top-level model, showing an incomplete build: <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><ul><li>Command line: <span class="anchor" id="line-32"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><pre><span class="anchor" id="line-1"></span>PrintCallGraph --model /vesta/vestasys.org/vesta/release/12.pre13/10/linux_x86_64_deb_sarge.main.ves</pre><span class="anchor" id="line-35"></span></li></ul></li><li>Ouput: <span class="anchor" id="line-36"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><pre><span class="anchor" id="line-1-1"></span>/vesta/vestasys.org/vesta/release/12.pre13/10/linux_x86_64_deb_sarge.main.ves
+<span class="anchor" id="line-2"></span>Evaluated at: Sun Aug 19 13:56:18 EDT 2007
+<span class="anchor" id="line-3"></span>Build was incomplete
+<span class="anchor" id="line-4"></span>12 call tree(s) follow
+<span class="anchor" id="line-5"></span>
+<span class="anchor" id="line-6"></span>ci = 13256
+<span class="anchor" id="line-7"></span>pk = ab6ec2cfbf411716 a5ef62bd5cfba296
+<span class="anchor" id="line-8"></span>sourceFunc = /vesta/vestasys.org/vesta/release/12.pre13/10/pkg_ovs.ves() (special)
+<span class="anchor" id="line-9"></span>
+<span class="anchor" id="line-10"></span>ci = 9460
+<span class="anchor" id="line-11"></span>pk = c1e87063c94ed68d 94cfc49b62d899a0
+<span class="anchor" id="line-12"></span>sourceFunc = /vesta/vestasys.org/platforms/linux/debian/amd64/std_env/4/build.ves() (special)
+<span class="anchor" id="line-13"></span>
+<span class="anchor" id="line-14"></span>  ci = 9459
+<span class="anchor" id="line-15"></span>  pk = ad116a598e8bd4de 8e77fc7b54a92931
+<span class="anchor" id="line-16"></span>  sourceFunc = /vesta/vestasys.org/bridges/env_build/1/build.ves() (special)
+<span class="anchor" id="line-17"></span>
+<span class="anchor" id="line-18"></span>ci = 9498
+<span class="anchor" id="line-19"></span>pk = f7b8f8beb1b9be2d f1ec13105dd75afc
+<span class="anchor" id="line-20"></span>sourceFunc = /vesta/vestasys.org/bridges/env_build/1/build.ves/env_build(), line 180, col 12
+<span class="anchor" id="line-21"></span>
+<span class="anchor" id="line-22"></span>  ci = 8
+<span class="anchor" id="line-23"></span>  pk = b0314e147bd9fd75 f739ab9665d4007d
+<span class="anchor" id="line-24"></span>  sourceFunc = /vesta/vestasys.org/bridges/generics/8/build.ves() (special)
+<span class="anchor" id="line-25"></span>
+<span class="anchor" id="line-26"></span>  ci = 9474
+<span class="anchor" id="line-27"></span>  pk = 7f2ae7dd8df40812 fb88077256867a62
+<span class="anchor" id="line-28"></span>  sourceFunc = /vesta/vestasys.org/bridges/env_build/1/build.ves/eval_addons(), line 221, col 18
+<span class="anchor" id="line-29"></span>
+<span class="anchor" id="line-30"></span>  ...</pre><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span></li></ul></li></ul><p class="line874">Searching by cache index: <span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><ul><li>Command line: <span class="anchor" id="line-72"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><pre><span class="anchor" id="line-1-2"></span>PrintCallGraph --ci 13904</pre><span class="anchor" id="line-75"></span></li></ul></li><li>Ouput: <span class="anchor" id="line-76"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><pre><span class="anchor" id="line-1-3"></span>ci = 13904
+<span class="anchor" id="line-2-1"></span>pk = 6b06deffca3f3980 ad3fc5b3081782c1
+<span class="anchor" id="line-3-1"></span>sourceFunc = /vesta/vestasys.org/bridges/generics/8/build.ves/compile(), line 379, col 12
+<span class="anchor" id="line-4-1"></span>
+<span class="anchor" id="line-5-1"></span>  ci = 13903
+<span class="anchor" id="line-6-1"></span>  pk = 8dae46c66b775e7c 4c7a354f8e046cae
+<span class="anchor" id="line-7-1"></span>  sourceFunc = /vesta/vestasys.org/bridges/generics/8/build.ves/inner_map(), line 327, col 12
+<span class="anchor" id="line-8-1"></span>
+<span class="anchor" id="line-9-1"></span>    ci = 9783
+<span class="anchor" id="line-10-1"></span>    pk = 228541f1998dccd8 dd2e4dcf2bd049e3
+<span class="anchor" id="line-11-1"></span>    sourceFunc = /vesta/vestasys.org/bridges/generics/8/build.ves/compileOne(), line 413, col 12
+<span class="anchor" id="line-12-1"></span>
+<span class="anchor" id="line-13-1"></span>      ci = 9782
+<span class="anchor" id="line-14-1"></span>      pk = 729a94628263b814 a235acdaef608262
+<span class="anchor" id="line-15-1"></span>      sourceFunc = _run_tool, command line: /usr/bin/g++-3.4 -c -I -I/usr/include -I/usr/include/c++/3.4 -pipe -O0 -g2 -D_FILE_OFFSET_BITS=64 -D_REENTRANT Basics.C
+<span class="anchor" id="line-16-1"></span>
+<span class="anchor" id="line-17-1"></span>    ci = 13902
+<span class="anchor" id="line-18-1"></span>    pk = 9137a08f1babdbda e39345d11c86c6c3
+<span class="anchor" id="line-19-1"></span>    sourceFunc = /vesta/vestasys.org/bridges/generics/8/build.ves/compileOne(), line 413, col 12
+<span class="anchor" id="line-20-1"></span>
+<span class="anchor" id="line-21-1"></span>      ci = 13901
+<span class="anchor" id="line-22-1"></span>      pk = 867c01c35a90e465 a443d6b8d3adc25e
+<span class="anchor" id="line-23-1"></span>      sourceFunc = _run_tool, command line: /usr/bin/g++-3.4 -c -I -I/usr/include -I/usr/include/c++/3.4 -pipe -O0 -g2 -D_FILE_OFFSET_BITS=64 -D_REENTRANT Thread.C
+<span class="anchor" id="line-24-1"></span>
+<span class="anchor" id="line-25-1"></span>    ci = 9785
+<span class="anchor" id="line-26-1"></span>    pk = 84006aff0cafe8c9 898e169c089a115b
+<span class="anchor" id="line-27-1"></span>    sourceFunc = /vesta/vestasys.org/bridges/generics/8/build.ves/compileOne(), line 413, col 12
+<span class="anchor" id="line-28-1"></span>
+<span class="anchor" id="line-29-1"></span>      ci = 9784
+<span class="anchor" id="line-30-1"></span>      pk = cdc26a48b5554b88 e7d527c62a17770a
+<span class="anchor" id="line-31"></span>      sourceFunc = _run_tool, command line: /usr/bin/g++-3.4 -c -I -I/usr/include -I/usr/include/c++/3.4 -pipe -O0 -g2 -D_FILE_OFFSET_BITS=64 -D_REENTRANT SizeAssert.C
+<span class="anchor" id="line-32"></span>
+<span class="anchor" id="line-33"></span>    ...</pre><span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span></li></ul></li></ul><p class="line874">Searching by derived file: <span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><ul><li>Command line: <span class="anchor" id="line-115"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><pre><span class="anchor" id="line-1-4"></span>PrintCallGraph --derived-file 0xb9859851</pre><span class="anchor" id="line-118"></span></li></ul></li><li>Ouput: <span class="anchor" id="line-119"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span><span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span><span class="anchor" id="line-141"></span><span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span><span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span><span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span><span class="anchor" id="line-152"></span><span class="anchor" id="line-153"></span><span class="anchor" id="line-154"></span><span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span><span class="anchor" id="line-157"></span><span class="anchor" id="line-158"></span><span class="anchor" id="line-159"></span><span class="anchor" id="line-160"></span><span class="anchor" id="line-161"></span><span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><span class="anchor" id="line-164"></span><span class="anchor" id="line-165"></span><span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span><span class="anchor" id="line-168"></span><span class="anchor" id="line-169"></span><span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span><span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span><span class="anchor" id="line-174"></span><span class="anchor" id="line-175"></span><span class="anchor" id="line-176"></span><span class="anchor" id="line-177"></span><span class="anchor" id="line-178"></span><span class="anchor" id="line-179"></span><span class="anchor" id="line-180"></span><span class="anchor" id="line-181"></span><span class="anchor" id="line-182"></span><span class="anchor" id="line-183"></span><span class="anchor" id="line-184"></span><span class="anchor" id="line-185"></span><span class="anchor" id="line-186"></span><span class="anchor" id="line-187"></span><span class="anchor" id="line-188"></span><span class="anchor" id="line-189"></span><span class="anchor" id="line-190"></span><span class="anchor" id="line-191"></span><span class="anchor" id="line-192"></span><span class="anchor" id="line-193"></span><span class="anchor" id="line-194"></span><span class="anchor" id="line-195"></span><span class="anchor" id="line-196"></span><span class="anchor" id="line-197"></span><pre><span class="anchor" id="line-1-5"></span>Found 34 call trees referring to derived file 0xb9859851
+<span class="anchor" id="line-2-2"></span>
+<span class="anchor" id="line-3-2"></span>ci = 11545
+<span class="anchor" id="line-4-2"></span>pk = 49c6edcc07dd614a 6a6e749ca2be4ec7
+<span class="anchor" id="line-5-2"></span>sourceFunc = /vesta/vestasys.org/vesta/cache/checkout/64.ken_xorian.net.4/7/src/docs.ves() (special)
+<span class="anchor" id="line-6-2"></span>
+<span class="anchor" id="line-7-2"></span>  ci = 957
+<span class="anchor" id="line-8-2"></span>  [No reference to derived 0xb9859851]
+<span class="anchor" id="line-9-2"></span>
+<span class="anchor" id="line-10-2"></span>  ci = 11357
+<span class="anchor" id="line-11-2"></span>  [No reference to derived 0xb9859851]
+<span class="anchor" id="line-12-2"></span>
+<span class="anchor" id="line-13-2"></span>  ci = 11378
+<span class="anchor" id="line-14-2"></span>  [No reference to derived 0xb9859851]
+<span class="anchor" id="line-15-2"></span>
+<span class="anchor" id="line-16-2"></span>  ci = 11544
+<span class="anchor" id="line-17-2"></span>  pk = 2404f30a886aef53 1a851effbb1e2bd2
+<span class="anchor" id="line-18-2"></span>  sourceFunc = /vesta/vestasys.org/vesta/cache/checkout/64.ken_xorian.net.4/7/src/server/docs.ves() (special)
+<span class="anchor" id="line-19-2"></span>
+<span class="anchor" id="line-20-2"></span>    ci = 11543
+<span class="anchor" id="line-21-2"></span>    pk = 7fe6ba32bb4bc34e dd8c9169a6cfa5fb
+<span class="anchor" id="line-22-2"></span>    sourceFunc = /vesta/vestasys.org/bridges/mtex/1/build.ves/mtex(), line 83, col 9
+<span class="anchor" id="line-23-2"></span>
+<span class="anchor" id="line-24-2"></span>      ci = 11262
+<span class="anchor" id="line-25-2"></span>      [No reference to derived 0xb9859851]
+<span class="anchor" id="line-26-2"></span>
+<span class="anchor" id="line-27-2"></span>      ci = 11542
+<span class="anchor" id="line-28-2"></span>      pk = 2c8f3695172b80a3 b344d44f939fd060
+<span class="anchor" id="line-29-2"></span>      sourceFunc = /vesta/vestasys.org/bridges/mtex/1/build.ves/mtex(), line 83, col 9
+<span class="anchor" id="line-30-2"></span>
+<span class="anchor" id="line-31-1"></span>        ci = 11262
+<span class="anchor" id="line-32-1"></span>        [No reference to derived 0xb9859851]
+<span class="anchor" id="line-33-1"></span>
+<span class="anchor" id="line-34"></span>        ci = 11508
+<span class="anchor" id="line-35"></span>        [No reference to derived 0xb9859851]
+<span class="anchor" id="line-36"></span>
+<span class="anchor" id="line-37"></span>        ci = 11541
+<span class="anchor" id="line-38"></span>        pk = f20d4c257767c26f 1aa28b1f05fe072e
+<span class="anchor" id="line-39"></span>        sourceFunc = /vesta/vestasys.org/bridges/mtex/1/build.ves/mtex(), line 83, col 9
+<span class="anchor" id="line-40"></span>
+<span class="anchor" id="line-41"></span>          ci = 11262
+<span class="anchor" id="line-42"></span>          [No reference to derived 0xb9859851]
+<span class="anchor" id="line-43"></span>
+<span class="anchor" id="line-44"></span>          ci = 11421
+<span class="anchor" id="line-45"></span>          pk = 37434e39a4f08e0f aa26b89dd8ca32be
+<span class="anchor" id="line-46"></span>          sourceFunc = /vesta/vestasys.org/bridges/mtex/1/build.ves/run_both(), line 25, col 13
+<span class="anchor" id="line-47"></span>
+<span class="anchor" id="line-48"></span>            ci = 11399
+<span class="anchor" id="line-49"></span>            pk = bac7223dad8bf05d 6d2d9e8d4b2b7678
+<span class="anchor" id="line-50"></span>            sourceFunc = /vesta/vestasys.org/bridges/lim/2/build.ves/lim(), line 18, col 8
+<span class="anchor" id="line-51"></span>
+<span class="anchor" id="line-52"></span>              ci = 11262
+<span class="anchor" id="line-53"></span>              [No reference to derived 0xb9859851]
+<span class="anchor" id="line-54"></span>
+<span class="anchor" id="line-55"></span>              ci = 11398
+<span class="anchor" id="line-56"></span>              pk = 5f6d94a10c3c3100 d6aae1e475ed8f5f
+<span class="anchor" id="line-57"></span>              sourceFunc = _run_tool, command line: lim mtex2html.lim
+<span class="anchor" id="line-58"></span>
+<span class="anchor" id="line-59"></span>            ci = 11420
+<span class="anchor" id="line-60"></span>            [No reference to derived 0xb9859851]
+<span class="anchor" id="line-61"></span>
+<span class="anchor" id="line-62"></span>          ci = 11462
+<span class="anchor" id="line-63"></span>          [No reference to derived 0xb9859851]
+<span class="anchor" id="line-64"></span>
+<span class="anchor" id="line-65"></span>          ci = 11492
+<span class="anchor" id="line-66"></span>          [No reference to derived 0xb9859851]
+<span class="anchor" id="line-67"></span>
+<span class="anchor" id="line-68"></span>          ci = 11516
+<span class="anchor" id="line-69"></span>          [No reference to derived 0xb9859851]
+<span class="anchor" id="line-70"></span>
+<span class="anchor" id="line-71"></span>          ci = 11540
+<span class="anchor" id="line-72"></span>          [No reference to derived 0xb9859851]
+<span class="anchor" id="line-73"></span>
+<span class="anchor" id="line-74"></span>      ci = 11529
+<span class="anchor" id="line-75"></span>      [No reference to derived 0xb9859851]
+<span class="anchor" id="line-76"></span>
+<span class="anchor" id="line-77"></span>...</pre><span class="anchor" id="line-198"></span></li></ul></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

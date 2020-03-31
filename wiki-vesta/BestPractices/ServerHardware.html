@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>BestPractices/ServerHardware - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: BestPractices/ServerHardware" href="ServerHardware%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=BestPractices%252FServerHardware&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="ServerHardware%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="ServerHardware%3Faction=print.html">
+<link rel="Up" href="../BestPractices.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="ServerHardware.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="../BestPractices.html">BestPractices</a></li><li><a href="ServerHardware.html">ServerHardware</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="ServerHardware.html">ServerHardware</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="ServerHardware%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="ServerHardware.html#Server_Hardware">Server Hardware</a><ol><li>
+<a href="ServerHardware.html#Estimating_Disk_Space_Needs">Estimating Disk Space Needs</a></li><li>
+<a href="ServerHardware.html#Experience_at_Intel">Experience at Intel</a></li></ol></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Server_Hardware">Server Hardware</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">There are obviously a multitude of factors affecting server hardware, including: <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><ul><li>Number of active users <span class="anchor" id="line-12"></span></li><li>Number of client hosts <span class="anchor" id="line-13"></span></li><li>Size of the project's source data <span class="anchor" id="line-14"></span></li><li>Size of the project's derived data <span class="anchor" id="line-15"></span></li><li>Amount of build work being performed <span class="anchor" id="line-16"></span></li><li>Rate at which new source and derived data get generated <span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span></li></ul><p class="line874">It's difficult to make completely general statements about what you will need, but here are a few pieces of information to inform your decision making process: <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><ul><li>A modest server can scale up to 100 or more users and client machines. <span class="anchor" id="line-21"></span></li><li>A moderately powerful server should be able to scale up to several hundred users and client machines. <span class="anchor" id="line-22"></span></li><li>The repository server uses more network, CPU time, and disk I/O than the cache server. <span class="anchor" id="line-23"></span></li><li>The cache server can use a lot of memory.  Its memory usage depends on the amount and complexity of your build work. <span class="anchor" id="line-24"></span></li><li><p class="line862">The repository server's memory usage is proprtional to the amount of version history it stores.  (It keeps the entire directory structure for <tt>/vesta</tt> and <tt>/vesta-work</tt> in memory at all times.) <span class="anchor" id="line-25"></span></li><li>Source and derived files are stored uncompressed in the same pool of storage.  (This might change in the future.) <span class="anchor" id="line-26"></span></li><li>The cache server can be run on a separate machine from the repository server if desired.  (Usually this only serves to reduce memory usage on the repository server machine, as the CPU and network resource needs of the repository tend to dwarf those of the cache.) <span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span></li></ul><p class="line867">
+<h2 id="Estimating_Disk_Space_Needs">Estimating Disk Space Needs</h2>
+<span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line874">To come up with an idea of how much disk you need, you'll want to know: <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><ul><li>How big your source set is. <span class="anchor" id="line-33"></span></li><li>The rate of change of your source set (as each version of each file is stored). <span class="anchor" id="line-34"></span></li><li>The rate you expect to produce dervied data (the results of all build steps). <span class="anchor" id="line-35"></span></li><li><p class="line862">How often you want to run <a class="http" href="../vesta/doc/man/html/VestaWeed.1.html">the weeder</a> to purge build results.  (Obviously less disk will require that you run the weeder more frequently.) <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span></li></ul><p class="line874">It may be difficult to estimate these values without some empirical data from experiments, as Vesta's caching affects how much new derived data you will store on each build. <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line874">Let's go through a quick example of how you might estimate your disk space requirements.  We'll start with the sources: <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><ul><li>Suppose your source set is 40M in size. <span class="anchor" id="line-42"></span></li><li>Suppose you expect it to change at a rate of 1% per week.  (Remember that the Vesta definition of &quot;source&quot; includes compiler binaries and system libraries, which you wouldn't expect to change much.) <span class="anchor" id="line-43"></span></li><li>Suppose you expect your project to last 2 years. <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span></li></ul><p class="line874">From this we can extrapolate the amount of disk space needed to store the sources over the life of the project: <span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><ul><li style="list-style-type:none">40M * (1 + (1% * 104 weeks) ) = 40M * (1 + 1.04) = 81.6M <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span></li></ul><p class="line874">Now let's consider derived data: <span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><ul><li>Suppose a complete build produces 200M of result files.  (This includes both intermediate files and final results.) <span class="anchor" id="line-52"></span></li><li>Suppose an average incremental build produces 20M of new result files. <span class="anchor" id="line-53"></span></li><li>Suppose you have 10 developers each doing 5 builds per day. <span class="anchor" id="line-54"></span></li><li>Suppose you would like to run the weeder no more than once a week. <span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span></li></ul><p class="line874">From this we can extrapolate the amount of disk space needed to store derived files during the project: <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><ul><li style="list-style-type:none">200M + 20M per build * 5 builds per developer per day * 10 developers * 7 days = 200M + 7000M = 7.2G <span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span></li></ul><p class="line874">Combining the two figures (since source files and derived files are stored on the same disk), you could conclude that you would need at least 7.3G for your Vesta server storage. <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><p class="line874">There are a few kinds of meta-data not accounted for in the above, so it might be best to round up to 8G just to have a little margin. <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><p class="line867">
+<h2 id="Experience_at_Intel">Experience at Intel</h2>
+<span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><p class="line874">At the site at Intel which makes the most extensive use of Vesta <span class="anchor" id="line-67"></span>(Massachusetts) we have about 400 active users with about the same <span class="anchor" id="line-68"></span>number of client hosts.  (Each user usually has their own workstation <span class="anchor" id="line-69"></span>which acts as a Vesta client.) <span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><p class="line874">From 1998-2001, this was our Vesta server: <span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><div><table><tbody><tr>  <td><p class="line862">CPU</td>
+  <td><p class="line862">4 x 667MHz Alpha</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-74"></span><p class="line862">RAM</td>
+  <td><p class="line862">16G</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-75"></span><p class="line862">Disk for Vesta</td>
+  <td><p class="line862">407G</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-76"></span><p class="line862">OS</td>
+  <td><p class="line862">Tru64</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><p class="line874">From 2002-2006 we've been using this Vesta server: <span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><div><table><tbody><tr>  <td><p class="line862">CPU</td>
+  <td><p class="line862">4 x 2.8GHz Intel Xeon MP (Due to HT Linux sees it as an 8-CPU box)</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-81"></span><p class="line862">RAM</td>
+  <td><p class="line862">16G</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-82"></span><p class="line862">Disk for Vesta</td>
+  <td><p class="line862">410G</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-83"></span><p class="line862">OS</td>
+  <td><p class="line862">Linux (RHEL3 for a time, now SUSE Enterprise Server 9)</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><p class="line874">In these large servers, much of the RAM wound up being used by the <span class="anchor" id="line-86"></span>kernel for disk cache. <span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><p class="line874">At two satellite installations we used the following server hardware: <span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><ul><li>California with ~100 users: <span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span></li></ul><div><table><tbody><tr>  <td><p class="line862">CPU</td>
+  <td><p class="line862">2 x 2.0GHz Intel Xeon</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-93"></span><p class="line862">RAM</td>
+  <td><p class="line862">3G</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-94"></span><p class="line862">Disk for Vesta</td>
+  <td><p class="line862">100G</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-95"></span><p class="line862">OS</td>
+  <td><p class="line862">Linux</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><ul><li>India with ~150 users: <span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span></li></ul><div><table><tbody><tr>  <td><p class="line862">CPU</td>
+  <td><p class="line862">2 x 2.4GHz Intel Xeon</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-100"></span><p class="line862">RAM</td>
+  <td><p class="line862">3.6G</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-101"></span><p class="line862">Disk for Vesta</td>
+  <td><p class="line862">269G</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-102"></span><p class="line862">OS</td>
+  <td><p class="line862">Linux</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><p class="line874">To give some context to these server hardware choices, here's some information on the size of the sources in our past three projects: <span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><div><table><tbody><tr>  <td rowspan="2"><p class="line862"> Project #1 (1998-2001)</td>
+  <td><p class="line862">total files</td>
+  <td><p class="line862">15k</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-107"></span><p class="line862">total file size</td>
+  <td><p class="line862">451M</td>
+</tr>
+<tr>  <td rowspan="2"><span class="anchor" id="line-108"></span><p class="line862"> Project #2 (2002-2004)</td>
+  <td><p class="line862">total files</td>
+  <td><p class="line862">44k</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-109"></span><p class="line862">total file size</td>
+  <td><p class="line862">2.5G</td>
+</tr>
+<tr>  <td rowspan="2"><span class="anchor" id="line-110"></span><p class="line862"> Project #3 (2005-present)</td>
+  <td><p class="line862">total files</td>
+  <td><p class="line862">109k</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-111"></span><p class="line862">total file size</td>
+  <td><p class="line862">7.6G</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-112"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

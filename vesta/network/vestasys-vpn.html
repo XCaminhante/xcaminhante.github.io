@@ -1,0 +1,278 @@
+<HTML>
+<HEAD>
+<TITLE>vestasys-vpn - Configure, start, or stop a VPN connection to the
+vestasys.org network.</TITLE>
+<LINK REV="made" HREF="mailto:perl@packages.debian.org">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+
+<UL>
+
+	<LI><A HREF="vestasys-vpn.html#name">NAME</A></LI>
+	<LI><A HREF="vestasys-vpn.html#synopsis">SYNOPSIS</A></LI>
+	<LI><A HREF="vestasys-vpn.html#options">OPTIONS</A></LI>
+	<LI><A HREF="vestasys-vpn.html#system requirements">SYSTEM REQUIREMENTS</A></LI>
+	<LI><A HREF="vestasys-vpn.html#getting set up">GETTING SET UP</A></LI>
+	<LI><A HREF="vestasys-vpn.html#network address translation">NETWORK ADDRESS TRANSLATION</A></LI>
+	<LI><A HREF="vestasys-vpn.html#routing and forwarding">ROUTING AND FORWARDING</A></LI>
+	<LI><A HREF="vestasys-vpn.html#packet filtering">PACKET FILTERING</A></LI>
+	<LI><A HREF="vestasys-vpn.html#configuration">CONFIGURATION</A></LI>
+	<LI><A HREF="vestasys-vpn.html#environment">ENVIRONMENT</A></LI>
+	<LI><A HREF="vestasys-vpn.html#files">FILES</A></LI>
+	<LI><A HREF="vestasys-vpn.html#limitations">LIMITATIONS</A></LI>
+	<LI><A HREF="vestasys-vpn.html#bugs">BUGS</A></LI>
+	<LI><A HREF="vestasys-vpn.html#see also">SEE ALSO</A></LI>
+	<LI><A HREF="vestasys-vpn.html#author">AUTHOR</A></LI>
+</UL>
+<!-- INDEX END -->
+
+<HR>
+<P>
+<H1><A NAME="name">NAME</A></H1>
+<P>vestasys-vpn - Configure, start, or stop a VPN connection to the
+vestasys.org network.</P>
+<P>
+<HR>
+<H1><A NAME="synopsis">SYNOPSIS</A></H1>
+<P>vestasys-vpn setup|start|stop|status|restart|help</P>
+<P>
+<HR>
+<H1><A NAME="options">OPTIONS</A></H1>
+<DL>
+<DT><STRONG><A NAME="item_setup"><STRONG>setup</STRONG></A></STRONG><BR>
+<DD>
+Walks through all the configuration parameters needed to make the
+connection, asking the user about each.  Must be run at least once
+before making the first connection and can be used subsequently to
+make changes to the configuration.
+<P></P>
+<DT><STRONG><A NAME="item_start"><STRONG>start</STRONG></A></STRONG><BR>
+<DD>
+Initiates the connection.
+<P></P>
+<DT><STRONG><A NAME="item_stop"><STRONG>stop</STRONG></A></STRONG><BR>
+<DD>
+Shuts down an open connection.
+<P></P>
+<DT><STRONG><A NAME="item_status"><STRONG>status</STRONG></A></STRONG><BR>
+<DD>
+Reports on whether the connection is up.
+<P></P>
+<DT><STRONG><A NAME="item_restart"><STRONG>restart</STRONG></A></STRONG><BR>
+<DD>
+The same as stop followed by start.
+<P></P>
+<DT><STRONG><A NAME="item_help"><STRONG>help</STRONG></A></STRONG><BR>
+<DD>
+Displays the full documentation for this script.
+<P></P></DL>
+<P>
+<HR>
+<H1><A NAME="system requirements">SYSTEM REQUIREMENTS</A></H1>
+<P>At this time, this script has only been tested on Linux systems (both
+IA-32 and Alpha) running 2.4 kernels.  pppd (2.4 and up), the ssh
+client (OpenSSH 2.5.2p2 or newer), and the iptables tools must be
+installed.  The kernel must have support for ppp and iptables,
+including NAT.  RedHat 7.1 meets these requirements out of the box.
+The Debian ``testing'' distribution with a 2.4 kernel added can meet
+them.</P>
+<P>Lastly, since this script uses native iptables rules, it is
+incompatible with the backwards-compatibility ipchains support in the
+2.4 kernel.  RedHat 7.1 uses this by default, and it must be disabled
+(usually by disabling the /etc/init.d/ipchains script with ``chkconfig
+--level 0123456 ipchains off'').  You can check whether your system is
+using the ipchains compatibility code with ``lsmod | grep ipchains''.</P>
+<P>
+<HR>
+<H1><A NAME="getting set up">GETTING SET UP</A></H1>
+<P>Before running the setup process, be sure to contact the administrator
+of the remote server and get some key pieces of information.  The
+setup dialog will ask you for both of these:</P>
+<DL>
+<DT><STRONG><A NAME="item_VPN_username"><STRONG>VPN username</STRONG></A></STRONG><BR>
+<DD>
+An account on the remote machine will be created for you that is used
+exclusively for making a VPN connection.  (In fact, it will be set
+with pppd as its shell, so it cannot be used for anything else.)
+<P></P>
+<DT><STRONG><A NAME="item_IP_address_range"><STRONG>IP address range</STRONG></A></STRONG><BR>
+<DD>
+You will be given a range of IP addresses which you can use for the
+translated addresses of your local machines (see ``Network Address
+Translation'' below).
+<P></P></DL>
+<P>Also, you must know enough about your local network setup to be able
+to decide which hosts will need specific IP associations for NAT.
+Specifically, if you have any local servers that need to be accessible
+from the remote network (such as a local Vesta repository), you must
+assign those hosts specific translated addresses.  (See ``Network
+Address Translation'' below.)</P>
+<P>After running the setup process, you must send your ssh authentication
+key to the VPN administrator so that your connection can be
+authenticated.  (Until you do this, you will be unable to connect.)</P>
+<P>This script is designed to be usable in the rc/init framework.  On a
+RedHat system, you can simply place it in /etc/rc.d/init.d and execute
+``chkconfig --add vestasys-vpn'' to add the necessary symlinks in the
+runlevel sub-directories.</P>
+<P>
+<HR>
+<H1><A NAME="network address translation">NETWORK ADDRESS TRANSLATION</A></H1>
+<P>IP addresses on the local network are not necessarily usable on the
+remote network.  Therefore, outgoing connections and selected incoming
+connections will have their addresses translated.</P>
+<P>Any hosts on the local network which will provide specific services to
+the remote one (such as a local Vesta repository or other server)
+should be assigned a specific IP addresses out of your assigned IP
+address range.  These will get both source and destination NAT rules.</P>
+<P>Unassigned addresses in your range will be used for a catch-all
+multiple-target SNAT rule.  This will cause outgoing connections over
+the VPN link to have their source address translated to an IP selected
+from the otherwise unused ones.</P>
+<P>[The next paragraph gives some details on the NAT rules added by this
+script.  Most people can skip it.]</P>
+<P>The address translation rules are placed in user-defined chains in the
+``nat'' table named &lt;server&gt;-pre and &lt;server&gt;-post
+(e.g. wall.vestasys.org-pre and wall.vestasys.org-post).  The source
+NAT rules are placed in the &lt;server&gt;-post chain, and all
+connections going out over the VPN link are sent to it from the
+POSTROUTING chain.  The destination NAT rules for local hosts assigned
+specific translated addresses are placed in the &lt;server&gt;-pre
+chain, and all connections coming in from the VPN link are sent to it
+from the PREROUTING chain.</P>
+<P>
+<HR>
+<H1><A NAME="routing and forwarding">ROUTING AND FORWARDING</A></H1>
+<P>Since the point of this script is to create a connection between two
+networks, it allows the user to specify a list of hosts and networks
+to be routed over the VPN connection.  Once the link becomes active
+and the NAT packet mangling rules have been added, the routes are set
+up.</P>
+<P>Also, this script assumes that the machine running it will act as a
+gateway for other machines.  For that reason, packet forwarding is
+enabled once the link is active.</P>
+<P>In order to make this useful for other machines, the user must modify
+other routing tables to direct packets to the machine making the VPN
+connection that should be forwarded over it.  This script provides no
+help with that.</P>
+<P>
+<HR>
+<H1><A NAME="packet filtering">PACKET FILTERING</A></H1>
+<P>At this time, this script does not add any rules to filter packets
+going to or coming from the VPN connection.  However, the user is free
+to add such rules.</P>
+<P>
+<HR>
+<H1><A NAME="configuration">CONFIGURATION</A></H1>
+<P>Almost all of the information gathered and created during the <STRONG>setup</STRONG>
+step is stored in a central configuration file.  This is usually in
+/etc/vestasys-org-vpn.conf.  The location of the configuration file
+may be overridden by setting the environment variable
+VESTASYS_ORG_VPN_CONFIG before running this script.</P>
+<P>The config file can contain:</P>
+<UL>
+<LI>
+blank lines,
+<P></P>
+<LI>
+comments starting with # and extending to the end of the line,
+<P></P>
+<LI>
+simple variable settings of the form ``&lt;<EM>variable</EM>&gt; =
+&lt;<EM>value</EM>&gt;'',
+<P></P>
+<LI>
+route specifications of the form ``route &lt;<EM>host or net</EM>&gt;'',
+<P></P>
+<LI>
+NAT associations of the form ``nat &lt;<EM>local address</EM>&gt;
+&lt;<EM>remote address</EM>&gt;'',
+<P></P></UL>
+<P>In general, if you need to change something in the configuration, you
+can just rerun the <STRONG>setup</STRONG> step.</P>
+<P>
+<HR>
+<H1><A NAME="environment">ENVIRONMENT</A></H1>
+<P>The only environment variable used by this script is
+VESTASYS_ORG_VPN_CONFIG which can be used to point to an alternate
+config file location.</P>
+<P>
+<HR>
+<H1><A NAME="files">FILES</A></H1>
+<DL>
+<DT><STRONG><A NAME="item_%2Fetc%2Fvestasys%2Dorg%2Dvpn%2Econf">/etc/vestasys-org-vpn.conf</A></STRONG><BR>
+<DD>
+The configuration file used by default.  Can be overridden by setting
+the VESTASYS_ORG_VPN_CONFIG environment variable.
+<P></P>
+<DT><STRONG><A NAME="item_%2Fetc%2Fppp%2Fpeers%2F%3Cserver_name%3E">/etc/ppp/peers/&lt;<EM>server name</EM>&gt;</A></STRONG><BR>
+<DD>
+The ppp peer file written by the <STRONG>setup</STRONG> step.  This contains
+directives telling pppd important things including ``use ssh to
+connect'' and ``don't add a default route''.
+<P>A different directory from /etc/ppp can be set in the <STRONG>setup</STRONG> step,
+but it must be the parent of the peers directory that your pppd uses.</P>
+<P></P>
+<DT><STRONG><A NAME="item_%24HOME%2F%2Essh%2Fknown_hosts2"><STRONG>$HOME</STRONG>/.ssh/known_hosts2</A></STRONG><BR>
+<DD>
+The list of remote host authentication keys for the user running the
+script (which should be root).  This script will check for the correct
+host key for the remote server and add it if it is not already
+present.
+<P></P>
+<DT><STRONG><A NAME="item_%24HOME%2F%2Essh%2Fid_dsa%2E%3Cserver_name%3E"><STRONG>$HOME</STRONG>/.ssh/id_dsa.&lt;<EM>server name</EM>&gt;</A></STRONG><BR>
+<DD>
+The key used to authenticate your connection to the remote network.
+This is usually generated during the <STRONG>setup</STRONG> procedure.  This is the
+default location, but a different one can be set during <STRONG>setup</STRONG>.
+<P></P>
+<DT><STRONG><A NAME="item_%2Fvar%2Frun%2Fppp%2D%3Cserver_name%3E%2Epid">/var/run/ppp-&lt;<EM>server name</EM>&gt;.pid</A></STRONG><BR>
+<DD>
+An information file written by pppd.  We ask for it specifically with
+the ``linkname'' pppd option in the peer file.  It contains both the
+process ID of the running pppd and the interface name (e.g. ppp0).
+<P></P>
+<DT><STRONG><A NAME="item_%2Fproc%2Fsys%2Fnet%2Fipv4%2Fip_forward">/proc/sys/net/ipv4/ip_forward</A></STRONG><BR>
+<DD>
+The pseudo-file that controls IP forwarding on Linux systems.  Used to
+enable IP forwarding after initiating the connection.
+<P></P></DL>
+<P>
+<HR>
+<H1><A NAME="limitations">LIMITATIONS</A></H1>
+<P>If you have a global ppp options file (usually /etc/ppp/options), it
+may contain options which will interfere with this script.  This
+script is not smart enough to examine the contents of such a file to
+determine if the options there will cause problems for the VPN
+connection.  However, it will warn you during the <STRONG>setup</STRONG> step if you
+have a non-empty global options file.</P>
+<P>If the machine running this script has other NAT rules in its
+PREROUTING and POSTROUTING chains, the rules this script adds may not
+function properly.  (However, we believe that the rules added by this
+script will not interfere with existing NAT rules.)  You can check for
+existing rules before starting a connection with this script with the
+command ``iptables --list --table nat --numeric''.</P>
+<P>This script does not currently add any rules to filter packets coming
+from or going to the VPN link.</P>
+<P>
+<HR>
+<H1><A NAME="bugs">BUGS</A></H1>
+<P>The <STRONG>setup</STRONG> procedure could probably be a bit less chatty and just
+assume that if it finds things like pppd and ssh in the standard
+places that it can use them without asking the user for confirmation
+of this.</P>
+<P>
+<HR>
+<H1><A NAME="see also">SEE ALSO</A></H1>
+<P><EM>pppd(8)</EM>, <EM>ssh(1)</EM>, <EM>iptables(8)</EM>, <EM>route(8)</EM></P>
+<p><a href="http://www.linuxdoc.org/HOWTO/VPN-HOWTO.html">The Linux VPN HOWTO</a> (which describes the method this script is based on)</p><p><a href="http://netfilter.samba.org/unreliable-guides/NAT-HOWTO/index.html">The Netfilter NAT HOWTO</a> (which gives some background on packet mangling with iptables)</p><P>
+<HR>
+<H1><A NAME="author">AUTHOR</A></H1>
+<P>Kenneth C. Schalk &lt;<A HREF="mailto&#58;ken&#64;xorian&#46;net">ken&#64;xorian&#46;net</A>&gt;</P>
+
+</BODY>
+
+</HTML>

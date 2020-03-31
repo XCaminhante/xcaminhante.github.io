@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>BasicToolsUsage - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: BasicToolsUsage" href="BasicToolsUsage?diffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=BasicToolsUsage&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="BasicToolsUsage?action=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="BasicToolsUsage?action=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="BasicToolsUsage.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="BasicToolsUsage.html">BasicToolsUsage</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="BasicToolsUsage.html">BasicToolsUsage</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="BasicToolsUsage?action=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line867">
+<h1 id="Basic_Tools_Usage">Basic Tools Usage</h1>
+<span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line867">
+<h2 id="Overview">Overview</h2>
+<span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">This is just a *very* simple summary of what each of the few main tools do, the handful that you need to know in order to use vesta. You don't need to understand vesta to use it, so this skips a lot of detail that might be useful to you in the long-run, aiming instead for keeping things simple. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line874">It has more info than the tools index page on vestasys.org, but a lot less than even the first paragraphs of most of the manpages. <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><ul><li>vcheckout <span class="anchor" id="line-10"></span><ol type="1"><li>as per classic &quot;checkout&quot; and &quot;co&quot; from most SCM's, this puts a whole package into your working directory where you can edit it, update it and add to it, whilst simultaneously locking the repository so that no-one else can try editing that same package until you're finished <span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span></li></ol></li><li class="gap">vcheckin <span class="anchor" id="line-13"></span><ol type="1"><li>as per classic &quot;checkin&quot; and &quot;ci&quot; from most SCM's, this only works if you have already checked-out a package; if you have, it puts your modified version into the repository under a new version number (typically one higher than the number of the version you'd originally checked-out) <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span></li></ol></li><li class="gap">vmake <span class="anchor" id="line-16"></span><ol type="1"><li>run this in a package's directory to build that package <span class="anchor" id="line-17"></span><ol type="1"><li>...with &quot;-shipto /target/directory&quot; to cause the output files (compiled binaries etc) to be written to directory &quot;/target/directory&quot; <span class="anchor" id="line-18"></span></li></ol></li><li>superficially similar to GNU (etc) &quot;make&quot; <span class="anchor" id="line-19"></span></li><li>automatically parallelizes across multiple machines in your network, getting each machine to do part of the compilation / building, and uses an advanced caching system to re-use the results of old builds without ever returning a broken build <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span></li></ol></li><li class="gap">vadvance <span class="anchor" id="line-22"></span><ol type="1"><li>has to be done to recently-changed-source before you can build it <span class="anchor" id="line-23"></span></li></ol></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnRobots - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnRobots" href="HelpOnRobots%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnRobots&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnRobots%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnRobots%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnRobots.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnRobots.html">HelpOnRobots</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnRobots.html">HelpOnRobots</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnRobots%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="Robots">Robots</h1>
+<span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line874">Robots (known also as crawlers and spiders) are programs which navigate Internet sites and download the content without explicit supervision, typically for the purpose of building a database to be used by search engines, although they may also be engaged in other forms of data-mining. Although such programs may perform a useful purpose, they can also cause a high load on sites they visit by requesting large numbers of pages and other resources; they can also expose content from a site that is of little general interest, drowning out the interesting content in the eventual search engine results produced for the site. <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><p class="line867"><img alt="(!)" height="15" src="moin_static199/vesta/img/idea.png" title="(!)" width="15" /> Note that MoinMoin's own search functionality does not depend on having robots access the pages of a wiki. See <a href="HelpOnXapian.html">HelpOnXapian</a> for details of the search engine indexing that can be done internally within MoinMoin. <span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><p class="line867">MoinMoin controls robots through the following mechanisms: <span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><div><table><tbody><tr style="background-color: &amp;quot;#ffffcc&amp;quot">  <td><p class="line862"> <strong>Name</strong> </td>
+  <td><p class="line862"> <strong>Description</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-15"></span><p class="line862"> ua_spiders </td>
+  <td><p class="line862"> This <a href="HelpOnConfiguration.html#spam_leech_dos">configuration setting</a> controls access to actions, preventing such programs from visiting things like past page revisions (through the &quot;info&quot; action) or from attempting to change the content on a MoinMoin site in some way. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-16"></span><p class="line862"> html_head_index </td>
+  <td colspan="1" rowspan="4" style="text-align: center"><p class="line862"> These <a href="HelpOnConfiguration.html#various">configuration settings</a> control the &lt;HEAD&gt; tags that appear in HTML output. Since some robots process &lt;META&gt; tags and observe instructions related to link-following, these settings may be changed to influence how robots navigate a site. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-17"></span><p class="line862"> html_head_normal </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-18"></span><p class="line862"> html_head_posts </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-19"></span><p class="line862"> html_head_queries </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-20"></span><p class="line862"> robots.txt </td>
+  <td><p class="line862"> MoinMoin deploys a collection of static resources inside a directory called <tt class="backtick">htdocs</tt>, including a file called <tt class="backtick">robots.txt</tt>. By editing this file, robots can be persuaded to access (or not access) a site. </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line867">
+<h2 id="Making_a_site_more_publicly_searchable">Making a site more publicly searchable</h2>
+<span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><p class="line862">By default, MoinMoin tends to forbid robots, deny access by robots to actions, and instruct robots not to follow links if they should end up accessing pages on a wiki. Although a wiki configured in this fashion may still appear in search engine results, mostly because other sites may have linked to pages on such a wiki, many pages will be unknown to such search engines. <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><p class="line874">To permit indexing by robots... <span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><ol type="1"><li><p class="line862">Change the <tt class="backtick">robots.txt</tt> file to resemble the following: <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><pre><span class="anchor" id="line-1"></span>User-agent: *
+<span class="anchor" id="line-2"></span>Allow: /
+<span class="anchor" id="line-3"></span>Crawl-delay: 20</pre><span class="anchor" id="line-34"></span><p class="line862">This allows any robot (<tt class="backtick">User-agent</tt>), but asks that they only access the site every 20 seconds or less frequently. You can specify a more specific pattern to only permit certain robots, and add multiple sections describing the allowed access rules for different robots. Make sure that the URL path given for <tt class="backtick">Allow</tt> matches the root of the wiki or the part of the wiki that should be indexed. <span class="anchor" id="line-35"></span></li><li><p class="line862">In your <a href="HelpOnConfiguration.html">configuration</a> change or add the <tt class="backtick">html_head_normal</tt> setting so that it resembles the following: <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-1-1"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en"><pre dir="ltr" id="CA-060a33353358d6e6ce86613a9e0d4f5d6b1ac18e" lang="en"><span class="line"><span class="anchor" id="line-1-2"></span><span class="ID">html_head_normal</span> = <span class="String">'</span><span class="String">&lt;meta name=</span><span class="String">&quot;</span><span class="String">robots</span><span class="String">&quot;</span><span class="String"> content=</span><span class="String">&quot;</span><span class="String">index,follow</span><span class="String">&quot;</span><span class="String">&gt;</span><span class="SPChar">\n</span><span class="String">'</span></span>
+</pre></div></div><span class="anchor" id="line-39"></span><p class="line862">This lets robots know that they should index normal pages and follow the links to find other pages. These settings can be changed to <tt class="backtick">noindex</tt> and <tt class="backtick">nofollow</tt> to instruct robots to do the opposite. <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span></li></ol><p class="line874">Note that robots are free to ignore the instructions given, although doing so is seen as bad practice, and so the more well-known search engine services tend to observe the instructions rather than risk damaging their reputation by ignoring them. <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line867">
+<h2 id="Making_actions_accessible_by_certain_clients">Making actions accessible by certain clients</h2>
+<span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line862">Some users wish to use programs other than their normal web browser to access wiki content. For example, a calendar client may need to invoke an action in order to download content in a format it can understand, and it may appear as the <tt class="backtick">curl</tt> program when accessing a site; or it may be convenient for some users to use tools like <tt class="backtick">wget</tt> to access files stored as attachments. <span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><p class="line862">To allow certain clients to perform actions, change the <tt class="backtick">ua_spiders</tt> setting in your <a href="HelpOnConfiguration.html">configuration</a>. One way of doing this is to redefine the setting as follows: <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><p class="line867"><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-1-3"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en"><pre dir="ltr" id="CA-f409aa9d1d723d336f2ba399c7744cee3739fa67" lang="en"><span class="line"><span class="anchor" id="line-1-4"></span><span class="ID">ua_spiders</span> = <span class="ID">multiconfig</span>.<span class="ID">DefaultConfig</span>.<span class="ID">ua_spiders</span>.<span class="ID">replace</span>(<span class="String">&quot;</span><span class="String">|wget</span><span class="String">&quot;</span>, <span class="String">&quot;</span><span class="String">&quot;</span>).<span class="ID">replace</span>(<span class="String">&quot;</span><span class="String">|curl</span><span class="String">&quot;</span>, <span class="String">&quot;</span><span class="String">&quot;</span>)</span>
+</pre></div></div><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><p class="line862">The above assumes that the configuration class is <tt class="backtick">multiconfig.DefaultConfig</tt> - you will need to consult which class is used in your own configuration - and proceeds to edit the setting to remove <tt class="backtick">wget</tt> and <tt class="backtick">curl</tt> from a regular expression describing robots or clients that are blocked from invoking actions. <span class="anchor" id="line-54"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

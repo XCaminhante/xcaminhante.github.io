@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>CacheUnderTheHood/EntryBytesPercent - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: CacheUnderTheHood/EntryBytesPercent" href="EntryBytesPercent%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=CacheUnderTheHood%252FEntryBytesPercent&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="EntryBytesPercent%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="EntryBytesPercent%3Faction=print.html">
+<link rel="Up" href="../CacheUnderTheHood.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="EntryBytesPercent.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="../CacheUnderTheHood.html">CacheUnderTheHood</a></li><li><a href="EntryBytesPercent.html">EntryBytesPercent</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="EntryBytesPercent.html">EntryBytesPercent</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="EntryBytesPercent%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">When the evaluator sends a value to the Vesta cache to be stored, the cache daemon treats it as an opaque block of bytes.  It simply stores it and retrieves it when it's needed.  When the cache stores an entry it includes both this opaque byte sequence as well as the dependency information needed to facilitate matching on future lookups as well as some other information needed to facilitate weeding. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line862">Two of the statistics reported by <a class="http" href="../vesta/doc/man/html/VCacheStats.1.html">VCacheStats</a> are the size of PKFiles and the size of the cached values bytes.  Each PKFile includes both one or more cached values and the extra dependency/weeding book-keeping information.  How much of the space in a PKFile is taken up by the cache values, and how much is the other information? <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">We're going to cheat here and just answer the question for a MultiPKFile as that's easier.  (Most MiltuPKFiles contain a single PKFile.  We could do it for a single PKFile if we wanted to do a little more work.) <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">First let's find our MultiPKFile.  The Primary key we're interested in (provided by VCacheStats) is: <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867"><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><pre><span class="anchor" id="line-1"></span>81092c90e53efa49 d00066c0a5004947</pre><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line862">To find the MultiPKFile we just need the 16-bit prefix of that: <tt>8109</tt>.  Here's the MultiPKFile for that prefix: <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line867"><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><pre><span class="anchor" id="line-1-1"></span>% ls -l /var/lib/vesta/cache/sCache/gran-16/81/09
+<span class="anchor" id="line-2"></span>-rw-r--r--  1 vadmin vadmin 577756287 2007-07-30 13:44 /var/lib/vesta/cache/sCache/gran-16/81/09</pre><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><p class="line862">As you can see, this one is a little large (over 570MB), which is why we're interested in it.  We'll dump a verbose text representation of it to a file with <a class="http" href="../vesta/doc/man/html/PrintMPKFile.1.html">PrintMPKFile</a>: <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><p class="line867"><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><pre><span class="anchor" id="line-1-2"></span>% PrintMPKFile -verbose /var/lib/vesta/cache/sCache/gran-16/81/09 &gt; /tmp/pmpkv.8109</pre><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line874">The part we're interested in is the serialized SDL values stored as chunks of bytes.  We can find those with a simple grep: <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><p class="line867"><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><pre><span class="anchor" id="line-1-3"></span>% grep 'bytes = ' /tmp/pmpkv.8109
+<span class="anchor" id="line-2-1"></span>  bytes = 00000003 00020000 00480003 00000001 00096b65 79... (1517811 total)
+<span class="anchor" id="line-3"></span>  bytes = 00000003 00020000 00480003 00000001 00096b65 79... (1163361 total)
+<span class="anchor" id="line-4"></span>  bytes = 00000003 00020000 00480003 00000001 00096b65 79... (1850775 total)
+<span class="anchor" id="line-5"></span>  bytes = 00000003 00020000 00480003 00000001 00096b65 79... (1488208 total)
+<span class="anchor" id="line-6"></span>...</pre><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line874">These are pretty large too (11-18MB).  With a little Perl on the command-line we'll add up the total of all those bytes: <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line867"><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><pre><span class="anchor" id="line-1-4"></span>% grep 'bytes = ' /tmp/pmpkv.8109 | perl -e '$x = 0; while(&lt;&gt;) { if(/\((\d+) total\)$/) { $x += $1; } }; print($x, &quot;\n&quot;);'
+<span class="anchor" id="line-2-2"></span>497562938</pre><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><p class="line874">And if we want to see it as a fraction, we can just divide the total by the size of the whole MultiPKFile: <span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><p class="line867"><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><pre><span class="anchor" id="line-1-5"></span>% grep 'bytes = ' /tmp/pmpkv.8109 | perl -e '$x = 0; while(&lt;&gt;) { if(/\((\d+) total\)$/) { $x += $1; } }; print(($x/577756287), &quot;\n&quot;);'
+<span class="anchor" id="line-2-3"></span>0.861198656242403</pre><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><p class="line874">Here's another example of the same thing with a different file that shows a different ratio: <span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><p class="line867"><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><pre><span class="anchor" id="line-1-6"></span>% ls -l /var/lib/vesta/cache/sCache/gran-16/f0/a4
+<span class="anchor" id="line-2-4"></span>-rw-r--r--  1 vadmin vadmin 253621601 2007-07-30 13:44 /var/lib/vesta/cache/sCache/gran-16/f0/a4
+<span class="anchor" id="line-3-1"></span>% PrintMPKFile -verbose /var/lib/vesta/cache/sCache/gran-16/f0/a4  &gt; /tmp/pmpkv.f0a4
+<span class="anchor" id="line-4-1"></span>% grep 'bytes = ' /tmp/pmpkv.f0a4  | perl -e '$x = 0; while(&lt;&gt;) { if(/\((\d+) total\)$/) { $x += $1; } }; print($x, &quot;\n&quot;, ($x/253621601.0), &quot;\n&quot;);'
+<span class="anchor" id="line-5-1"></span>104042972
+<span class="anchor" id="line-6-1"></span>0.410229142903329</pre><span class="anchor" id="line-65"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

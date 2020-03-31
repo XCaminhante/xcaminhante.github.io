@@ -1,0 +1,135 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>CacheUnderTheHood/PrimaryKeyFromCacheIndex - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: CacheUnderTheHood/PrimaryKeyFromCacheIndex" href="PrimaryKeyFromCacheIndex%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=CacheUnderTheHood%252FPrimaryKeyFromCacheIndex&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="PrimaryKeyFromCacheIndex%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="PrimaryKeyFromCacheIndex%3Faction=print.html">
+<link rel="Up" href="../CacheUnderTheHood.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="PrimaryKeyFromCacheIndex.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="../CacheUnderTheHood.html">CacheUnderTheHood</a></li><li><a href="PrimaryKeyFromCacheIndex.html">PrimaryKeyFromCacheIndex</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="PrimaryKeyFromCacheIndex.html">PrimaryKeyFromCacheIndex</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="PrimaryKeyFromCacheIndex%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line862">If you have a <a href="../CacheIndex.html">CacheIndex</a> but not a <a href="../PrimaryKey.html">PrimaryKey</a> (perhaps you used <a class="http" href="../vesta/doc/man/html/vesta.1.html#-trace">-trace with the evaluator</a> rather than <a class="http" href="../vesta/doc/man/html/vesta.1.html#-cdebug">-cdebug All</a>), you can search the cache's <a href="../GraphLog.html">GraphLog</a> to find the <a href="../PrimaryKey.html">PrimaryKey</a>. <span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line862">The <a href="../GraphLog.html">GraphLog</a> is mostly used during weeding, but it can be useful when picking apart the cache too.  It contains an entry for each cache entry with certain key pieces of information.  You can get a printed representation of it with the <a class="http" href="../vesta/doc/man/html/PrintGraphLog.1.html">PrintGraphLog</a> utility.  Here's a sample of its output: <span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line867"><span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><pre><span class="anchor" id="line-1"></span>  Node: pk = 4d28ba275bd7cd24 5cc9cf0103e42be9, ci = 1, ...
+<span class="anchor" id="line-2"></span>  Node: pk = ec6361d61d032a6b 29312a8f3ac688ea, ci = 2, ...
+<span class="anchor" id="line-3"></span>  Node: pk = b97934ad0e8f5845 551f0482be0ab312, ci = 3, ...
+<span class="anchor" id="line-4"></span>  Node: pk = d8e6dd3e6d5ea5d1 bf54afed8db26f60, ci = 4, ...
+<span class="anchor" id="line-5"></span>...
+<span class="anchor" id="line-6"></span>  Node: pk = 653cb0ad674031ee 8386cae36494f626, ci = 23617, ...
+<span class="anchor" id="line-7"></span>  Node: pk = 37521d2332efb30b 9851a95e96b02f51, ci = 23618, ...
+<span class="anchor" id="line-8"></span>  Node: pk = d92cb1e94ea9917c 51f3d8dc0de43b1f, ci = 23621, ...
+<span class="anchor" id="line-9"></span>  Root: pkgFP = 0a6bc76f4a651fc6 ec968a6e5a0587bb, model = 2662186712, ...
+<span class="anchor" id="line-10"></span>  Root: pkgFP = b22a63222329629a 1f05cf70f5555a74, model = 3220122452, ...
+<span class="anchor" id="line-11"></span>  Root: pkgFP = b22a63222329629a 1f05cf70f5555a74, model = 3220122452, ...
+<span class="anchor" id="line-12"></span>  Root: pkgFP = b22a63222329629a 1f05cf70f5555a74, model = 3220122452, ...
+<span class="anchor" id="line-13"></span>*** Totals ***
+<span class="anchor" id="line-14"></span>  roots = 618
+<span class="anchor" id="line-15"></span>  nodes = 77936</pre><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><p class="line874">The &quot;Node&quot; entries are the ones that correspond to cache entries.  (The &quot;Root&quot; entries correspond to builds performed in the past rather than individual cache entries.) <span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line862">If we want to find the <a href="../PrimaryKey.html">PrimaryKey</a> of <a href="../CacheIndex.html">CacheIndex</a> 1234, we can just put the output of PrintGraphLog through grep: <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line867"><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><pre><span class="anchor" id="line-1-1"></span>% PrintGraphLog | grep 'ci = 1234,'
+<span class="anchor" id="line-2-1"></span>  Node: pk = 17973c765efe206e 982e987fd2796a69, ci = 1234, ...</pre><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><p class="line874">Note the comma after &quot;1234&quot;.  If we left that off we might get more than we wanted: <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line867"><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><pre><span class="anchor" id="line-1-2"></span>% PrintGraphLog | grep 'ci = 1234'
+<span class="anchor" id="line-2-2"></span>  Node: pk = 17973c765efe206e 982e987fd2796a69, ci = 1234, ...
+<span class="anchor" id="line-3-1"></span>  Node: pk = 0fadde8e2eb8fd31 5d90f7d801f26685, ci = 12340, ...
+<span class="anchor" id="line-4-1"></span>  Node: pk = a970ffdefb8bf876 f39c0625e7166674, ci = 12341, ...
+<span class="anchor" id="line-5-1"></span>...
+<span class="anchor" id="line-6-1"></span>  Node: pk = 68563a1b7f4fdf61 b4a3ed095623a9e9, ci = 123404, ...
+<span class="anchor" id="line-7-1"></span>  Node: pk = 32c8c984b7286d1e 9d7b0d3c23e2f2b9, ci = 123405, ...
+<span class="anchor" id="line-8-1"></span>  Node: pk = 8080709d20b00cfc 28811a892713b980, ci = 123406, ...
+<span class="anchor" id="line-9-1"></span>...</pre><span class="anchor" id="line-48"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

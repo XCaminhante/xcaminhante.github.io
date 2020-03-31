@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>WelcomeToVesta - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: WelcomeToVesta" href="WelcomeToVesta%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=WelcomeToVesta&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="WelcomeToVesta%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="WelcomeToVesta%3Faction=print.html">
+<link rel="Appendix" title="vestawall60t.gif" href="WelcomeToVesta%3Faction=AttachFile&amp;do=view&amp;target=vestawall60t.gif.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="WelcomeToVesta.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="WelcomeToVesta.html">WelcomeToVesta</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="WelcomeToVesta.html">WelcomeToVesta</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="WelcomeToVesta%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867"><img alt="vestawall60t.gif" class="attachment" src="WelcomeToVesta%3Faction=AttachFile&amp;do=get&amp;target=vestawall60t.gif" title="vestawall60t.gif" /> <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867">
+<h2 id="Project_Summary">Project Summary</h2>
+<span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line874">Vesta is a precise approach to automated processing of inputs that change over time.  The most obvious application is compiling source code during software development, but it can be applied to any non-interactive processing problem.  Known uses include hardware design and web design. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line874">The distinguishing features of Vesta's build system are: <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><ul><li>It guarantees that all files and environment variables used by any build process are recorded immutably in a version control system before a build starts. <span class="anchor" id="line-18"></span></li><li>It observes which files each step of the build process accesses.  This allows it to know precisely when a step must be re-done due to a change in the inputs and when it is safe to re-use the results of a previous build. <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span></li></ul><p class="line874">These enable a variety of other unique capabilities: <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><ul><li>Every build you perform can be repeated precisely in the future, even at remote sites. <span class="anchor" id="line-23"></span></li><li>Build results, even intermediate results, can be safely shared between users. <span class="anchor" id="line-24"></span></li><li>Users are insulated from changes they don't wish to accept, even changes to installed software versions. <span class="anchor" id="line-25"></span></li><li>Every build produces exactly the same results as &quot;from scratch&quot; build.  (Vesta has no equivalent to &quot;make clean&quot;, because it doesn't need one.) <span class="anchor" id="line-26"></span></li><li>Build instructions form a precise audit trail of exactly how each result was produced. <span class="anchor" id="line-27"></span></li><li>Builds can be parallelized across many machines without needing to ensure that they all have exactly that same installed software. <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span></li></ul><p class="line862">To put it another way, Vesta is an advanced <em>configuration management</em> system that includes both version control and build automation components.  The version control component of Vesta shares many features with other modern systems (atomic commits and distributed operation) and also has some unique capabilities (constant-time checkout operations and a virtual filesystem that provides immediate access to all existing versions). <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line867">
+<h2 id="Motivation">Motivation</h2>
+<span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><p class="line874">For substantial software systems (say, 500k source lines or larger), effective software configuration management (SCM) is a serious problem.  The world is full of easy-to-use, small-scale configuration management tools and large-scale, hard-to-use ones.  Unfortunately, many people either suffer under the failings of small-scale configuration management tools as their projects grow or spend significant effort re-inventing solutions to the same problems. <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><p class="line874">Vesta is a portable configuration management system that was originally targeted at supporting development of software systems of almost any size, from fairly small (under 10,000 source lines) to very large (10,000,000 source lines). <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line867">
+<h2 id="History">History</h2>
+<span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line874">Vesta is a mature system. It is the result of over 10 years of research and development at the Compaq/Digital Systems Research Center, and it was in production use by Compaq's Alpha microprocessor group for over two and a half years. The Alpha group had over 150 active developers at two sites thousands of miles apart, on the east and west coasts of the United States. The group used Vesta to manage builds with as much as 130 MB of source data, each producing 1.5 GB of derived data. The builds done at the eastern site in an average day produced about 10-15 GB of derived data, all managed by Vesta. Although Vesta was designed with software development in mind, the Alpha group demonstrated the system's flexibility by using it for hardware development, checking their hardware description language files into Vesta's source code control facility and building simulators and other derived objects with Vesta's builder. <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line874">In the latter half of 2001, Vesta was released by Compaq under the GNU LGPL.  Since then it has been in production use at Intel for microprocessor design on several different projects.  Intel continues to directly support its on-going development. <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line867">
+<h2 id="Site_Hilights">Site Hilights</h2>
+<span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><ul><li><p class="line891"><a class="http" href="../vesta/doc/getting-started-installable.html">Quick Start Guide</a> <span class="anchor" id="line-46"></span></li><li><p class="line891"><a href="VestaFAQ.html">VestaFAQ</a> <span class="anchor" id="line-47"></span></li><li><p class="line891"><a href="VestaDocumentation.html">VestaDocumentation</a> <span class="anchor" id="line-48"></span></li><li><p class="line891"><a href="Top10ReasonsToUseVesta.html">Top10ReasonsToUseVesta</a> <span class="anchor" id="line-49"></span></li><li><p class="line891"><a class="http" href="../vesta/doc/comparison.html">A comparison of Vesta to other popular SCM systems</a> <span class="anchor" id="line-50"></span></li><li><p class="line891"><a class="https" href="https://sourceforge.net/projects/vesta/">the Vesta SourceForge project page</a> <span class="anchor" id="line-51"></span><ul><li><p class="line891"><a class="https" href="https://sourceforge.net/project/showfiles.php?group_id=34164">Download the Vesta system</a> <span class="anchor" id="line-52"></span></li><li><p class="line891"><a class="https" href="https://sourceforge.net/mail/?group_id=34164">Read or join our mailing lists</a> <span class="anchor" id="line-53"></span></li><li><p class="line891"><a class="https" href="https://sourceforge.net/tracker/?group_id=34164">Report bugs or request features</a> <span class="anchor" id="line-54"></span></li></ul></li><li><p class="line891"><a href="VestaPublications.html">VestaPublications</a> <span class="anchor" id="line-55"></span></li><li><p class="line891"><a class="nonexistent" href="OtherVestaStuff.html">OtherVestaStuff</a> <span class="anchor" id="line-56"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

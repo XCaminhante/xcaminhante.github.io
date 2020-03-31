@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>StdEnvAddonTmp/AddonExample - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: StdEnvAddonTmp/AddonExample" href="AddonExample%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=StdEnvAddonTmp%252FAddonExample&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="AddonExample%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="AddonExample%3Faction=print.html">
+<link rel="Up" href="../StdEnvAddonTmp.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="AddonExample.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="../StdEnvAddonTmp.html">StdEnvAddonTmp</a></li><li><a href="AddonExample.html">AddonExample</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="AddonExample.html">AddonExample</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="AddonExample%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line867">
+<h1 id="my_addons.ves_collector_leaf_node">my_addons.ves collector leaf node</h1>
+<span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867"><tt>my_addons.ves</tt> <span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line867"><span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><pre><span class="anchor" id="line-1"></span>import
+<span class="anchor" id="line-2"></span>    bash = bash.ves;
+<span class="anchor" id="line-3"></span>    perl = perl.ves;
+<span class="anchor" id="line-4"></span>{
+<span class="anchor" id="line-5"></span>        return [ contents = [ addons = [ bash, perl ] ];
+<span class="anchor" id="line-6"></span>}</pre><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line867"><strong><tt>contents</tt></strong> is a collector keyword meaning <em>leaf node</em> and can't be changed. <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line862">The collector allows leaf sources to be organized by arbitrary keys. <strong><tt>addon</tt></strong> is such a key.  The collector is agnostic about these key names.  The <tt>std_env&nbsp;addon</tt> system, however, recognizes <strong><tt>addon</tt></strong> and so it can't be changed. <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line867">
+<h1 id="perl.ves_.28aka_addon.ves.29">perl.ves (aka addon.ves)</h1>
+<span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line867"><tt>perl.ves</tt> - I would perfer to call this <tt>perl/1/addon.ves</tt> <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line867"><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><pre><span class="anchor" id="line-1-1"></span>from /vesta/example.project.com/some/path/components/ import
+<span class="anchor" id="line-2-1"></span>  component_models = [ perl/1 ]; // perl 5.8.5
+<span class="anchor" id="line-3-1"></span>
+<span class="anchor" id="line-4-1"></span>{
+<span class="anchor" id="line-5-1"></span>  root = &lt;&quot;perl&quot;&gt;;
+<span class="anchor" id="line-6-1"></span>  return [component_models,
+<span class="anchor" id="line-7"></span>          root,
+<span class="anchor" id="line-8"></span>         ];
+<span class="anchor" id="line-9"></span>}</pre><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line862">the <tt>import</tt> line defaults to importing filename <tt>build.ves</tt> when none is specified, as above. <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line862">The return value is keyed by <strong><tt>component_models</tt></strong> and <strong><tt>root</tt></strong>.  These are both keywords to <tt>std_env&nbsp;addon</tt> as described in <a href="../StdEnvAddonTmp.html">StdEnvAddonTmp</a>.  It means that the imported <tt>perl/1/build.ves</tt> gets evaluated and results added to <tt>./components</tt> and the string list <tt>&lt;&quot;perl&quot;&gt;</tt> gets added directly to the <tt>./root</tt> binding. <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><p class="line867">
+<h1 id="perl.2F1.2Fbuild.ves">perl/1/build.ves</h1>
+<span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><p class="line867"><tt>perl/1/build.ves</tt> <span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><p class="line867"><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><pre><span class="anchor" id="line-1-2"></span>//
+<span class="anchor" id="line-2-2"></span>// Model generated by rpm2vesta, Wed Jun 26 13:57:38 EDT 2002
+<span class="anchor" id="line-3-2"></span>//
+<span class="anchor" id="line-4-2"></span>import
+<span class="anchor" id="line-5-2"></span>  root_func = root.ves;
+<span class="anchor" id="line-6-2"></span>{
+<span class="anchor" id="line-7-1"></span>  result = [
+<span class="anchor" id="line-8-1"></span>    // Main RPM installed into this package
+<span class="anchor" id="line-9-1"></span>    name = &quot;perl&quot;,
+<span class="anchor" id="line-10"></span>    version = &quot;5.8.5&quot;,
+<span class="anchor" id="line-11"></span>    arch = &quot;i386&quot;,
+<span class="anchor" id="line-12"></span>    // All RPMs installed into this package
+<span class="anchor" id="line-13"></span>    // rpms = &lt; &quot;perl-5.6.0-12.i386.rpm&quot; &gt;,
+<span class="anchor" id="line-14"></span>    // Alternate names for this, based on the other installed RPMs
+<span class="anchor" id="line-15"></span>    all_names = &lt; &quot;perl&quot;,  &gt;,
+<span class="anchor" id="line-16"></span>    // Tree of installed files
+<span class="anchor" id="line-17"></span>    root = root_func
+<span class="anchor" id="line-18"></span>  ];
+<span class="anchor" id="line-19"></span>
+<span class="anchor" id="line-20"></span>  return [ &quot;perl&quot; = result,  ];
+<span class="anchor" id="line-21"></span>}</pre><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><p class="line862">The <tt>root&nbsp;=&nbsp;root_func</tt> in here is what is read by <tt>./build_root()</tt> (defined here: <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/redhat/i686/std_env/latest/build.ves">/vesta/vestasys.org/platforms/linux/redhat/i686/std_env/latest/build.ves</a>). <span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><p class="line867"><strong><tt>root_func</tt></strong> here is the function representing the imported model file <tt>root.ves</tt> (below).  This is a nice extra layer, because <strong><tt>root_func</tt></strong> is small, but it returns a huge binding. <span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><p class="line867">
+<h1 id="perl.2F1.2Froot.ves">perl/1/root.ves</h1>
+<span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><p class="line867"><tt>perl/1/root.ves</tt> <span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><p class="line867"><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><pre><span class="anchor" id="line-1-3"></span>files
+<span class="anchor" id="line-2-3"></span>  root;
+<span class="anchor" id="line-3-3"></span>{
+<span class="anchor" id="line-4-3"></span>  return root;
+<span class="anchor" id="line-5-3"></span>}</pre><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><p class="line862">This <tt>files</tt> clause readds the dir tree that exists in <tt>perl/1/root/</tt> and stores in a Vesta SDL binding var <tt>root</tt>.  This model file then returns that binding keyed by <tt>[&nbsp;root&nbsp;=&nbsp;{root&nbsp;tree&nbsp;here}&nbsp;]</tt>. <span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><p class="line862">Note that this <tt>root.ves</tt> is a small file, and the function that's made out of it is also small, and can be passed around a lot cheaply.  What this function returns, however, is quite large. <span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><p class="line874">So it's best to evaluate this model file function as late as possible. <span class="anchor" id="line-99"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>MarketingStrategy/InitialReactions - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: MarketingStrategy/InitialReactions" href="InitialReactions%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=MarketingStrategy%252FInitialReactions&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="InitialReactions%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="InitialReactions%3Faction=print.html">
+<link rel="Up" href="../MarketingStrategy.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="InitialReactions.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="../MarketingStrategy.html">MarketingStrategy</a></li><li><a href="InitialReactions.html">InitialReactions</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="InitialReactions.html">InitialReactions</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="InitialReactions%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">Sometimes when people first look at Vesta they have some misconceptions about it, or just don't seem to understand what's so special.  This page has some answers to some first reactions we've heard from users. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><dl><dt>Full copy of all revisions hanging around?  That's no better than &quot;cp -pr current_dir new_dir&quot;! </dt><dd>Vesta's a lot better than just copying around directories in several ways: <span class="anchor" id="line-8"></span><ol type="1"><li><p class="line862">The Vesta repository uses <em>copy on write</em>: no copies are made unless you actually edit a file.  If your package contains 100 files and you only change 2 of them, the new version only takes up additional space for the two files you changed. <span class="anchor" id="line-9"></span></li><li><p class="line862">Because the repository is its own filesystem, <em>copy on write</em> saves time on checkout and checkin operations.  No copies are made when you checkout.  Only when you make changes to a file will a copy be made. <span class="anchor" id="line-10"></span></li><li>The repository also collapses redundant copies by checking the contents of each new file you create.  If you happen to edit a source file back into a state identical to a file that the repository already stores, no new space will be used for it. <span class="anchor" id="line-11"></span></li><li>The repository of course enforces strict rules about the versions you create.  Once created, a version is immutable. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span></li></ol><p class="line862">It's worth noting that Vesta is not the only system to take the approach of keeping full copies of all versions (though it may have been the first to do so).  <a class="http" href="http://venge.net/monotone/">monotone</a> and <a class="http" href="http://kernel.org/pub/software/scm/">git</a> both also keep full copies.  This design decision is based on the fact that disk keeps getting cheaper and yet programmers don't typre any faster.  Trading off the user's time to save a little disk makes much less sense today than it did decades ago when people first developed older revision control systems which use a delta encoding. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span></dd><dt>Doesn't it take a lot of bandwidth to move around full copies? </dt><dd>Vesta's replication system has several efficiencies: <span class="anchor" id="line-16"></span><ol type="1"><li>The repository knows which files have changed between different versions and only transmits those not already present at the destination.  <span class="anchor" id="line-17"></span></li><li>When files are transmitted, they're sent compressed. <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span></li></ol></dd><dt>The Vesta build tool isn't as simple as Make. </dt><dd><p class="line862">Right, it's significantly better than make.  Make doesn't scale well to large projects and has a host of other problems.  <a class="http" href="http://freshmeat.net/articles/view/1702/">Don't take our word for it though.</a>  The Vesta builder is specifically designed to addres many of the drawbacks of make. <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span></dd><dt>I still don't see what Vesta's killer feature is. </dt><dd>Vesta's truly unique features lie in its build system. <span class="anchor" id="line-22"></span><ol type="1"><li>It has completely automatic dependency detection which works with any compiler or other tool.  The user never specifies dependencies, and therefore can never get them wrong.  It records dependencies which other systems miss, such as dependencies on the versions of the tools you use and dependencies on the non-existence of files. <span class="anchor" id="line-23"></span></li><li><p class="line862">Builds operate in a completely encapsulated environment which is isolated from the normal filesystem.  This means that you can change which version of tools your build uses independently of the host operating system, and your build can't be affected by files not under revision control.  One example of this is the fact that with a sinlge x86 Linux machine running Vesta, you can build for multiple different target distributions (e.g <a class="nonexistent" href="../RedHat.html">RedHat</a> 7, Debian sarge, etc.). <span class="anchor" id="line-24"></span></li><li><p class="line862">Every time you build, you're using (and often creating) a unique <em>build configuration</em>.  This can be used to tell exactly what version of every file (source code, tools, libraries, configuration) went into your build. <span class="anchor" id="line-25"></span></li><li><p class="line862">Builds are <em>precisely repeatable</em>.  Because Vesta build configurations completely specify the exact version of all their inputs (and all their inputs are under revision control), you can always repeat exactly what you've done before.  Because of the way replication works, this even holds up at remote locations, so you can be confident that everyone will get the sam results whether they're in the same building or on another continent. <span class="anchor" id="line-26"></span></li><li><p class="line862">Build results are stored in a <em>shared cache</em>. <span class="anchor" id="line-27"></span><ul><li><p class="line862">Suppose Alice checks in a change to <tt>foo.c</tt> and the Bob starts using her new version.  His build can get a <em>cache hit</em> on the compilation of the new version which   Alice did before she checked in her changes.  For large teams this can add up to significant time savings. <span class="anchor" id="line-28"></span></li><li>This same feature means that you don't need to manage inidividual &quot;build areas&quot;.  Just decide on a policy of how often you want to purge old results and what should be kept when you do so.  This means users spend less time doing busy work and more time in productive development. <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span></li></ul></li></ol></dd><dt>It's under-documented. </dt><dd>Start with these: <span class="anchor" id="line-31"></span><ol type="1"><li><p class="line891"><a class="http" href="http://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/abstracts/src-rr-168.html">The Vesta Approach to Software Configuration Management</a> is a short introductory paper which gives an overview of the whole system. <span class="anchor" id="line-32"></span></li><li><p class="line891"><a class="http" href="../vesta/doc/pubs/codecon-2004/index.html">The CodeCon 2004 presentation</a> is another overview. <span class="anchor" id="line-33"></span></li><li><p class="line862">The <a class="http" href="../vesta/doc/tutorial.html">tutorial</a> and <a class="http" href="../vesta/doc/command-summary.html">command summary</a> will get you started with the day-to-day usage of the system. <span class="anchor" id="line-34"></span></li></ol>When you're ready to go into more depth: <span class="anchor" id="line-35"></span><ol type="1"><li><p class="line862">Read the <a class="http" href="../vesta/#publications">man pages</a>, many of which have <a class="http" href="../vesta/doc/man/html/vcheckout.gif">diagrams illustrating how they work</a> <span class="anchor" id="line-36"></span></li><li><p class="line862">Read the <a class="http" href="../vesta/doc/sdl-ref/index.html">build language's programmer's reference</a> <span class="anchor" id="line-37"></span></li></ol>And if you really want to know everything: <span class="anchor" id="line-38"></span><ol type="1"><li><p class="line862">The <a class="http" href="http://gatekeeper.research.compaq.com/pub/DEC/SRC/research-reports/abstracts/src-rr-177.html">book-length research report describes the design and implementation of the whole system</a>.  (An updated version of this is soon going to be published by Springer-Verlag.) <span class="anchor" id="line-39"></span></li><li><p class="line862">The <a class="http" href="../vesta/doc/sdl-spec/index.html">build language spec</a> describes the entire syntax and semantics in eaxcting detail. <span class="anchor" id="line-40"></span></li><li><p class="line862">If you want to start writing your own code using the Vesta APIs, read the <a class="http" href="../vesta/doc/api-ref/vcheckout-dissection.html">dissection of the checkout tool</a>. <span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span></li></ol></dd><dt>I just want version control and don't need a build system. </dt><dd>Vesta works just fine in this situation too. <span class="anchor" id="line-44"></span></dd></dl><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

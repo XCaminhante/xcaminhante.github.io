@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>DevelopingVesta/BranchStatus - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: DevelopingVesta/BranchStatus" href="BranchStatus%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=DevelopingVesta%252FBranchStatus&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="BranchStatus%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="BranchStatus%3Faction=print.html">
+<link rel="Up" href="DevelopingVesta.html">
+<link rel="Appendix" title="branch-status-repl.py" href="BranchStatus%3Faction=AttachFile&amp;do=view&amp;target=branch-status-repl.py.html">
+<link rel="Appendix" title="list-branches.py" href="BranchStatus%3Faction=AttachFile&amp;do=view&amp;target=list-branches.py.html">
+<link rel="Appendix" title="set-branch-status.py" href="BranchStatus%3Faction=AttachFile&amp;do=view&amp;target=set-branch-status.py.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="BranchStatus.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="DevelopingVesta.html">DevelopingVesta</a></li><li><a href="BranchStatus.html">BranchStatus</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="BranchStatus.html">BranchStatus</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="BranchStatus%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="BranchStatus.html#The_Problem">The Problem</a></li><li>
+<a href="BranchStatus.html#The_branch-status_Attribute">The branch-status Attribute</a></li><li>
+<a href="BranchStatus.html#Scripts">Scripts</a></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="The_Problem">The Problem</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">Vesta's core repository tools do not include any method to keep track of the status of different branches.  For example, the output of <a class="http" href="../vesta/doc/man/html/vlatest.1.html#-b">vlatest -b</a> shows every branch, regardless of whether it's under active development.  Vesta maintainers need a way to identify those branches which represent changes which need to be merged into the main line. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867">
+<h1 id="The_branch-status_Attribute">The branch-status Attribute</h1>
+<span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line862">To solve this problem, we use the <tt>branch-status</tt> attribute. There are several recognized values for <tt>branch-status</tt> <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><dl><dt>open</dt><dd><p class="line862">This branch is an area of active development and should, at some point in the future, be merged into the main line.  This is the assumed value if the <tt>branch-status</tt> attribute is not set. <span class="anchor" id="line-16"></span></dd><dt>closed</dt><dd>This branch has been merged into the main line, and is therefore historical. <span class="anchor" id="line-17"></span><p class="line862">An example would be <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/66.unique_run_tool">eval/66.unique_run_tool</a> which was merged in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/eval/67">eval/67</a>. <span class="anchor" id="line-18"></span></dd><dt>abandoned</dt><dd>This branch has not been merged into the main line, and currently there are no plans to do so.  Such a branch might represent an idea which was dropped in favor of another alternative, or changes which were needed during some debug effort but weren't suitable for inclusion in the main-line code. <span class="anchor" id="line-19"></span><p class="line862">An example would be <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/65.tail_gap">repos/65.tail_gap</a>. <span class="anchor" id="line-20"></span></dd><dt>obsolete</dt><dd><p class="line862">This branch will not been merged into the main line, but there is further development for the same change in a newer branch.  (This is similar to <strong>abandoned</strong>, but indicates that there is some other branch based on a later version of the trunk which contains further development of the same change.) <span class="anchor" id="line-21"></span>An example would be <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repltools/16.mount">repltools/16.mount</a> which was continued in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repltools/20.mount">repltools/20.mount</a>. <span class="anchor" id="line-22"></span></dd><dt>independent</dt><dd><p class="line862">This branch is independent: there's nowhere to merge it back into.  For example, the branches created by <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/extras/pkg2vesta">pkg2vesta</a> represent different versions of the OS component being imported; they're not forks of a version history within Vesta, and it doesn't make sense to merge them back into anything else in the future. <span class="anchor" id="line-23"></span>An example would be <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/beta.vestasys.org/platforms/linux/debian/i386/components/binutils/2.15-4">/vesta/beta.vestasys.org/platforms/linux/debian/i386/components/binutils/2.15-4</a>.  (Note that this branch has an <tt>old-version</tt> attribute even though it is independent.) <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span></dd></dl><p class="line867">
+<h1 id="Scripts">Scripts</h1>
+<span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line874">There are several scripts which help with using the branch status tags: <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><ul><li><p class="line891"><a class="attachment" href="BranchStatus%3Faction=AttachFile&amp;do=view&amp;target=list-branches.py.html" title="">list-branches.py</a> : This will list branches within one or more directories in the repository.  For example, this command will list all branches in <tt>/vesta/vestasys.org/basics</tt> and <tt>/vesta/vestasys.org/vesta</tt>: <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><pre><span class="anchor" id="line-1"></span>list-branches.py /vesta/vestasys.org/basics /vesta/vestasys.org/vesta</pre><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span>With the &quot;--status&quot; command line option, you can ask for a listing of only branches with a particular status.  The most commonly used one would be &quot;--status open&quot;, but you could also do &quot;--status abandoned&quot;. <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span></li><li class="gap"><p class="line891"><a class="attachment" href="BranchStatus%3Faction=AttachFile&amp;do=view&amp;target=set-branch-status.py.html" title="">set-branch-status.py</a> : This script is used to set the branch-status attribute.  You can pass it a specific branch to set the status of: <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><pre><span class="anchor" id="line-1-1"></span>set-branch-status.py /vesta/vestasys.org/vesta/repos/66.VolRoot</pre><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span>Or a package or an entire hierarchy to update the status of every branch in it: <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><pre><span class="anchor" id="line-1-2"></span>set-branch-status.py /vesta/vestasys.org/vesta/repos/66.VolRoot</pre><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span>If you use it on many branches, you may want to add &quot;--dont-repeat&quot; which will cause it to skip any branches which already have a status set. <span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span>It attempts to guess what the status should be (for example, by looking for a mention of the branch in the checking message of a later version in the enclosing package).  It will explain such guesses and ask for confirmation, which you can decline. <span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span>If you use this on a remote repository, please add &quot;--update dev.vestasys.org&quot; which will replicate each attribute change to dev.vestasys.org (so that others will see the status change). <span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span></li><li class="gap"><p class="line891"><a class="attachment" href="BranchStatus%3Faction=AttachFile&amp;do=view&amp;target=branch-status-repl.py.html" title="">branch-status-repl.py</a> : This script helps with propagatiung branch status changes to other repositories. <span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><p class="line862">With &quot;--destination <em>host:port</em>&quot; (which can be given multiple times), it will replicate to the specified repositories. <span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><p class="line862">With &quot;--output <em>file</em>&quot; it will write a file of replicator directives which you can use with vrepl. <span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><p class="line862">With &quot;--status <em>open|closed|...</em>&quot; it will only include branches with the specified status. <span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span></li></ul><p class="line862">On dev.vestasys.org, these scripts are all in <tt>/usr/local/bin</tt>. <span class="anchor" id="line-64"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

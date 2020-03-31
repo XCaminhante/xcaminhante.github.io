@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>std_env/MakeNewOsComponent - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: std_env/MakeNewOsComponent" href="MakeNewOsComponent%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=std_env%252FMakeNewOsComponent&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="MakeNewOsComponent%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="MakeNewOsComponent%3Faction=print.html">
+<link rel="Up" href="std_env.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="MakeNewOsComponent.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="std_env.html">std_env</a></li><li><a href="MakeNewOsComponent.html">MakeNewOsComponent</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="MakeNewOsComponent.html">MakeNewOsComponent</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="MakeNewOsComponent%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="MakeNewOsComponent.html#Introduction">Introduction</a></li><li>
+<a href="MakeNewOsComponent.html#pkg2vesta">pkg2vesta</a><ol><li>
+<a href="MakeNewOsComponent.html#Example">Example</a></li></ol></li><li>
+<a href="MakeNewOsComponent.html#Other_Methods">Other Methods</a><ol><li>
+<a href="MakeNewOsComponent.html#Other_Packaging_Formats">Other Packaging Formats</a></li></ol></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Introduction">Introduction</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">Since all Vesta build steps take place in an encapsulated file system, the basic files needed to perform builds such as compiler binaries and shared libraries must be checked into Vesta as sources.  Our general approach to this has been to create a set of <em>OS component</em> or just <em>component</em> packages, each of which provides a partial root filesystem. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">See <a href="OsComponentSpec.html">std_env/OsComponentSpec</a> for a definition of what makes an OS component. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867">
+<h1 id="pkg2vesta">pkg2vesta</h1>
+<span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">Most modern operating systems use some sort of <em>component packaging system</em>.  For example, many Linux systems use either the <a class="http" href="http://www.rpm.org/">the RedHat package manager</a> or <a class="http" href="http://packages.debian.org/stable/base/dpkg">the Debian package manager</a>.  If possible, it's probably easiest to use the OS component packaging systems granularity. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line862">With a little scripting, the process of importing these OS components can usually be automated.  For this purpose, we've developed a Perl script called <tt>pkg2vesta.pl</tt> which can import RPMs, Debian packages, and Tru64 subsets into Vesta packages.  You can find it in this package (which is available for replication from <tt>pub.vestasys.org</tt>): <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><ul><li style="list-style-type:none"><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/extras/pkg2vesta">/vesta/vestasys.org/vesta/extras/pkg2vesta</a> <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span></li></ul><p class="line862">It has embedded documentation which you can read by invoking it with either the <tt>--help</tt> or <tt>--man</tt> command-line flags. <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867"><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><pre><span class="anchor" id="line-1"></span>% pkg2vesta.pl --help
+<span class="anchor" id="line-2"></span>Usage:
+<span class="anchor" id="line-3"></span>    pkg2vesta.pl [--test] [--verbose] [--vhost &lt;hostname&gt;] [--rsh &lt;command&gt;]
+<span class="anchor" id="line-4"></span>    [--alias &lt;name&gt;] [--preinstall &lt;command string&gt;] [--postinstall &lt;command
+<span class="anchor" id="line-5"></span>    string&gt;] [--package-root /vesta/example.com/...] [--package-pattern
+<span class="anchor" id="line-6"></span>    &lt;pattern&gt;] &lt;package&gt; [&lt;package2&gt; ...]
+<span class="anchor" id="line-7"></span>
+<span class="anchor" id="line-8"></span>Options:
+<span class="anchor" id="line-9"></span>...
+<span class="anchor" id="line-10"></span>% pkg2vesta.pl --man
+<span class="anchor" id="line-11"></span>PKG2VESTA(1)   User Contributed Perl Documentation   PKG2VESTA(1)
+<span class="anchor" id="line-12"></span>
+<span class="anchor" id="line-13"></span>NAME
+<span class="anchor" id="line-14"></span>       pkg2vesta.pl - Import an OS component package (e.g. a
+<span class="anchor" id="line-15"></span>       Debian package archive or RPM) into a Vesta package which
+<span class="anchor" id="line-16"></span>       provides its files for use in building an encapsulated
+<span class="anchor" id="line-17"></span>       filesystem for tool invocations.
+<span class="anchor" id="line-18"></span>
+<span class="anchor" id="line-19"></span>SYNOPSIS
+<span class="anchor" id="line-20"></span>       pkg2vesta.pl [--test] [--verbose]
+<span class="anchor" id="line-21"></span>                    [--vhost &lt;hostname&gt;] [--rsh &lt;command&gt;]
+<span class="anchor" id="line-22"></span>                    [--alias &lt;name&gt;]
+<span class="anchor" id="line-23"></span>                    [--preinstall &lt;command string&gt;]
+<span class="anchor" id="line-24"></span>                    [--postinstall &lt;command string&gt;]
+<span class="anchor" id="line-25"></span>                    [--package-root /vesta/example.com/...]
+<span class="anchor" id="line-26"></span>                    [--package-pattern &lt;pattern&gt;]
+<span class="anchor" id="line-27"></span>                    &lt;package&gt; [&lt;package2&gt; ...]
+<span class="anchor" id="line-28"></span>
+<span class="anchor" id="line-29"></span>DESCRIPTION
+<span class="anchor" id="line-30"></span>...</pre><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><p class="line862">You will need to either use the <tt>--package-root</tt> flag or set <tt>[pkg2vesta.pl]package-root</tt> in your <a class="http" href="../vesta/doc/man/html/vesta.cfg.5.html">vesta.cfg file</a>. <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><p class="line862">Usually you provide an un-installed package file (a <tt>.rpm</tt> or <tt>.deb</tt> file).   <span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><p class="line862">You may also be able to supply an installed package name and use the <tt>--from-installed</tt> flag to copy the installed files from the operating system.  Note that this may not get you a pristine copy of the files in the package, as they could have been modified after installation.  Also note that this option isn't implemented for all packaging systems. <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><p class="line862">If necessary, <tt>pkg2vesta.pl</tt> will: <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><ul><li>Create a directory hierarchy based on the OS, CPU type, and vendor <span class="anchor" id="line-65"></span><ul><li><p class="line862">e.g. <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/components">/vesta/vestasys.org/platforms/linux/debian/i386/components</a> <span class="anchor" id="line-66"></span></li></ul></li><li>Create a package for the specific component <span class="anchor" id="line-67"></span><ul><li><p class="line862">e.g. <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/components/gcc-3.3">/vesta/vestasys.org/platforms/linux/debian/i386/components/gcc-3.3</a> <span class="anchor" id="line-68"></span></li></ul></li><li>Create a branch for the version of the component <span class="anchor" id="line-69"></span><ul><li><p class="line862">e.e. <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/components/gcc-3.3/1:3.3.5-13">/vesta/vestasys.org/platforms/linux/debian/i386/components/gcc-3.3/1:3.3.5-13</a> <span class="anchor" id="line-70"></span></li></ul></li><li>Check out the branch <span class="anchor" id="line-71"></span><ul><li><p class="line862">If it's already checked out, <tt>pkg2vesta.pl</tt> will re-populate the existing working directory <span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span></li></ul></li></ul><p class="line862">You may want to use the <tt>--test</tt> option first to see what <tt>pkg2vesta.pl</tt> will do. <span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><p class="line867">
+<h2 id="Example">Example</h2>
+<span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><p class="line862">Here's how <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/components/gcc-3.3/1:3.3.5-13/1">/vesta/vestasys.org/platforms/linux/debian/i386/components/gcc-3.3/1:3.3.5-13/1</a> was imported: <span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><p class="line867"><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><pre><span class="anchor" id="line-1-1"></span>pkg2vesta.pl --package-root /vesta/vestasys.org gcc-3.3_3.3.5-13_i386.deb</pre><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><p class="line862">(Of course the file <tt>gcc-3.3_3.3.5-13_i386.deb</tt> was present in the directory when that command was run.) <span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><p class="line867">
+<h1 id="Other_Methods">Other Methods</h1>
+<span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><p class="line862">You can of course create a component package any way you like.  As long as they follow <a href="OsComponentSpec.html">std_env/OsComponentSpec</a>, <tt>./build_root</tt> and other parts of <a href="std_env.html">std_env</a> will be able to use them. <span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><p class="line867">
+<h2 id="Other_Packaging_Formats">Other Packaging Formats</h2>
+<span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><p class="line862">Some people use tools that are packaged in some other way than the systems that <tt>pkg2vesta.pl</tt> supports.  You should consider extending <tt>pkg2vesta.pl</tt>, or if that's not feasible for some reason writing your own script to automate the process. <span class="anchor" id="line-92"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

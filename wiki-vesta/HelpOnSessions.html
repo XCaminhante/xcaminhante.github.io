@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnSessions - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnSessions" href="HelpOnSessions%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnSessions&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnSessions%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnSessions%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnSessions.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnSessions.html">HelpOnSessions</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnSessions.html">HelpOnSessions</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnSessions%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="How_sessions_work_in_MoinMoin">How sessions work in MoinMoin</h1>
+<span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="HelpOnSessions.html#How_sessions_work_in_MoinMoin">How sessions work in MoinMoin</a><ol><li>
+<a href="HelpOnSessions.html#Session_related_configuration">Session related configuration</a><ol><li>
+<a href="HelpOnSessions.html#Single_wiki">Single wiki</a></li><li>
+<a href="HelpOnSessions.html#Multiple_separate_wikis_under_same_domain.2C_all_using_wikiconfig_.28not_farmconfig.29">Multiple separate wikis under same domain, all using wikiconfig (not farmconfig)</a></li><li>
+<a href="HelpOnSessions.html#Wiki_farm.2C_host_based_farming">Wiki farm, host based farming</a></li><li>
+<a href="HelpOnSessions.html#Wiki_farm.2C_path_based_farming">Wiki farm, path based farming</a></li><li>
+<a href="HelpOnSessions.html#Wiki_farm.2C_port_based_farming">Wiki farm, port based farming</a></li></ol></li><li>
+<a href="HelpOnSessions.html#Session_example_code">Session example code</a></li></ol></li></ol></div> <span class="anchor" id="line-8"></span>Sessions in <a href="MoinMoin.html">MoinMoin</a> are implemented using a special session service that can be configured in <tt class="backtick">cfg.session_service</tt>. <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><p class="line874">Code using the session framework currently includes: <span class="anchor" id="line-11"></span><ul><li><p class="line862">the superuser &quot;change user&quot; functionality, see <a href="HelpOnSuperUser.html">HelpOnSuperUser</a> <span class="anchor" id="line-12"></span></li><li>the visited pages trail <span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span></li></ul><p class="line867">
+<h2 id="Session_related_configuration">Session related configuration</h2>
+<span class="anchor" id="line-15"></span><div><table><tbody><tr>  <td><p class="line862"> cookie_name     </td>
+  <td><p class="line862"> <tt class="backtick">None</tt>    </td>
+  <td><p class="line862"> Part of the session cookie name. None means to create the name from some url parts, 'siteidmagic' means use cfg.siteid (name of config file),  anything else will be just used as is.</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-16"></span><p class="line862"> cookie_domain   </td>
+  <td><p class="line862"> <tt class="backtick">None</tt>    </td>
+  <td><p class="line862"> Domain used in the session cookie. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-17"></span><p class="line862"> cookie_lifetime </td>
+  <td><p class="line862"> <tt class="backtick">(0,&nbsp;12)</tt> </td>
+  <td><p class="line862"> Cookie lifetime in hours, can be fractional. First tuple element is for anonymous sessions, second tuple element is for logged-in sessions. For anonymous sessions, t=0 means that they are disabled, t&gt;0 means that many hours. For logged-in sessions, t&gt;0 means that many hours, or forever if user checked 'remember_me', t&lt;0 means -t hours and ignore user 'remember_me' setting - you usually don't want to use t=0, it disables logged-in sessions. </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line867">
+<h3 id="Single_wiki">Single wiki</h3>
+<span class="anchor" id="line-20"></span><p class="line862">Likely the only interesting item is <tt class="backtick">cookie_lifetime</tt>. <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line867">
+<h3 id="Multiple_separate_wikis_under_same_domain.2C_all_using_wikiconfig_.28not_farmconfig.29">Multiple separate wikis under same domain, all using wikiconfig (not farmconfig)</h3>
+<span class="anchor" id="line-23"></span><p class="line862">The default <tt class="backtick">cookie_name&nbsp;=&nbsp;None</tt> creates a different cookie name and separate sessions for each wiki. <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line862">If you want separate sessions for your wikis, you can't use <tt class="backtick">cookie_name&nbsp;=&nbsp;'siteidmagic'</tt> because that <span class="anchor" id="line-26"></span>always would set the name to MOIN_SESSION_wikiconfig. So either explicitly set a unique cookie_name for <span class="anchor" id="line-27"></span>each wiki or use <tt class="backtick">cookie_name&nbsp;=&nbsp;None</tt>. <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line867">
+<h3 id="Wiki_farm.2C_host_based_farming">Wiki farm, host based farming</h3>
+<span class="anchor" id="line-30"></span><p class="line874">E.g. wiki1.example.org and wiki2.example.org. <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><p class="line874">If you like shared sessions, shared user profiles, use this in your farmconfig: <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-1-1"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c)) {
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    var n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        var a = document.createElement('A');
+        s.className = 'LineNumber';
+        a.appendChild(document.createTextNode(nformat(n,4,'')));
+        a.href = '#' + did + '_' + n;
+        s.appendChild(a);
+        s.appendChild(document.createTextNode(' '));
+        n += nstep;
+        if (l.childNodes.length) {
+          l.insertBefore(s, l.firstChild);
+        }
+        else {
+          l.appendChild(s);
+        }
+      }
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c)) {
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="HelpOnSessions.html#" onclick="return togglenumber(\'CA-f9886e651dbda7a607fcca6791cdd8d629b1ec0a\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-f9886e651dbda7a607fcca6791cdd8d629b1ec0a" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-f9886e651dbda7a607fcca6791cdd8d629b1ec0a_1">   1</a> </span><span class="LineAnchor" id="CA-f9886e651dbda7a607fcca6791cdd8d629b1ec0a_1"></span><span class="anchor" id="line-1-2"></span>    <span class="ID">cookie_domain</span> = <span class="String">'</span><span class="String">.example.org</span><span class="String">'</span> <span class="Comment"># cookie domain matches for all wikis</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-f9886e651dbda7a607fcca6791cdd8d629b1ec0a_2">   2</a> </span><span class="LineAnchor" id="CA-f9886e651dbda7a607fcca6791cdd8d629b1ec0a_2"></span><span class="anchor" id="line-2-1"></span>    <span class="ID">cookie_name</span> = <span class="String">'</span><span class="String">myfarm</span><span class="String">'</span> <span class="Comment"># cookie name is same for all wikis</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-f9886e651dbda7a607fcca6791cdd8d629b1ec0a_3">   3</a> </span><span class="LineAnchor" id="CA-f9886e651dbda7a607fcca6791cdd8d629b1ec0a_3"></span><span class="anchor" id="line-3-1"></span>    <span class="ID">session_dir</span> = <span class="String">'</span><span class="String">/same_session_dir</span><span class="String">'</span> <span class="Comment"># use same storage for session files</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-f9886e651dbda7a607fcca6791cdd8d629b1ec0a_4">   4</a> </span><span class="LineAnchor" id="CA-f9886e651dbda7a607fcca6791cdd8d629b1ec0a_4"></span><span class="anchor" id="line-4-1"></span>    <span class="ID">user_dir</span> = <span class="String">'</span><span class="String">/same_user_dir</span><span class="String">'</span> <span class="Comment"># use same storage for user profiles</span></span>
+</pre></div></div><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><p class="line867">
+<h3 id="Wiki_farm.2C_path_based_farming">Wiki farm, path based farming</h3>
+<span class="anchor" id="line-41"></span><p class="line874">E.g. example.org/wiki1 and example.org/wiki2. <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line874">If you like shared sessions, shared user profiles, use this in your farmconfig: <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-1-3"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnSessions.html#" onclick="return togglenumber(\'CA-6a6508c78d1c6c452554aa830f1a9c22d546a961\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-6a6508c78d1c6c452554aa830f1a9c22d546a961" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-6a6508c78d1c6c452554aa830f1a9c22d546a961_1">   1</a> </span><span class="LineAnchor" id="CA-6a6508c78d1c6c452554aa830f1a9c22d546a961_1"></span><span class="anchor" id="line-1-4"></span>    <span class="ID">cookie_name</span> = <span class="String">'</span><span class="String">myfarm</span><span class="String">'</span> <span class="Comment"># cookie name is same for all wikis</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-6a6508c78d1c6c452554aa830f1a9c22d546a961_2">   2</a> </span><span class="LineAnchor" id="CA-6a6508c78d1c6c452554aa830f1a9c22d546a961_2"></span><span class="anchor" id="line-2-2"></span>    <span class="ID">session_dir</span> = <span class="String">'</span><span class="String">/same_session_dir</span><span class="String">'</span> <span class="Comment"># use same storage for session files</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-6a6508c78d1c6c452554aa830f1a9c22d546a961_3">   3</a> </span><span class="LineAnchor" id="CA-6a6508c78d1c6c452554aa830f1a9c22d546a961_3"></span><span class="anchor" id="line-3-2"></span>    <span class="ID">user_dir</span> = <span class="String">'</span><span class="String">/same_user_dir</span><span class="String">'</span> <span class="Comment"># use same storage for user profiles</span></span>
+</pre></div></div><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><p class="line867">
+<h3 id="Wiki_farm.2C_port_based_farming">Wiki farm, port based farming</h3>
+<span class="anchor" id="line-51"></span><p class="line874">E.g. example.org:8000 and example.org:8001. <span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><p class="line874">If you like shared sessions, shared user profiles, use this in your farmconfig: <span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-1-5"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnSessions.html#" onclick="return togglenumber(\'CA-6a6508c78d1c6c452554aa830f1a9c22d546a961-1\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-6a6508c78d1c6c452554aa830f1a9c22d546a961-1" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-6a6508c78d1c6c452554aa830f1a9c22d546a961-1_1">   1</a> </span><span class="LineAnchor" id="CA-6a6508c78d1c6c452554aa830f1a9c22d546a961-1_1"></span><span class="anchor" id="line-1-6"></span>    <span class="ID">cookie_name</span> = <span class="String">'</span><span class="String">myfarm</span><span class="String">'</span> <span class="Comment"># cookie name is same for all wikis</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-6a6508c78d1c6c452554aa830f1a9c22d546a961-1_2">   2</a> </span><span class="LineAnchor" id="CA-6a6508c78d1c6c452554aa830f1a9c22d546a961-1_2"></span><span class="anchor" id="line-2-3"></span>    <span class="ID">session_dir</span> = <span class="String">'</span><span class="String">/same_session_dir</span><span class="String">'</span> <span class="Comment"># use same storage for session files</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-6a6508c78d1c6c452554aa830f1a9c22d546a961-1_3">   3</a> </span><span class="LineAnchor" id="CA-6a6508c78d1c6c452554aa830f1a9c22d546a961-1_3"></span><span class="anchor" id="line-3-3"></span>    <span class="ID">user_dir</span> = <span class="String">'</span><span class="String">/same_user_dir</span><span class="String">'</span> <span class="Comment"># use same storage for user profiles</span></span>
+</pre></div></div><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><p class="line867">
+<h2 id="Session_example_code">Session example code</h2>
+<span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><p class="line862">As an extension programmer, in order to use session variables, you can use <tt class="backtick">request.session</tt> like a dict, values stored there are automatically saved and restored if a session is available. <span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><p class="line874">Here's an example macro using the session code: <span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-1-7"></span><div class="highlight python"><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="HelpOnSessions.html#" onclick="return togglenumber(\'CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11" lang="en"><span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_1">   1</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_1"></span><span class="anchor" id="line-1-8"></span><span class="Comment"># -*- coding: iso-8859-1 -*-</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_2">   2</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_2"></span><span class="anchor" id="line-2-4"></span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_3">   3</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_3"></span><span class="anchor" id="line-3-4"></span><span class="String">&quot;&quot;&quot;</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_4">   4</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_4"></span><span class="anchor" id="line-4-2"></span><span class="String">    Tests session state.</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_5">   5</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_5"></span><span class="anchor" id="line-5-1"></span><span class="String">&quot;&quot;&quot;</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_6">   6</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_6"></span><span class="anchor" id="line-6-1"></span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_7">   7</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_7"></span><span class="anchor" id="line-7-1"></span><span class="ID">Dependencies</span> = [<span class="String">'</span><span class="String">time</span><span class="String">'</span>]</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_8">   8</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_8"></span><span class="anchor" id="line-8-1"></span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_9">   9</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_9"></span><span class="anchor" id="line-9-1"></span><span class="ResWord">def</span> <span class="ID">execute</span>(<span class="ID">macro</span>, <span class="ID">args</span>):</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_10">  10</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_10"></span><span class="anchor" id="line-10-1"></span>    <span class="ResWord">if</span> <span class="ID">macro</span>.<span class="ID">request</span>.<span class="ID">session</span>.<span class="ID">is_new</span>:</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_11">  11</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_11"></span><span class="anchor" id="line-11-1"></span>        <span class="ResWord">return</span> <span class="ID">macro</span>.<span class="ID">formatter</span>.<span class="ID">text</span>(<span class="String">'</span><span class="String">Not storing any state until you send a cookie.</span><span class="String">'</span>)</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_12">  12</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_12"></span><span class="anchor" id="line-12-1"></span>    <span class="ResWord">if</span> <span class="String">'</span><span class="String">test</span><span class="String">'</span> <span class="ResWord">in</span> <span class="ID">macro</span>.<span class="ID">request</span>.<span class="ID">session</span>:</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_13">  13</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_13"></span><span class="anchor" id="line-13-1"></span>        <span class="ResWord">return</span> <span class="ID">macro</span>.<span class="ID">formatter</span>.<span class="ID">text</span>(<span class="String">&quot;</span><span class="String">Loaded value </span><span class="String">%d</span><span class="String">&quot;</span> % <span class="ID">macro</span>.<span class="ID">request</span>.<span class="ID">session</span>[<span class="String">'</span><span class="String">test</span><span class="String">'</span>])</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_14">  14</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_14"></span><span class="anchor" id="line-14-1"></span>    <span class="ResWord">import</span> <span class="ID">random</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_15">  15</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_15"></span><span class="anchor" id="line-15-1"></span>    <span class="ID">value</span> = <span class="ID">random</span>.<span class="ID">randint</span>(<span class="Number">1</span>, <span class="Number">100000</span>)</span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_16">  16</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_16"></span><span class="anchor" id="line-16-1"></span>    <span class="ID">macro</span>.<span class="ID">request</span>.<span class="ID">session</span>[<span class="String">'</span><span class="String">test</span><span class="String">'</span>] = <span class="ID">value</span></span>
+<span class="line"><span class="LineNumber"><a href="HelpOnSessions.html#CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_17">  17</a> </span><span class="LineAnchor" id="CA-499fdd6bfd7da5d0ff3a7f9ae1b8ef4e37691a11_17"></span><span class="anchor" id="line-17-1"></span>    <span class="ResWord">return</span> <span class="ID">macro</span>.<span class="ID">formatter</span>.<span class="ID">text</span>(<span class="String">&quot;</span><span class="String">Set to value </span><span class="String">%d</span><span class="String">&quot;</span> % <span class="ID">value</span>)</span>
+</pre></div></div><span class="anchor" id="line-85"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

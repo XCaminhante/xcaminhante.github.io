@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>Binding2PerlHash - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: Binding2PerlHash" href="Binding2PerlHash%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=Binding2PerlHash&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="Binding2PerlHash%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="Binding2PerlHash%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="Binding2PerlHash.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="Binding2PerlHash.html">Binding2PerlHash</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="Binding2PerlHash.html">Binding2PerlHash</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="Binding2PerlHash%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line874">This is an SDL function which takes a binding and returns a string which is perl code to re-create an alternate implementaiton of the binidng as a perl hash. <span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line862">Has anyone done this before?  I personally need it to extract &quot;a subset&quot; of <tt>the&nbsp;build_bmp</tt> import tree.  I want to use SDL to parse the <tt>.ves</tt> file to avoid any parsing mistakes or limitations, but i need the data in a perl script outside, so i wrote this. <span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line874">I have to handle lists, bools, all the types, but you'll get the idea. <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><p class="line867"><span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><pre><span class="anchor" id="line-1"></span>  /**nocache**/
+<span class="anchor" id="line-2"></span>  binding2perlhash_recursion (b, prefix) {
+<span class="anchor" id="line-3"></span>    str = &quot;&quot;;
+<span class="anchor" id="line-4"></span>    foreach [n = v] in b do {
+<span class="anchor" id="line-5"></span>      this_prefix = prefix + &quot;{&quot; + n + &quot;}&quot;;
+<span class="anchor" id="line-6"></span>      str += if _is_binding(v)
+<span class="anchor" id="line-7"></span>                then binding2perlhash_recursion(v, this_prefix)
+<span class="anchor" id="line-8"></span>                else (this_prefix + &quot; = \&quot;&quot; +
+<span class="anchor" id="line-9"></span>                      (if _is_int(v) then ./itoa(v) else v)
+<span class="anchor" id="line-10"></span>                      + &quot;\&quot;;\n&quot;);
+<span class="anchor" id="line-11"></span>    };
+<span class="anchor" id="line-12"></span>    return str;
+<span class="anchor" id="line-13"></span>  };
+<span class="anchor" id="line-14"></span>
+<span class="anchor" id="line-15"></span>  /**nocache**/
+<span class="anchor" id="line-16"></span>  binding2perlhash (b, hash_ref_name = &quot;href&quot;) {
+<span class="anchor" id="line-17"></span>    return binding2perlhash_recursion (b, &quot;$$&quot; + hash_ref_name);
+<span class="anchor" id="line-18"></span>  };</pre><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><p class="line862">example <tt>test.ves</tt>: <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><p class="line867"><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><pre><span class="anchor" id="line-1-1"></span>{
+<span class="anchor" id="line-2-1"></span>  return [vbk.dat.ves.pl = binding2perlhash([first = 1, second = &quot;two&quot;, nested = [three = 333, four = &quot;fore&quot;]], &quot;myhashr&quot;)];
+<span class="anchor" id="line-3-1"></span>}</pre><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line874">run via: <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line867"><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><pre><span class="anchor" id="line-1-2"></span>vesta -shipto ~/mydir/ /path/test.ves</pre><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><p class="line874">returns a file that looks like this: <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><p class="line867"><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><pre><span class="anchor" id="line-1-3"></span>$$myhashr{first} = &quot;1&quot;;
+<span class="anchor" id="line-2-2"></span>$$myhashr{second} = &quot;two&quot;;
+<span class="anchor" id="line-3-2"></span>$$myhashr{nested}{three} = &quot;333&quot;;
+<span class="anchor" id="line-4-1"></span>$$myhashr{nested}{four} = &quot;fore&quot;;</pre><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><p class="line874">This perl script can consume it: <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><pre><span class="anchor" id="line-1-4"></span>use Data::Dumper;
+<span class="anchor" id="line-2-3"></span>
+<span class="anchor" id="line-3-3"></span># eval the generated .pl file
+<span class="anchor" id="line-4-2"></span>do &quot;/home/user/mydir/vbk.dat.ves.pl&quot;;
+<span class="anchor" id="line-5-1"></span>
+<span class="anchor" id="line-6-1"></span># use Data::Dumper to print the resulting hash ref
+<span class="anchor" id="line-7-1"></span>print Data::Dumper-&gt;Dump([$myhashr],[qw($myhashr)]);</pre><span class="anchor" id="line-66"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

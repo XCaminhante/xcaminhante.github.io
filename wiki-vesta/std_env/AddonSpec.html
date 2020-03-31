@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>std_env/AddonSpec - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: std_env/AddonSpec" href="AddonSpec%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=std_env%252FAddonSpec&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="AddonSpec%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="AddonSpec%3Faction=print.html">
+<link rel="Up" href="std_env.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="AddonSpec.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="std_env.html">std_env</a></li><li><a href="AddonSpec.html">AddonSpec</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="AddonSpec.html">std_env/AddonSpec</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="AddonSpec%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="AddonSpec.html#What.27s_in_an_add-on.3F">What's in an add-on?</a></li><li>
+<a href="AddonSpec.html#Add-on_Models">Add-on Models</a></li><li>
+<a href="AddonSpec.html#Add-on_Names">Add-on Names</a></li><li>
+<a href="AddonSpec.html#Add-on_Model_Result">Add-on Model Result</a><ol><li>
+<a href="AddonSpec.html#component_models">component_models</a></li><li>
+<a href="AddonSpec.html#bridges">bridges</a></li><li>
+<a href="AddonSpec.html#bridge_params">bridge_params</a></li><li>
+<a href="AddonSpec.html#libs">libs</a></li><li>
+<a href="AddonSpec.html#prereqs">prereqs</a></li><li>
+<a href="AddonSpec.html#env">env</a></li></ol></li><li>
+<a href="AddonSpec.html#Name_Conflicts">Name Conflicts</a></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="What.27s_in_an_add-on.3F">What's in an add-on?</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">An add-on is a specification of pieces of a build environment.  This is made up of: <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><ul><li><p class="line862">OS component models to be evaluated, the results of which will be merged into <tt>./components</tt> <span class="anchor" id="line-12"></span></li><li><p class="line862">Bridge models to be evaluated, the results of which will be merged into <tt>.</tt> <span class="anchor" id="line-13"></span></li><li>Bridge specialization parameters to be passed to a bridge model when it is called <span class="anchor" id="line-14"></span></li><li><p class="line862">Libraries to be included in <tt>./libs</tt> <span class="anchor" id="line-15"></span></li><li><p class="line862">A binding of other values to be merged into <tt>.</tt> <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span></li></ul><p class="line862">An add-on can also specify <em>prerequisite</em> add-ons which it depends upon.  (For example, the C++ add-on usually depends on the C add-on as some pieces are shared between them.) <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line867">
+<h1 id="Add-on_Models">Add-on Models</h1>
+<span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line862">An add-on is a function, usually a Vesta SDL model file, which can be passed to the <tt>env_build</tt> function provided by <tt>std_env</tt>. <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line862">Here are some example add-on models from the Debian sarge i386 <tt>std_env</tt>: <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><div><table><tbody><tr>  <td><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/c.ves">c.ves</a></td>
+  <td><p class="line862">C compilation</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-26"></span><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/cxx.ves">cxx.ves</a></td>
+  <td><p class="line862">C++ compilation</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-27"></span><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/lex.ves">lex.ves</a></td>
+  <td><p class="line862">lex - lexical analyzer generator</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-28"></span><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/libbasics.ves">libbasics.ves</a></td>
+  <td><p class="line862">The <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/basics">basics libraries</a> used by Vesta</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-29"></span><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/libgc.ves">libgc.ves</a></td>
+  <td><p class="line862">The <a class="http" href="http://www.hpl.hp.com/personal/Hans_Boehm/gc/">Boehm garbage collection library</a></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-30"></span><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/libvesta.ves">libvesta.ves</a></td>
+  <td><p class="line862">The Vesta libraries</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-31"></span><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/libz.ves">libz.ves</a></td>
+  <td><p class="line862">The <a class="http" href="http://www.gzip.org/zlib/">zlib</a> compression library</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-32"></span><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/lim.ves">lim.ves</a></td>
+  <td><p class="line862">The lim interpreted language (used by mtex)</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-33"></span><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/mtex.ves">mtex.ves</a></td>
+  <td><p class="line862">The mtex documentation system (used for the Vesta man pages)</td>
+</tr>
+<tr>  <td><span class="anchor" id="line-34"></span><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/debian/i386/std_env/2/yacc.ves">yacc.ves</a></td>
+  <td><p class="line862">yacc - a parser generator</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><p class="line867">
+<h1 id="Add-on_Names">Add-on Names</h1>
+<span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line862">Each add-on must have a specific string which is its name.  Normally this is the name of the add-on model without the &quot;<tt>.ves</tt>&quot; extension.  Having unique names makes it possible to prevent the same add-on when multiple add-ons depend on them as prerequisites.  (See the description of <tt>prereqs</tt> below.) <span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><p class="line867">
+<h1 id="Add-on_Model_Result">Add-on Model Result</h1>
+<span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><p class="line874">An add-on model must return a binding.  That binding may contain zero or more of the following names: <span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><ul><li><p class="line891"><tt>component_models</tt> <span class="anchor" id="line-45"></span></li><li><p class="line891"><tt>bridges</tt> <span class="anchor" id="line-46"></span></li><li><p class="line891"><tt>bridge_params</tt> <span class="anchor" id="line-47"></span></li><li><p class="line891"><tt>libs</tt> <span class="anchor" id="line-48"></span></li><li><p class="line891"><tt>prereqs</tt> <span class="anchor" id="line-49"></span></li><li><p class="line891"><tt>env</tt> <span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span></li></ul><p class="line874">Any other names in the result of an add-on model are currently ignored. <span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><p class="line867">
+<h2 id="component_models">component_models</h2>
+<span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><p class="line862">If present, the value of <tt>component_models</tt> must be a binding of one or more OS component models.  Each of these will be evaluated with the results being overlayed together to form <tt>./components</tt> in the final build environment. <span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><p class="line867">
+<h2 id="bridges">bridges</h2>
+<span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><p class="line862">If present, the value of <tt>bridges</tt> must be a binding of one or more bridge models.  Each of these will be evaluated, with the results being recursively overlaid into <tt>.</tt>. <span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><p class="line862">The name of each bridge model in this binding is significant.  If the same name is also present in <tt>bridge_params</tt>, then the associated value from <tt>bridge_params</tt> will be passed as the first argument to the bridge model (i.e. as the value of <tt>.</tt>). <span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><p class="line867">
+<h2 id="bridge_params">bridge_params</h2>
+<span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><p class="line862">If present, the value of <tt>bridge_params</tt> must be a binding of parameters to be passed to bridge models when they are called.  The names in this binding must match the names in <tt>bridges</tt>. <span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><p class="line874">It's worth noting that an add-on may specify parameters for any bridge, not just bridges it defines.  Before calling any bridge models, all bridge models are gathered first as well as all bridge parameters.  The bridge parameters from all add-ons are simply combined with recursive overlay (++), so one add-on can augment or even replace bridge parameters specified by another.  However, the order in which they are overlaid is not strictly defined. <span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><p class="line867">
+<h2 id="libs">libs</h2>
+<span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><p class="line862">If present, the value of <tt>libs</tt> must be a binding of bindings of functions.  Each of these functions must return a value of type <a class="http" href="../vesta/doc/man/html/vtypes.5.html#LibPkgResult">LibPkgResult</a>.  For example, this SDL model would be an add-on returning <tt>libs</tt>: <span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><p class="line867"><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c)) {
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    var n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        var a = document.createElement('A');
+        s.className = 'LineNumber';
+        a.appendChild(document.createTextNode(nformat(n,4,'')));
+        a.href = '#' + did + '_' + n;
+        s.appendChild(a);
+        s.appendChild(document.createTextNode(' '));
+        n += nstep;
+        if (l.childNodes.length) {
+          l.insertBefore(s, l.firstChild);
+        }
+        else {
+          l.appendChild(s);
+        }
+      }
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c)) {
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="AddonSpec.html#" onclick="return togglenumber(\'CA-e8854d153e62548951673e45dd1422fa0622130b\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-e8854d153e62548951673e45dd1422fa0622130b" lang="en"><span class="line"><span class="LineNumber"><a href="AddonSpec.html#CA-e8854d153e62548951673e45dd1422fa0622130b_1">   1</a> </span><span class="LineAnchor" id="CA-e8854d153e62548951673e45dd1422fa0622130b_1"></span><span class="ResWord">from</span> <span class="SPChar">/</span><span class="ID">vesta</span><span class="SPChar">/</span><span class="ID">vestasys</span><span class="ID">.org</span><span class="SPChar">/</span><span class="ID">basics</span> <span class="ResWord">import</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonSpec.html#CA-e8854d153e62548951673e45dd1422fa0622130b_2">   2</a> </span><span class="LineAnchor" id="CA-e8854d153e62548951673e45dd1422fa0622130b_2"></span>  <span class="ID">basics</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">os</span><span class="SPChar">/</span><span class="Number">2</span><span class="Number">1</span><span class="SPChar">,</span> <span class="ID">generics</span><span class="SPChar">/</span><span class="Number">1</span><span class="Number">4</span><span class="SPChar">,</span> <span class="ID">basics</span><span class="SPChar">/</span><span class="Number">3</span><span class="Number">1</span> <span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonSpec.html#CA-e8854d153e62548951673e45dd1422fa0622130b_3">   3</a> </span><span class="LineAnchor" id="CA-e8854d153e62548951673e45dd1422fa0622130b_3"></span><span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonSpec.html#CA-e8854d153e62548951673e45dd1422fa0622130b_4">   4</a> </span><span class="LineAnchor" id="CA-e8854d153e62548951673e45dd1422fa0622130b_4"></span>  <span class="ResWord">return</span> <span class="SPChar">[</span> <span class="ID">libs</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">basics</span> <span class="SPChar">]</span> <span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="AddonSpec.html#CA-e8854d153e62548951673e45dd1422fa0622130b_5">   5</a> </span><span class="LineAnchor" id="CA-e8854d153e62548951673e45dd1422fa0622130b_5"></span><span class="SPChar">}</span></span>
+</pre></div><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><p class="line862">All the <tt>libs</tt> of all the add-ons will be merged together and passed to the <tt>walk_libs</tt> functions.  After evaluating all the leaf functions and placing the results at the same relative path, the result will be placed in <tt>./libs</tt>. <span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><p class="line862">For the full details of how <tt>libs</tt> is processed to produce <tt>./libs</tt>, see <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/env_build/0/build.ves#L63">the definition of the walk_libs function</a>. <span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><p class="line867">
+<h2 id="prereqs">prereqs</h2>
+<span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><p class="line862">If present, the value of <tt>prereqs</tt> must be a binding of other add-on models.  Each of these will be called and have its result used by <tt>std_env</tt> when constructing the build environmet.  However, each named add-on model will only be called once.  This makes it possible to seamlessly handle the case where multiple explicitly requested add-ons have the same prerequisite. <span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><p class="line867">
+<h2 id="env">env</h2>
+<span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><p class="line862">If present, the value of <tt>env</tt> must be a binding.  It will be recursively overlaid into <tt>.</tt> after everything else has been added to the build environment (i.e. at the end of <tt>env_build</tt>).  This is a sort of &quot;escape hatch&quot; which allows an add-on to arbitrarly augment or replace pieces of the build environment. <span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><p class="line867">
+<h1 id="Name_Conflicts">Name Conflicts</h1>
+<span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><p class="line862">When combining the results from different add-ons, checks are performed for name conflicts.  This is to prevent, for exmaple, one add-on from and silently replacing a bridge provided by another.  (The real intent is to prevent this happening accidentally, and to provide a more helpful error message than <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_append.html">the _append primitive function</a>.) <span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><p class="line874">Specifically, the cases which will result in an error message are: <span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><ul><li><p class="line862">If multiple add-ons return <tt>component_models</tt> with overlapping names <span class="anchor" id="line-100"></span></li><li><p class="line862">If an add-on returns <tt>component_models</tt> with names of default components <span class="anchor" id="line-101"></span><ul><li><p class="line862">Each <tt>std_env</tt> can include some OS components by default even with no add-ons.  Usually these are just the very basic filesystem components needed to load and run programs (such as a run-time loader/linker and basic shared libraries needed by most/all executables). <span class="anchor" id="line-102"></span></li></ul></li><li><p class="line862">If multiple add-ons return <tt>bridges</tt> with overlapping names <span class="anchor" id="line-103"></span></li><li><p class="line862">If an add-on returns <tt>bridges</tt> with names of default bridges <span class="anchor" id="line-104"></span><ul><li><p class="line862">Each <tt>std_env</tt> can also have default bridges.  Usually this is just <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/generics">generics</a>. <span class="anchor" id="line-105"></span></li></ul></li><li><p class="line862">If multiple add-ons return <tt>libs</tt> which overlap at the leaf level <span class="anchor" id="line-106"></span><ul><li><p class="line862">Overlaps in the first level of binding are fine.  For example, often multiple add-ons will have a &quot;<tt>c</tt>&quot; sub-binding in their libs, as there are quite a few C libraries. <span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span></li></ul></li></ul><p class="line862">For the full details of how name conflicts are detected and presented as errors, see <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/env_build/0/build.ves#L250">the relevant code in env_build which loops over the addons and gathers all component models, bridge models, and libraries</a>. <span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><p class="line874">Note that name conflicts are allowed in other places: <span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><ul><li><p class="line862">The <tt>env</tt> from each add-on is simply overlaid into <tt>.</tt> <span class="anchor" id="line-113"></span></li><li><p class="line862">The <tt>bridge_params</tt> form all add-ons are simply combined <span class="anchor" id="line-114"></span></li><li><p class="line862">The <tt>prereqs</tt> may of course overlap, but any add-ons with the same name as ones which have already been processed are simply ignored. <span class="anchor" id="line-115"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>PortingNotes/MacOs - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: PortingNotes/MacOs" href="MacOs%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=PortingNotes%252FMacOs&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="MacOs%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="MacOs%3Faction=print.html">
+<link rel="Up" href="../PortingNotes.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="MacOs.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="../PortingNotes.html">PortingNotes</a></li><li><a href="MacOs.html">MacOs</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="MacOs.html">PortingNotes/MacOs</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="MacOs%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="MacOs.html#OS_Component_Information">OS Component Information</a><ol><li>
+<a href="MacOs.html#General_Information_about_a_Package">General Information about a Package</a></li><li>
+<a href="MacOs.html#Which_Package_Owns_a_File.3F">Which Package Owns a File?</a></li><li>
+<a href="MacOs.html#Contents_of_a_Package">Contents of a Package</a></li></ol></li><li>
+<a href="MacOs.html#Possible_Platform_Definition">Possible Platform Definition</a></li><li>
+<a href="MacOs.html#Minimal_Tool_Example">Minimal Tool Example</a><ol><li>
+<a href="MacOs.html#Root_Filesystem">Root Filesystem</a></li><li>
+<a href="MacOs.html#Vesta_SDL_Model">Vesta SDL Model</a></li></ol></li><li>
+<a href="MacOs.html#pkg2vesta_Challenges">pkg2vesta Challenges</a></li><li>
+<a href="MacOs.html#Other_Projects">Other Projects</a></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="OS_Component_Information">OS Component Information</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">The command for getting information about MacOS packages seems to be <a class="http" href="http://developer.apple.com/documentation/Darwin/Reference/ManPages/man1/pkgutil.1.html">pkgutil</a> <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">This command would be used when extending the <tt>pkg2vesta.pl</tt> script to allow it to import MacOS components into Vesta packages. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867">
+<h2 id="General_Information_about_a_Package">General Information about a Package</h2>
+<span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">Use <tt>--pkg-info</tt> to get information about an installed MacOS package: <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line867"><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><pre><span class="anchor" id="line-1"></span>% pkgutil --pkg-info com.apple.pkg.DeveloperToolsCLILeo
+<span class="anchor" id="line-2"></span>package-id: com.apple.pkg.DeveloperToolsCLILeo
+<span class="anchor" id="line-3"></span>version: 1.0.0.9000000000.1.1192168948
+<span class="anchor" id="line-4"></span>volume: /
+<span class="anchor" id="line-5"></span>location: ./
+<span class="anchor" id="line-6"></span>install-time: 1227100759
+<span class="anchor" id="line-7"></span>groups: com.apple.repair-permissions.pkg-group com.apple.FindSystemFiles.pkg-group com.apple.DevToolsBoth.pkg-group</pre><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line867">
+<h2 id="Which_Package_Owns_a_File.3F">Which Package Owns a File?</h2>
+<span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line862">Use <tt>--file-info</tt> to find out which installed MacOS package owns a file: <span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><p class="line867"><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><pre><span class="anchor" id="line-1-1"></span>% pkgutil --file-info /usr/bin/gcc
+<span class="anchor" id="line-2-1"></span>volume: /
+<span class="anchor" id="line-3-1"></span>path: usr/bin/gcc
+<span class="anchor" id="line-4-1"></span>
+<span class="anchor" id="line-5-1"></span>pkgid: com.apple.pkg.DeveloperToolsCLILeo
+<span class="anchor" id="line-6-1"></span>pkg-version: 1.0.0.9000000000.1.1192168948
+<span class="anchor" id="line-7-1"></span>install-time: 1227100759
+<span class="anchor" id="line-8"></span>uid: 0
+<span class="anchor" id="line-9"></span>gid: 0
+<span class="anchor" id="line-10"></span>mode: 120755
+<span class="anchor" id="line-11"></span>
+<span class="anchor" id="line-12"></span>% pkgutil --file-info /usr/lib/libSystem.B.dylib
+<span class="anchor" id="line-13"></span>volume: /
+<span class="anchor" id="line-14"></span>path: usr/lib/libSystem.B.dylib
+<span class="anchor" id="line-15"></span>
+<span class="anchor" id="line-16"></span>pkgid: com.apple.pkg.BaseSystem
+<span class="anchor" id="line-17"></span>pkg-version: 10.5.3.1.1.1191932192
+<span class="anchor" id="line-18"></span>install-time: 1220411437
+<span class="anchor" id="line-19"></span>uid: 0
+<span class="anchor" id="line-20"></span>gid: 0
+<span class="anchor" id="line-21"></span>mode: 100555
+<span class="anchor" id="line-22"></span>
+<span class="anchor" id="line-23"></span>pkgid: com.apple.pkg.update.os.10.5.6.combo
+<span class="anchor" id="line-24"></span>pkg-version: 1.0.1.1191932192
+<span class="anchor" id="line-25"></span>install-time: 1234331233
+<span class="anchor" id="line-26"></span>uid: 0
+<span class="anchor" id="line-27"></span>gid: 0
+<span class="anchor" id="line-28"></span>mode: 100555 </pre><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><p class="line867">
+<h2 id="Contents_of_a_Package">Contents of a Package</h2>
+<span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><p class="line862">Use <tt>--files</tt> to list the contents of an installed package: <span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><p class="line867"><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><pre><span class="anchor" id="line-1-2"></span>% pkgutil --files com.apple.pkg.BaseSystem | head
+<span class="anchor" id="line-2-2"></span>.
+<span class="anchor" id="line-3-2"></span>.vol
+<span class="anchor" id="line-4-2"></span>Applications
+<span class="anchor" id="line-5-2"></span>Applications/Utilities
+<span class="anchor" id="line-6-2"></span>Applications/Utilities/Disk Utility.app
+<span class="anchor" id="line-7-2"></span>Applications/Utilities/Disk Utility.app/Contents
+<span class="anchor" id="line-8-1"></span>Applications/Utilities/Disk Utility.app/Contents/CodeResources
+<span class="anchor" id="line-9-1"></span>Applications/Utilities/Disk Utility.app/Contents/Frameworks
+<span class="anchor" id="line-10-1"></span>Applications/Utilities/Disk Utility.app/Contents/Frameworks/DUSupport.framework
+<span class="anchor" id="line-11-1"></span>Applications/Utilities/Disk Utility.app/Contents/Frameworks/DUSupport.framework/CodeResources
+<span class="anchor" id="line-12-1"></span>...
+<span class="anchor" id="line-13-1"></span>bin/[
+<span class="anchor" id="line-14-1"></span>bin/bash
+<span class="anchor" id="line-15-1"></span>bin/cat
+<span class="anchor" id="line-16-1"></span>bin/chmod
+<span class="anchor" id="line-17-1"></span>bin/cp
+<span class="anchor" id="line-18-1"></span>bin/csh
+<span class="anchor" id="line-19-1"></span>bin/date
+<span class="anchor" id="line-20-1"></span>bin/dd
+<span class="anchor" id="line-21-1"></span>bin/df
+<span class="anchor" id="line-22-1"></span>bin/domainname
+<span class="anchor" id="line-23-1"></span>...</pre><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><p class="line867">
+<h1 id="Possible_Platform_Definition">Possible Platform Definition</h1>
+<span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><p class="line874">This is one possible definition of a MacOS platform to allow the evaluator to run tools on a PowerPC machine running MacOS: <span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><p class="line867"><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><pre><span class="anchor" id="line-1-3"></span>[Darwin-ppc]
+<span class="anchor" id="line-2-3"></span>sysname = Darwin
+<span class="anchor" id="line-3-3"></span>release = *
+<span class="anchor" id="line-4-3"></span>version = *
+<span class="anchor" id="line-5-3"></span>machine = Power Macintosh
+<span class="anchor" id="line-6-3"></span>cpus    = 1
+<span class="anchor" id="line-7-3"></span>cpuMHz  = 0
+<span class="anchor" id="line-8-2"></span>memKB   = 0
+<span class="anchor" id="line-9-2"></span>hosts   = mymac</pre><span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span><p class="line867">
+<h1 id="Minimal_Tool_Example">Minimal Tool Example</h1>
+<span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><p class="line867">
+<h2 id="Root_Filesystem">Root Filesystem</h2>
+<span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><p class="line874">This is a listing of a minimal root filesystem created by copying installed files from a MacOS 10.5.6 machine into Vesta: <span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><p class="line867"><span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span><span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><span class="anchor" id="line-130"></span><pre><span class="anchor" id="line-1-4"></span>% ls -lR root
+<span class="anchor" id="line-2-4"></span>total 8
+<span class="anchor" id="line-3-4"></span>drwxr-xr-x  1 ken  vesta  512 Feb 25 01:12 usr
+<span class="anchor" id="line-4-4"></span>
+<span class="anchor" id="line-5-4"></span>root/usr:
+<span class="anchor" id="line-6-4"></span>total 8
+<span class="anchor" id="line-7-4"></span>drwxr-xr-x  1 ken  vesta  512 Feb 25 01:24 lib
+<span class="anchor" id="line-8-3"></span>
+<span class="anchor" id="line-9-3"></span>root/usr/lib:
+<span class="anchor" id="line-10-2"></span>total 24232
+<span class="anchor" id="line-11-2"></span>-r-xr-xr-x  1 ken  vesta  1059792 Feb 25 01:12 dyld
+<span class="anchor" id="line-12-2"></span>-r-xr-xr-x  1 ken  vesta  7895440 Feb 25 01:12 libSystem.B.dylib
+<span class="anchor" id="line-13-2"></span>-rw-r--r--  1 ken  vesta   264016 Feb 25 01:16 libgcc_s.1.dylib
+<span class="anchor" id="line-14-2"></span>-r-xr-xr-x  1 ken  vesta   142400 Feb 25 01:24 libmathCommon.A.dylib
+<span class="anchor" id="line-15-2"></span>-rwxr-xr-x  1 ken  vesta  3035296 Feb 25 01:15 libstdc++.6.0.4.dylib</pre><span class="anchor" id="line-131"></span><span class="anchor" id="line-132"></span><p class="line874">This is enough to run a small &quot;Hello world&quot; C++ program as a tool on MacOS. <span class="anchor" id="line-133"></span><span class="anchor" id="line-134"></span><p class="line867">
+<h2 id="Vesta_SDL_Model">Vesta SDL Model</h2>
+<span class="anchor" id="line-135"></span><span class="anchor" id="line-136"></span><p class="line874">Here's a model for running a small pre-compiled C++ program as a tool on MacOS: <span class="anchor" id="line-137"></span><span class="anchor" id="line-138"></span><p class="line867"><span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span><span class="anchor" id="line-141"></span><span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span><span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span><span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span><span class="anchor" id="line-152"></span><span class="anchor" id="line-153"></span><span class="anchor" id="line-154"></span><span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span><span class="anchor" id="line-157"></span><span class="anchor" id="line-158"></span><span class="anchor" id="line-159"></span><span class="anchor" id="line-160"></span><span class="anchor" id="line-161"></span><span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><span class="anchor" id="line-164"></span><span class="anchor" id="line-165"></span><span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c)) {
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    var n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        var a = document.createElement('A');
+        s.className = 'LineNumber';
+        a.appendChild(document.createTextNode(nformat(n,4,'')));
+        a.href = '#' + did + '_' + n;
+        s.appendChild(a);
+        s.appendChild(document.createTextNode(' '));
+        n += nstep;
+        if (l.childNodes.length) {
+          l.insertBefore(s, l.firstChild);
+        }
+        else {
+          l.appendChild(s);
+        }
+      }
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c)) {
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="MacOs.html#" onclick="return togglenumber(\'CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0" lang="en"><span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_1">   1</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_1"></span><span class="ResWord">files</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_2">   2</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_2"></span>  <span class="Comment">// The directory &quot;root&quot; contains the minimal root filesystem </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_3">   3</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_3"></span>  <span class="ID">root</span><span class="SPChar">;</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_4">   4</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_4"></span>  <span class="Comment">// The file &quot;hello.mac&quot; is a compied C++ program </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_5">   5</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_5"></span>  <span class="ID">hello</span><span class="ID">.mac</span><span class="SPChar">;</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_6">   6</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_6"></span><span class="SPChar">{</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_7">   7</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_7"></span>  <span class="ID">.</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">root</span><span class="SPChar">,</span> <span class="ID">envVars</span> <span class="SPChar">=</span> <span class="SPChar">[</span><span class="SPChar">]</span> <span class="SPChar">]</span><span class="SPChar">;</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_8">   8</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_8"></span>  <span class="Comment">// Emulate symlink </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_9">   9</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_9"></span>  <span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">root</span><span class="SPChar">/</span><span class="ID">usr</span><span class="SPChar">/</span><span class="ID">lib</span><span class="SPChar">/</span><span class="String">&quot;libstdc++.6.dylib&quot;</span> <span class="SPChar">=</span> <span class="ID">root</span><span class="SPChar">/</span><span class="ID">usr</span><span class="SPChar">/</span><span class="ID">lib</span><span class="SPChar">/</span><span class="String">&quot;libstdc++.6.0.4.dylib&quot;</span> <span class="SPChar">]</span><span class="SPChar">;</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_10">  10</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_10"></span>  <span class="Comment">// Executable to run </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_11">  11</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_11"></span>  <span class="ID">.</span> <span class="SPChar">+</span><span class="SPChar">+</span><span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">root</span><span class="SPChar">/</span><span class="ID">.WD</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">hello</span> <span class="SPChar">=</span> <span class="ID">hello</span><span class="ID">.mac</span> <span class="SPChar">]</span> <span class="SPChar">]</span><span class="SPChar">;</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_12">  12</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_12"></span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_13">  13</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_13"></span>  <span class="Comment">// Add these if you want to see some additional filesystem </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_14">  14</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_14"></span>  <span class="Comment">// dependencies as the tool runs looking for files that aren't there </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_15">  15</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_15"></span>  <span class="Comment">/* </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_16">  16</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_16"></span><span class="Comment">  . ++= [ root = [ dev = [], var/db = [], </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_17">  17</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_17"></span><span class="Comment">                   usr = [ local/lib = [], lib/system = [] ] </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_18">  18</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_18"></span><span class="Comment">                 ] </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_19">  19</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_19"></span><span class="Comment">        ]; </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_20">  20</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_20"></span><span class="Comment">  */</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_21">  21</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_21"></span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_22">  22</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_22"></span>  <span class="ID">cmd</span> <span class="SPChar">=</span> <span class="SPChar">&lt;</span><span class="String">&quot;hello&quot;</span><span class="SPChar">&gt;</span><span class="SPChar">;</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_23">  23</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_23"></span>  <span class="ID">r</span> <span class="SPChar">=</span> <span class="ID">_run_tool</span><span class="SPChar">(</span><span class="String">&quot;Darwin-ppc&quot;</span><span class="SPChar">,</span> <span class="ID">cmd</span><span class="SPChar">,</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_24">  24</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_24"></span>                <span class="Comment">/*stdin=*/</span> <span class="String">&quot;&quot; /* (the default value) */, </span></span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_25">  25</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_25"></span>                <span class="Comment">/*stdout_treatment=*/</span> <span class="String">&quot;report_value&quot;</span> <span class="Comment">/* (save stdout) */</span><span class="SPChar">)</span><span class="SPChar">;</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_26">  26</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_26"></span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_27">  27</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_27"></span>  <span class="ResWord">return</span> <span class="ID">r</span><span class="SPChar">;</span> </span>
+<span class="line"><span class="LineNumber"><a href="MacOs.html#CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_28">  28</a> </span><span class="LineAnchor" id="CA-4e5c37efde0339d9ee5144f81eaed46e99d3ecf0_28"></span><span class="SPChar">}</span></span>
+</pre></div><span class="anchor" id="line-168"></span><span class="anchor" id="line-169"></span><p class="line867">
+<h1 id="pkg2vesta_Challenges">pkg2vesta Challenges</h1>
+<span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span><p class="line862">The MacOS system packages seem to be pretty coarse-grained.  For example, <tt>com.apple.pkg.Essentials</tt> contains the dynamic libraries for Perl and Tcl (which would be needed to build bindings for the Vesta APIs in those languages), but it also contains a lot of other things.  In fact, the total file size is 1.8G.  (For comparison, all the OS components used by a Debian lenny x86-64 std_env total 123M.) <span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span><p class="line862">This could be worked around by selectively excluding un-needed pieces (e.g. Mac Carbon GUI applications and support files like fonts) when importing the OS components.  pkg2vesta already has a <tt>--excludepath</tt> command-line flag to allow you to do that.  Unfortunately, it looks like with MacOS one would need the ability to tell pkg2vesta &quot;exclude <tt>/X</tt>, but include <tt>/X/Y</tt>&quot;.  pkg2vesta should probably be extended to allow for more flexible ways to specify what to include and what to exclude. <span class="anchor" id="line-174"></span><span class="anchor" id="line-175"></span><p class="line867">
+<h1 id="Other_Projects">Other Projects</h1>
+<span class="anchor" id="line-176"></span><span class="anchor" id="line-177"></span><p class="line874">These might be useful if one is interested in building a re-distributable Darwin chroot that could be used to build Vesta for MacOS: <span class="anchor" id="line-178"></span><span class="anchor" id="line-179"></span><ul><li><p class="line891"><a class="http" href="http://www.puredarwin.org/">PureDarwin</a> <span class="anchor" id="line-180"></span></li><li><p class="line891"><a class="http" href="http://darwinbuild.macosforge.org/">DarwinBuild</a> <span class="anchor" id="line-181"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

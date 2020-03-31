@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>NewVersionSelection - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: NewVersionSelection" href="NewVersionSelection%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=NewVersionSelection&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="NewVersionSelection%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="NewVersionSelection%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="NewVersionSelection.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="NewVersionSelection.html">NewVersionSelection</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="NewVersionSelection.html">NewVersionSelection</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="NewVersionSelection%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867">
+<h1 id="Version_Selection">Version Selection</h1>
+<span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line862">Some SDL models which builds use in turn import other models.  A good example is <tt>std_env</tt> which imports versions of different bridges, compilers and other tools, libraries, etc.  Such models usually allow the caller to specify <em>overrides</em> as parameters to change the versions of these sub-components which get used.  To see how this works, look at: <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><ul><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/release/12.pre13/6/pkg_ovs.ves">The pkg_ovs.ves file in Vesta pre-releases</a> <span class="anchor" id="line-10"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/release/12.pre13/6/linux_i386.main.ves#L38">The way that model is used in top-level models to construct the pkg_ovs variable</a> which is then used as a parameter to the <tt>env_build</tt> function returned by the <tt>std_env</tt> model <span class="anchor" id="line-11"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/platforms/linux/redhat/i386/std_env/9/build.ves#L123">The definition of the env_build function in the std_env package</a> which uses this parameter for alternate versions of bridges, libraries, etc. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span></li></ul><p class="line862">See also <a class="http" href="../vesta/doc/man/html/voverrides.5.html#TransPkgOvsSect">&quot;Transient Package Overrides&quot; in the voverrides(5) man page</a>. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line867">
+<h1 id="The_Problem">The Problem</h1>
+<span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line874">The handling of version overrides has been written in SDL code.  There are several problems with this: <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><ul><li>Even tho std_env has an override system, for any user's program with 3 levels of hierarchy or more, it is prohibitive to have to check out every level just to build with a new version of a leaf. <span class="anchor" id="line-20"></span></li><li>Other, non-SDL programs want to understand the currently selected version of different components.  For example, the user is often interested in asking &quot;which version of component X is my build using?&quot;  Only the SDL code knows which version is actually being used, and only at run-time.  You can write another program which parallels the SDL override logic, but that's ugly, prone to errors, and becomes a maintenance headache. <span class="anchor" id="line-21"></span></li><li><p class="line862">Other, non-SDL programs want to change the currently selected version of different components.  For example, you might want to automatically generate overrides for new versions of certain components, possibly based on a criteria such as attributes.  <tt>vupdate</tt> can't do that unless you're directly changing the model which already imports them, which you usually aren't with overrides.  Another possibility is writing a GUI that allows the user to change the versions they have selected. <span class="anchor" id="line-22"></span></li><li>It has led to multiple subtly different forms of version overrides, which can be confusing for users <span class="anchor" id="line-23"></span></li><li>Dont return all sources back to the top level.  Rather pool of un-evaluated model funcs. <span class="anchor" id="line-24"></span></li><li>The version selection feature needs to be robust/clean/versatile enuf and easy enuf to use to release to the outside world. <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span></li></ul><p class="line874">Version selection is a fairly simple problem.  While it is possible to implement it in SDL, you don't need all the flexibility that SDL gives you to solve the problem of version selection. <span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line867">
+<h1 id="New_version_selection">New version selection</h1>
+<span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line874">Vesta builds would be easier to configure if the selection of which versions to use (overrides, etc.) was separated from the SDL code that defines the build flow.  Removing the selection of versions from the flexibility of a full programming language would make writing tools that understand/generate a configuration much easier. <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><p class="line874">Most of the key features of how improt-based version selection works should be preserved: <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><ul><li>only specific versions (not references to &quot;latest&quot;) <span class="anchor" id="line-35"></span></li><li>only taken from a versioned source file <span class="anchor" id="line-36"></span></li><li>versioned like other source files <span class="anchor" id="line-37"></span></li><li>take base config, add changes <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span></li></ul><p class="line862">The main thing that should be changed is the use of SDL code to pick the versions to be used.  SDL code will obviously still need to get access to the selected versions, but the concept of any variable containing overrides should be eliminated.  SDL code should never be checking to see if an override is present and choosing to use it instead of some other version.  Instead, we should have simple, well-defined versuib selection semantics so non-SDL programs can understand &amp; manipulate the versions used by a build. <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line874">Tricky parts: <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><ul><li>may need to use different versions of the same thing in different parts of a builds (e.g. different versions of a shared library during different tool invocations) <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span></li></ul><p class="line862">SDL still needs some way to access the selected versions of different components.  This could be done through a new import-like syntax.  Another possibility would be feeding the version selection to the top-level model as its initial dot.  Either way, we're creating a new <em>namespace</em> from which the SDL will somehow get the selected versions. <span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><p class="line874">We need to associate the version selection file with the top-level model.  (We wouldn't want the user to have to specify both at build time.)  Maybe name the version selection file the same as the model, only ending in &quot;.vsel&quot;. <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><p class="line867">
+<h1 id="Version_Selection_Files">Version Selection Files</h1>
+<span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><p class="line862">What might a version selection file look like?  It could be essentially the same as the current <a class="http" href="../vesta/doc/sdl-ref/models.html#import">imports clause</a> of a SDL model.  An imports clause defines a hierarchical namespace of variables referring to SDL models from existing immutable versions, and we need the same capability. <span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><p class="line874">There's two significant extensions we'd need: <span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><ol type="1"><li><p class="line862">A method to <em>include</em> another version selection file and start with its namespace as a basis. <span class="anchor" id="line-56"></span></li><li>A method to alter existing portions of the namespace.  Imagine that the variables created by an included version selection file are a binding.  Now use ++ to overlay the new imported names on top of that.  In fact, maybe each assignment statement should effectively be ++ed into the namespace built up so far. <span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span></li></ol><p class="line862">So, for example, the version selection file in a <tt>std_env</tt> package might look like this: <span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><p class="line867"><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><pre><span class="anchor" id="line-1"></span>import
+<span class="anchor" id="line-2"></span>  // The std_env model is the build.ves here in the std_env package
+<span class="anchor" id="line-3"></span>  std_env = build.ves;
+<span class="anchor" id="line-4"></span>
+<span class="anchor" id="line-5"></span>from /vesta/vestasys.org/bridges import
+<span class="anchor" id="line-6"></span>  // Versions of standard bridges to use
+<span class="anchor" id="line-7"></span>  bridges = [ generics/2,
+<span class="anchor" id="line-8"></span>              c = c_like/4,
+<span class="anchor" id="line-9"></span>              cxx = c_like/4,
+<span class="anchor" id="line-10"></span>              lex/1,
+<span class="anchor" id="line-11"></span>              yacc/1,
+<span class="anchor" id="line-12"></span>              lim/1,
+<span class="anchor" id="line-13"></span>              mtex/1 ];
+<span class="anchor" id="line-14"></span>
+<span class="anchor" id="line-15"></span>from /vesta/vestasys.org/libs import
+<span class="anchor" id="line-16"></span>  // Versions of libraries to use
+<span class="anchor" id="line-17"></span>  libs/c = [
+<span class="anchor" id="line-18"></span>    gc/6.4/2,
+<span class="anchor" id="line-19"></span>    z = zlib/1.2.2/1,
+<span class="anchor" id="line-20"></span>  ];</pre><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><p class="line874">Then an actual package using this might have a version selection file like this: <span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><p class="line867"><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><pre><span class="anchor" id="line-1-1"></span>include /vesta/vestasys.org/platforms/linux/debian/i386/std_env.sarge/1/top.vsel;
+<span class="anchor" id="line-2-1"></span>
+<span class="anchor" id="line-3-1"></span>// Use a newer version of the c_like bridge
+<span class="anchor" id="line-4-1"></span>from /vesta/vestasys.org/bridges import
+<span class="anchor" id="line-5-1"></span>  bridges = [ c = c_like/checkout/5/3,
+<span class="anchor" id="line-6-1"></span>              cxx = c_like/checkout/5/3 ];
+<span class="anchor" id="line-7-1"></span>
+<span class="anchor" id="line-8-1"></span>// Use a newer version of zlib
+<span class="anchor" id="line-9-1"></span>
+<span class="anchor" id="line-10-1"></span>from /vesta/vestasys.org/libs import
+<span class="anchor" id="line-11-1"></span>  libs/c/z = zlib/1.2.3/1;</pre><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><p class="line874">This would overlay versions for three names in the version selection namespace: <span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><ol type="1"><li><p class="line891"><tt>bridges/c</tt> <span class="anchor" id="line-102"></span></li><li><p class="line891"><tt>bridges/cxx</tt> <span class="anchor" id="line-103"></span></li><li><p class="line891"><tt>libs/c/z</tt> <span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span></li></ol><p class="line874">Later, some SDL code would access these names and use their contents.  All overriding happens in the version selection file, so SDL code doesn't need any concept of override parameters/variables. <span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><p class="line867">
+<h1 id="Using_Selected_Versions">Using Selected Versions</h1>
+<span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><p class="line874">How do individual SDL models use the versions selected through this new machanism? <span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><p class="line862">First of all, they would not use the existing <a class="http" href="../vesta/doc/sdl-ref/models.html#import">imports syntax</a>.  That can only be used to refer to specific versions, but what we really need is a way to <em>parameterize</em> an SDL model in terms of the namespace of selected versions.  (An SDL model might use normal imports for other models local to the directory where it exists, but it wouldn't use the <tt>from</tt> syntax of absolute paths for models.) <span class="anchor" id="line-112"></span><span class="anchor" id="line-113"></span><p class="line874">Probably the best way to do this would be to add some new syntax which allows a model to get imports out of the namespace defined by the version selection file selected when the build starts.  This could be an entirely new keyword like this: <span class="anchor" id="line-114"></span><span class="anchor" id="line-115"></span><p class="line867"><span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span><span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><pre><span class="anchor" id="line-1-2"></span>import
+<span class="anchor" id="line-2-2"></span>  // Local import
+<span class="anchor" id="line-3-2"></span>  self = build.ves;
+<span class="anchor" id="line-4-2"></span>use
+<span class="anchor" id="line-5-2"></span>  // Take a value from the version selection namespace
+<span class="anchor" id="line-6-2"></span>  std_env;
+<span class="anchor" id="line-7-2"></span>{
+<span class="anchor" id="line-8-2"></span>  . = std_env()/env_build();
+<span class="anchor" id="line-9-2"></span>
+<span class="anchor" id="line-10-2"></span>  return self();
+<span class="anchor" id="line-11-2"></span>}</pre><span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><p class="line874">Or we could extend the import clause syntax to make the version selection namespace accessible as though it were a subdirectory with a special name, maybe some unused non-alphanumeric chaaracter: <span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><p class="line867"><span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span><span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span><span class="anchor" id="line-141"></span><span class="anchor" id="line-142"></span><pre><span class="anchor" id="line-1-3"></span>import
+<span class="anchor" id="line-2-3"></span>  // Local import
+<span class="anchor" id="line-3-3"></span>  self = build.ves;
+<span class="anchor" id="line-4-3"></span>  // Take a value from the version selection namespace
+<span class="anchor" id="line-5-3"></span>  std_env = @/std_env;
+<span class="anchor" id="line-6-3"></span>{
+<span class="anchor" id="line-7-3"></span>  . = std_env()/env_build();
+<span class="anchor" id="line-8-3"></span>
+<span class="anchor" id="line-9-3"></span>  return self();
+<span class="anchor" id="line-10-3"></span>}</pre><span class="anchor" id="line-143"></span><span class="anchor" id="line-144"></span><p class="line862">Either way, the important thing is that the idnvidual SDL model <strong>doesn't specify any version</strong> for <tt>std_env</tt> here.  It simply uses whatever version the user has selected. <span class="anchor" id="line-145"></span><span class="anchor" id="line-146"></span><p class="line867">
+<h1 id="Can_we_do_this_without_new_features.3F">Can we do this without new features?</h1>
+<span class="anchor" id="line-147"></span><span class="anchor" id="line-148"></span><p class="line874">Would it be possible to set up something that has these properties with the current implementation?  Mostly.  How would we do so? <span class="anchor" id="line-149"></span><span class="anchor" id="line-150"></span><ul><li><p class="line862">We already have a hierarchical namespace which different models have access to: the special variable dot (<tt>.</tt>).  We could store the hierarchy of selected versions in it.  We would want to keep it along side the bridges and other pieces of build environment normally placed in dot, so we would want to put it in a sub-binding just for this purpose.  Perhaps something like <tt>./_versions_</tt>, although that's not really a great name as it holds models rather than versions, so maybe <tt>./_models_</tt> or <tt>./_selection_</tt>, although I'm not crazy about either of those. <span class="anchor" id="line-151"></span></li><li><p class="line862">When a model wants the model for something else, it just pulls it out of <tt>./_models_</tt> (or whatever we call it). <span class="anchor" id="line-152"></span></li><li><p class="line862">The top-level model imports <strong>a single model</strong> which defines <tt>./_models_</tt>.  This model may import one or more others for base configurations and ++ their results together.  It may also ++ in other bindings it creates from imports locally for version overrides. <span class="anchor" id="line-153"></span></li><li><p class="line862">When another program wants to know the selected versions of everything, it evaluates this <em>version selection model</em>.  It's result will be a hierarchy (in the form of a binding) of selected versions (in the form of models).  The printed result of the evaluator will show this hierarchy of seloected versions. <span class="anchor" id="line-154"></span></li><li>When another program wants to add a version override, it re-writes the version selection model used by the top-level model. <span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span></li></ul><p class="line874">What would this look like for the examples above? <span class="anchor" id="line-157"></span><span class="anchor" id="line-158"></span><p class="line862">A version selection model for <tt>std_env</tt>: <span class="anchor" id="line-159"></span><span class="anchor" id="line-160"></span><p class="line867"><span class="anchor" id="line-161"></span><span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><span class="anchor" id="line-164"></span><span class="anchor" id="line-165"></span><span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span><span class="anchor" id="line-168"></span><span class="anchor" id="line-169"></span><span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span><span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span><span class="anchor" id="line-174"></span><span class="anchor" id="line-175"></span><span class="anchor" id="line-176"></span><span class="anchor" id="line-177"></span><span class="anchor" id="line-178"></span><span class="anchor" id="line-179"></span><span class="anchor" id="line-180"></span><span class="anchor" id="line-181"></span><span class="anchor" id="line-182"></span><span class="anchor" id="line-183"></span><span class="anchor" id="line-184"></span><pre><span class="anchor" id="line-1-4"></span>import
+<span class="anchor" id="line-2-4"></span>  // The std_env model is the build.ves here in the std_env package
+<span class="anchor" id="line-3-4"></span>  std_env = build.ves;
+<span class="anchor" id="line-4-4"></span>
+<span class="anchor" id="line-5-4"></span>from /vesta/vestasys.org/bridges import
+<span class="anchor" id="line-6-4"></span>  // Versions of standard bridges to use
+<span class="anchor" id="line-7-4"></span>  bridges = [ generics/2,
+<span class="anchor" id="line-8-4"></span>              c = c_like/4,
+<span class="anchor" id="line-9-4"></span>              cxx = c_like/4,
+<span class="anchor" id="line-10-4"></span>              lex/1,
+<span class="anchor" id="line-11-3"></span>              yacc/1,
+<span class="anchor" id="line-12-1"></span>              lim/1,
+<span class="anchor" id="line-13-1"></span>              mtex/1 ];
+<span class="anchor" id="line-14-1"></span>
+<span class="anchor" id="line-15-1"></span>from /vesta/vestasys.org/libs import
+<span class="anchor" id="line-16-1"></span>  // Versions of libraries to use
+<span class="anchor" id="line-17-1"></span>  libs = [ c = [
+<span class="anchor" id="line-18-1"></span>    gc/6.4/2,
+<span class="anchor" id="line-19-1"></span>    z = zlib/1.2.2/1,
+<span class="anchor" id="line-20-1"></span>  ] ];
+<span class="anchor" id="line-21"></span>{
+<span class="anchor" id="line-22"></span>  return [ std_env, bridges, libs ];
+<span class="anchor" id="line-23"></span>}</pre><span class="anchor" id="line-185"></span><span class="anchor" id="line-186"></span><p class="line862">A version selection model for a build which overrides <tt>bridges/c</tt>, <tt>bridges/cxx</tt>, and <tt>libs/c/z</tt>: <span class="anchor" id="line-187"></span><span class="anchor" id="line-188"></span><p class="line867"><span class="anchor" id="line-189"></span><span class="anchor" id="line-190"></span><span class="anchor" id="line-191"></span><span class="anchor" id="line-192"></span><span class="anchor" id="line-193"></span><span class="anchor" id="line-194"></span><span class="anchor" id="line-195"></span><span class="anchor" id="line-196"></span><span class="anchor" id="line-197"></span><span class="anchor" id="line-198"></span><span class="anchor" id="line-199"></span><span class="anchor" id="line-200"></span><span class="anchor" id="line-201"></span><span class="anchor" id="line-202"></span><span class="anchor" id="line-203"></span><span class="anchor" id="line-204"></span><span class="anchor" id="line-205"></span><pre><span class="anchor" id="line-1-5"></span>from /vesta/vestasys.org/platforms/linux/debian/i386 import
+<span class="anchor" id="line-2-5"></span>  // The version selection model from std_env
+<span class="anchor" id="line-3-5"></span>  std_env.sarge/1/vsel.ves;
+<span class="anchor" id="line-4-5"></span>
+<span class="anchor" id="line-5-5"></span>// Use a newer version of the c_like bridge
+<span class="anchor" id="line-6-5"></span>from /vesta/vestasys.org/bridges import
+<span class="anchor" id="line-7-5"></span>  bridges = [ c = c_like/checkout/5/3,
+<span class="anchor" id="line-8-5"></span>              cxx = c_like/checkout/5/3 ];
+<span class="anchor" id="line-9-5"></span>
+<span class="anchor" id="line-10-5"></span>// Use a newer version of zlib
+<span class="anchor" id="line-11-4"></span>
+<span class="anchor" id="line-12-2"></span>from /vesta/vestasys.org/libs import
+<span class="anchor" id="line-13-2"></span>  libs = [ c/z = zlib/1.2.3/1 ];
+<span class="anchor" id="line-14-2"></span>{
+<span class="anchor" id="line-15-2"></span>  return std_env.sarge() ++ [ bridges, libs ];
+<span class="anchor" id="line-16-2"></span>}</pre><span class="anchor" id="line-206"></span><span class="anchor" id="line-207"></span><p class="line874">A client model using this version selection model: <span class="anchor" id="line-208"></span><span class="anchor" id="line-209"></span><p class="line867"><span class="anchor" id="line-210"></span><span class="anchor" id="line-211"></span><span class="anchor" id="line-212"></span><span class="anchor" id="line-213"></span><span class="anchor" id="line-214"></span><span class="anchor" id="line-215"></span><span class="anchor" id="line-216"></span><span class="anchor" id="line-217"></span><span class="anchor" id="line-218"></span><span class="anchor" id="line-219"></span><span class="anchor" id="line-220"></span><span class="anchor" id="line-221"></span><span class="anchor" id="line-222"></span><span class="anchor" id="line-223"></span><pre><span class="anchor" id="line-1-6"></span>import
+<span class="anchor" id="line-2-6"></span>  // The above version selection model
+<span class="anchor" id="line-3-6"></span>  vsel = lix_i386.vsel.ves;
+<span class="anchor" id="line-4-6"></span>  // Local import
+<span class="anchor" id="line-5-6"></span>  self = build.ves;
+<span class="anchor" id="line-6-6"></span>{
+<span class="anchor" id="line-7-6"></span>  // Put the selected versions of each component into ./_models_ so that every function we call can get at them
+<span class="anchor" id="line-8-6"></span>  . = [ _models_ = vsel() ];
+<span class="anchor" id="line-9-6"></span>  // Preapre the build environment and merge it into dot.  (We're assuming it will leave ./_models_ as-is).
+<span class="anchor" id="line-10-6"></span>  . ++= ./_models_/std_env()/env_build();
+<span class="anchor" id="line-11-5"></span>
+<span class="anchor" id="line-12-3"></span>  return self();
+<span class="anchor" id="line-13-3"></span>}</pre><span class="anchor" id="line-224"></span><span class="anchor" id="line-225"></span><p class="line874">Problems with this approach: <span class="anchor" id="line-226"></span><span class="anchor" id="line-227"></span><ul><li>It would be impossible to enforce strict version selection semantics.  (SDL code could modify ./_models_, people could do non-local imports outside the version selection models, etc.)  If we specifcally added version selection/overriding features to the evaluator we could better enforce rules (disable non-local imports, make the version selection namespace immutable once the evaluation starts, etc.) <span class="anchor" id="line-228"></span></li><li>Writing code to automatically edit the version selection models to add or remove overrides could be tricky.  It would need to understand the difference between base configurations (called and combined with ++) from imports for overrides (placed in bindings and then combined with the base configurations). <span class="anchor" id="line-229"></span></li><li>We have to invoke the builder to get the current configuration.  It would seem preferable to have a library for simply parsing a version selection file format. <span class="anchor" id="line-230"></span></li><li>The import clause syntax doesn't currently support creating nested bindings, or augmenting existing bindings with += or ++=.  Those would be really handy for writing version selection files in general, and particularly for automating the editing of them. <span class="anchor" id="line-231"></span><span class="anchor" id="line-232"></span></li></ul><p class="line867">
+<h1 id="Discussion">Discussion</h1>
+<span class="anchor" id="line-233"></span><span class="anchor" id="line-234"></span><ul><li><p class="line891"><a href="NewVersionSelectionDiscussion.html">NewVersionSelectionDiscussion</a> <span class="anchor" id="line-235"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnTables - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnTables" href="HelpOnTables%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnTables&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnTables%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnTables%3Faction=print.html">
+<link rel="Appendix" title="MiniPage.png" href="HelpOnTables%3Faction=AttachFile&amp;do=view&amp;target=MiniPage.png.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnTables.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnTables.html">HelpOnTables</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnTables.html">HelpOnTables</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnTables%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Table_Markup">Table Markup</h1>
+<span class="anchor" id="line-8"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="HelpOnTables.html#Table_Markup">Table Markup</a><ol><li>
+<a href="HelpOnTables.html#Table_Attributes">Table Attributes</a><ol><li>
+<a href="HelpOnTables.html#Leveraging_CSS_in_your_tables">Leveraging CSS in your tables</a></li></ol></li><li>
+<a href="HelpOnTables.html#Examples">Examples</a><ol><li>
+<a href="HelpOnTables.html#General_table_layout_and_HTML_like_options">General table layout and HTML like options</a></li><li>
+<a href="HelpOnTables.html#Cell_width">Cell width</a></li><li>
+<a href="HelpOnTables.html#Spanning_rows_and_columns">Spanning rows and columns</a></li><li>
+<a href="HelpOnTables.html#Alignment">Alignment</a></li><li>
+<a href="HelpOnTables.html#Fonts">Fonts</a></li><li>
+<a href="HelpOnTables.html#Colors">Colors</a></li><li>
+<a href="HelpOnTables.html#Line_breaks_within_cells">Line breaks within cells</a></li><li>
+<a href="HelpOnTables.html#No_border_style">No border style</a></li></ol></li><li>
+<a href="HelpOnTables.html#Insert_Table_Data_from_other_sources">Insert Table Data from other sources</a></li><li>
+<a href="HelpOnTables.html#Bulleted_lists_and_other_complex_content_within_cells">Bulleted lists and other complex content within cells</a></li></ol></li></ol></div> <span class="anchor" id="line-9"></span>To create a table, start &amp; end a new line using the table marker; two 'pipe' characters  &quot;<tt>||</tt>&quot;. Between those start and end markers, you can create any number of cells by separating them with &quot;<tt>||</tt>&quot;. In the most basic example, here is a four-square table: <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867"><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><pre><span class="anchor" id="line-1"></span>|| top left cell || top right cell ||
+<span class="anchor" id="line-2"></span>|| bottom left cell || bottom right cell ||</pre><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><p class="line874">Yields: <span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><div><table><tbody><tr>  <td><p class="line862"> top left cell </td>
+  <td><p class="line862"> top right cell </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-19"></span><p class="line862"> bottom left cell </td>
+  <td><p class="line862"> bottom right cell </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><p class="line867">
+<h2 id="Table_Attributes">Table Attributes</h2>
+<span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><p class="line862">Of course, undoubtedly the time will come when you want a bit formatting. Moin tables can be formatted with many HTML table attributes. Any attributes have to be placed between angle brackets <tt>&lt;...&gt;</tt> directly after the cell marker. For example: <span class="anchor" id="line-25"></span><tt>||&lt;style&quot;...&quot;&gt;&nbsp;cell&nbsp;content&nbsp;||</tt> <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line862">The style stuff is <em>all you need</em> for styling your tables. Just use CSS-formatted styles and it will be inlined in the generated HTML tag.  <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><ul><li><p class="line891"><tt>&lt;style=&quot;...&quot;&gt;</tt> will put that style info into cell (td) html <span class="anchor" id="line-31"></span></li><li><p class="line891"><tt>&lt;rowstyle=&quot;...&quot;&gt;</tt> will put that style info into row (tr) html <span class="anchor" id="line-32"></span></li><li><p class="line891"><tt>&lt;tablestyle=&quot;...&quot;&gt;</tt> will put that style info into table (table) html <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span></li></ul><p class="line862">We still support the old table markup, but generate the effect by appending additional values to the <tt class="backtick">style</tt> parameter: <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line862">Cell &amp; table widths: <span class="anchor" id="line-40"></span><ul><li><p class="line891"><tt>&lt;50%&gt;</tt>: cell width (will append <tt class="backtick">width:&nbsp;50%;</tt> to style) <span class="anchor" id="line-41"></span></li><li><p class="line891"><tt>&lt;width=&quot;50%&quot;&gt;</tt>: does the same <span class="anchor" id="line-42"></span></li><li><p class="line891"><tt>&lt;tablewidth=&quot;100%&quot;&gt;</tt>: set table width to 100% (only valid in first table row) <span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span></li></ul><p class="line874">Spanning cells: <span class="anchor" id="line-46"></span><ul><li><p class="line891"><tt>&lt;-2&gt;</tt>: column span <span class="anchor" id="line-47"></span></li><li><p class="line891"><tt>&lt;|2&gt;</tt>: row span <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span></li></ul><p class="line874">Text alignment: <span class="anchor" id="line-50"></span><ul><li><p class="line891"><tt>&lt;(&gt;</tt>: left aligned (will append <tt class="backtick">text-align:&nbsp;left;</tt> to style) <span class="anchor" id="line-51"></span></li><li><p class="line891"><tt>&lt;:&gt;</tt>: centered (will append <tt class="backtick">text-align:&nbsp;center;</tt> to style) <span class="anchor" id="line-52"></span></li><li><p class="line891"><tt>&lt;)&gt;</tt>: right aligned (will append <tt class="backtick">text-align:&nbsp;right;</tt> to style) <span class="anchor" id="line-53"></span></li><li><p class="line891"><tt>&lt;^&gt;</tt>: aligned to top (will append <tt class="backtick">vertical-align:&nbsp;top;</tt> to style) <span class="anchor" id="line-54"></span></li><li><p class="line891"><tt>&lt;v&gt;</tt>: aligned to bottom (will append <tt class="backtick">vertical-align:&nbsp;bottom;</tt> to style) <span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span></li></ul><p class="line874">Coloring: <span class="anchor" id="line-57"></span><ul><li><p class="line891"><tt>&lt;#XXXXXX&gt;</tt>: background color (will append <tt class="backtick">background-color:&nbsp;#XXXXXX;</tt> to style) <span class="anchor" id="line-58"></span></li><li><p class="line891"><tt>&lt;bgcolor=&quot;#XXXXXX&quot;&gt;</tt> does the same <span class="anchor" id="line-59"></span></li><li><p class="line891"><tt>&lt;rowbgcolor=&quot;#XXXXXX&quot;&gt;</tt> set row background color (only valid in first cell) <span class="anchor" id="line-60"></span></li><li><p class="line891"><tt>&lt;tablebgcolor=&quot;#XXXXXX&quot;&gt;</tt> set table background color <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span></li></ul><p class="line862">If you use several conflicting options like <tt>&lt;(:)&gt;</tt>, the last option wins. There is no explicit option for vertical centering (<em>middle</em>), since that is always the default. <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><p class="line867">
+<h3 id="Leveraging_CSS_in_your_tables">Leveraging CSS in your tables</h3>
+<span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><p class="line862">Alternatively, the admin or the user (the admin in the theme css file, or the user can extend moin's CSS by his own definitions via user preferences) can refer to them using class or id. You can use several options at the same time by writing them one after the other within the same angle brackets (e.g. <tt>&lt;tablestyle=&quot;...&quot;&nbsp;rowstyle=&quot;...&quot;&gt;</tt> on the first cell, to set both the table-wide style and the first-row style. <span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><ul><li><p class="line891"><tt>&lt;class=&quot;...&quot;&gt;</tt> will put that CSS class into cell (td) html <span class="anchor" id="line-71"></span></li><li><p class="line891"><tt>&lt;rowclass=&quot;...&quot;&gt;</tt> will put that CSS class into row (tr) html <span class="anchor" id="line-72"></span></li><li><p class="line891"><tt>&lt;tableclass=&quot;...&quot;&gt;</tt> will put that class into table (table) html <span class="anchor" id="line-73"></span></li><li><p class="line891"><tt>&lt;id=&quot;...&quot;&gt;</tt> will put that CSS id into cell (td) html <span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span></li></ul><p class="line867">
+<h2 id="Examples">Examples</h2>
+<span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><p class="line867">
+<h3 id="General_table_layout_and_HTML_like_options">General table layout and HTML like options</h3>
+<span class="anchor" id="line-79"></span><p class="line867"><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><pre><span class="anchor" id="line-1-1"></span>New Style:
+<span class="anchor" id="line-2-1"></span>||||||&lt;tablestyle=&quot;width: 80%&quot;&gt;'''Heading'''||
+<span class="anchor" id="line-3"></span>||cell 1||cell2||cell 3||
+<span class="anchor" id="line-4"></span>||&lt;rowspan=2&gt; spanning rows||||&lt;style=&quot;background-color: #E0E0FF;&quot;&gt; spanning 2 columns||
+<span class="anchor" id="line-5"></span>||&lt;rowstyle=&quot;background-color: #FFFFE0;&quot;&gt;cell2||cell 3||
+<span class="anchor" id="line-6"></span>
+<span class="anchor" id="line-7"></span>Old Style:
+<span class="anchor" id="line-8"></span>||||||&lt;tablewidth=&quot;80%&quot;&gt;'''Heading'''||
+<span class="anchor" id="line-9"></span>||cell 1||cell2||cell 3||
+<span class="anchor" id="line-10"></span>||&lt;rowspan=2&gt; spanning rows||||&lt;bgcolor=&quot;#E0E0FF&quot;&gt; spanning 2 columns||
+<span class="anchor" id="line-11"></span>||&lt;rowbgcolor=&quot;#FFFFE0&quot;&gt;cell2||cell 3||</pre><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><div><table style="&amp;quot; width: 80%&amp;quot;"><tbody><tr>  <td colspan="3" style="text-align: center"><p class="line891"><strong>Heading</strong></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-94"></span><p class="line862">cell 1</td>
+  <td><p class="line862">cell2</td>
+  <td><p class="line862">cell 3</td>
+</tr>
+<tr>  <td rowspan="2"><span class="anchor" id="line-95"></span><p class="line862"> spanning rows</td>
+  <td colspan="2" style="&amp;quot; background-color: #E0E0FF; &amp;quot; ; text-align: center"><p class="line862"> spanning 2 columns</td>
+</tr>
+<tr style="&amp;quot; background-color: #FFFFE0; &amp;quot;">  <td><span class="anchor" id="line-96"></span><p class="line862">cell2</td>
+  <td><p class="line862">cell 3</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><p class="line867">
+<h3 id="Cell_width">Cell width</h3>
+<span class="anchor" id="line-101"></span><p class="line867"><span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><pre><span class="anchor" id="line-1-2"></span>New Style
+<span class="anchor" id="line-2-2"></span>|| narrow ||&lt;style=&quot;width: 99%; text-align: center;&quot;&gt; wide ||
+<span class="anchor" id="line-3-1"></span>
+<span class="anchor" id="line-4-1"></span>Old Style
+<span class="anchor" id="line-5-1"></span>|| narrow ||&lt;:99%&gt; wide ||</pre><span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><div><table><tbody><tr>  <td><p class="line862"> narrow </td>
+  <td style="&amp;quot; width: 99%;  text-align: center; &amp;quot;"><p class="line862"> wide </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><p class="line867">
+<h3 id="Spanning_rows_and_columns">Spanning rows and columns</h3>
+<span class="anchor" id="line-113"></span><p class="line867"><span class="anchor" id="line-114"></span><span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><pre><span class="anchor" id="line-1-3"></span>||&lt;|2&gt; 2 rows || row 1 ||
+<span class="anchor" id="line-2-3"></span>|| row 2 ||
+<span class="anchor" id="line-3-2"></span>||&lt;-2&gt; row 3 over 2 columns ||</pre><span class="anchor" id="line-118"></span><span class="anchor" id="line-119"></span><div><table><tbody><tr>  <td colspan="1" rowspan="2" style="text-align: center"><p class="line862"> 2 rows </td>
+  <td><p class="line862"> row 1 </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-120"></span><p class="line862"> row 2 </td>
+</tr>
+<tr>  <td colspan="2"><span class="anchor" id="line-121"></span><p class="line862"> row 3 over 2 columns </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><p class="line867">
+<h3 id="Alignment">Alignment</h3>
+<span class="anchor" id="line-124"></span><p class="line867"><span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><pre><span class="anchor" id="line-1-4"></span>||&lt;style=&quot;text-align: left;&quot;&gt;left ||&lt;style=&quot;vertical-align: top; text-align: center;&quot;|3&gt; top ||&lt;style=&quot;vertical-align: bottom;&quot;|3&gt; bottom ||
+<span class="anchor" id="line-2-4"></span>||&lt;style=&quot;text-align: center;&quot;&gt; centered ||
+<span class="anchor" id="line-3-3"></span>||&lt;style=&quot;text-align: right;&quot;&gt; right ||
+<span class="anchor" id="line-4-2"></span>
+<span class="anchor" id="line-5-2"></span>old style:
+<span class="anchor" id="line-6-1"></span>||&lt;(&gt; left ||&lt;^|3&gt; top ||&lt;v|3&gt; bottom ||
+<span class="anchor" id="line-7-1"></span>||&lt;:&gt; centered ||
+<span class="anchor" id="line-8-1"></span>||&lt;)&gt; right ||</pre><span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><div><table><tbody><tr>  <td style="&amp;quot; text-align: left; &amp;quot;"><p class="line862">left </td>
+  <td colspan="1" rowspan="3" style="&amp;quot; vertical-align: top;  text-align: center; &amp;quot;"><p class="line862"> top </td>
+  <td colspan="1" rowspan="3" style="&amp;quot; vertical-align: bottom; &amp;quot; ; text-align: center"><p class="line862"> bottom </td>
+</tr>
+<tr>  <td style="&amp;quot; text-align: center; &amp;quot;"><span class="anchor" id="line-136"></span><p class="line862"> centered </td>
+</tr>
+<tr>  <td style="&amp;quot; text-align: right; &amp;quot;"><span class="anchor" id="line-137"></span><p class="line862"> right </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span><p class="line867">
+<h3 id="Fonts">Fonts</h3>
+<span class="anchor" id="line-141"></span><p class="line867"><span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span><pre><span class="anchor" id="line-1-5"></span>|| normal ||&lt;style=&quot;font-weight: bold;&quot;&gt; bold ||&lt;style=&quot;color: #FF0000;&quot;&gt; red ||&lt;style=&quot;color: #FF0000; font-weight: bold;&quot;&gt; boldred ||</pre><span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span><div><table><tbody><tr>  <td><p class="line862"> normal </td>
+  <td style="&amp;quot; font-weight: bold; &amp;quot;"><p class="line862"> bold </td>
+  <td style="&amp;quot; color: #FF0000; &amp;quot;"><p class="line862"> red </td>
+  <td style="&amp;quot; color: #FF0000;  font-weight: bold; &amp;quot;"><p class="line862"> boldred </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><span class="anchor" id="line-148"></span><p class="line867">
+<h3 id="Colors">Colors</h3>
+<span class="anchor" id="line-149"></span><p class="line867"><span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span><span class="anchor" id="line-152"></span><span class="anchor" id="line-153"></span><span class="anchor" id="line-154"></span><pre><span class="anchor" id="line-1-6"></span>New style
+<span class="anchor" id="line-2-5"></span>||&lt;style=&quot;background-color: red;&quot;&gt; red ||&lt;style=&quot;background-color: green;&quot;&gt; green ||&lt;style=&quot;background-color: blue;&quot;&gt; blue ||
+<span class="anchor" id="line-3-4"></span>old Style
+<span class="anchor" id="line-4-3"></span>||&lt;#FF8080&gt; red ||&lt;#80FF80&gt; green ||&lt;#8080FF&gt; blue ||</pre><span class="anchor" id="line-155"></span><div><table><tbody><tr>  <td style="&amp;quot; background-color: red; &amp;quot;"><p class="line862"> red </td>
+  <td style="&amp;quot; background-color: green; &amp;quot;"><p class="line862"> green </td>
+  <td style="&amp;quot; background-color: blue; &amp;quot;"><p class="line862"> blue </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-156"></span><span class="anchor" id="line-157"></span><span class="anchor" id="line-158"></span><p class="line867">
+<h3 id="Line_breaks_within_cells">Line breaks within cells</h3>
+<span class="anchor" id="line-159"></span><p class="line867"><span class="anchor" id="line-160"></span><span class="anchor" id="line-161"></span><pre><span class="anchor" id="line-1-7"></span>|| line 1&lt;&lt;BR&gt;&gt;line 2||</pre><span class="anchor" id="line-162"></span><div><table><tbody><tr>  <td><p class="line862"> line 1<br>
+line 2</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-163"></span><span class="anchor" id="line-164"></span><span class="anchor" id="line-165"></span><p class="line867">
+<h3 id="No_border_style">No border style</h3>
+<span class="anchor" id="line-166"></span><p class="line867"><span class="anchor" id="line-167"></span><span class="anchor" id="line-168"></span><span class="anchor" id="line-169"></span><pre><span class="anchor" id="line-1-8"></span>||&lt;style=&quot;border:none;&quot;&gt; line 1||
+<span class="anchor" id="line-2-6"></span>||&lt;style=&quot;border:none;&quot;&gt; line 2||</pre><span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span><div><table><tbody><tr>  <td style="&amp;quot; border:none; &amp;quot;"><p class="line862"> line 1</td>
+</tr>
+<tr>  <td style="&amp;quot; border:none; &amp;quot;"><span class="anchor" id="line-172"></span><p class="line862"> line 2</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-173"></span><span class="anchor" id="line-174"></span><p class="line867">
+<h2 id="Insert_Table_Data_from_other_sources">Insert Table Data from other sources</h2>
+<span class="anchor" id="line-175"></span><ul><li><p class="line862">comma separated values: see <a href="HelpOnParsers.html#csvparser">HelpOnParsers#csvparser</a> <span class="anchor" id="line-176"></span></li><li><p class="line862">include wiki pages: see <a href="HelpOnMacros/Include.html">Include</a> <span class="anchor" id="line-177"></span><span class="anchor" id="line-178"></span></li></ul><p class="line867">
+<h2 id="Bulleted_lists_and_other_complex_content_within_cells">Bulleted lists and other complex content within cells</h2>
+<span class="anchor" id="line-179"></span><p class="line867"><img alt="MiniPage.png" class="attachment" src="HelpOnTables%3Faction=AttachFile&amp;do=get&amp;target=MiniPage.png" title="MiniPage.png" /> <span class="anchor" id="line-180"></span><ul><li><p class="line862">see <a class="interwiki" href="http://moinmo.in/MacroMarket/MiniPage" title="MoinMoin">MiniPage macro</a> <span class="anchor" id="line-181"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

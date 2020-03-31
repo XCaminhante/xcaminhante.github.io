@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnOpenIDProvider - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnOpenIDProvider" href="HelpOnOpenIDProvider%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnOpenIDProvider&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnOpenIDProvider%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnOpenIDProvider%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnOpenIDProvider.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnOpenIDProvider.html">HelpOnOpenIDProvider</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnOpenIDProvider.html">HelpOnOpenIDProvider</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnOpenIDProvider%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="MoinMoin_as_an_OpenID_Provider">MoinMoin as an OpenID Provider</h1>
+<span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="HelpOnOpenIDProvider.html#MoinMoin_as_an_OpenID_Provider">MoinMoin as an OpenID Provider</a><ol><li>
+<a href="HelpOnOpenIDProvider.html#Configuration">Configuration</a></li><li>
+<a href="HelpOnOpenIDProvider.html#Processing_instruction">Processing instruction</a></li><li>
+<a href="HelpOnOpenIDProvider.html#Currently_not_implemented_functionality">Currently not implemented functionality</a></li></ol></li></ol></div> <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867"><img alt="/!\" height="15" src="moin_static199/vesta/img/alert.png.html" title="/!\" width="15" /> If you're looking for allowing log-in in to Moin using OpenID (Moin being an OpenID Relying Party), please see <a href="HelpOnAuthentication.html">HelpOnAuthentication</a>! <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867"><a href="MoinMoin.html">MoinMoin</a> can be used as a flexible OpenID provider, allowing authentication with any of the existing authentication methods. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867"><a href="MoinMoin.html">MoinMoin</a>'s OpenID provider code is very flexible, allowing various use cases. Generally, though, if the OpenID server is enabled, each user's homepage is also their OpenID. It is possible through a processing instruction, if permitted, to use any other page as the OpenID for a specific user if the page contains that processing instruction, see below. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line867">
+<h2 id="Configuration">Configuration</h2>
+<span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line874">The OpenID server code supports several configuration variables that can restrict the way the wiki can be used as an OpenID provider: <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line867"><div><table><tbody><tr style="background-color: #ffffcc">  <td><strong>Variable name</strong></td>
+  <td><strong>Default</strong></td>
+  <td><strong>Description</strong></td>
+</tr>
+<tr>  <td>openid_server_enable_user</td>
+  <td><tt class="backtick">False</tt></td>
+  <td>If True, the OpenIDUser processing instruction is allowed.</td>
+</tr>
+<tr>  <td>openid_server_enabled</td>
+  <td><tt class="backtick">False</tt></td>
+  <td>True to enable the built-in OpenID server.</td>
+</tr>
+<tr>  <td>openid_server_restricted_users_group</td>
+  <td><tt class="backtick">None</tt></td>
+  <td>If set to a group name, the group members are allowed to use the wiki as an OpenID provider. (None = allow for all users)</td>
+</tr>
+</tbody></table></div> <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line867">
+<h2 id="Processing_instruction">Processing instruction</h2>
+<span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line862">The new processing instruction <tt class="backtick">OpenIDUser</tt> is enabled depending on the configuration, its only argument must be a username, for example &quot;<tt>#OpenIDUser&nbsp;SomeUserName</tt>&quot;. When this instruction is used, Moin will also allow using that particular page as an OpenID URL for the given username. However, note that this form of the processing instruction can never override the default so it cannot be used on another user's homepage. <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line867">
+<h2 id="Currently_not_implemented_functionality">Currently not implemented functionality</h2>
+<span class="anchor" id="line-26"></span><p class="line874">The OpenID server code is not perfect, it could <span class="anchor" id="line-27"></span><ul><li>implement attribute exchange, <span class="anchor" id="line-28"></span></li><li><p class="line862">be an IDP so users can enter just <tt class="backtick">http://wiki.example.com/</tt> and choose their identity by logging in, <span class="anchor" id="line-29"></span></li><li><p class="line862">allow delegation, would be easy to do with a new user preferences plugin (and a new configuration option <tt class="backtick">openid_server_enable_delegation</tt>) <span class="anchor" id="line-30"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

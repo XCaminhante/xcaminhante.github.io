@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>SdlHacks/RestrictBinding - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: SdlHacks/RestrictBinding" href="RestrictBinding%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=SdlHacks%252FRestrictBinding&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="RestrictBinding%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="RestrictBinding%3Faction=print.html">
+<link rel="Up" href="SdlHacks.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="RestrictBinding.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="SdlHacks.html">SdlHacks</a></li><li><a href="RestrictBinding.html">RestrictBinding</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="RestrictBinding.html">SdlHacks/RestrictBinding</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="RestrictBinding%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line862">The <a class="http" href="../vesta/doc/sdl-ref/expressions.html#binding-difference">binding minus operator</a> is perfect when you know which names you want <span class="anchor" id="line-2"></span>to remove from a binding, but what if you only know the names you want <span class="anchor" id="line-3"></span>to leave in the binding? <span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867">
+<h1 id="Quick_but_Obscure">Quick but Obscure</h1>
+<span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line862">Suppose we want to remove every name in the binding <tt>B</tt> except <span class="anchor" id="line-8"></span>thos in the binding <tt>restriction</tt>.  There is a quick way to do <span class="anchor" id="line-9"></span>that using the binding minus operator twice: <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867"><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c)) {
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    var n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        var a = document.createElement('A');
+        s.className = 'LineNumber';
+        a.appendChild(document.createTextNode(nformat(n,4,'')));
+        a.href = '#' + did + '_' + n;
+        s.appendChild(a);
+        s.appendChild(document.createTextNode(' '));
+        n += nstep;
+        if (l.childNodes.length) {
+          l.insertBefore(s, l.firstChild);
+        }
+        else {
+          l.appendChild(s);
+        }
+      }
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c)) {
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="RestrictBinding.html#" onclick="return togglenumber(\'CA-3bf7d27bb1f1abe4759e64b123bf3596ce8965ed\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-3bf7d27bb1f1abe4759e64b123bf3596ce8965ed" lang="en"><span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-3bf7d27bb1f1abe4759e64b123bf3596ce8965ed_1">   1</a> </span><span class="LineAnchor" id="CA-3bf7d27bb1f1abe4759e64b123bf3596ce8965ed_1"></span><span class="ID">B</span> <span class="SPChar">-</span> <span class="SPChar">(</span><span class="ID">B</span> <span class="SPChar">-</span> <span class="ID">restriction</span><span class="SPChar">)</span></span>
+</pre></div><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line874">The expression in parentheses will produce a binding with all the <span class="anchor" id="line-16"></span>names in <tt>B</tt> that aren't in the binding <tt>restriction</tt>.  When <span class="anchor" id="line-17"></span>that is subtracted from <tt>B</tt>, the only names left will be the ones <span class="anchor" id="line-18"></span>in <tt>restriction</tt>. <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><p class="line874">The down-side to this expression is that it depends on the complete <span class="anchor" id="line-21"></span>set of names in both bindins.  If the names in either binding change <span class="anchor" id="line-22"></span>on a future evaluation, a cache miss will result. <span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><p class="line867">
+<h1 id="Filtering_with__map">Filtering with _map</h1>
+<span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><p class="line862">A better way is to use the <tt>_map</tt> primitive function.  That makes <span class="anchor" id="line-27"></span>it possible to introduce dependencies only on the full set of names in <span class="anchor" id="line-28"></span>one binding.  For example: <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line867"><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="RestrictBinding.html#" onclick="return togglenumber(\'CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd" lang="en"><span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_1">   1</a> </span><span class="LineAnchor" id="CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_1"></span>  <span class="Comment">/**nocache**/</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_2">   2</a> </span><span class="LineAnchor" id="CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_2"></span>  <span class="ID">restrict_binding</span><span class="SPChar">(</span><span class="ID">B</span><span class="SPChar">,</span> <span class="ID">restriction</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_3">   3</a> </span><span class="LineAnchor" id="CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_3"></span>  <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_4">   4</a> </span><span class="LineAnchor" id="CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_4"></span>    <span class="Comment">/**nocache**/</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_5">   5</a> </span><span class="LineAnchor" id="CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_5"></span>    <span class="ID">filter_one</span><span class="SPChar">(</span><span class="ID">n</span><span class="SPChar">,</span> <span class="ID">v</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_6">   6</a> </span><span class="LineAnchor" id="CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_6"></span>    <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_7">   7</a> </span><span class="LineAnchor" id="CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_7"></span>      <span class="ResWord">return</span> <span class="ResWord">if</span> <span class="ID">restriction</span><span class="SPChar">!</span>$<span class="ID">n</span> <span class="ResWord">then</span> <span class="SPChar">[</span>$<span class="ID">n</span><span class="SPChar">=</span><span class="ID">B</span><span class="SPChar">/</span>$<span class="ID">n</span><span class="SPChar">]</span> <span class="ResWord">else</span> <span class="SPChar">[</span><span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_8">   8</a> </span><span class="LineAnchor" id="CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_8"></span>    <span class="SPChar">}</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_9">   9</a> </span><span class="LineAnchor" id="CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_9"></span>    <span class="ResWord">return</span> <span class="ID">_map</span><span class="SPChar">(</span><span class="ID">filter_one</span><span class="SPChar">,</span> <span class="ID">B</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_10">  10</a> </span><span class="LineAnchor" id="CA-6bfcc5e0f827946e5a1cc5db16363051dc5dcccd_10"></span>  <span class="SPChar">}</span><span class="SPChar">;</span></span>
+</pre></div><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line862">This implementation will <tt>_map</tt> over every name in <tt>B</tt> and <span class="anchor" id="line-44"></span>only pass through those in <tt>restriction</tt>. <span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><p class="line867">
+<h1 id="Reversing_the__map">Reversing the _map</h1>
+<span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><p class="line862">We may be able to do better.  By using <tt>_map</tt> over <tt>B</tt>, we <span class="anchor" id="line-49"></span>will still introduce dependencies on all the names in <tt>B</tt>.  If <span class="anchor" id="line-50"></span>there are typically many more names in <tt>B</tt> than there are in <span class="anchor" id="line-51"></span><tt>restriction</tt>, we would be better off using <tt>_map</tt> on <span class="anchor" id="line-52"></span><tt>restriction</tt>: <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><p class="line867"><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="RestrictBinding.html#" onclick="return togglenumber(\'CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e" lang="en"><span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_1">   1</a> </span><span class="LineAnchor" id="CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_1"></span>  <span class="Comment">/**nocache**/</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_2">   2</a> </span><span class="LineAnchor" id="CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_2"></span>  <span class="ID">restrict_binding</span><span class="SPChar">(</span><span class="ID">B</span><span class="SPChar">,</span> <span class="ID">restriction</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_3">   3</a> </span><span class="LineAnchor" id="CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_3"></span>  <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_4">   4</a> </span><span class="LineAnchor" id="CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_4"></span>    <span class="Comment">/**nocache**/</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_5">   5</a> </span><span class="LineAnchor" id="CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_5"></span>    <span class="ID">filter_one</span><span class="SPChar">(</span><span class="ID">n</span><span class="SPChar">,</span> <span class="ID">v</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_6">   6</a> </span><span class="LineAnchor" id="CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_6"></span>    <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_7">   7</a> </span><span class="LineAnchor" id="CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_7"></span>      <span class="ResWord">return</span> <span class="ResWord">if</span> <span class="ID">B</span><span class="SPChar">!</span>$<span class="ID">n</span> <span class="ResWord">then</span> <span class="SPChar">[</span>$<span class="ID">n</span><span class="SPChar">=</span><span class="ID">B</span><span class="SPChar">/</span>$<span class="ID">n</span><span class="SPChar">]</span> <span class="ResWord">else</span> <span class="SPChar">[</span><span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_8">   8</a> </span><span class="LineAnchor" id="CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_8"></span>    <span class="SPChar">}</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_9">   9</a> </span><span class="LineAnchor" id="CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_9"></span>    <span class="ResWord">return</span> <span class="ID">_map</span><span class="SPChar">(</span><span class="ID">filter_one</span><span class="SPChar">,</span> <span class="ID">restriction</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_10">  10</a> </span><span class="LineAnchor" id="CA-a6bf7712e4aeb414a7c0c0ea1796e3e2c0bd9d0e_10"></span>  <span class="SPChar">}</span><span class="SPChar">;</span></span>
+</pre></div><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><p class="line867">
+<h1 id="Combined__map_Implementation">Combined _map Implementation</h1>
+<span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><p class="line874">It would be ideal if we could simply test which has more names, <span class="anchor" id="line-70"></span><tt>B</tt> or <tt>restriction</tt>.  Unfortunately, due to the way <span class="anchor" id="line-71"></span>dependencies are represented this would inadvertently create a <span class="anchor" id="line-72"></span>dependency on the full set of names in both bindings.  (There is no <span class="anchor" id="line-73"></span>&quot;number of elements in a binding&quot; dependency, only a &quot;set of names in <span class="anchor" id="line-74"></span>binding&quot; dependency.) <span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><p class="line874">However we can give the caller the choice: <span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><p class="line867"><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="RestrictBinding.html#" onclick="return togglenumber(\'CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf" lang="en"><span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_1">   1</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_1"></span>  <span class="Comment">/**nocache**/</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_2">   2</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_2"></span>  <span class="ID">restrict_binding</span><span class="SPChar">(</span><span class="ID">B</span><span class="SPChar">,</span> <span class="ID">restriction</span><span class="SPChar">,</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_3">   3</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_3"></span>                   <span class="ID">map_over_B</span><span class="SPChar">=</span><span class="ConsWord">FALSE</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_4">   4</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_4"></span>  <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_5">   5</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_5"></span>    <span class="ID">filter</span> <span class="SPChar">=</span> <span class="ResWord">if</span> <span class="ID">map_over_B</span> <span class="ResWord">then</span> <span class="ID">restriction</span> <span class="ResWord">else</span> <span class="ID">B</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_6">   6</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_6"></span>    <span class="ID">map_over</span> <span class="SPChar">=</span> <span class="ResWord">if</span> <span class="ID">map_over_B</span> <span class="ResWord">then</span> <span class="ID">B</span> <span class="ResWord">else</span> <span class="ID">restriction</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_7">   7</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_7"></span>    <span class="Comment">/**nocache**/</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_8">   8</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_8"></span>    <span class="ID">filter_one</span><span class="SPChar">(</span><span class="ID">n</span><span class="SPChar">,</span> <span class="ID">v</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_9">   9</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_9"></span>    <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_10">  10</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_10"></span>      <span class="ResWord">return</span> <span class="ResWord">if</span> <span class="ID">filter</span><span class="SPChar">!</span>$<span class="ID">n</span> <span class="ResWord">then</span> <span class="SPChar">[</span>$<span class="ID">n</span><span class="SPChar">=</span><span class="ID">B</span><span class="SPChar">/</span>$<span class="ID">n</span><span class="SPChar">]</span> <span class="ResWord">else</span> <span class="SPChar">[</span><span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_11">  11</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_11"></span>    <span class="SPChar">}</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_12">  12</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_12"></span>    <span class="ResWord">return</span> <span class="ID">_map</span><span class="SPChar">(</span><span class="ID">filter_one</span><span class="SPChar">,</span> <span class="ID">map_over</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RestrictBinding.html#CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_13">  13</a> </span><span class="LineAnchor" id="CA-80678f4fe738c9d20a34c76b20e244064d2f7aaf_13"></span>  <span class="SPChar">}</span><span class="SPChar">;</span></span>
+</pre></div><span class="anchor" id="line-93"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

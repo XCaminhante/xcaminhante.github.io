@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnXmlPages - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnXmlPages" href="HelpOnXmlPages%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnXmlPages&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="HelpOnXmlPages%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="HelpOnXmlPages%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="HelpOnXmlPages.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="HelpOnXmlPages.html">HelpOnXmlPages</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="HelpOnXmlPages.html">HelpOnXmlPages</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="HelpOnXmlPages%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="XML_Pages_.26_XSLT_Processing">XML Pages &amp; XSLT Processing</h1>
+<span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="HelpOnXmlPages.html#XML_Pages_.26_XSLT_Processing">XML Pages &amp; XSLT Processing</a><ol><li>
+<a href="HelpOnXmlPages.html#Example">Example</a></li></ol></li><li>
+<a href="HelpOnXmlPages.html#Rendering_DocBook">Rendering DocBook</a><ol><li>
+<a href="HelpOnXmlPages.html#Installing_the_DocBook_support">Installing the DocBook support</a><ol><li>
+<a href="HelpOnXmlPages.html#Using_DocBook">Using DocBook</a></li></ol></li></ol></li></ol></div> <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">Security advisory: enabling xslt processing with 4suite is <strong>dangerous</strong> (see <a href="HelpOnConfiguration.html#auth">HelpOnConfiguration</a> page about allow_xslt setting for more details). <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">If you have <a class="http" href="http://4suite.org/">Python4Suite</a> installed in your system, it is possible to save XML documents as pages. It's important to start those pages with an XML declaration &quot;<tt>&lt;?xml&nbsp;...&gt;</tt>&quot; in the very first line. Also, you have to specify the stylesheet that is to be used to process the XML document to HTML. This is done using a <a class="http" href="http://www.w3.org/TR/xml-stylesheet/">standard &quot;xml-stylesheet&quot; processing instruction</a>, with the name of a page containing the stylesheet as the &quot;<tt>href</tt>&quot; parameter. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line862">Do no forget to enable XSLT processing, see <a href="HelpOnConfiguration.html">HelpOnConfiguration</a>. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line862">See the following example for details, which can also be found on the <a href="XsltVersion.html">XsltVersion</a> page. <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line867">
+<h2 id="Example">Example</h2>
+<span class="anchor" id="line-18"></span><p class="line867"><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><pre><span class="anchor" id="line-1"></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<span class="anchor" id="line-2"></span>
+<span class="anchor" id="line-3"></span>&lt;?xml-stylesheet href=&quot;XsltVersion&quot; type=&quot;text/xml&quot;?&gt;
+<span class="anchor" id="line-4"></span>
+<span class="anchor" id="line-5"></span>&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+<span class="anchor" id="line-6"></span>
+<span class="anchor" id="line-7"></span>   &lt;xsl:output method=&quot;html&quot; omit-xml-declaration=&quot;yes&quot; indent=&quot;no&quot;/&gt;
+<span class="anchor" id="line-8"></span>
+<span class="anchor" id="line-9"></span>   &lt;xsl:template match=&quot;/&quot;&gt;
+<span class="anchor" id="line-10"></span>     This Wiki is running an XSLT engine by
+<span class="anchor" id="line-11"></span>     &lt;xsl:value-of select=&quot;system-property('xsl:vendor')&quot;/&gt;
+<span class="anchor" id="line-12"></span>     (&lt;a href=&quot;{system-property('xsl:vendor-url')}&quot;&gt;&lt;xsl:value-of select=&quot;system-property('xsl:vendor-url')&quot;/&gt;&lt;/a&gt;)
+<span class="anchor" id="line-13"></span>     implementing XSLT v&lt;xsl:value-of select=&quot;system-property('xsl:version')&quot;/&gt;
+<span class="anchor" id="line-14"></span>   &lt;/xsl:template&gt;
+<span class="anchor" id="line-15"></span>
+<span class="anchor" id="line-16"></span>&lt;/xsl:stylesheet&gt;</pre><p class="line874"> <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line867">
+<h1 id="Rendering_DocBook">Rendering DocBook</h1>
+<span class="anchor" id="line-38"></span><p class="line862">In order to let <a href="MoinMoin.html">MoinMoin</a> render DocBook pages, you will need to follow the steps described below. Afterwards, you will be able to write DocBook files in <a href="MoinMoin.html">MoinMoin</a> and see them as rendered HTML. Note that rendering DocBook pages may take some seconds of processing time (this is done after the page is saved). <span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><p class="line867">
+<h2 id="Installing_the_DocBook_support">Installing the DocBook support</h2>
+<span class="anchor" id="line-41"></span><ol type="1"><li>Install 4suite and enable XSLT processing, see above. <span class="anchor" id="line-42"></span></li><li><p class="line862">Go to <a class="http" href="http://sourceforge.net/project/showfiles.php?group_id=21935&amp;package_id=16608">DocBook files at SourceForge</a> and download the latest archive. It contains the XSLT files necessary for HTML generation. <span class="anchor" id="line-43"></span></li><li><p class="line862">Extract the archive and copy the whole directories <tt>html</tt>, <tt>lib</tt>, <tt>common</tt> and the file <tt>VERSION</tt> into a directory that is writable by <a href="MoinMoin.html">MoinMoin</a> (e.g. the <tt>data</tt> directory). <span class="anchor" id="line-44"></span><ul><li><p class="line862">After you have upgraded 4suite, you have to delete the file <tt>db_compiled.dat</tt> in this directory (if it exists). <span class="anchor" id="line-45"></span></li></ul></li><li><p class="line862">Edit your wiki configuration,  the attribute <tt>docbook_html_dir</tt> has to point to the directory (which contains e.g. the file <tt>docbook.xsl</tt>) you created in the last step. <span class="anchor" id="line-46"></span></li><li><p class="line862">You should be able to use the DocBook parser now. <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span></li></ol><p class="line867">
+<h3 id="Using_DocBook">Using DocBook</h3>
+<span class="anchor" id="line-49"></span><p class="line862">Just write your DocBook file like you would have done in a different environment as well. If you want to insert links to other wiki pages, be sure to simply write the <a href="WikiName.html">WikiName</a> into the text. Note that pages that would need <tt>[[...]]</tt> links in ordinary wiki markup cannot be linked to directly, yet. <span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><p class="line867">DocBook markup is either marked by <tt>#format&nbsp;docbook</tt> in the first line of the page or in a wiki page like this: <span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><div class="message">XSLT option disabled, please look at <a href="HelpOnConfiguration.html">HelpOnConfiguration</a>.</div><pre><span class="anchor" id="line-1-1"></span>&lt;!DOCTYPE book PUBLIC &quot;-//OASIS//DTD DocBook XML V4.1.2//EN&quot; &quot;http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd&quot;&gt;
+<span class="anchor" id="line-2-1"></span>&lt;book&gt;
+<span class="anchor" id="line-3-1"></span>&lt;bookinfo&gt;
+<span class="anchor" id="line-4-1"></span>&lt;author&gt;
+<span class="anchor" id="line-5-1"></span>&lt;firstname&gt;Bernd&lt;/firstname&gt;
+<span class="anchor" id="line-6-1"></span>&lt;surname&gt;Le Pain&lt;/surname&gt;
+<span class="anchor" id="line-7-1"></span>&lt;/author&gt;
+<span class="anchor" id="line-8-1"></span>&lt;copyright&gt;
+<span class="anchor" id="line-9-1"></span>&lt;year&gt;2005&lt;/year&gt;
+<span class="anchor" id="line-10-1"></span>&lt;/copyright&gt;
+<span class="anchor" id="line-11-1"></span>&lt;/bookinfo&gt;
+<span class="anchor" id="line-12-1"></span>&lt;chapter&gt;
+<span class="anchor" id="line-13-1"></span>&lt;title&gt;This is a title of a chapter&lt;/title&gt;
+<span class="anchor" id="line-14-1"></span>&lt;sect1&gt;
+<span class="anchor" id="line-15-1"></span>&lt;title&gt;This is a title of a section&lt;/title&gt;
+<span class="anchor" id="line-16-1"></span>&lt;para&gt;This is a paragraph.&lt;/para&gt;
+<span class="anchor" id="line-17"></span>&lt;para&gt;
+<span class="anchor" id="line-18"></span>&lt;emphasis role=&quot;bold&quot;&gt;
+<span class="anchor" id="line-19"></span>This is a paragraph in bold.
+<span class="anchor" id="line-20"></span>&lt;/emphasis&gt;
+<span class="anchor" id="line-21"></span>&lt;/para&gt;
+<span class="anchor" id="line-22"></span>&lt;/sect1&gt;
+<span class="anchor" id="line-23"></span>&lt;/chapter&gt;
+<span class="anchor" id="line-24"></span>&lt;/book&gt;</pre><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><p class="line862">Note that you need to install DocBook like described above to make this example work. <span class="anchor" id="line-80"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>MountingRepositoryOnNewPlatform - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: MountingRepositoryOnNewPlatform" href="MountingRepositoryOnNewPlatform%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=MountingRepositoryOnNewPlatform&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="MountingRepositoryOnNewPlatform%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="MountingRepositoryOnNewPlatform%3Faction=print.html">
+<link rel="Appendix" title="vmount_darwin_ppc" href="MountingRepositoryOnNewPlatform%3Faction=AttachFile&amp;do=view&amp;target=vmount_darwin_ppc.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="MountingRepositoryOnNewPlatform.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="MountingRepositoryOnNewPlatform.html">MountingRepositoryOnNewPlatform</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="MountingRepositoryOnNewPlatform.html">MountingRep...NewPlatform</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="MountingRepositoryOnNewPlatform%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="Mounting_the_Repository_on_a_New_Platform">Mounting the Repository on a New Platform</h1>
+<span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line862">As <a class="http" href="../vesta/doc/porting-guide/#Port%20vmount">described in the porting guide</a>, to get the repository mounted on a new platform, you need to two things: <span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><ul><li><p class="line862">A <a class="http" href="../vesta/doc/man/html/vmount.8.html">vmount</a> binary <span class="anchor" id="line-11"></span></li><li><p class="line862">A copy of the <a class="http" href="../vesta/doc/man/html/mountrepos.8.html">mountrepos</a> script, possibly with hard-coded values for each call to <a class="http" href="../vesta/doc/man/html/vgetconfig.1.html">vgetconfig</a> <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span></li></ul><p class="line867"><tt>vmount</tt> is small, written in straight C, and its source can be found in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount">the vmount package</a>.  There are currently variants for: <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><div><table><tbody><tr>  <td><p class="line862">Linux</td>
+  <td><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount/latest/src/vmount_linux.c&amp;dl=1">vmount_linux.c</a></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-16"></span><p class="line862">Tru64 UNIX</td>
+  <td><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount/latest/src/vmount_tru64.c&amp;dl=1">vmount_tru64.c</a></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-17"></span><p class="line862">Solaris</td>
+  <td><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount/latest/src/vmount_solaris.c&amp;dl=1">vmount_solaris.c</a></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-18"></span><p class="line862">FreeBSD</td>
+  <td><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount/latest/src/vmount_freebsd.c&amp;dl=1">vmount_freebsd.c</a></td>
+</tr>
+<tr>  <td><span class="anchor" id="line-19"></span><p class="line862">Darwin (MacOS X)</td>
+  <td><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/vmount/latest/src/vmount_darwin.c&amp;dl=1">vmount_darwin.c</a></td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line862">If you don't have a compiler handy, there are a few pre-compiled versions of <tt>vmount</tt> attached to this page: <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867"><script>
+function checkAll(bx, targets_name) {
+  var cbs = document.getElementsByTagName('input');
+  for(var i=0; i < cbs.length; i++) {
+    if(cbs[i].type == 'checkbox' && cbs[i].name == targets_name) {
+      cbs[i].checked = bx.checked;
+    }
+  }
+}
+</script>
+<form method="POST">
+<input type="hidden" name="action" value="AttachFile">
+<input type="hidden" name="do" value="multifile">
+<ul><li>[<a href="MountingRepositoryOnNewPlatform%3Faction=AttachFile&amp;do=get&amp;target=vmount_darwin_ppc">get</a>&nbsp;| <a href="MountingRepositoryOnNewPlatform%3Faction=AttachFile&amp;do=view&amp;target=vmount_darwin_ppc.html">view</a>]<input type="checkbox" name="fn" value="vmount_darwin_ppc"> (2005-08-06 14:44:29, 15.7 KB) [[attachment:vmount_darwin_ppc]]</li></ul><input type="checkbox" onclick="checkAll(this, 'fn')">&nbsp;All files&nbsp;|&nbsp;Selected Files:
+<input type="radio" name="multifile" value="rm">delete</input>
+<input type="radio" name="multifile" value="mv">move to page</input>
+<input type="radio" name="multifile" value="cp">copy to page</input>
+<input type="text" name="multi_dest_pagename" value="MountingRepositoryOnNewPlatform">
+<input type="submit" value="Do it.">
+</form> <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line862">Once you have vmount <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/repos/latest/src/mountrepos&amp;dl=1">download a copy of the mountrepos script</a>.  If you don't have a working copy of <tt>vgetconfig</tt> on your new platform, you'll need to edit the part at the top to look something like this: <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line867"><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><pre><span class="anchor" id="line-1"></span>NFS_host=`vgetconfig Repository NFS_host || echo &quot;vesta.example.com&quot;`
+<span class="anchor" id="line-2"></span>NFS_port=`vgetconfig Repository NFS_port || echo 21774`
+<span class="anchor" id="line-3"></span>AppendableRootName=`vgetconfig UserInterface AppendableRootName || echo &quot;/vesta&quot;`
+<span class="anchor" id="line-4"></span>MutableRootName=`vgetconfig UserInterface MutableRootName || echo &quot;/vesta-work&quot;`
+<span class="anchor" id="line-5"></span>VolatileRootName=`vgetconfig Run_Tool VolatileRootName || echo &quot;/vesta-work/.volatile&quot;`</pre><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><p class="line862">Replace each one of the strings being <tt>echo</tt>ed (e.g. <tt>&quot;vesta.example.com&quot;</tt>)  with what the <tt>vgetconfig</tt> command on the same line returns on your working Vesta installation. <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line862">Now you should be able to run your modified <tt>mountrepos</tt> script and mount the rpeository. <span class="anchor" id="line-38"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

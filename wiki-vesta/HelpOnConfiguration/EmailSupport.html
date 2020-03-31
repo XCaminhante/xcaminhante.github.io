@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>HelpOnConfiguration/EmailSupport - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: HelpOnConfiguration/EmailSupport" href="EmailSupport%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=HelpOnConfiguration%252FEmailSupport&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="EmailSupport%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="EmailSupport%3Faction=print.html">
+<link rel="Up" href="../HelpOnConfiguration.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="EmailSupport.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="../HelpOnConfiguration.html">HelpOnConfiguration</a></li><li><a href="EmailSupport.html">EmailSupport</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="EmailSupport.html">EmailSupport</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="EmailSupport%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="E-Mail_Configuration">E-Mail Configuration</h1>
+<span class="anchor" id="line-7"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="EmailSupport.html#E-Mail_Configuration">E-Mail Configuration</a><ol><li>
+<a href="EmailSupport.html#Sending_mail">Sending mail</a></li><li>
+<a href="EmailSupport.html#Receiving_Mail">Receiving Mail</a></li></ol></li></ol></div> <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">When configured, Moin features two email-based services; sending mail, and receiving mail. Both are explained on this page. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867">
+<h2 id="Sending_mail">Sending mail</h2>
+<span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line874">The most common scenario is configuring your wiki to send mail, which is used in the following situations: <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><dl><dt>Recovering passwords </dt><dd>Users who have forgotten their passwords can request an email (which will be sent to the email address on file) and will contain password reset instructions (and a token to authenticate the password reset.) <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span></dd><dt>Change Notification </dt><dd><p class="line862">Any user can subscribe to changes of wiki pages by either clicking on the envelope icon <img alt="Subscribe" height="10" src="../moin_static199/vesta/img/moin-subscribe.png.html" title="Subscribe" width="14" />, or by adding a regex to the &quot;Subscribed wiki pages&quot; field of his user preferences. The system then sends, whenever a page is changed and the author doesn't uncheck the &quot;Send mail notification&quot; checkbox, an email with the author, a link to the page, and the diff of the change. The author does not get notified of his own changes. <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span></dd></dl><p class="line862">To configure mail-sending, the following options need to be configured in your <tt>wikiconfig.py</tt> file: <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><div><table><tbody><tr style="background-color: &amp;quot;#ffffcc&amp;quot">  <td><p class="line862"> <strong>Variable name</strong> </td>
+  <td><p class="line862"> <strong>Default</strong> </td>
+  <td><p class="line862"> <strong>Description</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-22"></span><p class="line862"> mail_from </td>
+  <td><p class="line862"> <tt class="backtick">None</tt> </td>
+  <td><p class="line862"> <tt class="backtick">From:</tt> header used in sent mails, e.g. <tt class="backtick">mail_from&nbsp;=&nbsp;u'Wiki&nbsp;Notifier&nbsp;&lt;noreply@example.com&gt;'</tt>. [unicode] </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-23"></span><p class="line862"> mail_login </td>
+  <td><p class="line862"> <tt class="backtick">None</tt> </td>
+  <td><p class="line862"> &quot;user pwd&quot; if you need to use SMTP AUTH </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-24"></span><p class="line862"> mail_smarthost </td>
+  <td><p class="line862"> <tt class="backtick">None</tt> </td>
+  <td><p class="line862"> IPv4 address or hostname of an SMTP-enabled server (with optional <tt class="backtick">:port</tt> appendix, defaults to 25). Note that email features (notification, mailing of login data) works only if this variable is set. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-25"></span><p class="line862"> mail_sendmail </td>
+  <td><p class="line862"> <tt class="backtick">None</tt> </td>
+  <td><p class="line862"> If set to e.g. '/usr/sbin/sendmail -t -i', use this sendmail command to send mail. Default is to send mail by an internal function using SMTP. </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><p class="line862">In order to enable support for outgoing mails, you must specify the <tt class="backtick">From:</tt> address with &quot;<tt class="backtick">mail_from</tt>&quot;.  Furthermore, you must enable a transport, either by SMTP (use &quot;<tt class="backtick">mail_smarthost</tt>&quot; to enable it) or by sendmail (use &quot;<tt class="backtick">mail_sendmail</tt>&quot; to enable it). If you use &quot;<tt class="backtick">mail_smarthost</tt>&quot; and the server requires authentication, then set &quot;<tt class="backtick">mail_login</tt>&quot;, too. <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><dl><dt>mail_from</dt><dd><p class="line862">This value is used for the &quot;<tt class="backtick">From:</tt>&quot; and &quot;<tt class="backtick">To:</tt>&quot; headers in the emails sent (the &quot;<tt class="backtick">To:</tt>&quot; has email address privacy reasons, email is not really sent to this address, but we don't want to disclose any real recipient address). The address is also used as the envelope sender and hence should exist so your wiki's emails are not blocked by spam filtering software. <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span></dd><dt>mail_login</dt><dd><p class="line862">This is only needed when you use <tt class="backtick">mail_smarthost</tt> and a server that requires SMTP AUTH to send mail; in that case, set this to the username and password separated by a space, i.e. <tt class="backtick">&quot;user&nbsp;pwd&quot;</tt>. <span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span></dd><dt>mail_smarthost</dt><dd><p class="line862">This is the IP or domain name of an FOLDOC:SMTP enabled server. On a Unix host, you can try to use <tt class="backtick">localhost</tt>; on a Windows machine this will normally be a machine in your LAN or some host of your ISP. <span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span></dd><dt>mail_sendmail</dt><dd>This is a local command to run to send a message.  If set to e.g. '/usr/sbin/sendmail -t -i', use this sendmail command to send mail.  This is only useful on machines that have a mail transport agent installed. <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span></dd></dl><p class="line867"><hr /><p class="line874"> <span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><p class="line867">
+<h2 id="Receiving_Mail">Receiving Mail</h2>
+<span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><p class="line862">Moin is able to receive mails. Mainly, you need to know what the e-mail address of the wiki is and send a mail to it. If you supply the target pagename before the wiki address (typing <tt class="backtick">MyWikiPage&nbsp;&lt;wiki@example.com&gt;</tt> for example), you will get your mail into the wiki quite easily. <span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><p class="line874">If you want to import mails to your Moin wiki, i.e. allow it to receive and store the mails, you have to setup a few things. <span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><p class="line862">First you have to setup your mail server to pipe every new mail into Moin. The command  is <tt class="backtick">moin&nbsp;xmlrpc&nbsp;mailimport</tt>. Note that you can use the parameter <tt class="backtick">--config&nbsp;/path/to/dir</tt> to supply the path to a directory with a suitable Moin configuration file. Then you have to ensure that there is a file called <tt class="backtick">mailimportconf.py</tt> in that directory. <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><p class="line874">Now you can configure the wiki. There are the following configuration options: <span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><div><table><tbody><tr style="background-color: &amp;quot;#ffffcc&amp;quot">  <td><p class="line862"> <strong>Variable name</strong> </td>
+  <td><p class="line862"> <strong>Default</strong> </td>
+  <td><p class="line862"> <strong>Description</strong> </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-52"></span><p class="line862"> mail_import_wiki_addrs </td>
+  <td><p class="line862"> <tt class="backtick">[]</tt> </td>
+  <td><p class="line862"> The e-mail address(es) of the e-mails that should go into the wiki. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-53"></span><p class="line862"> mail_import_pagename_envelope </td>
+  <td><p class="line862"> <tt class="backtick">u&quot;%s&quot;</tt> </td>
+  <td><p class="line862"> Special use, see below. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-54"></span><p class="line862"> mail_import_subpage_template </td>
+  <td><p class="line862"> <tt class="backtick">u&quot;$from-$date-$subject&quot;</tt> </td>
+  <td><p class="line862"> This is the template for the pagename generated by the mail import code. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-55"></span><p class="line862"> mail_import_pagename_search </td>
+  <td><p class="line862"> <tt class="backtick">['subject',&nbsp;'to',&nbsp;]</tt> </td>
+  <td><p class="line862"> Where and in which order to search for the target pagename. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-56"></span><p class="line862"> mail_import_pagename_regex </td>
+  <td><p class="line862"> <tt class="backtick">r'\[\[([^&quot;]*)\]\]'</tt> </td>
+  <td><p class="line862"> Special use, see below. </td>
+</tr>
+<tr>  <td><span class="anchor" id="line-57"></span><p class="line862"> secrets or secrets[&quot;xmlrpc/ProcessMail&quot;] </td>
+  <td><p class="line862"> <tt class="backtick">&quot;&quot;</tt> </td>
+  <td><p class="line862"> The secret that matches the one in <tt class="backtick">mailimportconf.py</tt> configuration file. </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><dl><dt>mail_import_wiki_addrs</dt><dd><p class="line862">A list of e-mail target addresses of e-mails that should go into the wiki. Moin searches for these addresses to know the target pagename, it should match the address that is known to the mail server. If you use some kind of forwarding mechanism, please put the address(es) your wiki users use to address the wiki <em>first</em> into that list and the address(es) you forward the e-mails to <em>after</em> that. <span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span></dd><dt>mail_import_pagename_envelope</dt><dd><p class="line862">The default value of this setting is <tt class="backtick">u&quot;%s&quot;</tt> and that just means &quot;use the pagename unmodified&quot;. You could also configure it to be <tt class="backtick">u&quot;+&nbsp;%s/&quot;</tt> which would add a plus and a blank char in front of what we got and a slash char after what we got from the mail subject or target addr. This is to save your users some typing if you ever want the behaviour triggered by the plus and the slash. <span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span></dd><dt>mail_import_subpage_template</dt><dd>This is the template for the pagename generated by the mail import code. See below for supported placeholders. <span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span></dd><dt>mail_import_pagename_search</dt><dd><p class="line862">Where (and in what order) to search for the target pagename, default is <tt class="backtick">['subject',&nbsp;'to',&nbsp;]</tt> to first look into the subject and then (if we didn't find anything there) to look into the target addresses. <span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span></dd><dt>mail_import_pagename_regex</dt><dd><p class="line862">The pattern (regex) we search in the subject line for determining the target pagename, default is <tt class="backtick">r'\[\[([^&quot;]*)\]\]'</tt> which simply looks for something like <tt class="backtick">[[TargetPageName]]</tt> (same as freelink syntax). <span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span></dd><dt>mail_import_secret</dt><dd><p class="line862">The secret that matches the <tt class="backtick">mailimportconf.py</tt> configuration file. The secret is used to let the script authenticate itself at the wiki. The URL consists of the regular wiki URL and <tt class="backtick">?action=xmlrpc2</tt>. It should look like this (there is a sample file shipped in <tt class="backtick">wiki/config</tt>): <span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><pre><span class="anchor" id="line-1"></span># This secret has to be known by the wiki server
+<span class="anchor" id="line-2"></span>mail_import_secret = u&quot;do_not_choose_a_too_short_secret_or_it_wont_work&quot;
+<span class="anchor" id="line-3"></span>
+<span class="anchor" id="line-4"></span># The target URL
+<span class="anchor" id="line-5"></span>mail_import_url = u&quot;http://localhost:81/?action=xmlrpc2&quot;</pre><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span></dd></dl><p class="line874">After you have configured the settings explained above, you should be able sending yourself mails. The actual usage is explained below. <span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><dl><dt>From </dt><dd>We check the From: header if it is from a valid wiki user. Of course this is no real security, but maybe better than nothing. <span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span></dd><dt></dt><dd>When we create a mail overview table, we use the email address part of From: to try to lookup a wiki user account with that email address. In case we find some, we will link to his homepage from the From: column of the table. If we don't find a matching user account, we just list the realname part in the From: column. <span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span></dd><dt>To / Cc </dt><dd><p class="line862">To: is (as usual) made of 2 parts, like <tt class="backtick">TEMPLATE&nbsp;&lt;wiki@example.org&gt;</tt>. We use the &quot;realname&quot; part to make up the target page name template (can contain special chars, blanks etc.) and the email address part to get it to the right destination. The simplest form of a target page name template is just a pagename like <a href="WikiSandBox.html">WikiSandBox</a>. <span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span></dd><dt></dt><dd>See the example for the 2 different modes of operation. <span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span></dd><dt></dt><dd>When we create a mail overview table, we process To: and Cc: for the To: column in the same way we do it for the From: column (see above). We do not include the address of the wiki server (and if we only have the wiki server email, we just display &quot;-&quot;). <span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span></dd><dt>Subject </dt><dd>The page name template can also be extracted (and also removed) from the first occurance of mail_import_pagename_regex within the subject. <span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span></dd><dt></dt><dd><p class="line862">Examples: <span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><pre><span class="anchor" id="line-1-1"></span>Subj: [[TargetPageName]] will work if you put it either at the beginning or the end of the subject.
+<span class="anchor" id="line-2-1"></span>Subject: bla bla bla [[PageName/$date]]</pre><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span></dd><dt></dt><dd><p class="line862">The text of mails with such subject will be added to the pages <span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><pre><span class="anchor" id="line-1-2"></span>TargetPageName
+<span class="anchor" id="line-2-2"></span>or
+<span class="anchor" id="line-3-1"></span>PageName/2006-07-20T14:48:27</pre><span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span></dd><dt></dt><dd><p class="line862">The full subject will also be used to build the change comment, prefixed with &quot;<tt class="backtick">Mail:&nbsp;</tt>&quot;; variables are not replaced there. <span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span></dd><dt>Mail body </dt><dd><p class="line862">The new page content is made from old page content (if any) plus the content of the email appended at the end. Page content will never get overwritten. Mails that are sent as <tt class="backtick">alternative</tt> are shown with their HTML body on the page which is processed by a HTML parser. <span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span></dd><dt></dt><dd>E-Mail attachments will get put into page attachments under the page where the content will be put. Attachments will never get overwritten. The attachments will be linked from the content page (e.g. from a list of attachments at the end). <span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span></dd><dt>Generated content </dt><dd><p class="line862">If requested by a leading <tt class="backtick">+</tt>-sign (e.g. <tt class="backtick">+&nbsp;PageName/</tt>), Moin adds a table item to the parent page listing details about the e-mail. <span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span></dd><dt>Pagename generation </dt><dd><p class="line862">The placeholders <tt class="backtick">$from</tt> (containing the name of the sender), <tt class="backtick">$date</tt> (the date) and <tt class="backtick">$subject</tt> (subject line) are supported. <span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span></dd><dt></dt><dd>The pagename is generated like explained below: <span class="anchor" id="line-115"></span><ol type="1"><li>Check if one of the mail target addresses (to, cc, ...) is in mail_import_wiki_addrs <span class="anchor" id="line-116"></span></li><li>Process TO/SUBJECT in order as given by mail_import_pagename_search until we have found a pagename or have to give up: <span class="anchor" id="line-117"></span><ul><li>Try to get the pagename template from the target addrs, or <span class="anchor" id="line-118"></span></li><li>Try to extract the pagename from the subject (explained above). <span class="anchor" id="line-119"></span></li></ul></li><li>If we didn't find a pagename, use mail_import_subpage_template as last resort. <span class="anchor" id="line-120"></span></li><li>Apply mail_import_pagename_envelope to (optionally) extend the pagename. <span class="anchor" id="line-121"></span></li><li><p class="line862">If the pagename ends with a slash, append the configuration setting <tt class="backtick">email_subpage_template</tt> (see above) to the pagename. <span class="anchor" id="line-122"></span></li><li>Expand the pagename template to get the actual pagename. <span class="anchor" id="line-123"></span></li></ol></dl><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

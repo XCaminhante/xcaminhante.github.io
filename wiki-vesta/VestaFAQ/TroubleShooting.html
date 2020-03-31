@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>VestaFAQ/TroubleShooting - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: VestaFAQ/TroubleShooting" href="TroubleShooting%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=VestaFAQ%252FTroubleShooting&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="TroubleShooting%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="TroubleShooting%3Faction=print.html">
+<link rel="Up" href="VestaFAQ.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="TroubleShooting.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="VestaFAQ.html">VestaFAQ</a></li><li><a href="TroubleShooting.html">TroubleShooting</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="TroubleShooting.html">VestaFAQ/TroubleShooting</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="TroubleShooting%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line874">Questions in this catagory: <span class="anchor" id="line-5"></span><ol type="1"><li><p class="line891"><a href="TroubleShooting.html#deadlock">Sometimes my repository or build just seems to stop</a> <span class="anchor" id="line-6"></span></li><li><p class="line891"><a href="TroubleShooting.html#portmap">Mounting the repository takes a long time</a> <span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span></li></ol><p class="line867"><hr /><p class="line874"> <span class="anchor" id="line-9"></span><dl><dt>Sometimes my repository or build just seems to stop</dt><dd><p class="line891"><span class="anchor" id="deadlock"></span>Red Hat 9 and Fedora Core 1 are known to have buggy implementations of the pthreads multi-threading API.  If you're running one of these, please consider upgrading to Fedora Core 2 or higher. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">The Linux implementation of pthreads has gone through a lot of revisions.  Red Hat 9 was the first Red Hat release to use the <a class="http" href="http://en.wikipedia.org/wiki/NPTL">NPTL (Native POSIX Thread Library) rewrite</a>.  The first few OS releases which included it had some subtle bugs which are most often observed in fairly complicated multi-threaded applications such as Vesta.  By Fedora Core 2 these problems seem to have been resolved. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span></dd><dt>Mounting the repository takes a long time</dt><dd><p class="line891"><span class="anchor" id="portmap"></span> The Vesta repository is an NFS server.  Unfortunately, the kernel will <strong>always</strong> contact the portmap(8) daemon when mounting an NFS volume, even when the port number is explicitly specified (as it is with the Vesta repository).  Make sure that you have portmap installed and running on your  repository server host.  You can usually check this with: <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span></dd></dl><p class="line867"><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><pre><span class="anchor" id="line-1"></span>rpcinfo -p `vgetconfig Repository NFS_host`</pre><span class="anchor" id="line-18"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

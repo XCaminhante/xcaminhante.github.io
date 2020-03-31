@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>MergingFuture/Food4Thought/ConfusingCases - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: MergingFuture/Food4Thought/ConfusingCases" href="ConfusingCases%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=MergingFuture%252FFood4Thought%252FConfusingCases&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="ConfusingCases%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="ConfusingCases%3Faction=print.html">
+<link rel="Up" href="../Food4Thought.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="ConfusingCases.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="MergingFuture.html">MergingFuture</a></li><li><a href="../Food4Thought.html">Food4Thought</a></li><li><a href="ConfusingCases.html">ConfusingCases</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="ConfusingCases.html">ConfusingCases</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="ConfusingCases%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">At some level, all merge algorithms are making a guess about how a human would combine two sets of changes.  There are usually some cases which cause a merge algorithm to become confused and produce a result which a human would reject upon inspection.  This page has a few examples of ways to confuse a merge algorihtm. <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Changing_a_Functions_vs._Renaming_a_Function">Changing a Functions vs. Renaming a Function</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867"><em>(<a class="http" href="http://zooko.com/">zooko</a> came up with this excellent example.)</em> <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line874">Suppose you have this initial version: <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line867"><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><pre><span class="anchor" id="line-1"></span>int square(int x) {
+<span class="anchor" id="line-2"></span>        int y = x;
+<span class="anchor" id="line-3"></span>        for (int i = 0; i &lt; x; i++) y += x;
+<span class="anchor" id="line-4"></span>        return y;
+<span class="anchor" id="line-5"></span>}</pre><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line874">One user decides to turn this into two different functions: <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867"><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><pre><span class="anchor" id="line-1-1"></span>int fast_square(int x) {
+<span class="anchor" id="line-2-1"></span>        int y = x;
+<span class="anchor" id="line-3-1"></span>        return y * x;
+<span class="anchor" id="line-4-1"></span>}
+<span class="anchor" id="line-5-1"></span>
+<span class="anchor" id="line-6"></span>int slow_square(int x) {
+<span class="anchor" id="line-7"></span>        int y = x;
+<span class="anchor" id="line-8"></span>        for (int i = 0; i &lt; x; i++) y += x;
+<span class="anchor" id="line-9"></span>        return y;
+<span class="anchor" id="line-10"></span>}</pre><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><p class="line874">Another user spots a bug in the function and fixes it: <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line867"><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><pre><span class="anchor" id="line-1-2"></span>int square(int x) {
+<span class="anchor" id="line-2-2"></span>        int y = 0;
+<span class="anchor" id="line-3-2"></span>        for (int i = 0; i &lt; x; i++) y += x;
+<span class="anchor" id="line-4-2"></span>        return y;
+<span class="anchor" id="line-5-2"></span>}</pre><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><p class="line874">When combining these two changes, some implementations of simple 3-way merge (and probably other algorithms as well) will produce a strange result: <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><p class="line867"><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><pre><span class="anchor" id="line-1-3"></span>int fast_square(int x) {
+<span class="anchor" id="line-2-3"></span>        int y = 0;
+<span class="anchor" id="line-3-3"></span>        return y * x;
+<span class="anchor" id="line-4-3"></span>}
+<span class="anchor" id="line-5-3"></span>
+<span class="anchor" id="line-6-1"></span>int slow_square(int x) {
+<span class="anchor" id="line-7-1"></span>        int y = x;
+<span class="anchor" id="line-8-1"></span>        for (int i = 0; i &lt; x; i++) y += x;
+<span class="anchor" id="line-9-1"></span>        return y;
+<span class="anchor" id="line-10-1"></span>}</pre><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><p class="line862">This happens because merging requires matching portions of the different versions of the file against the others.  Because the &quot;<tt>int&nbsp;y&nbsp;=&nbsp;x;</tt>&quot; line appears twice, it's not clear to the merge algortihm which one the user intended to change. <span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><p class="line862">Or, to look at it another way, the merge algorithm has to compare each new version to the version it's based upon and convert the edit into some sequence of changes.  In the case of the first change (adding <tt>fast_square</tt> and renaming <tt>square</tt> to <tt>slow_square</tt>), the edit can be viewed as: <span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><ol type="1"><li><p class="line862">Changing the first line (i.e. renaming <tt>square</tt> to <tt>fast_square</tt>) <span class="anchor" id="line-66"></span></li><li><p class="line862">Inserting several new lines (which happen to include a close brace and the beginning of the function <tt>slow_square</tt>) <span class="anchor" id="line-67"></span></li></ol><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,713 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>FileLikeBindingOps - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: FileLikeBindingOps" href="FileLikeBindingOps%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=FileLikeBindingOps&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="FileLikeBindingOps%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="FileLikeBindingOps%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="FileLikeBindingOps.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="FileLikeBindingOps.html">FileLikeBindingOps</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="FileLikeBindingOps.html">FileLikeBindingOps</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="FileLikeBindingOps%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line862">My ultimate goal here is to making binding work easier for SDL programmers by using a file motif, like, eg, <tt>rm</tt> below. <span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+<h1 id="Suggested_Code_with_testing">Suggested Code with testing</h1>
+<span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><p class="line867"><span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span><span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span><span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span><span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span><span class="anchor" id="line-141"></span><span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span><span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span><span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span><span class="anchor" id="line-152"></span><span class="anchor" id="line-153"></span><span class="anchor" id="line-154"></span><span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span><span class="anchor" id="line-157"></span><span class="anchor" id="line-158"></span><span class="anchor" id="line-159"></span><span class="anchor" id="line-160"></span><span class="anchor" id="line-161"></span><span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><span class="anchor" id="line-164"></span><span class="anchor" id="line-165"></span><span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span><span class="anchor" id="line-168"></span><span class="anchor" id="line-169"></span><span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span><span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span><span class="anchor" id="line-174"></span><span class="anchor" id="line-175"></span><span class="anchor" id="line-176"></span><span class="anchor" id="line-177"></span><span class="anchor" id="line-178"></span><span class="anchor" id="line-179"></span><span class="anchor" id="line-180"></span><span class="anchor" id="line-181"></span><span class="anchor" id="line-182"></span><span class="anchor" id="line-183"></span><span class="anchor" id="line-184"></span><span class="anchor" id="line-185"></span><span class="anchor" id="line-186"></span><span class="anchor" id="line-187"></span><span class="anchor" id="line-188"></span><span class="anchor" id="line-189"></span><span class="anchor" id="line-190"></span><span class="anchor" id="line-191"></span><span class="anchor" id="line-192"></span><span class="anchor" id="line-193"></span><span class="anchor" id="line-194"></span><span class="anchor" id="line-195"></span><span class="anchor" id="line-196"></span><span class="anchor" id="line-197"></span><span class="anchor" id="line-198"></span><span class="anchor" id="line-199"></span><span class="anchor" id="line-200"></span><span class="anchor" id="line-201"></span><span class="anchor" id="line-202"></span><span class="anchor" id="line-203"></span><span class="anchor" id="line-204"></span><span class="anchor" id="line-205"></span><span class="anchor" id="line-206"></span><span class="anchor" id="line-207"></span><span class="anchor" id="line-208"></span><span class="anchor" id="line-209"></span><span class="anchor" id="line-210"></span><span class="anchor" id="line-211"></span><span class="anchor" id="line-212"></span><span class="anchor" id="line-213"></span><span class="anchor" id="line-214"></span><span class="anchor" id="line-215"></span><span class="anchor" id="line-216"></span><span class="anchor" id="line-217"></span><span class="anchor" id="line-218"></span><span class="anchor" id="line-219"></span><span class="anchor" id="line-220"></span><span class="anchor" id="line-221"></span><span class="anchor" id="line-222"></span><span class="anchor" id="line-223"></span><span class="anchor" id="line-224"></span><span class="anchor" id="line-225"></span><span class="anchor" id="line-226"></span><span class="anchor" id="line-227"></span><span class="anchor" id="line-228"></span><span class="anchor" id="line-229"></span><span class="anchor" id="line-230"></span><span class="anchor" id="line-231"></span><span class="anchor" id="line-232"></span><span class="anchor" id="line-233"></span><span class="anchor" id="line-234"></span><span class="anchor" id="line-235"></span><span class="anchor" id="line-236"></span><span class="anchor" id="line-237"></span><span class="anchor" id="line-238"></span><span class="anchor" id="line-239"></span><span class="anchor" id="line-240"></span><span class="anchor" id="line-241"></span><span class="anchor" id="line-242"></span><span class="anchor" id="line-243"></span><span class="anchor" id="line-244"></span><span class="anchor" id="line-245"></span><span class="anchor" id="line-246"></span><span class="anchor" id="line-247"></span><span class="anchor" id="line-248"></span><span class="anchor" id="line-249"></span><span class="anchor" id="line-250"></span><span class="anchor" id="line-251"></span><span class="anchor" id="line-252"></span><span class="anchor" id="line-253"></span><span class="anchor" id="line-254"></span><span class="anchor" id="line-255"></span><span class="anchor" id="line-256"></span><span class="anchor" id="line-257"></span><span class="anchor" id="line-258"></span><span class="anchor" id="line-259"></span><span class="anchor" id="line-260"></span><span class="anchor" id="line-261"></span><span class="anchor" id="line-262"></span><span class="anchor" id="line-263"></span><span class="anchor" id="line-264"></span><span class="anchor" id="line-265"></span><span class="anchor" id="line-266"></span><span class="anchor" id="line-267"></span><span class="anchor" id="line-268"></span><span class="anchor" id="line-269"></span><span class="anchor" id="line-270"></span><span class="anchor" id="line-271"></span><span class="anchor" id="line-272"></span><span class="anchor" id="line-273"></span><span class="anchor" id="line-274"></span><span class="anchor" id="line-275"></span><span class="anchor" id="line-276"></span><span class="anchor" id="line-277"></span><span class="anchor" id="line-278"></span><span class="anchor" id="line-279"></span><span class="anchor" id="line-280"></span><span class="anchor" id="line-281"></span><span class="anchor" id="line-282"></span><span class="anchor" id="line-283"></span><span class="anchor" id="line-284"></span><span class="anchor" id="line-285"></span><span class="anchor" id="line-286"></span><span class="anchor" id="line-287"></span><span class="anchor" id="line-288"></span><span class="anchor" id="line-289"></span><span class="anchor" id="line-290"></span><span class="anchor" id="line-291"></span><span class="anchor" id="line-292"></span><span class="anchor" id="line-293"></span><span class="anchor" id="line-294"></span><span class="anchor" id="line-295"></span><span class="anchor" id="line-296"></span><span class="anchor" id="line-297"></span><span class="anchor" id="line-298"></span><span class="anchor" id="line-299"></span><span class="anchor" id="line-300"></span><span class="anchor" id="line-301"></span><span class="anchor" id="line-302"></span><span class="anchor" id="line-303"></span><span class="anchor" id="line-304"></span><span class="anchor" id="line-305"></span><span class="anchor" id="line-306"></span><span class="anchor" id="line-307"></span><span class="anchor" id="line-308"></span><span class="anchor" id="line-309"></span><span class="anchor" id="line-310"></span><span class="anchor" id="line-311"></span><span class="anchor" id="line-312"></span><span class="anchor" id="line-313"></span><span class="anchor" id="line-314"></span><span class="anchor" id="line-315"></span><span class="anchor" id="line-316"></span><span class="anchor" id="line-317"></span><span class="anchor" id="line-318"></span><span class="anchor" id="line-319"></span><span class="anchor" id="line-320"></span><span class="anchor" id="line-321"></span><span class="anchor" id="line-322"></span><span class="anchor" id="line-323"></span><span class="anchor" id="line-324"></span><span class="anchor" id="line-325"></span><span class="anchor" id="line-326"></span><span class="anchor" id="line-327"></span><span class="anchor" id="line-328"></span><span class="anchor" id="line-329"></span><span class="anchor" id="line-330"></span><span class="anchor" id="line-331"></span><span class="anchor" id="line-332"></span><span class="anchor" id="line-333"></span><span class="anchor" id="line-334"></span><span class="anchor" id="line-335"></span><span class="anchor" id="line-336"></span><span class="anchor" id="line-337"></span><span class="anchor" id="line-338"></span><span class="anchor" id="line-339"></span><span class="anchor" id="line-340"></span><span class="anchor" id="line-341"></span><span class="anchor" id="line-342"></span><span class="anchor" id="line-343"></span><span class="anchor" id="line-344"></span><span class="anchor" id="line-345"></span><span class="anchor" id="line-346"></span><span class="anchor" id="line-347"></span><span class="anchor" id="line-348"></span><span class="anchor" id="line-349"></span><span class="anchor" id="line-350"></span><span class="anchor" id="line-351"></span><span class="anchor" id="line-352"></span><span class="anchor" id="line-353"></span><span class="anchor" id="line-354"></span><span class="anchor" id="line-355"></span><span class="anchor" id="line-356"></span><span class="anchor" id="line-357"></span><span class="anchor" id="line-358"></span><span class="anchor" id="line-359"></span><span class="anchor" id="line-360"></span><span class="anchor" id="line-361"></span><span class="anchor" id="line-362"></span><span class="anchor" id="line-363"></span><span class="anchor" id="line-364"></span><span class="anchor" id="line-365"></span><span class="anchor" id="line-366"></span><span class="anchor" id="line-367"></span><span class="anchor" id="line-368"></span><span class="anchor" id="line-369"></span><span class="anchor" id="line-370"></span><span class="anchor" id="line-371"></span><span class="anchor" id="line-372"></span><span class="anchor" id="line-373"></span><span class="anchor" id="line-374"></span><span class="anchor" id="line-375"></span><span class="anchor" id="line-376"></span><span class="anchor" id="line-377"></span><span class="anchor" id="line-378"></span><span class="anchor" id="line-379"></span><span class="anchor" id="line-380"></span><span class="anchor" id="line-381"></span><span class="anchor" id="line-382"></span><span class="anchor" id="line-383"></span><span class="anchor" id="line-384"></span><span class="anchor" id="line-385"></span><span class="anchor" id="line-386"></span><span class="anchor" id="line-387"></span><span class="anchor" id="line-388"></span><span class="anchor" id="line-389"></span><span class="anchor" id="line-390"></span><span class="anchor" id="line-391"></span><span class="anchor" id="line-392"></span><span class="anchor" id="line-393"></span><span class="anchor" id="line-394"></span><span class="anchor" id="line-395"></span><span class="anchor" id="line-396"></span><span class="anchor" id="line-397"></span><span class="anchor" id="line-398"></span><span class="anchor" id="line-399"></span><span class="anchor" id="line-400"></span><span class="anchor" id="line-401"></span><span class="anchor" id="line-402"></span><span class="anchor" id="line-403"></span><span class="anchor" id="line-404"></span><span class="anchor" id="line-405"></span><span class="anchor" id="line-406"></span><span class="anchor" id="line-407"></span><span class="anchor" id="line-408"></span><span class="anchor" id="line-409"></span><span class="anchor" id="line-410"></span><span class="anchor" id="line-411"></span><span class="anchor" id="line-412"></span><span class="anchor" id="line-413"></span><span class="anchor" id="line-414"></span><span class="anchor" id="line-415"></span><span class="anchor" id="line-416"></span><span class="anchor" id="line-417"></span><span class="anchor" id="line-418"></span><span class="anchor" id="line-419"></span><span class="anchor" id="line-420"></span><span class="anchor" id="line-421"></span><span class="anchor" id="line-422"></span><span class="anchor" id="line-423"></span><span class="anchor" id="line-424"></span><span class="anchor" id="line-425"></span><span class="anchor" id="line-426"></span><span class="anchor" id="line-427"></span><span class="anchor" id="line-428"></span><span class="anchor" id="line-429"></span><span class="anchor" id="line-430"></span><span class="anchor" id="line-431"></span><span class="anchor" id="line-432"></span><span class="anchor" id="line-433"></span><span class="anchor" id="line-434"></span><span class="anchor" id="line-435"></span><span class="anchor" id="line-436"></span><span class="anchor" id="line-437"></span><span class="anchor" id="line-438"></span><span class="anchor" id="line-439"></span><span class="anchor" id="line-440"></span><span class="anchor" id="line-441"></span><span class="anchor" id="line-442"></span><span class="anchor" id="line-443"></span><span class="anchor" id="line-444"></span><span class="anchor" id="line-445"></span><span class="anchor" id="line-446"></span><span class="anchor" id="line-447"></span><span class="anchor" id="line-448"></span><span class="anchor" id="line-449"></span><span class="anchor" id="line-450"></span><span class="anchor" id="line-451"></span><span class="anchor" id="line-452"></span><span class="anchor" id="line-453"></span><span class="anchor" id="line-454"></span><span class="anchor" id="line-455"></span><span class="anchor" id="line-456"></span><span class="anchor" id="line-457"></span><span class="anchor" id="line-458"></span><span class="anchor" id="line-459"></span><span class="anchor" id="line-460"></span><span class="anchor" id="line-461"></span><span class="anchor" id="line-462"></span><span class="anchor" id="line-463"></span><span class="anchor" id="line-464"></span><span class="anchor" id="line-465"></span><span class="anchor" id="line-466"></span><span class="anchor" id="line-467"></span><span class="anchor" id="line-468"></span><span class="anchor" id="line-469"></span><span class="anchor" id="line-470"></span><span class="anchor" id="line-471"></span><span class="anchor" id="line-472"></span><span class="anchor" id="line-473"></span><span class="anchor" id="line-474"></span><span class="anchor" id="line-475"></span><span class="anchor" id="line-476"></span><span class="anchor" id="line-477"></span><span class="anchor" id="line-478"></span><span class="anchor" id="line-479"></span><span class="anchor" id="line-480"></span><span class="anchor" id="line-481"></span><span class="anchor" id="line-482"></span><span class="anchor" id="line-483"></span><span class="anchor" id="line-484"></span><span class="anchor" id="line-485"></span><span class="anchor" id="line-486"></span><span class="anchor" id="line-487"></span><span class="anchor" id="line-488"></span><span class="anchor" id="line-489"></span><pre><span class="anchor" id="line-1"></span>// run via
+<span class="anchor" id="line-2"></span>//
+<span class="anchor" id="line-3"></span>//   vmake -results
+<span class="anchor" id="line-4"></span>//
+<span class="anchor" id="line-5"></span>// testing string to binding
+<span class="anchor" id="line-6"></span>// and related funcs
+<span class="anchor" id="line-7"></span>
+<span class="anchor" id="line-8"></span>// (setq indent-tabs-mode nil)
+<span class="anchor" id="line-9"></span>
+<span class="anchor" id="line-10"></span>{
+<span class="anchor" id="line-11"></span>
+<span class="anchor" id="line-12"></span>
+<span class="anchor" id="line-13"></span>// functions like these should probaby eventually wind up in generics
+<span class="anchor" id="line-14"></span>//  . ++= generics();
+<span class="anchor" id="line-15"></span>
+<span class="anchor" id="line-16"></span>
+<span class="anchor" id="line-17"></span>
+<span class="anchor" id="line-18"></span>
+<span class="anchor" id="line-19"></span>  // from /vesta/beta.vestasys.org/bridges/make_compat/latest/build.ves
+<span class="anchor" id="line-20"></span>  // latest -&gt; 6/
+<span class="anchor" id="line-21"></span>  //
+<span class="anchor" id="line-22"></span>  // split like perl
+<span class="anchor" id="line-23"></span>  /**nocache**/
+<span class="anchor" id="line-24"></span>  split_text(sep:text, intext:text)
+<span class="anchor" id="line-25"></span>  {
+<span class="anchor" id="line-26"></span>    pos = _find(intext, sep);
+<span class="anchor" id="line-27"></span>    return if pos == -1 then &lt;intext&gt;
+<span class="anchor" id="line-28"></span>    else {
+<span class="anchor" id="line-29"></span>      start = _sub(intext, 0, pos);
+<span class="anchor" id="line-30"></span>      rest = _sub(intext, pos+1);
+<span class="anchor" id="line-31"></span>      value &lt;start&gt;+split_text(sep, rest);
+<span class="anchor" id="line-32"></span>    };
+<span class="anchor" id="line-33"></span>  };
+<span class="anchor" id="line-34"></span>
+<span class="anchor" id="line-35"></span>  // with default sep, and trim meaning dont return &quot;&quot; for leading or trailing sep
+<span class="anchor" id="line-36"></span>  /**nocache**/
+<span class="anchor" id="line-37"></span>  split(intext:text, sep:text = &quot;/&quot;, trim = FALSE, err = &quot;error in split&quot;)
+<span class="anchor" id="line-38"></span>  {
+<span class="anchor" id="line-39"></span>    rtn = split_text(sep, intext);
+<span class="anchor" id="line-40"></span>    rtn = if trim
+<span class="anchor" id="line-41"></span>          then {
+<span class="anchor" id="line-42"></span>            rtn_trimmed = &lt; &gt;;
+<span class="anchor" id="line-43"></span>            foreach elem in rtn do {
+<span class="anchor" id="line-44"></span>              rtn_trimmed += if elem == &quot;&quot; then &lt; &gt; else &lt;elem&gt;;
+<span class="anchor" id="line-45"></span>            };
+<span class="anchor" id="line-46"></span>            return rtn_trimmed;
+<span class="anchor" id="line-47"></span>          } else rtn;
+<span class="anchor" id="line-48"></span>    return rtn;
+<span class="anchor" id="line-49"></span>  };
+<span class="anchor" id="line-50"></span>
+<span class="anchor" id="line-51"></span>
+<span class="anchor" id="line-52"></span>
+<span class="anchor" id="line-53"></span>  // john's code
+<span class="anchor" id="line-54"></span>  // turns &quot;a/b/c&quot; into [ a = [ b = [ c = 1 ] ]
+<span class="anchor" id="line-55"></span>  /**nocache**/
+<span class="anchor" id="line-56"></span>  string_to_binding(intext:text, sep:text = &quot;/&quot;) : binding
+<span class="anchor" id="line-57"></span>  {
+<span class="anchor" id="line-58"></span>    pos = _find(intext, sep);
+<span class="anchor" id="line-59"></span>    res = if pos == -1
+<span class="anchor" id="line-60"></span>                   then [ $intext = 1 ]
+<span class="anchor" id="line-61"></span>                   else {
+<span class="anchor" id="line-62"></span>                     elem = _sub(intext, 0, pos);
+<span class="anchor" id="line-63"></span>                     rest = _sub(intext, pos+1);
+<span class="anchor" id="line-64"></span>                     value [ $elem = string_to_binding(rest, sep) ];
+<span class="anchor" id="line-65"></span>                   };
+<span class="anchor" id="line-66"></span>    return res;
+<span class="anchor" id="line-67"></span>  };
+<span class="anchor" id="line-68"></span>
+<span class="anchor" id="line-69"></span>
+<span class="anchor" id="line-70"></span>  // from /vesta/beta.vestasys.org/bridges/make_compat/latest/build.ves
+<span class="anchor" id="line-71"></span>  // latest -&gt; 6/
+<span class="anchor" id="line-72"></span>  //
+<span class="anchor" id="line-73"></span>  // given list of strings, recursively look up that binding
+<span class="anchor" id="line-74"></span>  /**nocache**/
+<span class="anchor" id="line-75"></span>  lookup_path_l(b: binding, l: list(text), err: any = []): any {
+<span class="anchor" id="line-76"></span>    res = if _length(l) == 0 then b else {
+<span class="anchor" id="line-77"></span>      n = _head(l);
+<span class="anchor" id="line-78"></span>      value if (_is_binding(b) &amp;&amp; b!$n)
+<span class="anchor" id="line-79"></span>      then lookup_path_l(b/$n, _tail(l), err)
+<span class="anchor" id="line-80"></span>      else err;
+<span class="anchor" id="line-81"></span>    };
+<span class="anchor" id="line-82"></span>    return res;
+<span class="anchor" id="line-83"></span>  };
+<span class="anchor" id="line-84"></span>
+<span class="anchor" id="line-85"></span>  // from /vesta/beta.vestasys.org/bridges/make_compat/latest/build.ves
+<span class="anchor" id="line-86"></span>  // latest -&gt; 6/
+<span class="anchor" id="line-87"></span>  //
+<span class="anchor" id="line-88"></span>  // given &quot;a/b/c&quot; look that up in root (by using split text then calling path-value)
+<span class="anchor" id="line-89"></span>  /**nocache**/
+<span class="anchor" id="line-90"></span>  lookup_path_t(b : binding, path : text, err : any = [ ]) : binding {
+<span class="anchor" id="line-91"></span>    arc_list = split_text(&quot;/&quot;, path);
+<span class="anchor" id="line-92"></span>    return lookup_path_l(b, arc_list, err);
+<span class="anchor" id="line-93"></span>  };
+<span class="anchor" id="line-94"></span>
+<span class="anchor" id="line-95"></span>
+<span class="anchor" id="line-96"></span>
+<span class="anchor" id="line-97"></span>
+<span class="anchor" id="line-98"></span>
+<span class="anchor" id="line-99"></span>
+<span class="anchor" id="line-100"></span>
+<span class="anchor" id="line-101"></span>
+<span class="anchor" id="line-102"></span>
+<span class="anchor" id="line-103"></span>
+<span class="anchor" id="line-104"></span>
+<span class="anchor" id="line-105"></span>
+<span class="anchor" id="line-106"></span>
+<span class="anchor" id="line-107"></span>  // from : /vesta/vestasys.org/vesta/repos/latest/src/progs.ves
+<span class="anchor" id="line-108"></span>  // latest -&gt; 57/
+<span class="anchor" id="line-109"></span>  //
+<span class="anchor" id="line-110"></span>  // Extract a value on a path from a binding, if present, or return
+<span class="anchor" id="line-111"></span>  // &quot;err&quot; if not.
+<span class="anchor" id="line-112"></span>  // orig
+<span class="anchor" id="line-113"></span>  /**nocache**/
+<span class="anchor" id="line-114"></span>  lookup_path_b_orig(b: binding, p: any, err: any = []): any {
+<span class="anchor" id="line-115"></span>     res = if !_is_binding(p) then b else {
+<span class="anchor" id="line-116"></span>      n = _n(_head(p));
+<span class="anchor" id="line-117"></span>      value if (_is_binding(b) &amp;&amp; b!$n)
+<span class="anchor" id="line-118"></span>      then lookup_path_b(b/$n, _v(_head(p)), err)
+<span class="anchor" id="line-119"></span>      else err;
+<span class="anchor" id="line-120"></span>    };
+<span class="anchor" id="line-121"></span>     return res;
+<span class="anchor" id="line-122"></span>  };
+<span class="anchor" id="line-123"></span>
+<span class="anchor" id="line-124"></span>  // jvk modified
+<span class="anchor" id="line-125"></span>  /**nocache**/
+<span class="anchor" id="line-126"></span>  lookup_path_b(b: binding, p: any, err: any = []): any {
+<span class="anchor" id="line-127"></span>     res = if !_is_binding(p)
+<span class="anchor" id="line-128"></span>           then b
+<span class="anchor" id="line-129"></span>           else if _length(p) != 1
+<span class="anchor" id="line-130"></span>                then err
+<span class="anchor" id="line-131"></span>                else {
+<span class="anchor" id="line-132"></span>                  n = _n(_head(p));
+<span class="anchor" id="line-133"></span>                  value if (b!$n)  // dont have to redundantly check whether b _is_binding
+<span class="anchor" id="line-134"></span>                        then lookup_path_b(b/$n, _v(_head(p)), err)
+<span class="anchor" id="line-135"></span>                        else err;
+<span class="anchor" id="line-136"></span>                };
+<span class="anchor" id="line-137"></span>     return res;
+<span class="anchor" id="line-138"></span>  };
+<span class="anchor" id="line-139"></span>
+<span class="anchor" id="line-140"></span>
+<span class="anchor" id="line-141"></span>
+<span class="anchor" id="line-142"></span>
+<span class="anchor" id="line-143"></span>
+<span class="anchor" id="line-144"></span>  // john's combo
+<span class="anchor" id="line-145"></span>  /**nocache**/
+<span class="anchor" id="line-146"></span>  lookup_path(b: binding, query: any, err : any = [ ]) : binding {
+<span class="anchor" id="line-147"></span>    return if _is_binding(query)
+<span class="anchor" id="line-148"></span>           then lookup_path_b(b, query, err)
+<span class="anchor" id="line-149"></span>           else if _is_list(query)
+<span class="anchor" id="line-150"></span>                then lookup_path_l(b, query, err)
+<span class="anchor" id="line-151"></span>                else if _is_text(query)
+<span class="anchor" id="line-152"></span>                     then lookup_path_t(b, query, err)
+<span class="anchor" id="line-153"></span>                     else err;
+<span class="anchor" id="line-154"></span>  };
+<span class="anchor" id="line-155"></span>
+<span class="anchor" id="line-156"></span>
+<span class="anchor" id="line-157"></span>
+<span class="anchor" id="line-158"></span>  // adapted from lookup_path_l
+<span class="anchor" id="line-159"></span>  /**nocache**/
+<span class="anchor" id="line-160"></span>  rm_l(b: binding, path: list(text), err: any = []): binding {
+<span class="anchor" id="line-161"></span>    _=_assert(_length(path) &gt;= 1, &quot;list got to zero in rm_l&quot;);
+<span class="anchor" id="line-162"></span>    n = _head(path);
+<span class="anchor" id="line-163"></span>    rtn = [ ];
+<span class="anchor" id="line-164"></span>    foreach [ nam = val ] in b do {
+<span class="anchor" id="line-165"></span>      rtn += if nam == n
+<span class="anchor" id="line-166"></span>             then if _length(path) == 1 
+<span class="anchor" id="line-167"></span>                  then [ ]
+<span class="anchor" id="line-168"></span>                  else [ $nam = rm_l (val, _tail(path), err) ]
+<span class="anchor" id="line-169"></span>             else [ $nam = val ];
+<span class="anchor" id="line-170"></span>    };
+<span class="anchor" id="line-171"></span>    return rtn;
+<span class="anchor" id="line-172"></span>  };
+<span class="anchor" id="line-173"></span>  /**nocache**/
+<span class="anchor" id="line-174"></span>  rm(b: binding, path: text, err: any = []): bool {
+<span class="anchor" id="line-175"></span>    return rm_l(b, split(path, &quot;/&quot;, TRUE), err);
+<span class="anchor" id="line-176"></span>  };
+<span class="anchor" id="line-177"></span>
+<span class="anchor" id="line-178"></span>  // return a function that calls f1 and f2  
+<span class="anchor" id="line-179"></span>  /**nocache**/
+<span class="anchor" id="line-180"></span>  append_func(f1_in, f2_in) {
+<span class="anchor" id="line-181"></span>    appf() {
+<span class="anchor" id="line-182"></span>      return f1_in()
+<span class="anchor" id="line-183"></span>          ++ f2_in()
+<span class="anchor" id="line-184"></span>        ;
+<span class="anchor" id="line-185"></span>    };
+<span class="anchor" id="line-186"></span>    return appf;
+<span class="anchor" id="line-187"></span>  };
+<span class="anchor" id="line-188"></span>  /**nocache**/
+<span class="anchor" id="line-189"></span>  append_func_nocache(f1_in, f2_in) {
+<span class="anchor" id="line-190"></span>    /**nocache**/
+<span class="anchor" id="line-191"></span>    appf_nc() {
+<span class="anchor" id="line-192"></span>      return f1_in()
+<span class="anchor" id="line-193"></span>          ++ f2_in()
+<span class="anchor" id="line-194"></span>        ;
+<span class="anchor" id="line-195"></span>    };
+<span class="anchor" id="line-196"></span>    return appf_nc;
+<span class="anchor" id="line-197"></span>  };
+<span class="anchor" id="line-198"></span>
+<span class="anchor" id="line-199"></span>  ////////////////////////////////////////////
+<span class="anchor" id="line-200"></span>  // results and test
+<span class="anchor" id="line-201"></span>
+<span class="anchor" id="line-202"></span>  chk (a, b, msg = &quot;error&quot;) {
+<span class="anchor" id="line-203"></span>    return if a == b then TRUE else {
+<span class="anchor" id="line-204"></span>      _=_print(&quot;error: &quot;);
+<span class="anchor" id="line-205"></span>      _=_print(msg);
+<span class="anchor" id="line-206"></span>      _=_print(&quot;a != b:&quot;);
+<span class="anchor" id="line-207"></span>      _=_print([a]);
+<span class="anchor" id="line-208"></span>      _=_print([b]);
+<span class="anchor" id="line-209"></span>      return FALSE;
+<span class="anchor" id="line-210"></span>    }
+<span class="anchor" id="line-211"></span>    
+<span class="anchor" id="line-212"></span>  };
+<span class="anchor" id="line-213"></span>
+<span class="anchor" id="line-214"></span>
+<span class="anchor" id="line-215"></span>
+<span class="anchor" id="line-216"></span>  cume = [ ];
+<span class="anchor" id="line-217"></span>
+<span class="anchor" id="line-218"></span>
+<span class="anchor" id="line-219"></span>
+<span class="anchor" id="line-220"></span>
+<span class="anchor" id="line-221"></span>  /**nocache**/ 
+<span class="anchor" id="line-222"></span>  f1(){
+<span class="anchor" id="line-223"></span>    _=_print(&quot;f1&quot;);
+<span class="anchor" id="line-224"></span>    return [ f1 = 1 ];
+<span class="anchor" id="line-225"></span>  };
+<span class="anchor" id="line-226"></span>  /**nocache**/ 
+<span class="anchor" id="line-227"></span>  f2(){
+<span class="anchor" id="line-228"></span>    _=_print(&quot;f2&quot;);
+<span class="anchor" id="line-229"></span>    return [ f2 = 2 ];
+<span class="anchor" id="line-230"></span>  };
+<span class="anchor" id="line-231"></span>  /**nocache**/ 
+<span class="anchor" id="line-232"></span>  f1_for_nc(){
+<span class="anchor" id="line-233"></span>    _=_print(&quot;f1_nc&quot;);
+<span class="anchor" id="line-234"></span>    return [ f1_nc = 3 ];
+<span class="anchor" id="line-235"></span>  };
+<span class="anchor" id="line-236"></span>  /**nocache**/ 
+<span class="anchor" id="line-237"></span>  f2_for_nc(){
+<span class="anchor" id="line-238"></span>    _=_print(&quot;f2_nc&quot;);
+<span class="anchor" id="line-239"></span>    return [ f2_nc = 4 ];
+<span class="anchor" id="line-240"></span>  };
+<span class="anchor" id="line-241"></span>
+<span class="anchor" id="line-242"></span>
+<span class="anchor" id="line-243"></span>  bnd = [ a = [
+<span class="anchor" id="line-244"></span>               1 = [ i = 1,
+<span class="anchor" id="line-245"></span>                    ii = 2,
+<span class="anchor" id="line-246"></span>                    ],
+<span class="anchor" id="line-247"></span>               2 = [ i = 3,
+<span class="anchor" id="line-248"></span>                    ii = 4,
+<span class="anchor" id="line-249"></span>                    iii = 5,
+<span class="anchor" id="line-250"></span>                    ],
+<span class="anchor" id="line-251"></span>               3 = [ i = 6,
+<span class="anchor" id="line-252"></span>                    ],
+<span class="anchor" id="line-253"></span>               4 = [
+<span class="anchor" id="line-254"></span>                    ],
+<span class="anchor" id="line-255"></span>               ],
+<span class="anchor" id="line-256"></span>        b = [
+<span class="anchor" id="line-257"></span>             1 = [ i = 7,
+<span class="anchor" id="line-258"></span>                  ii = 8,
+<span class="anchor" id="line-259"></span>                  iii = 9,
+<span class="anchor" id="line-260"></span>                  iv = 10,
+<span class="anchor" id="line-261"></span>                  ],
+<span class="anchor" id="line-262"></span>             2 = [ i = 11,
+<span class="anchor" id="line-263"></span>                  ],
+<span class="anchor" id="line-264"></span>             3 = [ i = 12,
+<span class="anchor" id="line-265"></span>                  ii = 14,
+<span class="anchor" id="line-266"></span>                  ],
+<span class="anchor" id="line-267"></span>             ],
+<span class="anchor" id="line-268"></span>        ];
+<span class="anchor" id="line-269"></span>
+<span class="anchor" id="line-270"></span>  //
+<span class="anchor" id="line-271"></span>  // test rm
+<span class="anchor" id="line-272"></span>  //
+<span class="anchor" id="line-273"></span>  b2 = [ dir0/dir1/file1 = &quot;c&quot; ]
+<span class="anchor" id="line-274"></span>    ++ [ dir0/dir1/file2 = &quot;c&quot; ]
+<span class="anchor" id="line-275"></span>    ++ [ dir0/dir2/file3 = &quot;c&quot; ]
+<span class="anchor" id="line-276"></span>    ++ [ dir0/dir2/file4 = &quot;c&quot; ]
+<span class="anchor" id="line-277"></span>    ++ [ dir0/dir3/file5 = &quot;c&quot; ]
+<span class="anchor" id="line-278"></span>    ++ [ dir0/dir3/file6 = &quot;c&quot; ]
+<span class="anchor" id="line-279"></span>    ;
+<span class="anchor" id="line-280"></span>  str = &quot;dir0/dir1/file2&quot;;
+<span class="anchor" id="line-281"></span>  res = [ $str = rm (b2, str) ];
+<span class="anchor" id="line-282"></span>  _=chk(res, [ $str = [ dir0/dir1/file1 = &quot;c&quot; ]
+<span class="anchor" id="line-283"></span>                   ++ [ dir0/dir2/file3 = &quot;c&quot; ]
+<span class="anchor" id="line-284"></span>                   ++ [ dir0/dir2/file4 = &quot;c&quot; ]
+<span class="anchor" id="line-285"></span>                   ++ [ dir0/dir3/file5 = &quot;c&quot; ]
+<span class="anchor" id="line-286"></span>                   ++ [ dir0/dir3/file6 = &quot;c&quot; ] ], &quot;wrong value&quot;);
+<span class="anchor" id="line-287"></span>  cume ++= res;
+<span class="anchor" id="line-288"></span>
+<span class="anchor" id="line-289"></span>
+<span class="anchor" id="line-290"></span>  str = &quot;dir0/dir3&quot;;
+<span class="anchor" id="line-291"></span>  res = [ $str = rm (b2, str) ];
+<span class="anchor" id="line-292"></span>  _=chk(res, [ $str = [ dir0/dir1/file1 = &quot;c&quot; ]
+<span class="anchor" id="line-293"></span>                   ++ [ dir0/dir1/file2 = &quot;c&quot; ]
+<span class="anchor" id="line-294"></span>                   ++ [ dir0/dir2/file3 = &quot;c&quot; ]
+<span class="anchor" id="line-295"></span>                   ++ [ dir0/dir2/file4 = &quot;c&quot; ] ], &quot;wrong value&quot;);
+<span class="anchor" id="line-296"></span>  cume ++= res;
+<span class="anchor" id="line-297"></span>
+<span class="anchor" id="line-298"></span>
+<span class="anchor" id="line-299"></span>
+<span class="anchor" id="line-300"></span>  // leading slash
+<span class="anchor" id="line-301"></span>  str = &quot;/dir0/dir1/file2&quot;;
+<span class="anchor" id="line-302"></span>  res = [ $str = rm (b2, str) ];
+<span class="anchor" id="line-303"></span>  _=chk(res, [ $str = [ dir0/dir1/file1 = &quot;c&quot; ]
+<span class="anchor" id="line-304"></span>                   ++ [ dir0/dir2/file3 = &quot;c&quot; ]
+<span class="anchor" id="line-305"></span>                   ++ [ dir0/dir2/file4 = &quot;c&quot; ]
+<span class="anchor" id="line-306"></span>                   ++ [ dir0/dir3/file5 = &quot;c&quot; ]
+<span class="anchor" id="line-307"></span>                   ++ [ dir0/dir3/file6 = &quot;c&quot; ] ], &quot;wrong value&quot;);
+<span class="anchor" id="line-308"></span>  cume ++= res;
+<span class="anchor" id="line-309"></span>
+<span class="anchor" id="line-310"></span>
+<span class="anchor" id="line-311"></span>  str = &quot;/dir0/dir3&quot;;
+<span class="anchor" id="line-312"></span>  res = [ $str = rm (b2, str) ];
+<span class="anchor" id="line-313"></span>  _=chk(res, [ $str = [ dir0/dir1/file1 = &quot;c&quot; ]
+<span class="anchor" id="line-314"></span>                   ++ [ dir0/dir1/file2 = &quot;c&quot; ]
+<span class="anchor" id="line-315"></span>                   ++ [ dir0/dir2/file3 = &quot;c&quot; ]
+<span class="anchor" id="line-316"></span>                   ++ [ dir0/dir2/file4 = &quot;c&quot; ] ], &quot;wrong value&quot;);
+<span class="anchor" id="line-317"></span>  cume ++= res;
+<span class="anchor" id="line-318"></span>
+<span class="anchor" id="line-319"></span>
+<span class="anchor" id="line-320"></span>
+<span class="anchor" id="line-321"></span>
+<span class="anchor" id="line-322"></span>  // trailing slash
+<span class="anchor" id="line-323"></span>  str = &quot;/dir0/dir1/file2/&quot;;
+<span class="anchor" id="line-324"></span>  res = [ $str = rm (b2, str) ];
+<span class="anchor" id="line-325"></span>  _=chk(res, [ $str = [ dir0/dir1/file1 = &quot;c&quot; ]
+<span class="anchor" id="line-326"></span>                   ++ [ dir0/dir2/file3 = &quot;c&quot; ]
+<span class="anchor" id="line-327"></span>                   ++ [ dir0/dir2/file4 = &quot;c&quot; ]
+<span class="anchor" id="line-328"></span>                   ++ [ dir0/dir3/file5 = &quot;c&quot; ]
+<span class="anchor" id="line-329"></span>                   ++ [ dir0/dir3/file6 = &quot;c&quot; ] ], &quot;wrong value&quot;);
+<span class="anchor" id="line-330"></span>  cume ++= res;
+<span class="anchor" id="line-331"></span>
+<span class="anchor" id="line-332"></span>
+<span class="anchor" id="line-333"></span>  str = &quot;/dir0/dir3/&quot;;
+<span class="anchor" id="line-334"></span>  res = [ $str = rm (b2, str) ];
+<span class="anchor" id="line-335"></span>  _=chk(res, [ $str = [ dir0/dir1/file1 = &quot;c&quot; ]
+<span class="anchor" id="line-336"></span>                   ++ [ dir0/dir1/file2 = &quot;c&quot; ]
+<span class="anchor" id="line-337"></span>                   ++ [ dir0/dir2/file3 = &quot;c&quot; ]
+<span class="anchor" id="line-338"></span>                   ++ [ dir0/dir2/file4 = &quot;c&quot; ] ], &quot;wrong value&quot;);
+<span class="anchor" id="line-339"></span>  cume ++= res;
+<span class="anchor" id="line-340"></span>
+<span class="anchor" id="line-341"></span>
+<span class="anchor" id="line-342"></span>
+<span class="anchor" id="line-343"></span>
+<span class="anchor" id="line-344"></span>  //
+<span class="anchor" id="line-345"></span>  // test append_func
+<span class="anchor" id="line-346"></span>  //
+<span class="anchor" id="line-347"></span>  test_appf = append_func(f1, f2);
+<span class="anchor" id="line-348"></span>  res = [ append_f1_f2 = test_appf ];
+<span class="anchor" id="line-349"></span>  // can't chk
+<span class="anchor" id="line-350"></span>  cume ++= res;
+<span class="anchor" id="line-351"></span>  res =      [ append_f1_f2_rtn = test_appf() ];
+<span class="anchor" id="line-352"></span>  _=chk(res, [ append_f1_f2_rtn = [ f1 = 1,  f2 = 2 ] ], &quot;append_func check error&quot;);
+<span class="anchor" id="line-353"></span>  cume ++= res;
+<span class="anchor" id="line-354"></span>
+<span class="anchor" id="line-355"></span>  // this commnent is a trivial change to cache miss model file
+<span class="anchor" id="line-356"></span>  test_appf_nc = append_func_nocache(f1_for_nc, f2_for_nc);
+<span class="anchor" id="line-357"></span>  res = [ append_f1_f2_nc = test_appf_nc ];
+<span class="anchor" id="line-358"></span>  // can't chk
+<span class="anchor" id="line-359"></span>  cume ++= res;
+<span class="anchor" id="line-360"></span>  res =      [ append_f1_f2_nc_rtn = test_appf_nc() ];
+<span class="anchor" id="line-361"></span>  _=chk(res, [ append_f1_f2_nc_rtn = [ f1_nc = 3,  f2_nc = 4 ] ], &quot;append_func_nocache check error&quot;);
+<span class="anchor" id="line-362"></span>  cume ++= res;
+<span class="anchor" id="line-363"></span>
+<span class="anchor" id="line-364"></span>
+<span class="anchor" id="line-365"></span>  //
+<span class="anchor" id="line-366"></span>  // test split
+<span class="anchor" id="line-367"></span>  //
+<span class="anchor" id="line-368"></span>  str = &quot;a/b/c&quot;;
+<span class="anchor" id="line-369"></span>  res = [ $str = split (str)];
+<span class="anchor" id="line-370"></span>  _=chk(res, [ $str = &lt;&quot;a&quot;, &quot;b&quot;, &quot;c&quot;&gt; ], &quot;wrong value&quot;);
+<span class="anchor" id="line-371"></span>  cume ++= res;
+<span class="anchor" id="line-372"></span>
+<span class="anchor" id="line-373"></span>
+<span class="anchor" id="line-374"></span>  str = &quot;a/b/c/&quot;;
+<span class="anchor" id="line-375"></span>  res = [ $str = split (str)];
+<span class="anchor" id="line-376"></span>  _=chk(res, [ $str = &lt;&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;&quot;&gt; ], &quot;wrong value&quot;);
+<span class="anchor" id="line-377"></span>  cume ++= res;
+<span class="anchor" id="line-378"></span>
+<span class="anchor" id="line-379"></span>  str = &quot;/a/b/c&quot;;
+<span class="anchor" id="line-380"></span>  res = [ $str = split (str)];
+<span class="anchor" id="line-381"></span>  _=chk(res, [ $str = &lt;&quot;&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;&gt; ], &quot;wrong value&quot;);
+<span class="anchor" id="line-382"></span>  cume ++= res;
+<span class="anchor" id="line-383"></span>
+<span class="anchor" id="line-384"></span>
+<span class="anchor" id="line-385"></span>  str = &quot;a/b/c&quot;;
+<span class="anchor" id="line-386"></span>  res =      [ $(str + &quot; trimmed&quot;) = split (str, &quot;/&quot;, TRUE)];
+<span class="anchor" id="line-387"></span>  _=chk(res, [ $(str + &quot; trimmed&quot;) = &lt;&quot;a&quot;, &quot;b&quot;, &quot;c&quot;&gt; ], &quot;wrong value&quot;);
+<span class="anchor" id="line-388"></span>  cume ++= res;
+<span class="anchor" id="line-389"></span>
+<span class="anchor" id="line-390"></span>  str = &quot;a/b/c/&quot;;
+<span class="anchor" id="line-391"></span>  res =      [ $(str + &quot; trimmed&quot;) = split (str, &quot;/&quot;, TRUE)];
+<span class="anchor" id="line-392"></span>  _=chk(res, [ $(str + &quot; trimmed&quot;) = &lt;&quot;a&quot;, &quot;b&quot;, &quot;c&quot;&gt; ], &quot;wrong value&quot;);
+<span class="anchor" id="line-393"></span>  cume ++= res;
+<span class="anchor" id="line-394"></span>
+<span class="anchor" id="line-395"></span>  str = &quot;/a/b/c&quot;;
+<span class="anchor" id="line-396"></span>  res =      [ $(str + &quot; trimmed&quot;) = split (str, &quot;/&quot;, TRUE)];
+<span class="anchor" id="line-397"></span>  _=chk(res, [ $(str + &quot; trimmed&quot;) = &lt;&quot;a&quot;, &quot;b&quot;, &quot;c&quot;&gt; ], &quot;wrong value&quot;);
+<span class="anchor" id="line-398"></span>  cume ++= res;
+<span class="anchor" id="line-399"></span>
+<span class="anchor" id="line-400"></span>
+<span class="anchor" id="line-401"></span>  //
+<span class="anchor" id="line-402"></span>  // test lookup_path
+<span class="anchor" id="line-403"></span>  //
+<span class="anchor" id="line-404"></span>  func = lookup_path;
+<span class="anchor" id="line-405"></span>
+<span class="anchor" id="line-406"></span>  str = &quot;a/1/i&quot;;
+<span class="anchor" id="line-407"></span>  res = [ $str = func(bnd, str) ];
+<span class="anchor" id="line-408"></span>  _=chk(res, [ $str = 1 ], &quot;wrong value&quot;);
+<span class="anchor" id="line-409"></span>  cume ++= res;
+<span class="anchor" id="line-410"></span>
+<span class="anchor" id="line-411"></span>  str = [ a/1/ii = 1 ];
+<span class="anchor" id="line-412"></span>  res = [ a_1_ii_binding = func(bnd, str) ];
+<span class="anchor" id="line-413"></span>  _=chk(res, [ a_1_ii_binding = 2 ], &quot;wrong value&quot;);
+<span class="anchor" id="line-414"></span>  cume ++= res;
+<span class="anchor" id="line-415"></span>
+<span class="anchor" id="line-416"></span>  str = &lt; &quot;b&quot;, &quot;1&quot;, &quot;iv&quot; &gt;;
+<span class="anchor" id="line-417"></span>  res = [ b_1_iv_list = func(bnd, str) ];
+<span class="anchor" id="line-418"></span>  _=chk(res, [ b_1_iv_list = 10 ], &quot;wrong value&quot;);
+<span class="anchor" id="line-419"></span>  cume ++= res;
+<span class="anchor" id="line-420"></span>
+<span class="anchor" id="line-421"></span>  str = &quot;b/3/ii&quot;;
+<span class="anchor" id="line-422"></span>  res = [ $str = func(bnd, str) ];
+<span class="anchor" id="line-423"></span>  _=chk(res, [ $str = 14 ], &quot;wrong value&quot;);
+<span class="anchor" id="line-424"></span>  cume ++= res;
+<span class="anchor" id="line-425"></span>
+<span class="anchor" id="line-426"></span>  str = &quot;/b/3/ii&quot;;
+<span class="anchor" id="line-427"></span>  res = [ $str = func(bnd, str) ];
+<span class="anchor" id="line-428"></span>  _=chk(res, [ $str = 14 ], &quot;wrong value&quot;);
+<span class="anchor" id="line-429"></span>  cume ++= res;
+<span class="anchor" id="line-430"></span>
+<span class="anchor" id="line-431"></span>  str = &quot;b/2&quot;;
+<span class="anchor" id="line-432"></span>  res = [ $str = func(bnd, str) ];
+<span class="anchor" id="line-433"></span>  _=chk(res, [ $str = [ i = 11 ] ], &quot;wrong value&quot;);
+<span class="anchor" id="line-434"></span>  cume ++= res;
+<span class="anchor" id="line-435"></span>
+<span class="anchor" id="line-436"></span>  str = [ a/3 = 1 ];
+<span class="anchor" id="line-437"></span>  res = [ a_3_binding = func(bnd, str) ];
+<span class="anchor" id="line-438"></span>  _=chk(res, [ a_3_binding = [ i =6 ] ], &quot;wrong value&quot;);
+<span class="anchor" id="line-439"></span>  cume ++= res;
+<span class="anchor" id="line-440"></span>
+<span class="anchor" id="line-441"></span>  str =  &lt;&quot;b&quot;,&quot;1&quot;&gt;;
+<span class="anchor" id="line-442"></span>  res = [ b_1_list = func(bnd, str) ];
+<span class="anchor" id="line-443"></span>  _=chk(res, [ b_1_list = [ i = 7 , ii = 8, iii = 9, iv = 10 ] ], &quot;wrong value&quot;);
+<span class="anchor" id="line-444"></span>  cume ++= res;
+<span class="anchor" id="line-445"></span>
+<span class="anchor" id="line-446"></span>  str = &quot;blah&quot;;
+<span class="anchor" id="line-447"></span>  res = [ $str = func(bnd, str, &quot;blah_error&quot;) ];
+<span class="anchor" id="line-448"></span>  cume ++= res;
+<span class="anchor" id="line-449"></span>  _=chk(res, [ $str = &quot;blah_error&quot; ], &quot;wrong value&quot;);
+<span class="anchor" id="line-450"></span>  str = &quot;b/blah&quot;;
+<span class="anchor" id="line-451"></span>  res = [ $str = func(bnd, str, &quot;didnt work&quot;) ];
+<span class="anchor" id="line-452"></span>  _=chk(res, [ $str = &quot;didnt work&quot; ], &quot;wrong value&quot;);
+<span class="anchor" id="line-453"></span>  cume ++= res;
+<span class="anchor" id="line-454"></span>  str = &quot;a/2/blah&quot;;
+<span class="anchor" id="line-455"></span>  res = [ $str = func(bnd, str, &quot;9999&quot;) ];
+<span class="anchor" id="line-456"></span>  _=chk(res, [ $str = &quot;9999&quot; ], &quot;wrong value&quot;);
+<span class="anchor" id="line-457"></span>  cume ++= res;
+<span class="anchor" id="line-458"></span>  str = &quot;b/blah/3&quot;;
+<span class="anchor" id="line-459"></span>  res = [ $str = func(bnd, str, [result = &quot;error&quot;]) ];
+<span class="anchor" id="line-460"></span>  _=chk(res, [ $str = [result = &quot;error&quot;] ], &quot;wrong value&quot;);
+<span class="anchor" id="line-461"></span>  cume ++= res;
+<span class="anchor" id="line-462"></span>
+<span class="anchor" id="line-463"></span>  str = [ oops = 1 ];
+<span class="anchor" id="line-464"></span>  res = [ oops_binding = func(bnd, str, &quot;oops&quot;) ];
+<span class="anchor" id="line-465"></span>  _=chk(res, [ oops_binding = &quot;oops&quot; ], &quot;wrong value&quot;);
+<span class="anchor" id="line-466"></span>  cume ++= res;
+<span class="anchor" id="line-467"></span>  str = &lt;&quot;b&quot;, &quot;nonex&quot;&gt;;
+<span class="anchor" id="line-468"></span>  res = [ nonex_list = func(bnd, str, &quot;didnt work nonex&quot;) ];
+<span class="anchor" id="line-469"></span>  _=chk(res, [ nonex_list = &quot;didnt work nonex&quot; ], &quot;wrong value&quot;);
+<span class="anchor" id="line-470"></span>  cume ++= res;
+<span class="anchor" id="line-471"></span>
+<span class="anchor" id="line-472"></span>  stb = string_to_binding(&quot;string/to/bindg&quot;);
+<span class="anchor" id="line-473"></span>  res = [ stb ];
+<span class="anchor" id="line-474"></span>  _=chk(res, [ stb = [ string = [ to = [ bindg = 1 ] ] ] ], &quot;wrong value&quot;);
+<span class="anchor" id="line-475"></span>  cume ++= res;
+<span class="anchor" id="line-476"></span>
+<span class="anchor" id="line-477"></span>  return cume;
+<span class="anchor" id="line-478"></span>
+<span class="anchor" id="line-479"></span>}</pre><p class="line874"> <span class="anchor" id="line-490"></span><span class="anchor" id="line-491"></span><span class="anchor" id="line-492"></span><span class="anchor" id="line-493"></span><span class="anchor" id="line-494"></span><span class="anchor" id="line-495"></span><span class="anchor" id="line-496"></span><span class="anchor" id="line-497"></span><span class="anchor" id="line-498"></span><span class="anchor" id="line-499"></span><p class="line867">
+<h1 id="Results">Results</h1>
+<span class="anchor" id="line-500"></span><span class="anchor" id="line-501"></span><p class="line874">My running of this returned <span class="anchor" id="line-502"></span><span class="anchor" id="line-503"></span><p class="line867"><span class="anchor" id="line-504"></span><span class="anchor" id="line-505"></span><span class="anchor" id="line-506"></span><span class="anchor" id="line-507"></span><span class="anchor" id="line-508"></span><span class="anchor" id="line-509"></span><span class="anchor" id="line-510"></span><span class="anchor" id="line-511"></span><span class="anchor" id="line-512"></span><span class="anchor" id="line-513"></span><span class="anchor" id="line-514"></span><span class="anchor" id="line-515"></span><span class="anchor" id="line-516"></span><span class="anchor" id="line-517"></span><span class="anchor" id="line-518"></span><span class="anchor" id="line-519"></span><span class="anchor" id="line-520"></span><span class="anchor" id="line-521"></span><span class="anchor" id="line-522"></span><span class="anchor" id="line-523"></span><span class="anchor" id="line-524"></span><span class="anchor" id="line-525"></span><span class="anchor" id="line-526"></span><span class="anchor" id="line-527"></span><span class="anchor" id="line-528"></span><span class="anchor" id="line-529"></span><span class="anchor" id="line-530"></span><span class="anchor" id="line-531"></span><span class="anchor" id="line-532"></span><span class="anchor" id="line-533"></span><span class="anchor" id="line-534"></span><span class="anchor" id="line-535"></span><span class="anchor" id="line-536"></span><span class="anchor" id="line-537"></span><span class="anchor" id="line-538"></span><span class="anchor" id="line-539"></span><span class="anchor" id="line-540"></span><span class="anchor" id="line-541"></span><span class="anchor" id="line-542"></span><span class="anchor" id="line-543"></span><span class="anchor" id="line-544"></span><span class="anchor" id="line-545"></span><span class="anchor" id="line-546"></span><span class="anchor" id="line-547"></span><span class="anchor" id="line-548"></span><span class="anchor" id="line-549"></span><span class="anchor" id="line-550"></span><span class="anchor" id="line-551"></span><span class="anchor" id="line-552"></span><span class="anchor" id="line-553"></span><span class="anchor" id="line-554"></span><span class="anchor" id="line-555"></span><span class="anchor" id="line-556"></span><span class="anchor" id="line-557"></span><span class="anchor" id="line-558"></span><span class="anchor" id="line-559"></span><span class="anchor" id="line-560"></span><span class="anchor" id="line-561"></span><span class="anchor" id="line-562"></span><span class="anchor" id="line-563"></span><span class="anchor" id="line-564"></span><span class="anchor" id="line-565"></span><span class="anchor" id="line-566"></span><span class="anchor" id="line-567"></span><span class="anchor" id="line-568"></span><span class="anchor" id="line-569"></span><span class="anchor" id="line-570"></span><span class="anchor" id="line-571"></span><span class="anchor" id="line-572"></span><span class="anchor" id="line-573"></span><span class="anchor" id="line-574"></span><span class="anchor" id="line-575"></span><span class="anchor" id="line-576"></span><span class="anchor" id="line-577"></span><span class="anchor" id="line-578"></span><span class="anchor" id="line-579"></span><span class="anchor" id="line-580"></span><span class="anchor" id="line-581"></span><span class="anchor" id="line-582"></span><span class="anchor" id="line-583"></span><span class="anchor" id="line-584"></span><span class="anchor" id="line-585"></span><span class="anchor" id="line-586"></span><span class="anchor" id="line-587"></span><span class="anchor" id="line-588"></span><span class="anchor" id="line-589"></span><span class="anchor" id="line-590"></span><span class="anchor" id="line-591"></span><span class="anchor" id="line-592"></span><span class="anchor" id="line-593"></span><span class="anchor" id="line-594"></span><span class="anchor" id="line-595"></span><span class="anchor" id="line-596"></span><span class="anchor" id="line-597"></span><span class="anchor" id="line-598"></span><span class="anchor" id="line-599"></span><span class="anchor" id="line-600"></span><span class="anchor" id="line-601"></span><span class="anchor" id="line-602"></span><span class="anchor" id="line-603"></span><span class="anchor" id="line-604"></span><span class="anchor" id="line-605"></span><span class="anchor" id="line-606"></span><span class="anchor" id="line-607"></span><span class="anchor" id="line-608"></span><span class="anchor" id="line-609"></span><span class="anchor" id="line-610"></span><span class="anchor" id="line-611"></span><span class="anchor" id="line-612"></span><span class="anchor" id="line-613"></span><span class="anchor" id="line-614"></span><span class="anchor" id="line-615"></span><span class="anchor" id="line-616"></span><span class="anchor" id="line-617"></span><span class="anchor" id="line-618"></span><span class="anchor" id="line-619"></span><span class="anchor" id="line-620"></span><span class="anchor" id="line-621"></span><span class="anchor" id="line-622"></span><span class="anchor" id="line-623"></span><span class="anchor" id="line-624"></span><span class="anchor" id="line-625"></span><pre><span class="anchor" id="line-1-1"></span>% vesta -result /vesta/twd1.shr.intel.com/play/jvkumpf/test/jvkumpf_test_pkg/checkout/19/56/build.12.string_to_binding.and.lookup_path.johns.versions.ves
+<span class="anchor" id="line-2-1"></span>Vesta evaluator, version eval/72
+<span class="anchor" id="line-3-1"></span>
+<span class="anchor" id="line-4-1"></span>&quot;f1_nc&quot;
+<span class="anchor" id="line-5-1"></span>&quot;f2_nc&quot;
+<span class="anchor" id="line-6-1"></span>
+<span class="anchor" id="line-7-1"></span>Return value of `/vesta/twd1.shr.intel.com/play/jvkumpf/test/jvkumpf_test_pkg/checkout/19/56/build.12.string_to_binding.and.lookup_path.johns.versions.ves':
+<span class="anchor" id="line-8-1"></span>[ &quot;dir0/dir1/file2&quot;=
+<span class="anchor" id="line-9-1"></span>  [ dir0=
+<span class="anchor" id="line-10-1"></span>    [ dir1=
+<span class="anchor" id="line-11-1"></span>      [ file1=&quot;c&quot; ],
+<span class="anchor" id="line-12-1"></span>      dir2=
+<span class="anchor" id="line-13-1"></span>      [ file3=&quot;c&quot;,
+<span class="anchor" id="line-14-1"></span>        file4=&quot;c&quot; ],
+<span class="anchor" id="line-15-1"></span>      dir3=
+<span class="anchor" id="line-16-1"></span>      [ file5=&quot;c&quot;,
+<span class="anchor" id="line-17-1"></span>        file6=&quot;c&quot; ] ] ],
+<span class="anchor" id="line-18-1"></span>  &quot;dir0/dir3&quot;=
+<span class="anchor" id="line-19-1"></span>  [ dir0=
+<span class="anchor" id="line-20-1"></span>    [ dir1=
+<span class="anchor" id="line-21-1"></span>      [ file1=&quot;c&quot;,
+<span class="anchor" id="line-22-1"></span>        file2=&quot;c&quot; ],
+<span class="anchor" id="line-23-1"></span>      dir2=
+<span class="anchor" id="line-24-1"></span>      [ file3=&quot;c&quot;,
+<span class="anchor" id="line-25-1"></span>        file4=&quot;c&quot; ] ] ],
+<span class="anchor" id="line-26-1"></span>  &quot;/dir0/dir1/file2&quot;=
+<span class="anchor" id="line-27-1"></span>  [ dir0=
+<span class="anchor" id="line-28-1"></span>    [ dir1=
+<span class="anchor" id="line-29-1"></span>      [ file1=&quot;c&quot; ],
+<span class="anchor" id="line-30-1"></span>      dir2=
+<span class="anchor" id="line-31-1"></span>      [ file3=&quot;c&quot;,
+<span class="anchor" id="line-32-1"></span>        file4=&quot;c&quot; ],
+<span class="anchor" id="line-33-1"></span>      dir3=
+<span class="anchor" id="line-34-1"></span>      [ file5=&quot;c&quot;,
+<span class="anchor" id="line-35-1"></span>        file6=&quot;c&quot; ] ] ],
+<span class="anchor" id="line-36-1"></span>  &quot;/dir0/dir3&quot;=
+<span class="anchor" id="line-37-1"></span>  [ dir0=
+<span class="anchor" id="line-38-1"></span>    [ dir1=
+<span class="anchor" id="line-39-1"></span>      [ file1=&quot;c&quot;,
+<span class="anchor" id="line-40-1"></span>        file2=&quot;c&quot; ],
+<span class="anchor" id="line-41-1"></span>      dir2=
+<span class="anchor" id="line-42-1"></span>      [ file3=&quot;c&quot;,
+<span class="anchor" id="line-43-1"></span>        file4=&quot;c&quot; ] ] ],
+<span class="anchor" id="line-44-1"></span>  &quot;/dir0/dir1/file2/&quot;=
+<span class="anchor" id="line-45-1"></span>  [ dir0=
+<span class="anchor" id="line-46-1"></span>    [ dir1=
+<span class="anchor" id="line-47-1"></span>      [ file1=&quot;c&quot; ],
+<span class="anchor" id="line-48-1"></span>      dir2=
+<span class="anchor" id="line-49-1"></span>      [ file3=&quot;c&quot;,
+<span class="anchor" id="line-50-1"></span>        file4=&quot;c&quot; ],
+<span class="anchor" id="line-51-1"></span>      dir3=
+<span class="anchor" id="line-52-1"></span>      [ file5=&quot;c&quot;,
+<span class="anchor" id="line-53-1"></span>        file6=&quot;c&quot; ] ] ],
+<span class="anchor" id="line-54-1"></span>  &quot;/dir0/dir3/&quot;=
+<span class="anchor" id="line-55-1"></span>  [ dir0=
+<span class="anchor" id="line-56-1"></span>    [ dir1=
+<span class="anchor" id="line-57-1"></span>      [ file1=&quot;c&quot;,
+<span class="anchor" id="line-58-1"></span>        file2=&quot;c&quot; ],
+<span class="anchor" id="line-59-1"></span>      dir2=
+<span class="anchor" id="line-60-1"></span>      [ file3=&quot;c&quot;,
+<span class="anchor" id="line-61-1"></span>        file4=&quot;c&quot; ] ] ],
+<span class="anchor" id="line-62-1"></span>  append_f1_f2=&lt;Closure&gt;,
+<span class="anchor" id="line-63-1"></span>  append_f1_f2_rtn=
+<span class="anchor" id="line-64-1"></span>  [ f1=1,
+<span class="anchor" id="line-65-1"></span>    f2=2 ],
+<span class="anchor" id="line-66-1"></span>  append_f1_f2_nc=&lt;Closure&gt;,
+<span class="anchor" id="line-67-1"></span>  append_f1_f2_nc_rtn=
+<span class="anchor" id="line-68-1"></span>  [ f1_nc=3,
+<span class="anchor" id="line-69-1"></span>    f2_nc=4 ],
+<span class="anchor" id="line-70-1"></span>  &quot;a/b/c&quot;=
+<span class="anchor" id="line-71-1"></span>  &lt; &quot;a&quot;,
+<span class="anchor" id="line-72-1"></span>    &quot;b&quot;,
+<span class="anchor" id="line-73-1"></span>    &quot;c&quot; &gt;,
+<span class="anchor" id="line-74-1"></span>  &quot;a/b/c/&quot;=
+<span class="anchor" id="line-75-1"></span>  &lt; &quot;a&quot;,
+<span class="anchor" id="line-76-1"></span>    &quot;b&quot;,
+<span class="anchor" id="line-77-1"></span>    &quot;c&quot;,
+<span class="anchor" id="line-78-1"></span>    &quot;&quot; &gt;,
+<span class="anchor" id="line-79-1"></span>  &quot;/a/b/c&quot;=
+<span class="anchor" id="line-80-1"></span>  &lt; &quot;&quot;,
+<span class="anchor" id="line-81-1"></span>    &quot;a&quot;,
+<span class="anchor" id="line-82-1"></span>    &quot;b&quot;,
+<span class="anchor" id="line-83-1"></span>    &quot;c&quot; &gt;,
+<span class="anchor" id="line-84-1"></span>  &quot;a/b/c trimmed&quot;=
+<span class="anchor" id="line-85-1"></span>  &lt; &quot;a&quot;,
+<span class="anchor" id="line-86-1"></span>    &quot;b&quot;,
+<span class="anchor" id="line-87-1"></span>    &quot;c&quot; &gt;,
+<span class="anchor" id="line-88-1"></span>  &quot;a/b/c/ trimmed&quot;=
+<span class="anchor" id="line-89-1"></span>  &lt; &quot;a&quot;,
+<span class="anchor" id="line-90-1"></span>    &quot;b&quot;,
+<span class="anchor" id="line-91-1"></span>    &quot;c&quot; &gt;,
+<span class="anchor" id="line-92-1"></span>  &quot;/a/b/c trimmed&quot;=
+<span class="anchor" id="line-93-1"></span>  &lt; &quot;a&quot;,
+<span class="anchor" id="line-94-1"></span>    &quot;b&quot;,
+<span class="anchor" id="line-95-1"></span>    &quot;c&quot; &gt;,
+<span class="anchor" id="line-96-1"></span>  &quot;a/1/i&quot;=1,
+<span class="anchor" id="line-97-1"></span>  a_1_ii_binding=2,
+<span class="anchor" id="line-98-1"></span>  b_1_iv_list=10,
+<span class="anchor" id="line-99-1"></span>  &quot;b/3/ii&quot;=14,
+<span class="anchor" id="line-100-1"></span>  &quot;/b/3/ii&quot;=
+<span class="anchor" id="line-101-1"></span>  [  ],
+<span class="anchor" id="line-102-1"></span>  &quot;b/2&quot;=
+<span class="anchor" id="line-103-1"></span>  [ i=11 ],
+<span class="anchor" id="line-104-1"></span>  a_3_binding=
+<span class="anchor" id="line-105-1"></span>  [ i=6 ],
+<span class="anchor" id="line-106-1"></span>  b_1_list=
+<span class="anchor" id="line-107-1"></span>  [ i=7,
+<span class="anchor" id="line-108-1"></span>    ii=8,
+<span class="anchor" id="line-109-1"></span>    iii=9,
+<span class="anchor" id="line-110-1"></span>    iv=10 ],
+<span class="anchor" id="line-111-1"></span>  blah=&quot;blah_error&quot;,
+<span class="anchor" id="line-112-1"></span>  &quot;b/blah&quot;=&quot;didnt work&quot;,
+<span class="anchor" id="line-113-1"></span>  &quot;a/2/blah&quot;=&quot;9999&quot;,
+<span class="anchor" id="line-114-1"></span>  &quot;b/blah/3&quot;=
+<span class="anchor" id="line-115-1"></span>  [ result=&quot;error&quot; ],
+<span class="anchor" id="line-116-1"></span>  oops_binding=&quot;oops&quot;,
+<span class="anchor" id="line-117-1"></span>  nonex_list=&quot;didnt work nonex&quot;,
+<span class="anchor" id="line-118-1"></span>  stb=
+<span class="anchor" id="line-119-1"></span>  [ string=
+<span class="anchor" id="line-120-1"></span>    [ to=
+<span class="anchor" id="line-121-1"></span>      [ bindg=1 ] ] ] ]</pre><span class="anchor" id="line-626"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

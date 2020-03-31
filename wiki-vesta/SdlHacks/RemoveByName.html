@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>SdlHacks/RemoveByName - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: SdlHacks/RemoveByName" href="RemoveByName%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=SdlHacks%252FRemoveByName&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="RemoveByName%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="RemoveByName%3Faction=print.html">
+<link rel="Up" href="SdlHacks.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="RemoveByName.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="SdlHacks.html">SdlHacks</a></li><li><a href="RemoveByName.html">RemoveByName</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="RemoveByName.html">SdlHacks/RemoveByName</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="RemoveByName%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line874">Suppose you want to recursively remove everything with a particular name from a binding.  (Perhaps you copied a directory structure into Vesta that has a bunch of subdirectories containing files used by another program that you want to keep but not be present during tool invocations or in the result.) <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h2 id="Simple_Recursion">Simple Recursion</h2>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">Here's a recursive function which does this: <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line867"><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c)) {
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    var n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        var a = document.createElement('A');
+        s.className = 'LineNumber';
+        a.appendChild(document.createTextNode(nformat(n,4,'')));
+        a.href = '#' + did + '_' + n;
+        s.appendChild(a);
+        s.appendChild(document.createTextNode(' '));
+        n += nstep;
+        if (l.childNodes.length) {
+          l.insertBefore(s, l.firstChild);
+        }
+        else {
+          l.appendChild(s);
+        }
+      }
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c)) {
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="RemoveByName.html#" onclick="return togglenumber(\'CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85" lang="en"><span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_1">   1</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_1"></span>  <span class="Comment">// Recursively remove any elements from a binding and all</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_2">   2</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_2"></span>  <span class="Comment">// sub-bindings with a particular name. </span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_3">   3</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_3"></span>  <span class="Comment">/**nocache**/</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_4">   4</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_4"></span>  <span class="ID">remove_by_name</span><span class="SPChar">(</span><span class="ID">b</span><span class="SPChar">:</span><span class="ResWord">binding</span><span class="SPChar">,</span> <span class="ID">remove</span><span class="SPChar">:</span><span class="ResWord">text</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_5">   5</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_5"></span>  <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_6">   6</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_6"></span>    <span class="Comment">// Remove the specified name from b</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_7">   7</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_7"></span>    <span class="ID">b</span> <span class="SPChar">=</span> <span class="ID">b</span> <span class="SPChar">-</span> <span class="SPChar">[</span>$<span class="ID">remove</span><span class="SPChar">=</span><span class="Number">1</span><span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_8">   8</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_8"></span>    <span class="Comment">// The variable is used to accumulate the result of this function</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_9">   9</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_9"></span>    <span class="ID">result</span> <span class="SPChar">=</span> <span class="SPChar">[</span><span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_10">  10</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_10"></span>    <span class="Comment">// Loop over the elements of binding b</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_11">  11</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_11"></span>    <span class="ResWord">foreach</span> <span class="SPChar">[</span><span class="ID">n</span><span class="SPChar">=</span><span class="ID">v</span><span class="SPChar">]</span> <span class="ResWord">in</span> <span class="ID">b</span> <span class="ResWord">do</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_12">  12</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_12"></span>    <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_13">  13</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_13"></span>      <span class="Comment">// If v is a sub-binding, call ourselves recursively to remove</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_14">  14</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_14"></span>      <span class="Comment">// the specified name in sub-bindings.  Otherwise, </span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_15">  15</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_15"></span>      <span class="ID">v</span> <span class="SPChar">=</span> <span class="SPChar">(</span><span class="ResWord">if</span> <span class="ID">_is_binding</span><span class="SPChar">(</span><span class="ID">v</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_16">  16</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_16"></span>           <span class="ResWord">then</span> <span class="ID">remove_by_name</span><span class="SPChar">(</span><span class="ID">v</span><span class="SPChar">,</span> <span class="ID">remove</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_17">  17</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_17"></span>           <span class="ResWord">else</span> <span class="ID">v</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_18">  18</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_18"></span>      <span class="Comment">// Put the modified value into the result.</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_19">  19</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_19"></span>      <span class="ID">result</span> <span class="SPChar">=</span> <span class="ID">_append</span><span class="SPChar">(</span><span class="ID">result</span><span class="SPChar">,</span> <span class="SPChar">[</span>$<span class="ID">n</span><span class="SPChar">=</span><span class="ID">v</span><span class="SPChar">]</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_20">  20</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_20"></span>    <span class="SPChar">}</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_21">  21</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_21"></span>    <span class="ResWord">return</span> <span class="ID">result</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_22">  22</a> </span><span class="LineAnchor" id="CA-01d1c45d30021c2819c6d856bf81e3c2e3cf8f85_22"></span>  <span class="SPChar">}</span><span class="SPChar">;</span></span>
+</pre></div><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><p class="line862">Here's an example of how you might call <tt>remove_by_name</tt>: <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line867"><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="RemoveByName.html#" onclick="return togglenumber(\'CA-85f3d0f922f1baf6c5587857414487fa3fdd875e\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-85f3d0f922f1baf6c5587857414487fa3fdd875e" lang="en"><span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_1">   1</a> </span><span class="LineAnchor" id="CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_1"></span>  <span class="ID">a</span> <span class="SPChar">=</span> <span class="SPChar">[</span> <span class="ID">CVS</span> <span class="SPChar">=</span> <span class="SPChar">[</span><span class="SPChar">]</span><span class="SPChar">,</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_2">   2</a> </span><span class="LineAnchor" id="CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_2"></span>        <span class="ID">file</span><span class="ID">.c</span> <span class="SPChar">=</span> <span class="String">&quot;...&quot;</span><span class="SPChar">,</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_3">   3</a> </span><span class="LineAnchor" id="CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_3"></span>        <span class="ID">sub</span> <span class="SPChar">=</span> <span class="SPChar">[</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_4">   4</a> </span><span class="LineAnchor" id="CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_4"></span>          <span class="ID">file</span><span class="ID">.h</span> <span class="SPChar">=</span> <span class="String">&quot;...&quot;</span><span class="SPChar">,</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_5">   5</a> </span><span class="LineAnchor" id="CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_5"></span>          <span class="ID">CVS</span> <span class="SPChar">=</span> <span class="SPChar">[</span><span class="SPChar">]</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_6">   6</a> </span><span class="LineAnchor" id="CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_6"></span>        <span class="SPChar">]</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_7">   7</a> </span><span class="LineAnchor" id="CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_7"></span>      <span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_8">   8</a> </span><span class="LineAnchor" id="CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_8"></span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_9">   9</a> </span><span class="LineAnchor" id="CA-85f3d0f922f1baf6c5587857414487fa3fdd875e_9"></span>  <span class="ID">b</span> <span class="SPChar">=</span> <span class="ID">remove_by_name</span><span class="SPChar">(</span><span class="ID">a</span><span class="SPChar">,</span> <span class="String">&quot;CVS&quot;</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+</pre></div><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><p class="line862">After that, the value of the variable <tt class="backtick">b</tt> will be: <span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><p class="line867"><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="RemoveByName.html#" onclick="return togglenumber(\'CA-10e6be240fc7c7f6c07eb8b3fb1e1b8598659134\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-10e6be240fc7c7f6c07eb8b3fb1e1b8598659134" lang="en"><span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-10e6be240fc7c7f6c07eb8b3fb1e1b8598659134_1">   1</a> </span><span class="LineAnchor" id="CA-10e6be240fc7c7f6c07eb8b3fb1e1b8598659134_1"></span><span class="SPChar">[</span> <span class="ID">file</span><span class="ID">.c</span><span class="SPChar">=</span><span class="String">&quot;...&quot;</span><span class="SPChar">,</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-10e6be240fc7c7f6c07eb8b3fb1e1b8598659134_2">   2</a> </span><span class="LineAnchor" id="CA-10e6be240fc7c7f6c07eb8b3fb1e1b8598659134_2"></span>  <span class="ID">sub</span><span class="SPChar">=</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-10e6be240fc7c7f6c07eb8b3fb1e1b8598659134_3">   3</a> </span><span class="LineAnchor" id="CA-10e6be240fc7c7f6c07eb8b3fb1e1b8598659134_3"></span>  <span class="SPChar">[</span> <span class="ID">file</span><span class="ID">.h</span><span class="SPChar">=</span><span class="String">&quot;...&quot;</span> <span class="SPChar">]</span> <span class="SPChar">]</span></span>
+</pre></div><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><p class="line867">
+<h2 id="Using__map">Using _map</h2>
+<span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><p class="line874">Here's another way you could do this: <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><p class="line867"><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="RemoveByName.html#" onclick="return togglenumber(\'CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f" lang="en"><span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_1">   1</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_1"></span>  <span class="Comment">/**nocache**/</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_2">   2</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_2"></span>  <span class="ID">remove_by_name2</span><span class="SPChar">(</span><span class="ID">b</span><span class="SPChar">:</span><span class="ResWord">binding</span><span class="SPChar">,</span> <span class="ID">remove</span><span class="SPChar">:</span><span class="ResWord">text</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_3">   3</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_3"></span>  <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_4">   4</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_4"></span>    <span class="Comment">/**nocache**/</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_5">   5</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_5"></span>    <span class="ID">inner</span><span class="SPChar">(</span><span class="ID">n</span><span class="SPChar">:</span><span class="ResWord">text</span><span class="SPChar">,</span> <span class="ID">v</span><span class="SPChar">:</span><span class="ID">any</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_6">   6</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_6"></span>    <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_7">   7</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_7"></span>      <span class="ResWord">return</span> <span class="SPChar">(</span><span class="ResWord">if</span> <span class="SPChar">(</span><span class="ID">n</span> <span class="SPChar">=</span><span class="SPChar">=</span> <span class="ID">remove</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_8">   8</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_8"></span>              <span class="ResWord">then</span> <span class="SPChar">[</span><span class="SPChar">]</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_9">   9</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_9"></span>              <span class="ResWord">else</span> <span class="SPChar">(</span><span class="ResWord">if</span> <span class="ID">_is_binding</span><span class="SPChar">(</span><span class="ID">v</span><span class="SPChar">)</span> </span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_10">  10</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_10"></span>                    <span class="ResWord">then</span> <span class="SPChar">[</span>$<span class="ID">n</span><span class="SPChar">=</span><span class="ID">_map</span><span class="SPChar">(</span><span class="ID">inner</span><span class="SPChar">,</span> <span class="ID">v</span><span class="SPChar">)</span><span class="SPChar">]</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_11">  11</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_11"></span>                    <span class="ResWord">else</span> <span class="SPChar">[</span>$<span class="ID">n</span><span class="SPChar">=</span><span class="ID">v</span><span class="SPChar">]</span><span class="SPChar">)</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_12">  12</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_12"></span>    <span class="SPChar">}</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_13">  13</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_13"></span>    <span class="ResWord">return</span> <span class="ID">_map</span><span class="SPChar">(</span><span class="ID">inner</span><span class="SPChar">,</span> <span class="ID">b</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_14">  14</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_14"></span>  <span class="SPChar">}</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_15">  15</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_15"></span></span>
+<span class="line"><span class="LineNumber"><a href="RemoveByName.html#CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_16">  16</a> </span><span class="LineAnchor" id="CA-7e8b02ac8703114d8143b8e85f0ffa18157d7f8f_16"></span>  <span class="ID">b2</span> <span class="SPChar">=</span> <span class="ID">remove_by_name2</span><span class="SPChar">(</span><span class="ID">a</span><span class="SPChar">,</span> <span class="String">&quot;CVS&quot;</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+</pre></div><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><p class="line862">The value of the variable <tt class="backtick">b2</tt> will be the same as the value of <tt class="backtick">b</tt> above. <span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><p class="line862">This version will perform a little better than the first one.  In many cases <tt>_map</tt> will perform a little better than <tt>foreach</tt> because each binding (or list) element is processed in an independent context, which makes for less dependency book-keeping. <span class="anchor" id="line-84"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

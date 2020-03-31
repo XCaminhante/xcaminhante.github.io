@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>VestaFAQ/SDLandModels - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: VestaFAQ/SDLandModels" href="SDLandModels%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=VestaFAQ%252FSDLandModels&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="SDLandModels%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="SDLandModels%3Faction=print.html">
+<link rel="Up" href="VestaFAQ.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="SDLandModels.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="VestaFAQ.html">VestaFAQ</a></li><li><a href="SDLandModels.html">SDLandModels</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="SDLandModels.html">VestaFAQ/SDLandModels</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="SDLandModels%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><p class="line874">Questions in this catagory: <span class="anchor" id="line-5"></span><ol type="1"><li><p class="line891"><a href="SDLandModels.html#latest">I imported foo/latest in my .ves file and the evaluator says 'latest: not a directory'. What gives?</a> <span class="anchor" id="line-6"></span></li><li><p class="line891"><a href="SDLandModels.html#directory">When trying to build, I get the error: &quot;0/Error: Not found opening `.'.&quot;</a> <span class="anchor" id="line-7"></span></li><li><p class="line891"><a href="SDLandModels.html#editor_modes">Is there an Emacs/vim mode for Vesta SDL?</a> <span class="anchor" id="line-8"></span></li><li><p class="line891"><a href="SDLandModels.html#cache_hit_repo_path">I checked-in my package, but when i run vmake it prints the checkout copy</a>   <span class="anchor" id="line-9"></span></li></ol><p class="line867"><hr /><p class="line874"> <span class="anchor" id="line-10"></span><dl><dt>I imported foo/latest in my .ves file and the evaluator says 'latest: not a directory'. What gives?</dt><dd><p class="line891"><span class="anchor" id="latest"></span>  Vesta SDL models only reference specific versions of other packages. In other words, you can't import the files from &quot;foo/latest&quot;, but only from &quot;foo/4&quot; or &quot;foo/5&quot;, etc.<br>
+<br>
+This is part of how build repeatability is guaranteed. Because the interpretation of &quot;latest&quot; changes over time, it's imprecise, and therefore not suitable for use in a build that should be repeatable into the future. <span class="anchor" id="line-11"></span></dd><dt>When trying to build, I get the error: &quot;0/Error: Not found opening `.'.&quot;</dt><dd><p class="line891"><span class="anchor" id="directory"></span> <a class="http" href="../vesta/doc/sdl-ref/models.html#files">As described in the Vesta SDL programmer's reference</a>, you can't use &quot;.&quot; or &quot;..&quot; in the files clause of a .ves file. All of the following examples will fail with this error: <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><pre><span class="anchor" id="line-1"></span>files
+<span class="anchor" id="line-2"></span>  dir1 = .;
+<span class="anchor" id="line-3"></span>  dir2 = &quot;.&quot;;
+<span class="anchor" id="line-4"></span>  .;
+<span class="anchor" id="line-5"></span>  updir1 = ..;
+<span class="anchor" id="line-6"></span>  updir2 = ../uncle;
+<span class="anchor" id="line-7"></span>  file2 = ./file1.txt;
+<span class="anchor" id="line-8"></span>  file2 = ../file2.c;</pre><span class="anchor" id="line-22"></span></dd><dt>Is there an Emacs/vim mode for Vesta SDL?</dt><dd><p class="line891"><span class="anchor" id="editor_modes"></span> Yes!  You can find them in these packages (which you can replicate from <a class="http" href="http://pub.vestasys.org/">the public repository on pub.vestasys.org</a>): <span class="anchor" id="line-23"></span></dd><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/extras/emacs_support">/vesta/vestasys.org/vesta/extras/emacs_support</a> <span class="anchor" id="line-24"></span></li><li><p class="line891"><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/extras/vim_support">/vesta/vestasys.org/vesta/extras/vim_support</a> <span class="anchor" id="line-25"></span></li><dt>I checked-in my package, but when I run vmake it prints the checkout copy</dt><dd><p class="line891"><span class="anchor" id="cache_hit_repo_path"></span>  (click for info on <a class="http" href="../vesta/doc/man/html/vmake.1.html">vmake</a>) <span class="anchor" id="line-26"></span>Don't worry.  Vesta knows that the final version of a file in your checkout snapshot and your checked-in file are identical.  It only stores it once, and both repository paths <tt>/vesta/project.example.com/my/pkg/10/build.ves</tt> (checked-in) and <tt>/vesta/project.example.com/my/pkg/checkout/10/7/build.ves</tt> (checked-out; assuming 7 was when you last changed <tt>build.ves</tt>) both point to the same file store.<br>
+<br>
+When the file was still checked-out, you probably built with it.  This would fill it into vesta's <a class="http" href="../vesta/doc/sdl-ref/caching.html">cache</a>.  Unless it was <a class="http" href="../vesta/doc/man/html/VestaWeed.1.html">weeded</a>, it's still there.  You are probably cache-hitting on it with its old pathname. <span class="anchor" id="line-27"></span></dd></dl><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

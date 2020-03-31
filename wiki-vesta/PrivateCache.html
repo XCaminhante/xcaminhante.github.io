@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>PrivateCache - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: PrivateCache" href="PrivateCache%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=PrivateCache&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="PrivateCache%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="PrivateCache%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="PrivateCache.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="PrivateCache.html">PrivateCache</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="PrivateCache.html">PrivateCache</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="PrivateCache%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="PrivateCache.html#Vesta_Tip:_Running_a_Private_Cache">Vesta Tip: Running a Private Cache</a><ol><li>
+<a href="PrivateCache.html#Setup">Setup</a></li><li>
+<a href="PrivateCache.html#Starting_the_Cache">Starting the Cache</a></li><li>
+<a href="PrivateCache.html#Using_the_Cache">Using the Cache</a></li><li>
+<a href="PrivateCache.html#Warning:_Effect_of_Weeding">Warning: Effect of Weeding</a></li></ol></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Vesta_Tip:_Running_a_Private_Cache">Vesta Tip: Running a Private Cache</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line874">There are times when it is convenient to run an instance of the Vesta cache server separate from the main one at a site.  Here are a few reasons why you might want to do this: <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><ul><li><p class="line862">To separate your traffic from that of other users.  If you're testing significant changes to a build process, using a separate cache server allows you to easily distinguish by cache entries created by your builds from those created by others builds.  You may want to use <a class="http" href="../vesta/doc/man/html/VCacheStats.1.html">VCacheStats</a> to collect statistics after performing a build on an empty cache.  Doing this for several different builds is one way to compare the effect of changes to your build description code. <span class="anchor" id="line-12"></span></li><li><p class="line862">To test changes to the cache server tuning configuration variables.  (See <a class="http" href="../vesta/doc/man/html/VCache.1.html#ConfigSect">the configuration section of the VCache man page</a>.) <span class="anchor" id="line-13"></span></li><li>To test changes to the cache server itself. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span></li></ul><p class="line867">
+<h2 id="Setup">Setup</h2>
+<span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line862">Start by selecting a machine to run the private cache.  In this example we'll use <tt>myworkstation.example.com</tt>. <span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line862">You need a directory in which to store your private cache's data.  The only restriction is that it should be local to the machine that you're going to run the cache on.  (NFS write failures have caused cache problems in the past.)  Also, the directory has to be writable by the user that runs the cache server.  (Any user can run the cache server, even though the normal method is to run it as <tt>vadmin</tt>.)  Let's suppose the directory to store the cache in is <tt>/tmp/my_cache</tt>. <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line862">Next you'll need to create a Vesta configuration file that overrides a few settings.  A good place to put this is inside the directory where the cache will be stored (i.e. <tt>/tmp/my_cache/vesta.cfg</tt>).  It should look like this: <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867"><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><pre><span class="anchor" id="line-1"></span>// Start with the normal system-wide vesta.cfg
+<span class="anchor" id="line-2"></span>[include /etc/vesta.cfg]
+<span class="anchor" id="line-3"></span>
+<span class="anchor" id="line-4"></span>// Add overrides in the CacheServer section
+<span class="anchor" id="line-5"></span>[CacheServer]
+<span class="anchor" id="line-6"></span>
+<span class="anchor" id="line-7"></span>// The host that will run the private cache
+<span class="anchor" id="line-8"></span>Host = myworkstation.example.com
+<span class="anchor" id="line-9"></span>
+<span class="anchor" id="line-10"></span>// The directory where the private cache will be stored
+<span class="anchor" id="line-11"></span>MetaDataRoot = /tmp/my_cache</pre><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line874">(Obviously you should fill in your own hostname and directory.) <span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><p class="line862">After creating the Vesta configuration file, you need to tell the Vesta tools to use it instead of your normal configuration file (probably <tt>/etc/vesta.cfg</tt> or <tt>~/vesta.cfg</tt> if you have a personal one).  To do this, set the <tt>VESTACONFIG</tt> environment variable to point to your new configuration file.  If you use <tt>csh</tt> or <tt>tcsh</tt>: <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line867"><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><pre><span class="anchor" id="line-1-1"></span>% setenv VESTACONFIG /tmp/my_cache/vesta.cfg</pre><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><p class="line862">Or if you use a System-V style shell (<tt>bash</tt>, <tt>ksh</tt>, <tt>zsh</tt>): <span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><p class="line867"><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><pre><span class="anchor" id="line-1-2"></span>% VESTACONFIG=/tmp/my_cache/vesta.cfg; export VESTACONFIG</pre><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><p class="line862">Remember that you'll need to repeat this in every terminal where you want to run a command that uses the private cache.  Also, don't forgot to unset the the <tt>VESTACONFIG</tt> environment variable when you're done working with the private cache. <span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><p class="line862">It's a good idea to check that you're using the new config file with <a class="http" href="../vesta/doc/man/html/vgetconfig.1.html">vgetconfig</a> or <a class="http" href="../vesta/doc/man/html/WhichCache.1.html">WhichCache</a> <span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span><p class="line867"><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><pre><span class="anchor" id="line-1-3"></span>% vgetconfig -L
+<span class="anchor" id="line-2-1"></span>/tmp/my_cache/vesta.cfg
+<span class="anchor" id="line-3-1"></span>% WhichCache
+<span class="anchor" id="line-4-1"></span>Cache information:
+<span class="anchor" id="line-5-1"></span>  Hostname:    myworkstation.example.com
+<span class="anchor" id="line-6-1"></span>  Port number  21773
+<span class="anchor" id="line-7-1"></span>  Stable root: /tmp/my_cache/cache</pre><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><p class="line862">Lastly, create the directory structure used by the cache server by running <a class="http" href="../vesta/doc/man/html/CreateCacheDirs.1.html">CreateCacheDirs</a>: <span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><p class="line867"><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><pre><span class="anchor" id="line-1-4"></span>% CreateCacheDirs
+<span class="anchor" id="line-2-2"></span>Creating cache meta-data at /tmp/my_cache/cache
+<span class="anchor" id="line-3-2"></span>  Creating directory: /tmp/my_cache/cache
+<span class="anchor" id="line-4-2"></span>  Creating directory: /tmp/my_cache/cache/sCache
+<span class="anchor" id="line-5-2"></span>  Creating directory: /tmp/my_cache/cache/sVars
+<span class="anchor" id="line-6-2"></span>  Creating directory: /tmp/my_cache/cache/weededLog
+<span class="anchor" id="line-7-2"></span>  Creating directory: /tmp/my_cache/cache/cacheLog
+<span class="anchor" id="line-8-1"></span>  Creating directory: /tmp/my_cache/cache/emptyPKLog
+<span class="anchor" id="line-9-1"></span>  Creating directory: /tmp/my_cache/cache/ciLog
+<span class="anchor" id="line-10-1"></span>  Creating directory: /tmp/my_cache/cache/graphLog
+<span class="anchor" id="line-11-1"></span>  Creating directory: /tmp/my_cache/cache/weeder
+<span class="anchor" id="line-12"></span>Done.</pre><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><p class="line867">
+<h2 id="Starting_the_Cache">Starting the Cache</h2>
+<span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><p class="line862">To start the cache server, just run <a class="http" href="../vesta/doc/man/html/VCache.1.html">VCache</a>.  Most people will probably prefer to redirect its output to a file and place it in the background: <span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><p class="line867"><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><pre><span class="anchor" id="line-1-5"></span>% VCache &gt; /tmp/my_cache/cache-messages &amp;
+<span class="anchor" id="line-2-3"></span>[1]</pre><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><p class="line862">Check whether it's running correctly with <a class="http" href="../vesta/doc/man/html/VCacheMonitor.1.html">VCacheMonitor</a>: <span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><p class="line867"><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span><pre><span class="anchor" id="line-1-6"></span>% VCacheMonitor
+<span class="anchor" id="line-2-4"></span>Hostname:      myworkstation.example.com
+<span class="anchor" id="line-3-3"></span>Port number:   21773
+<span class="anchor" id="line-4-3"></span>Stable cache:  /tmp/my_cache/cache/sCache
+<span class="anchor" id="line-5-3"></span>Cache version: 1.31, 3-Sep-1998
+<span class="anchor" id="line-6-3"></span>Intf version:  22
+<span class="anchor" id="line-7-3"></span>Up since:      Fri Feb 28 12:07:55 2003
+<span class="anchor" id="line-8-2"></span>Current time:  Fri Feb 28 12:07:56 2003
+<span class="anchor" id="line-9-2"></span>Instance FP:   3b79af22bed1d00e f11ad1c7d972142f
+<span class="anchor" id="line-10-2"></span>          FREE LOOK  ADD  NUM  NUM  NUM    NEW       OLD     NUM  NUM  MPK
+<span class="anchor" id="line-11-2"></span>SIZE  RES VARS   UP  ENT VMPK VPKS ENTS ENTS PKLS ENTS PKLS   HF  DEL WEED
+<span class="anchor" id="line-12-1"></span>---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+<span class="anchor" id="line-13"></span> 2.4M 1.9M  N/A  N/A  N/A    0    0    0    0    0    0    0    0    0    0
+<span class="anchor" id="line-14"></span> 2.4M 1.9M    0    0    0    0    0    0    0    0    0    0    0    0    0</pre><span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><p class="line862">(You may want to leave <a class="http" href="../vesta/doc/man/html/VCacheMonitor.1.html">VCacheMonitor</a> running in a terminal window while you use your private cache server.) <span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><p class="line867">
+<h2 id="Using_the_Cache">Using the Cache</h2>
+<span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><p class="line862">For the most part, you can just perform builds as usual.  (But don't forget to set the <tt>VESTACONFIG</tt> environment variable if you use multiple terminals.) <span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span><p class="line862">When you want to stop the cache server, you can just use control-C or the <tt>kill</tt> command. <span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span><p class="line874">Other commands that are useful with a private cache: <span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><ul><li><p class="line891"><a class="http" href="../vesta/doc/man/html/FlushCache.1.html">FlushCache</a>: Force the cache server to write to disk all recently created entries it is holding in memory.  (You can see how many there are by looking at the &quot;<tt>NEW&nbsp;ENTS</tt>&quot; column in <a class="http" href="../vesta/doc/man/html/VCacheMonitor.1.html">VCacheMonitor</a>.) <span class="anchor" id="line-121"></span></li><li><p class="line891"><a class="http" href="../vesta/doc/man/html/VCacheStats.1.html">VCacheStats</a>: Collect statistics about what's in the cache.  (This only reads on-disk entires, so you probably want to use <a class="http" href="../vesta/doc/man/html/FlushCache.1.html">FlushCache</a> first.) <span class="anchor" id="line-122"></span></li><li><p class="line891"><a class="http" href="../vesta/doc/man/html/EraseCache.1.html">EraseCache</a>: If you want to start over with an empty cache, you can use this utility.  You need to stop the cache server first and restart it after you erase the cache. <span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span></li></ul><p class="line867">
+<h2 id="Warning:_Effect_of_Weeding">Warning: Effect of Weeding</h2>
+<span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><p class="line862">Whenever the weeder is run, your private cache will be invalidated and you should erase it (by stopping it if it's running and using <a class="http" href="../vesta/doc/man/html/EraseCache.1.html">EraseCache</a>). <span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><p class="line874">In more detail, the weeding process only talks to one cache server.  While the entries in your private cache server will continue to exist, any derived files referenced by entries it stores (i.e. result files written by tools) will be deleted by the weeder. <span class="anchor" id="line-129"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

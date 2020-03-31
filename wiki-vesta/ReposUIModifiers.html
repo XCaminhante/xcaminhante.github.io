@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>ReposUIModifiers - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: ReposUIModifiers" href="ReposUIModifiers%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=ReposUIModifiers&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="ReposUIModifiers%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="ReposUIModifiers%3Faction=print.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="ReposUIModifiers.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="ReposUIModifiers.html">ReposUIModifiers</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="ReposUIModifiers.html">ReposUIModifiers</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="ReposUIModifiers%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="ReposUIModifiers.html#Overview">Overview</a></li><li>
+<a href="ReposUIModifiers.html#Examples">Examples</a><ol><li>
+<a href="ReposUIModifiers.html#Checkout_Working_Directory_Name">Checkout Working Directory Name</a></li><li>
+<a href="ReposUIModifiers.html#Deeper_Session_Directory_Hierarchy">Deeper Session Directory Hierarchy</a></li><li>
+<a href="ReposUIModifiers.html#Avoiding_Unstable_Basis_Version">Avoiding Unstable Basis Version</a></li><li>
+<a href="ReposUIModifiers.html#Path_Shortcuts">Path Shortcuts</a></li></ol></li><li>
+<a href="ReposUIModifiers.html#Per-Tool_Notes">Per-Tool Notes</a><ol><li>
+<a href="ReposUIModifiers.html#vcheckout">vcheckout</a></li><li>
+<a href="ReposUIModifiers.html#vcheckin">vcheckin</a></li><li>
+<a href="ReposUIModifiers.html#vbranch">vbranch</a></li><li>
+<a href="ReposUIModifiers.html#vcreate">vcreate</a></li><li>
+<a href="ReposUIModifiers.html#vmkdir">vmkdir</a></li><li>
+<a href="ReposUIModifiers.html#vrm">vrm</a></li></ol></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Overview">Overview</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line867"><a class="http" href="../vesta/man/html/repos-ui.1.html">The repository tools</a> have a variety of different arguments that can be specified explicitly with command-line arguments or use default values.  Sometimes users would prefer a value different from the built-in default but would also rather not be forced to specify the value by hand on the command line each time. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><p class="line862">At this time, if users want to alter the default behavior of the repository tools they must write a <em>wrapper</em> such as a script or a shell alias.  This typically includes some code for determining a different parameter value and specifying it explicitly when invoking the actual repository tool.  Unfortunately, this tends to lead to a divergent user interface which must be maintained.  Users become confused about where Vesta ends and their layered user interface begins.  They have difficulty corresponding their user experience to the Vesta documentation and can have difficulty moving between projects which have different layered UIs.  Also, such wrappers tend to have insufficient documentation and subtle bugs. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line874">This page proposes a design way of replacing defaults with a user-supplied way of determining the values for each parameter.  This is essentially another &quot;plug-in&quot; system for the repository tools similar to the repository tool triggers.  The goal is to both make such modifications easier to implement (as triggers make before and after actions easier) and to avoid the need to wrappers that have a non-standard user-interface where possible. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><p class="line874">(Of course for activities that perform multiple steps users may still need scripts that call the repository tools, but the goal is to avoid the need for wrappers for basic operations like vcheckout and vcheckin.) <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><p class="line867">
+<h1 id="Examples">Examples</h1>
+<span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line874">This section lists some examples of parameter modifications.  Many of these have been implemented with wrapper scripts. <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line867">
+<h2 id="Checkout_Working_Directory_Name">Checkout Working Directory Name</h2>
+<span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line874">In projects with a hierarchy of packages, it's not uncommon to have two packages which have the same name.  This results in working directory name collisions which can make it difficult for users to immediately identify which package a given working directory corresponds to.  In cases like this, users would prefer to have their working directories named based on more than just the package name. <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line874">Suppose for example that a project has a number of different modules organized into  different directories and each of these modules has separate packages for code, documentation, and tests.  A user might regularly deal with a set of packages with such as: <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line867"><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span><pre><span class="anchor" id="line-1"></span>/vesta/example.com/foo/pdi/cin/doc
+<span class="anchor" id="line-2"></span>/vesta/example.com/foo/pdi/cin/code
+<span class="anchor" id="line-3"></span>/vesta/example.com/foo/pdi/cin/tests
+<span class="anchor" id="line-4"></span>
+<span class="anchor" id="line-5"></span>/vesta/example.com/foo/ici/dfi/doc
+<span class="anchor" id="line-6"></span>/vesta/example.com/foo/ici/dfi/code
+<span class="anchor" id="line-7"></span>/vesta/example.com/foo/ici/dfi/tests
+<span class="anchor" id="line-8"></span>
+<span class="anchor" id="line-9"></span>/vesta/example.com/foo/ici/fmc/doc
+<span class="anchor" id="line-10"></span>/vesta/example.com/foo/ici/fmc/code
+<span class="anchor" id="line-11"></span>/vesta/example.com/foo/ici/fmc/tests</pre><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line874">The user might want to automatically generate a working directory name from the package path.  Or they might prefer to make a decision when creating their hierarchy of packages about the preferred working directory name for each package, perhaps they would record it with an attribute on each package: <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line867"><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><pre><span class="anchor" id="line-1-1"></span>% vattrib -g default-working-dir-name \
+<span class="anchor" id="line-2-1"></span>  /vesta/example.com/foo/pdi/cin/doc \
+<span class="anchor" id="line-3-1"></span>  /vesta/example.com/foo/ici/dfi/code \
+<span class="anchor" id="line-4-1"></span>  /vesta/example.com/foo/ici/fmc/tests
+<span class="anchor" id="line-5-1"></span>/vesta/example.com/foo/pdi/cin/doc
+<span class="anchor" id="line-6-1"></span>  pdi-cin-doc
+<span class="anchor" id="line-7-1"></span>/vesta/example.com/foo/ici/dfi/code
+<span class="anchor" id="line-8-1"></span>  ici-dfi-code
+<span class="anchor" id="line-9-1"></span>/vesta/example.com/foo/ici/fmc/tests
+<span class="anchor" id="line-10-1"></span>  ici-fmc-tests</pre><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><p class="line867">
+<h2 id="Deeper_Session_Directory_Hierarchy">Deeper Session Directory Hierarchy</h2>
+<span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><p class="line874">On large projects, some packages wind up with a lot of session directories.  Consider a project with a central build package which users regular check out non-exclusively to make build overrides for their work.  Suppose the project has hundreds of users and the build package has thousands of versions over the course of the project.  That could easily become hundreds of thousands of session directories to contain individual user builds.  This can become a performance problem as listing or performing a lookup within a directory takes time proportional to the number of entries.  Even determining whether a name can be used for a new session directory requires looking it up in the directory which will contain the session directory. <span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><p class="line874">To avoid this, it's better to separate the non-exclusive session directories by user, and possibly basis version.  For example, instead of the session directory: <span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><p class="line867"><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><pre><span class="anchor" id="line-1-2"></span>/vesta/example.com/foo_build/checkout/1398.jsmith_example.com.1</pre><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><p class="line874">It might be better to create one of these session directory (implicitly creating the enclosing directories): <span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><p class="line867"><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><pre><span class="anchor" id="line-1-3"></span>/vesta/example.com/foo_build/checkout/jsmith/1398_example.com.1
+<span class="anchor" id="line-2-2"></span>/vesta/example.com/foo_build/checkout/jsmith_example.com/1398.1
+<span class="anchor" id="line-3-2"></span>/vesta/example.com/foo_build/checkout/jsmith/1398/example.com.1
+<span class="anchor" id="line-4-2"></span>/vesta/example.com/foo_build/checkout/jsmith_example.com/1398/1</pre><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><p class="line867">
+<h2 id="Avoiding_Unstable_Basis_Version">Avoiding Unstable Basis Version</h2>
+<span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><p class="line874">Suppose a project is using an automated build and testing system which marks package versions with an attribute when they have passed a series of tests. <span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><p class="line867"><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><pre><span class="anchor" id="line-1-4"></span>% vattrib -f passed_tests `vglob '/vesta/example.com/foo/ici/fmc/code/[LAST-5,LAST]'`
+<span class="anchor" id="line-2-3"></span>/vesta/example.com/foo/ici/fmc/code/18
+<span class="anchor" id="line-3-3"></span>        Sun Jun  8 20:09:43 EDT 2008
+<span class="anchor" id="line-4-3"></span>/vesta/example.com/foo/ici/fmc/code/19
+<span class="anchor" id="line-5-2"></span>        Tue Jun 17 23:07:51 EDT 2008
+<span class="anchor" id="line-6-2"></span>/vesta/example.com/foo/ici/fmc/code/20
+<span class="anchor" id="line-7-2"></span>        Mon Jun 23 13:51:02 EDT 2008
+<span class="anchor" id="line-8-2"></span>/vesta/example.com/foo/ici/fmc/code/21
+<span class="anchor" id="line-9-2"></span>/vesta/example.com/foo/ici/fmc/code/22</pre><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><p class="line874">A user performing a non-exclusive checkout might prefer to start from the latest version which has been marked as &quot;good&quot; in this way, rather than simply the latest version of the package.  In this case, they would want version 20 to be automatically selected for them because version 21 and 22 hasn't been marked as having passed tests yet. <span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><p class="line867">
+<h2 id="Path_Shortcuts">Path Shortcuts</h2>
+<span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><p class="line874">A Vesta repository that is used across more then one large project might end up with a directory structure similar to this: <span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><p class="line867"><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><pre><span class="anchor" id="line-1-5"></span>/vesta/example.com/foo/pdi/ici/doc
+<span class="anchor" id="line-2-4"></span>/vesta/example.com/foo/pdi/ici/code
+<span class="anchor" id="line-3-4"></span>/vesta/example.com/bar/pdi/ici/doc
+<span class="anchor" id="line-4-4"></span>/vesta/example.com/bar/pdi/ici/code</pre><span class="anchor" id="line-103"></span><span class="anchor" id="line-104"></span><p class="line862">And a user might want to save keystrokes and have vcheckout automatically select the correct package for them.  The command line might be <tt>vcheckout&nbsp;ici/code</tt> and the modifier would consult some portion of the user's environment to determine that <tt>/vesta/example.com/bar/pdi/ici/code</tt> is the correct package to check out. <span class="anchor" id="line-105"></span><span class="anchor" id="line-106"></span><p class="line867">
+<h1 id="Per-Tool_Notes">Per-Tool Notes</h1>
+<span class="anchor" id="line-107"></span><span class="anchor" id="line-108"></span><p class="line867">
+<h2 id="vcheckout">vcheckout</h2>
+<span class="anchor" id="line-109"></span><span class="anchor" id="line-110"></span><p class="line874">Modifiers must run before triggers, as triggers need variables that tell them what vcheckout is going to do and these would change what vcheckout will do <span class="anchor" id="line-111"></span><span class="anchor" id="line-112"></span><p class="line874">Modifiers should get the same variables as triggers for the current choices of what to do. <span class="anchor" id="line-113"></span><span class="anchor" id="line-114"></span><p class="line874">Order of operations: <span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span><ol type="1"><li>Parse command line and determine defaults <span class="anchor" id="line-117"></span></li><li>Run behavior modifiers to alter choices <span class="anchor" id="line-118"></span></li><li>Run pre triggers <span class="anchor" id="line-119"></span></li><li>Make repository changes <span class="anchor" id="line-120"></span></li><li>Run post triggers <span class="anchor" id="line-121"></span><span class="anchor" id="line-122"></span></li></ol><p class="line862">Settings (in the section <tt>[vcheckout&nbsp;modifiers]</tt>): <span class="anchor" id="line-123"></span><span class="anchor" id="line-124"></span><ul><li>modify_package <span class="anchor" id="line-125"></span><ul><li>A wrapper script in use at Intel makes a branch in some cases and then checks out the branch rather than the package.  (Intel people will know this as the &quot;stepping methodology&quot;.) <span class="anchor" id="line-126"></span></li></ul></li><li>modify_new_version <span class="anchor" id="line-127"></span></li><li>modify_old_version <span class="anchor" id="line-128"></span></li><li>modify_session_dir <span class="anchor" id="line-129"></span></li><li>modify_work_dir <span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span></li></ul><p class="line874">In what order should the modifiers be run?  It could matter in some cases.  We could make a vesta.cfg setting to change the order of the modifiers, but that could make things much more complicated.  This order seems like it should work most of the time: <span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><ol type="1"><li>modify_package <span class="anchor" id="line-134"></span></li><li>modify_old_version <span class="anchor" id="line-135"></span></li><li>modify_new_version <span class="anchor" id="line-136"></span></li><li>modify_session_dir <span class="anchor" id="line-137"></span></li><li>modify_work_dir <span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span></li></ol><p class="line874">The standard output of the invoked command will be the replacement for the value (old version, session dir, work dir).  The standard error will be left to go to the standard error of the repository tool. <span class="anchor" id="line-140"></span><span class="anchor" id="line-141"></span><p class="line874">We should add a trigger variable to tell whether the current setting (old version, session dir, work dir) was defaulted or specified explicitly on the command line.  It would still be up to the behavior modifier to decide whether or not to change the value.  Presumably, most would not change the value when it had been explicitly specified. <span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span><p class="line874">There should be a switch to disable the behavior modifiers (i.e. &quot;No, really, do what I said&quot;) <span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span><p class="line874">If a modifier exits with failure status, vcheckout should fail.  This makes it possible for a modifier to cancel an operations that's somehow invalid. <span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span><p class="line874">If a modifier does not want to change the value, it should print the current value to standard output. <span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><p class="line874">If a modifier produces no output (i.e. its output is the empty string) and exist with successful status, it's equivalent to &quot;omit X&quot; <span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span><ul><li><p class="line862">modify_new_version =&gt; -N <span class="anchor" id="line-152"></span></li><li><p class="line862">modify_old_version =&gt; -O <span class="anchor" id="line-153"></span></li><li><p class="line862">modify_session_dir =&gt; -S <span class="anchor" id="line-154"></span></li><li><p class="line862">modify_work_dir =&gt; -W <span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span></li></ul><p class="line874">Uniquification: <span class="anchor" id="line-157"></span><span class="anchor" id="line-158"></span><ul><li>The working directory is always be uniquified, even if you pass it with -w on the command line.  If the modifier doesn't change it, we don't need to re-uniqify it, but if they do we need to uniqify it. <span class="anchor" id="line-159"></span></li><li>Should a session directory provided by a modifier be uniqified?  The modifier could uniquify a session directory itself if it wants it to be unique, but it would be nice if it didn't have to.  For consistency, let's have the session directory always get uniquified like the working directory. <span class="anchor" id="line-160"></span></li><li>The new version should *not* be uniquified.  (Obviously a modifier could uniquify it if that was really desired, but vcheckout shouldn't do that.) <span class="anchor" id="line-161"></span><span class="anchor" id="line-162"></span></li></ul><p class="line874">We can allow an unverified old-version (or other value) to be passed through to the modifier to allow for something like &quot;-o blessed&quot;, &quot;-o tested&quot;, &quot;-o golden&quot;. <span class="anchor" id="line-163"></span><span class="anchor" id="line-164"></span><ul><li>A checkout wrapper script in use at Intel allows you to say &quot;-version=blessed&quot;.  It will look in the config file for a setting that tells it what attribute corresponds to &quot;blessed&quot; and then find the latest version with that attrbute.  This could be done with modify_old_version. <span class="anchor" id="line-165"></span><span class="anchor" id="line-166"></span></li><li class="gap">A checkout wrapper script in use at Intel allows you to specify a partial path to a package.  It then searches the repository (or rather a saved list of known packages) for a match.  This could be done with modify_package. <span class="anchor" id="line-167"></span><span class="anchor" id="line-168"></span></li></ul><p class="line867">
+<h2 id="vcheckin">vcheckin</h2>
+<span class="anchor" id="line-169"></span><span class="anchor" id="line-170"></span><p class="line862">Settings (in <tt>[vcheckin&nbsp;modifiers]</tt>): <span class="anchor" id="line-171"></span><span class="anchor" id="line-172"></span><ul><li>modify_new_version <span class="anchor" id="line-173"></span></li><li>modify_content <span class="anchor" id="line-174"></span></li><li>modify_session_dir <span class="anchor" id="line-175"></span></li><li>modify_work_dir <span class="anchor" id="line-176"></span><span class="anchor" id="line-177"></span></li></ul><p class="line874">Order in which modifiers run: <span class="anchor" id="line-178"></span><span class="anchor" id="line-179"></span><ol type="1"><li>modify_work_dir <span class="anchor" id="line-180"></span><ul><li>Set new-version, session-dir, content based on modified work-dir <span class="anchor" id="line-181"></span></li></ul></li><li>modify_new_version <span class="anchor" id="line-182"></span></li><li>modify_session_dir <span class="anchor" id="line-183"></span></li><li>modify_content <span class="anchor" id="line-184"></span><span class="anchor" id="line-185"></span></li></ol><p class="line874">Examples: <span class="anchor" id="line-186"></span><span class="anchor" id="line-187"></span><ul><li>modify_new_version <span class="anchor" id="line-188"></span><ul><li>Checkout was non-exclusive (i.e. currently there is no new version) but was based on the highest current version.  Reserve the next version now and use that. <span class="anchor" id="line-189"></span></li></ul></li><li>modify_work_dir <span class="anchor" id="line-190"></span><ul><li>User has a method for organizing the working directories into sub-directories under /vesta-work/user.  Find the right one. <span class="anchor" id="line-191"></span></li></ul></li><li>modify_content <span class="anchor" id="line-192"></span><ul><li>Do &quot;clean up&quot; or finalization operations that modify the working directory, vadvance a new snapshot, and use that instead.  (This is ugly, and means checking in something that probably hasn't been built or tested, but for practical reasons is needed in some cases.) <span class="anchor" id="line-193"></span><span class="anchor" id="line-194"></span></li></ul></li></ul><p class="line867">
+<h2 id="vbranch">vbranch</h2>
+<span class="anchor" id="line-195"></span><span class="anchor" id="line-196"></span><p class="line862">Settings (in <tt>[vbranch&nbsp;modifiers]</tt>): <span class="anchor" id="line-197"></span><span class="anchor" id="line-198"></span><ul><li>modify_branch <span class="anchor" id="line-199"></span></li><li>modify_old_version <span class="anchor" id="line-200"></span><span class="anchor" id="line-201"></span></li></ul><p class="line874">Order in which modifiers run <span class="anchor" id="line-202"></span><span class="anchor" id="line-203"></span><ol type="1"><li>modify_parent <span class="anchor" id="line-204"></span></li><li>modify_old_version <span class="anchor" id="line-205"></span></li><li>modify_branch <span class="anchor" id="line-206"></span><span class="anchor" id="line-207"></span></li></ol><p class="line874">Here's an example based on the Intel &quot;stepping methodology&quot; scripts: <span class="anchor" id="line-208"></span><span class="anchor" id="line-209"></span><ul><li>Command: vbranch beh/ubox/pizza <span class="anchor" id="line-210"></span></li><li>Original package: /vesta/example.com/foo/beh/ubox/pizza <span class="anchor" id="line-211"></span><ul><li>Eager branch: /vesta/example.com/foo_a0/beh/ubox/pizza <span class="anchor" id="line-212"></span><ul><li>old-version is some /vesta/example.com/foo/beh/ubox/pizza/N <span class="anchor" id="line-213"></span></li></ul></li><li>Lazy branch: /vesta/example.com/foo/beh/ubox/pizza/foo_a0.N <span class="anchor" id="line-214"></span><ul><li>old-version is /vesta/example.com/foo/beh/ubox/pizza/N <span class="anchor" id="line-215"></span><span class="anchor" id="line-216"></span></li></ul></li></ul></li></ul><p class="line867">
+<h2 id="vcreate">vcreate</h2>
+<span class="anchor" id="line-217"></span><span class="anchor" id="line-218"></span><p class="line862">Settings (in <tt>[vcreate&nbsp;modifiers]</tt>): <span class="anchor" id="line-219"></span><span class="anchor" id="line-220"></span><ul><li>modify_package <span class="anchor" id="line-221"></span></li><li>modify_old_version <span class="anchor" id="line-222"></span><span class="anchor" id="line-223"></span></li></ul><p class="line867">
+<h2 id="vmkdir">vmkdir</h2>
+<span class="anchor" id="line-224"></span><span class="anchor" id="line-225"></span><p class="line862">Settings (in <tt>[vmkdir&nbsp;modifiers]</tt>): <span class="anchor" id="line-226"></span><span class="anchor" id="line-227"></span><ul><li>modify_dir <span class="anchor" id="line-228"></span><span class="anchor" id="line-229"></span></li></ul><p class="line867">
+<h2 id="vrm">vrm</h2>
+<span class="anchor" id="line-230"></span><span class="anchor" id="line-231"></span><p class="line862">Settings (in <tt>[vrm&nbsp;modifiers]</tt>): <span class="anchor" id="line-232"></span><span class="anchor" id="line-233"></span><ul><li>modify_path <span class="anchor" id="line-234"></span></li></ul><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+

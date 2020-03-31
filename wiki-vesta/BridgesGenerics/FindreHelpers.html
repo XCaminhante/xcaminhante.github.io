@@ -1,0 +1,353 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<meta name="robots" content="index,nofollow">
+
+<title>BridgesGenerics/FindreHelpers - Vesta Wiki</title>
+<script type="text/javascript" src="moin_static199/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Search";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="../moin_static199/vesta/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="../moin_static199/vesta/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="../moin_static199/vesta/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../moin_static199/vesta/css/msie.css">
+<![endif]-->
+
+
+<link rel="alternate" title="Vesta Wiki: BridgesGenerics/FindreHelpers" href="FindreHelpers%3Fdiffs=1&amp;show_att=1&amp;action=rss_rc&amp;unique=0&amp;page=BridgesGenerics%252FFindreHelpers&amp;ddiffs=1.html" type="application/rss+xml">
+
+
+<link rel="Start" href="FrontPage.html">
+<link rel="Alternate" title="Wiki Markup" href="FindreHelpers%3Faction=raw.html">
+<link rel="Alternate" media="print" title="Print View" href="FindreHelpers%3Faction=print.html">
+<link rel="Up" href="../BridgesGenerics.html">
+<link rel="Search" href="FindPage.html">
+<link rel="Index" href="TitleIndex.html">
+<link rel="Glossary" href="WordIndex.html">
+<link rel="Help" href="HelpOnFormatting.html">
+</head>
+
+<body  lang="en" dir="ltr">
+
+<div id="header">
+
+<form id="searchform" method="get" action="FindreHelpers.html">
+<div>
+<input type="hidden" name="action" value="fullsearch">
+<input type="hidden" name="context" value="180">
+<label for="searchinput">Search:</label>
+<input id="searchinput" type="text" name="value" value="" size="20"
+    onfocus="searchFocus(this)" onblur="searchBlur(this)"
+    onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search">
+<input id="titlesearch" name="titlesearch" type="submit"
+    value="Titles" alt="Search Titles">
+<input id="fullsearch" name="fullsearch" type="submit"
+    value="Text" alt="Search Full Text">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="FrontPage.html"><img src="wiki/vesta/img/1line.png" alt="Vesta" height=44 width=202></a></div>
+<div id="locationline">
+
+<ul id="pagelocation">
+<li><a href="../BridgesGenerics.html">BridgesGenerics</a></li><li><a href="FindreHelpers.html">FindreHelpers</a></li>
+</ul>
+
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="RecentChanges.html">RecentChanges</a></li><li class="wikilink"><a href="FindPage.html">FindPage</a></li><li class="wikilink"><a href="HelpContents.html">HelpContents</a></li><li class="current"><a href="FindreHelpers.html">FindreHelpers</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>User</h1>
+<ul id="username"><li><a href="FindreHelpers%3Faction=login.html" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">Contents<ol><li>
+<a href="FindreHelpers.html#Introduction">Introduction</a></li><li>
+<a href="FindreHelpers.html#A..2Fgeneric.2Fre_match_text">./generic/re_match_text</a></li><li>
+<a href="FindreHelpers.html#A..2Fgeneric.2Fre_splt_text">./generic/re_splt_text</a></li><li>
+<a href="FindreHelpers.html#A..2Fgeneric.2Fre_substitute">./generic/re_substitute</a><ol><li>
+<a href="FindreHelpers.html#Functions">Functions</a></li><li>
+<a href="FindreHelpers.html#A..2Fgeneric.2Fre_replace_by_binding">./generic/re_replace_by_binding</a></li></ol></li></ol></div> <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><p class="line867">
+<h1 id="Introduction">Introduction</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">The <a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_findre.html">_findre primitive function</a> <span class="anchor" id="line-10"></span>which was introduced in <span class="anchor" id="line-11"></span><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/vesta/release/12.pre13/13">release/12.pre13/13</a> <span class="anchor" id="line-12"></span>is really jsut the core matching capability. <span class="anchor" id="line-13"></span>Using it often requires some extra code to do things like extract the <span class="anchor" id="line-14"></span>matched sub-string. <span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><p class="line862">There are some functions in <a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/generics">bridges/generics</a> <span class="anchor" id="line-17"></span>which make it easier to get things done with <tt>_findre</tt>. <span class="anchor" id="line-18"></span>(This page describes the functions in <span class="anchor" id="line-19"></span><a class="http" href="http://pub.vestasys.org/cgi-bin/vestaweb?path=/vesta/vestasys.org/bridges/generics/11">bridges/generics/11</a>.) <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line867">
+<h1 id="A..2Fgeneric.2Fre_match_text">./generic/re_match_text</h1>
+<span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line862">You've called <tt>_findre</tt> and it returned a match.  Now you have a <span class="anchor" id="line-24"></span>list of lists of integers.  How do you get the text that matched the <span class="anchor" id="line-25"></span>regular expression?  You could pull out the integers you need and call <span class="anchor" id="line-26"></span><a class="http" href="../vesta/doc/sdl-ref/primitive-functions/_sub.html#_sub(text,int,int)">_sub</a>, <span class="anchor" id="line-27"></span>or you could just use <tt>./generic/re_match_text</tt> <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line867"><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+function isnumbered(obj) {
+  return obj.childNodes.length && obj.firstChild.childNodes.length && obj.firstChild.firstChild.className == 'LineNumber';
+}
+function nformat(num,chrs,add) {
+  var nlen = Math.max(0,chrs-(''+num).length), res = '';
+  while (nlen>0) { res += ' '; nlen-- }
+  return res+num+add;
+}
+function addnumber(did, nstart, nstep) {
+  var c = document.getElementById(did), l = c.firstChild, n = 1;
+  if (!isnumbered(c)) {
+    if (typeof nstart == 'undefined') nstart = 1;
+    if (typeof nstep  == 'undefined') nstep = 1;
+    var n = nstart;
+    while (l != null) {
+      if (l.tagName == 'SPAN') {
+        var s = document.createElement('SPAN');
+        var a = document.createElement('A');
+        s.className = 'LineNumber';
+        a.appendChild(document.createTextNode(nformat(n,4,'')));
+        a.href = '#' + did + '_' + n;
+        s.appendChild(a);
+        s.appendChild(document.createTextNode(' '));
+        n += nstep;
+        if (l.childNodes.length) {
+          l.insertBefore(s, l.firstChild);
+        }
+        else {
+          l.appendChild(s);
+        }
+      }
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function remnumber(did) {
+  var c = document.getElementById(did), l = c.firstChild;
+  if (isnumbered(c)) {
+    while (l != null) {
+      if (l.tagName == 'SPAN' && l.firstChild.className == 'LineNumber') l.removeChild(l.firstChild);
+      l = l.nextSibling;
+    }
+  }
+  return false;
+}
+function togglenumber(did, nstart, nstep) {
+  var c = document.getElementById(did);
+  if (isnumbered(c)) {
+    remnumber(did);
+  } else {
+    addnumber(did,nstart,nstep);
+  }
+  return false;
+}
+</script>
+
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-d134556686759ebc18cffc7491e9313d2a1b61c3\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-d134556686759ebc18cffc7491e9313d2a1b61c3" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-d134556686759ebc18cffc7491e9313d2a1b61c3_1">   1</a> </span><span class="LineAnchor" id="CA-d134556686759ebc18cffc7491e9313d2a1b61c3_1"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;http://www.vestasys.org/doc/sdl-ref/primitive-functions/&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-d134556686759ebc18cffc7491e9313d2a1b61c3_2">   2</a> </span><span class="LineAnchor" id="CA-d134556686759ebc18cffc7491e9313d2a1b61c3_2"></span>  <span class="ID">match</span> <span class="SPChar">=</span> <span class="ID">_findre</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;/\\w+/&quot;</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-d134556686759ebc18cffc7491e9313d2a1b61c3_3">   3</a> </span><span class="LineAnchor" id="CA-d134556686759ebc18cffc7491e9313d2a1b61c3_3"></span>  <span class="ID">match_text</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_match_text</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="ID">match</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-d134556686759ebc18cffc7491e9313d2a1b61c3_4">   4</a> </span><span class="LineAnchor" id="CA-d134556686759ebc18cffc7491e9313d2a1b61c3_4"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-d134556686759ebc18cffc7491e9313d2a1b61c3_5">   5</a> </span><span class="LineAnchor" id="CA-d134556686759ebc18cffc7491e9313d2a1b61c3_5"></span>  <span class="Comment">// match_text == &quot;/doc/&quot;</span></span>
+</pre></div><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><p class="line874">Or maybe you want the text of just one parenthesized sub-expression <span class="anchor" id="line-38"></span>within the match.  <tt>./generic/re_match_text</tt> has an optional third <span class="anchor" id="line-39"></span>argument for which piece of the match you want. <span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><p class="line867"><span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-1a66fb6c53017faef19e27bf9574389ae93512c1\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-1a66fb6c53017faef19e27bf9574389ae93512c1" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-1a66fb6c53017faef19e27bf9574389ae93512c1_1">   1</a> </span><span class="LineAnchor" id="CA-1a66fb6c53017faef19e27bf9574389ae93512c1_1"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;http://www.vestasys.org/doc/sdl-ref/primitive-functions/&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-1a66fb6c53017faef19e27bf9574389ae93512c1_2">   2</a> </span><span class="LineAnchor" id="CA-1a66fb6c53017faef19e27bf9574389ae93512c1_2"></span>  <span class="ID">match</span> <span class="SPChar">=</span> <span class="ID">_findre</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;/(\\w+)/&quot;</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-1a66fb6c53017faef19e27bf9574389ae93512c1_3">   3</a> </span><span class="LineAnchor" id="CA-1a66fb6c53017faef19e27bf9574389ae93512c1_3"></span>  <span class="ID">match_text</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_match_text</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="ID">match</span><span class="SPChar">,</span> <span class="Number">1</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-1a66fb6c53017faef19e27bf9574389ae93512c1_4">   4</a> </span><span class="LineAnchor" id="CA-1a66fb6c53017faef19e27bf9574389ae93512c1_4"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-1a66fb6c53017faef19e27bf9574389ae93512c1_5">   5</a> </span><span class="LineAnchor" id="CA-1a66fb6c53017faef19e27bf9574389ae93512c1_5"></span>  <span class="Comment">// match_text == &quot;doc&quot;</span></span>
+</pre></div><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><p class="line874">What if you ask for a parenthesized sub-expression that matched <span class="anchor" id="line-50"></span>nothing?  (This can happen if it's on the side of an alternation not <span class="anchor" id="line-51"></span>taken during the match.)  <tt>./generic/re_match_text</tt> will return <span class="anchor" id="line-52"></span>FALSE in that case by default: <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><p class="line867"><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><span class="anchor" id="line-60"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-b178a636788c1e1971f4416de6a201503f5ae81d\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-b178a636788c1e1971f4416de6a201503f5ae81d" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-b178a636788c1e1971f4416de6a201503f5ae81d_1">   1</a> </span><span class="LineAnchor" id="CA-b178a636788c1e1971f4416de6a201503f5ae81d_1"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;foo %bar&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-b178a636788c1e1971f4416de6a201503f5ae81d_2">   2</a> </span><span class="LineAnchor" id="CA-b178a636788c1e1971f4416de6a201503f5ae81d_2"></span>  <span class="ID">match</span> <span class="SPChar">=</span> <span class="ID">_findre</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;(%(\\w+)|\\w+)\\s*&quot;</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-b178a636788c1e1971f4416de6a201503f5ae81d_3">   3</a> </span><span class="LineAnchor" id="CA-b178a636788c1e1971f4416de6a201503f5ae81d_3"></span>  <span class="ID">match_text</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_match_text</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="ID">match</span><span class="SPChar">,</span> <span class="Number">2</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-b178a636788c1e1971f4416de6a201503f5ae81d_4">   4</a> </span><span class="LineAnchor" id="CA-b178a636788c1e1971f4416de6a201503f5ae81d_4"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-b178a636788c1e1971f4416de6a201503f5ae81d_5">   5</a> </span><span class="LineAnchor" id="CA-b178a636788c1e1971f4416de6a201503f5ae81d_5"></span>  <span class="Comment">// match_text == FALSE</span></span>
+</pre></div><span class="anchor" id="line-61"></span><span class="anchor" id="line-62"></span><p class="line874">However, it also takes an optional fourth argument specifying what to <span class="anchor" id="line-63"></span>return when there is no such match: <span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><p class="line867"><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547_1">   1</a> </span><span class="LineAnchor" id="CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547_1"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;foo %bar&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547_2">   2</a> </span><span class="LineAnchor" id="CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547_2"></span>  <span class="ID">match</span> <span class="SPChar">=</span> <span class="ID">_findre</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;(%(\\w+)|\\w+)\\s*&quot;</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547_3">   3</a> </span><span class="LineAnchor" id="CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547_3"></span>  <span class="ID">match_text</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_match_text</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="ID">match</span><span class="SPChar">,</span> <span class="Number">2</span><span class="SPChar">,</span> <span class="String">&quot;NOMATCH!&quot;</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547_4">   4</a> </span><span class="LineAnchor" id="CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547_4"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547_5">   5</a> </span><span class="LineAnchor" id="CA-a8266bf5d9997bfced1f6223e2a13fc383b8d547_5"></span>  <span class="Comment">// match_text == &quot;NOMATCH!&quot;</span></span>
+</pre></div><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><p class="line867">
+<h1 id="A..2Fgeneric.2Fre_splt_text">./generic/re_splt_text</h1>
+<span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><p class="line874">Suppose that you need to split up a piece of text into a list and you <span class="anchor" id="line-76"></span>have a regular expression that matches the separators between the <span class="anchor" id="line-77"></span>pieces you're interested in.  <tt>./generic/re_splt_text</tt> can help. <span class="anchor" id="line-78"></span><span class="anchor" id="line-79"></span><p class="line867"><span class="anchor" id="line-80"></span><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><span class="anchor" id="line-96"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-f4804d5152de005a244f5ea2938bc56aa96bc266\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_1">   1</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_1"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;http://www.vestasys.org/doc/sdl-ref/primitive-functions/&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_2">   2</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_2"></span>  <span class="ID">word_list</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_splt_text</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;\\W+&quot;</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_3">   3</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_3"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_4">   4</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_4"></span>  <span class="Comment">/*</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_5">   5</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_5"></span><span class="Comment">  word_list ==</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_6">   6</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_6"></span><span class="Comment">    &lt; &quot;http&quot;,</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_7">   7</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_7"></span><span class="Comment">      &quot;www&quot;,</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_8">   8</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_8"></span><span class="Comment">      &quot;vestasys&quot;,</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_9">   9</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_9"></span><span class="Comment">      &quot;org&quot;,</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_10">  10</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_10"></span><span class="Comment">      &quot;doc&quot;,</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_11">  11</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_11"></span><span class="Comment">      &quot;sdl&quot;,</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_12">  12</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_12"></span><span class="Comment">      &quot;ref&quot;,</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_13">  13</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_13"></span><span class="Comment">      &quot;primitive&quot;,</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_14">  14</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_14"></span><span class="Comment">      &quot;functions&quot;,</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_15">  15</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_15"></span><span class="Comment">      &quot;&quot; &gt;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-f4804d5152de005a244f5ea2938bc56aa96bc266_16">  16</a> </span><span class="LineAnchor" id="CA-f4804d5152de005a244f5ea2938bc56aa96bc266_16"></span><span class="Comment">  */</span></span>
+</pre></div><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><p class="line874">Note that if the regular expression matches right at the beginning of <span class="anchor" id="line-99"></span>the string or right at the end of the string, you will get empty <span class="anchor" id="line-100"></span>strings for the portiong before or after those matches. <span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><p class="line862">Also note that <tt>./generic/re_splt_text</tt> is a recursive function. <span class="anchor" id="line-103"></span>Deep recursion can cause a fatal error if the stack overflows, so you <span class="anchor" id="line-104"></span>should use caution when applying <tt>./generic/re_splt_text</tt> on very <span class="anchor" id="line-105"></span>large text strings. <span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span><p class="line867">
+<h1 id="A..2Fgeneric.2Fre_substitute">./generic/re_substitute</h1>
+<span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span><p class="line874">Once you've matched a regular expression, you may want to modify the <span class="anchor" id="line-110"></span>original text by replacing the match with something else. <span class="anchor" id="line-111"></span><tt>./generic/re_substitute</tt> is the function to help you with that. <span class="anchor" id="line-112"></span><span class="anchor" id="line-113"></span><p class="line867"><span class="anchor" id="line-114"></span><span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span><span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-d681e3f5b12404ffe52fdb3fdfd79bb1269abeb8\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-d681e3f5b12404ffe52fdb3fdfd79bb1269abeb8" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-d681e3f5b12404ffe52fdb3fdfd79bb1269abeb8_1">   1</a> </span><span class="LineAnchor" id="CA-d681e3f5b12404ffe52fdb3fdfd79bb1269abeb8_1"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;http://www.vestasys.org/doc/sdl-ref/primitive-functions/&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-d681e3f5b12404ffe52fdb3fdfd79bb1269abeb8_2">   2</a> </span><span class="LineAnchor" id="CA-d681e3f5b12404ffe52fdb3fdfd79bb1269abeb8_2"></span>  <span class="ID">new_txt</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_substitute</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;\\W+&quot;</span><span class="SPChar">,</span> <span class="String">&quot;,&quot;</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-d681e3f5b12404ffe52fdb3fdfd79bb1269abeb8_3">   3</a> </span><span class="LineAnchor" id="CA-d681e3f5b12404ffe52fdb3fdfd79bb1269abeb8_3"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-d681e3f5b12404ffe52fdb3fdfd79bb1269abeb8_4">   4</a> </span><span class="LineAnchor" id="CA-d681e3f5b12404ffe52fdb3fdfd79bb1269abeb8_4"></span>  <span class="Comment">// new_txt == &quot;http,www.vestasys.org/doc/sdl-ref/primitive-functions/&quot;</span></span>
+</pre></div><span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><p class="line874">If you want to replace all matches, rather than just the first one, <span class="anchor" id="line-121"></span>pass TRUE for the optional fourth parameter: <span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span><p class="line867"><span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span><span class="anchor" id="line-128"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-9d4d03d7c1c3df21701804c51995bea3ea988986\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-9d4d03d7c1c3df21701804c51995bea3ea988986" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-9d4d03d7c1c3df21701804c51995bea3ea988986_1">   1</a> </span><span class="LineAnchor" id="CA-9d4d03d7c1c3df21701804c51995bea3ea988986_1"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;http://www.vestasys.org/doc/sdl-ref/primitive-functions/&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-9d4d03d7c1c3df21701804c51995bea3ea988986_2">   2</a> </span><span class="LineAnchor" id="CA-9d4d03d7c1c3df21701804c51995bea3ea988986_2"></span>  <span class="ID">new_txt</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_substitute</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;\\W+&quot;</span><span class="SPChar">,</span> <span class="String">&quot;,&quot;</span><span class="SPChar">,</span> <span class="ConsWord">TRUE</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-9d4d03d7c1c3df21701804c51995bea3ea988986_3">   3</a> </span><span class="LineAnchor" id="CA-9d4d03d7c1c3df21701804c51995bea3ea988986_3"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-9d4d03d7c1c3df21701804c51995bea3ea988986_4">   4</a> </span><span class="LineAnchor" id="CA-9d4d03d7c1c3df21701804c51995bea3ea988986_4"></span>  <span class="Comment">// new_txt == &quot;http,www,vestasys,org,doc,sdl,ref,primitive,functions,&quot;</span></span>
+</pre></div><span class="anchor" id="line-129"></span><span class="anchor" id="line-130"></span><p class="line874">Suppose that rather than replacing a match with fixed text you want to <span class="anchor" id="line-131"></span>replace it with the text which matched a particular parenthesized <span class="anchor" id="line-132"></span>sub-expression of the rgular expression.  Just pass an integer for the <span class="anchor" id="line-133"></span>replacement: <span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><p class="line867"><span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span><span class="anchor" id="line-138"></span><span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-0df24f84ceaacda9eff0b06ee6fff9481edb398f\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-0df24f84ceaacda9eff0b06ee6fff9481edb398f" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-0df24f84ceaacda9eff0b06ee6fff9481edb398f_1">   1</a> </span><span class="LineAnchor" id="CA-0df24f84ceaacda9eff0b06ee6fff9481edb398f_1"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;#:foo:# bar #:blah:# mog&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-0df24f84ceaacda9eff0b06ee6fff9481edb398f_2">   2</a> </span><span class="LineAnchor" id="CA-0df24f84ceaacda9eff0b06ee6fff9481edb398f_2"></span>  <span class="ID">new_txt</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_substitute</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;#:(\\w+):#&quot;</span><span class="SPChar">,</span> <span class="Number">1</span><span class="SPChar">,</span> <span class="ConsWord">TRUE</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-0df24f84ceaacda9eff0b06ee6fff9481edb398f_3">   3</a> </span><span class="LineAnchor" id="CA-0df24f84ceaacda9eff0b06ee6fff9481edb398f_3"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-0df24f84ceaacda9eff0b06ee6fff9481edb398f_4">   4</a> </span><span class="LineAnchor" id="CA-0df24f84ceaacda9eff0b06ee6fff9481edb398f_4"></span>  <span class="Comment">// new_txt == &quot;foo bar blah mog&quot;</span></span>
+</pre></div><span class="anchor" id="line-141"></span><span class="anchor" id="line-142"></span><p class="line874">What if you want the replacement text to be made up of fixed text <span class="anchor" id="line-143"></span>combined together with the text macthing one or more parenthesized <span class="anchor" id="line-144"></span>sub-expressions?  You can pass a list for the replacement: <span class="anchor" id="line-145"></span><span class="anchor" id="line-146"></span><p class="line867"><span class="anchor" id="line-147"></span><span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span><span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-0e01b247216a796d967e0895702f09067a6e4f6e\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-0e01b247216a796d967e0895702f09067a6e4f6e" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-0e01b247216a796d967e0895702f09067a6e4f6e_1">   1</a> </span><span class="LineAnchor" id="CA-0e01b247216a796d967e0895702f09067a6e4f6e_1"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;abc:123 def:456 ghi:789&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-0e01b247216a796d967e0895702f09067a6e4f6e_2">   2</a> </span><span class="LineAnchor" id="CA-0e01b247216a796d967e0895702f09067a6e4f6e_2"></span>  <span class="ID">new_txt</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_substitute</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;(\\w+):(\\d+)&quot;</span><span class="SPChar">,</span> <span class="SPChar">&lt;</span><span class="Number">2</span><span class="SPChar">,</span> <span class="String">&quot;=&quot;</span><span class="SPChar">,</span> <span class="Number">1</span><span class="SPChar">&gt;</span><span class="SPChar">,</span> <span class="ConsWord">TRUE</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-0e01b247216a796d967e0895702f09067a6e4f6e_3">   3</a> </span><span class="LineAnchor" id="CA-0e01b247216a796d967e0895702f09067a6e4f6e_3"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-0e01b247216a796d967e0895702f09067a6e4f6e_4">   4</a> </span><span class="LineAnchor" id="CA-0e01b247216a796d967e0895702f09067a6e4f6e_4"></span>  <span class="Comment">// new_txt == &quot;123=abc 456=def 789=ghi&quot;</span></span>
+</pre></div><span class="anchor" id="line-152"></span><span class="anchor" id="line-153"></span><p class="line874">Note that you can use the integer zero for the entire match.  You can <span class="anchor" id="line-154"></span>use this to preserve the matched text and add your own: <span class="anchor" id="line-155"></span><span class="anchor" id="line-156"></span><p class="line867"><span class="anchor" id="line-157"></span><span class="anchor" id="line-158"></span><span class="anchor" id="line-159"></span><span class="anchor" id="line-160"></span><span class="anchor" id="line-161"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-e7737545122e215b35460e7843b2a43b19e2466a\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-e7737545122e215b35460e7843b2a43b19e2466a" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-e7737545122e215b35460e7843b2a43b19e2466a_1">   1</a> </span><span class="LineAnchor" id="CA-e7737545122e215b35460e7843b2a43b19e2466a_1"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;http://www.vestasys.org/doc/sdl-ref/primitive-functions/&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-e7737545122e215b35460e7843b2a43b19e2466a_2">   2</a> </span><span class="LineAnchor" id="CA-e7737545122e215b35460e7843b2a43b19e2466a_2"></span>  <span class="ID">new_txt</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_substitute</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;\\w+&quot;</span><span class="SPChar">,</span> <span class="SPChar">&lt;</span><span class="String">&quot;{&quot;</span><span class="SPChar">,</span> <span class="Number">0</span><span class="SPChar">,</span> <span class="String">&quot;}&quot;</span><span class="SPChar">&gt;</span><span class="SPChar">,</span> <span class="ConsWord">TRUE</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-e7737545122e215b35460e7843b2a43b19e2466a_3">   3</a> </span><span class="LineAnchor" id="CA-e7737545122e215b35460e7843b2a43b19e2466a_3"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-e7737545122e215b35460e7843b2a43b19e2466a_4">   4</a> </span><span class="LineAnchor" id="CA-e7737545122e215b35460e7843b2a43b19e2466a_4"></span>  <span class="Comment">// new_txt == &quot;{http}://{www}.{vestasys}.{org}/{doc}/{sdl}-{ref}/{primitive}-{functions}/&quot;</span></span>
+</pre></div><span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><p class="line867">
+<h2 id="Functions">Functions</h2>
+<span class="anchor" id="line-164"></span><span class="anchor" id="line-165"></span><p class="line874">In addition to text strings and integers, you can pass functions to be <span class="anchor" id="line-166"></span>used for replacement.  On each match, the function will be called with <span class="anchor" id="line-167"></span>the original text and the result of <tt>_findre</tt>.  The function can <span class="anchor" id="line-168"></span>use those (e.g. with <tt>./generic/re_match_text</tt>) and determine the <span class="anchor" id="line-169"></span>rpelacement text however it likes. <span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span><p class="line874">Here's an example: <span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span><p class="line867"><span class="anchor" id="line-174"></span><span class="anchor" id="line-175"></span><span class="anchor" id="line-176"></span><span class="anchor" id="line-177"></span><span class="anchor" id="line-178"></span><span class="anchor" id="line-179"></span><span class="anchor" id="line-180"></span><span class="anchor" id="line-181"></span><span class="anchor" id="line-182"></span><span class="anchor" id="line-183"></span><span class="anchor" id="line-184"></span><span class="anchor" id="line-185"></span><span class="anchor" id="line-186"></span><span class="anchor" id="line-187"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-35199424fbdcced46ae7599191de18e9eb46afcb\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_1">   1</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_1"></span>  <span class="Comment">/**nocache**/</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_2">   2</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_2"></span>  <span class="ID">my_subst</span><span class="SPChar">(</span><span class="ID">orig_txt</span><span class="SPChar">,</span> <span class="ID">match</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_3">   3</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_3"></span>  <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_4">   4</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_4"></span>    <span class="ID">match_1</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_match_text</span><span class="SPChar">(</span><span class="ID">orig_txt</span><span class="SPChar">,</span> <span class="ID">match</span><span class="SPChar">,</span> <span class="Number">1</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_5">   5</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_5"></span>    <span class="Comment">// If the first sub-expression was &quot;foo&quot;, replace with &quot;bar&quot;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_6">   6</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_6"></span>    <span class="ResWord">return</span> <span class="ResWord">if</span> <span class="SPChar">(</span><span class="ID">match_1</span> <span class="SPChar">=</span><span class="SPChar">=</span> <span class="String">&quot;foo&quot;</span><span class="SPChar">)</span> <span class="ResWord">then</span> <span class="String">&quot;bar&quot;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_7">   7</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_7"></span>           <span class="Comment">// ...otherwise leave the match the same</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_8">   8</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_8"></span>           <span class="ResWord">else</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_match_text</span><span class="SPChar">(</span><span class="ID">orig_txt</span><span class="SPChar">,</span> <span class="ID">match</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_9">   9</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_9"></span>  <span class="SPChar">}</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_10">  10</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_10"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;%abc %foo %xyz&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_11">  11</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_11"></span>  <span class="ID">new_txt</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_substitute</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;%(\\w+)&quot;</span><span class="SPChar">,</span> <span class="ID">my_subst</span><span class="SPChar">,</span> <span class="ConsWord">TRUE</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_12">  12</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_12"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-35199424fbdcced46ae7599191de18e9eb46afcb_13">  13</a> </span><span class="LineAnchor" id="CA-35199424fbdcced46ae7599191de18e9eb46afcb_13"></span>  <span class="Comment">// new_txt == &quot;%abc bar %xyz&quot;</span></span>
+</pre></div><span class="anchor" id="line-188"></span><span class="anchor" id="line-189"></span><p class="line874">Note that you can put a function such as this in a list passed for a <span class="anchor" id="line-190"></span>substitution along with other pieces (just like text strings and <span class="anchor" id="line-191"></span>integers). <span class="anchor" id="line-192"></span><span class="anchor" id="line-193"></span><p class="line867">
+<h2 id="A..2Fgeneric.2Fre_replace_by_binding">./generic/re_replace_by_binding</h2>
+<span class="anchor" id="line-194"></span><span class="anchor" id="line-195"></span><p class="line874">Perhaps a more realistic use of a function passed to <span class="anchor" id="line-196"></span><tt>./generic/re_substitute</tt> is for variable substitution.  A portion <span class="anchor" id="line-197"></span>of the match could be looked up in a binding, and the associated value <span class="anchor" id="line-198"></span>could be substituted. <span class="anchor" id="line-199"></span><span class="anchor" id="line-200"></span><p class="line867"><span class="anchor" id="line-201"></span><span class="anchor" id="line-202"></span><span class="anchor" id="line-203"></span><span class="anchor" id="line-204"></span><span class="anchor" id="line-205"></span><span class="anchor" id="line-206"></span><span class="anchor" id="line-207"></span><span class="anchor" id="line-208"></span><span class="anchor" id="line-209"></span><span class="anchor" id="line-210"></span><span class="anchor" id="line-211"></span><span class="anchor" id="line-212"></span><span class="anchor" id="line-213"></span><span class="anchor" id="line-214"></span><span class="anchor" id="line-215"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-58656e4d468c32f96fb654b7a5e956b45605079b\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_1">   1</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_1"></span>  <span class="ID">my_vars</span> <span class="SPChar">=</span> <span class="SPChar">[</span><span class="ID">foo</span><span class="SPChar">=</span><span class="String">&quot;abc&quot;</span><span class="SPChar">,</span> <span class="ID">bar</span><span class="SPChar">=</span><span class="String">&quot;xyz&quot;</span><span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_2">   2</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_2"></span>  <span class="Comment">/**nocache**/</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_3">   3</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_3"></span>  <span class="ID">my_subst</span><span class="SPChar">(</span><span class="ID">orig_txt</span><span class="SPChar">,</span> <span class="ID">match</span><span class="SPChar">)</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_4">   4</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_4"></span>  <span class="SPChar">{</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_5">   5</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_5"></span>    <span class="ID">match_1</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_match_text</span><span class="SPChar">(</span><span class="ID">orig_txt</span><span class="SPChar">,</span> <span class="ID">match</span><span class="SPChar">,</span> <span class="Number">1</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_6">   6</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_6"></span>    <span class="Comment">// If this is one of our variables, replace it...</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_7">   7</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_7"></span>    <span class="ResWord">return</span> <span class="ResWord">if</span> <span class="ID">my_vars</span><span class="SPChar">!</span>$<span class="ID">match_1</span> <span class="ResWord">then</span> <span class="ID">my_vars</span><span class="SPChar">/</span>$<span class="ID">match_1</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_8">   8</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_8"></span>           <span class="Comment">// ...otherwise leave the match the same</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_9">   9</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_9"></span>           <span class="ResWord">else</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_match_text</span><span class="SPChar">(</span><span class="ID">orig_txt</span><span class="SPChar">,</span> <span class="ID">match</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_10">  10</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_10"></span>  <span class="SPChar">}</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_11">  11</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_11"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;%foo, %bar&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_12">  12</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_12"></span>  <span class="ID">new_txt</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_substitute</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;%(\\w+)&quot;</span><span class="SPChar">,</span> <span class="ID">my_subst</span><span class="SPChar">,</span> <span class="ConsWord">TRUE</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_13">  13</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_13"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-58656e4d468c32f96fb654b7a5e956b45605079b_14">  14</a> </span><span class="LineAnchor" id="CA-58656e4d468c32f96fb654b7a5e956b45605079b_14"></span>  <span class="Comment">// new_txt == &quot;abc, xyz&quot;</span></span>
+</pre></div><span class="anchor" id="line-216"></span><span class="anchor" id="line-217"></span><p class="line862">To make this a little easier, <tt>./generic/re_replace_by_binding</tt> <span class="anchor" id="line-218"></span>can generate such a function for you.  Its arguments are the index of <span class="anchor" id="line-219"></span>the sub-expression to use as the name and the binding of replacements. <span class="anchor" id="line-220"></span><span class="anchor" id="line-221"></span><p class="line867"><span class="anchor" id="line-222"></span><span class="anchor" id="line-223"></span><span class="anchor" id="line-224"></span><span class="anchor" id="line-225"></span><span class="anchor" id="line-226"></span><span class="anchor" id="line-227"></span><span class="anchor" id="line-228"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_1">   1</a> </span><span class="LineAnchor" id="CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_1"></span>  <span class="ID">my_vars</span> <span class="SPChar">=</span> <span class="SPChar">[</span><span class="ID">foo</span><span class="SPChar">=</span><span class="String">&quot;abc&quot;</span><span class="SPChar">,</span> <span class="ID">bar</span><span class="SPChar">=</span><span class="String">&quot;xyz&quot;</span><span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_2">   2</a> </span><span class="LineAnchor" id="CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_2"></span>  <span class="ID">my_subst</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_replace_by_binding</span><span class="SPChar">(</span><span class="Number">1</span><span class="SPChar">,</span> <span class="ID">my_vars</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_3">   3</a> </span><span class="LineAnchor" id="CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_3"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;%foo, %bar&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_4">   4</a> </span><span class="LineAnchor" id="CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_4"></span>  <span class="ID">new_txt</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_substitute</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;%(\\w+)&quot;</span><span class="SPChar">,</span> <span class="ID">my_subst</span><span class="SPChar">,</span> <span class="ConsWord">TRUE</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_5">   5</a> </span><span class="LineAnchor" id="CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_5"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_6">   6</a> </span><span class="LineAnchor" id="CA-2836ab8726baa092b9b5379bb52abb0a4a1b7cf7_6"></span>  <span class="Comment">// new_txt == &quot;abc, xyz&quot;</span></span>
+</pre></div><span class="anchor" id="line-229"></span><span class="anchor" id="line-230"></span><p class="line874">As in the example above, the function created by <span class="anchor" id="line-231"></span><tt>./generic/re_replace_by_binding</tt> will leave the original <span class="anchor" id="line-232"></span>un-modified if there is no corresponding name in the binding. <span class="anchor" id="line-233"></span><span class="anchor" id="line-234"></span><p class="line867"><span class="anchor" id="line-235"></span><span class="anchor" id="line-236"></span><span class="anchor" id="line-237"></span><span class="anchor" id="line-238"></span><span class="anchor" id="line-239"></span><span class="anchor" id="line-240"></span><span class="anchor" id="line-241"></span><div class="codearea" dir="ltr" lang="en">
+<script type="text/javascript">
+document.write('<a href="FindreHelpers.html#" onclick="return togglenumber(\'CA-a572b52f971788c7f623878e64487937e22c6549\', 1, 1);" \
+                class="codenumbers">Toggle line numbers<\/a>');
+</script>
+<pre dir="ltr" id="CA-a572b52f971788c7f623878e64487937e22c6549" lang="en"><span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-a572b52f971788c7f623878e64487937e22c6549_1">   1</a> </span><span class="LineAnchor" id="CA-a572b52f971788c7f623878e64487937e22c6549_1"></span>  <span class="ID">my_vars</span> <span class="SPChar">=</span> <span class="SPChar">[</span><span class="ID">foo</span><span class="SPChar">=</span><span class="String">&quot;abc&quot;</span><span class="SPChar">,</span> <span class="ID">bar</span><span class="SPChar">=</span><span class="String">&quot;xyz&quot;</span><span class="SPChar">]</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-a572b52f971788c7f623878e64487937e22c6549_2">   2</a> </span><span class="LineAnchor" id="CA-a572b52f971788c7f623878e64487937e22c6549_2"></span>  <span class="ID">my_subst</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_replace_by_binding</span><span class="SPChar">(</span><span class="Number">1</span><span class="SPChar">,</span> <span class="ID">my_vars</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-a572b52f971788c7f623878e64487937e22c6549_3">   3</a> </span><span class="LineAnchor" id="CA-a572b52f971788c7f623878e64487937e22c6549_3"></span>  <span class="ID">txt</span> <span class="SPChar">=</span> <span class="String">&quot;%foo, %mog, %bar&quot;</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-a572b52f971788c7f623878e64487937e22c6549_4">   4</a> </span><span class="LineAnchor" id="CA-a572b52f971788c7f623878e64487937e22c6549_4"></span>  <span class="ID">new_txt</span> <span class="SPChar">=</span> <span class="ID">.</span><span class="SPChar">/</span><span class="ID">generic</span><span class="SPChar">/</span><span class="ID">re_substitute</span><span class="SPChar">(</span><span class="ID">txt</span><span class="SPChar">,</span> <span class="String">&quot;%(\\w+)&quot;</span><span class="SPChar">,</span> <span class="ID">my_subst</span><span class="SPChar">,</span> <span class="ConsWord">TRUE</span><span class="SPChar">)</span><span class="SPChar">;</span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-a572b52f971788c7f623878e64487937e22c6549_5">   5</a> </span><span class="LineAnchor" id="CA-a572b52f971788c7f623878e64487937e22c6549_5"></span></span>
+<span class="line"><span class="LineNumber"><a href="FindreHelpers.html#CA-a572b52f971788c7f623878e64487937e22c6549_6">   6</a> </span><span class="LineAnchor" id="CA-a572b52f971788c7f623878e64487937e22c6549_6"></span>  <span class="Comment">// new_txt == &quot;abc, %mog, xyz&quot;</span></span>
+</pre></div><span class="anchor" id="line-242"></span><span class="anchor" id="bottom"></span></div>
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul id="credits">
+<li><a href="http://moinmo.in/" title="This site uses the MoinMoin Wiki software.">MoinMoin Powered</a></li><li><a href="http://moinmo.in/Python" title="MoinMoin is written in Python.">Python Powered</a></li><li><a href="http://moinmo.in/GPL" title="MoinMoin is GPL licensed.">GPL licensed</a></li><li><a href="http://validator.w3.org/check?uri=referer" title="Click here to validate this page.">Valid HTML 4.01</a></li>
+</ul>
+
+
+</div>
+</body>
+</html>
+
