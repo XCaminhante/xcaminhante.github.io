@@ -214,7 +214,7 @@ h3 { margin: 0px 0px 10px; padding: 4px; font-size: 100%; line-height: 1em; font
 &lt;p&gt; Vesta CMS is LGPL-licensed software. This is an atempt to backup and revive the software. A copy of the websites associated will be mirrored here and the source-code mirrored on a Git repo. &lt;/p&gt;</t>
 <t tx="caminhante.20200219130100.1">&lt;h1&gt; About this site &lt;/h1&gt;</t>
 <t tx="caminhante.20200219130551.1">&lt;h1&gt; Vesta CMS &lt;/h1&gt;</t>
-<t tx="caminhante.20200219130700.1">&lt;h2&gt; &lt;a href="http://www.vestasys.org/"&gt; http://www.vestasys.org/ &lt;/a&gt; backup &lt;/h2&gt;
+<t tx="caminhante.20200219130700.1">&lt;h2&gt; &lt;a href="http://www.vestasys.org/"&gt; http://www.vestasys.org/ &lt;/a&gt; mirror &lt;/h2&gt;
 &lt;p&gt; &lt;a href="vesta/index.html"&gt; Here. &lt;/a&gt; It's still under revision. &lt;/p&gt;</t>
 <t tx="caminhante.20200219140857.1">&lt;div id="menu"&gt;
 @others
@@ -225,9 +225,9 @@ h3 { margin: 0px 0px 10px; padding: 4px; font-size: 100%; line-height: 1em; font
 &lt;a href="wiki-vesta/FrontPage.html"&gt; wiki.vestasys.org &lt;/a&gt; &lt;br/&gt;
 &lt;a href="pub-vesta/index.html"&gt; pub.vestasys.org &lt;/a&gt; &lt;br/&gt;
 &lt;/div&gt;</t>
-<t tx="caminhante.20200219141223.1">&lt;h2&gt; &lt;a href="http://wiki.vestasys.org/"&gt; http://wiki.vestasys.org/ &lt;/a&gt; backup &lt;/h2&gt;
+<t tx="caminhante.20200219141223.1">&lt;h2&gt; &lt;a href="http://wiki.vestasys.org/"&gt; http://wiki.vestasys.org/ &lt;/a&gt; mirror &lt;/h2&gt;
 &lt;p&gt; &lt;a href="wiki-vesta/FrontPage.html"&gt; Here. &lt;/a&gt; It's still under revision. &lt;/p&gt;</t>
-<t tx="caminhante.20200219141303.1">&lt;h2&gt; &lt;a href="http://pub.vestasys.org/"&gt; http://pub.vestasys.org/ &lt;/a&gt; backup &lt;/h2&gt;
+<t tx="caminhante.20200219141303.1">&lt;h2&gt; &lt;a href="http://pub.vestasys.org/"&gt; http://pub.vestasys.org/ &lt;/a&gt; mirror &lt;/h2&gt;
 &lt;p&gt; &lt;a href="pub-vesta/index.html"&gt; Will reside here soon. &lt;/a&gt; &lt;/p&gt;</t>
 <t tx="caminhante.20200219142236.1">@others
 </t>
