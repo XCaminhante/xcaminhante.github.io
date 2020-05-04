@@ -137,15 +137,15 @@ a:link { color: #0099cc; }
 a:visited { color: #0077aa; }
 a:hover { background-color: #0099cc; color: #f5f1fd; }
 </t>
-<t tx="caminhante.20200218174230.1">#header { margin: 20px 0px 10px; padding: 17px 0px 0px 20px; height: 1em; border: solid black; border-width: 1px 0px; line-height: 0.7em; background-color: #eeeeee; }
+<t tx="caminhante.20200218174230.1">#header { margin: 20px 0px 20px; padding: 17px 0px 0px 20px; height: 1em; border: solid black; border-width: 1px 0px; line-height: 0.7em; background-color: #eeeeee; }
 </t>
-<t tx="caminhante.20200218174233.1">#content { padding: 0.5em; max-width: 100em; background: transparent url('') no-repeat scroll right top; }
-#content { margin: 0px 20px 30px 0em; }
-@media (min-width: 641px) { #content { margin: 0px 20px 30px 13em; }}
+<t tx="caminhante.20200218174233.1">#content { padding: 0.5em; max-width: 100%; background: transparent no-repeat scroll right top; }
+#content { margin: 0px 0px 30px 0em; }
+@media (min-width: 641px) { #content { margin: 0px 0px 30px 13em; }}
 </t>
 <t tx="caminhante.20200218174234.1">#menu { left: 20px; width: 10em; padding: 0px; line-height: 1.5em; display: inline; }
-#menu { position: relative; top: 10px; }
-@media (min-width: 641px) { #menu { position: absolute; top: 70px; }}
+#menu { position: relative; }
+@media (min-width: 641px) { #menu { position: absolute; top: 75px; }}
 .menuframe { width: 10em; padding: 10px; margin-bottom: 1em; background-color: #eeeeee; line-height: 1.5em; border: 1px dashed black; display: inline-block; }
 .menuframe &gt; span { border-bottom: 1px dotted black; }
 </t>
@@ -154,7 +154,7 @@ code, pre { font-family: "Courier New",Courier,monospace; font-size: inherit; co
 pre { border-width: 1px 1px 1px 5px; border-style: solid; border-color: #bbbbbb; background: #eeeeee none repeat scroll 0% 0%; padding: 0.5em; }
 </t>
 <t tx="caminhante.20200218175352.1">h1, h2, h3 { margin: 0px 0px 10px; line-height: 1em; }
-h1 { padding: 0px; font-size: 200%; font-weight: 900; }
+h1 { margin-top: -10px; padding: 0px; font-size: 200%; font-weight: 900; }
 h2, h3 { padding: 4px; font-size: 100%; font-weight: 600; }
 h1 { color: #015787; }
 h2 { color: black; background-color: #eeeeee; }
