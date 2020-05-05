@@ -227,7 +227,7 @@ h3 { color: #17698c; }
 &lt;/div&gt;</t>
 <t tx="caminhante.20200219125953.1">&lt;h2&gt; What is this project about &lt;/h2&gt;
 &lt;p&gt; Vesta Configuration Management System is an advanced software configuration management system. It handles source revision control and automated construction. It is the result of over 10 years of research and development at the Compaq/Digital Systems Research Center. &lt;/p&gt;
-&lt;p&gt; Vesta CMS is LGPL-licensed software. This is an atempt to backup and revive the software. A copy of the websites associated will be mirrored here and the source-code mirrored on a Git repo. &lt;/p&gt;</t>
+&lt;p&gt; Vesta CMS is LGPL-licensed software. This is an atempt to backup and revive the software. A copy of the associated websites will be mirrored here and the source-code mirrored on a Git repo. &lt;/p&gt;</t>
 <t tx="caminhante.20200219130100.1">&lt;h1&gt; About this site &lt;/h1&gt;</t>
 <t tx="caminhante.20200219130551.1">&lt;h1&gt; Vesta CMS &lt;/h1&gt;</t>
 <t tx="caminhante.20200219130700.1">&lt;h2&gt; &lt;a href="http://www.vestasys.org/"&gt; http://www.vestasys.org/ &lt;/a&gt; mirror &lt;/h2&gt;
