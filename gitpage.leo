@@ -36,7 +36,10 @@
 <v t="caminhante.20200218174233.1"><vh>content</vh>
 <v t="caminhante.20200218175352.1"><vh>hierarchical text</vh></v>
 </v>
-<v t="caminhante.20200218174234.1"><vh>menu</vh></v>
+<v t="caminhante.20200504232143.1"><vh>footer</vh></v>
+<v t="caminhante.20200218174234.1"><vh>menu</vh>
+<v t="caminhante.20200504232439.1"><vh>menuframe</vh></v>
+</v>
 <v t="caminhante.20200218174317.1"><vh>code</vh></v>
 </v>
 <v t="caminhante.20200219124135.1"><vh>@clean index.html</vh>
@@ -51,6 +54,7 @@
 <v t="caminhante.20200219130100.1"><vh>title</vh></v>
 <v t="caminhante.20200219124631.10"><vh>1.</vh></v>
 </v>
+<v t="caminhante.20200504211036.1"><vh>footer</vh></v>
 </v>
 </v>
 </v>
@@ -70,6 +74,7 @@
 <v t="caminhante.20200219141223.1"><vh>3.</vh></v>
 <v t="caminhante.20200219141303.1"><vh>4.</vh></v>
 </v>
+<v t="caminhante.20200504211036.1"></v>
 </v>
 </v>
 </v>
@@ -87,6 +92,7 @@
 <v t="caminhante.20200219153026.1"><vh>2.</vh></v>
 <v t="caminhante.20200219153028.1"><vh>3.</vh></v>
 </v>
+<v t="caminhante.20200504211036.1"></v>
 </v>
 </v>
 </v>
@@ -129,33 +135,33 @@ procedure a_silly_pseudocode ()
   // i just want you here
 end procedure
 &lt;/code&gt;&lt;/pre&gt;</t>
-<t tx="caminhante.20200218174211.1">body { margin: 0px; padding: 0px; font-family: verdana,arial,helvetica,sans-serif; color: #333333; background-color: white; }
-p { margin: 0px; text-indent: 0em; padding: 10px; }
+<t tx="caminhante.20200218174211.1">body { margin: 0; padding: 0; font: 9pt "Lucida Grande","Lucida Sans Unicode",verdana,geneva,sans-serif; color: #333333; background-color: white; }
+p { margin: 0; text-indent: 0; padding: 0.2em 0; }
 </t>
 <t tx="caminhante.20200218174220.1">a { text-decoration: none; font-weight: 600; font-family: verdana,arial,helvetica,sans-serif; color: #0099cc; }
 a:link { color: #0099cc; }
 a:visited { color: #0077aa; }
 a:hover { background-color: #0099cc; color: #f5f1fd; }
 </t>
-<t tx="caminhante.20200218174230.1">#header { margin: 20px 0px 20px; padding: 17px 0px 0px 20px; height: 1em; border: solid black; border-width: 1px 0px; line-height: 0.7em; background-color: #eeeeee; }
+<t tx="caminhante.20200218174230.1">#header { margin: 1em 0 1em 0; padding: 1em 0 0 1em; height: 1rem; }
+#header { font-size: 1.4em; line-height: 0.7em; }
+#header { background-color: #eeeeee; border: solid black; border-width: 1px 0px; }
 </t>
-<t tx="caminhante.20200218174233.1">#content { padding: 0.5em; max-width: 100%; background: transparent no-repeat scroll right top; }
-#content { margin: 0px 0px 30px 0em; }
-@media (min-width: 641px) { #content { margin: 0px 0px 30px 13em; }}
+<t tx="caminhante.20200218174233.1">#content { margin: 0; padding: 0.5em; padding-top: 0; max-width: 100%; }
+#content { background: transparent no-repeat scroll right top; }
+@media (min-width: 40pc) { #content { margin-left: 13em; }}
 </t>
-<t tx="caminhante.20200218174234.1">#menu { left: 20px; width: 10em; padding: 0px; line-height: 1.5em; display: inline; }
-#menu { position: relative; }
-@media (min-width: 641px) { #menu { position: absolute; top: 75px; }}
-.menuframe { width: 10em; padding: 10px; margin-bottom: 1em; background-color: #eeeeee; line-height: 1.5em; border: 1px dashed black; display: inline-block; }
-.menuframe &gt; span { border-bottom: 1px dotted black; }
+<t tx="caminhante.20200218174234.1">#menu { left: 1rem; padding: 0; margin: 0; position: relative; }
+@media (min-width: 40pc) { #menu { float: left; }}
 </t>
-<t tx="caminhante.20200218174317.1">pre { white-space: pre-wrap; }
-code, pre { font-family: "Courier New",Courier,monospace; font-size: inherit; color: navy; padding: 0px; margin: 0px; }
-pre { border-width: 1px 1px 1px 5px; border-style: solid; border-color: #bbbbbb; background: #eeeeee none repeat scroll 0% 0%; padding: 0.5em; }
+<t tx="caminhante.20200218174317.1">pre { margin: 0; padding: 0.5em; white-space: pre-wrap; }
+code { margin: 0; padding: 0 }
+code, pre { font-family: "Courier New",Courier,monospace; font-size: inherit; color: navy; }
+pre { border-width: 1px 1px 1px 5px; border-style: solid; border-color: #bbbbbb; background: #eeeeee none repeat scroll 0% 0%; }
 </t>
-<t tx="caminhante.20200218175352.1">h1, h2, h3 { margin: 0px 0px 10px; line-height: 1em; }
-h1 { margin-top: -10px; padding: 0px; font-size: 200%; font-weight: 900; }
-h2, h3 { padding: 4px; font-size: 100%; font-weight: 600; }
+<t tx="caminhante.20200218175352.1">h1, h2, h3 { margin: 0; margin-top: 6px; line-height: 1em; }
+h1 { margin-top: 0; padding: 0px; font-size: 200%; font-weight: 900; }
+h2, h3 { padding: 0.2em; font-size: 1em; font-weight: 600; }
 h1 { color: #015787; }
 h2 { color: black; background-color: #eeeeee; }
 h3 { color: #17698c; }
@@ -287,5 +293,16 @@ table { position: relative; height: 100%; width: 100%; }
 &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
 &lt;/body&gt;
 &lt;/html&gt;</t>
+<t tx="caminhante.20200504211036.1">&lt;div id="footer"&gt;
+All content is © 2020 by its respective authors. By submitting content to this site, you agree to release it under the &lt;a href="https://xcaminhante.github.io/LICENSE"&gt;GPLv3+ license&lt;/a&gt;.
+&lt;/div&gt;</t>
+<t tx="caminhante.20200504232143.1">#footer { margin: 0.8em; margin-left: 1rem; font-size: 0.8em; }
+</t>
+<t tx="caminhante.20200504232439.1">.menuframe { margin: 0 1em 1em 0; padding: 0.6em; width: 10em; }
+.menuframe { line-height: 1.3em; display: inline-block; vertical-align: top; }
+.menuframe { background-color: #eeeeee; border: 1px dashed black; }
+@media (min-width: 40pc) { .menuframe { display: block; }}
+.menuframe span { border-bottom: 1px dotted black; }
+</t>
 </tnodes>
 </leo_file>
