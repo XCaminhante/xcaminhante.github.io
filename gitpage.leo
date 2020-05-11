@@ -147,7 +147,7 @@ a:hover { background-color: #0099cc; color: #f5f1fd; }
 #header { font-size: 1.4em; line-height: 0.7em; }
 #header { background-color: #eeeeee; border: solid black; border-width: 1px 0px; }
 </t>
-<t tx="caminhante.20200218174233.1">#content { margin: 0; padding: 0.5em; padding-top: 0; max-width: 100%; }
+<t tx="caminhante.20200218174233.1">#content { margin: 0; margin-left: 0.6rem; padding: 0.5em; padding-top: 0; max-width: 100%; }
 #content { background: transparent no-repeat scroll right top; }
 @media (min-width: 40pc) { #content { margin-left: 13em; }}
 </t>
