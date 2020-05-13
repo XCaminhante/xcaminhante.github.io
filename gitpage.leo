@@ -147,7 +147,7 @@ a:hover { background-color: #0099cc; color: #f5f1fd; }
 #header { font-size: 1.4em; line-height: 0.7em; }
 #header { background-color: #eeeeee; border: solid black; border-width: 1px 0px; }
 </t>
-<t tx="caminhante.20200218174233.1">#content { margin: 0; margin-left: 0.6rem; padding: 0.5em; padding-top: 0; max-width: 100%; }
+<t tx="caminhante.20200218174233.1">#content { margin: 0 0.5rem; padding: 0.5rem; padding-top: 0; max-width: 100%; }
 #content { background: transparent no-repeat scroll right top; }
 @media (min-width: 40pc) { #content { margin-left: 13em; }}
 </t>
@@ -298,7 +298,7 @@ All content is © 2020 by its respective authors. By submitting content to this 
 &lt;/div&gt;</t>
 <t tx="caminhante.20200504232143.1">#footer { margin: 0.8em; margin-left: 1rem; font-size: 0.8em; }
 </t>
-<t tx="caminhante.20200504232439.1">.menuframe { margin: 0 1em 1em 0; padding: 0.6em; width: 10em; }
+<t tx="caminhante.20200504232439.1">.menuframe { margin: 0 1rem 1rem 0; padding: 0.6rem; width: 7rem; }
 .menuframe { line-height: 1.3em; display: inline-block; vertical-align: top; }
 .menuframe { background-color: #eeeeee; border: 1px dashed black; }
 @media (min-width: 40pc) { .menuframe { display: block; }}
