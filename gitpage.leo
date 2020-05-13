@@ -297,7 +297,7 @@ table { position: relative; height: 100%; width: 100%; }
 <t tx="caminhante.20200504211036.1">&lt;div id="footer"&gt;
 All content is © 2020 by its respective authors. By submitting content to this site, you agree to release it under the &lt;a href="https://xcaminhante.github.io/LICENSE.txt"&gt;GPLv3+ license&lt;/a&gt;.
 &lt;/div&gt;</t>
-<t tx="caminhante.20200504232143.1">#footer { margin: 0.8em; margin-left: 1rem; font-size: 0.8em; }
+<t tx="caminhante.20200504232143.1">#footer { display: inline-block; position: relative; left: 1rem; margin: 0.8em 0; font-size: 0.8em; }
 </t>
 <t tx="caminhante.20200504232439.1">.menuframe { margin: 0 1rem 1rem 0; padding: 0.6rem; width: 7rem; }
 .menuframe { line-height: 1.3em; display: inline-block; vertical-align: top; }

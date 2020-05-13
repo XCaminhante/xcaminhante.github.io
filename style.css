@@ -27,4 +27,4 @@ h2, h3 { padding: 0.2em; font-size: 1em; font-weight: 600; }
 h1 { color: #015787; }
 h2 { color: black; background-color: #eeeeee; }
 h3 { color: #17698c; }
-#footer { margin: 0.8em; margin-left: 1rem; font-size: 0.8em; }
+#footer { display: inline-block; position: relative; left: 1rem; margin: 0.8em 0; font-size: 0.8em; }
