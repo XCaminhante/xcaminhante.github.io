@@ -9,7 +9,7 @@ a:hover { background-color: #0099cc; color: #f5f1fd; }
 #header { background-color: #eeeeee; border: solid black; border-width: 1px 0px; }
 #content { margin: 0 0.5rem; padding: 0.5rem; padding-top: 0; max-width: 100%; }
 #content { background: transparent no-repeat scroll right top; }
-@media (min-width: 40pc) { #content { margin-left: 13em; }}
+@media (min-width: 40pc) { #content { margin-left: 10rem; }}
 h1, h2, h3 { margin: 0; margin-top: 6px; line-height: 1em; }
 h1 { margin-top: 0; padding: 0px; font-size: 200%; font-weight: 900; }
 h2, h3 { padding: 0.2em; font-size: 1em; font-weight: 600; }

@@ -149,7 +149,7 @@ a:hover { background-color: #0099cc; color: #f5f1fd; }
 </t>
 <t tx="caminhante.20200218174233.1">#content { margin: 0 0.5rem; padding: 0.5rem; padding-top: 0; max-width: 100%; }
 #content { background: transparent no-repeat scroll right top; }
-@media (min-width: 40pc) { #content { margin-left: 13em; }}
+@media (min-width: 40pc) { #content { margin-left: 10rem; }}
 </t>
 <t tx="caminhante.20200218174234.1">#menu { left: 1rem; padding: 0; margin: 0; position: relative; }
 @media (min-width: 40pc) { #menu { float: left; }}
