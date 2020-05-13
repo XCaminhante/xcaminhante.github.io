@@ -152,7 +152,7 @@ a:hover { background-color: #0099cc; color: #f5f1fd; }
 #content { background: transparent no-repeat scroll right top; }
 @media (min-width: 40pc) { #content { margin-left: 10rem; }}
 </t>
-<t tx="caminhante.20200218174234.1">#menu { left: 1rem; padding: 0; margin: 0; position: relative; }
+<t tx="caminhante.20200218174234.1">#menu { display: inline-block; position: relative; left: 1rem; }
 @media (min-width: 40pc) { #menu { float: left; }}
 </t>
 <t tx="caminhante.20200218174317.1">pre { margin: 0; padding: 0.5em; white-space: pre-wrap; }

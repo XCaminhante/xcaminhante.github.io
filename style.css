@@ -11,7 +11,7 @@ pre { border-width: 1px 1px 1px 5px; border-style: solid; border-color: #bbbbbb;
 #header { margin: 1em 0 1em 0; padding: 1em 0 0 1em; height: 1rem; }
 #header { font-size: 1.4em; line-height: 0.7em; }
 #header { background-color: #eeeeee; border: solid black; border-width: 1px 0px; }
-#menu { left: 1rem; padding: 0; margin: 0; position: relative; }
+#menu { display: inline-block; position: relative; left: 1rem; }
 @media (min-width: 40pc) { #menu { float: left; }}
 .menuframe { margin: 0 1rem 1rem 0; padding: 0.6rem; width: 7rem; }
 .menuframe { line-height: 1.3em; display: inline-block; vertical-align: top; }
