@@ -30,17 +30,18 @@
 <v t="caminhante.20200219123813.3"><vh>xcaminhante.github.io</vh>
 <v t="caminhante.20200219131209.1"><vh>@auto README.md</vh></v>
 <v t="caminhante.20200218172558.1"><vh>@clean style.css</vh>
-<v t="caminhante.20200218174211.1"><vh>basic</vh></v>
+<v t="caminhante.20200218174211.1"><vh>basic</vh>
 <v t="caminhante.20200218174220.1"><vh>links</vh></v>
+<v t="caminhante.20200218174317.1"><vh>code</vh></v>
+</v>
 <v t="caminhante.20200218174230.1"><vh>header</vh></v>
+<v t="caminhante.20200218174234.1"><vh>menu</vh>
+<v t="caminhante.20200504232439.1"><vh>menuframe</vh></v>
+</v>
 <v t="caminhante.20200218174233.1"><vh>content</vh>
 <v t="caminhante.20200218175352.1"><vh>hierarchical text</vh></v>
 </v>
 <v t="caminhante.20200504232143.1"><vh>footer</vh></v>
-<v t="caminhante.20200218174234.1"><vh>menu</vh>
-<v t="caminhante.20200504232439.1"><vh>menuframe</vh></v>
-</v>
-<v t="caminhante.20200218174317.1"><vh>code</vh></v>
 </v>
 <v t="caminhante.20200219124135.1"><vh>@clean index.html</vh>
 <v t="caminhante.20200219124631.2"><vh>page</vh>

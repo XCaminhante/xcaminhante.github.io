@@ -4,9 +4,20 @@ a { text-decoration: none; font-weight: 600; font-family: verdana,arial,helvetic
 a:link { color: #0099cc; }
 a:visited { color: #0077aa; }
 a:hover { background-color: #0099cc; color: #f5f1fd; }
+pre { margin: 0; padding: 0.5em; white-space: pre-wrap; }
+code { margin: 0; padding: 0 }
+code, pre { font-family: "Courier New",Courier,monospace; font-size: inherit; color: navy; }
+pre { border-width: 1px 1px 1px 5px; border-style: solid; border-color: #bbbbbb; background: #eeeeee none repeat scroll 0% 0%; }
 #header { margin: 1em 0 1em 0; padding: 1em 0 0 1em; height: 1rem; }
 #header { font-size: 1.4em; line-height: 0.7em; }
 #header { background-color: #eeeeee; border: solid black; border-width: 1px 0px; }
+#menu { left: 1rem; padding: 0; margin: 0; position: relative; }
+@media (min-width: 40pc) { #menu { float: left; }}
+.menuframe { margin: 0 1rem 1rem 0; padding: 0.6rem; width: 7rem; }
+.menuframe { line-height: 1.3em; display: inline-block; vertical-align: top; }
+.menuframe { background-color: #eeeeee; border: 1px dashed black; }
+@media (min-width: 40pc) { .menuframe { display: block; }}
+.menuframe span { border-bottom: 1px dotted black; }
 #content { margin: 0 0.5rem; padding: 0.5rem; padding-top: 0; max-width: 100%; }
 #content { background: transparent no-repeat scroll right top; }
 @media (min-width: 40pc) { #content { margin-left: 10rem; }}
@@ -17,14 +28,3 @@ h1 { color: #015787; }
 h2 { color: black; background-color: #eeeeee; }
 h3 { color: #17698c; }
 #footer { margin: 0.8em; margin-left: 1rem; font-size: 0.8em; }
-#menu { left: 1rem; padding: 0; margin: 0; position: relative; }
-@media (min-width: 40pc) { #menu { float: left; }}
-.menuframe { margin: 0 1rem 1rem 0; padding: 0.6rem; width: 7rem; }
-.menuframe { line-height: 1.3em; display: inline-block; vertical-align: top; }
-.menuframe { background-color: #eeeeee; border: 1px dashed black; }
-@media (min-width: 40pc) { .menuframe { display: block; }}
-.menuframe span { border-bottom: 1px dotted black; }
-pre { margin: 0; padding: 0.5em; white-space: pre-wrap; }
-code { margin: 0; padding: 0 }
-code, pre { font-family: "Courier New",Courier,monospace; font-size: inherit; color: navy; }
-pre { border-width: 1px 1px 1px 5px; border-style: solid; border-color: #bbbbbb; background: #eeeeee none repeat scroll 0% 0%; }
