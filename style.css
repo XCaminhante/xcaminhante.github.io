@@ -8,6 +8,8 @@ pre { margin: 0; padding: 0.5em; white-space: pre-wrap; }
 code { margin: 0; padding: 0 }
 code, pre { font-family: "Courier New",Courier,monospace; font-size: inherit; color: navy; }
 pre { border-width: 1px 1px 1px 5px; border-style: solid; border-color: #bbbbbb; background: #eeeeee none repeat scroll 0% 0%; }
+input[type="button"] { background-color: #dddddd; border-color: #bbbbbb; border-width: 1px; color: inherit; font-size: 0.9em; line-height: 1em; }
+input[type="button"]:active { color: #0099cc; }
 #header { margin: 1em 0 1em 0; padding: 1em 0 0 1em; height: 1rem; }
 #header { font-size: 1.4em; line-height: 0.7em; }
 #header { background-color: #eeeeee; border: solid black; border-width: 1px 0px; }
