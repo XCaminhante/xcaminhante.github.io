@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf8"/>
+<meta name="editor" content="Leo Editor"/>
+<meta name="author" content="https://github.com/xcaminhante"/>
+<base href="https://xcaminhante.github.io/"/>
+<title> XCaminhante' files </title>
+<style type="text/css"> @import "style.css"; </style>
+</head>
+<body>
+<div id="header"> <a href="https://xcaminhante.github.io/"> XCaminhante' files </a> </div>
+<div id="menu">
+<div class="menuframe">
+<a href="index.html"> About </a> <br/>
+<a href="vesta.html"> Vesta CMS </a> <br/>
+<a href="perlwm/index.html"> PerlWM </a> <br/>
+<a href="links.html"> External Links </a> <br/>
+</div>
+<div class="menuframe">
+<span>Perl WM</span> <br/>
+<a href="perlwm/index.html">Home</a> <br/>
+<a href="perlwm/news.html">News</a> <br/>
+<a href="perlwm/shots.html">Screen shot</a> <br/>
+<a href="perlwm/docs.html">Docs (outdated)</a> <br/>
+<a href="perlwm/code.html">Code release</a> <br/>
+<a href="http://perlwm.sourceforge.net/">Original site</a> <br/>
+</div>
+</div>
+<div id="content">
+<h1> Perl Window Manager </h1>
+<b>2004.05.23</b>
+<p>
+perlwm-0.0.7 is released. There is a new config system. If you run <code>perl -MPerlWM::Config -e
+'PerlWM::Config->load()->save(default => 1)'</code> all the default preferences will be written to a file
+(~/.perlwm/config.pm). Hopefully in the next release, you'll be able to configure more things.
+</p>
+
+<b>2004.05.16</b>
+<p>
+perlwm-0.0.6 is released. Not much new here, just a couple of minor bug fixes related to the search action.
+</p>
+
+<b>2003.12.22</b>
+<p>
+perlwm-0.0.5 is released. Yet more cleanup in the event handling code. Keyboard bindings now work, along with grabs and
+some support for 'modal' actions. You can now re-size and move windows with the keyboard, as well as raise, lower and
+switch focus.
+</p>
+
+<b>2003.11.10</b>
+<p>
+perlwm-0.0.4 is released. More cleanup in the event handling code, the focus handling is much more reliable now. Also,
+the focus frame is now highlighted again, and with an animated color blend too.
+</p>
+
+<b>2003.11.08</b>
+<p>
+perlwm-0.0.3 is released. Still no new functionality, but the event code has been further cleaned up, and various stuff
+which was just lumped in PerlWM.pm has been moved into Frame, Client or Action.
+</p>
+
+<b>2003.11.02</b>
+<p>
+perlwm-0.0.2 is released. Slow progress eh? Well I've been busy. This is pretty much a completely re-write compared to
+0.0.1, but a lot more works.
+</p>
+
+<b>2000.05.18</b>
+<p>
+perlwm-0.0.1 is released. This version has (very) basic window manager functionality. The configuration is currently
+embedded in perlwm itself, but this will change. Currently, you can move and resize windows, but not iconify them. Most
+window manager hints are ignored (except the title).
+</p>
+<p> <small>http://perlwm.sourceforge.net/ adapted copy</small> </p>
+</div>
+<div id="footer">
+All content is © 2020 by its respective authors. By submitting content to this site, you agree to release it under the <a href="https://xcaminhante.github.io/LICENSE.txt">GPLv3+ license</a>.
+</div>
+</body>
+</html>
