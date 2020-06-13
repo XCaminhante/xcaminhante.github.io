@@ -21,6 +21,7 @@
 <v t="caminhante.20200218173246.1"><vh>paragraph</vh></v>
 <v t="caminhante.20200218174025.1"><vh>code</vh></v>
 </v>
+<v t="caminhante.20200612210535.1"><vh>footer</vh></v>
 </v>
 </v>
 </v>
@@ -34,82 +35,7 @@
 <v t="caminhante.20200219123813.3"><vh>xcaminhante.github.io</vh>
 <v t="caminhante.20200612175143.1"><vh>@path .</vh>
 <v t="caminhante.20200612175153.13"><vh>/.git/</vh></v>
-<v t="caminhante.20200612175153.12"><vh>/pub-vesta/</vh></v>
-<v t="caminhante.20200612175153.11"><vh>/vesta/</vh></v>
-<v t="caminhante.20200612175153.10"><vh>/wiki-vesta/</vh></v>
-<v t="caminhante.20200219131209.1"><vh>@auto README.md</vh></v>
-<v t="caminhante.20200219170322.1"><vh>@clean fzort.html</vh></v>
-<v t="caminhante.20200219124135.1"><vh>@clean index.html</vh>
-<v t="caminhante.20200219124631.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"><vh>head</vh></v>
-<v t="caminhante.20200219124631.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"><vh>header</vh></v>
-<v t="caminhante.20200219124631.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"><vh>main pages</vh></v>
-</v>
-<v t="caminhante.20200219124631.8"><vh>content</vh>
-<v t="caminhante.20200219130100.1"><vh>title</vh></v>
-<v t="caminhante.20200219124631.10"><vh>1.</vh></v>
-</v>
-<v t="caminhante.20200504211036.1"><vh>footer</vh></v>
-</v>
-</v>
-</v>
-<v t="caminhante.20200219142236.1"><vh>@clean links.html</vh>
-<v t="caminhante.20200219142257.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"></v>
-<v t="caminhante.20200219142257.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"></v>
-<v t="caminhante.20200219142257.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"></v>
-</v>
-<v t="caminhante.20200219142257.8"><vh>content</vh>
-<v t="caminhante.20200219142350.1"><vh>title</vh></v>
-<v t="caminhante.20200219142830.1"><vh>1.</vh></v>
-<v t="caminhante.20200219153026.1"><vh>2.</vh></v>
-<v t="caminhante.20200612145835.1"><vh>3.</vh></v>
-<v t="caminhante.20200219153028.1"><vh>4.</vh></v>
-</v>
-<v t="caminhante.20200504211036.1"></v>
-</v>
-</v>
-</v>
-<v t="caminhante.20200218172558.1"><vh>@clean style.css</vh>
-<v t="caminhante.20200513224648.2"><vh>basic</vh>
-<v t="caminhante.20200513224648.3"><vh>links</vh></v>
-<v t="caminhante.20200513224648.4"><vh>code</vh></v>
-<v t="caminhante.20200513224648.5"><vh>button</vh></v>
-</v>
-<v t="caminhante.20200513224648.6"><vh>header</vh></v>
-<v t="caminhante.20200513224648.7"><vh>menu</vh>
-<v t="caminhante.20200513224648.8"><vh>menuframe</vh></v>
-</v>
-<v t="caminhante.20200513224648.9"><vh>content</vh>
-<v t="caminhante.20200513224648.10"><vh>hierarchical text</vh></v>
-</v>
-<v t="caminhante.20200513224648.11"><vh>footer</vh></v>
-</v>
-<v t="caminhante.20200219125833.1"><vh>@clean vesta.html</vh>
-<v t="caminhante.20200219125849.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"></v>
-<v t="caminhante.20200219125849.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"></v>
-<v t="caminhante.20200219140857.1"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"></v>
-<v t="caminhante.20200219140925.1"><vh>Vesta's related websites' backups</vh></v>
-</v>
-<v t="caminhante.20200219125849.8"><vh>content</vh>
-<v t="caminhante.20200219130551.1"><vh>title</vh></v>
-<v t="caminhante.20200219125953.1"><vh>1.</vh></v>
-<v t="caminhante.20200219130700.1"><vh>2.</vh></v>
-<v t="caminhante.20200219141223.1"><vh>3.</vh></v>
-<v t="caminhante.20200219141303.1"><vh>4.</vh></v>
-</v>
-<v t="caminhante.20200504211036.1"></v>
-</v>
-</v>
-</v>
-<v t="caminhante.20200612151310.1"><vh>@path perlwm</vh>
+<v t="caminhante.20200612151310.1"><vh>/perlwm/</vh>
 <v t="caminhante.20200612151317.1"><vh>/images/</vh>
 <v t="caminhante.20200612155432.16"><vh>code-a.png</vh></v>
 <v t="caminhante.20200612155432.15"><vh>code-h.png</vh></v>
@@ -132,11 +58,11 @@
 </v>
 <v t="caminhante.20200612173905.1"><vh>@clean code.html</vh>
 <v t="caminhante.20200612173921.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"></v>
+<v t="caminhante.20200219124631.3"><vh>head</vh></v>
 <v t="caminhante.20200612173921.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"></v>
+<v t="caminhante.20200219124631.5"><vh>header</vh></v>
 <v t="caminhante.20200612173921.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"></v>
+<v t="caminhante.20200219124631.7"><vh>main pages</vh></v>
 <v t="caminhante.20200612171128.1"><vh>PerlWM pages</vh></v>
 </v>
 <v t="caminhante.20200612173921.8"><vh>content</vh>
@@ -144,7 +70,7 @@
 <v t="caminhante.20200612173951.1"><vh>1.</vh></v>
 <v t="caminhante.20200612172800.1"><vh>copy</vh></v>
 </v>
-<v t="caminhante.20200504211036.1"></v>
+<v t="caminhante.20200504211036.1"><vh>footer</vh></v>
 </v>
 </v>
 </v>
@@ -218,6 +144,104 @@
 </v>
 <v t="caminhante.20200504211036.1"></v>
 </v>
+</v>
+</v>
+</v>
+<v t="caminhante.20200612175153.12"><vh>/pub-vesta/</vh></v>
+<v t="caminhante.20200612175153.11"><vh>/vesta/</vh></v>
+<v t="caminhante.20200612175153.10"><vh>/wiki-vesta/</vh></v>
+<v t="caminhante.20200612210729.1"><vh>/windwm/</vh>
+<v t="caminhante.20200612210432.1"><vh>@clean index.html</vh>
+<v t="caminhante.20200612210450.2"><vh>page</vh>
+<v t="caminhante.20200219124631.3"></v>
+<v t="caminhante.20200612210450.4"><vh>body</vh>
+<v t="caminhante.20200219124631.5"></v>
+<v t="caminhante.20200612210450.6"><vh>menu</vh>
+<v t="caminhante.20200219124631.7"></v>
+<v t="caminhante.20200612210826.1"><vh>WindWM links</vh></v>
+</v>
+<v t="caminhante.20200612210450.8"><vh>content</vh>
+<v t="caminhante.20200612210450.9"><vh>title</vh></v>
+<v t="caminhante.20200612210656.1"><vh>1.</vh></v>
+<v t="caminhante.20200612211737.1"><vh>copy</vh></v>
+</v>
+<v t="caminhante.20200504211036.1"></v>
+</v>
+</v>
+</v>
+<v t="caminhante.20200612211356.1"><vh>readme</vh></v>
+<v t="caminhante.20200612211140.2"><vh>manual.pdf</vh></v>
+<v t="caminhante.20200612211140.1"><vh>screenshot.png</vh></v>
+</v>
+<v t="caminhante.20200219131209.1"><vh>@auto README.md</vh></v>
+<v t="caminhante.20200219170322.1"><vh>@clean fzort.html</vh></v>
+<v t="caminhante.20200219124135.1"><vh>@clean index.html</vh>
+<v t="caminhante.20200219124631.2"><vh>page</vh>
+<v t="caminhante.20200219124631.3"></v>
+<v t="caminhante.20200219124631.4"><vh>body</vh>
+<v t="caminhante.20200219124631.5"></v>
+<v t="caminhante.20200219124631.6"><vh>menu</vh>
+<v t="caminhante.20200219124631.7"></v>
+</v>
+<v t="caminhante.20200219124631.8"><vh>content</vh>
+<v t="caminhante.20200219130100.1"><vh>title</vh></v>
+<v t="caminhante.20200219124631.10"><vh>1.</vh></v>
+</v>
+<v t="caminhante.20200504211036.1"></v>
+</v>
+</v>
+</v>
+<v t="caminhante.20200219142236.1"><vh>@clean links.html</vh>
+<v t="caminhante.20200219142257.2"><vh>page</vh>
+<v t="caminhante.20200219124631.3"></v>
+<v t="caminhante.20200219142257.4"><vh>body</vh>
+<v t="caminhante.20200219124631.5"></v>
+<v t="caminhante.20200219142257.6"><vh>menu</vh>
+<v t="caminhante.20200219124631.7"></v>
+</v>
+<v t="caminhante.20200219142257.8"><vh>content</vh>
+<v t="caminhante.20200219142350.1"><vh>title</vh></v>
+<v t="caminhante.20200219142830.1"><vh>1.</vh></v>
+<v t="caminhante.20200219153026.1"><vh>2.</vh></v>
+<v t="caminhante.20200612145835.1"><vh>3.</vh></v>
+<v t="caminhante.20200219153028.1"><vh>4.</vh></v>
+</v>
+<v t="caminhante.20200504211036.1"></v>
+</v>
+</v>
+</v>
+<v t="caminhante.20200218172558.1"><vh>@clean style.css</vh>
+<v t="caminhante.20200513224648.2"><vh>basic</vh>
+<v t="caminhante.20200513224648.3"><vh>links</vh></v>
+<v t="caminhante.20200513224648.4"><vh>code</vh></v>
+<v t="caminhante.20200513224648.5"><vh>button</vh></v>
+</v>
+<v t="caminhante.20200513224648.6"><vh>header</vh></v>
+<v t="caminhante.20200513224648.7"><vh>menu</vh>
+<v t="caminhante.20200513224648.8"><vh>menuframe</vh></v>
+</v>
+<v t="caminhante.20200513224648.9"><vh>content</vh>
+<v t="caminhante.20200513224648.10"><vh>hierarchical text</vh></v>
+</v>
+<v t="caminhante.20200513224648.11"><vh>footer</vh></v>
+</v>
+<v t="caminhante.20200219125833.1"><vh>@clean vesta.html</vh>
+<v t="caminhante.20200219125849.2"><vh>page</vh>
+<v t="caminhante.20200219124631.3"></v>
+<v t="caminhante.20200219125849.4"><vh>body</vh>
+<v t="caminhante.20200219124631.5"></v>
+<v t="caminhante.20200219140857.1"><vh>menu</vh>
+<v t="caminhante.20200219124631.7"></v>
+<v t="caminhante.20200219140925.1"><vh>Vesta's related websites' backups</vh></v>
+</v>
+<v t="caminhante.20200219125849.8"><vh>content</vh>
+<v t="caminhante.20200219130551.1"><vh>title</vh></v>
+<v t="caminhante.20200219125953.1"><vh>1.</vh></v>
+<v t="caminhante.20200219130700.1"><vh>2.</vh></v>
+<v t="caminhante.20200219141223.1"><vh>3.</vh></v>
+<v t="caminhante.20200219141303.1"><vh>4.</vh></v>
+</v>
+<v t="caminhante.20200504211036.1"></v>
 </v>
 </v>
 </v>
@@ -306,6 +330,7 @@ end procedure
 &lt;a href="index.html"&gt; About &lt;/a&gt; &lt;br/&gt;
 &lt;a href="vesta.html"&gt; Vesta CMS &lt;/a&gt; &lt;br/&gt;
 &lt;a href="perlwm/index.html"&gt; PerlWM &lt;/a&gt; &lt;br/&gt;
+&lt;a href="windwm/index.html"&gt; WindWM &lt;/a&gt; &lt;br/&gt;
 &lt;a href="links.html"&gt; External Links &lt;/a&gt; &lt;br/&gt;
 &lt;/div&gt;</t>
 <t tx="caminhante.20200219124631.8">&lt;div id="content"&gt;
@@ -441,7 +466,8 @@ input[type="button"]:active { color: #0099cc; }</t>
 &lt;p&gt;
 &lt;a href="https://www.perl.org/books/impatient-perl/"&gt; The Impatient Introduction to Perl &lt;/a&gt;
 &lt;/p&gt;</t>
-<t tx="caminhante.20200612151310.1">@tabwidth -2</t>
+<t tx="caminhante.20200612151310.1">@path perlwm
+@tabwidth -2</t>
 <t tx="caminhante.20200612151317.1">@path images</t>
 <t tx="caminhante.20200612155432.1"></t>
 <t tx="caminhante.20200612155432.10"></t>
@@ -774,5 +800,63 @@ g.es(execute(command))
 </t>
 <t tx="caminhante.20200612175321.1"></t>
 <t tx="caminhante.20200612175321.2"></t>
+<t tx="caminhante.20200612210432.1">@others
+</t>
+<t tx="caminhante.20200612210450.2">@language html
+@tabwidth -2
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+@others
+&lt;/html&gt;</t>
+<t tx="caminhante.20200612210450.4">&lt;body&gt;
+@others
+&lt;/body&gt;</t>
+<t tx="caminhante.20200612210450.6">&lt;div id="menu"&gt;
+@others
+&lt;/div&gt;</t>
+<t tx="caminhante.20200612210450.8">&lt;div id="content"&gt;
+@others
+&lt;/div&gt;</t>
+<t tx="caminhante.20200612210450.9">&lt;h1&gt; Wind Window Manager &lt;/h1&gt;
+</t>
+<t tx="caminhante.20200612210535.1">&lt;div id="footer"&gt;
+All content is © 2020 by its respective authors. By submitting content to this site, you agree to release it under the &lt;a href="https://xcaminhante.github.io/LICENSE.txt"&gt;GPLv3+ license&lt;/a&gt;.
+&lt;/div&gt;</t>
+<t tx="caminhante.20200612210656.1">&lt;p&gt;Wind is a window manager for the X Window System.
+ It supports virtual desktops, optional Xft font rendering,
+ and is pretty standards compliant. It provides
+ overlapping window management with click-to-type focus.&lt;/p&gt;
+&lt;p&gt;Unlike most window managers, Wind does not have the concept
+ of &lt;em&gt;minimized&lt;/em&gt; or &lt;em&gt;hidden&lt;/em&gt; windows. Instead of
+ hiding and unhiding windows, the &lt;em&gt;virtual desktops&lt;/em&gt; abstraction
+ makes it easy to group similar tasks and switch between these
+ groups instantly using convenient key bindings.&lt;/p&gt;
+&lt;p&gt;Standards compliancy is a prominent goal of the project,
+ and Wind supports almost all mandatory parts of the ICCCM and
+ the Extended Window Manager Hints specifications. Full compliancy
+ is expected in the next major release.&lt;/p&gt;
+&lt;h2&gt;News&lt;/h2&gt;
+&lt;p&gt;Version 1.5 was released on May 21, 2014.&lt;/p&gt;</t>
+<t tx="caminhante.20200612210729.1">@path windwm</t>
+<t tx="caminhante.20200612210826.1">&lt;div class="menuframe"&gt;
+&lt;span&gt;Wind WM&lt;/span&gt; &lt;br/&gt;
+&lt;a href="windwm/index.html"&gt;Home&lt;/a&gt; &lt;br/&gt;
+&lt;a href="windwm/screenshot.png"&gt;Screenshot&lt;/a&gt; &lt;br/&gt;
+&lt;a href="windwm/manual.pdf"&gt;Manual&lt;/a&gt; &lt;br/&gt;
+&lt;/div&gt;</t>
+<t tx="caminhante.20200612211140.1"></t>
+<t tx="caminhante.20200612211140.2"></t>
+<t tx="caminhante.20200612211356.1">
+
+Wind is a window manager for the X Window System. It supports virtual desktops, optional Xft font rendering, and is fairly standards compliant.
+Features
+
+    Click to focus
+    Virtual desktops
+    No minimized windows
+    ICCCM and EWMH/NetWM compliant
+
+</t>
+<t tx="caminhante.20200612211737.1">&lt;p&gt; &lt;small&gt;http://windwm.sourceforge.net/ adapted copy&lt;/small&gt; &lt;/p&gt;</t>
 </tnodes>
 </leo_file>
