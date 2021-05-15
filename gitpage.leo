@@ -7,6 +7,8 @@
 <find_panel_settings/>
 <vnodes>
 <v t="caminhante.20200219124145.1"><vh>@settings</vh>
+<v t="caminhante.20200618180759.1"><vh>@command terminal-here @key=Alt-T</vh></v>
+<v t="caminhante.20200219142855.1"><vh>@data abbreviations</vh></v>
 <v t="caminhante.20200219124202.1"><vh>@outline-data tree-abbreviations</vh>
 <v t="caminhante.20200218172553.1"><vh>listpage;;</vh>
 <v t="caminhante.20200219124409.1"><vh>page</vh>
@@ -26,10 +28,9 @@
 </v>
 </v>
 </v>
-<v t="caminhante.20200219142855.1"><vh>@data abbreviations</vh></v>
 <v t="caminhante.20200612175226.1"><vh>nodeActions</vh>
-<v t="caminhante.20200612175226.2"><vh>@run*</vh></v>
-<v t="caminhante.20200612175226.3"><vh>@cmd *</vh></v>
+<v t="caminhante.20200604232050.1"><vh>@cmd *</vh></v>
+<v t="caminhante.20200618203115.1"><vh>@run|@run .* [X]</vh></v>
 </v>
 </v>
 <v t="caminhante.20200219123813.3"><vh>xcaminhante.github.io</vh>
@@ -312,17 +313,17 @@ end procedure
 @others
 &lt;/html&gt;</t>
 <t tx="caminhante.20200219124631.3">&lt;head&gt;
-&lt;meta charset="utf8"/&gt;
+&lt;meta charset="utf-8"/&gt;
 &lt;meta name="editor" content="Leo Editor"/&gt;
 &lt;meta name="author" content="https://github.com/xcaminhante"/&gt;
-&lt;base href="https://xcaminhante.github.io/"/&gt;
+&lt;base href="/home/user/Projects/xcaminhante.github.io/"/&gt;
 &lt;title&gt; XCaminhante' files &lt;/title&gt;
-&lt;style type="text/css"&gt; @import "style.css"; &lt;/style&gt;
+&lt;style&gt; @import "style.css"; &lt;/style&gt;
 &lt;/head&gt;</t>
 <t tx="caminhante.20200219124631.4">&lt;body&gt;
 @others
 &lt;/body&gt;</t>
-<t tx="caminhante.20200219124631.5">&lt;div id="header"&gt; &lt;a href="https://xcaminhante.github.io/"&gt; XCaminhante' files &lt;/a&gt; &lt;/div&gt;</t>
+<t tx="caminhante.20200219124631.5">&lt;div id="header"&gt; &lt;a href="index.html"&gt; XCaminhante' files &lt;/a&gt; &lt;/div&gt;</t>
 <t tx="caminhante.20200219124631.6">&lt;div id="menu"&gt;
 @others
 &lt;/div&gt;</t>
@@ -392,8 +393,10 @@ end procedure
 &lt;p&gt; &lt;a target="_blank" href="https://dotat.at/:/?"&gt; Tony Finch's link log &lt;/a&gt; &lt;/p&gt;
 
 </t>
-<t tx="caminhante.20200219142855.1">link;;=&lt;a href="&lt;|url|&gt;"&gt; &lt;|text|&gt; &lt;/a&gt;
+<t tx="caminhante.20200219142855.1">link;;=&lt;a href="&lt;|url|&gt;"&gt; &lt;|text|&gt; &lt;/a&gt; &lt;br/&gt;
 p;;=&lt;p&gt; &lt;|text|&gt; &lt;/p&gt;
+code;;=&lt;code&gt; &lt;|code|&gt; &lt;/code&gt;
+menuf;;=&lt;div class="menuframe"&gt; &lt;||&gt; &lt;/div&gt;
 </t>
 <t tx="caminhante.20200219153026.1">&lt;h2&gt; Old technological treasures &lt;/h2&gt;
 &lt;p&gt; &lt;a href="https://web.archive.org/web/20000823134712/http://www.albany.net/~hello/simple.htm"&gt; Simple Forth &lt;/a&gt; &lt;/p&gt;</t>
@@ -461,6 +464,24 @@ input[type="button"]:active { color: #0099cc; }</t>
 <t tx="caminhante.20200513224648.9">#content { margin: 0 0.5rem; padding: 0.5rem; padding-top: 0; max-width: 100%; }
 #content { background: transparent no-repeat scroll right top; }
 @media (min-width: 40pc) { #content { margin-left: 10rem; }}
+</t>
+<t tx="caminhante.20200604232050.1">@language python
+import subprocess
+
+def execute (cmd):
+    return subprocess.run(cmd,shell=True,universal_newlines=True,stderr=subprocess.STDOUT,stdout=subprocess.PIPE).stdout
+
+if c.isChanged(): c.save()
+
+path = c.getNodePath(c.p)
+g.os.chdir(path)
+
+command = ''.join(c.p.h.split('@cmd ')[1:])
+command = "cat &lt;&lt;'EOFEOFEOFEOFEOFEOF' | bash\n"+command+'\nEOFEOFEOFEOFEOFEOF'
+g.es(c.p.h)
+c.p.b += execute(command)
+
+c.save()
 </t>
 <t tx="caminhante.20200612145835.1">&lt;h2&gt; Perl links &lt;/h2&gt;
 &lt;p&gt;
@@ -754,50 +775,6 @@ handling just the press and release, or handling the drag differently.
 <t tx="caminhante.20200612175153.8"></t>
 <t tx="caminhante.20200612175153.9"></t>
 <t tx="caminhante.20200612175226.1"></t>
-<t tx="caminhante.20200612175226.2">@language python
-import subprocess,os
-
-# def getpath (p):
-    # dict = c.scanAllDirectives(p)
-    # d = dict.get("path")
-    # if p.isAnyAtFileNode():
-        # filename = p.anyAtFileNodeName()
-        # filename = g.os_path_join(d,filename)
-        # if filename:
-            # d = g.os_path_dirname(filename)
-    # if d is None:
-        # return ""
-    # else:
-        # return g.os_path_normpath(d)
-
-def execute (cmd):
-    # return subprocess.run(cmd,shell=True,universal_newlines=True,stderr=subprocess.STDOUT,stdout=subprocess.PIPE)
-    return subprocess.check_output(cmd,shell=True,universal_newlines=True,stderr=subprocess.STDOUT)
-
-if c.isChanged(): c.save()
-path = c.getNodePath(pClicked)
-# path = getpath(c.p)
-os.chdir(path)
-
-command = c.p.b
-cmdname = c.p.h
-g.es('---- '+cmdname+' ----')
-g.es(execute(command))
-</t>
-<t tx="caminhante.20200612175226.3">@language python
-import subprocess,os
-
-def execute (cmd):
-    return subprocess.check_output(cmd,shell=True,universal_newlines=True,stderr=subprocess.STDOUT)
-
-if c.isChanged(): c.save()
-path = c.getNodePath(pClicked)
-os.chdir(path)
-
-command = ' '.join(c.p.h.split('@cmd ')[1:])
-g.es('---- '+command+' ----')
-g.es(execute(command))
-</t>
 <t tx="caminhante.20200612175321.1"></t>
 <t tx="caminhante.20200612175321.2"></t>
 <t tx="caminhante.20200612210432.1">@others
@@ -858,5 +835,48 @@ Features
 
 </t>
 <t tx="caminhante.20200612211737.1">&lt;p&gt; &lt;small&gt;http://windwm.sourceforge.net/ adapted copy&lt;/small&gt; &lt;/p&gt;</t>
+<t tx="caminhante.20200618180759.1">@language python
+import subprocess
+
+def execute (cmd):
+    return subprocess.run(cmd,shell=True,universal_newlines=True,stderr=subprocess.STDOUT,stdout=subprocess.PIPE).stdout
+
+if c.isChanged(): c.save()
+path = c.getNodePath(c.p)
+
+execute('terminator --working-directory="'+path+'" --new-tab')
+</t>
+<t tx="caminhante.20200618203115.1">@language python
+import subprocess
+
+def execute (cmd):
+    return subprocess.run(cmd,shell=True,universal_newlines=True,stderr=subprocess.STDOUT,stdout=subprocess.PIPE).stdout
+
+path = c.getNodePath(c.p)
+g.os.chdir(path)
+
+w = c.frame.body.wrapper
+s1,s2 = w.getSelectionRange()
+
+if s1 == s2:
+    code = c.p.b
+else:
+    linebr = c.p.b.find('\n',s2)
+    if linebr == -1: linebr = len(c.p.b)
+    code = c.p.b[s1:s2]
+
+g.es(c.p.h)
+
+command = "cat &lt;&lt;'EOFEOFEOFEOFEOFEOF' | bash\n"+code+'\nEOFEOFEOFEOFEOFEOF'
+
+cpc = c.p.copy()
+novoNo = cpc.insertAsLastChild()
+novoNo.h = c.p.h
+novoNo.b = execute(command)
+c.redraw()
+
+c.save()
+w.setSelectionRange(s1,s2)
+</t>
 </tnodes>
 </leo_file>
