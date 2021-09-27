@@ -212,6 +212,7 @@
 </v>
 </v>
 <v t="caminhante.20200218172558.1"><vh>@clean style.css</vh>
+<v t="caminhante.20210926184648.1"><vh>/vars</vh></v>
 <v t="caminhante.20200513224648.2"><vh>basic</vh>
 <v t="caminhante.20200513224648.3"><vh>links</vh></v>
 <v t="caminhante.20200513224648.4"><vh>code</vh></v>
@@ -246,6 +247,8 @@
 </v>
 </v>
 </v>
+<v t="caminhante.20210926215303.1"><vh>@edit .gitignore</vh></v>
+<v t="caminhante.20210926193032.1"><vh>@file test.html</vh></v>
 <v t="caminhante.20200612175153.8"><vh>fzort.gif</vh></v>
 <v t="caminhante.20200612175153.7"><vh>gitpage.leo</vh></v>
 <v t="caminhante.20200612175153.9"><vh>LICENSE.txt</vh></v>
@@ -316,7 +319,7 @@ end procedure
 &lt;meta charset="utf-8"/&gt;
 &lt;meta name="editor" content="Leo Editor"/&gt;
 &lt;meta name="author" content="https://github.com/xcaminhante"/&gt;
-&lt;base href="/home/user/Projects/xcaminhante.github.io/"/&gt;
+&lt;base href="https://xcaminhante.github.io/"/&gt;
 &lt;title&gt; XCaminhante' files &lt;/title&gt;
 &lt;style&gt; @import "style.css"; &lt;/style&gt;
 &lt;/head&gt;</t>
@@ -422,48 +425,51 @@ table { position: relative; height: 100%; width: 100%; }
 &lt;/body&gt;
 &lt;/html&gt;</t>
 <t tx="caminhante.20200504211036.1">&lt;div id="footer"&gt;
-All content is © 2020 by its respective authors. By submitting content to this site, you agree to release it under the &lt;a href="https://xcaminhante.github.io/LICENSE.txt"&gt;GPLv3+ license&lt;/a&gt;.
+All content is © 2021 by its respective authors. By submitting content to this site, you agree to release it under the &lt;a href="https://xcaminhante.github.io/LICENSE.txt"&gt;GPLv3+ license&lt;/a&gt;.
 &lt;/div&gt;</t>
-<t tx="caminhante.20200513224648.10">h1, h2, h3 { margin: 0; margin-top: 6px; line-height: 1em; }
-h1 { margin-top: 0; padding: 0px; font-size: 200%; font-weight: 900; }
-h2, h3 { padding: 0.2em; font-size: 1em; font-weight: 600; }
-h1 { color: #015787; }
-h2 { color: black; background-color: #eeeeee; }
-h3 { color: #17698c; }
+<t tx="caminhante.20200513224648.10">h1, h2, h3 { margin: 0; margin-top: 6px; line-height: var(--height-line); }
+h1 { margin-top: 0; padding: 0px; font-size: var(--size--text-1); font-weight: 900; }
+h2, h3 { padding: var(--width--padding-2); font-size: 1em; font-weight: 600; }
+h1 { color: var(--color--text-2); }
+h2 { color: var(--color--text-1); background-color: var(--color--2); }
+h3 { color: var(--color--text-2); }
 </t>
-<t tx="caminhante.20200513224648.11">#footer { display: inline-block; position: relative; left: 1rem; margin: 0.8em 0; font-size: 0.8em; }
+<t tx="caminhante.20200513224648.11">#footer { display: inline-block; position: relative; left: var(--width--margin); font-size: var(--size--text-2); max-width: }
+#footer { margin: var(--width--padding-1) 0 0 0; padding: 0; var(--width--max); }</t>
+<t tx="caminhante.20200513224648.2">html { font: var(--size--text-base) var(--font--text); }
+body { margin: 0; padding: 0; color: var(--color--text-1); background-color: var(--color--1); }
+p { margin: 0; text-indent: 0; padding: var(--width--padding-2) 0; }
 </t>
-<t tx="caminhante.20200513224648.2">body { margin: 0; padding: 0; font: 9pt "Lucida Grande","Lucida Sans Unicode",verdana,geneva,sans-serif; color: #333333; background-color: white; }
-p { margin: 0; text-indent: 0; padding: 0.2em 0; }
+<t tx="caminhante.20200513224648.3">a { text-decoration: none; font-weight: 600; font-family: var(--font--links); color: var(--color--link-1); }
+a:link { color: var(--color--link-1); }
+a:visited { color: var(--color--link-2); }
+a:hover { background-color: var(--color--link-1); color: var(--color--2); }
 </t>
-<t tx="caminhante.20200513224648.3">a { text-decoration: none; font-weight: 600; font-family: verdana,arial,helvetica,sans-serif; color: #0099cc; }
-a:link { color: #0099cc; }
-a:visited { color: #0077aa; }
-a:hover { background-color: #0099cc; color: #f5f1fd; }
-</t>
-<t tx="caminhante.20200513224648.4">pre { margin: 0; padding: 0.5em; white-space: pre-wrap; }
+<t tx="caminhante.20200513224648.4">pre { margin: 0; padding: var(--width--padding-1); white-space: pre-wrap; }
 code { margin: 0; padding: 0 }
-code, pre { font-family: "Courier New",Courier,monospace; font-size: inherit; color: navy; }
-pre { border-width: 1px 1px 1px 5px; border-style: solid; border-color: #bbbbbb; background: #eeeeee none repeat scroll 0% 0%; }
+code, pre { font-family: var(--font--mono); font-size: inherit; color: var(--color--text-3); }
+pre { border: solid var(--color--3); border-width: 1px 1px 1px 5px; background: var(--color--2) none repeat scroll 0% 0%; }</t>
+<t tx="caminhante.20200513224648.5">input[type="button"] { background-color: var(--color--2); border-color: var(--color--3); border-width: 1px; }
+input[type="button"] { color: inherit; font-size: 1em; line-height: var(--height-line); }
+input[type="button"]:active { color: var(--color--link-1); }</t>
+<t tx="caminhante.20200513224648.6">#header { margin: var(--width--margin-header) 0 var(--width--margin-header) 0; }
+#header { padding: var(--width--margin-header) 0 0 var(--width--margin-header); }
+#header { font-size: var(--size--text-1); line-height: var(--height-line); height: var(--height-line); }
+#header { background-color: var(--color--2); border: solid var(--color--text-1); border-width: 1px 0px; }
 </t>
-<t tx="caminhante.20200513224648.5">input[type="button"] { background-color: #dddddd; border-color: #bbbbbb; border-width: 1px; color: inherit; font-size: 0.9em; line-height: 1em; }
-input[type="button"]:active { color: #0099cc; }</t>
-<t tx="caminhante.20200513224648.6">#header { margin: 1em 0 1em 0; padding: 1em 0 0 1em; height: 1rem; }
-#header { font-size: 1.4em; line-height: 0.7em; }
-#header { background-color: #eeeeee; border: solid black; border-width: 1px 0px; }
-</t>
-<t tx="caminhante.20200513224648.7">#menu { display: inline-block; position: relative; left: 1rem; }
+<t tx="caminhante.20200513224648.7">#menu { display: inline-block; position: relative; left: var(--width--margin); max-width: var(--width--max); }
 @media (min-width: 40pc) { #menu { float: left; }}
 </t>
-<t tx="caminhante.20200513224648.8">.menuframe { margin: 0 1rem 1rem 0; padding: 0.6rem; width: 7rem; }
-.menuframe { line-height: 1.3em; display: inline-block; vertical-align: top; }
-.menuframe { background-color: #eeeeee; border: 1px dashed black; }
+<t tx="caminhante.20200513224648.8">.menuframe { overflow: hidden; display: inline-block; vertical-align: top; }
+.menuframe { margin: 0 var(--width--margin) var(--width--margin) 0; padding: var(--width--padding-1); }
+.menuframe { line-height: var(--height-line); font-size: var(--size--text-2);}
+.menuframe { background-color: var(--color--2); border: 1px dashed var(--color--text-1); width: var(--width--menu); }
 @media (min-width: 40pc) { .menuframe { display: block; }}
-.menuframe span { border-bottom: 1px dotted black; }
+.menuframe span { border-bottom: 1px dotted var(--color--text-1); }
 </t>
-<t tx="caminhante.20200513224648.9">#content { margin: 0 0.5rem; padding: 0.5rem; padding-top: 0; max-width: 100%; }
-#content { background: transparent no-repeat scroll right top; }
-@media (min-width: 40pc) { #content { margin-left: 10rem; }}
+<t tx="caminhante.20200513224648.9">#content { margin: 0 var(--width--margin); padding: 0; max-width: 100%; }
+#content { background: transparent no-repeat scroll right top; overflow: hidden; }
+@media (min-width: 40pc) { #content { margin-left: var(--width--margin-content); }}
 </t>
 <t tx="caminhante.20200604232050.1">@language python
 import subprocess
@@ -878,5 +884,31 @@ c.redraw()
 c.save()
 w.setSelectionRange(s1,s2)
 </t>
+<t tx="caminhante.20210926184648.1">:root {
+  --color--1: white;
+  --color--2: #eeeeee;
+  --color--3: #bbbbbb;
+  --color--text-1: black;
+  --color--text-2: #015787;
+  --color--text-3: navy;
+  --color--link-1: #0099cc;
+  --color--link-2: #0077aa;
+  --width--screen-little: 40pc;
+  --width--margin-header: 1rem;
+  --width--menu: 10rem;
+  --width--margin: 0.5rem;
+  --width--padding-1: 0.5rem;
+  --width--padding-2: 0.1rem;
+  --width--max: calc( 100% - var(--width--margin) * 2 );
+  --width--margin-content: calc( var(--width--menu) + var(--width--margin) * 2 + var(--width--padding-1) * 2 + 2px );
+  --height-line: 1.2em;
+  --size--text-base: 1pc;
+  --size--text-1: 1.4rem;
+  --size--text-2: 0.8rem;
+  --size--text-3: 2rem;
+  --font--text: "Lucida Grande","Lucida Sans Unicode",verdana,geneva,sans-serif;
+  --font--links: verdana,arial,helvetica,sans-serif;
+  --font--mono: "Courier New",Courier,monospace;
+}</t>
 </tnodes>
 </leo_file>
