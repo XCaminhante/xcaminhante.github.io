@@ -434,8 +434,8 @@ h1 { color: var(--color--text-2); }
 h2 { color: var(--color--text-1); background-color: var(--color--2); }
 h3 { color: var(--color--text-2); }
 </t>
-<t tx="caminhante.20200513224648.11">#footer { display: inline-block; position: relative; left: var(--width--margin); font-size: var(--size--text-2); max-width: }
-#footer { margin: var(--width--padding-1) 0 0 0; padding: 0; var(--width--max); }</t>
+<t tx="caminhante.20200513224648.11">#footer { display: inline-block; position: relative; left: var(--width--margin); font-size: var(--size--text-2); }
+#footer { margin: var(--width--padding-1) 0 0 0; padding: 0; max-width: var(--width--max); }</t>
 <t tx="caminhante.20200513224648.2">html { font: var(--size--text-base) var(--font--text); }
 body { margin: 0; padding: 0; color: var(--color--text-1); background-color: var(--color--1); }
 p { margin: 0; text-indent: 0; padding: var(--width--padding-2) 0; }
@@ -466,7 +466,9 @@ input[type="button"]:active { color: var(--color--link-1); }</t>
 .menuframe { background-color: var(--color--2); border: 1px dashed var(--color--text-1); width: var(--width--menu); }
 @media (min-width: 40pc) { .menuframe { display: block; }}
 .menuframe span { border-bottom: 1px dotted var(--color--text-1); }
-</t>
+.menuframe h1, .menuframe h2, .menuframe h3 { border-bottom: 1px dotted var(--color--text-2); }
+.menuframe h2 { font-size: var(--size--text-4); }
+.menuframe h1 a, .menuframe h2 a, .menuframe h3 a { color: var(--color--text-2); }</t>
 <t tx="caminhante.20200513224648.9">#content { margin: 0 var(--width--margin); padding: 0; max-width: 100%; }
 #content { background: transparent no-repeat scroll right top; overflow: hidden; }
 @media (min-width: 40pc) { #content { margin-left: var(--width--margin-content); }}
@@ -906,6 +908,7 @@ w.setSelectionRange(s1,s2)
   --size--text-1: 1.4rem;
   --size--text-2: 0.8rem;
   --size--text-3: 2rem;
+  --size--text-4: 1rem;
   --font--text: "Lucida Grande","Lucida Sans Unicode",verdana,geneva,sans-serif;
   --font--links: verdana,arial,helvetica,sans-serif;
   --font--mono: "Courier New",Courier,monospace;
