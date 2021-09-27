@@ -467,7 +467,7 @@ input[type="button"]:active { color: var(--color--link-1); }</t>
 @media (min-width: 40pc) { .menuframe { display: block; }}
 .menuframe span { border-bottom: 1px dotted var(--color--text-1); }
 .menuframe h1, .menuframe h2, .menuframe h3 { border-bottom: 1px dotted var(--color--text-2); }
-.menuframe h2 { font-size: var(--size--text-4); }
+.menuframe h2 { font-size: var(--size--text-base); }
 .menuframe h1 a, .menuframe h2 a, .menuframe h3 a { color: var(--color--text-2); }</t>
 <t tx="caminhante.20200513224648.9">#content { margin: 0 var(--width--margin); padding: 0; max-width: 100%; }
 #content { background: transparent no-repeat scroll right top; overflow: hidden; }
@@ -908,7 +908,6 @@ w.setSelectionRange(s1,s2)
   --size--text-1: 1.4rem;
   --size--text-2: 0.8rem;
   --size--text-3: 2rem;
-  --size--text-4: 1rem;
   --font--text: "Lucida Grande","Lucida Sans Unicode",verdana,geneva,sans-serif;
   --font--links: verdana,arial,helvetica,sans-serif;
   --font--mono: "Courier New",Courier,monospace;
