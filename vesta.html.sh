@@ -44,5 +44,5 @@ link 'Will reside here soon.' "pub-vesta/index.html" | p
 #@+node:caminhante.20211113222420.1: ** footer
 footer 'GPLv3+'
 #@-others
-) | ( head "XCaminhante' files" '/home/user/Projects/xcaminhante.github.io/'; body ) | page pt-BR
+) | ( head "XCaminhante' files" 'https://xcaminhante.github.io/'; body ) | page pt-BR
 #@-leo
