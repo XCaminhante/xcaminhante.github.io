@@ -550,6 +550,7 @@
 <v t="caminhante.20200513224648.11"><vh>footer</vh></v>
 </v>
 <v t="caminhante.20210926215303.1"><vh>@edit .gitignore</vh></v>
+<v t="caminhante.20211114190846.1"><vh>@file index.html.sh</vh></v>
 <v t="caminhante.20211113195431.1"><vh>@file links.html.sh</vh></v>
 <v t="caminhante.20210926193032.1"><vh>@file test.html</vh></v>
 <v t="caminhante.20211113232631.1"><vh>@file vesta.html.sh</vh></v>
@@ -559,6 +560,7 @@
 <v t="caminhante.20200612175153.9"><vh>LICENSE.txt</vh></v>
 <v t="caminhante.20211113232227.1"><vh>links.html</vh></v>
 <v t="caminhante.20211113193822.1"><vh>Makefile</vh></v>
+<v t="caminhante.20211114191212.1"><vh>vesta.html</vh></v>
 <v t="caminhante.20200612175153.1"><vh>zeppo.html</vh></v>
 </v>
 </v>
@@ -614,43 +616,48 @@ end procedure
 &lt;html lang="en"&gt;
 @others
 &lt;/html&gt;</t>
-<t tx="caminhante.20200219124631.10">&lt;p&gt; I'll put technically interesting (at least for me) projects, articles and links here. &lt;/p&gt;
-&lt;p&gt; My projects aren't much interesting yet, but they'll be. Someday. &lt;/p&gt;</t>
+<t tx="caminhante.20200219124631.10">&lt;p&gt;I'll put technically interesting (at least for me) projects, articles and links here.&lt;/p&gt;
+&lt;p&gt;My projects aren't much interesting yet, but they'll be. Someday.&lt;/p&gt;
+</t>
 <t tx="caminhante.20200219124631.2">@language html
 @tabwidth -2
 &lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
+&lt;html lang="pt-BR"&gt;
 @others
-&lt;/html&gt;</t>
+&lt;/html&gt;
+</t>
 <t tx="caminhante.20200219124631.3">&lt;head&gt;
 &lt;meta charset="utf-8"/&gt;
 &lt;meta name="editor" content="Leo Editor"/&gt;
 &lt;meta name="author" content="https://github.com/XCaminhante"/&gt;
-&lt;base href="https://xcaminhante.github.io/"/&gt;
-&lt;title&gt; XCaminhante' files &lt;/title&gt;
-&lt;style&gt; @import "style.css"; &lt;/style&gt;
+&lt;base href="https://xcaminhante.github.io/"/&gt;&lt;title&gt;XCaminhante' files&lt;/title&gt;
+&lt;style type="text/css"&gt;@import "style.css";&lt;/style&gt;
 &lt;/head&gt;
 </t>
 <t tx="caminhante.20200219124631.4">&lt;body&gt;
 @others
-&lt;/body&gt;</t>
-<t tx="caminhante.20200219124631.5">&lt;div id="header"&gt; &lt;a href="index.html"&gt; XCaminhante' files &lt;/a&gt; &lt;/div&gt;
+&lt;/body&gt;
+</t>
+<t tx="caminhante.20200219124631.5">&lt;div id="header"&gt;&lt;a href="index.html"&gt;XCaminhante' files&lt;/a&gt;&lt;/div&gt;
 </t>
 <t tx="caminhante.20200219124631.6">&lt;div id="menu"&gt;
 @others
-&lt;/div&gt;</t>
+&lt;/div&gt;
+</t>
 <t tx="caminhante.20200219124631.7">&lt;div class="menuframe"&gt;
-&lt;a href="index.html"&gt; About &lt;/a&gt; &lt;br/&gt;
-&lt;a href="vesta.html"&gt; Vesta CMS &lt;/a&gt; &lt;br/&gt;
-&lt;a href="perlwm/index.html"&gt; PerlWM &lt;/a&gt; &lt;br/&gt;
-&lt;a href="windwm/index.html"&gt; WindWM &lt;/a&gt; &lt;br/&gt;
-&lt;a href="links.html"&gt; External Links &lt;/a&gt; &lt;br/&gt;
+&lt;a href="index.html"&gt;About&lt;/a&gt;&lt;br/&gt;
+&lt;a href="vesta.html"&gt;Vesta CMS&lt;/a&gt;&lt;br/&gt;
+&lt;a href="perlwm/index.html"&gt;PerlWM&lt;/a&gt;&lt;br/&gt;
+&lt;a href="windwm/index.html"&gt;WindWM&lt;/a&gt;&lt;br/&gt;
+&lt;a href="links.html"&gt;External Links&lt;/a&gt;&lt;br/&gt;
 &lt;/div&gt;
 </t>
 <t tx="caminhante.20200219124631.8">&lt;div id="content"&gt;
 @others
-&lt;/div&gt;</t>
-<t tx="caminhante.20200219130100.1">&lt;h1&gt; About this site &lt;/h1&gt;</t>
+&lt;/div&gt;
+</t>
+<t tx="caminhante.20200219130100.1">&lt;h1&gt;About this site&lt;/h1&gt;
+</t>
 <t tx="caminhante.20200219142855.1">link;;=&lt;a href="&lt;|url|&gt;"&gt; &lt;|text|&gt; &lt;/a&gt; &lt;br/&gt;
 p;;=&lt;p&gt; &lt;|text|&gt; &lt;/p&gt;
 code;;=&lt;code&gt; &lt;|code|&gt; &lt;/code&gt;
@@ -672,7 +679,8 @@ table { position: relative; height: 100%; width: 100%; }
 &lt;/body&gt;
 &lt;/html&gt;</t>
 <t tx="caminhante.20200504211036.1">&lt;div id="footer"&gt;
-All content is © 2021 by its respective authors. By submitting content to this site, you agree to release it under the &lt;a href="https://xcaminhante.github.io/LICENSE.txt"&gt;GPLv3+ license&lt;/a&gt;.
+All content is © 2021 by its respective authors.
+By submitting content to this site, you agree to release it under the &lt;a href="LICENSE.txt"&gt;GPLv3+ license&lt;/a&gt;.
 &lt;/div&gt;
 </t>
 <t tx="caminhante.20200513224648.10">h1, h2, h3 { margin: 0; margin-top: 6px; line-height: var(--height-line); }
@@ -1603,5 +1611,6 @@ g.es(execute('make'))
 <t tx="caminhante.20211113232411.97"></t>
 <t tx="caminhante.20211113232411.98"></t>
 <t tx="caminhante.20211113232411.99"></t>
+<t tx="caminhante.20211114191212.1"></t>
 </tnodes>
 </leo_file>

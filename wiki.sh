@@ -14,7 +14,7 @@ AAA
 #@+node:caminhante.20211113155149.1: *3* function head
 function head { cat <<AAA
 <head>
-<meta charset="utf8"/>
+<meta charset="utf-8"/>
 <meta name="editor" content="Leo Editor"/>
 <meta name="author" content="https://github.com/XCaminhante"/>
 `[ ! -z $2 ] && echo "<base href=\"$2\"/>"`<title>$1</title>
