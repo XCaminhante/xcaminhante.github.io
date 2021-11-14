@@ -549,30 +549,10 @@
 <v t="caminhante.20200513224648.9"><vh>content</vh></v>
 <v t="caminhante.20200513224648.11"><vh>footer</vh></v>
 </v>
-<v t="caminhante.20200219125833.1"><vh>@clean vesta.html</vh>
-<v t="caminhante.20200219125849.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"></v>
-<v t="caminhante.20200219125849.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"></v>
-<v t="caminhante.20200219140857.1"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"></v>
-<v t="caminhante.20200219140925.1"><vh>Vesta's related websites' backups</vh></v>
-</v>
-<v t="caminhante.20200219125849.8"><vh>content</vh>
-<v t="caminhante.20200219130551.1"><vh>title</vh></v>
-<v t="caminhante.20200219125953.1"><vh>1.</vh></v>
-<v t="caminhante.20200219130700.1"><vh>2.</vh></v>
-<v t="caminhante.20200219141223.1"><vh>3.</vh></v>
-<v t="caminhante.20200219141303.1"><vh>4.</vh></v>
-</v>
-<v t="caminhante.20200504211036.1"></v>
-</v>
-</v>
-</v>
 <v t="caminhante.20210926215303.1"><vh>@edit .gitignore</vh></v>
 <v t="caminhante.20211113195431.1"><vh>@file links.html.sh</vh></v>
-<v t="caminhante.20211113232631.1"><vh>@file vesta-test.html.sh</vh></v>
 <v t="caminhante.20210926193032.1"><vh>@file test.html</vh></v>
+<v t="caminhante.20211113232631.1"><vh>@file vesta.html.sh</vh></v>
 <v t="caminhante.20211113154658.1"><vh>@file wiki.sh</vh></v>
 <v t="caminhante.20200612175153.8"><vh>fzort.gif</vh></v>
 <v t="caminhante.20200612175153.7"><vh>gitpage.leo</vh></v>
@@ -670,40 +650,7 @@ end procedure
 <t tx="caminhante.20200219124631.8">&lt;div id="content"&gt;
 @others
 &lt;/div&gt;</t>
-<t tx="caminhante.20200219125833.1">@others
-</t>
-<t tx="caminhante.20200219125849.2">@language html
-@tabwidth -2
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-@others
-&lt;/html&gt;</t>
-<t tx="caminhante.20200219125849.4">&lt;body&gt;
-@others
-&lt;/body&gt;</t>
-<t tx="caminhante.20200219125849.8">&lt;div id="content"&gt;
-@others
-&lt;/div&gt;</t>
-<t tx="caminhante.20200219125953.1">&lt;h2&gt; What is this project about &lt;/h2&gt;
-&lt;p&gt; Vesta Configuration Management System is an advanced software configuration management system. It handles source revision control and automated construction. It is the result of over 10 years of research and development at the Compaq/Digital Systems Research Center. &lt;/p&gt;
-&lt;p&gt; Vesta CMS is LGPL-licensed software. This is an atempt to backup and revive the software. A copy of the associated websites will be mirrored here and the source-code mirrored on a Git repo. &lt;/p&gt;</t>
 <t tx="caminhante.20200219130100.1">&lt;h1&gt; About this site &lt;/h1&gt;</t>
-<t tx="caminhante.20200219130551.1">&lt;h1&gt; Vesta CMS &lt;/h1&gt;</t>
-<t tx="caminhante.20200219130700.1">&lt;h2&gt; &lt;a href="http://www.vestasys.org/"&gt; http://www.vestasys.org/ &lt;/a&gt; mirror &lt;/h2&gt;
-&lt;p&gt; &lt;a href="vesta/index.html"&gt; Here. &lt;/a&gt; It's still under revision. &lt;/p&gt;</t>
-<t tx="caminhante.20200219140857.1">&lt;div id="menu"&gt;
-@others
-&lt;/div&gt;</t>
-<t tx="caminhante.20200219140925.1">&lt;div class="menuframe"&gt;
-&lt;span&gt; Websites' backups &lt;/span&gt; &lt;br/&gt;
-&lt;a href="vesta/index.html"&gt; www.vestasys.org &lt;/a&gt; &lt;br/&gt;
-&lt;a href="wiki-vesta/FrontPage.html"&gt; wiki.vestasys.org &lt;/a&gt; &lt;br/&gt;
-&lt;a href="pub-vesta/index.html"&gt; pub.vestasys.org &lt;/a&gt; &lt;br/&gt;
-&lt;/div&gt;</t>
-<t tx="caminhante.20200219141223.1">&lt;h2&gt; &lt;a href="http://wiki.vestasys.org/"&gt; http://wiki.vestasys.org/ &lt;/a&gt; mirror &lt;/h2&gt;
-&lt;p&gt; &lt;a href="wiki-vesta/FrontPage.html"&gt; Here. &lt;/a&gt; It's still under revision. &lt;/p&gt;</t>
-<t tx="caminhante.20200219141303.1">&lt;h2&gt; &lt;a href="http://pub.vestasys.org/"&gt; http://pub.vestasys.org/ &lt;/a&gt; mirror &lt;/h2&gt;
-&lt;p&gt; &lt;a href="pub-vesta/index.html"&gt; Will reside here soon. &lt;/a&gt; &lt;/p&gt;</t>
 <t tx="caminhante.20200219142855.1">link;;=&lt;a href="&lt;|url|&gt;"&gt; &lt;|text|&gt; &lt;/a&gt; &lt;br/&gt;
 p;;=&lt;p&gt; &lt;|text|&gt; &lt;/p&gt;
 code;;=&lt;code&gt; &lt;|code|&gt; &lt;/code&gt;

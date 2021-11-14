@@ -95,6 +95,11 @@ function outerlink { cat <<AAA
 <a target="_blank" href="$2">$1</a>
 AAA
 }
+#@+node:caminhante.20211114185332.1: *5* function link
+function link { cat <<AAA
+<a href="$2">$1</a>
+AAA
+}
 #@+node:caminhante.20211113164249.1: *4* function footer
 function footer { cat <<AAA
 <div id="footer">
