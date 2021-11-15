@@ -32,9 +32,10 @@ a:link { color: var(--color--link-1); }
 a:visited { color: var(--color--link-2); }
 a:hover { background-color: var(--color--link-1); color: var(--color--2); }
 pre { margin: 0; padding: var(--width--padding-1); white-space: pre-wrap; counter-reset: line; }
-code { margin: 0; padding: 0; counter-increment: line; }
-code:before { content: counter(line)':'; display: inline-block; -webkit-user-select: none; }
-code:before { text-align: right; color: var(--color--link-1); min-width: 3.5rem !important; }
+code { margin: 0; padding: 0; }
+pre > code { counter-increment: line; }
+pre > code:before { content: counter(line)':'; display: inline-block; -webkit-user-select: none; }
+pre > code:before { text-align: right; color: var(--color--link-1); min-width: 3.5rem !important; }
 code, pre { font-family: var(--font--mono); font-size: inherit; color: var(--color--text-3); }
 pre { border: solid var(--color--3); border-width: 1px 1px 1px 5px; background: var(--color--2) none repeat scroll 0% 0%; }
 input[type="button"] { background-color: var(--color--2); border-color: var(--color--3); border-width: 1px; }

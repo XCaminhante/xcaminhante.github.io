@@ -109,4 +109,5 @@ By submitting content to this site, you agree to release it under the <a href="L
 AAA
 }
 #@-others
+cd "$(dirname "$0")"
 #@-leo

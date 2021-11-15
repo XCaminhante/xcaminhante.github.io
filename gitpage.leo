@@ -64,39 +64,21 @@
 <v t="caminhante.20200612155432.2"><vh>shots-h.png</vh></v>
 <v t="caminhante.20200612155432.1"><vh>shots-n.png</vh></v>
 </v>
-<v t="caminhante.20200612173905.1"><vh>@clean code.html</vh>
-<v t="caminhante.20200612173921.2"><vh>page</vh>
+<v t="caminhante.20200612172854.1"><vh>@clean docs.html</vh>
+<v t="caminhante.20200612172904.2"><vh>page</vh>
 <v t="caminhante.20200219124631.3"><vh>head</vh></v>
-<v t="caminhante.20200612173921.4"><vh>body</vh>
+<v t="caminhante.20200612172904.4"><vh>body</vh>
 <v t="caminhante.20200219124631.5"><vh>header</vh></v>
-<v t="caminhante.20200612173921.6"><vh>menu</vh>
+<v t="caminhante.20200612172904.6"><vh>menu</vh>
 <v t="caminhante.20200219124631.7"><vh>main pages</vh></v>
 <v t="caminhante.20200612171128.1"><vh>PerlWM pages</vh></v>
 </v>
-<v t="caminhante.20200612173921.8"><vh>content</vh>
+<v t="caminhante.20200612172904.8"><vh>content</vh>
 <v t="caminhante.20200612170111.1"><vh>title</vh></v>
-<v t="caminhante.20200612173951.1"><vh>1.</vh></v>
+<v t="caminhante.20200612172940.1"><vh>1.</vh></v>
 <v t="caminhante.20200612172800.1"><vh>copy</vh></v>
 </v>
 <v t="caminhante.20200504211036.1"><vh>footer</vh></v>
-</v>
-</v>
-</v>
-<v t="caminhante.20200612172854.1"><vh>@clean docs.html</vh>
-<v t="caminhante.20200612172904.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"></v>
-<v t="caminhante.20200612172904.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"></v>
-<v t="caminhante.20200612172904.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"></v>
-<v t="caminhante.20200612171128.1"></v>
-</v>
-<v t="caminhante.20200612172904.8"><vh>content</vh>
-<v t="caminhante.20200612170111.1"></v>
-<v t="caminhante.20200612172940.1"><vh>1.</vh></v>
-<v t="caminhante.20200612172800.1"></v>
-</v>
-<v t="caminhante.20200504211036.1"></v>
 </v>
 </v>
 </v>
@@ -154,6 +136,16 @@
 </v>
 </v>
 </v>
+<v t="caminhante.20211114201602.1"><vh>@edit docs.html.actions.snippet</vh></v>
+<v t="caminhante.20211114201741.1"><vh>@edit docs.html.bindings.snippet</vh></v>
+<v t="caminhante.20211114194611.1"><vh>@edit docs.html.color.snippet</vh></v>
+<v t="caminhante.20211114194922.1"><vh>@edit docs.html.dim.snippet</vh></v>
+<v t="caminhante.20211114193526.1"><vh>@edit docs.html.font.snippet</vh></v>
+<v t="caminhante.20211114195240.1"><vh>@edit docs.html.gc.snippet</vh></v>
+<v t="caminhante.20211114202052.1"><vh>@edit docs.html.sample.snippet</vh></v>
+<v t="caminhante.20211114191709.1"><vh>@file code.html.sh</vh></v>
+<v t="caminhante.20211114192841.1"><vh>@file docs.html.sh</vh></v>
+<v t="caminhante.20211114192811.1"><vh>code.html</vh></v>
 </v>
 <v t="caminhante.20200612175153.12"><vh>/pub-vesta/</vh>
 <v t="caminhante.20211113232403.2"><vh>favicon.png</vh></v>
@@ -516,23 +508,6 @@
 <v t="caminhante.20200612211140.1"><vh>screenshot.png</vh></v>
 </v>
 <v t="caminhante.20200219131209.1"><vh>@auto README.md</vh></v>
-<v t="caminhante.20200219170322.1"><vh>@clean fzort.html</vh></v>
-<v t="caminhante.20200219124135.1"><vh>@clean index.html</vh>
-<v t="caminhante.20200219124631.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"></v>
-<v t="caminhante.20200219124631.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"></v>
-<v t="caminhante.20200219124631.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"></v>
-</v>
-<v t="caminhante.20200219124631.8"><vh>content</vh>
-<v t="caminhante.20200219130100.1"><vh>title</vh></v>
-<v t="caminhante.20200219124631.10"><vh>1.</vh></v>
-</v>
-<v t="caminhante.20200504211036.1"></v>
-</v>
-</v>
-</v>
 <v t="caminhante.20211113154852.1"><vh>@clean Makefile</vh></v>
 <v t="caminhante.20200218172558.1"><vh>@clean style.css</vh>
 <v t="caminhante.20210926184648.1"><vh>/vars</vh></v>
@@ -550,6 +525,7 @@
 <v t="caminhante.20200513224648.11"><vh>footer</vh></v>
 </v>
 <v t="caminhante.20210926215303.1"><vh>@edit .gitignore</vh></v>
+<v t="caminhante.20200219170322.1"><vh>@edit fzort.html</vh></v>
 <v t="caminhante.20211114190846.1"><vh>@file index.html.sh</vh></v>
 <v t="caminhante.20211113195431.1"><vh>@file links.html.sh</vh></v>
 <v t="caminhante.20210926193032.1"><vh>@file test.html</vh></v>
@@ -557,11 +533,12 @@
 <v t="caminhante.20211113154658.1"><vh>@file wiki.sh</vh></v>
 <v t="caminhante.20200612175153.8"><vh>fzort.gif</vh></v>
 <v t="caminhante.20200612175153.7"><vh>gitpage.leo</vh></v>
+<v t="caminhante.20211114191611.1"><vh>index.html</vh></v>
 <v t="caminhante.20200612175153.9"><vh>LICENSE.txt</vh></v>
 <v t="caminhante.20211113232227.1"><vh>links.html</vh></v>
 <v t="caminhante.20211113193822.1"><vh>Makefile</vh></v>
 <v t="caminhante.20211114191212.1"><vh>vesta.html</vh></v>
-<v t="caminhante.20200612175153.1"><vh>zeppo.html</vh></v>
+<v t="caminhante.20211114191926.1"><vh>zeppo.html</vh></v>
 </v>
 </v>
 </vnodes>
@@ -606,8 +583,6 @@ end procedure
 &lt;h2&gt; Subtitle &lt;/h2&gt;
 &lt;h3&gt; Sub-subtitle &lt;/h3&gt;</t>
 <t tx="caminhante.20200219123813.3">@path .</t>
-<t tx="caminhante.20200219124135.1">@others
-</t>
 <t tx="caminhante.20200219124145.1"></t>
 <t tx="caminhante.20200219124202.1">listpage;;</t>
 <t tx="caminhante.20200219124409.1">@language html
@@ -616,16 +591,6 @@ end procedure
 &lt;html lang="en"&gt;
 @others
 &lt;/html&gt;</t>
-<t tx="caminhante.20200219124631.10">&lt;p&gt;I'll put technically interesting (at least for me) projects, articles and links here.&lt;/p&gt;
-&lt;p&gt;My projects aren't much interesting yet, but they'll be. Someday.&lt;/p&gt;
-</t>
-<t tx="caminhante.20200219124631.2">@language html
-@tabwidth -2
-&lt;!DOCTYPE html&gt;
-&lt;html lang="pt-BR"&gt;
-@others
-&lt;/html&gt;
-</t>
 <t tx="caminhante.20200219124631.3">&lt;head&gt;
 &lt;meta charset="utf-8"/&gt;
 &lt;meta name="editor" content="Leo Editor"/&gt;
@@ -634,15 +599,7 @@ end procedure
 &lt;style type="text/css"&gt;@import "style.css";&lt;/style&gt;
 &lt;/head&gt;
 </t>
-<t tx="caminhante.20200219124631.4">&lt;body&gt;
-@others
-&lt;/body&gt;
-</t>
 <t tx="caminhante.20200219124631.5">&lt;div id="header"&gt;&lt;a href="index.html"&gt;XCaminhante' files&lt;/a&gt;&lt;/div&gt;
-</t>
-<t tx="caminhante.20200219124631.6">&lt;div id="menu"&gt;
-@others
-&lt;/div&gt;
 </t>
 <t tx="caminhante.20200219124631.7">&lt;div class="menuframe"&gt;
 &lt;a href="index.html"&gt;About&lt;/a&gt;&lt;br/&gt;
@@ -652,32 +609,11 @@ end procedure
 &lt;a href="links.html"&gt;External Links&lt;/a&gt;&lt;br/&gt;
 &lt;/div&gt;
 </t>
-<t tx="caminhante.20200219124631.8">&lt;div id="content"&gt;
-@others
-&lt;/div&gt;
-</t>
-<t tx="caminhante.20200219130100.1">&lt;h1&gt;About this site&lt;/h1&gt;
-</t>
 <t tx="caminhante.20200219142855.1">link;;=&lt;a href="&lt;|url|&gt;"&gt; &lt;|text|&gt; &lt;/a&gt; &lt;br/&gt;
 p;;=&lt;p&gt; &lt;|text|&gt; &lt;/p&gt;
 code;;=&lt;code&gt; &lt;|code|&gt; &lt;/code&gt;
 menuf;;=&lt;div class="menuframe"&gt; &lt;||&gt; &lt;/div&gt;
 </t>
-<t tx="caminhante.20200219170322.1">@language html
-@tabwidth -2
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt; &lt;meta charset="utf8"/&gt; &lt;title&gt;orbius fzortius&lt;/title&gt;
-&lt;style&gt;
-html, body { height: 100%; margin: 0; padding: 0; }
-table { position: relative; height: 100%; width: 100%; }
-&lt;/style&gt; &lt;/head&gt;
-&lt;body bgcolor="white"&gt;
-&lt;table border="0"&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td valign="middle" align="center"&gt;
-&lt;img src="fzort.gif" alt="fluff" /&gt;
-&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</t>
 <t tx="caminhante.20200504211036.1">&lt;div id="footer"&gt;
 All content is © 2021 by its respective authors.
 By submitting content to this site, you agree to release it under the &lt;a href="LICENSE.txt"&gt;GPLv3+ license&lt;/a&gt;.
@@ -702,9 +638,10 @@ a:visited { color: var(--color--link-2); }
 a:hover { background-color: var(--color--link-1); color: var(--color--2); }
 </t>
 <t tx="caminhante.20200513224648.4">pre { margin: 0; padding: var(--width--padding-1); white-space: pre-wrap; counter-reset: line; }
-code { margin: 0; padding: 0; counter-increment: line; }
-code:before { content: counter(line)':'; display: inline-block; -webkit-user-select: none; }
-code:before { text-align: right; color: var(--color--link-1); min-width: 3.5rem !important; }
+code { margin: 0; padding: 0; }
+pre &gt; code { counter-increment: line; }
+pre &gt; code:before { content: counter(line)':'; display: inline-block; -webkit-user-select: none; }
+pre &gt; code:before { text-align: right; color: var(--color--link-1); min-width: 3.5rem !important; }
 code, pre { font-family: var(--font--mono); font-size: inherit; color: var(--color--text-3); }
 pre { border: solid var(--color--3); border-width: 1px 1px 1px 5px; background: var(--color--2) none repeat scroll 0% 0%; }</t>
 <t tx="caminhante.20200513224648.5">input[type="button"] { background-color: var(--color--2); border-color: var(--color--3); border-width: 1px; }
@@ -1010,33 +947,7 @@ handling just the press and release, or handling the drag differently.
   $x-&gt;ConfigureWindow($c-&gt;{frame}, x =&gt; $c-&gt;{x}, y =&gt; $c-&gt;{y});
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;/p&gt;</t>
-<t tx="caminhante.20200612173905.1">@others
-</t>
-<t tx="caminhante.20200612173921.2">@language html
-@tabwidth -2
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-@others
-&lt;/html&gt;
-</t>
-<t tx="caminhante.20200612173921.4">&lt;body&gt;
-@others
-&lt;/body&gt;
-</t>
-<t tx="caminhante.20200612173921.6">&lt;div id="menu"&gt;
-@others
-&lt;/div&gt;
-</t>
-<t tx="caminhante.20200612173921.8">&lt;div id="content"&gt;
-@others
-&lt;/div&gt;
-</t>
-<t tx="caminhante.20200612173951.1">&lt;p&gt; There are a number of ways you can get the code: &lt;/p&gt;
-&lt;p&gt; &lt;a href="http://prdownloads.sourceforge.net/perlwm/perlwm-0.0.7.tar.gz?download"&gt;At the original site.&lt;/a&gt; &lt;/p&gt;
-&lt;p&gt; &lt;a href="https://github.com/XCaminhante/perlwm/releases"&gt;At this mirror.&lt;/a&gt; &lt;/p&gt;
-</t>
 <t tx="caminhante.20200612175143.1"></t>
-<t tx="caminhante.20200612175153.1"></t>
 <t tx="caminhante.20200612175153.10">@path wiki-vesta</t>
 <t tx="caminhante.20200612175153.11">@path vesta</t>
 <t tx="caminhante.20200612175153.12">@path pub-vesta</t>
@@ -1260,11 +1171,16 @@ g.es(execute(cmd))
 <t tx="caminhante.20211113154852.1">@tabwidth 4
 origens := $(shell find . -name '*.html.sh')
 destinos := $(origens:.html.sh=.html)
+
+.PHONY: all
+
 all: $(destinos)
 
-%.html: %.html.sh wiki.sh
-	bash "$&lt;" &gt; ".tmp.$@"
-	mv ".tmp.$@" "$@"</t>
+.SECONDEXPANSION:
+%.html: %.html.sh $$(wildcard $$@.*.snippet) wiki.sh
+	bash "$&lt;" &gt; "$@.tmp"
+	mv "$@.tmp" "$@"
+</t>
 <t tx="caminhante.20211113172701.1">@language python
 import subprocess
 
@@ -1612,5 +1528,8 @@ g.es(execute('make'))
 <t tx="caminhante.20211113232411.98"></t>
 <t tx="caminhante.20211113232411.99"></t>
 <t tx="caminhante.20211114191212.1"></t>
+<t tx="caminhante.20211114191611.1"></t>
+<t tx="caminhante.20211114191926.1"></t>
+<t tx="caminhante.20211114192811.1"></t>
 </tnodes>
 </leo_file>

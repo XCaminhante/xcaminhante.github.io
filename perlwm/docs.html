@@ -1,130 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8"/>
 <meta name="editor" content="Leo Editor"/>
 <meta name="author" content="https://github.com/XCaminhante"/>
-<base href="https://xcaminhante.github.io/"/>
-<title> XCaminhante' files </title>
-<style> @import "style.css"; </style>
+<base href="../"/><title>XCaminhante' files</title>
+<style type="text/css">@import "style.css";</style>
 </head>
 <body>
-<div id="header"> <a href="index.html"> XCaminhante' files </a> </div>
+<div id="header"><a href="index.html">XCaminhante' files</a></div>
 <div id="menu">
 <div class="menuframe">
-<a href="index.html"> About </a> <br/>
-<a href="vesta.html"> Vesta CMS </a> <br/>
-<a href="perlwm/index.html"> PerlWM </a> <br/>
-<a href="windwm/index.html"> WindWM </a> <br/>
-<a href="links.html"> External Links </a> <br/>
+<a href="index.html">About</a><br/>
+<a href="vesta.html">Vesta CMS</a><br/>
+<a href="perlwm/index.html">PerlWM</a><br/>
+<a href="windwm/index.html">WindWM</a><br/>
+<a href="links.html">External Links</a><br/>
 </div>
-<div class="menuframe">
-<span>Perl WM</span> <br/>
-<a href="perlwm/index.html">Home</a> <br/>
-<a href="perlwm/news.html">News</a> <br/>
-<a href="perlwm/shots.html">Screen shot</a> <br/>
-<a href="perlwm/docs.html">Docs (outdated)</a> <br/>
-<a href="perlwm/code.html">Code release</a> <br/>
-<a href="http://perlwm.sourceforge.net/">Original site</a> <br/>
+<div class="menuframe"><span>Perl WM</span><br/>
+<a href="perlwm/index.html">Home</a><br/>
+<a href="perlwm/news.html">News</a><br/>
+<a href="perlwm/shots.html">Screen shot</a><br/>
+<a href="perlwm/docs.html">Docs (outdated)</a><br/>
+<a href="perlwm/code.html">Code release</a><br/>
+<a href="http://perlwm.sourceforge.net/">Original site</a><br/>
 </div>
 </div>
 <div id="content">
-<h1> Perl Window Manager </h1>
-<p>
-<b>Sorry, this documentation is pretty out of date - and applies to perlwm 0.0.1.</b>
-</p>
-
-<p>
-There are currently a handful of configuration variables that you can change (althought they are not yet in a seperate
+<h1>Perl Window Manager</h1>
+<p><b>Sorry, this documentation is pretty out of date - and applies to perlwm 0.0.1.</b></p>
+<p>There are currently a handful of configuration variables that you can change (althought they are not yet in a seperate
 configuration file). They control things like fonts, colors, and the combinations in which they are used, as well as
-actions and bindings.
-</p>
-
-<p>
-<b>%font</b> - this defines the fonts that will be used. It maps a name to a font definition.
-</p><p>
-<pre><code>%font = (title       => 'lucidasans-14',
-	 title_focus => 'lucidasans-bold-14');
-</code></pre>
-</p>
-
-<p>
-<b>%color</b> - this defines the colors that will be used. It maps a name
-to a color definition.
-</p><p>
-<pre><code>%color = (frame		=> 'grey75',
-	  frame_focus	=> 'white',
-	  title		=> 'black',
-	  title_focus	=> 'red');
-</code></pre>
-</p>
-
-<p>
-<b>%gc</b> - this defines the GCs (graphics contexts) that will be used to
-draw various elements. It maps names to GC attributes - fonts and colors 
-used must be in defined in %font or %color. GCs are cached (as are fonts and 
-colors). (Currently, the value of this variable looks a bit redundant, but 
-in future it should become more useful.)
-</p><p>
-<pre><code>%gc = (frame		=> { foreground => 'frame' },
-       frame_focus	=> { foreground => 'frame_focus' },
-       title		=> { font       => 'title', 
-			     foreground => 'title' },
-       title_focus      => { font       => 'title_focus', 
-			     foreground => 'title_focus' });
-</code></pre>
-</p>
-
-<p>
-<b>%dim</b> - this defines various dimensions.
-</p><p>
-<pre><code>%dim = (frame_width => 2);
-</code></pre>
-</p>
-
-<p>
-<b>%actions</b> - this defines 'actions' (perhaps 'functions' might be a
-better term). They define what piece of code gets executed for a particular
-event (press, drag and release).
-</p><p>
-<pre><code>%actions = (move => { drag => \&move_drag },
-	    size => { press => \&size_press, drag => \&size_drag });
-</code></pre>
-</p>
-
-<p>
-<b>%bindings</b> - this defines how buttons (and in the future keys) are
-bound to actions in various contexts.
-</p><p>
-<pre><code>%bindings = (frame =>  { 'Button1' => 'move' },
-	     window => { 'Mod1 Button1' => 'move',
-			 'Control Mod1 Button1' => 'size',
-		         'Button1' => '+click' });
-</code></pre>
-</p>
-
-<p>
-<b>Sample action code</b>. Here is the code needed to define the 'move' action. It will be called during a drag (after
-an appropriate binding has been triggered). The three parameters are $c (client - describes the window), $s (state -
-describes the current action state) and $e (event - the most recent X event). What this function <em>does</em> is move
-the current window my the incremental amount the mouse moved since the last event. This configuration gives us what is
-usually called 'opaque move' - the whole window will move with the mouse. Other behaviour can be easily achieved by
-handling just the press and release, or handling the drag differently.
-</p><p>
-<pre><code>sub move_drag {
-
-  my($c, $s, $e) = @_;
-
-  $c->{x} += $s->{drag}->{inc_x};
-  $c->{y} += $s->{drag}->{inc_y};
-
-  $x->ConfigureWindow($c->{frame}, x => $c->{x}, y => $c->{y});
-}</code></pre>
-</p>
-<p> <small>http://perlwm.sourceforge.net/ adapted copy</small> </p>
+actions and bindings.</p>
+<p><b>%font</b> - this defines the fonts that will be used. It maps a name to a font definition.</p>
+<p><pre><code>%font = (title       => 'lucidasans-14',</code>
+<code>         title_focus => 'lucidasans-bold-14');</code></pre></p>
+<p><b>%color</b> - this defines the colors that will be used. It maps a name to a color definition.</p>
+<p><pre><code>%color = (frame       => 'grey75',</code>
+<code>          frame_focus => 'white',</code>
+<code>          title       => 'black',</code>
+<code>          title_focus => 'red');</code></pre></p>
+<p><b>%gc</b> - this defines the GCs (graphics contexts) that will be used to draw various elements. It maps names to GC
+attributes - fonts and colors used must be in defined in %font or %color. GCs are cached (as are fonts and colors).
+(Currently, the value of this variable looks a bit redundant, but in future it should become more useful.)</p>
+<p><pre><code>%gc = (frame       =>  { foreground => 'frame' },</code>
+<code>       frame_focus =>  { foreground => 'frame_focus' },</code>
+<code>       title       =>  { foreground => 'title',       font => 'title' },</code>
+<code>       title_focus =>  { foreground => 'title_focus', font => 'title_focus' } );</code></pre></p>
+<p><b>%dim</b> - this defines various dimensions.</p>
+<p><pre><code>%dim = (frame_width => 2);</code></pre></p>
+<p><b>%actions</b> - this defines 'actions' (perhaps 'functions' might be a better term). They define what piece of code
+gets executed for a particular event (press, drag and release).</p>
+<p><pre><code>%actions = (move => { drag => \&move_drag },</code>
+<code>            size => { press => \&size_press, drag => \&size_drag } );</code></pre></p>
+<p><b>%bindings</b> - this defines how buttons (and in the future keys) are bound to actions in various contexts.</p>
+<p><pre><code>%bindings = (frame =>  { 'Button1'       => 'move' },</code>
+<code>             window => { 'Mod1 Button1'  => 'move',</code>
+<code>                         'Control Mod1 Button1'  => 'size',</code>
+<code>                         'Button1'               => '+click' } );</code></pre></p>
+<p><b>Sample action code</b>. Here is the code needed to define the 'move' action. It will be called during a drag (after
+an appropriate binding has been triggered). The three parameters are <code>$c</code> (client - describes the window),
+<code>$s</code> (state - describes the current action state) and <code>$e</code> (event - the most recent X event). What
+this function <em>does</em> is move the current window <code>my</code> the incremental amount the mouse moved since the
+last event. This configuration gives us what is usually called 'opaque move' - the whole window will move with the
+mouse. Other behaviour can be easily achieved by handling just the press and release, or handling the drag differently.</p>
+<p><pre><code>sub move_drag {</code>
+<code>  my($c, $s, $e) = @_;</code>
+<code></code>
+<code>  $c->{x} += $s->{drag}->{inc_x};</code>
+<code>  $c->{y} += $s->{drag}->{inc_y};</code>
+<code></code>
+<code>  $x->ConfigureWindow($c->{frame}, x => $c->{x}, y => $c->{y});</code>
+<code>}</code></pre></p>
+<p><small>http://perlwm.sourceforge.net/ adapted copy</small></p>
 </div>
 <div id="footer">
-All content is © 2021 by its respective authors. By submitting content to this site, you agree to release it under the <a href="https://xcaminhante.github.io/LICENSE.txt">GPLv3+ license</a>.
+All content is © 2021 by its respective authors.
+By submitting content to this site, you agree to release it under the <a href="LICENSE.txt">GPLv3+ license</a>.
 </div>
 </body>
 </html>

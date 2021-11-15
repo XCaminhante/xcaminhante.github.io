@@ -1,0 +1,8 @@
+sub move_drag {
+  my($c, $s, $e) = @_;
+
+  $c->{x} += $s->{drag}->{inc_x};
+  $c->{y} += $s->{drag}->{inc_y};
+
+  $x->ConfigureWindow($c->{frame}, x => $c->{x}, y => $c->{y});
+}

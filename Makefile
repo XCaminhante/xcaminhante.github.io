@@ -1,7 +1,11 @@
 origens := $(shell find . -name '*.html.sh')
 destinos := $(origens:.html.sh=.html)
+
+.PHONY: all
+
 all: $(destinos)
 
-%.html: %.html.sh wiki.sh
-	bash "$<" > ".tmp.$@"
-	mv ".tmp.$@" "$@"
+.SECONDEXPANSION:
+%.html: %.html.sh $$(wildcard $$@.*.snippet) wiki.sh
+	bash "$<" > "$@.tmp"
+	mv "$@.tmp" "$@"
