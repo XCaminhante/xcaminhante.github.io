@@ -29,9 +29,9 @@
 </v>
 </v>
 <v t="caminhante.20200612175226.1"><vh>nodeActions</vh>
-<v t="caminhante.20211113172701.1"><vh>@clea* Makefile</vh></v>
 <v t="caminhante.20200604232050.1"><vh>@cmd *</vh></v>
 <v t="caminhante.20211012181130.1"><vh>@cp *</vh></v>
+<v t="caminhante.20211113172701.1"><vh>@files Makefile</vh></v>
 <v t="caminhante.20210501142945.2"><vh>@mkdir *</vh></v>
 <v t="caminhante.20210501142945.3"><vh>@mv file://*</vh></v>
 <v t="caminhante.20211012180812.1"><vh>@mv *</vh></v>
@@ -64,60 +64,6 @@
 <v t="caminhante.20200612155432.2"><vh>shots-h.png</vh></v>
 <v t="caminhante.20200612155432.1"><vh>shots-n.png</vh></v>
 </v>
-<v t="caminhante.20200612165941.1"><vh>@clean index.html</vh>
-<v t="caminhante.20200612165956.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"><vh>head</vh></v>
-<v t="caminhante.20200612165956.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"><vh>header</vh></v>
-<v t="caminhante.20200612165956.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"><vh>main pages</vh></v>
-<v t="caminhante.20200612171128.1"><vh>PerlWM pages</vh></v>
-</v>
-<v t="caminhante.20200612165956.8"><vh>content</vh>
-<v t="caminhante.20200612170111.1"><vh>title</vh></v>
-<v t="caminhante.20200612170156.1"><vh>1.</vh></v>
-<v t="caminhante.20200612172800.1"><vh>copy</vh></v>
-</v>
-<v t="caminhante.20200504211036.1"><vh>footer</vh></v>
-</v>
-</v>
-</v>
-<v t="caminhante.20200612171925.1"><vh>@clean news.html</vh>
-<v t="caminhante.20200612171944.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"></v>
-<v t="caminhante.20200612171944.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"></v>
-<v t="caminhante.20200612171944.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"></v>
-<v t="caminhante.20200612171128.1"></v>
-</v>
-<v t="caminhante.20200612171944.8"><vh>content</vh>
-<v t="caminhante.20200612170111.1"></v>
-<v t="caminhante.20200612171250.1"><vh>1.</vh></v>
-<v t="caminhante.20200612172800.1"></v>
-</v>
-<v t="caminhante.20200504211036.1"></v>
-</v>
-</v>
-</v>
-<v t="caminhante.20200612172244.1"><vh>@clean shots.html</vh>
-<v t="caminhante.20200612172255.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"></v>
-<v t="caminhante.20200612172255.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"></v>
-<v t="caminhante.20200612172255.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"></v>
-<v t="caminhante.20200612171128.1"></v>
-</v>
-<v t="caminhante.20200612172255.8"><vh>content</vh>
-<v t="caminhante.20200612170111.1"></v>
-<v t="caminhante.20200612172255.9"><vh>1.</vh></v>
-<v t="caminhante.20200612172800.1"></v>
-</v>
-<v t="caminhante.20200504211036.1"></v>
-</v>
-</v>
-</v>
 <v t="caminhante.20211114201602.1"><vh>@edit docs.html.actions.snippet</vh></v>
 <v t="caminhante.20211114201741.1"><vh>@edit docs.html.bindings.snippet</vh></v>
 <v t="caminhante.20211114194611.1"><vh>@edit docs.html.color.snippet</vh></v>
@@ -127,8 +73,14 @@
 <v t="caminhante.20211114202052.1"><vh>@edit docs.html.sample.snippet</vh></v>
 <v t="caminhante.20211114191709.1"><vh>@file code.html.sh</vh></v>
 <v t="caminhante.20211114192841.1"><vh>@file docs.html.sh</vh></v>
+<v t="caminhante.20211115084542.1"><vh>@file index.html.sh</vh></v>
+<v t="caminhante.20211115083539.1"><vh>@file news.html.sh</vh></v>
+<v t="caminhante.20211115084240.1"><vh>@file shots.html.sh</vh></v>
 <v t="caminhante.20211114192811.1"><vh>code.html</vh></v>
 <v t="caminhante.20211114224535.1"><vh>docs.html</vh></v>
+<v t="caminhante.20211115084934.1"><vh>index.html</vh></v>
+<v t="caminhante.20211115084133.1"><vh>news.html</vh></v>
+<v t="caminhante.20211115084500.1"><vh>shots.html</vh></v>
 </v>
 <v t="caminhante.20200612175153.12"><vh>/pub-vesta/</vh>
 <v t="caminhante.20211113232403.2"><vh>favicon.png</vh></v>
@@ -470,11 +422,11 @@
 <v t="caminhante.20200612210729.1"><vh>/windwm/</vh>
 <v t="caminhante.20200612210432.1"><vh>@clean index.html</vh>
 <v t="caminhante.20200612210450.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"></v>
+<v t="caminhante.20200219124631.3"><vh>head</vh></v>
 <v t="caminhante.20200612210450.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"></v>
+<v t="caminhante.20200219124631.5"><vh>header</vh></v>
 <v t="caminhante.20200612210450.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"></v>
+<v t="caminhante.20200219124631.7"><vh>main pages</vh></v>
 <v t="caminhante.20200612210826.1"><vh>WindWM links</vh></v>
 </v>
 <v t="caminhante.20200612210450.8"><vh>content</vh>
@@ -482,7 +434,7 @@
 <v t="caminhante.20200612210656.1"><vh>1.</vh></v>
 <v t="caminhante.20200612211737.1"><vh>copy</vh></v>
 </v>
-<v t="caminhante.20200504211036.1"></v>
+<v t="caminhante.20200504211036.1"><vh>footer</vh></v>
 </v>
 </v>
 </v>
@@ -578,7 +530,7 @@ end procedure
 &lt;meta charset="utf-8"/&gt;
 &lt;meta name="editor" content="Leo Editor"/&gt;
 &lt;meta name="author" content="https://github.com/XCaminhante"/&gt;
-&lt;base href="../"/&gt;&lt;title&gt;XCaminhante' files&lt;/title&gt;
+&lt;base href="https://xcaminhante.github.io/"/&gt;&lt;title&gt;XCaminhante' files&lt;/title&gt;
 &lt;style type="text/css"&gt;@import "style.css";&lt;/style&gt;
 &lt;/head&gt;
 </t>
@@ -688,138 +640,6 @@ c.save()
 <t tx="caminhante.20200612155432.7"></t>
 <t tx="caminhante.20200612155432.8"></t>
 <t tx="caminhante.20200612155432.9"></t>
-<t tx="caminhante.20200612165941.1">@others</t>
-<t tx="caminhante.20200612165956.2">@language html
-@tabwidth -2
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-@others
-&lt;/html&gt;</t>
-<t tx="caminhante.20200612165956.4">&lt;body&gt;
-@others
-&lt;/body&gt;</t>
-<t tx="caminhante.20200612165956.6">&lt;div id="menu"&gt;
-@others
-&lt;/div&gt;</t>
-<t tx="caminhante.20200612165956.8">&lt;div id="content"&gt;
-@others
-&lt;/div&gt;</t>
-<t tx="caminhante.20200612170111.1">&lt;h1&gt;Perl Window Manager&lt;/h1&gt;
-</t>
-<t tx="caminhante.20200612170156.1">&lt;p&gt;
-  &lt;b&gt;perlwm&lt;/b&gt; is a window manager written entirely in perl. Why would you want such a thing? Why would a perl one be
-  worth having? Who knows - it seemed like a good idea at the time; I was getting fed up with having to switch between
-  workspaces to get stuff done on my laptop and I had some vague ideas about how a better window manager might help me.
-  I set off to find the perfect window manager, but couldn't really find one which solved all my problems.
-&lt;/p&gt;&lt;p&gt;
-  So, rather than do &lt;em&gt;the right thing&lt;/em&gt; and contribute to an existing window manager, I decided to write my own -
-  in perl. All the mature window managers looked pretty tricky to make any major changes - especially changes in
-  behaviour. Also, I thought that perl would be good at some of the configuration stuff I wanted, and I was hacking a
-  lot of perl recently and doing wonderful things in just a few lines.
-&lt;/p&gt;&lt;p&gt;
-  There had been talk of perl window managers before, but I couldn't find one which had got as far as actually managing
-  any windows. Not really knowing where to start, I stumbled across X11::Protocol on CPAN. That and the chapter on
-  window management in one of the X books got me going. Within a couple of hours, I was drawing my own frames.
-&lt;/p&gt;&lt;p&gt;
-  Since other people had mentioned the idea before, I thought that making it all public would in some way repay my debt
-  to society and so this project (kindly hosted for free by &lt;a href="http://sourceforge.net/"&gt;SourceForge&lt;/a&gt;) was
-  started.
-&lt;/p&gt;</t>
-<t tx="caminhante.20200612171128.1">&lt;div class="menuframe"&gt;&lt;span&gt;Perl WM&lt;/span&gt;&lt;br/&gt;
-&lt;a href="perlwm/index.html"&gt;Home&lt;/a&gt;&lt;br/&gt;
-&lt;a href="perlwm/news.html"&gt;News&lt;/a&gt;&lt;br/&gt;
-&lt;a href="perlwm/shots.html"&gt;Screen shot&lt;/a&gt;&lt;br/&gt;
-&lt;a href="perlwm/docs.html"&gt;Docs (outdated)&lt;/a&gt;&lt;br/&gt;
-&lt;a href="perlwm/code.html"&gt;Code release&lt;/a&gt;&lt;br/&gt;
-&lt;a href="http://perlwm.sourceforge.net/"&gt;Original site&lt;/a&gt;&lt;br/&gt;
-&lt;/div&gt;
-</t>
-<t tx="caminhante.20200612171250.1">&lt;b&gt;2004.05.23&lt;/b&gt;
-&lt;p&gt;
-perlwm-0.0.7 is released. There is a new config system. If you run &lt;code&gt;perl -MPerlWM::Config -e
-'PerlWM::Config-&gt;load()-&gt;save(default =&gt; 1)'&lt;/code&gt; all the default preferences will be written to a file
-(~/.perlwm/config.pm). Hopefully in the next release, you'll be able to configure more things.
-&lt;/p&gt;
-
-&lt;b&gt;2004.05.16&lt;/b&gt;
-&lt;p&gt;
-perlwm-0.0.6 is released. Not much new here, just a couple of minor bug fixes related to the search action.
-&lt;/p&gt;
-
-&lt;b&gt;2003.12.22&lt;/b&gt;
-&lt;p&gt;
-perlwm-0.0.5 is released. Yet more cleanup in the event handling code. Keyboard bindings now work, along with grabs and
-some support for 'modal' actions. You can now re-size and move windows with the keyboard, as well as raise, lower and
-switch focus.
-&lt;/p&gt;
-
-&lt;b&gt;2003.11.10&lt;/b&gt;
-&lt;p&gt;
-perlwm-0.0.4 is released. More cleanup in the event handling code, the focus handling is much more reliable now. Also,
-the focus frame is now highlighted again, and with an animated color blend too.
-&lt;/p&gt;
-
-&lt;b&gt;2003.11.08&lt;/b&gt;
-&lt;p&gt;
-perlwm-0.0.3 is released. Still no new functionality, but the event code has been further cleaned up, and various stuff
-which was just lumped in PerlWM.pm has been moved into Frame, Client or Action.
-&lt;/p&gt;
-
-&lt;b&gt;2003.11.02&lt;/b&gt;
-&lt;p&gt;
-perlwm-0.0.2 is released. Slow progress eh? Well I've been busy. This is pretty much a completely re-write compared to
-0.0.1, but a lot more works.
-&lt;/p&gt;
-
-&lt;b&gt;2000.05.18&lt;/b&gt;
-&lt;p&gt;
-perlwm-0.0.1 is released. This version has (very) basic window manager functionality. The configuration is currently
-embedded in perlwm itself, but this will change. Currently, you can move and resize windows, but not iconify them. Most
-window manager hints are ignored (except the title).
-&lt;/p&gt;</t>
-<t tx="caminhante.20200612171925.1">@others
-</t>
-<t tx="caminhante.20200612171944.2">@language html
-@tabwidth -2
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-@others
-&lt;/html&gt;</t>
-<t tx="caminhante.20200612171944.4">&lt;body&gt;
-@others
-&lt;/body&gt;</t>
-<t tx="caminhante.20200612171944.6">&lt;div id="menu"&gt;
-@others
-&lt;/div&gt;</t>
-<t tx="caminhante.20200612171944.8">&lt;div id="content"&gt;
-@others
-&lt;/div&gt;</t>
-<t tx="caminhante.20200612172244.1">@others
-</t>
-<t tx="caminhante.20200612172255.2">@language html
-@tabwidth -2
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-@others
-&lt;/html&gt;</t>
-<t tx="caminhante.20200612172255.4">&lt;body&gt;
-@others
-&lt;/body&gt;</t>
-<t tx="caminhante.20200612172255.6">&lt;div id="menu"&gt;
-@others
-&lt;/div&gt;</t>
-<t tx="caminhante.20200612172255.8">&lt;div id="content"&gt;
-@others
-&lt;/div&gt;</t>
-<t tx="caminhante.20200612172255.9">&lt;p&gt;
-A sample screen shot. Remember that appearance is not the current focus of the project - so it doesn't really look that
-special (but these days you've got to have screenshots - even if you are writing a console app!).
-
-In the future, I hope to be able to use themes from existing window managers.
-&lt;/p&gt;
-
-&lt;p&gt; &lt;a href="perlwm/images/shot.png"&gt;&lt;img src="perlwm/images/shot-small.png"/&gt;&lt;/a&gt; &lt;/p&gt;</t>
-<t tx="caminhante.20200612172800.1"></t>
 <t tx="caminhante.20200612175143.1"></t>
 <t tx="caminhante.20200612175153.10">@path wiki-vesta</t>
 <t tx="caminhante.20200612175153.11">@path vesta</t>
@@ -838,16 +658,20 @@ In the future, I hope to be able to use themes from existing window managers.
 &lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 @others
-&lt;/html&gt;</t>
+&lt;/html&gt;
+</t>
 <t tx="caminhante.20200612210450.4">&lt;body&gt;
 @others
-&lt;/body&gt;</t>
+&lt;/body&gt;
+</t>
 <t tx="caminhante.20200612210450.6">&lt;div id="menu"&gt;
 @others
-&lt;/div&gt;</t>
+&lt;/div&gt;
+</t>
 <t tx="caminhante.20200612210450.8">&lt;div id="content"&gt;
 @others
-&lt;/div&gt;</t>
+&lt;/div&gt;
+</t>
 <t tx="caminhante.20200612210450.9">&lt;h1&gt; Wind Window Manager &lt;/h1&gt;
 </t>
 <t tx="caminhante.20200612210535.1">&lt;div id="footer"&gt;
@@ -867,14 +691,16 @@ All content is © 2020 by its respective authors. By submitting content to this 
  the Extended Window Manager Hints specifications. Full compliancy
  is expected in the next major release.&lt;/p&gt;
 &lt;h2&gt;News&lt;/h2&gt;
-&lt;p&gt;Version 1.5 was released on May 21, 2014.&lt;/p&gt;</t>
+&lt;p&gt;Version 1.5 was released on May 21, 2014.&lt;/p&gt;
+</t>
 <t tx="caminhante.20200612210729.1">@path windwm</t>
 <t tx="caminhante.20200612210826.1">&lt;div class="menuframe"&gt;
 &lt;span&gt;Wind WM&lt;/span&gt; &lt;br/&gt;
 &lt;a href="windwm/index.html"&gt;Home&lt;/a&gt; &lt;br/&gt;
 &lt;a href="windwm/screenshot.png"&gt;Screenshot&lt;/a&gt; &lt;br/&gt;
 &lt;a href="windwm/manual.pdf"&gt;Manual&lt;/a&gt; &lt;br/&gt;
-&lt;/div&gt;</t>
+&lt;/div&gt;
+</t>
 <t tx="caminhante.20200612211140.1"></t>
 <t tx="caminhante.20200612211140.2"></t>
 <t tx="caminhante.20200612211356.1">
@@ -888,7 +714,8 @@ Features
     ICCCM and EWMH/NetWM compliant
 
 </t>
-<t tx="caminhante.20200612211737.1">&lt;p&gt; &lt;small&gt;http://windwm.sourceforge.net/ adapted copy&lt;/small&gt; &lt;/p&gt;</t>
+<t tx="caminhante.20200612211737.1">&lt;p&gt; &lt;small&gt;http://windwm.sourceforge.net/ adapted copy&lt;/small&gt; &lt;/p&gt;
+</t>
 <t tx="caminhante.20200618180759.1">@language python
 import subprocess
 
@@ -1405,5 +1232,8 @@ g.es(execute('make'))
 <t tx="caminhante.20211114191926.1"></t>
 <t tx="caminhante.20211114192811.1"></t>
 <t tx="caminhante.20211114224535.1"></t>
+<t tx="caminhante.20211115084133.1"></t>
+<t tx="caminhante.20211115084500.1"></t>
+<t tx="caminhante.20211115084934.1"></t>
 </tnodes>
 </leo_file>

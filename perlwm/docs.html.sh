@@ -84,5 +84,5 @@ echo "<small>http://perlwm.sourceforge.net/ adapted copy</small>" | p
 #@+node:caminhante.20211113222420.1: ** footer
 footer 'GPLv3+'
 #@-others
-) | ( head "XCaminhante' files" '../'; body ) | page pt-BR
+) | ( head "XCaminhante' files" 'https://xcaminhante.github.io/'; body ) | page pt-BR
 #@-leo

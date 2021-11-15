@@ -1,33 +1,38 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta name="editor" content="Leo Editor"/>
-<meta name="author" content="https://github.com/XCaminhante"/>
-<base href="https://xcaminhante.github.io/"/><title>XCaminhante' files</title>
-<style type="text/css">@import "style.css";</style>
-</head>
-<body>
-<div id="header"><a href="index.html">XCaminhante' files</a></div>
-<div id="menu">
-<div class="menuframe">
-<a href="index.html">About</a><br/>
-<a href="vesta.html">Vesta CMS</a><br/>
-<a href="perlwm/index.html">PerlWM</a><br/>
-<a href="windwm/index.html">WindWM</a><br/>
-<a href="links.html">External Links</a><br/>
-</div>
-<div class="menuframe"><span>Perl WM</span><br/>
-<a href="perlwm/index.html">Home</a><br/>
-<a href="perlwm/news.html">News</a><br/>
-<a href="perlwm/shots.html">Screen shot</a><br/>
-<a href="perlwm/docs.html">Docs (outdated)</a><br/>
-<a href="perlwm/code.html">Code release</a><br/>
-<a href="http://perlwm.sourceforge.net/">Original site</a><br/>
-</div>
-</div>
-<div id="content">
-<h1>Perl Window Manager</h1>
+#@+leo-ver=5-thin
+#@+node:caminhante.20211115083539.1: * @file news.html.sh
+. wiki.sh
+(
+#@+others
+#@+node:caminhante.20211113222153.1: ** header
+header "XCaminhante' files" 'index.html'
+#@+node:caminhante.20211114192004.1: ** menu
+(
+#@+others
+#@+node:caminhante.20211113222237.1: *3* main pages
+( menulink 'About' index.html
+menulink 'Vesta CMS' vesta.html
+menulink 'PerlWM' perlwm/index.html
+menulink 'WindWM' windwm/index.html
+menulink 'External Links' links.html ) | menuframe
+#@+node:caminhante.20211114192244.1: *3* PerlWM pages
+( menulink 'Home' "perlwm/index.html"
+menulink 'News' "perlwm/news.html"
+menulink 'Screen shot' "perlwm/shots.html"
+menulink 'Docs (outdated)' "perlwm/docs.html"
+menulink 'Code release' "perlwm/code.html"
+menulink 'Original site' "http://perlwm.sourceforge.net/"
+) | menuframe 'Perl WM'
+
+
+#@-others
+) | menu
+#@+node:caminhante.20211115083740.1: ** content
+(
+#@+others
+#@+node:caminhante.20211114192507.1: *3* title
+h1 'Perl Window Manager'
+#@+node:caminhante.20211115083859.1: *3* 1.
+cat <<'AAA'
 <b>2004.05.23</b>
 <p>
 perlwm-0.0.7 is released. There is a new config system. If you run <code>perl -MPerlWM::Config -e
@@ -65,11 +70,13 @@ perlwm-0.0.1 is released. This version has (very) basic window manager functiona
 embedded in perlwm itself, but this will change. Currently, you can move and resize windows, but not iconify them. Most
 window manager hints are ignored (except the title).
 </p>
-<p><small>http://perlwm.sourceforge.net/ adapted copy</small></p>
-</div>
-<div id="footer">
-All content is © 2021 by its respective authors.
-By submitting content to this site, you agree to release it under the <a href="LICENSE.txt">GPLv3+ license</a>.
-</div>
-</body>
-</html>
+AAA
+#@+node:caminhante.20211114192645.1: *3* copy
+echo "<small>http://perlwm.sourceforge.net/ adapted copy</small>" | p
+#@-others
+) | content
+#@+node:caminhante.20211113222420.1: ** footer
+footer 'GPLv3+'
+#@-others
+) | ( head "XCaminhante' files" 'https://xcaminhante.github.io/'; body ) | page pt-BR
+#@-leo
