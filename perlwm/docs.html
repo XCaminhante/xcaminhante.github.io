@@ -51,8 +51,8 @@ attributes - fonts and colors used must be in defined in %font or %color. GCs ar
 <p><pre><code>%dim = (frame_width => 2);</code></pre></p>
 <p><b>%actions</b> - this defines 'actions' (perhaps 'functions' might be a better term). They define what piece of code
 gets executed for a particular event (press, drag and release).</p>
-<p><pre><code>%actions = (move => { drag => \&move_drag },</code>
-<code>            size => { press => \&size_press, drag => \&size_drag } );</code></pre></p>
+<p><pre><code>%actions = (move => { drag => \&amp;move_drag },</code>
+<code>            size => { press => \&amp;size_press, drag => \&amp;size_drag } );</code></pre></p>
 <p><b>%bindings</b> - this defines how buttons (and in the future keys) are bound to actions in various contexts.</p>
 <p><pre><code>%bindings = (frame =>  { 'Button1'       => 'move' },</code>
 <code>             window => { 'Mod1 Button1'  => 'move',</code>

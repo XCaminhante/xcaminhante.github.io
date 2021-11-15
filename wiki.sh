@@ -88,7 +88,7 @@ AAA
 }
 #@+node:caminhante.20211113172218.1: *5* function filecode
 function filecode {
-    cat "$1" | sed -r -e 's/\r//g' -e 's/</\&lt;/g' -e 's/(.*)/<code>\1<\/code>/g'
+    cat "$1" | sed -r -e 's/\r//g' -e 's/</\&lt;/g' -e 's/&/&amp;/g' -e 's/(.*)/<code>\1<\/code>/g'
 }
 #@+node:caminhante.20211113221342.1: *5* function outerlink
 function outerlink { cat <<AAA

@@ -64,39 +64,21 @@
 <v t="caminhante.20200612155432.2"><vh>shots-h.png</vh></v>
 <v t="caminhante.20200612155432.1"><vh>shots-n.png</vh></v>
 </v>
-<v t="caminhante.20200612172854.1"><vh>@clean docs.html</vh>
-<v t="caminhante.20200612172904.2"><vh>page</vh>
+<v t="caminhante.20200612165941.1"><vh>@clean index.html</vh>
+<v t="caminhante.20200612165956.2"><vh>page</vh>
 <v t="caminhante.20200219124631.3"><vh>head</vh></v>
-<v t="caminhante.20200612172904.4"><vh>body</vh>
+<v t="caminhante.20200612165956.4"><vh>body</vh>
 <v t="caminhante.20200219124631.5"><vh>header</vh></v>
-<v t="caminhante.20200612172904.6"><vh>menu</vh>
+<v t="caminhante.20200612165956.6"><vh>menu</vh>
 <v t="caminhante.20200219124631.7"><vh>main pages</vh></v>
 <v t="caminhante.20200612171128.1"><vh>PerlWM pages</vh></v>
 </v>
-<v t="caminhante.20200612172904.8"><vh>content</vh>
+<v t="caminhante.20200612165956.8"><vh>content</vh>
 <v t="caminhante.20200612170111.1"><vh>title</vh></v>
-<v t="caminhante.20200612172940.1"><vh>1.</vh></v>
+<v t="caminhante.20200612170156.1"><vh>1.</vh></v>
 <v t="caminhante.20200612172800.1"><vh>copy</vh></v>
 </v>
 <v t="caminhante.20200504211036.1"><vh>footer</vh></v>
-</v>
-</v>
-</v>
-<v t="caminhante.20200612165941.1"><vh>@clean index.html</vh>
-<v t="caminhante.20200612165956.2"><vh>page</vh>
-<v t="caminhante.20200219124631.3"></v>
-<v t="caminhante.20200612165956.4"><vh>body</vh>
-<v t="caminhante.20200219124631.5"></v>
-<v t="caminhante.20200612165956.6"><vh>menu</vh>
-<v t="caminhante.20200219124631.7"></v>
-<v t="caminhante.20200612171128.1"></v>
-</v>
-<v t="caminhante.20200612165956.8"><vh>content</vh>
-<v t="caminhante.20200612170111.1"></v>
-<v t="caminhante.20200612170156.1"><vh>1.</vh></v>
-<v t="caminhante.20200612172800.1"></v>
-</v>
-<v t="caminhante.20200504211036.1"></v>
 </v>
 </v>
 </v>
@@ -146,6 +128,7 @@
 <v t="caminhante.20211114191709.1"><vh>@file code.html.sh</vh></v>
 <v t="caminhante.20211114192841.1"><vh>@file docs.html.sh</vh></v>
 <v t="caminhante.20211114192811.1"><vh>code.html</vh></v>
+<v t="caminhante.20211114224535.1"><vh>docs.html</vh></v>
 </v>
 <v t="caminhante.20200612175153.12"><vh>/pub-vesta/</vh>
 <v t="caminhante.20211113232403.2"><vh>favicon.png</vh></v>
@@ -595,7 +578,7 @@ end procedure
 &lt;meta charset="utf-8"/&gt;
 &lt;meta name="editor" content="Leo Editor"/&gt;
 &lt;meta name="author" content="https://github.com/XCaminhante"/&gt;
-&lt;base href="https://xcaminhante.github.io/"/&gt;&lt;title&gt;XCaminhante' files&lt;/title&gt;
+&lt;base href="../"/&gt;&lt;title&gt;XCaminhante' files&lt;/title&gt;
 &lt;style type="text/css"&gt;@import "style.css";&lt;/style&gt;
 &lt;/head&gt;
 </t>
@@ -721,7 +704,7 @@ c.save()
 <t tx="caminhante.20200612165956.8">&lt;div id="content"&gt;
 @others
 &lt;/div&gt;</t>
-<t tx="caminhante.20200612170111.1">&lt;h1&gt; Perl Window Manager &lt;/h1&gt;
+<t tx="caminhante.20200612170111.1">&lt;h1&gt;Perl Window Manager&lt;/h1&gt;
 </t>
 <t tx="caminhante.20200612170156.1">&lt;p&gt;
   &lt;b&gt;perlwm&lt;/b&gt; is a window manager written entirely in perl. Why would you want such a thing? Why would a perl one be
@@ -742,14 +725,13 @@ c.save()
   to society and so this project (kindly hosted for free by &lt;a href="http://sourceforge.net/"&gt;SourceForge&lt;/a&gt;) was
   started.
 &lt;/p&gt;</t>
-<t tx="caminhante.20200612171128.1">&lt;div class="menuframe"&gt;
-&lt;span&gt;Perl WM&lt;/span&gt; &lt;br/&gt;
-&lt;a href="perlwm/index.html"&gt;Home&lt;/a&gt; &lt;br/&gt;
-&lt;a href="perlwm/news.html"&gt;News&lt;/a&gt; &lt;br/&gt;
-&lt;a href="perlwm/shots.html"&gt;Screen shot&lt;/a&gt; &lt;br/&gt;
-&lt;a href="perlwm/docs.html"&gt;Docs (outdated)&lt;/a&gt; &lt;br/&gt;
-&lt;a href="perlwm/code.html"&gt;Code release&lt;/a&gt; &lt;br/&gt;
-&lt;a href="http://perlwm.sourceforge.net/"&gt;Original site&lt;/a&gt; &lt;br/&gt;
+<t tx="caminhante.20200612171128.1">&lt;div class="menuframe"&gt;&lt;span&gt;Perl WM&lt;/span&gt;&lt;br/&gt;
+&lt;a href="perlwm/index.html"&gt;Home&lt;/a&gt;&lt;br/&gt;
+&lt;a href="perlwm/news.html"&gt;News&lt;/a&gt;&lt;br/&gt;
+&lt;a href="perlwm/shots.html"&gt;Screen shot&lt;/a&gt;&lt;br/&gt;
+&lt;a href="perlwm/docs.html"&gt;Docs (outdated)&lt;/a&gt;&lt;br/&gt;
+&lt;a href="perlwm/code.html"&gt;Code release&lt;/a&gt;&lt;br/&gt;
+&lt;a href="http://perlwm.sourceforge.net/"&gt;Original site&lt;/a&gt;&lt;br/&gt;
 &lt;/div&gt;
 </t>
 <t tx="caminhante.20200612171250.1">&lt;b&gt;2004.05.23&lt;/b&gt;
@@ -837,116 +819,7 @@ In the future, I hope to be able to use themes from existing window managers.
 &lt;/p&gt;
 
 &lt;p&gt; &lt;a href="perlwm/images/shot.png"&gt;&lt;img src="perlwm/images/shot-small.png"/&gt;&lt;/a&gt; &lt;/p&gt;</t>
-<t tx="caminhante.20200612172800.1">&lt;p&gt; &lt;small&gt;http://perlwm.sourceforge.net/ adapted copy&lt;/small&gt; &lt;/p&gt;
-</t>
-<t tx="caminhante.20200612172854.1">@others
-</t>
-<t tx="caminhante.20200612172904.2">@language html
-@tabwidth -2
-&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-@others
-&lt;/html&gt;</t>
-<t tx="caminhante.20200612172904.4">&lt;body&gt;
-@others
-&lt;/body&gt;</t>
-<t tx="caminhante.20200612172904.6">&lt;div id="menu"&gt;
-@others
-&lt;/div&gt;</t>
-<t tx="caminhante.20200612172904.8">&lt;div id="content"&gt;
-@others
-&lt;/div&gt;</t>
-<t tx="caminhante.20200612172940.1">&lt;p&gt;
-&lt;b&gt;Sorry, this documentation is pretty out of date - and applies to perlwm 0.0.1.&lt;/b&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-There are currently a handful of configuration variables that you can change (althought they are not yet in a seperate
-configuration file). They control things like fonts, colors, and the combinations in which they are used, as well as
-actions and bindings.
-&lt;/p&gt;
-
-&lt;p&gt;
-&lt;b&gt;%font&lt;/b&gt; - this defines the fonts that will be used. It maps a name to a font definition.
-&lt;/p&gt;&lt;p&gt;
-&lt;pre&gt;&lt;code&gt;%font = (title       =&gt; 'lucidasans-14',
-	 title_focus =&gt; 'lucidasans-bold-14');
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-&lt;b&gt;%color&lt;/b&gt; - this defines the colors that will be used. It maps a name
-to a color definition.
-&lt;/p&gt;&lt;p&gt;
-&lt;pre&gt;&lt;code&gt;%color = (frame		=&gt; 'grey75',
-	  frame_focus	=&gt; 'white',
-	  title		=&gt; 'black',
-	  title_focus	=&gt; 'red');
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-&lt;b&gt;%gc&lt;/b&gt; - this defines the GCs (graphics contexts) that will be used to
-draw various elements. It maps names to GC attributes - fonts and colors 
-used must be in defined in %font or %color. GCs are cached (as are fonts and 
-colors). (Currently, the value of this variable looks a bit redundant, but 
-in future it should become more useful.)
-&lt;/p&gt;&lt;p&gt;
-&lt;pre&gt;&lt;code&gt;%gc = (frame		=&gt; { foreground =&gt; 'frame' },
-       frame_focus	=&gt; { foreground =&gt; 'frame_focus' },
-       title		=&gt; { font       =&gt; 'title', 
-			     foreground =&gt; 'title' },
-       title_focus      =&gt; { font       =&gt; 'title_focus', 
-			     foreground =&gt; 'title_focus' });
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-&lt;b&gt;%dim&lt;/b&gt; - this defines various dimensions.
-&lt;/p&gt;&lt;p&gt;
-&lt;pre&gt;&lt;code&gt;%dim = (frame_width =&gt; 2);
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-&lt;b&gt;%actions&lt;/b&gt; - this defines 'actions' (perhaps 'functions' might be a
-better term). They define what piece of code gets executed for a particular
-event (press, drag and release).
-&lt;/p&gt;&lt;p&gt;
-&lt;pre&gt;&lt;code&gt;%actions = (move =&gt; { drag =&gt; \&amp;move_drag },
-	    size =&gt; { press =&gt; \&amp;size_press, drag =&gt; \&amp;size_drag });
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-&lt;b&gt;%bindings&lt;/b&gt; - this defines how buttons (and in the future keys) are
-bound to actions in various contexts.
-&lt;/p&gt;&lt;p&gt;
-&lt;pre&gt;&lt;code&gt;%bindings = (frame =&gt;  { 'Button1' =&gt; 'move' },
-	     window =&gt; { 'Mod1 Button1' =&gt; 'move',
-			 'Control Mod1 Button1' =&gt; 'size',
-		         'Button1' =&gt; '+click' });
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/p&gt;
-
-&lt;p&gt;
-&lt;b&gt;Sample action code&lt;/b&gt;. Here is the code needed to define the 'move' action. It will be called during a drag (after
-an appropriate binding has been triggered). The three parameters are $c (client - describes the window), $s (state -
-describes the current action state) and $e (event - the most recent X event). What this function &lt;em&gt;does&lt;/em&gt; is move
-the current window my the incremental amount the mouse moved since the last event. This configuration gives us what is
-usually called 'opaque move' - the whole window will move with the mouse. Other behaviour can be easily achieved by
-handling just the press and release, or handling the drag differently.
-&lt;/p&gt;&lt;p&gt;
-&lt;pre&gt;&lt;code&gt;sub move_drag {
-
-  my($c, $s, $e) = @_;
-
-  $c-&gt;{x} += $s-&gt;{drag}-&gt;{inc_x};
-  $c-&gt;{y} += $s-&gt;{drag}-&gt;{inc_y};
-
-  $x-&gt;ConfigureWindow($c-&gt;{frame}, x =&gt; $c-&gt;{x}, y =&gt; $c-&gt;{y});
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/p&gt;</t>
+<t tx="caminhante.20200612172800.1"></t>
 <t tx="caminhante.20200612175143.1"></t>
 <t tx="caminhante.20200612175153.10">@path wiki-vesta</t>
 <t tx="caminhante.20200612175153.11">@path vesta</t>
@@ -1531,5 +1404,6 @@ g.es(execute('make'))
 <t tx="caminhante.20211114191611.1"></t>
 <t tx="caminhante.20211114191926.1"></t>
 <t tx="caminhante.20211114192811.1"></t>
+<t tx="caminhante.20211114224535.1"></t>
 </tnodes>
 </leo_file>
