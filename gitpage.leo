@@ -463,7 +463,7 @@
 <v t="caminhante.20200219170322.1"><vh>@edit fzort.html</vh></v>
 <v t="caminhante.20211114190846.1"><vh>@file index.html.sh</vh></v>
 <v t="caminhante.20211113195431.1"><vh>@file links.html.sh</vh></v>
-<v t="caminhante.20210926193032.1"><vh>@file test.html</vh></v>
+<v t="caminhante.20211115095316.1"><vh>@file test.html.sh</vh></v>
 <v t="caminhante.20211113232631.1"><vh>@file vesta.html.sh</vh></v>
 <v t="caminhante.20211113154658.1"><vh>@file wiki.sh</vh></v>
 <v t="caminhante.20200612175153.8"><vh>fzort.gif</vh></v>
@@ -472,6 +472,7 @@
 <v t="caminhante.20200612175153.9"><vh>LICENSE.txt</vh></v>
 <v t="caminhante.20211113232227.1"><vh>links.html</vh></v>
 <v t="caminhante.20211113193822.1"><vh>Makefile</vh></v>
+<v t="caminhante.20211115095730.1"><vh>test.html</vh></v>
 <v t="caminhante.20211114191212.1"><vh>vesta.html</vh></v>
 <v t="caminhante.20211114191926.1"><vh>zeppo.html</vh></v>
 </v>
@@ -1235,5 +1236,6 @@ g.es(execute('make'))
 <t tx="caminhante.20211115084133.1"></t>
 <t tx="caminhante.20211115084500.1"></t>
 <t tx="caminhante.20211115084934.1"></t>
+<t tx="caminhante.20211115095730.1"></t>
 </tnodes>
 </leo_file>

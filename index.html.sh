@@ -29,5 +29,5 @@ echo "My projects aren't much interesting yet, but they'll be. Someday." | p
 #@+node:caminhante.20211113222420.1: ** footer
 footer 'GPLv3+'
 #@-others
-) | ( head "XCaminhante' files" 'https://xcaminhante.github.io/'; body ) | page pt-BR
+) | ( hhead "XCaminhante' files" 'https://xcaminhante.github.io/'; body ) | page pt-BR
 #@-leo

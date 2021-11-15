@@ -11,8 +11,8 @@ function page { cat <<AAA
 </html>
 AAA
 }
-#@+node:caminhante.20211113155149.1: *3* function head
-function head { cat <<AAA
+#@+node:caminhante.20211113155149.1: *3* function hhead
+function hhead { cat <<AAA
 <head>
 <meta charset="utf-8"/>
 <meta name="editor" content="Leo Editor"/>
@@ -82,13 +82,10 @@ function pre { cat <<AAA
 AAA
 }
 #@+node:caminhante.20211113163516.1: *5* function code
-function code { cat <<AAA
-<code>`cat`</code>
-AAA
-}
+function code { sed -r -e 's/\r//g' -e 's/&/&amp;/g' -e 's/</\&lt;/g' -e 's/(.*)/<code>\1<\/code>/g'; }
 #@+node:caminhante.20211113172218.1: *5* function filecode
 function filecode {
-    cat "$1" | sed -r -e 's/\r//g' -e 's/&/&amp;/g' -e 's/</\&lt;/g' -e 's/(.*)/<code>\1<\/code>/g'
+    cat "$1" | code
 }
 #@+node:caminhante.20211113221342.1: *5* function outerlink
 function outerlink { cat <<AAA

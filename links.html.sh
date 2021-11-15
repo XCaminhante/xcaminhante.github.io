@@ -39,5 +39,5 @@ outerlink 'In memorian, fzort.org' "fzort.html" | p
 #@+node:caminhante.20211113222420.1: ** footer
 footer 'GPLv3+'
 #@-others
-) | ( head "XCaminhante' files" 'https://xcaminhante.github.io/'; body ) | page pt-BR
+) | ( hhead "XCaminhante' files" 'https://xcaminhante.github.io/'; body ) | page pt-BR
 #@-leo
