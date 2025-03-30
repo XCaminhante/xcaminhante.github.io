@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf8"/>
+<title>Calculadora</title>
+</head>
+<style>
+body { margin: 10vh; padding: 0; }
+body { background-color: gray; overflow: visible; }
+.box { display: flex; align-items: center; justify-content: center; }
+object { background-color: inherit; }
+button { height: 30px; min-width: 60px; display: inline-block; font: menu; }
+section { width: 100%; display: flex; justify-content: center; }
+</style>
+<script src="calculadora.js"></script>
+<body>
+<main class="box">
+<object type="image/svg+xml" data="Calculadora.svg" id="calculadora" class=""></object>
+</main>
+<section>
+  <div>
+  <button onclick="display.mostrar( C.limpar() );">AC</button>
+  <button onclick="display.mostrar( C.corrigir() );">C</button>
+  <button onclick="display.mostrar( C.resultado() );">=</button>
+  <button onclick="C.limpar(); C.limparMemoria(); display.limpar();">Off</button> <br/>
+  <button onclick="display.mostrar( C.limparMemoria() );">MC</button>
+  <button onclick="display.mostrar( C.resgatarMemoria() );">MR</button>
+  <button onclick="display.mostrar( C.somarMemoria() );">M+</button>
+  <button onclick="display.mostrar( C.subtrairMemoria() );">M-</button> <br/>
+  <button onclick="display.mostrar( C.receber(7) );">7</button>
+  <button onclick="display.mostrar( C.receber(8) );">8</button>
+  <button onclick="display.mostrar( C.receber(9) );">9</button>
+  <button onclick="display.mostrar( C.dividir() );">÷</button> <br/>
+  <button onclick="display.mostrar( C.receber(4) );">4</button>
+  <button onclick="display.mostrar( C.receber(5) );">5</button>
+  <button onclick="display.mostrar( C.receber(6) );">6</button>
+  <button onclick="display.mostrar( C.multiplicar() );">*</button> <br/>
+  <button onclick="display.mostrar( C.receber(1) );">1</button>
+  <button onclick="display.mostrar( C.receber(2) );">2</button>
+  <button onclick="display.mostrar( C.receber(3) );">3</button>
+  <button onclick="display.mostrar( C.subtrair() );">-</button> <br/>
+  <button onclick="display.mostrar( C.ponto() );">.</button>
+  <button onclick="display.mostrar( C.receber(0) );">0</button>
+  <button onclick="display.mostrar( C.trocarSinal() );">+/-</button>
+  <button onclick="display.mostrar( C.somar() );">+</button> <br/>
+  </div>
+</section>
+<!--<p>
+Soma: =<br/>
+Subtrai: -<br/>
+Multiplica: ;<br/>
+Divide: /<br/>
+Ponto: .<br/>
+Corrige: e<br/>
+Limpa: c<br/>
+Resultado: tab<br/>
+Contraria o sinal: s<br/>
+Soma memória: ?<br/>
+Subtrai memória: ?<br/>
+Resgata memória: ?<br/>
+Limpa memória: ?
+</p>
+<p id="evt"></p>-->
+</body>
+</html>
