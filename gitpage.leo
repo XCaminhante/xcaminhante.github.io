@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Created by Leo: http://leoeditor.com/leo_toc.html -->
-<leo_file xmlns:leo="http://leoeditor.com/namespaces/leo-python-editor/1.1" >
+<!-- Created by Leo: https://leo-editor.github.io/leo-editor/leo_toc.html -->
+<leo_file xmlns:leo="https://leo-editor.github.io/leo-editor/namespaces/leo-python-editor/1.1" >
 <leo_header file_format="2"/>
 <globals/>
 <preferences/>
@@ -40,8 +40,8 @@
 <v t="caminhante.20200618203115.1"><vh>@run|@run .* [X]</vh></v>
 </v>
 </v>
-<v t="caminhante.20200219123813.3"><vh>xcaminhante.github.io</vh>
-<v t="caminhante.20200612175143.1"><vh>@path .</vh>
+<v t="caminhante.20200219123813.3" descendentVnodeUnknownAttributes="7d7100285807000000302e302e352e3071017d710258090000005f6d6f645f74696d6571034741da27a4a38659af735805000000302e302e3771047d710568034741da27a4d7fb9d02735805000000302e302e3871067d710768034741da27a48fc19a6573752e"><vh>xcaminhante.github.io</vh>
+<v t="caminhante.20200612175143.1" descendentVnodeUnknownAttributes="7d7100285805000000302e352e3071017d710258090000005f6d6f645f74696d6571034741da27a4a38659af735803000000302e3771047d710568034741da27a4d7fb9d02735803000000302e3871067d710768034741da27a48fc19a6573752e"><vh>@path .</vh>
 <v t="caminhante.20200612175153.13"><vh>/.git/</vh></v>
 <v t="caminhante.20200612151310.1"><vh>/perlwm/</vh>
 <v t="caminhante.20200612151317.1"><vh>/images/</vh>
@@ -419,8 +419,8 @@
 <v t="caminhante.20211113232411.2"><vh>vupdateandbranches?action=AttachFile&amp;do=get&amp;target=reconverge-rediverge.png</vh></v>
 <v t="caminhante.20211113232411.1"><vh>vupdateandbranches?action=AttachFile&amp;do=get&amp;target=sketch.png</vh></v>
 </v>
-<v t="caminhante.20200612210729.1"><vh>/windwm/</vh>
-<v t="caminhante.20200612210432.1"><vh>@clean index.html</vh>
+<v t="caminhante.20200612210729.1" descendentVnodeUnknownAttributes="7d71005803000000302e3071017d710258090000005f6d6f645f74696d6571034741da27a4a38659af73732e"><vh>/windwm/</vh>
+<v t="caminhante.20200612210432.1" descendentVnodeUnknownAttributes="7d710058010000003071017d710258090000005f6d6f645f74696d6571034741da27a4a38659af73732e"><vh>@clean index.html</vh>
 <v t="caminhante.20200612210450.2"><vh>page</vh>
 <v t="caminhante.20200219124631.3"><vh>head</vh></v>
 <v t="caminhante.20200612210450.4"><vh>body</vh>
@@ -443,12 +443,12 @@
 <v t="caminhante.20200612211140.1"><vh>screenshot.png</vh></v>
 </v>
 <v t="caminhante.20200219131209.1"><vh>@auto README.md</vh></v>
-<v t="caminhante.20211113154852.1"><vh>@clean Makefile</vh></v>
-<v t="caminhante.20200218172558.1"><vh>@clean style.css</vh>
+<v t="caminhante.20211113154852.1" descendentVnodeUnknownAttributes="7d710058010000003071017d710258090000005f6d6f645f74696d6571034741da27a4d7fb9d0273732e"><vh>@clean Makefile</vh></v>
+<v t="caminhante.20200218172558.1" descendentVnodeUnknownAttributes="7d710058010000003071017d710258090000005f6d6f645f74696d6571034741da27a48fc19a6573732e"><vh>@clean style.css</vh>
 <v t="caminhante.20210926184648.1"><vh>/vars</vh></v>
 <v t="caminhante.20200513224648.2"><vh>basic</vh>
 <v t="caminhante.20200513224648.3"><vh>links</vh></v>
-<v t="caminhante.20200513224648.4"><vh>code</vh></v>
+<v t="caminhante.20200513224648.4"><vh>pre, tt, code</vh></v>
 <v t="caminhante.20200513224648.5"><vh>button</vh></v>
 <v t="caminhante.20200513224648.10"><vh>h1, h2, h3</vh></v>
 </v>
@@ -463,7 +463,6 @@
 <v t="caminhante.20200219170322.1"><vh>@edit fzort.html</vh></v>
 <v t="caminhante.20211114190846.1"><vh>@file index.html.sh</vh></v>
 <v t="caminhante.20211113195431.1"><vh>@file links.html.sh</vh></v>
-<v t="caminhante.20211115095316.1"><vh>@file test.html.sh</vh></v>
 <v t="caminhante.20211113232631.1"><vh>@file vesta.html.sh</vh></v>
 <v t="caminhante.20211113154658.1"><vh>@file wiki.sh</vh></v>
 <v t="caminhante.20200612175153.8"><vh>fzort.gif</vh></v>
@@ -480,7 +479,7 @@
 </vnodes>
 <tnodes>
 <t tx="caminhante.20200218172553.1"></t>
-<t tx="caminhante.20200218172558.1">@language css
+<t tx="caminhante.20200218172558.1" _mod_time="4741da27a48fc19a652e">@language css
 @tabwidth -2
 @others
 </t>
@@ -531,18 +530,19 @@ end procedure
 &lt;meta charset="utf-8"/&gt;
 &lt;meta name="editor" content="Leo Editor"/&gt;
 &lt;meta name="author" content="https://github.com/XCaminhante"/&gt;
-&lt;base href="https://xcaminhante.github.io/"/&gt;&lt;title&gt;XCaminhante' files&lt;/title&gt;
-&lt;style type="text/css"&gt;@import "style.css";&lt;/style&gt;
+&lt;base href="/"/&gt;
+&lt;title&gt; XCaminhante' files &lt;/title&gt;
+&lt;style&gt; @import "style.css"; &lt;/style&gt;
 &lt;/head&gt;
 </t>
-<t tx="caminhante.20200219124631.5">&lt;div id="header"&gt;&lt;a href="index.html"&gt;XCaminhante' files&lt;/a&gt;&lt;/div&gt;
+<t tx="caminhante.20200219124631.5">&lt;div id="header"&gt; &lt;a href="index.html"&gt; XCaminhante' files &lt;/a&gt; &lt;/div&gt;
 </t>
 <t tx="caminhante.20200219124631.7">&lt;div class="menuframe"&gt;
-&lt;a href="index.html"&gt;About&lt;/a&gt;&lt;br/&gt;
-&lt;a href="vesta.html"&gt;Vesta CMS&lt;/a&gt;&lt;br/&gt;
-&lt;a href="perlwm/index.html"&gt;PerlWM&lt;/a&gt;&lt;br/&gt;
-&lt;a href="windwm/index.html"&gt;WindWM&lt;/a&gt;&lt;br/&gt;
-&lt;a href="links.html"&gt;External Links&lt;/a&gt;&lt;br/&gt;
+&lt;a href="index.html"&gt; About &lt;/a&gt; &lt;br/&gt;
+&lt;a href="vesta.html"&gt; Vesta CMS &lt;/a&gt; &lt;br/&gt;
+&lt;a href="perlwm/index.html"&gt; PerlWM &lt;/a&gt; &lt;br/&gt;
+&lt;a href="windwm/index.html"&gt; WindWM &lt;/a&gt; &lt;br/&gt;
+&lt;a href="links.html"&gt; External Links &lt;/a&gt; &lt;br/&gt;
 &lt;/div&gt;
 </t>
 <t tx="caminhante.20200219142855.1">link;;=&lt;a href="&lt;|url|&gt;"&gt; &lt;|text|&gt; &lt;/a&gt; &lt;br/&gt;
@@ -551,59 +551,67 @@ code;;=&lt;code&gt; &lt;|code|&gt; &lt;/code&gt;
 menuf;;=&lt;div class="menuframe"&gt; &lt;||&gt; &lt;/div&gt;
 </t>
 <t tx="caminhante.20200504211036.1">&lt;div id="footer"&gt;
-All content is © 2021 by its respective authors.
-By submitting content to this site, you agree to release it under the &lt;a href="LICENSE.txt"&gt;GPLv3+ license&lt;/a&gt;.
+All content is © 2025 by its respective authors. By submitting content to this site, you agree to release it under the &lt;a href="https://xcaminhante.github.io/LICENSE.txt"&gt;GPLv3+ license&lt;/a&gt;.
 &lt;/div&gt;
 </t>
 <t tx="caminhante.20200513224648.10">h1, h2, h3 { margin: 0; margin-top: 6px; line-height: var(--height-line); }
-h1 { margin-top: 0; padding: 0px; font-size: var(--size--text-1); font-weight: 900; }
-h2, h3 { padding: var(--width--padding-2); font-size: 1em; font-weight: 600; }
-h1 { color: var(--color--text-2); }
-h2 { color: var(--color--text-1); background-color: var(--color--2); }
-h3 { color: var(--color--text-2); }
+h1 { margin-top: 0; padding: 0px; font-size: var(--size--text-l); font-weight: 900; }
+h2, h3 { padding: var(--width--padding-s); font-size: 1em; font-weight: 600; }
+h1 { color: var(--color--text-emphasis); }
+h2 { color: var(--color--text-primary); background-color: var(--color--secondary); }
+h3 { color: var(--color--text-emphasis); }
 </t>
-<t tx="caminhante.20200513224648.11">#footer { display: inline-block; position: relative; left: var(--width--margin); font-size: var(--size--text-2); }
-#footer { margin: var(--width--padding-1) 0 0 0; padding: 0; max-width: var(--width--max); }</t>
+<t tx="caminhante.20200513224648.11">#footer { display: inline-block; position: relative; left: var(--width--margin); font-size: var(--size--text-s); }
+#footer { margin: var(--width--padding-m) 0 0 0; padding: 0; max-width: var(--width--max); }
+</t>
 <t tx="caminhante.20200513224648.2">html { font: var(--size--text-base) var(--font--text); }
-body { margin: 0; padding: 0; color: var(--color--text-1); background-color: var(--color--1); }
-p { margin: 0; text-indent: 0; padding: var(--width--padding-2) 0; }
+body { margin: 0; padding: 0; color: var(--color--text-primary); background-color: var(--color--primary); }
+p { margin: 0; text-indent: 0; padding: var(--width--padding-s) 0; }
 </t>
-<t tx="caminhante.20200513224648.3">a { text-decoration: none; font-weight: 600; font-family: var(--font--links); color: var(--color--link-1); }
-a:link { color: var(--color--link-1); }
-a:visited { color: var(--color--link-2); }
-a:hover { background-color: var(--color--link-1); color: var(--color--2); }
+<t tx="caminhante.20200513224648.3">a { text-decoration: none; font-weight: 600; font-family: var(--font--links); color: var(--color--link); }
+a:link { color: var(--color--link); }
+a:visited { color: var(--color--link-visited); }
+a:hover { background-color: var(--color--link); color: var(--color--secondary); }
 </t>
-<t tx="caminhante.20200513224648.4">pre { margin: 0; padding: var(--width--padding-1); white-space: pre-wrap; counter-reset: line; }
+<t tx="caminhante.20200513224648.4">pre { border: solid var(--color--border); border-width: 1px 1px 1px 5px; background: var(--color--secondary) none repeat scroll 0% 0%; }
+pre { margin: 0; padding: var(--width--padding-m); white-space: pre-wrap; counter-reset: line; }
 code { margin: 0; padding: 0; }
-pre &gt; code { counter-increment: line; }
-pre &gt; code:before { content: counter(line)':'; display: inline-block; -webkit-user-select: none; }
-pre &gt; code:before { text-align: right; color: var(--color--link-1); min-width: 3.5rem !important; }
-code, pre { font-family: var(--font--mono); font-size: inherit; color: var(--color--text-3); }
-pre { border: solid var(--color--3); border-width: 1px 1px 1px 5px; background: var(--color--2) none repeat scroll 0% 0%; }</t>
-<t tx="caminhante.20200513224648.5">input[type="button"] { background-color: var(--color--2); border-color: var(--color--3); border-width: 1px; }
+pre &gt; code, pre &gt; tt { counter-increment: line; }
+pre &gt; code:before, pre &gt; tt:before { content: counter(line)':'; text-align: right; display: inline-block; -webkit-user-select: none; }
+pre &gt; code:before, pre &gt; tt:before { color: var(--color--text-pre); min-width: var(--width--counter) !important; }
+pre, code, tt { font-family: var(--font--mono); font-size: inherit; }
+pre { color: var(--color--text-pre); }
+tt { color: var(--color--text-comment); }
+code { color: var(--color--text-code); }</t>
+<t tx="caminhante.20200513224648.5">
+input[type="button"] { background-color: var(--color--secondary); border-color: var(--color--border); border-width: 1px; }
 input[type="button"] { color: inherit; font-size: 1em; line-height: var(--height-line); }
-input[type="button"]:active { color: var(--color--link-1); }</t>
+input[type="button"]:active { color: var(--color--link); }
+</t>
 <t tx="caminhante.20200513224648.6">#header { margin: var(--width--margin-header) 0 var(--width--margin-header) 0; }
 #header { padding: var(--width--margin-header) 0 0 var(--width--margin-header); }
-#header { font-size: var(--size--text-1); line-height: var(--height-line); height: var(--height-line); }
-#header { background-color: var(--color--2); border: solid var(--color--text-1); border-width: 1px 0px; }
+#header { font-size: var(--size--text-l); line-height: var(--height-line); height: var(--height-line); }
+#header { background-color: var(--color--secondary); border: solid var(--color--text-primary); border-width: 1px 0px; }
 </t>
 <t tx="caminhante.20200513224648.7">#menu { display: inline-block; position: relative; left: var(--width--margin); max-width: var(--width--max); }
 @media (min-width: 40pc) { #menu { float: left; }}
+@media (--wide-window) { #menu { float: left; }} /* Doesn't work, blame W3C */
 </t>
 <t tx="caminhante.20200513224648.8">.menuframe { overflow: hidden; display: inline-block; vertical-align: top; }
-.menuframe { margin: 0 var(--width--margin) var(--width--margin) 0; padding: var(--width--padding-1); }
-.menuframe { line-height: var(--height-line); font-size: var(--size--text-2);}
-.menuframe { background-color: var(--color--2); border: 1px dashed var(--color--text-1); width: var(--width--menu); }
+.menuframe { margin: 0 var(--width--margin) var(--width--margin) 0; padding: var(--width--padding-m); }
+.menuframe { line-height: var(--height-line); font-size: var(--size--text-s);}
+.menuframe { background-color: var(--color--secondary); border: 1px dashed var(--color--text-primary); width: var(--width--menu); }
 @media (min-width: 40pc) { .menuframe { display: block; }}
-.menuframe span { border-bottom: 1px dotted var(--color--text-1); }
-.menuframe h1, .menuframe h2, .menuframe h3 { border-bottom: 1px dotted var(--color--text-2); }
+@media (--wide-window) { .menuframe { display: block; }} /* Doesn't work, blame W3C */
+.menuframe span { border-bottom: 1px dotted var(--color--text-primary); }
+.menuframe h1, .menuframe h2, .menuframe h3 { border-bottom: 1px dotted var(--color--text-emphasis); }
 .menuframe h2 { font-size: var(--size--text-base); }
-.menuframe h1 a, .menuframe h2 a, .menuframe h3 a { color: var(--color--text-2); }</t>
+.menuframe h1 a, .menuframe h2 a, .menuframe h3 a { color: var(--color--text-emphasis); }
+</t>
 <t tx="caminhante.20200513224648.9">#content { margin: 0 var(--width--margin); padding: 0; max-width: 100%; }
 #content { background: transparent no-repeat scroll right top; overflow: hidden; }
 @media (min-width: 40pc) { #content { margin-left: var(--width--margin-content); }}
-</t>
+@media (--wide-window) { #content { margin-left: var(--width--margin-content); }} /* Doesn't work, blame W3C */</t>
 <t tx="caminhante.20200604232050.1">@language python
 import subprocess
 
@@ -652,7 +660,7 @@ c.save()
 <t tx="caminhante.20200612175226.1">@language python</t>
 <t tx="caminhante.20200612175321.1"></t>
 <t tx="caminhante.20200612175321.2"></t>
-<t tx="caminhante.20200612210432.1">@others
+<t tx="caminhante.20200612210432.1" _mod_time="4741da27a4a38659af2e">@others
 </t>
 <t tx="caminhante.20200612210450.2">@language html
 @tabwidth -2
@@ -818,31 +826,34 @@ g.es(c.p.h)
 g.es(execute(cmd))
 </t>
 <t tx="caminhante.20210926184648.1">:root {
-  --color--1: white;
-  --color--2: #eeeeee;
-  --color--3: #bbbbbb;
-  --color--text-1: black;
-  --color--text-2: #015787;
-  --color--text-3: navy;
-  --color--link-1: #0099cc;
-  --color--link-2: #0077aa;
-  --width--screen-little: 40pc;
+  --color--primary: white;
+  --color--secondary: #eeeeee;
+  --color--border: #bbbbbb;
+  --color--text-primary: black;
+  --color--text-emphasis: #015787; /* Deep sea blue */
+  --color--text-code: navy;
+  --color--text-pre: #0077aa; /* Nice blue */
+  --color--text-comment: orangered;
+  --color--link: #0099cc; /* Sky blue */
+  --color--link-visited: #0077aa; /* Nice blue */
   --width--margin-header: 1rem;
   --width--menu: 10rem;
   --width--margin: 0.5rem;
-  --width--padding-1: 0.5rem;
-  --width--padding-2: 0.1rem;
+  --width--counter: 3.5rem; /* 5 monospace characters, sufficient for a 99999 counter */
+  --width--padding-s: 0.1rem;
+  --width--padding-m: 0.5rem;
   --width--max: calc( 100% - var(--width--margin) * 2 );
-  --width--margin-content: calc( var(--width--menu) + var(--width--margin) * 2 + var(--width--padding-1) * 2 + 2px );
+  --width--margin-content: calc( var(--width--menu) + var(--width--margin) * 2 + var(--width--padding-m) * 2 + 2px );
   --height-line: 1.2em;
   --size--text-base: 1pc;
-  --size--text-1: 1.4rem;
-  --size--text-2: 0.8rem;
-  --size--text-3: 2rem;
-  --font--text: "Lucida Grande","Lucida Sans Unicode",verdana,geneva,sans-serif;
-  --font--links: verdana,arial,helvetica,sans-serif;
-  --font--mono: "Courier New",Courier,monospace;
-}</t>
+  --size--text-s: 0.8rem;
+  --size--text-l: 1.4rem;
+  --font--text: "Lucida Grande", "Lucida Sans Unicode", verdana, geneva, sans-serif;
+  --font--links: verdana, arial, helvetica, sans-serif;
+  --font--mono: "Courier New", Courier, monospace;
+}
+@custom-media --wide-window (min-width: 40pc); /* Doesn't work, blame W3C */
+</t>
 <t tx="caminhante.20211012180812.1">import subprocess
 
 def execute (cmd):
@@ -869,7 +880,7 @@ cmd = 'cp -v -- "' + path + '" ./'
 g.es(c.p.h)
 g.es(execute(cmd))
 </t>
-<t tx="caminhante.20211113154852.1">@tabwidth 4
+<t tx="caminhante.20211113154852.1" _mod_time="4741da27a4d7fb9d022e">@tabwidth 4
 origens := $(shell find . -name '*.html.sh')
 destinos := $(origens:.html.sh=.html)
 

@@ -9,11 +9,10 @@ header "XCaminhante' files" 'index.html'
 (
 #@+others
 #@+node:caminhante.20211113222237.1: *3* main pages
-( menulink 'About' index.html
-menulink 'Vesta CMS' vesta.html
+( menulink 'Vesta CMS' vesta.html
 menulink 'PerlWM' perlwm/index.html
 menulink 'WindWM' windwm/index.html
-menulink 'External Links' links.html ) | menuframe
+menulink 'External Links' links.html ) | menuframe 'Main pages'
 #@-others
 ) | menu
 #@+node:caminhante.20211113222124.1: ** content
