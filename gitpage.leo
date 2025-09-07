@@ -40,8 +40,8 @@
 <v t="caminhante.20200618203115.1"><vh>@run|@run .* [X]</vh></v>
 </v>
 </v>
-<v t="caminhante.20200219123813.3" descendentVnodeUnknownAttributes="7d7100285807000000302e302e352e3071017d710258090000005f6d6f645f74696d6571034741da27a4a38659af735805000000302e302e3771047d710568034741da27a4d7fb9d02735805000000302e302e3871067d710768034741da27a48fc19a6573752e"><vh>xcaminhante.github.io</vh>
-<v t="caminhante.20200612175143.1" descendentVnodeUnknownAttributes="7d7100285805000000302e352e3071017d710258090000005f6d6f645f74696d6571034741da27a4a38659af735803000000302e3771047d710568034741da27a4d7fb9d02735803000000302e3871067d710768034741da27a48fc19a6573752e"><vh>@path .</vh>
+<v t="caminhante.20200219123813.3" descendentVnodeUnknownAttributes="7d7100285807000000302e302e352e3071017d710258090000005f6d6f645f74696d6571034741da27a4a38659af735805000000302e302e3771047d710558090000005f6d6f645f74696d6571064741da27a4d7fb9d02735805000000302e302e3871077d710858090000005f6d6f645f74696d6571094741da2f764dc455e073752e"><vh>xcaminhante.github.io</vh>
+<v t="caminhante.20200612175143.1" descendentVnodeUnknownAttributes="7d7100285805000000302e352e3071017d710258090000005f6d6f645f74696d6571034741da27a4a38659af735803000000302e3771047d710558090000005f6d6f645f74696d6571064741da27a4d7fb9d02735803000000302e3871077d710858090000005f6d6f645f74696d6571094741da2f764dc455e073752e"><vh>@path .</vh>
 <v t="caminhante.20200612175153.13"><vh>/.git/</vh></v>
 <v t="caminhante.20200612151310.1"><vh>/perlwm/</vh>
 <v t="caminhante.20200612151317.1"><vh>/images/</vh>
@@ -444,13 +444,13 @@
 </v>
 <v t="caminhante.20200219131209.1"><vh>@auto README.md</vh></v>
 <v t="caminhante.20211113154852.1" descendentVnodeUnknownAttributes="7d710058010000003071017d710258090000005f6d6f645f74696d6571034741da27a4d7fb9d0273732e"><vh>@clean Makefile</vh></v>
-<v t="caminhante.20200218172558.1" descendentVnodeUnknownAttributes="7d710058010000003071017d710258090000005f6d6f645f74696d6571034741da27a48fc19a6573732e"><vh>@clean style.css</vh>
-<v t="caminhante.20210926184648.1"><vh>/vars</vh></v>
-<v t="caminhante.20200513224648.2"><vh>basic</vh>
-<v t="caminhante.20200513224648.3"><vh>links</vh></v>
-<v t="caminhante.20200513224648.4"><vh>pre, tt, code</vh></v>
-<v t="caminhante.20200513224648.5"><vh>button</vh></v>
-<v t="caminhante.20200513224648.10"><vh>h1, h2, h3</vh></v>
+<v t="caminhante.20200218172558.1" descendentVnodeUnknownAttributes="7d710058010000003071017d710258090000005f6d6f645f74696d6571034741da2f764dc455e073732e"><vh>@clean style.css</vh>
+<v t="caminhante.20250907161233.1"><vh>/vars</vh></v>
+<v t="caminhante.20250907161250.1"><vh>basic</vh>
+<v t="caminhante.20250907161250.2"><vh>links</vh></v>
+<v t="caminhante.20250907161250.3"><vh>pre, tt, code</vh></v>
+<v t="caminhante.20250907161250.4"><vh>button</vh></v>
+<v t="caminhante.20250907161250.5"><vh>h1, h2, h3</vh></v>
 </v>
 <v t="caminhante.20200513224648.6"><vh>header</vh></v>
 <v t="caminhante.20200513224648.7"><vh>menu</vh>
@@ -479,7 +479,7 @@
 </vnodes>
 <tnodes>
 <t tx="caminhante.20200218172553.1"></t>
-<t tx="caminhante.20200218172558.1" _mod_time="4741da27a48fc19a652e">@language css
+<t tx="caminhante.20200218172558.1" _mod_time="4741da2f764dc455e02e">@language css
 @tabwidth -2
 @others
 </t>
@@ -554,39 +554,8 @@ menuf;;=&lt;div class="menuframe"&gt; &lt;||&gt; &lt;/div&gt;
 All content is © 2025 by its respective authors. By submitting content to this site, you agree to release it under the &lt;a href="https://xcaminhante.github.io/LICENSE.txt"&gt;GPLv3+ license&lt;/a&gt;.
 &lt;/div&gt;
 </t>
-<t tx="caminhante.20200513224648.10">h1, h2, h3 { margin: 0; margin-top: 6px; line-height: var(--height-line); }
-h1 { margin-top: 0; padding: 0px; font-size: var(--size--text-l); font-weight: 900; }
-h2, h3 { padding: var(--width--padding-s); font-size: 1em; font-weight: 600; }
-h1 { color: var(--color--text-emphasis); }
-h2 { color: var(--color--text-primary); background-color: var(--color--secondary); }
-h3 { color: var(--color--text-emphasis); }
-</t>
 <t tx="caminhante.20200513224648.11">#footer { display: inline-block; position: relative; left: var(--width--margin); font-size: var(--size--text-s); }
 #footer { margin: var(--width--padding-m) 0 0 0; padding: 0; max-width: var(--width--max); }
-</t>
-<t tx="caminhante.20200513224648.2">html { font: var(--size--text-base) var(--font--text); }
-body { margin: 0; padding: 0; color: var(--color--text-primary); background-color: var(--color--primary); }
-p { margin: 0; text-indent: 0; padding: var(--width--padding-s) 0; }
-</t>
-<t tx="caminhante.20200513224648.3">a { text-decoration: none; font-weight: 600; font-family: var(--font--links); color: var(--color--link); }
-a:link { color: var(--color--link); }
-a:visited { color: var(--color--link-visited); }
-a:hover { background-color: var(--color--link); color: var(--color--secondary); }
-</t>
-<t tx="caminhante.20200513224648.4">pre { border: solid var(--color--border); border-width: 1px 1px 1px 5px; background: var(--color--secondary) none repeat scroll 0% 0%; }
-pre { margin: 0; padding: var(--width--padding-m); white-space: pre-wrap; counter-reset: line; }
-code { margin: 0; padding: 0; }
-pre &gt; code, pre &gt; tt { counter-increment: line; }
-pre &gt; code:before, pre &gt; tt:before { content: counter(line)':'; text-align: right; display: inline-block; -webkit-user-select: none; }
-pre &gt; code:before, pre &gt; tt:before { color: var(--color--text-pre); min-width: var(--width--counter) !important; }
-pre, code, tt { font-family: var(--font--mono); font-size: inherit; }
-pre { color: var(--color--text-pre); }
-tt { color: var(--color--text-comment); }
-code { color: var(--color--text-code); }</t>
-<t tx="caminhante.20200513224648.5">
-input[type="button"] { background-color: var(--color--secondary); border-color: var(--color--border); border-width: 1px; }
-input[type="button"] { color: inherit; font-size: 1em; line-height: var(--height-line); }
-input[type="button"]:active { color: var(--color--link); }
 </t>
 <t tx="caminhante.20200513224648.6">#header { margin: var(--width--margin-header) 0 var(--width--margin-header) 0; }
 #header { padding: var(--width--margin-header) 0 0 var(--width--margin-header); }
@@ -824,35 +793,6 @@ filename = ''.join(c.p.h.split('@rm ')[1:])
 cmd = 'rm -vf -- "' + filename + '"'
 g.es(c.p.h)
 g.es(execute(cmd))
-</t>
-<t tx="caminhante.20210926184648.1">:root {
-  --color--primary: white;
-  --color--secondary: #eeeeee;
-  --color--border: #bbbbbb;
-  --color--text-primary: black;
-  --color--text-emphasis: #015787; /* Deep sea blue */
-  --color--text-code: navy;
-  --color--text-pre: #0077aa; /* Nice blue */
-  --color--text-comment: orangered;
-  --color--link: #0099cc; /* Sky blue */
-  --color--link-visited: #0077aa; /* Nice blue */
-  --width--margin-header: 1rem;
-  --width--menu: 10rem;
-  --width--margin: 0.5rem;
-  --width--counter: 3.5rem; /* 5 monospace characters, sufficient for a 99999 counter */
-  --width--padding-s: 0.1rem;
-  --width--padding-m: 0.5rem;
-  --width--max: calc( 100% - var(--width--margin) * 2 );
-  --width--margin-content: calc( var(--width--menu) + var(--width--margin) * 2 + var(--width--padding-m) * 2 + 2px );
-  --height-line: 1.2em;
-  --size--text-base: 1pc;
-  --size--text-s: 0.8rem;
-  --size--text-l: 1.4rem;
-  --font--text: "Lucida Grande", "Lucida Sans Unicode", verdana, geneva, sans-serif;
-  --font--links: verdana, arial, helvetica, sans-serif;
-  --font--mono: "Courier New", Courier, monospace;
-}
-@custom-media --wide-window (min-width: 40pc); /* Doesn't work, blame W3C */
 </t>
 <t tx="caminhante.20211012180812.1">import subprocess
 
@@ -1248,5 +1188,72 @@ g.es(execute('make'))
 <t tx="caminhante.20211115084500.1"></t>
 <t tx="caminhante.20211115084934.1"></t>
 <t tx="caminhante.20211115095730.1"></t>
+<t tx="caminhante.20250907161233.1">:root {
+  --color--primary: AliceBlue;
+  --color--secondary: Gainsboro;
+  --color--border: SlateGray;
+  --color--text-primary: Black;
+  --color--text-emphasis: RoyalBlue;
+  --color--text-pre: Black;
+  --color--text-code: Navy;
+  --color--text-comment: DarkViolet;
+  --color--link: Teal;
+  --color--link-visited: Olive;
+  --width--margin-header: 1rem;
+  --width--menu: 10rem;
+  --width--margin: 0.5rem;
+  --width--counter: 3.5rem; /* 5 monospace characters, sufficient for a 99999 counter */
+  --width--padding-s: 0.1rem;
+  --width--padding-m: 0.5rem;
+  --width--list: 1em;
+  --width--max: calc( 100% - var(--width--margin) * 2 );
+  --width--margin-content: calc( var(--width--menu) + var(--width--margin) * 2 + var(--width--padding-m) * 2 + 2px );
+  --height-line: 1.2em;
+  --size--text-base: 1pc;
+  --size--text-s: 0.8rem;
+  --size--text-l: 1.4rem;
+  --font--text: "Lucida Grande", "Lucida Sans Unicode", verdana, geneva, sans-serif;
+  --font--links: verdana, arial, helvetica, sans-serif;
+  --font--mono: "Courier New", Courier, monospace;
+}
+@custom-media --wide-window (min-width: 40pc); /* Doesn't work, blame W3C */
+</t>
+<t tx="caminhante.20250907161250.1">html { font: var(--size--text-base) var(--font--text); }
+body { margin: 0; padding: 0; color: var(--color--text-primary); background-color: var(--color--primary); }
+p { margin: 0; text-indent: var(--size--text-base); padding: var(--width--padding-s) 0; }
+p + p { margin-top: var(--width--padding-s); }
+span { -webkit-user-select: none; user-select: none; }
+ol, ul { margin: 0; text-indent: var(--width--list); }
+</t>
+<t tx="caminhante.20250907161250.2">a { text-decoration: none; font-weight: 600; font-family: var(--font--links); border: 1px solid var(--color--border); }
+a:link { border: none; color: var(--color--link); }
+a:visited { color: var(--color--link-visited); }
+a:hover { background-color: var(--color--link); color: var(--color--secondary); }
+</t>
+<t tx="caminhante.20250907161250.3">pre { border: solid var(--color--border); border-width: 1px 1px 1px 5px; background: var(--color--secondary) none repeat scroll 0% 0%; }
+pre { margin: 0; padding: var(--width--padding-m); white-space: pre-wrap; counter-reset: line; }
+code { margin: 0; padding: 0; }
+pre, code { -webkit-user-select: all; user-select: all; }
+pre &gt; code, pre &gt; tt { counter-increment: line; }
+pre &gt; code:before, pre &gt; tt:before { content: counter(line)':'; text-align: right; display: inline-block; -webkit-user-select: none; user-select: none; }
+pre &gt; code:before, pre &gt; tt:before { color: var(--color--text-comment); min-width: var(--width--counter) !important; }
+pre, code, tt { font-family: var(--font--mono); font-size: inherit; }
+pre a, tt a { font-family: var(--font--mono); font-size: inherit; border: 1px solid var(--color--border) !important; }
+pre { color: var(--color--text-pre); }
+tt { color: var(--color--text-comment); }
+code { color: var(--color--text-code); }
+</t>
+<t tx="caminhante.20250907161250.4">input[type="button"] { background-color: var(--color--secondary); border-color: var(--color--border); border-width: 1px; }
+input[type="button"] { color: inherit; font-size: 1em; line-height: var(--height-line); }
+input[type="button"]:active { color: var(--color--link); }
+</t>
+<t tx="caminhante.20250907161250.5">h1, h2, h3 { margin: 0; margin-top: 6px; line-height: var(--height-line); }
+h1 { margin-top: 0; padding: 0px; font-size: var(--size--text-l); font-weight: 900; }
+h2, h3 { padding: var(--width--padding-s); font-size: 1em; font-weight: 600; }
+h1 { color: var(--color--text-emphasis); }
+h2 { color: var(--color--text-primary); background-color: var(--color--secondary); }
+h3 { color: var(--color--text-emphasis); }
+h1 a, h2 a, h3 a { font-family: inherit; font-size: inherit; border: 1px solid var(--color--border) !important; }
+</t>
 </tnodes>
 </leo_file>
